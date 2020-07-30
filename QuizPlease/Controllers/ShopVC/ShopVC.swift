@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//MARK:  ShopVC.swift
 //  QuizPlease
 //
 //  Created by Владислав on 30.07.2020.
@@ -8,13 +8,11 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ShopVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+
     }
 
-
 }
-

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="MXu-d8-TzQ">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Main MenuVC-->
+        <scene sceneID="asP-If-KFj">
+            <objects>
+                <viewController id="bMr-9f-sbL" customClass="MainMenuVC" customModule="QuizPlease" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3Nj-Ef-17c">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" delaysContentTouches="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="SY8-gP-UeO">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <sections/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="SY8-gP-UeO" firstAttribute="top" secondItem="3Nj-Ef-17c" secondAttribute="top" id="6bh-Jt-bga"/>
+                            <constraint firstAttribute="bottom" secondItem="SY8-gP-UeO" secondAttribute="bottom" id="Rez-cq-A25"/>
+                            <constraint firstItem="Kom-ZP-QBI" firstAttribute="trailing" secondItem="SY8-gP-UeO" secondAttribute="trailing" id="S7X-Bg-e67"/>
+                            <constraint firstItem="SY8-gP-UeO" firstAttribute="leading" secondItem="Kom-ZP-QBI" secondAttribute="leading" id="Wog-tU-szR"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Kom-ZP-QBI"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="5J3-Yk-Coy"/>
+                    <connections>
+                        <outlet property="tableView" destination="SY8-gP-UeO" id="HI0-k3-E74"/>
+                        <segue destination="UZG-kg-EzM" kind="show" identifier="Show ScheduleVC" id="dxZ-3Z-pfd"/>
+                        <segue destination="O4U-gr-VTv" kind="show" identifier="Show WarmUpVC" id="3BX-4q-D0c"/>
+                        <segue destination="kAq-JL-7v8" kind="show" identifier="Show HomeGameVC" id="lHM-hV-Cp7"/>
+                        <segue destination="8BX-jB-LoS" kind="show" identifier="Show ProfileVC" id="dRI-1O-5Ym"/>
+                        <segue destination="9KB-EF-Qk6" kind="show" identifier="Show RatingVC" id="nwe-ET-My6"/>
+                        <segue destination="H5s-MK-eJ0" kind="show" identifier="Show ShopVC" id="C1a-qd-8Vm"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iuS-O9-PLA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-564" y="-88"/>
+        </scene>
+        <!--Расписание-->
+        <scene sceneID="Wkg-ye-w7i">
+            <objects>
+                <viewController id="UZG-kg-EzM" customClass="ScheduleVC" customModule="QuizPlease" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="vrO-eO-2qd">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="udw-hb-dYR"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Расписание" id="sKi-sP-7QX"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BJW-H4-f8n" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="628" y="-1369"/>
+        </scene>
+        <!--Игры Хоум-->
+        <scene sceneID="gZA-uw-vnK">
+            <objects>
+                <viewController id="kAq-JL-7v8" customClass="HomeGameVC" customModule="QuizPlease" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="C5G-Py-P3n">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="uuJ-wQ-WLS"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Игры Хоум" id="MPm-6h-hcT"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mZx-f5-lCt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1986.9565217391305" y="-538.39285714285711"/>
+        </scene>
+        <!--Разминка-->
+        <scene sceneID="2LJ-Dw-0Y3">
+            <objects>
+                <viewController id="O4U-gr-VTv" customClass="WarmupVC" customModule="QuizPlease" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="CGK-0S-nNX">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="eUE-ns-Nb1"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Разминка" id="cDU-mL-3XB"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cIr-wY-gnt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1580" y="-1227"/>
+        </scene>
+        <!--Рейтинг команд-->
+        <scene sceneID="Alv-D0-KoK">
+            <objects>
+                <viewController id="9KB-EF-Qk6" customClass="RatingVC" customModule="QuizPlease" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ZUv-Ce-YwZ">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="USv-2b-9dT"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Рейтинг команд" id="sfK-DR-wiS"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="16X-Ca-Bqo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3842.0289855072465" y="182.8125"/>
+        </scene>
+        <!--Магазин-->
+        <scene sceneID="4UR-t7-0fQ">
+            <objects>
+                <viewController id="H5s-MK-eJ0" customClass="ShopVC" customModule="QuizPlease" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="io5-Vl-k0z">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="J3q-4e-HIV"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Магазин" id="RXx-vy-xBF"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Lmt-Kb-Xp6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1986.9565217391305" y="433.92857142857139"/>
+        </scene>
+        <!--Личный кабинет-->
+        <scene sceneID="pqf-pT-YIM">
+            <objects>
+                <viewController id="8BX-jB-LoS" customClass="ProfileVC" customModule="QuizPlease" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Hyd-6n-ALh">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="Whk-tw-dmt"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Личный кабинет" id="Z5o-Wd-a3f"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YNl-MC-5yN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2926.0869565217395" y="-228.34821428571428"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="1qP-4D-002">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="MXu-d8-TzQ" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="eis-mF-N6E">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="bMr-9f-sbL" kind="relationship" relationship="rootViewController" id="iwE-mm-BZL"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UHu-K0-RoO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1372" y="-88"/>
+        </scene>
+    </scenes>
+</document>
