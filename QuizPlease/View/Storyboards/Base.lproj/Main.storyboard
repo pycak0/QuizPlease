@@ -18,6 +18,7 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" delaysContentTouches="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="SY8-gP-UeO">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <sections/>
                             </tableView>
                         </subviews>
@@ -75,7 +76,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mZx-f5-lCt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1986.9565217391305" y="-538.39285714285711"/>
+            <point key="canvasLocation" x="2499" y="-1027"/>
         </scene>
         <!--Разминка-->
         <scene sceneID="2LJ-Dw-0Y3">
@@ -107,7 +108,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="16X-Ca-Bqo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3842.0289855072465" y="182.8125"/>
+            <point key="canvasLocation" x="3058" y="-88"/>
         </scene>
         <!--Магазин-->
         <scene sceneID="4UR-t7-0fQ">
@@ -116,14 +117,36 @@
                     <view key="view" contentMode="scaleToFill" id="io5-Vl-k0z">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" delaysContentTouches="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="8i9-Kw-lHF">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Qbe-rZ-S6Q">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                            </collectionView>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="8i9-Kw-lHF" secondAttribute="bottom" id="Ddf-rs-7Yl"/>
+                            <constraint firstItem="8i9-Kw-lHF" firstAttribute="leading" secondItem="J3q-4e-HIV" secondAttribute="leading" id="E7o-x8-su0"/>
+                            <constraint firstItem="J3q-4e-HIV" firstAttribute="trailing" secondItem="8i9-Kw-lHF" secondAttribute="trailing" id="N8b-yO-aAa"/>
+                            <constraint firstItem="8i9-Kw-lHF" firstAttribute="top" secondItem="io5-Vl-k0z" secondAttribute="top" id="c6w-UE-2f4"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="J3q-4e-HIV"/>
                     </view>
                     <navigationItem key="navigationItem" title="Магазин" id="RXx-vy-xBF"/>
+                    <connections>
+                        <outlet property="shopCollectionView" destination="8i9-Kw-lHF" id="KU5-2E-DRr"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lmt-Kb-Xp6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1986.9565217391305" y="433.92857142857139"/>
+            <point key="canvasLocation" x="2347.826086956522" y="264.50892857142856"/>
         </scene>
         <!--Личный кабинет-->
         <scene sceneID="pqf-pT-YIM">
@@ -139,7 +162,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YNl-MC-5yN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2926.0869565217395" y="-228.34821428571428"/>
+            <point key="canvasLocation" x="1838" y="-417"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="1qP-4D-002">

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ScheduleCell: UITableViewCell {
+class ScheduleCell: UITableViewCell, MenuCellItem {
     static let reuseIdentifier = "ScheduleCell"
     static let nibName = "ScheduleCell"
     
@@ -16,7 +16,7 @@ class ScheduleCell: UITableViewCell {
     @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var titleBackgroundView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var scheduleLabel: UILabel!
+    @IBOutlet weak var accessoryLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -27,22 +27,11 @@ class ScheduleCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
-        super.setHighlighted(highlighted, animated: animated)
-        UIView.animate(withDuration: 0.1) { [weak self] in
-            if highlighted {
-                self?.cellView.transform = CGAffineTransform(scaleX: 0.96, y: 0.96)
-            } else {
-                self?.cellView.transform = .identity
-            }
-        }
-    }
-    
     private func configureViews() {
         cellView.layer.cornerRadius = 25
         titleBackgroundView.layer.cornerRadius = titleBackgroundView.frame.height / 2
         titleBackgroundView.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner]
-        scheduleLabel.layer.cornerRadius = scheduleLabel.frame.height / 2
+        accessoryLabel.layer.cornerRadius = accessoryLabel.frame.height / 2
     }
     
 }

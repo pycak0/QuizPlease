@@ -44,6 +44,7 @@ extension MainMenuVC {
 
     func configureTableView() {
         tableView.register(UINib(nibName: ScheduleCell.nibName, bundle: nil), forCellReuseIdentifier: ScheduleCell.reuseIdentifier)
+        //tableView.register(ScheduleCell.self, forCellReuseIdentifier: ScheduleCell.reuseIdentifier)
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -56,7 +57,9 @@ extension MainMenuVC: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ScheduleCell.reuseIdentifier) as! ScheduleCell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ScheduleCell.reuseIdentifier) as? ScheduleCell else {
+            fatalError("Invalid Cell Kind")
+        }
         var title = "Игры в барах"
         var supplementaryText = "Расписание"
         switch indexPath.row {
@@ -77,7 +80,7 @@ extension MainMenuVC: UITableViewDataSource {
         }
         
         cell.titleLabel.text = title
-        cell.scheduleLabel.text = supplementaryText
+        cell.accessoryLabel.text = supplementaryText
         
         return cell
     }
@@ -105,5 +108,17 @@ extension MainMenuVC: UITableViewDelegate {
             break
         }
         performSegue(withIdentifier: id, sender: nil)
+    }
+    
+    func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
+        if let cell = tableView.cellForRow(at: indexPath) as? MenuCellItem {
+            cell.cellView.scaleIn()
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
+        if let cell = tableView.cellForRow(at: indexPath) as? MenuCellItem {
+            cell.cellView.scaleOut()
+        }
     }
 }
