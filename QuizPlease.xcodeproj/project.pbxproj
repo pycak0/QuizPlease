@@ -95,12 +95,12 @@
 			isa = PBXGroup;
 			children = (
 				A40D816724D2C6C2006D2CE3 /* Info.plist */,
+				A40D816D24D2C73D006D2CE3 /* AppDelegates */,
 				A4B828E224D8322B00D77E67 /* Entity */,
 				A40D818C24D2E3DB006D2CE3 /* Services */,
 				A40D816F24D2C767006D2CE3 /* Storyboards */,
 				A4BA1CF124D83A6900D32ADC /* Modules */,
 				A40F036024D4186200C381F2 /* Extensions */,
-				A40D816D24D2C73D006D2CE3 /* AppDelegates */,
 				A40D816224D2C6C2006D2CE3 /* Assets.xcassets */,
 			);
 			path = QuizPlease;
@@ -127,11 +127,11 @@
 		A40D817224D2C95D006D2CE3 /* MainMenu */ = {
 			isa = PBXGroup;
 			children = (
-				A4BA1CF224D84C4B00D32ADC /* MenuItem.swift */,
 				A4B828DD24D8318400D77E67 /* View */,
-				A4B828DF24D831A200D77E67 /* Interactor */,
-				A4B828DE24D8319700D77E67 /* Presenter */,
-				A4B828E024D831AD00D77E67 /* Router */,
+				A4BA1CF224D84C4B00D32ADC /* MenuItem.swift */,
+				A4BA1CED24D8347300D32ADC /* MainMenuInteractor.swift */,
+				A4BA1CEB24D8338B00D32ADC /* MainMenuPresenter.swift */,
+				A4BA1CEF24D835DE00D32ADC /* MainMenuRouter.swift */,
 				A4BA1CE924D832D600D32ADC /* MainMenuConfigurator.swift */,
 			);
 			path = MainMenu;
@@ -211,30 +211,6 @@
 				A40D818924D2D24C006D2CE3 /* ScheduleCell.xib */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		A4B828DE24D8319700D77E67 /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-				A4BA1CEB24D8338B00D32ADC /* MainMenuPresenter.swift */,
-			);
-			path = Presenter;
-			sourceTree = "<group>";
-		};
-		A4B828DF24D831A200D77E67 /* Interactor */ = {
-			isa = PBXGroup;
-			children = (
-				A4BA1CED24D8347300D32ADC /* MainMenuInteractor.swift */,
-			);
-			path = Interactor;
-			sourceTree = "<group>";
-		};
-		A4B828E024D831AD00D77E67 /* Router */ = {
-			isa = PBXGroup;
-			children = (
-				A4BA1CEF24D835DE00D32ADC /* MainMenuRouter.swift */,
-			);
-			path = Router;
 			sourceTree = "<group>";
 		};
 		A4B828E124D831F500D77E67 /* View */ = {
