@@ -8,7 +8,15 @@
 
 import UIKit
 
+protocol MainMenuViewProtocol: class {
+    func configureTableView()
+    func reloadMenuItems()
+    func failureLoadingMenuItems(_ error: Error)
+}
+
 class MainMenuVC: UIViewController {
+    let configurator: MainMenuConfiguratorProtocol = MainMenuConfigurator()
+    var presenter: MainMenuPresenterProtocol!
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -16,32 +24,16 @@ class MainMenuVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        configurator.configure(self)
+        presenter.configureViews()
+        
         configureTableView()
     }
     
-    //MARK:- Prepare For Segue
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        switch segue.identifier {
-        case "Show ScheduleVC":
-            break
-        case "Show WarmUpVC":
-            break
-        case "Show HomeGameVC":
-            break
-        case "Show ProfileVC":
-            break
-        case "Show RatingVC":
-            break
-        case "Show ShopVC":
-            break
-        default: break
-        }
-    }
-
 }
 
-extension MainMenuVC {
-
+//MARK:- View Protocol
+extension MainMenuVC: MainMenuViewProtocol {
     func configureTableView() {
         tableView.register(UINib(nibName: ScheduleCell.nibName, bundle: nil), forCellReuseIdentifier: ScheduleCell.reuseIdentifier)
         //tableView.register(ScheduleCell.self, forCellReuseIdentifier: ScheduleCell.reuseIdentifier)
@@ -49,38 +41,30 @@ extension MainMenuVC {
         tableView.delegate = self
         tableView.dataSource = self
     }
+    
+    func failureLoadingMenuItems(_ error: Error) {
+        showErrorConnectingToServerAlert()
+    }
+    
+    func reloadMenuItems() {
+        tableView.reloadData()
+    }
 }
 
+//MARK:- Table View Data Source
 extension MainMenuVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return presenter.menuItems?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ScheduleCell.reuseIdentifier) as? ScheduleCell else {
             fatalError("Invalid Cell Kind")
         }
-        var title = "Игры в барах"
-        var supplementaryText = "Расписание"
-        switch indexPath.row {
-        case 1:
-            title = "Личный кабинет"
-            supplementaryText = "100 баллов"
-        case 2:
-            title = "Игры хоум"
-            supplementaryText = "Играть"
-        case 3:
-            title = "Разминка"
-            supplementaryText = "Перейти"
-        case 4:
-            title = "Магазин"
-            supplementaryText = "К покупкам"
-        default:
-            break
-        }
+        let menuItem = presenter.menuItems?[indexPath.row]
         
-        cell.titleLabel.text = title
-        cell.accessoryLabel.text = supplementaryText
+        cell.titleLabel.text = menuItem?.title
+        cell.accessoryLabel.text = menuItem?.supplementaryText
         
         return cell
     }
@@ -94,20 +78,7 @@ extension MainMenuVC: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        var id = "Show ScheduleVC"
-        switch indexPath.row {
-        case 1:
-            id = "Show ProfileVC"
-        case 2:
-            id = "Show HomeGameVC"
-        case 3:
-            id = "Show WarmUpVC"
-        case 4:
-            id = "Show ShopVC"
-        default:
-            break
-        }
-        performSegue(withIdentifier: id, sender: nil)
+        presenter.didSelectMenuItem(at: indexPath.row)
     }
     
     func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {

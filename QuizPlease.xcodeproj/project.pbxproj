@@ -26,6 +26,12 @@
 		A40F036424D419D200C381F2 /* MenuCellItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40F036324D419D200C381F2 /* MenuCellItem.swift */; };
 		A452E3B224D428DA002EE514 /* ShopItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A452E3B024D428DA002EE514 /* ShopItemCell.xib */; };
 		A452E3B424D431C5002EE514 /* DataTypesExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A452E3B324D431C5002EE514 /* DataTypesExtensions.swift */; };
+		A4BA1CEA24D832D600D32ADC /* MainMenuConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BA1CE924D832D600D32ADC /* MainMenuConfigurator.swift */; };
+		A4BA1CEC24D8338B00D32ADC /* MainMenuPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BA1CEB24D8338B00D32ADC /* MainMenuPresenter.swift */; };
+		A4BA1CEE24D8347300D32ADC /* MainMenuInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BA1CED24D8347300D32ADC /* MainMenuInteractor.swift */; };
+		A4BA1CF024D835DE00D32ADC /* MainMenuRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BA1CEF24D835DE00D32ADC /* MainMenuRouter.swift */; };
+		A4BA1CF324D84C4B00D32ADC /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BA1CF224D84C4B00D32ADC /* MenuItem.swift */; };
+		A4BA1CF524D8874C00D32ADC /* AlertExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BA1CF424D8874C00D32ADC /* AlertExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +56,12 @@
 		A40F036324D419D200C381F2 /* MenuCellItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCellItem.swift; sourceTree = "<group>"; };
 		A452E3B024D428DA002EE514 /* ShopItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShopItemCell.xib; sourceTree = "<group>"; };
 		A452E3B324D431C5002EE514 /* DataTypesExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTypesExtensions.swift; sourceTree = "<group>"; };
+		A4BA1CE924D832D600D32ADC /* MainMenuConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuConfigurator.swift; sourceTree = "<group>"; };
+		A4BA1CEB24D8338B00D32ADC /* MainMenuPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuPresenter.swift; sourceTree = "<group>"; };
+		A4BA1CED24D8347300D32ADC /* MainMenuInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuInteractor.swift; sourceTree = "<group>"; };
+		A4BA1CEF24D835DE00D32ADC /* MainMenuRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuRouter.swift; sourceTree = "<group>"; };
+		A4BA1CF224D84C4B00D32ADC /* MenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItem.swift; sourceTree = "<group>"; };
+		A4BA1CF424D8874C00D32ADC /* AlertExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,13 +98,7 @@
 				A4B828E224D8322B00D77E67 /* Entity */,
 				A40D818C24D2E3DB006D2CE3 /* Services */,
 				A40D816F24D2C767006D2CE3 /* Storyboards */,
-				A40D817224D2C95D006D2CE3 /* MainMenuModule */,
-				A40D817624D2C97E006D2CE3 /* ScheduleModule */,
-				A40D817824D2C99D006D2CE3 /* WarmUpModule */,
-				A40D817724D2C98A006D2CE3 /* HomeGameModule */,
-				A40D817424D2C96B006D2CE3 /* ProfileModule */,
-				A40D817524D2C974006D2CE3 /* RatingModule */,
-				A40D817324D2C963006D2CE3 /* ShopModule */,
+				A4BA1CF124D83A6900D32ADC /* Modules */,
 				A40F036024D4186200C381F2 /* Extensions */,
 				A40D816D24D2C73D006D2CE3 /* AppDelegates */,
 				A40D816224D2C6C2006D2CE3 /* Assets.xcassets */,
@@ -118,63 +124,65 @@
 			path = Storyboards;
 			sourceTree = "<group>";
 		};
-		A40D817224D2C95D006D2CE3 /* MainMenuModule */ = {
+		A40D817224D2C95D006D2CE3 /* MainMenu */ = {
 			isa = PBXGroup;
 			children = (
+				A4BA1CF224D84C4B00D32ADC /* MenuItem.swift */,
 				A4B828DD24D8318400D77E67 /* View */,
 				A4B828DF24D831A200D77E67 /* Interactor */,
 				A4B828DE24D8319700D77E67 /* Presenter */,
 				A4B828E024D831AD00D77E67 /* Router */,
+				A4BA1CE924D832D600D32ADC /* MainMenuConfigurator.swift */,
 			);
-			path = MainMenuModule;
+			path = MainMenu;
 			sourceTree = "<group>";
 		};
-		A40D817324D2C963006D2CE3 /* ShopModule */ = {
+		A40D817324D2C963006D2CE3 /* Shop */ = {
 			isa = PBXGroup;
 			children = (
 				A4B828E124D831F500D77E67 /* View */,
 			);
-			path = ShopModule;
+			path = Shop;
 			sourceTree = "<group>";
 		};
-		A40D817424D2C96B006D2CE3 /* ProfileModule */ = {
+		A40D817424D2C96B006D2CE3 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
 				A40D818124D2CA30006D2CE3 /* ProfileVC.swift */,
 			);
-			path = ProfileModule;
+			path = Profile;
 			sourceTree = "<group>";
 		};
-		A40D817524D2C974006D2CE3 /* RatingModule */ = {
+		A40D817524D2C974006D2CE3 /* Rating */ = {
 			isa = PBXGroup;
 			children = (
 				A40D818324D2CA39006D2CE3 /* RatingVC.swift */,
 			);
-			path = RatingModule;
+			path = Rating;
 			sourceTree = "<group>";
 		};
-		A40D817624D2C97E006D2CE3 /* ScheduleModule */ = {
+		A40D817624D2C97E006D2CE3 /* Schedule */ = {
 			isa = PBXGroup;
 			children = (
 				A40D817B24D2CA04006D2CE3 /* ScheduleVC.swift */,
 			);
-			path = ScheduleModule;
+			path = Schedule;
 			sourceTree = "<group>";
 		};
-		A40D817724D2C98A006D2CE3 /* HomeGameModule */ = {
+		A40D817724D2C98A006D2CE3 /* HomeGame */ = {
 			isa = PBXGroup;
 			children = (
 				A40D817F24D2CA26006D2CE3 /* HomeGameVC.swift */,
 			);
-			path = HomeGameModule;
+			path = HomeGame;
 			sourceTree = "<group>";
 		};
-		A40D817824D2C99D006D2CE3 /* WarmUpModule */ = {
+		A40D817824D2C99D006D2CE3 /* WarmUp */ = {
 			isa = PBXGroup;
 			children = (
 				A40D817D24D2CA1A006D2CE3 /* WarmupVC.swift */,
 			);
-			path = WarmUpModule;
+			path = WarmUp;
 			sourceTree = "<group>";
 		};
 		A40D818C24D2E3DB006D2CE3 /* Services */ = {
@@ -189,6 +197,7 @@
 			children = (
 				A40F036124D4187800C381F2 /* UIKitExtensions.swift */,
 				A452E3B324D431C5002EE514 /* DataTypesExtensions.swift */,
+				A4BA1CF424D8874C00D32ADC /* AlertExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -197,9 +206,9 @@
 			isa = PBXGroup;
 			children = (
 				A40D817924D2C9E6006D2CE3 /* MainMenuVC.swift */,
+				A40F036324D419D200C381F2 /* MenuCellItem.swift */,
 				A40D818824D2D24C006D2CE3 /* ScheduleCell.swift */,
 				A40D818924D2D24C006D2CE3 /* ScheduleCell.xib */,
-				A40F036324D419D200C381F2 /* MenuCellItem.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -207,6 +216,7 @@
 		A4B828DE24D8319700D77E67 /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
+				A4BA1CEB24D8338B00D32ADC /* MainMenuPresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -214,6 +224,7 @@
 		A4B828DF24D831A200D77E67 /* Interactor */ = {
 			isa = PBXGroup;
 			children = (
+				A4BA1CED24D8347300D32ADC /* MainMenuInteractor.swift */,
 			);
 			path = Interactor;
 			sourceTree = "<group>";
@@ -221,6 +232,7 @@
 		A4B828E024D831AD00D77E67 /* Router */ = {
 			isa = PBXGroup;
 			children = (
+				A4BA1CEF24D835DE00D32ADC /* MainMenuRouter.swift */,
 			);
 			path = Router;
 			sourceTree = "<group>";
@@ -240,6 +252,20 @@
 			children = (
 			);
 			path = Entity;
+			sourceTree = "<group>";
+		};
+		A4BA1CF124D83A6900D32ADC /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				A40D817224D2C95D006D2CE3 /* MainMenu */,
+				A40D817624D2C97E006D2CE3 /* Schedule */,
+				A40D817824D2C99D006D2CE3 /* WarmUp */,
+				A40D817724D2C98A006D2CE3 /* HomeGame */,
+				A40D817424D2C96B006D2CE3 /* Profile */,
+				A40D817524D2C974006D2CE3 /* Rating */,
+				A40D817324D2C963006D2CE3 /* Shop */,
+			);
+			path = Modules;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -315,20 +341,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A4BA1CEA24D832D600D32ADC /* MainMenuConfigurator.swift in Sources */,
 				A40D815A24D2C6C1006D2CE3 /* AppDelegate.swift in Sources */,
 				A40D817C24D2CA04006D2CE3 /* ScheduleVC.swift in Sources */,
 				A40F036224D4187800C381F2 /* UIKitExtensions.swift in Sources */,
+				A4BA1CEC24D8338B00D32ADC /* MainMenuPresenter.swift in Sources */,
 				A40D818224D2CA30006D2CE3 /* ProfileVC.swift in Sources */,
 				A40F036424D419D200C381F2 /* MenuCellItem.swift in Sources */,
 				A452E3B424D431C5002EE514 /* DataTypesExtensions.swift in Sources */,
 				A40D815C24D2C6C1006D2CE3 /* SceneDelegate.swift in Sources */,
 				A40D818A24D2D24C006D2CE3 /* ScheduleCell.swift in Sources */,
+				A4BA1CF024D835DE00D32ADC /* MainMenuRouter.swift in Sources */,
 				A40D818624D2CA44006D2CE3 /* ShopVC.swift in Sources */,
 				A40D818024D2CA26006D2CE3 /* HomeGameVC.swift in Sources */,
 				A40F035D24D412D700C381F2 /* ShopItemCell.swift in Sources */,
+				A4BA1CEE24D8347300D32ADC /* MainMenuInteractor.swift in Sources */,
 				A40D817E24D2CA1A006D2CE3 /* WarmupVC.swift in Sources */,
+				A4BA1CF524D8874C00D32ADC /* AlertExtensions.swift in Sources */,
 				A40D817A24D2C9E6006D2CE3 /* MainMenuVC.swift in Sources */,
 				A40D818424D2CA39006D2CE3 /* RatingVC.swift in Sources */,
+				A4BA1CF324D84C4B00D32ADC /* MenuItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
