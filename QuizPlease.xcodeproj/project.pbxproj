@@ -83,10 +83,16 @@
 			isa = PBXGroup;
 			children = (
 				A40D816724D2C6C2006D2CE3 /* Info.plist */,
-				A40D818C24D2E3DB006D2CE3 /* NetworkLayer */,
-				A40D817124D2C787006D2CE3 /* Model */,
-				A40D816E24D2C760006D2CE3 /* View */,
-				A40D817024D2C77F006D2CE3 /* Controllers */,
+				A4B828E224D8322B00D77E67 /* Entity */,
+				A40D818C24D2E3DB006D2CE3 /* Services */,
+				A40D816F24D2C767006D2CE3 /* Storyboards */,
+				A40D817224D2C95D006D2CE3 /* MainMenuModule */,
+				A40D817624D2C97E006D2CE3 /* ScheduleModule */,
+				A40D817824D2C99D006D2CE3 /* WarmUpModule */,
+				A40D817724D2C98A006D2CE3 /* HomeGameModule */,
+				A40D817424D2C96B006D2CE3 /* ProfileModule */,
+				A40D817524D2C974006D2CE3 /* RatingModule */,
+				A40D817324D2C963006D2CE3 /* ShopModule */,
 				A40F036024D4186200C381F2 /* Extensions */,
 				A40D816D24D2C73D006D2CE3 /* AppDelegates */,
 				A40D816224D2C6C2006D2CE3 /* Assets.xcassets */,
@@ -103,15 +109,6 @@
 			path = AppDelegates;
 			sourceTree = "<group>";
 		};
-		A40D816E24D2C760006D2CE3 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				A40D816F24D2C767006D2CE3 /* Storyboards */,
-				A40D818724D2D223006D2CE3 /* Cells */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		A40D816F24D2C767006D2CE3 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
@@ -121,100 +118,70 @@
 			path = Storyboards;
 			sourceTree = "<group>";
 		};
-		A40D817024D2C77F006D2CE3 /* Controllers */ = {
+		A40D817224D2C95D006D2CE3 /* MainMenuModule */ = {
 			isa = PBXGroup;
 			children = (
-				A40D817224D2C95D006D2CE3 /* MainMenuVC */,
-				A40D817624D2C97E006D2CE3 /* ScheduleVC */,
-				A40D817824D2C99D006D2CE3 /* WarmUpVC */,
-				A40D817724D2C98A006D2CE3 /* HomeGameVC */,
-				A40D817424D2C96B006D2CE3 /* ProfileVC */,
-				A40D817524D2C974006D2CE3 /* RatingVC */,
-				A40D817324D2C963006D2CE3 /* ShopVC */,
+				A4B828DD24D8318400D77E67 /* View */,
+				A4B828DF24D831A200D77E67 /* Interactor */,
+				A4B828DE24D8319700D77E67 /* Presenter */,
+				A4B828E024D831AD00D77E67 /* Router */,
 			);
-			path = Controllers;
+			path = MainMenuModule;
 			sourceTree = "<group>";
 		};
-		A40D817124D2C787006D2CE3 /* Model */ = {
+		A40D817324D2C963006D2CE3 /* ShopModule */ = {
 			isa = PBXGroup;
 			children = (
+				A4B828E124D831F500D77E67 /* View */,
 			);
-			path = Model;
+			path = ShopModule;
 			sourceTree = "<group>";
 		};
-		A40D817224D2C95D006D2CE3 /* MainMenuVC */ = {
-			isa = PBXGroup;
-			children = (
-				A40D817924D2C9E6006D2CE3 /* MainMenuVC.swift */,
-			);
-			path = MainMenuVC;
-			sourceTree = "<group>";
-		};
-		A40D817324D2C963006D2CE3 /* ShopVC */ = {
-			isa = PBXGroup;
-			children = (
-				A40D818524D2CA44006D2CE3 /* ShopVC.swift */,
-			);
-			path = ShopVC;
-			sourceTree = "<group>";
-		};
-		A40D817424D2C96B006D2CE3 /* ProfileVC */ = {
+		A40D817424D2C96B006D2CE3 /* ProfileModule */ = {
 			isa = PBXGroup;
 			children = (
 				A40D818124D2CA30006D2CE3 /* ProfileVC.swift */,
 			);
-			path = ProfileVC;
+			path = ProfileModule;
 			sourceTree = "<group>";
 		};
-		A40D817524D2C974006D2CE3 /* RatingVC */ = {
+		A40D817524D2C974006D2CE3 /* RatingModule */ = {
 			isa = PBXGroup;
 			children = (
 				A40D818324D2CA39006D2CE3 /* RatingVC.swift */,
 			);
-			path = RatingVC;
+			path = RatingModule;
 			sourceTree = "<group>";
 		};
-		A40D817624D2C97E006D2CE3 /* ScheduleVC */ = {
+		A40D817624D2C97E006D2CE3 /* ScheduleModule */ = {
 			isa = PBXGroup;
 			children = (
 				A40D817B24D2CA04006D2CE3 /* ScheduleVC.swift */,
 			);
-			path = ScheduleVC;
+			path = ScheduleModule;
 			sourceTree = "<group>";
 		};
-		A40D817724D2C98A006D2CE3 /* HomeGameVC */ = {
+		A40D817724D2C98A006D2CE3 /* HomeGameModule */ = {
 			isa = PBXGroup;
 			children = (
 				A40D817F24D2CA26006D2CE3 /* HomeGameVC.swift */,
 			);
-			path = HomeGameVC;
+			path = HomeGameModule;
 			sourceTree = "<group>";
 		};
-		A40D817824D2C99D006D2CE3 /* WarmUpVC */ = {
+		A40D817824D2C99D006D2CE3 /* WarmUpModule */ = {
 			isa = PBXGroup;
 			children = (
 				A40D817D24D2CA1A006D2CE3 /* WarmupVC.swift */,
 			);
-			path = WarmUpVC;
+			path = WarmUpModule;
 			sourceTree = "<group>";
 		};
-		A40D818724D2D223006D2CE3 /* Cells */ = {
-			isa = PBXGroup;
-			children = (
-				A40D818824D2D24C006D2CE3 /* ScheduleCell.swift */,
-				A40D818924D2D24C006D2CE3 /* ScheduleCell.xib */,
-				A40F035B24D412D700C381F2 /* ShopItemCell.swift */,
-				A452E3B024D428DA002EE514 /* ShopItemCell.xib */,
-				A40F036324D419D200C381F2 /* MenuCellItem.swift */,
-			);
-			path = Cells;
-			sourceTree = "<group>";
-		};
-		A40D818C24D2E3DB006D2CE3 /* NetworkLayer */ = {
+		A40D818C24D2E3DB006D2CE3 /* Services */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = NetworkLayer;
+			path = Services;
 			sourceTree = "<group>";
 		};
 		A40F036024D4186200C381F2 /* Extensions */ = {
@@ -224,6 +191,55 @@
 				A452E3B324D431C5002EE514 /* DataTypesExtensions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		A4B828DD24D8318400D77E67 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A40D817924D2C9E6006D2CE3 /* MainMenuVC.swift */,
+				A40D818824D2D24C006D2CE3 /* ScheduleCell.swift */,
+				A40D818924D2D24C006D2CE3 /* ScheduleCell.xib */,
+				A40F036324D419D200C381F2 /* MenuCellItem.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		A4B828DE24D8319700D77E67 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		A4B828DF24D831A200D77E67 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		A4B828E024D831AD00D77E67 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		A4B828E124D831F500D77E67 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A40D818524D2CA44006D2CE3 /* ShopVC.swift */,
+				A40F035B24D412D700C381F2 /* ShopItemCell.swift */,
+				A452E3B024D428DA002EE514 /* ShopItemCell.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		A4B828E224D8322B00D77E67 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Entity;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
