@@ -7,6 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A40B757C24D9A744006DB7D1 /* ScheduleInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40B757B24D9A744006DB7D1 /* ScheduleInteractor.swift */; };
+		A40B757E24D9A750006DB7D1 /* SchedulePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40B757D24D9A750006DB7D1 /* SchedulePresenter.swift */; };
+		A40B758024D9A75A006DB7D1 /* ScheduleRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40B757F24D9A75A006DB7D1 /* ScheduleRouter.swift */; };
+		A40B758224D9A76F006DB7D1 /* ScheduleConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40B758124D9A76F006DB7D1 /* ScheduleConfigurator.swift */; };
+		A40B758424D9A7CD006DB7D1 /* WarmupInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40B758324D9A7CD006DB7D1 /* WarmupInteractor.swift */; };
+		A40B758624D9A7F6006DB7D1 /* WarmupPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40B758524D9A7F6006DB7D1 /* WarmupPresenter.swift */; };
+		A40B758824D9A7FD006DB7D1 /* WarmupRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40B758724D9A7FD006DB7D1 /* WarmupRouter.swift */; };
+		A40B758A24D9A806006DB7D1 /* WarmupConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40B758924D9A806006DB7D1 /* WarmupConfigurator.swift */; };
+		A40B758C24D9A81A006DB7D1 /* HomeGameInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40B758B24D9A81A006DB7D1 /* HomeGameInteractor.swift */; };
+		A40B758E24D9A820006DB7D1 /* HomeGamePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40B758D24D9A820006DB7D1 /* HomeGamePresenter.swift */; };
+		A40B759024D9A829006DB7D1 /* HomeGameRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40B758F24D9A829006DB7D1 /* HomeGameRouter.swift */; };
+		A40B759224D9A836006DB7D1 /* HomeGameConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40B759124D9A836006DB7D1 /* HomeGameConfigurator.swift */; };
+		A40B759424D9A845006DB7D1 /* ProfileInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40B759324D9A845006DB7D1 /* ProfileInteractor.swift */; };
+		A40B759624D9A84C006DB7D1 /* ProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40B759524D9A84C006DB7D1 /* ProfilePresenter.swift */; };
+		A40B759824D9A852006DB7D1 /* ProfileRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40B759724D9A852006DB7D1 /* ProfileRouter.swift */; };
+		A40B759A24D9A85B006DB7D1 /* ProfileConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40B759924D9A85B006DB7D1 /* ProfileConfigurator.swift */; };
+		A40B759C24D9A868006DB7D1 /* RatingInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40B759B24D9A868006DB7D1 /* RatingInteractor.swift */; };
+		A40B759E24D9A86E006DB7D1 /* RatingPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40B759D24D9A86E006DB7D1 /* RatingPresenter.swift */; };
+		A40B75A024D9A875006DB7D1 /* RatingRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40B759F24D9A875006DB7D1 /* RatingRouter.swift */; };
+		A40B75A224D9A880006DB7D1 /* RatingConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40B75A124D9A880006DB7D1 /* RatingConfigurator.swift */; };
 		A40D815A24D2C6C1006D2CE3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40D815924D2C6C1006D2CE3 /* AppDelegate.swift */; };
 		A40D815C24D2C6C1006D2CE3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40D815B24D2C6C1006D2CE3 /* SceneDelegate.swift */; };
 		A40D816124D2C6C1006D2CE3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A40D815F24D2C6C1006D2CE3 /* Main.storyboard */; };
@@ -35,6 +55,26 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A40B757B24D9A744006DB7D1 /* ScheduleInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleInteractor.swift; sourceTree = "<group>"; };
+		A40B757D24D9A750006DB7D1 /* SchedulePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulePresenter.swift; sourceTree = "<group>"; };
+		A40B757F24D9A75A006DB7D1 /* ScheduleRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleRouter.swift; sourceTree = "<group>"; };
+		A40B758124D9A76F006DB7D1 /* ScheduleConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleConfigurator.swift; sourceTree = "<group>"; };
+		A40B758324D9A7CD006DB7D1 /* WarmupInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarmupInteractor.swift; sourceTree = "<group>"; };
+		A40B758524D9A7F6006DB7D1 /* WarmupPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarmupPresenter.swift; sourceTree = "<group>"; };
+		A40B758724D9A7FD006DB7D1 /* WarmupRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarmupRouter.swift; sourceTree = "<group>"; };
+		A40B758924D9A806006DB7D1 /* WarmupConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarmupConfigurator.swift; sourceTree = "<group>"; };
+		A40B758B24D9A81A006DB7D1 /* HomeGameInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeGameInteractor.swift; sourceTree = "<group>"; };
+		A40B758D24D9A820006DB7D1 /* HomeGamePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeGamePresenter.swift; sourceTree = "<group>"; };
+		A40B758F24D9A829006DB7D1 /* HomeGameRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeGameRouter.swift; sourceTree = "<group>"; };
+		A40B759124D9A836006DB7D1 /* HomeGameConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeGameConfigurator.swift; sourceTree = "<group>"; };
+		A40B759324D9A845006DB7D1 /* ProfileInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInteractor.swift; sourceTree = "<group>"; };
+		A40B759524D9A84C006DB7D1 /* ProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePresenter.swift; sourceTree = "<group>"; };
+		A40B759724D9A852006DB7D1 /* ProfileRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRouter.swift; sourceTree = "<group>"; };
+		A40B759924D9A85B006DB7D1 /* ProfileConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileConfigurator.swift; sourceTree = "<group>"; };
+		A40B759B24D9A868006DB7D1 /* RatingInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingInteractor.swift; sourceTree = "<group>"; };
+		A40B759D24D9A86E006DB7D1 /* RatingPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingPresenter.swift; sourceTree = "<group>"; };
+		A40B759F24D9A875006DB7D1 /* RatingRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingRouter.swift; sourceTree = "<group>"; };
+		A40B75A124D9A880006DB7D1 /* RatingConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingConfigurator.swift; sourceTree = "<group>"; };
 		A40D815624D2C6C1006D2CE3 /* QuizPlease.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuizPlease.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A40D815924D2C6C1006D2CE3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A40D815B24D2C6C1006D2CE3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -149,6 +189,10 @@
 			isa = PBXGroup;
 			children = (
 				A40D818124D2CA30006D2CE3 /* ProfileVC.swift */,
+				A40B759324D9A845006DB7D1 /* ProfileInteractor.swift */,
+				A40B759524D9A84C006DB7D1 /* ProfilePresenter.swift */,
+				A40B759724D9A852006DB7D1 /* ProfileRouter.swift */,
+				A40B759924D9A85B006DB7D1 /* ProfileConfigurator.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -157,6 +201,10 @@
 			isa = PBXGroup;
 			children = (
 				A40D818324D2CA39006D2CE3 /* RatingVC.swift */,
+				A40B759B24D9A868006DB7D1 /* RatingInteractor.swift */,
+				A40B759D24D9A86E006DB7D1 /* RatingPresenter.swift */,
+				A40B759F24D9A875006DB7D1 /* RatingRouter.swift */,
+				A40B75A124D9A880006DB7D1 /* RatingConfigurator.swift */,
 			);
 			path = Rating;
 			sourceTree = "<group>";
@@ -165,6 +213,10 @@
 			isa = PBXGroup;
 			children = (
 				A40D817B24D2CA04006D2CE3 /* ScheduleVC.swift */,
+				A40B757B24D9A744006DB7D1 /* ScheduleInteractor.swift */,
+				A40B757D24D9A750006DB7D1 /* SchedulePresenter.swift */,
+				A40B757F24D9A75A006DB7D1 /* ScheduleRouter.swift */,
+				A40B758124D9A76F006DB7D1 /* ScheduleConfigurator.swift */,
 			);
 			path = Schedule;
 			sourceTree = "<group>";
@@ -173,6 +225,10 @@
 			isa = PBXGroup;
 			children = (
 				A40D817F24D2CA26006D2CE3 /* HomeGameVC.swift */,
+				A40B758B24D9A81A006DB7D1 /* HomeGameInteractor.swift */,
+				A40B758D24D9A820006DB7D1 /* HomeGamePresenter.swift */,
+				A40B758F24D9A829006DB7D1 /* HomeGameRouter.swift */,
+				A40B759124D9A836006DB7D1 /* HomeGameConfigurator.swift */,
 			);
 			path = HomeGame;
 			sourceTree = "<group>";
@@ -181,6 +237,10 @@
 			isa = PBXGroup;
 			children = (
 				A40D817D24D2CA1A006D2CE3 /* WarmupVC.swift */,
+				A40B758324D9A7CD006DB7D1 /* WarmupInteractor.swift */,
+				A40B758524D9A7F6006DB7D1 /* WarmupPresenter.swift */,
+				A40B758724D9A7FD006DB7D1 /* WarmupRouter.swift */,
+				A40B758924D9A806006DB7D1 /* WarmupConfigurator.swift */,
 			);
 			path = WarmUp;
 			sourceTree = "<group>";
@@ -319,24 +379,44 @@
 			files = (
 				A4BA1CEA24D832D600D32ADC /* MainMenuConfigurator.swift in Sources */,
 				A40D815A24D2C6C1006D2CE3 /* AppDelegate.swift in Sources */,
+				A40B758024D9A75A006DB7D1 /* ScheduleRouter.swift in Sources */,
+				A40B758424D9A7CD006DB7D1 /* WarmupInteractor.swift in Sources */,
+				A40B758824D9A7FD006DB7D1 /* WarmupRouter.swift in Sources */,
 				A40D817C24D2CA04006D2CE3 /* ScheduleVC.swift in Sources */,
+				A40B75A024D9A875006DB7D1 /* RatingRouter.swift in Sources */,
+				A40B759C24D9A868006DB7D1 /* RatingInteractor.swift in Sources */,
 				A40F036224D4187800C381F2 /* UIKitExtensions.swift in Sources */,
+				A40B758224D9A76F006DB7D1 /* ScheduleConfigurator.swift in Sources */,
 				A4BA1CEC24D8338B00D32ADC /* MainMenuPresenter.swift in Sources */,
+				A40B757E24D9A750006DB7D1 /* SchedulePresenter.swift in Sources */,
+				A40B759624D9A84C006DB7D1 /* ProfilePresenter.swift in Sources */,
+				A40B759424D9A845006DB7D1 /* ProfileInteractor.swift in Sources */,
 				A40D818224D2CA30006D2CE3 /* ProfileVC.swift in Sources */,
+				A40B759224D9A836006DB7D1 /* HomeGameConfigurator.swift in Sources */,
 				A40F036424D419D200C381F2 /* MenuCellItem.swift in Sources */,
 				A452E3B424D431C5002EE514 /* DataTypesExtensions.swift in Sources */,
+				A40B759A24D9A85B006DB7D1 /* ProfileConfigurator.swift in Sources */,
 				A40D815C24D2C6C1006D2CE3 /* SceneDelegate.swift in Sources */,
+				A40B757C24D9A744006DB7D1 /* ScheduleInteractor.swift in Sources */,
 				A40D818A24D2D24C006D2CE3 /* ScheduleCell.swift in Sources */,
+				A40B759E24D9A86E006DB7D1 /* RatingPresenter.swift in Sources */,
 				A4BA1CF024D835DE00D32ADC /* MainMenuRouter.swift in Sources */,
 				A40D818624D2CA44006D2CE3 /* ShopVC.swift in Sources */,
 				A40D818024D2CA26006D2CE3 /* HomeGameVC.swift in Sources */,
+				A40B758C24D9A81A006DB7D1 /* HomeGameInteractor.swift in Sources */,
 				A40F035D24D412D700C381F2 /* ShopItemCell.swift in Sources */,
 				A4BA1CEE24D8347300D32ADC /* MainMenuInteractor.swift in Sources */,
 				A40D817E24D2CA1A006D2CE3 /* WarmupVC.swift in Sources */,
 				A4BA1CF524D8874C00D32ADC /* AlertExtensions.swift in Sources */,
+				A40B758624D9A7F6006DB7D1 /* WarmupPresenter.swift in Sources */,
 				A40D817A24D2C9E6006D2CE3 /* MainMenuVC.swift in Sources */,
 				A40D818424D2CA39006D2CE3 /* RatingVC.swift in Sources */,
+				A40B758E24D9A820006DB7D1 /* HomeGamePresenter.swift in Sources */,
+				A40B75A224D9A880006DB7D1 /* RatingConfigurator.swift in Sources */,
+				A40B758A24D9A806006DB7D1 /* WarmupConfigurator.swift in Sources */,
 				A4BA1CF324D84C4B00D32ADC /* MenuItem.swift in Sources */,
+				A40B759024D9A829006DB7D1 /* HomeGameRouter.swift in Sources */,
+				A40B759824D9A852006DB7D1 /* ProfileRouter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
