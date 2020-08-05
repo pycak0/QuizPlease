@@ -9,19 +9,24 @@
 import Foundation
 
 protocol MainMenuInteractorProtocol: class {
-    func loadMenuItems(completion: @escaping (Result<[MenuItem]?, Error>) -> Void)
+    func loadMenuItems(completion: @escaping (Result<[MenuItemProtocol]?, Error>) -> Void)
 }
 
 class MainMenuInteractor: MainMenuInteractorProtocol {
-    func loadMenuItems(completion: @escaping (Result<[MenuItem]?, Error>) -> Void) {
+    func loadMenuItems(completion: @escaping (Result<[MenuItemProtocol]?, Error>) -> Void) {
+        var items: [MenuItemProtocol] = []
+        for i in 0..<MenuItemKind.allCases.count {
+            items.append(MenuItemKind(rawValue: i)!)
+        }
         completion(
-            .success([
-                MenuItem(title: "Расписание", supplementaryText: "Игры в барах", itemKind: .schedule),
-                MenuItem(title: "Личный кабинет", supplementaryText: "100 баллов", itemKind: .profile),
-                MenuItem(title: "Игры хоум", supplementaryText: "Играть", itemKind: .homeGame),
-                MenuItem(title: "Разминка", supplementaryText: "Перейти", itemKind: .warmup),
-                MenuItem(title: "Магазин", supplementaryText: "К покупкам", itemKind: .shop)
-            ])
+//            .success([
+//                MenuItem(title: "Расписание", supplementaryText: "Игры в барах", kind: .schedule),
+//                MenuItem(title: "Личный кабинет", supplementaryText: "100 баллов", kind: .profile),
+//                MenuItem(title: "Игры хоум", supplementaryText: "Играть", kind: .homeGame),
+//                MenuItem(title: "Разминка", supplementaryText: "Перейти", kind: .warmup),
+//                MenuItem(title: "Магазин", supplementaryText: "К покупкам", kind: .shop)
+//            ])
+            .success(items)
         )
     }
     

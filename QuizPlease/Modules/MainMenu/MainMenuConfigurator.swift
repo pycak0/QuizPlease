@@ -9,11 +9,11 @@
 import UIKit
 
 protocol MainMenuConfiguratorProtocol: class {
-    func configure(_ viewController: MainMenuVC)
+    func configure(_ viewController: MainMenuViewProtocol)
 }
 
 class MainMenuConfigurator: MainMenuConfiguratorProtocol {
-    func configure(_ mainMenuVC: MainMenuVC) {
+    func configure(_ mainMenuVC: MainMenuViewProtocol) {
         let interactor = MainMenuInteractor()
         let router = MainMenuRouter(viewController: mainMenuVC)
         let presenter = MainMenuPresenter(view: mainMenuVC, interactor: interactor, router: router)

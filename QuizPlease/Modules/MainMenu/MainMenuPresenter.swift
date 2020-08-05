@@ -10,7 +10,7 @@ import Foundation
 
 protocol MainMenuPresenterProtocol: class {
     init(view: MainMenuViewProtocol, interactor: MainMenuInteractorProtocol, router: MainMenuRouterProtocol)
-    var menuItems: [MenuItem]? { get set }
+    var menuItems: [MenuItemProtocol]? { get set }
     
     func configureViews()
     func didSelectMenuItem(at index: Int)
@@ -21,7 +21,7 @@ class MainMenuPresenter: MainMenuPresenterProtocol {
     var interactor: MainMenuInteractorProtocol!
     var router: MainMenuRouterProtocol!
     
-    var menuItems: [MenuItem]?
+    var menuItems: [MenuItemProtocol]?
     
     required init(view: MainMenuViewProtocol, interactor: MainMenuInteractorProtocol, router: MainMenuRouterProtocol) {
         self.router = router
@@ -30,6 +30,9 @@ class MainMenuPresenter: MainMenuPresenterProtocol {
     }
     
     func configureViews() {
+        view?.clearNavigationBar()
+        view?.configureTableView()
+        
         //MARK:- Make sure that interactor clouse is being called on main thread
         interactor.loadMenuItems { result in
             switch result {
@@ -44,7 +47,7 @@ class MainMenuPresenter: MainMenuPresenterProtocol {
     
     func didSelectMenuItem(at index: Int) {
         guard let item = menuItems?[index] else { return }
-        router.showMenuSection(item.itemKind, sender: nil)
+        router.showMenuSection(item, sender: nil)
     }
     
 }

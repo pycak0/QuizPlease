@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NavigationBar" customModule="QuizPlease" customModuleProvider="target">
+            <connections>
+                <outlet property="backButton" destination="4ZI-BK-0v2" id="m3L-cz-lMN"/>
+                <outlet property="contentView" destination="iN0-l3-epB" id="mes-xb-0KE"/>
+                <outlet property="titleLabel" destination="UqI-jE-YBS" id="umV-Hz-lbX"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="465" height="146"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4ZI-BK-0v2">
+                    <rect key="frame" x="16" y="67" width="24" height="22"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="22" id="1mg-RT-duK"/>
+                        <constraint firstAttribute="width" constant="24" id="hTc-eK-TxK"/>
+                    </constraints>
+                    <state key="normal" image="arrow.left" catalog="system">
+                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20" scale="default" weight="semibold"/>
+                    </state>
+                    <connections>
+                        <action selector="backButtonPreseed:" destination="-1" eventType="touchUpInside" id="aGl-3Z-t4n"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UqI-jE-YBS">
+                    <rect key="frame" x="56" y="61" width="393" height="34"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+            <constraints>
+                <constraint firstItem="4ZI-BK-0v2" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="Igh-jC-MUL"/>
+                <constraint firstItem="4ZI-BK-0v2" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="S1Y-wS-tWm"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="UqI-jE-YBS" secondAttribute="trailing" constant="16" id="ijx-bS-6C7"/>
+                <constraint firstItem="UqI-jE-YBS" firstAttribute="leading" secondItem="4ZI-BK-0v2" secondAttribute="trailing" constant="16" id="rz4-Ct-cas"/>
+                <constraint firstItem="UqI-jE-YBS" firstAttribute="centerY" secondItem="4ZI-BK-0v2" secondAttribute="centerY" id="wqk-s9-lQT"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="77.536231884057983" y="249.10714285714283"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="arrow.left" catalog="system" width="128" height="98"/>
+    </resources>
+</document>

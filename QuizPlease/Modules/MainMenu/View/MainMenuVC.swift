@@ -8,10 +8,12 @@
 
 import UIKit
 
-protocol MainMenuViewProtocol: class {
+protocol MainMenuViewProtocol: UIViewController {
+    var presenter: MainMenuPresenterProtocol! { get set }    
     func configureTableView()
     func reloadMenuItems()
     func failureLoadingMenuItems(_ error: Error)
+    
 }
 
 class MainMenuVC: UIViewController {
@@ -19,15 +21,12 @@ class MainMenuVC: UIViewController {
     var presenter: MainMenuPresenterProtocol!
 
     @IBOutlet weak var tableView: UITableView!
-    
+        
     //MARK:- Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
         configurator.configure(self)
         presenter.configureViews()
-        
-        configureTableView()
     }
     
 }
@@ -49,6 +48,7 @@ extension MainMenuVC: MainMenuViewProtocol {
     func reloadMenuItems() {
         tableView.reloadData()
     }
+    
 }
 
 //MARK:- Table View Data Source
@@ -73,7 +73,7 @@ extension MainMenuVC: UITableViewDataSource {
 
 extension MainMenuVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 180
+        return presenter.menuItems?[indexPath.row].height ?? 0
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -92,4 +92,5 @@ extension MainMenuVC: UITableViewDelegate {
             cell.cellView.scaleOut()
         }
     }
+    
 }

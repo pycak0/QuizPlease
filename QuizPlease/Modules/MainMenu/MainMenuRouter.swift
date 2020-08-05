@@ -9,28 +9,36 @@
 import UIKit
 
 protocol RouterProtocol: class {
+    var viewController: UIViewController? { get set }
     init(viewController: UIViewController)
 }
 
 protocol MainMenuRouterProtocol: RouterProtocol {
-    var viewController: MainMenuVC? { get set }
-    func showMenuSection(_ kind: MenuItemKind, sender: Any?)
+    //var viewController: MainMenuVC? { get set }
+    func showMenuSection(_ kind: MenuItemProtocol, sender: Any?)
     func prepare(for segue: UIStoryboardSegue, sender: Any?)
 }
 
 class MainMenuRouter: MainMenuRouterProtocol {
-    weak var viewController: MainMenuVC?
+    weak var viewController: UIViewController?
     
     required init(viewController: UIViewController) {
-        self.viewController = viewController as? MainMenuVC
+        self.viewController = viewController
     }
     
-    func showMenuSection(_ kind: MenuItemKind, sender: Any? = nil) {
-        viewController?.performSegue(withIdentifier: kind.segueID, sender: sender)
+    func showMenuSection(_ kind: MenuItemProtocol, sender: Any? = nil) {
+        viewController?.performSegue(withIdentifier: kind._kind.segueID, sender: sender)
     }
     
     func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         print("Prepraring for segue with id \(segue.identifier!)")
     }
     
+}
+
+extension MainMenuRouter: NavigationBarDelegate {
+    func backButtonPressed(_ sender: Any) {
+        viewController?.navigationController?.popViewController(animated: true)
+    }
+        
 }
