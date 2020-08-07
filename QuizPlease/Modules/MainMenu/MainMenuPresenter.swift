@@ -30,7 +30,7 @@ class MainMenuPresenter: MainMenuPresenterProtocol {
     }
     
     func configureViews() {
-        view?.clearNavigationBar()
+        //view?.clearNavigationBar()
         view?.configureTableView()
         
         //MARK:- Make sure that interactor clouse is being called on main thread

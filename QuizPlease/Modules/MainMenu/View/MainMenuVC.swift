@@ -34,8 +34,11 @@ class MainMenuVC: UIViewController {
 //MARK:- View Protocol
 extension MainMenuVC: MainMenuViewProtocol {
     func configureTableView() {
-        tableView.register(UINib(nibName: ScheduleCell.nibName, bundle: nil), forCellReuseIdentifier: ScheduleCell.reuseIdentifier)
-        //tableView.register(ScheduleCell.self, forCellReuseIdentifier: ScheduleCell.reuseIdentifier)
+        tableView.register(UINib(nibName: ScheduleCell.identifier, bundle: nil), forCellReuseIdentifier: ScheduleCell.identifier)
+        tableView.register(UINib(nibName: ProfileCell.identifier, bundle: nil), forCellReuseIdentifier: ProfileCell.identifier)
+        tableView.register(UINib(nibName: WarmupCell.identifier, bundle: nil), forCellReuseIdentifier: WarmupCell.identifier)
+        tableView.register(UINib(nibName: HomeGameCell.identifier, bundle: nil), forCellReuseIdentifier: HomeGameCell.identifier)
+        //tableView.register(ScheduleCell.self, forCellReuseIdentifier: ScheduleCell.identifier)
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -58,13 +61,14 @@ extension MainMenuVC: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: ScheduleCell.reuseIdentifier) as? ScheduleCell else {
+        guard let items = presenter.menuItems else { return UITableViewCell() }
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: items[indexPath.row].identifier) as? MenuCellItem else {
             fatalError("Invalid Cell Kind")
         }
-        let menuItem = presenter.menuItems?[indexPath.row]
+        let menuItem = items[indexPath.row]
         
-        cell.titleLabel.text = menuItem?.title
-        cell.accessoryLabel.text = menuItem?.supplementaryText
+        cell.configureCell(with: menuItem)
         
         return cell
     }
@@ -76,6 +80,10 @@ extension MainMenuVC: UITableViewDelegate {
         return presenter.menuItems?[indexPath.row].height ?? 0
     }
     
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.setNeedsLayout()
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         presenter.didSelectMenuItem(at: indexPath.row)
@@ -83,13 +91,13 @@ extension MainMenuVC: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
         if let cell = tableView.cellForRow(at: indexPath) as? MenuCellItem {
-            cell.cellView.scaleIn()
+            cell.scaleIn()
         }
     }
     
     func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
         if let cell = tableView.cellForRow(at: indexPath) as? MenuCellItem {
-            cell.cellView.scaleOut()
+            cell.scaleOut()
         }
     }
     

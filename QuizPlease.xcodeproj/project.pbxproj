@@ -59,6 +59,14 @@
 		A4CC5FEE24DAEA840042B41C /* NavigationBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4CC5FED24DAEA840042B41C /* NavigationBar.xib */; };
 		A4CC5FF024DAF7300042B41C /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CC5FEF24DAF7300042B41C /* NavigationBar.swift */; };
 		A4CC5FF224DAFECF0042B41C /* VCExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CC5FF124DAFECF0042B41C /* VCExtensions.swift */; };
+		A4DAF73624DD862500963C15 /* Gilroy-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A4DAF73524DD862500963C15 /* Gilroy-Bold.ttf */; };
+		A4DAF73924DD987F00963C15 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DAF73724DD987F00963C15 /* ProfileCell.swift */; };
+		A4DAF73A24DD987F00963C15 /* ProfileCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4DAF73824DD987F00963C15 /* ProfileCell.xib */; };
+		A4DAF73C24DD9BF400963C15 /* Gilroy-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A4DAF73B24DD9BF400963C15 /* Gilroy-SemiBold.ttf */; };
+		A4DAF73F24DDABFF00963C15 /* WarmupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DAF73D24DDABFF00963C15 /* WarmupCell.swift */; };
+		A4DAF74024DDABFF00963C15 /* WarmupCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4DAF73E24DDABFF00963C15 /* WarmupCell.xib */; };
+		A4DAF74324DDBAFE00963C15 /* HomeGameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DAF74124DDBAFE00963C15 /* HomeGameCell.swift */; };
+		A4DAF74424DDBAFE00963C15 /* HomeGameCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4DAF74224DDBAFE00963C15 /* HomeGameCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -116,6 +124,14 @@
 		A4CC5FED24DAEA840042B41C /* NavigationBar.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NavigationBar.xib; sourceTree = "<group>"; };
 		A4CC5FEF24DAF7300042B41C /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
 		A4CC5FF124DAFECF0042B41C /* VCExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCExtensions.swift; sourceTree = "<group>"; };
+		A4DAF73524DD862500963C15 /* Gilroy-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-Bold.ttf"; sourceTree = "<group>"; };
+		A4DAF73724DD987F00963C15 /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
+		A4DAF73824DD987F00963C15 /* ProfileCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileCell.xib; sourceTree = "<group>"; };
+		A4DAF73B24DD9BF400963C15 /* Gilroy-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-SemiBold.ttf"; sourceTree = "<group>"; };
+		A4DAF73D24DDABFF00963C15 /* WarmupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarmupCell.swift; sourceTree = "<group>"; };
+		A4DAF73E24DDABFF00963C15 /* WarmupCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WarmupCell.xib; sourceTree = "<group>"; };
+		A4DAF74124DDBAFE00963C15 /* HomeGameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeGameCell.swift; sourceTree = "<group>"; };
+		A4DAF74224DDBAFE00963C15 /* HomeGameCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeGameCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,6 +173,7 @@
 				A4BA1CF124D83A6900D32ADC /* Modules */,
 				A40F036024D4186200C381F2 /* Extensions */,
 				A40D816224D2C6C2006D2CE3 /* Assets.xcassets */,
+				A4DAF73424DD861800963C15 /* Fonts */,
 			);
 			path = QuizPlease;
 			sourceTree = "<group>";
@@ -286,9 +303,7 @@
 			isa = PBXGroup;
 			children = (
 				A40D817924D2C9E6006D2CE3 /* MainMenuVC.swift */,
-				A40F036324D419D200C381F2 /* MenuCellItem.swift */,
-				A40D818824D2D24C006D2CE3 /* ScheduleCell.swift */,
-				A40D818924D2D24C006D2CE3 /* ScheduleCell.xib */,
+				A4DAF73324DD80CB00963C15 /* Cells */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -331,6 +346,31 @@
 				A4CC5FEF24DAF7300042B41C /* NavigationBar.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		A4DAF73324DD80CB00963C15 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				A40F036324D419D200C381F2 /* MenuCellItem.swift */,
+				A40D818824D2D24C006D2CE3 /* ScheduleCell.swift */,
+				A40D818924D2D24C006D2CE3 /* ScheduleCell.xib */,
+				A4DAF73724DD987F00963C15 /* ProfileCell.swift */,
+				A4DAF73824DD987F00963C15 /* ProfileCell.xib */,
+				A4DAF73D24DDABFF00963C15 /* WarmupCell.swift */,
+				A4DAF73E24DDABFF00963C15 /* WarmupCell.xib */,
+				A4DAF74124DDBAFE00963C15 /* HomeGameCell.swift */,
+				A4DAF74224DDBAFE00963C15 /* HomeGameCell.xib */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		A4DAF73424DD861800963C15 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				A4DAF73B24DD9BF400963C15 /* Gilroy-SemiBold.ttf */,
+				A4DAF73524DD862500963C15 /* Gilroy-Bold.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -392,9 +432,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				A40D816624D2C6C2006D2CE3 /* LaunchScreen.storyboard in Resources */,
+				A4DAF73C24DD9BF400963C15 /* Gilroy-SemiBold.ttf in Resources */,
+				A4DAF73A24DD987F00963C15 /* ProfileCell.xib in Resources */,
 				A40D816324D2C6C2006D2CE3 /* Assets.xcassets in Resources */,
 				A452E3B224D428DA002EE514 /* ShopItemCell.xib in Resources */,
+				A4DAF73624DD862500963C15 /* Gilroy-Bold.ttf in Resources */,
 				A4CC5FEE24DAEA840042B41C /* NavigationBar.xib in Resources */,
+				A4DAF74424DDBAFE00963C15 /* HomeGameCell.xib in Resources */,
+				A4DAF74024DDABFF00963C15 /* WarmupCell.xib in Resources */,
 				A40D818B24D2D24C006D2CE3 /* ScheduleCell.xib in Resources */,
 				A40D816124D2C6C1006D2CE3 /* Main.storyboard in Resources */,
 			);
@@ -421,14 +466,17 @@
 				A4BA1CEC24D8338B00D32ADC /* MainMenuPresenter.swift in Sources */,
 				A4CC5FC124DACE0E0042B41C /* ShopInteractor.swift in Sources */,
 				A40B757E24D9A750006DB7D1 /* SchedulePresenter.swift in Sources */,
+				A4DAF74324DDBAFE00963C15 /* HomeGameCell.swift in Sources */,
 				A40B759624D9A84C006DB7D1 /* ProfilePresenter.swift in Sources */,
 				A40B759424D9A845006DB7D1 /* ProfileInteractor.swift in Sources */,
 				A40D818224D2CA30006D2CE3 /* ProfileVC.swift in Sources */,
 				A40B759224D9A836006DB7D1 /* HomeGameConfigurator.swift in Sources */,
+				A4DAF73924DD987F00963C15 /* ProfileCell.swift in Sources */,
 				A40F036424D419D200C381F2 /* MenuCellItem.swift in Sources */,
 				A452E3B424D431C5002EE514 /* DataTypesExtensions.swift in Sources */,
 				A40B759A24D9A85B006DB7D1 /* ProfileConfigurator.swift in Sources */,
 				A4CC5FC324DACE1A0042B41C /* ShopPresenter.swift in Sources */,
+				A4DAF73F24DDABFF00963C15 /* WarmupCell.swift in Sources */,
 				A40D815C24D2C6C1006D2CE3 /* SceneDelegate.swift in Sources */,
 				A40B757C24D9A744006DB7D1 /* ScheduleInteractor.swift in Sources */,
 				A40D818A24D2D24C006D2CE3 /* ScheduleCell.swift in Sources */,

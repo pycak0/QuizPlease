@@ -10,6 +10,7 @@ import Foundation
 import CoreGraphics
 
 protocol MenuItemProtocol {
+    var identifier: String { get }
     var title: String { get }
     var supplementaryText: String { get }
     var height: CGFloat { get }
@@ -35,14 +36,24 @@ protocol MenuItemProtocol {
 enum MenuItemKind: Int, CaseIterable, MenuItemProtocol {
     var _kind: MenuItemKind { self }
     
-    case schedule, profile, homeGame, warmup, shop
+    case schedule, profile, warmup, homeGame, shop
+    
+    var identifier: String {
+        switch self {
+        case .schedule:     return ScheduleCell.identifier
+        case .profile:      return ProfileCell.identifier
+        case .warmup:       return WarmupCell.identifier
+        case .homeGame:     return HomeGameCell.identifier
+        default:            return ScheduleCell.identifier
+        }
+    }
     
     var title: String {
         switch self {
         case .schedule:     return "Расписание"
         case .profile:      return "Личный кабинет"
-        case .homeGame:     return "Игры хоум"
-        case .warmup:       return "Разминка"
+        case .homeGame:     return "20 хоум игр ждут вас"
+        case .warmup:       return "Ежедневная разминка"
         case .shop:         return "Магазин"
         }
     }
@@ -51,7 +62,7 @@ enum MenuItemKind: Int, CaseIterable, MenuItemProtocol {
         switch self {
         case .schedule:     return "Игры в барах"
         case .profile:      return "100 баллов"
-        case .homeGame:     return "Играть"
+        case .homeGame:     return "Есть новые"
         case .warmup:       return "Перейти"
         case .shop:         return "К покупкам"
         }
@@ -59,11 +70,11 @@ enum MenuItemKind: Int, CaseIterable, MenuItemProtocol {
     
     var height: CGFloat {
         switch self {
-        case .schedule:     return 180
-        case .profile:      return 180
-        case .homeGame:     return 180
-        case .warmup:       return 180
-        case .shop:         return 180
+        case .schedule:     return 200
+        case .profile:      return 200
+        case .homeGame:     return 245
+        case .warmup:       return 200
+        case .shop:         return 200
         }
     }
     

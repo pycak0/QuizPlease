@@ -22,7 +22,7 @@
                                 <sections/>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" systemColor="tertiarySystemGroupedBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="SY8-gP-UeO" firstAttribute="top" secondItem="3Nj-Ef-17c" secondAttribute="top" id="6bh-Jt-bga"/>
                             <constraint firstAttribute="bottom" secondItem="SY8-gP-UeO" secondAttribute="bottom" id="Rez-cq-A25"/>
@@ -31,7 +31,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Kom-ZP-QBI"/>
                     </view>
-                    <navigationItem key="navigationItem" id="5J3-Yk-Coy"/>
+                    <navigationItem key="navigationItem" id="5J3-Yk-Coy">
+                        <barButtonItem key="backBarButtonItem" title=" " id="yaf-fQ-dH4"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="SY8-gP-UeO" id="HI0-k3-E74"/>
                         <segue destination="UZG-kg-EzM" kind="show" identifier="Show ScheduleVC" id="dxZ-3Z-pfd"/>
@@ -169,9 +171,10 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="MXu-d8-TzQ" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="eis-mF-N6E">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" backIndicatorImage="backButton" backIndicatorTransitionMaskImage="backButton" id="eis-mF-N6E">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -183,4 +186,7 @@
             <point key="canvasLocation" x="-1372" y="-88"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="backButton" width="26" height="20"/>
+    </resources>
 </document>

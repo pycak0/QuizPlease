@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Gilroy-Bold.ttf">
+            <string>Gilroy-Bold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="WarmupCell" id="KGk-i7-Jjw" customClass="WarmupCell" customModule="QuizPlease" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="345" height="200"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="345" height="200"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Iaf-nd-9a9">
+                        <rect key="frame" x="16" y="8" width="313" height="184"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ежедневная разминка" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="buk-5R-3DX">
+                                <rect key="frame" x="16" y="16" width="141" height="65"/>
+                                <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="22"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Размяться" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I62-BU-7PO">
+                                <rect key="frame" x="94" y="119" width="125" height="40"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="DdU-sV-Hpb"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="16"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" name="darkBlue"/>
+                        <constraints>
+                            <constraint firstItem="buk-5R-3DX" firstAttribute="width" secondItem="Iaf-nd-9a9" secondAttribute="width" multiplier="0.45" id="0h5-mR-hP7"/>
+                            <constraint firstItem="buk-5R-3DX" firstAttribute="top" secondItem="Iaf-nd-9a9" secondAttribute="top" constant="16" id="1Ib-ap-L4h"/>
+                            <constraint firstItem="buk-5R-3DX" firstAttribute="leading" secondItem="Iaf-nd-9a9" secondAttribute="leading" constant="16" id="J5R-s1-Aqe"/>
+                            <constraint firstItem="I62-BU-7PO" firstAttribute="width" secondItem="Iaf-nd-9a9" secondAttribute="width" multiplier="0.4" id="c1g-m7-oON"/>
+                            <constraint firstItem="I62-BU-7PO" firstAttribute="centerX" secondItem="Iaf-nd-9a9" secondAttribute="centerX" id="glV-mk-w5E"/>
+                            <constraint firstAttribute="bottom" secondItem="I62-BU-7PO" secondAttribute="bottom" constant="25" id="ve9-2w-CrV"/>
+                        </constraints>
+                    </view>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="questionsImageRotated" translatesAutoresizingMaskIntoConstraints="NO" id="rFM-lV-tSv">
+                        <rect key="frame" x="173" y="12" width="140" height="111"/>
+                    </imageView>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="statueLibertyImageRotated" translatesAutoresizingMaskIntoConstraints="NO" id="J77-qt-cMB">
+                        <rect key="frame" x="242.5" y="45" width="110.5" height="110"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="J77-qt-cMB" secondAttribute="height" multiplier="1:1" id="ZLq-Zg-4iX"/>
+                        </constraints>
+                    </imageView>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="252" image="sampleQuestionRotated" translatesAutoresizingMaskIntoConstraints="NO" id="J3i-FA-TMG">
+                        <rect key="frame" x="0.0" y="93" width="94" height="103"/>
+                    </imageView>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="J3i-FA-TMG" secondAttribute="bottom" constant="4" id="0DK-1S-yhS"/>
+                    <constraint firstItem="J77-qt-cMB" firstAttribute="height" secondItem="Iaf-nd-9a9" secondAttribute="height" multiplier="0.6" id="0r6-rD-UHN"/>
+                    <constraint firstItem="Iaf-nd-9a9" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="9qN-kJ-izc"/>
+                    <constraint firstItem="I62-BU-7PO" firstAttribute="leading" secondItem="J3i-FA-TMG" secondAttribute="trailing" constant="16" id="K80-DZ-mvM"/>
+                    <constraint firstItem="Iaf-nd-9a9" firstAttribute="trailing" secondItem="rFM-lV-tSv" secondAttribute="trailing" constant="16" id="SGl-Qv-iok"/>
+                    <constraint firstItem="J77-qt-cMB" firstAttribute="centerY" secondItem="Iaf-nd-9a9" secondAttribute="centerY" id="Yds-HK-97h"/>
+                    <constraint firstItem="rFM-lV-tSv" firstAttribute="bottom" secondItem="I62-BU-7PO" secondAttribute="top" constant="-4" id="beU-aU-esL"/>
+                    <constraint firstAttribute="trailing" secondItem="J77-qt-cMB" secondAttribute="trailing" constant="-8" id="gsB-4R-g4k"/>
+                    <constraint firstItem="rFM-lV-tSv" firstAttribute="leading" secondItem="buk-5R-3DX" secondAttribute="trailing" id="iwm-dj-yGQ"/>
+                    <constraint firstItem="J3i-FA-TMG" firstAttribute="top" secondItem="buk-5R-3DX" secondAttribute="bottom" constant="4" id="l6I-rc-tsl"/>
+                    <constraint firstItem="Iaf-nd-9a9" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="lpT-EP-YM6"/>
+                    <constraint firstItem="Iaf-nd-9a9" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="mzZ-vx-0QA"/>
+                    <constraint firstItem="rFM-lV-tSv" firstAttribute="top" secondItem="Iaf-nd-9a9" secondAttribute="top" constant="4" id="rsS-sl-c49"/>
+                    <constraint firstItem="Iaf-nd-9a9" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="um5-wj-oRX"/>
+                    <constraint firstItem="J3i-FA-TMG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="xsN-6N-GEs"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="accessoryLabel" destination="I62-BU-7PO" id="25P-AV-fzX"/>
+                <outlet property="cellView" destination="Iaf-nd-9a9" id="e1Q-h6-jfA"/>
+                <outlet property="titleLabel" destination="buk-5R-3DX" id="WQS-km-uoT"/>
+            </connections>
+            <point key="canvasLocation" x="155.79710144927537" y="152.67857142857142"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="questionsImageRotated" width="141" height="89"/>
+        <image name="sampleQuestionRotated" width="96" height="103"/>
+        <image name="statueLibertyImageRotated" width="105" height="120"/>
+        <namedColor name="darkBlue">
+            <color red="0.25882352941176473" green="0.16078431372549021" blue="0.46274509803921571" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>
