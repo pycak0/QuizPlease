@@ -12,6 +12,7 @@ class ProfileCell: UITableViewCell, MenuCellItem {
     static let identifier = "ProfileCell"
     
     @IBOutlet weak var cellView: UIView!
+    @IBOutlet weak var gradientView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var accessoryLabel: UILabel!
     
@@ -21,7 +22,7 @@ class ProfileCell: UITableViewCell, MenuCellItem {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+        addGameLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didPressAddGameLabel)))
     }
     
     override func layoutSubviews() {
@@ -31,10 +32,13 @@ class ProfileCell: UITableViewCell, MenuCellItem {
     
     @objc
     private func didPressAddGameLabel() {
-        
+        print("add game label pressed")
     }
     
     func configureCell(with model: MenuItemProtocol) {
+        cellView.addGradient(colors: [.yellow, .lightOrange], frame: contentView.bounds, insertAt: 0)
+        //gradientView.addGradient(colors: [.yellow, .lightOrange], frame: contentView.bounds)
+        
         cellView.layer.cornerRadius = cellViewCornerRadius
         titleLabel.text = model.title
         accessoryLabel.text = model.supplementaryText

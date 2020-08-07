@@ -36,7 +36,7 @@ protocol MenuItemProtocol {
 enum MenuItemKind: Int, CaseIterable, MenuItemProtocol {
     var _kind: MenuItemKind { self }
     
-    case schedule, profile, warmup, homeGame, shop
+    case schedule, profile, warmup, homeGame, shop, rating
     
     var identifier: String {
         switch self {
@@ -44,6 +44,7 @@ enum MenuItemKind: Int, CaseIterable, MenuItemProtocol {
         case .profile:      return ProfileCell.identifier
         case .warmup:       return WarmupCell.identifier
         case .homeGame:     return HomeGameCell.identifier
+        case .rating:       return RatingCell.identifier
         default:            return ScheduleCell.identifier
         }
     }
@@ -55,6 +56,7 @@ enum MenuItemKind: Int, CaseIterable, MenuItemProtocol {
         case .homeGame:     return "20 хоум игр ждут вас"
         case .warmup:       return "Ежедневная разминка"
         case .shop:         return "Магазин"
+        case .rating:       return "Рейтинг команд"
         }
     }
     
@@ -65,16 +67,14 @@ enum MenuItemKind: Int, CaseIterable, MenuItemProtocol {
         case .homeGame:     return "Есть новые"
         case .warmup:       return "Перейти"
         case .shop:         return "К покупкам"
+        case .rating:       return "15. Ваша команда"
         }
     }
     
     var height: CGFloat {
         switch self {
-        case .schedule:     return 200
-        case .profile:      return 200
         case .homeGame:     return 245
-        case .warmup:       return 200
-        case .shop:         return 200
+        default:            return 200
         }
     }
     
@@ -85,6 +85,7 @@ enum MenuItemKind: Int, CaseIterable, MenuItemProtocol {
         case .homeGame:     return "Show HomeGameVC"
         case .warmup:       return "Show WarmUpVC"
         case .shop:         return "Show ShopVC"
+        case .rating:       return "Show RatingVC"
         }
     }
 }

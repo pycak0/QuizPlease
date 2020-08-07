@@ -67,6 +67,8 @@
 		A4DAF74024DDABFF00963C15 /* WarmupCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4DAF73E24DDABFF00963C15 /* WarmupCell.xib */; };
 		A4DAF74324DDBAFE00963C15 /* HomeGameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DAF74124DDBAFE00963C15 /* HomeGameCell.swift */; };
 		A4DAF74424DDBAFE00963C15 /* HomeGameCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4DAF74224DDBAFE00963C15 /* HomeGameCell.xib */; };
+		A4DAF74724DDCCAD00963C15 /* RatingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DAF74524DDCCAD00963C15 /* RatingCell.swift */; };
+		A4DAF74824DDCCAD00963C15 /* RatingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4DAF74624DDCCAD00963C15 /* RatingCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -132,6 +134,8 @@
 		A4DAF73E24DDABFF00963C15 /* WarmupCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WarmupCell.xib; sourceTree = "<group>"; };
 		A4DAF74124DDBAFE00963C15 /* HomeGameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeGameCell.swift; sourceTree = "<group>"; };
 		A4DAF74224DDBAFE00963C15 /* HomeGameCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeGameCell.xib; sourceTree = "<group>"; };
+		A4DAF74524DDCCAD00963C15 /* RatingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingCell.swift; sourceTree = "<group>"; };
+		A4DAF74624DDCCAD00963C15 /* RatingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RatingCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -360,6 +364,8 @@
 				A4DAF73E24DDABFF00963C15 /* WarmupCell.xib */,
 				A4DAF74124DDBAFE00963C15 /* HomeGameCell.swift */,
 				A4DAF74224DDBAFE00963C15 /* HomeGameCell.xib */,
+				A4DAF74524DDCCAD00963C15 /* RatingCell.swift */,
+				A4DAF74624DDCCAD00963C15 /* RatingCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -435,6 +441,7 @@
 				A4DAF73C24DD9BF400963C15 /* Gilroy-SemiBold.ttf in Resources */,
 				A4DAF73A24DD987F00963C15 /* ProfileCell.xib in Resources */,
 				A40D816324D2C6C2006D2CE3 /* Assets.xcassets in Resources */,
+				A4DAF74824DDCCAD00963C15 /* RatingCell.xib in Resources */,
 				A452E3B224D428DA002EE514 /* ShopItemCell.xib in Resources */,
 				A4DAF73624DD862500963C15 /* Gilroy-Bold.ttf in Resources */,
 				A4CC5FEE24DAEA840042B41C /* NavigationBar.xib in Resources */,
@@ -456,6 +463,7 @@
 				A40D815A24D2C6C1006D2CE3 /* AppDelegate.swift in Sources */,
 				A40B758024D9A75A006DB7D1 /* ScheduleRouter.swift in Sources */,
 				A40B758424D9A7CD006DB7D1 /* WarmupInteractor.swift in Sources */,
+				A4DAF74724DDCCAD00963C15 /* RatingCell.swift in Sources */,
 				A40B758824D9A7FD006DB7D1 /* WarmupRouter.swift in Sources */,
 				A4CC5FF024DAF7300042B41C /* NavigationBar.swift in Sources */,
 				A40D817C24D2CA04006D2CE3 /* ScheduleVC.swift in Sources */,

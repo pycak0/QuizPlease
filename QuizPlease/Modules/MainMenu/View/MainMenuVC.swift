@@ -38,6 +38,7 @@ extension MainMenuVC: MainMenuViewProtocol {
         tableView.register(UINib(nibName: ProfileCell.identifier, bundle: nil), forCellReuseIdentifier: ProfileCell.identifier)
         tableView.register(UINib(nibName: WarmupCell.identifier, bundle: nil), forCellReuseIdentifier: WarmupCell.identifier)
         tableView.register(UINib(nibName: HomeGameCell.identifier, bundle: nil), forCellReuseIdentifier: HomeGameCell.identifier)
+        tableView.register(UINib(nibName: RatingCell.identifier, bundle: nil), forCellReuseIdentifier: RatingCell.identifier)
         //tableView.register(ScheduleCell.self, forCellReuseIdentifier: ScheduleCell.identifier)
         
         tableView.delegate = self
