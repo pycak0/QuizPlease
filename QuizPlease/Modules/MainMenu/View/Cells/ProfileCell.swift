@@ -36,7 +36,10 @@ class ProfileCell: UITableViewCell, MenuCellItem {
     }
     
     func configureCell(with model: MenuItemProtocol) {
-        cellView.addGradient(colors: [.yellow, .lightOrange], frame: contentView.bounds, insertAt: 0)
+        cellView.addGradient(colors: [.yellow, .lightOrange],
+                             frame: CGRect(origin: contentView.bounds.origin,
+                                           size: CGSize(width: UIScreen.main.bounds.width,
+                                                        height: contentView.bounds.height)), insertAt: 0)
         //gradientView.addGradient(colors: [.yellow, .lightOrange], frame: contentView.bounds)
         
         cellView.layer.cornerRadius = cellViewCornerRadius
