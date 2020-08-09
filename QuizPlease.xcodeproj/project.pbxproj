@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		A40B757C24D9A744006DB7D1 /* ScheduleInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40B757B24D9A744006DB7D1 /* ScheduleInteractor.swift */; };
 		A40B757E24D9A750006DB7D1 /* SchedulePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40B757D24D9A750006DB7D1 /* SchedulePresenter.swift */; };
-		A40B758024D9A75A006DB7D1 /* ScheduleRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40B757F24D9A75A006DB7D1 /* ScheduleRouter.swift */; };
+		A40B758024D9A75A006DB7D1 /* ScheduleRouterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40B757F24D9A75A006DB7D1 /* ScheduleRouterProtocol.swift */; };
 		A40B758224D9A76F006DB7D1 /* ScheduleConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40B758124D9A76F006DB7D1 /* ScheduleConfigurator.swift */; };
 		A40B758424D9A7CD006DB7D1 /* WarmupInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40B758324D9A7CD006DB7D1 /* WarmupInteractor.swift */; };
 		A40B758624D9A7F6006DB7D1 /* WarmupPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40B758524D9A7F6006DB7D1 /* WarmupPresenter.swift */; };
@@ -47,6 +47,7 @@
 		A445E34824DE02BC0070B9FC /* TitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A445E34724DE02BC0070B9FC /* TitleLabel.swift */; };
 		A452E3B224D428DA002EE514 /* ShopItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A452E3B024D428DA002EE514 /* ShopItemCell.xib */; };
 		A452E3B424D431C5002EE514 /* DataTypesExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A452E3B324D431C5002EE514 /* DataTypesExtensions.swift */; };
+		A4B0753224DFDBFB007778A2 /* GameInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B0753124DFDBFB007778A2 /* GameInfo.swift */; };
 		A4BA1CEA24D832D600D32ADC /* MainMenuConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BA1CE924D832D600D32ADC /* MainMenuConfigurator.swift */; };
 		A4BA1CEC24D8338B00D32ADC /* MainMenuPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BA1CEB24D8338B00D32ADC /* MainMenuPresenter.swift */; };
 		A4BA1CEE24D8347300D32ADC /* MainMenuInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BA1CED24D8347300D32ADC /* MainMenuInteractor.swift */; };
@@ -75,7 +76,7 @@
 /* Begin PBXFileReference section */
 		A40B757B24D9A744006DB7D1 /* ScheduleInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleInteractor.swift; sourceTree = "<group>"; };
 		A40B757D24D9A750006DB7D1 /* SchedulePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulePresenter.swift; sourceTree = "<group>"; };
-		A40B757F24D9A75A006DB7D1 /* ScheduleRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleRouter.swift; sourceTree = "<group>"; };
+		A40B757F24D9A75A006DB7D1 /* ScheduleRouterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleRouterProtocol.swift; sourceTree = "<group>"; };
 		A40B758124D9A76F006DB7D1 /* ScheduleConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleConfigurator.swift; sourceTree = "<group>"; };
 		A40B758324D9A7CD006DB7D1 /* WarmupInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarmupInteractor.swift; sourceTree = "<group>"; };
 		A40B758524D9A7F6006DB7D1 /* WarmupPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarmupPresenter.swift; sourceTree = "<group>"; };
@@ -115,6 +116,7 @@
 		A445E34724DE02BC0070B9FC /* TitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleLabel.swift; sourceTree = "<group>"; };
 		A452E3B024D428DA002EE514 /* ShopItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShopItemCell.xib; sourceTree = "<group>"; };
 		A452E3B324D431C5002EE514 /* DataTypesExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTypesExtensions.swift; sourceTree = "<group>"; };
+		A4B0753124DFDBFB007778A2 /* GameInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameInfo.swift; sourceTree = "<group>"; };
 		A4BA1CE924D832D600D32ADC /* MainMenuConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuConfigurator.swift; sourceTree = "<group>"; };
 		A4BA1CEB24D8338B00D32ADC /* MainMenuPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuPresenter.swift; sourceTree = "<group>"; };
 		A4BA1CED24D8347300D32ADC /* MainMenuInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuInteractor.swift; sourceTree = "<group>"; };
@@ -170,9 +172,9 @@
 		A40D815824D2C6C1006D2CE3 /* QuizPlease */ = {
 			isa = PBXGroup;
 			children = (
-				A4CC5FEC24DAEA6C0042B41C /* SharedViews */,
 				A40D816724D2C6C2006D2CE3 /* Info.plist */,
 				A40D816D24D2C73D006D2CE3 /* AppDelegates */,
+				A4CC5FEC24DAEA6C0042B41C /* SharedViews */,
 				A4B828E224D8322B00D77E67 /* Entity */,
 				A40D818C24D2E3DB006D2CE3 /* Services */,
 				A4BA1CF124D83A6900D32ADC /* Modules */,
@@ -253,10 +255,10 @@
 		A40D817624D2C97E006D2CE3 /* Schedule */ = {
 			isa = PBXGroup;
 			children = (
-				A40D817B24D2CA04006D2CE3 /* ScheduleVC.swift */,
+				A4B0753024DFDB33007778A2 /* View */,
 				A40B757B24D9A744006DB7D1 /* ScheduleInteractor.swift */,
 				A40B757D24D9A750006DB7D1 /* SchedulePresenter.swift */,
-				A40B757F24D9A75A006DB7D1 /* ScheduleRouter.swift */,
+				A40B757F24D9A75A006DB7D1 /* ScheduleRouterProtocol.swift */,
 				A40B758124D9A76F006DB7D1 /* ScheduleConfigurator.swift */,
 			);
 			path = Schedule;
@@ -314,6 +316,14 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		A4B0753024DFDB33007778A2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A40D817B24D2CA04006D2CE3 /* ScheduleVC.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		A4B828DD24D8318400D77E67 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -336,6 +346,7 @@
 		A4B828E224D8322B00D77E67 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
+				A4B0753124DFDBFB007778A2 /* GameInfo.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -472,7 +483,7 @@
 			files = (
 				A4BA1CEA24D832D600D32ADC /* MainMenuConfigurator.swift in Sources */,
 				A40D815A24D2C6C1006D2CE3 /* AppDelegate.swift in Sources */,
-				A40B758024D9A75A006DB7D1 /* ScheduleRouter.swift in Sources */,
+				A40B758024D9A75A006DB7D1 /* ScheduleRouterProtocol.swift in Sources */,
 				A40B758424D9A7CD006DB7D1 /* WarmupInteractor.swift in Sources */,
 				A4DAF74724DDCCAD00963C15 /* RatingCell.swift in Sources */,
 				A40B758824D9A7FD006DB7D1 /* WarmupRouter.swift in Sources */,
@@ -521,6 +532,7 @@
 				A40B759024D9A829006DB7D1 /* HomeGameRouter.swift in Sources */,
 				A4CC5FC724DACE2D0042B41C /* ShopConfigurator.swift in Sources */,
 				A40B759824D9A852006DB7D1 /* ProfileRouter.swift in Sources */,
+				A4B0753224DFDBFB007778A2 /* GameInfo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

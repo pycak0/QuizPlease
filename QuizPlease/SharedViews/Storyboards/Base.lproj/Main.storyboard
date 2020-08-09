@@ -48,7 +48,7 @@
             </objects>
             <point key="canvasLocation" x="-565.21739130434787" y="-88.392857142857139"/>
         </scene>
-        <!--Расписание-->
+        <!--Расписание игр-->
         <scene sceneID="Wkg-ye-w7i">
             <objects>
                 <viewController id="UZG-kg-EzM" customClass="ScheduleVC" customModule="QuizPlease" customModuleProvider="target" sceneMemberID="viewController">
@@ -58,7 +58,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="udw-hb-dYR"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Расписание" id="sKi-sP-7QX"/>
+                    <navigationItem key="navigationItem" title="Расписание игр" id="sKi-sP-7QX"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BJW-H4-f8n" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

@@ -9,14 +9,15 @@
 import UIKit
 
 protocol RouterProtocol: class {
+    ///Must be weak
     var viewController: UIViewController? { get set }
     init(viewController: UIViewController)
+    func prepare(for segue: UIStoryboardSegue, sender: Any?)
 }
 
 protocol MainMenuRouterProtocol: RouterProtocol {
     //var viewController: MainMenuVC? { get set }
     func showMenuSection(_ kind: MenuItemProtocol, sender: Any?)
-    func prepare(for segue: UIStoryboardSegue, sender: Any?)
 }
 
 class MainMenuRouter: MainMenuRouterProtocol {
@@ -31,7 +32,7 @@ class MainMenuRouter: MainMenuRouterProtocol {
     }
     
     func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        print("Prepraring for segue with id \(segue.identifier!)")
+        print("Prepraring for segue with id '\(segue.identifier!)'")
     }
     
 }

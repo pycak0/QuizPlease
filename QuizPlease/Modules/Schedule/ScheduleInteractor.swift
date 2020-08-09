@@ -7,3 +7,13 @@
 //
 
 import Foundation
+
+protocol ScheduleInteractorProtocol: class {
+    func loadSchedule(completion: @escaping (Result<[GameInfo]?, Error>) -> Void)
+}
+
+class ScheduleInteractor: ScheduleInteractorProtocol {
+    func loadSchedule(completion: @escaping (Result<[GameInfo]?, Error>) -> Void) {
+        completion(.failure(NSError(domain: "loadSchedule() is not implemented", code: -1, userInfo: [:])))
+    }
+}

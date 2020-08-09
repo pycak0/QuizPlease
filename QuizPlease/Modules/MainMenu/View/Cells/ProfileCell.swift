@@ -36,15 +36,8 @@ class ProfileCell: UITableViewCell, MenuCellItem {
     }
     
     func configureCell(with model: MenuItemProtocol) {
-        cellView.addGradient(colors: [.yellow, .lightOrange],
-                             frame: CGRect(origin: contentView.bounds.origin,
-                                           size: CGSize(width: UIScreen.main.bounds.width,
-                                                        height: contentView.bounds.height)), insertAt: 0)
-        //gradientView.addGradient(colors: [.yellow, .lightOrange], frame: contentView.bounds)
-        
-        cellView.layer.cornerRadius = cellViewCornerRadius
         titleLabel.text = model.title
-        accessoryLabel.text = model.supplementaryText
+        //accessoryLabel.text = model.supplementaryText
     }
     
     func configureViews() {
@@ -53,6 +46,13 @@ class ProfileCell: UITableViewCell, MenuCellItem {
         
         addGameLabel.layer.cornerRadius = addGameLabel.frame.height / 2
         profileLabel.layer.cornerRadius = profileLabel.frame.height / 2
+        
+        cellView.layer.cornerRadius = cellViewCornerRadius
+        cellView.addGradient(colors: [.yellow, .lightOrange],
+                             frame: CGRect(origin: contentView.bounds.origin,
+                                           size: CGSize(width: UIScreen.main.bounds.width,
+                                                        height: contentView.bounds.height)), insertAt: 0)
+        //gradientView.addGradient(colors: [.yellow, .lightOrange], frame: contentView.bounds)
     }
     
 }

@@ -9,30 +9,37 @@
 import Foundation
 import CoreGraphics
 
+//MARK:- Protocol
 protocol MenuItemProtocol {
+    var _kind: MenuItemKind { get }
     var identifier: String { get }
+    var segueID: String { get }
     var title: String { get }
     var supplementaryText: String { get }
     var height: CGFloat { get }
-    var _kind: MenuItemKind { get }
 }
 
-//struct MenuItem: MenuItemProtocol {
-//    var title: String
-//    var supplementaryText: String
-//    var _kind: MenuItemKind
-//
-//    var height: CGFloat {
-//        switch kind {
-//        case .schedule:     return 180
-//        case .profile:      return 180
-//        case .homeGame:     return 180
-//        case .warmup:       return 180
-//        case .shop:         return 180
-//        }
-//    }
-//}
+//MARK:- Menu Item Struct
+struct MenuItem: MenuItemProtocol {
+    var _kind: MenuItemKind
+    var identifier: String
+    var segueID: String
 
+    var title: String
+    var supplementaryText: String
+    var height: CGFloat
+    
+    init(_ kind: MenuItemKind) {
+        _kind = kind
+        identifier = kind.identifier
+        segueID = kind.segueID
+        title = kind.title
+        supplementaryText = kind.supplementaryText
+        height = kind.height
+    }
+}
+
+//MARK:- MenuItem Kinds
 enum MenuItemKind: Int, CaseIterable, MenuItemProtocol {
     var _kind: MenuItemKind { self }
     

@@ -9,14 +9,15 @@
 import UIKit
 
 public extension UIView {
+    //MARK:- View Scale Animation
     func scaleIn(scale: CGFloat = 0.96) {
-        UIView.animate(withDuration: 0.1) {
+        UIView.animate(withDuration: 0.15) {
             self.transform = CGAffineTransform(scaleX: scale, y: scale)
         }
     }
     
     func scaleOut() {
-        UIView.animate(withDuration: 0.1) {
+        UIView.animate(withDuration: 0.15) {
             self.transform = .identity
         }
     }
@@ -73,6 +74,7 @@ public extension UIView {
 }
 
 
+//MARK:- Colors
 public extension UIColor {
     class var darkBlue: UIColor {
         return UIColor(named: "darkBlue")!

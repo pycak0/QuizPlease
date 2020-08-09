@@ -9,6 +9,7 @@
 import Foundation
 
 protocol MainMenuPresenterProtocol: class {
+    var router: MainMenuRouterProtocol! { get }
     init(view: MainMenuViewProtocol, interactor: MainMenuInteractorProtocol, router: MainMenuRouterProtocol)
     var menuItems: [MenuItemProtocol]? { get set }
     

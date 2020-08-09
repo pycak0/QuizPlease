@@ -42,7 +42,12 @@ extension UIViewController {
             customNavBar.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
             customNavBar.heightAnchor.constraint(equalToConstant: navBarHeight)
         ])
-        
+    }
+    
+    func prepareNavigationBar(title: String? = nil) {
+        navigationController?.navigationBar.barTintColor = view.backgroundColor
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationItem.titleView = TitleLabel(title: title ?? navigationItem.title ?? "")
     }
     
     var navBarHeight: CGFloat {

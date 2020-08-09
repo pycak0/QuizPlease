@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol MainMenuConfiguratorProtocol: class {
+protocol MainMenuConfiguratorProtocol {
     func configure(_ viewController: MainMenuViewProtocol)
 }
 
@@ -18,6 +18,7 @@ class MainMenuConfigurator: MainMenuConfiguratorProtocol {
         let router = MainMenuRouter(viewController: mainMenuVC)
         let presenter = MainMenuPresenter(view: mainMenuVC, interactor: interactor, router: router)
         
+        mainMenuVC.prepareNavigationBar()
         mainMenuVC.presenter = presenter
     }
     

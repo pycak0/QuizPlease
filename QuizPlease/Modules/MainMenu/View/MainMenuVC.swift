@@ -9,6 +9,7 @@
 import UIKit
 
 protocol MainMenuViewProtocol: UIViewController {
+    var configurator: MainMenuConfiguratorProtocol { get }
     var presenter: MainMenuPresenterProtocol! { get set }    
     func configureTableView()
     func reloadMenuItems()
@@ -29,9 +30,14 @@ class MainMenuVC: UIViewController {
         presenter.configureViews()
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        presenter.router.prepare(for: segue, sender: sender)
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: true)
+        navigationItem.titleView = TitleLabel(title: "Расписание игр")
     }
     
     override func viewWillDisappear(_ animated: Bool) {
