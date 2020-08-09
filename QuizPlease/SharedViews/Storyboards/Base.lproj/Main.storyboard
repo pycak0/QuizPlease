@@ -7,6 +7,11 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Gilroy-Bold.ttf">
+            <string>Gilroy-Bold</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Main MenuVC-->
         <scene sceneID="asP-If-KFj">
@@ -55,14 +60,71 @@
                     <view key="view" contentMode="scaleToFill" id="vrO-eO-2qd">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cDB-VW-MNb">
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="320" id="uUr-s1-kZd">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="320"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="uUr-s1-kZd" id="Alr-Qi-vba">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="320"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zr8-fj-LyF">
+                                                    <rect key="frame" x="16" y="8" width="382" height="304"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[кино и музыка]" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C9L-us-5OI">
+                                                            <rect key="frame" x="16" y="16" width="286.66666666666669" height="34"/>
+                                                            <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="28"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="#62" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lGp-Ex-StO">
+                                                            <rect key="frame" x="318.66666666666669" y="16" width="47.333333333333314" height="34"/>
+                                                            <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="28"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                    <constraints>
+                                                        <constraint firstItem="lGp-Ex-StO" firstAttribute="leading" secondItem="C9L-us-5OI" secondAttribute="trailing" constant="16" id="HOW-ed-7ne"/>
+                                                        <constraint firstItem="lGp-Ex-StO" firstAttribute="centerY" secondItem="C9L-us-5OI" secondAttribute="centerY" id="TBe-Tz-VOG"/>
+                                                        <constraint firstAttribute="trailing" secondItem="lGp-Ex-StO" secondAttribute="trailing" constant="16" id="TVd-aH-Cac"/>
+                                                        <constraint firstItem="C9L-us-5OI" firstAttribute="top" secondItem="zr8-fj-LyF" secondAttribute="top" constant="16" id="me9-zh-isw"/>
+                                                        <constraint firstItem="C9L-us-5OI" firstAttribute="leading" secondItem="zr8-fj-LyF" secondAttribute="leading" constant="16" id="oPR-Hh-YyR"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="zr8-fj-LyF" firstAttribute="leading" secondItem="Alr-Qi-vba" secondAttribute="leading" constant="16" id="21k-ms-JRt"/>
+                                                <constraint firstItem="zr8-fj-LyF" firstAttribute="centerY" secondItem="Alr-Qi-vba" secondAttribute="centerY" id="60f-IU-inE"/>
+                                                <constraint firstItem="zr8-fj-LyF" firstAttribute="top" secondItem="Alr-Qi-vba" secondAttribute="top" constant="8" id="Ab9-Zf-aJu"/>
+                                                <constraint firstItem="zr8-fj-LyF" firstAttribute="centerX" secondItem="Alr-Qi-vba" secondAttribute="centerX" id="VOC-Bs-3TE"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="cDB-VW-MNb" secondAttribute="bottom" id="Hh8-Zy-W5p"/>
+                            <constraint firstItem="cDB-VW-MNb" firstAttribute="leading" secondItem="udw-hb-dYR" secondAttribute="leading" id="QgZ-h5-8Uw"/>
+                            <constraint firstItem="cDB-VW-MNb" firstAttribute="top" secondItem="udw-hb-dYR" secondAttribute="top" id="SPv-pJ-HnW"/>
+                            <constraint firstItem="udw-hb-dYR" firstAttribute="trailing" secondItem="cDB-VW-MNb" secondAttribute="trailing" id="f50-Zd-UAW"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="udw-hb-dYR"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Расписание игр" id="sKi-sP-7QX"/>
+                    <navigationItem key="navigationItem" title="Расписание игр" id="sKi-sP-7QX">
+                        <barButtonItem key="rightBarButtonItem" image="filter" id="Hzz-AJ-Itd"/>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BJW-H4-f8n" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="628" y="-1369"/>
+            <point key="canvasLocation" x="627.536231884058" y="-1369.4196428571429"/>
         </scene>
         <!--Игры Хоум-->
         <scene sceneID="gZA-uw-vnK">
@@ -78,7 +140,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mZx-f5-lCt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2499" y="-1027"/>
+            <point key="canvasLocation" x="2480" y="-1093"/>
         </scene>
         <!--Разминка-->
         <scene sceneID="2LJ-Dw-0Y3">
@@ -94,7 +156,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cIr-wY-gnt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1580" y="-1227"/>
+            <point key="canvasLocation" x="1541" y="-1276"/>
         </scene>
         <!--Рейтинг команд-->
         <scene sceneID="Alv-D0-KoK">
@@ -110,7 +172,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="16X-Ca-Bqo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3058" y="-88"/>
+            <point key="canvasLocation" x="3035" y="-203"/>
         </scene>
         <!--Магазин-->
         <scene sceneID="4UR-t7-0fQ">
@@ -148,7 +210,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lmt-Kb-Xp6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2347.826086956522" y="264.50892857142856"/>
+            <point key="canvasLocation" x="2296" y="186"/>
         </scene>
         <!--Личный кабинет-->
         <scene sceneID="pqf-pT-YIM">
@@ -164,7 +226,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YNl-MC-5yN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1838" y="-417"/>
+            <point key="canvasLocation" x="1816" y="-490"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="1qP-4D-002">
@@ -188,5 +250,6 @@
     </scenes>
     <resources>
         <image name="backButton" width="26" height="20"/>
+        <image name="filter" width="42" height="42"/>
     </resources>
 </document>
