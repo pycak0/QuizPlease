@@ -22,7 +22,10 @@ class MainMenuVC: UIViewController {
     var presenter: MainMenuPresenterProtocol!
 
     @IBOutlet weak var tableView: UITableView!
-        
+    @IBOutlet weak var logoImageView: UIImageView!
+    @IBOutlet weak var menuHeader: UIView!
+    @IBOutlet weak var cityButton: UIButton!
+    
     //MARK:- Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +48,10 @@ class MainMenuVC: UIViewController {
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
+    @IBAction func cityButtonPressed(_ sender: UIButton) {
+        presenter.didSelectCityButton()
+    }
+    
 }
 
 //MARK:- View Protocol
@@ -59,6 +66,9 @@ extension MainMenuVC: MainMenuViewProtocol {
         
         tableView.delegate = self
         tableView.dataSource = self
+        
+        logoImageView.image = logoImageView.image?.withRenderingMode(.alwaysOriginal)
+        //tableView.tableHeaderView = menuHeader
     }
     
     func failureLoadingMenuItems(_ error: Error) {

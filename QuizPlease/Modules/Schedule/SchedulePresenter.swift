@@ -39,7 +39,7 @@ class SchedulePresenter: SchedulePresenterProtocol {
     var games: [GameInfo]?
     
     func configureViews() {
-        print("SchedulePresenter's configureViews() is not implemented")
+        view?.configureTableView()
     }
     
     func didSignUp(forGameAt index: Int) {

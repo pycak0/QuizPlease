@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -24,6 +25,42 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" delaysContentTouches="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="SY8-gP-UeO">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <view key="tableHeaderView" contentMode="scaleToFill" id="dyi-1h-e6n">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eiN-kO-0MN">
+                                            <rect key="frame" x="178" y="26.666666666666671" width="204" height="27"/>
+                                            <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="22"/>
+                                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <inset key="imageEdgeInsets" minX="25" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                            <state key="normal" title="Санкт-Петербург" image="arrowDown">
+                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </state>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="boolean" keyPath="titleLabel.adjustsFontSizeToFitWidth" value="YES"/>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="cityButtonPressed:" destination="bMr-9f-sbL" eventType="touchUpInside" id="5U1-uH-6Ku"/>
+                                            </connections>
+                                        </button>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoSmall" translatesAutoresizingMaskIntoConstraints="NO" id="RdR-m5-2x0">
+                                            <rect key="frame" x="16" y="10" width="60" height="60"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="RdR-m5-2x0" secondAttribute="height" multiplier="1:1" id="gxq-GA-Moy"/>
+                                                <constraint firstAttribute="width" constant="60" id="lCN-Ob-OwG"/>
+                                            </constraints>
+                                        </imageView>
+                                    </subviews>
+                                    <color key="backgroundColor" systemColor="tertiarySystemGroupedBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <constraints>
+                                        <constraint firstItem="RdR-m5-2x0" firstAttribute="centerY" secondItem="dyi-1h-e6n" secondAttribute="centerY" id="4MZ-f4-4D3"/>
+                                        <constraint firstItem="RdR-m5-2x0" firstAttribute="leading" secondItem="dyi-1h-e6n" secondAttribute="leading" constant="16" id="BBD-QR-01Q"/>
+                                        <constraint firstAttribute="trailing" secondItem="eiN-kO-0MN" secondAttribute="trailing" constant="32" id="K8P-FN-JaZ"/>
+                                        <constraint firstItem="eiN-kO-0MN" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="RdR-m5-2x0" secondAttribute="trailing" constant="16" id="ZkN-Rk-mhr"/>
+                                        <constraint firstItem="eiN-kO-0MN" firstAttribute="centerY" secondItem="RdR-m5-2x0" secondAttribute="centerY" id="fge-P8-uWA"/>
+                                    </constraints>
+                                </view>
                                 <sections/>
                             </tableView>
                         </subviews>
@@ -40,6 +77,9 @@
                         <barButtonItem key="backBarButtonItem" title=" " id="yaf-fQ-dH4"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="cityButton" destination="eiN-kO-0MN" id="Gnm-4Y-sFL"/>
+                        <outlet property="logoImageView" destination="RdR-m5-2x0" id="uB4-4K-Qcb"/>
+                        <outlet property="menuHeader" destination="dyi-1h-e6n" id="rIi-Ur-omj"/>
                         <outlet property="tableView" destination="SY8-gP-UeO" id="HI0-k3-E74"/>
                         <segue destination="UZG-kg-EzM" kind="show" identifier="Show ScheduleVC" id="dxZ-3Z-pfd"/>
                         <segue destination="O4U-gr-VTv" kind="show" identifier="Show WarmUpVC" id="3BX-4q-D0c"/>
@@ -61,40 +101,199 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cDB-VW-MNb">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" delaysContentTouches="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cDB-VW-MNb">
                                 <rect key="frame" x="0.0" y="88" width="414" height="808"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="320" id="uUr-s1-kZd">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="320"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ScheduleGameCell" rowHeight="346" id="uUr-s1-kZd" customClass="ScheduleGameCell" customModule="QuizPlease" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="346"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="uUr-s1-kZd" id="Alr-Qi-vba">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="320"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="346"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zr8-fj-LyF">
-                                                    <rect key="frame" x="16" y="8" width="382" height="304"/>
+                                                    <rect key="frame" x="16" y="8" width="382" height="330"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[кино и музыка]" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C9L-us-5OI">
-                                                            <rect key="frame" x="16" y="16" width="286.66666666666669" height="34"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="[кино и музыка]" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="17" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C9L-us-5OI">
+                                                            <rect key="frame" x="16" y="15.999999999999996" width="287" height="32.666666666666657"/>
                                                             <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="28"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="#62" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lGp-Ex-StO">
-                                                            <rect key="frame" x="318.66666666666669" y="16" width="47.333333333333314" height="34"/>
+                                                            <rect key="frame" x="319" y="15.999999999999996" width="47" height="32.666666666666657"/>
                                                             <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="28"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="eU1-eQ-AwU">
+                                                            <rect key="frame" x="16" y="64.666666666666686" width="350" height="144"/>
+                                                            <subviews>
+                                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="WSd-rf-qky">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="350" height="30"/>
+                                                                    <subviews>
+                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mapPointIcon" translatesAutoresizingMaskIntoConstraints="NO" id="E4E-ZK-GYW">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="20" height="30"/>
+                                                                            <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="width" constant="20" id="Xpj-jc-8Xt"/>
+                                                                            </constraints>
+                                                                        </imageView>
+                                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3iJ-zL-oIP">
+                                                                            <rect key="frame" x="28" y="0.0" width="209" height="30"/>
+                                                                            <subviews>
+                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uhj-Hk-GVk">
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="201" height="14"/>
+                                                                                    <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="12"/>
+                                                                                    <nil key="textColor"/>
+                                                                                    <nil key="highlightedColor"/>
+                                                                                </label>
+                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g9l-vk-Eq4">
+                                                                                    <rect key="frame" x="0.0" y="14" width="201" height="14"/>
+                                                                                    <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="12"/>
+                                                                                    <color key="textColor" systemColor="placeholderTextColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                    <nil key="highlightedColor"/>
+                                                                                </label>
+                                                                            </subviews>
+                                                                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                                            <constraints>
+                                                                                <constraint firstItem="g9l-vk-Eq4" firstAttribute="top" secondItem="uhj-Hk-GVk" secondAttribute="bottom" id="69D-bH-7kK"/>
+                                                                                <constraint firstItem="g9l-vk-Eq4" firstAttribute="leading" secondItem="3iJ-zL-oIP" secondAttribute="leading" id="7a2-8a-Vpn"/>
+                                                                                <constraint firstItem="uhj-Hk-GVk" firstAttribute="leading" secondItem="3iJ-zL-oIP" secondAttribute="leading" id="aJj-23-Pyp"/>
+                                                                                <constraint firstAttribute="trailing" secondItem="g9l-vk-Eq4" secondAttribute="trailing" constant="8" id="cGl-SD-Qiq"/>
+                                                                                <constraint firstItem="uhj-Hk-GVk" firstAttribute="top" secondItem="3iJ-zL-oIP" secondAttribute="top" id="dCp-On-fBS"/>
+                                                                                <constraint firstAttribute="trailing" secondItem="uhj-Hk-GVk" secondAttribute="trailing" constant="8" id="pLt-wD-bdR"/>
+                                                                            </constraints>
+                                                                        </view>
+                                                                        <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eJD-6p-Qtc">
+                                                                            <rect key="frame" x="245" y="0.0" width="105" height="30"/>
+                                                                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="width" constant="105" id="hEL-hX-28W"/>
+                                                                            </constraints>
+                                                                            <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="12"/>
+                                                                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                            <inset key="imageEdgeInsets" minX="30" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                                            <state key="normal" title="Где это?" image="mapIcon"/>
+                                                                            <connections>
+                                                                                <action selector="locationButtonPressed:" destination="uUr-s1-kZd" eventType="touchUpInside" id="0Sk-4P-fJS"/>
+                                                                            </connections>
+                                                                        </button>
+                                                                    </subviews>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="30" id="SMY-eS-ns6"/>
+                                                                    </constraints>
+                                                                </stackView>
+                                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="SoV-dU-unE">
+                                                                    <rect key="frame" x="0.0" y="38" width="350" height="30"/>
+                                                                    <subviews>
+                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="clockIcon" translatesAutoresizingMaskIntoConstraints="NO" id="dbq-mp-Z90">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="20" height="30"/>
+                                                                            <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="width" constant="20" id="El5-9r-fFY"/>
+                                                                            </constraints>
+                                                                        </imageView>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xZx-q8-J37">
+                                                                            <rect key="frame" x="28" y="0.0" width="209" height="30"/>
+                                                                            <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="12"/>
+                                                                            <nil key="textColor"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
+                                                                        <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="biC-lw-Llh">
+                                                                            <rect key="frame" x="245" y="0.0" width="105" height="30"/>
+                                                                            <color key="backgroundColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="width" constant="105" id="uce-fg-pMd"/>
+                                                                            </constraints>
+                                                                            <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="12"/>
+                                                                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                            <inset key="imageEdgeInsets" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                                            <state key="normal" title="Напомнить" image="bell"/>
+                                                                            <connections>
+                                                                                <action selector="remindButtonPressed:" destination="uUr-s1-kZd" eventType="touchUpInside" id="dZe-Pb-DIe"/>
+                                                                            </connections>
+                                                                        </button>
+                                                                    </subviews>
+                                                                </stackView>
+                                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="89t-BA-tXa">
+                                                                    <rect key="frame" x="0.0" y="75.999999999999986" width="350" height="30"/>
+                                                                    <subviews>
+                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="banknoteIcon" translatesAutoresizingMaskIntoConstraints="NO" id="0Ka-Ty-keu">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="20" height="30"/>
+                                                                            <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="width" constant="20" id="GHC-Ei-xG7"/>
+                                                                            </constraints>
+                                                                        </imageView>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Em3-eK-3du">
+                                                                            <rect key="frame" x="28" y="0.0" width="322" height="30"/>
+                                                                            <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="12"/>
+                                                                            <nil key="textColor"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
+                                                                    </subviews>
+                                                                </stackView>
+                                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="pDG-3F-rMI">
+                                                                    <rect key="frame" x="0.0" y="114" width="350" height="30"/>
+                                                                    <subviews>
+                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fireIcon" translatesAutoresizingMaskIntoConstraints="NO" id="P9G-GH-3wL">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="20" height="30"/>
+                                                                            <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="width" constant="20" id="eaR-DZ-vFQ"/>
+                                                                            </constraints>
+                                                                        </imageView>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Осталось мало мест" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yre-gd-kEd">
+                                                                            <rect key="frame" x="28" y="0.0" width="322" height="30"/>
+                                                                            <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="12"/>
+                                                                            <nil key="textColor"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
+                                                                    </subviews>
+                                                                </stackView>
+                                                            </subviews>
+                                                        </stackView>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LnU-kz-MRi">
+                                                            <rect key="frame" x="60" y="224.66666666666666" width="262" height="39.999999999999972"/>
+                                                            <color key="backgroundColor" name="lightGreen"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="40" id="yOk-xL-rkX"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="16"/>
+                                                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <state key="normal" title="Записаться на игру"/>
+                                                            <connections>
+                                                                <action selector="signUpButtonPressed:" destination="uUr-s1-kZd" eventType="touchUpInside" id="Kec-Yi-6dm"/>
+                                                            </connections>
+                                                        </button>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ssY-QN-VH5">
+                                                            <rect key="frame" x="149" y="280.66666666666669" width="84" height="33.333333333333314"/>
+                                                            <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="16"/>
+                                                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <state key="normal" title="Подробнее"/>
+                                                            <connections>
+                                                                <action selector="infoButtonPressed:" destination="uUr-s1-kZd" eventType="touchUpInside" id="V4d-ON-ikK"/>
+                                                            </connections>
+                                                        </button>
                                                     </subviews>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                     <constraints>
+                                                        <constraint firstItem="ssY-QN-VH5" firstAttribute="centerX" secondItem="zr8-fj-LyF" secondAttribute="centerX" id="2BK-uB-9Nt"/>
+                                                        <constraint firstItem="LnU-kz-MRi" firstAttribute="leading" secondItem="zr8-fj-LyF" secondAttribute="leading" constant="60" id="46z-ie-jTo"/>
+                                                        <constraint firstItem="LnU-kz-MRi" firstAttribute="centerX" secondItem="zr8-fj-LyF" secondAttribute="centerX" id="BfS-AF-tyk"/>
                                                         <constraint firstItem="lGp-Ex-StO" firstAttribute="leading" secondItem="C9L-us-5OI" secondAttribute="trailing" constant="16" id="HOW-ed-7ne"/>
+                                                        <constraint firstItem="LnU-kz-MRi" firstAttribute="top" secondItem="eU1-eQ-AwU" secondAttribute="bottom" constant="16" id="Nn5-OQ-OMB"/>
+                                                        <constraint firstAttribute="bottom" secondItem="ssY-QN-VH5" secondAttribute="bottom" constant="16" id="Q8s-fp-f7r"/>
                                                         <constraint firstItem="lGp-Ex-StO" firstAttribute="centerY" secondItem="C9L-us-5OI" secondAttribute="centerY" id="TBe-Tz-VOG"/>
                                                         <constraint firstAttribute="trailing" secondItem="lGp-Ex-StO" secondAttribute="trailing" constant="16" id="TVd-aH-Cac"/>
+                                                        <constraint firstItem="eU1-eQ-AwU" firstAttribute="top" secondItem="C9L-us-5OI" secondAttribute="bottom" constant="16" id="Y6q-th-Mym"/>
+                                                        <constraint firstAttribute="trailing" secondItem="eU1-eQ-AwU" secondAttribute="trailing" constant="16" id="anS-qV-DBL"/>
+                                                        <constraint firstItem="eU1-eQ-AwU" firstAttribute="leading" secondItem="zr8-fj-LyF" secondAttribute="leading" constant="16" id="cj1-2C-RqN"/>
                                                         <constraint firstItem="C9L-us-5OI" firstAttribute="top" secondItem="zr8-fj-LyF" secondAttribute="top" constant="16" id="me9-zh-isw"/>
                                                         <constraint firstItem="C9L-us-5OI" firstAttribute="leading" secondItem="zr8-fj-LyF" secondAttribute="leading" constant="16" id="oPR-Hh-YyR"/>
+                                                        <constraint firstItem="ssY-QN-VH5" firstAttribute="top" secondItem="LnU-kz-MRi" secondAttribute="bottom" constant="16" id="sae-7s-ald"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
@@ -105,6 +304,16 @@
                                                 <constraint firstItem="zr8-fj-LyF" firstAttribute="centerX" secondItem="Alr-Qi-vba" secondAttribute="centerX" id="VOC-Bs-3TE"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="cellView" destination="zr8-fj-LyF" id="mI5-O8-OvY"/>
+                                            <outlet property="nameLabel" destination="C9L-us-5OI" id="kYZ-g1-83q"/>
+                                            <outlet property="numberLabel" destination="lGp-Ex-StO" id="fdf-si-Cd0"/>
+                                            <outlet property="placeAddressLabel" destination="g9l-vk-Eq4" id="Ldx-0s-GYV"/>
+                                            <outlet property="placeNameLabel" destination="uhj-Hk-GVk" id="cFY-jn-ndi"/>
+                                            <outlet property="priceLabel" destination="Em3-eK-3du" id="mcq-Qc-Z0c"/>
+                                            <outlet property="signUpButton" destination="LnU-kz-MRi" id="ZMy-fS-xfM"/>
+                                            <outlet property="timeLabel" destination="xZx-q8-J37" id="eKU-xb-pbe"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -121,6 +330,9 @@
                     <navigationItem key="navigationItem" title="Расписание игр" id="sKi-sP-7QX">
                         <barButtonItem key="rightBarButtonItem" image="filter" id="Hzz-AJ-Itd"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="cDB-VW-MNb" id="tas-8h-Jd6"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BJW-H4-f8n" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -249,7 +461,18 @@
         </scene>
     </scenes>
     <resources>
+        <image name="arrowDown" width="20" height="12"/>
         <image name="backButton" width="26" height="20"/>
+        <image name="banknoteIcon" width="17" height="10"/>
+        <image name="bell" width="10" height="12"/>
+        <image name="clockIcon" width="14" height="14"/>
         <image name="filter" width="42" height="42"/>
+        <image name="fireIcon" width="15" height="18"/>
+        <image name="logoSmall" width="60" height="60"/>
+        <image name="mapIcon" width="13" height="10"/>
+        <image name="mapPointIcon" width="14" height="16"/>
+        <namedColor name="lightGreen">
+            <color red="0.14899999999999999" green="0.871" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

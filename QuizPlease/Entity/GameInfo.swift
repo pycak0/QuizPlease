@@ -9,8 +9,10 @@
 import Foundation
 
 struct GameInfo {
+    var gameNumber: Int
     var name: String
-    var address: String
+    var placeName: String
+    var placeAddress: String
     var time: String
     var price: Decimal
 }

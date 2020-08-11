@@ -68,9 +68,10 @@
                         <rect key="frame" x="0.0" y="100" width="110" height="145"/>
                     </imageView>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Есть новые" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AHu-Hy-3ZF">
-                        <rect key="frame" x="223" y="43" width="90" height="30"/>
+                        <rect key="frame" x="213" y="43" width="100" height="30"/>
                         <color key="backgroundColor" name="lemon"/>
                         <constraints>
+                            <constraint firstAttribute="width" constant="100" id="23k-A4-A2m"/>
                             <constraint firstAttribute="height" constant="30" id="RUA-kg-HCF"/>
                         </constraints>
                         <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="14"/>
@@ -92,7 +93,6 @@
                     <constraint firstItem="8pJ-ga-utP" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="lJ7-dg-CjN"/>
                     <constraint firstAttribute="trailing" secondItem="A5a-Gt-KSa" secondAttribute="trailing" id="mTf-nW-q3H"/>
                     <constraint firstItem="8pJ-ga-utP" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="uOA-kA-XCm"/>
-                    <constraint firstItem="AHu-Hy-3ZF" firstAttribute="leading" secondItem="47z-sT-fKa" secondAttribute="trailing" constant="-12" id="vp4-LH-kwM"/>
                     <constraint firstItem="8pJ-ga-utP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="x2Y-fz-5VN"/>
                 </constraints>
             </tableViewCellContentView>
@@ -112,10 +112,10 @@
         <image name="radioImage" width="110" height="145"/>
         <image name="teapotImage" width="178" height="246"/>
         <namedColor name="lemon">
-            <color red="1" green="0.82745098039215681" blue="0.031372549019607843" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.8901960784313725" blue="0.031372549019607843" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="olive">
-            <color red="0.57998746629999998" green="0.49541425700000002" blue="0.097996659580000006" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.57999998331069946" green="0.49500000476837158" blue="0.097999997437000275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

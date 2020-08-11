@@ -18,6 +18,7 @@ protocol RouterProtocol: class {
 protocol MainMenuRouterProtocol: RouterProtocol {
     //var viewController: MainMenuVC? { get set }
     func showMenuSection(_ kind: MenuItemProtocol, sender: Any?)
+    func showChooseCityScreen()
 }
 
 class MainMenuRouter: MainMenuRouterProtocol {
@@ -33,6 +34,10 @@ class MainMenuRouter: MainMenuRouterProtocol {
     
     func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         print("Prepraring for segue with id '\(segue.identifier!)'")
+    }
+    
+    func showChooseCityScreen() {
+        print("Choosing city is not implemented")
     }
     
 }
