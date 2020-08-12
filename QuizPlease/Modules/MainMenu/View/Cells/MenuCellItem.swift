@@ -8,10 +8,7 @@
 
 import UIKit
 
-protocol MenuCellItem: UITableViewCell {
-    ///It is both a reuse identifier and a nib name
-    static var identifier: String { get }
-
+protocol MenuCellItem: UITableViewCell, CellProtocol {
     var cellViewCornerRadius: CGFloat { get }
     
     var cellView: UIView! { get set }

@@ -332,11 +332,12 @@
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="cDB-VW-MNb" id="tas-8h-Jd6"/>
+                        <segue destination="hGT-Iz-M2s" kind="show" id="igl-eH-8rq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BJW-H4-f8n" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="627.536231884058" y="-1369.4196428571429"/>
+            <point key="canvasLocation" x="604" y="-1798"/>
         </scene>
         <!--Игры Хоум-->
         <scene sceneID="gZA-uw-vnK">
@@ -352,7 +353,59 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mZx-f5-lCt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2480" y="-1093"/>
+            <point key="canvasLocation" x="2704" y="-1098"/>
+        </scene>
+        <!--Game OrderVC-->
+        <scene sceneID="iTE-1J-euP">
+            <objects>
+                <viewController id="hGT-Iz-M2s" customClass="GameOrderVC" customModule="QuizPlease" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="bSr-Tq-E4k">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ahH-nd-hl4">
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="peopleGroupPhoto" translatesAutoresizingMaskIntoConstraints="NO" id="FKI-MS-LTd">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="270"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="270" id="cNX-GV-dAh"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstItem="FKI-MS-LTd" firstAttribute="leading" secondItem="ahH-nd-hl4" secondAttribute="leading" id="72o-NO-jb4"/>
+                                    <constraint firstAttribute="trailing" secondItem="FKI-MS-LTd" secondAttribute="trailing" id="HmQ-bX-eRh"/>
+                                    <constraint firstItem="FKI-MS-LTd" firstAttribute="top" secondItem="ahH-nd-hl4" secondAttribute="top" id="iJY-jk-71C"/>
+                                </constraints>
+                            </view>
+                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zWG-FS-gI7">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="ahH-nd-hl4" secondAttribute="bottom" id="0Jo-CQ-pW3"/>
+                            <constraint firstItem="B1B-P2-bzf" firstAttribute="trailing" secondItem="ahH-nd-hl4" secondAttribute="trailing" id="3Vm-jL-I0l"/>
+                            <constraint firstItem="B1B-P2-bzf" firstAttribute="trailing" secondItem="zWG-FS-gI7" secondAttribute="trailing" id="932-5y-cp3"/>
+                            <constraint firstItem="zWG-FS-gI7" firstAttribute="top" secondItem="bSr-Tq-E4k" secondAttribute="top" id="Ip0-0y-a5S"/>
+                            <constraint firstItem="zWG-FS-gI7" firstAttribute="leading" secondItem="B1B-P2-bzf" secondAttribute="leading" id="OqO-W8-Twt"/>
+                            <constraint firstAttribute="bottom" secondItem="zWG-FS-gI7" secondAttribute="bottom" id="QbE-cq-NmU"/>
+                            <constraint firstItem="ahH-nd-hl4" firstAttribute="leading" secondItem="B1B-P2-bzf" secondAttribute="leading" id="RxM-mB-TDI"/>
+                            <constraint firstItem="ahH-nd-hl4" firstAttribute="top" secondItem="B1B-P2-bzf" secondAttribute="top" id="yvb-Pa-gAa"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="B1B-P2-bzf"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="ts0-9H-xLu"/>
+                    <connections>
+                        <outlet property="tableView" destination="zWG-FS-gI7" id="Emk-d8-6RH"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kct-uf-a61" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1428" y="-1961"/>
         </scene>
         <!--Разминка-->
         <scene sceneID="2LJ-Dw-0Y3">
@@ -368,7 +421,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cIr-wY-gnt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1541" y="-1276"/>
+            <point key="canvasLocation" x="1725" y="-1260"/>
         </scene>
         <!--Рейтинг команд-->
         <scene sceneID="Alv-D0-KoK">
@@ -471,8 +524,9 @@
         <image name="logoSmall" width="60" height="60"/>
         <image name="mapIcon" width="13" height="10"/>
         <image name="mapPointIcon" width="14" height="16"/>
+        <image name="peopleGroupPhoto" width="512" height="274"/>
         <namedColor name="lightGreen">
-            <color red="0.14899999999999999" green="0.871" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.14900000393390656" green="0.87099999189376831" blue="0.60000002384185791" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>
