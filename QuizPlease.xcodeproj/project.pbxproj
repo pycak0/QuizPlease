@@ -45,6 +45,7 @@
 		A40F036224D4187800C381F2 /* UIKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40F036124D4187800C381F2 /* UIKitExtensions.swift */; };
 		A40F036424D419D200C381F2 /* MenuCellItemProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40F036324D419D200C381F2 /* MenuCellItemProtocol.swift */; };
 		A4147AD524E596FC007C131F /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = A4147AD424E596FC007C131F /* IQKeyboardManagerSwift */; };
+		A4147AD724E5B92D007C131F /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4147AD624E5B92D007C131F /* Place.swift */; };
 		A445E34824DE02BC0070B9FC /* TitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A445E34724DE02BC0070B9FC /* TitleLabel.swift */; };
 		A450E39624E559CD00C49AEE /* TitledTextFieldView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A450E39424E559CD00C49AEE /* TitledTextFieldView.xib */; };
 		A450E39724E559CD00C49AEE /* TitledTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A450E39524E559CD00C49AEE /* TitledTextFieldView.swift */; };
@@ -136,6 +137,7 @@
 		A40F035B24D412D700C381F2 /* ShopItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopItemCell.swift; sourceTree = "<group>"; };
 		A40F036124D4187800C381F2 /* UIKitExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitExtensions.swift; sourceTree = "<group>"; };
 		A40F036324D419D200C381F2 /* MenuCellItemProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCellItemProtocol.swift; sourceTree = "<group>"; };
+		A4147AD624E5B92D007C131F /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		A445E34724DE02BC0070B9FC /* TitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleLabel.swift; sourceTree = "<group>"; };
 		A450E39424E559CD00C49AEE /* TitledTextFieldView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TitledTextFieldView.xib; sourceTree = "<group>"; };
 		A450E39524E559CD00C49AEE /* TitledTextFieldView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitledTextFieldView.swift; sourceTree = "<group>"; };
@@ -436,6 +438,7 @@
 			isa = PBXGroup;
 			children = (
 				A4B0753124DFDBFB007778A2 /* GameInfo.swift */,
+				A4147AD624E5B92D007C131F /* Place.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -648,6 +651,7 @@
 				A4BA1CF324D84C4B00D32ADC /* MenuItem.swift in Sources */,
 				A40B759024D9A829006DB7D1 /* HomeGameRouter.swift in Sources */,
 				A4A0659D24E477E20080E0D8 /* GameInfoCell.swift in Sources */,
+				A4147AD724E5B92D007C131F /* Place.swift in Sources */,
 				A4CC5FC724DACE2D0042B41C /* ShopConfigurator.swift in Sources */,
 				A450E3A524E57A8C00C49AEE /* GameInfoItemKind.swift in Sources */,
 				A450E39D24E571C900C49AEE /* GameOrderPresenter.swift in Sources */,

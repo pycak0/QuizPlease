@@ -44,10 +44,12 @@ class GameRegisterCell: UITableViewCell, TableCellProtocol {
                 field.textField.textContentType = type.contentType
                 field.textField.autocapitalizationType = type.capitalizationType
                 field.textField.keyboardType = type.keyboardType
+                field.textField.returnKeyType = .done
             }
         }
         feedbackFieldView.textField.delegate = self
         feedbackFieldView.textField.autocapitalizationType = .sentences
+        feedbackFieldView.textField.returnKeyType = .done
     }
     
     //MARK:- Team Count Button Pressed
@@ -81,10 +83,7 @@ class GameRegisterCell: UITableViewCell, TableCellProtocol {
 //MARK:- UITextFieldDelegate
 extension GameRegisterCell: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        guard textField != phoneFieldView.textField else { return true }
-        
-        
-        return true
+        true
     }
 }
 

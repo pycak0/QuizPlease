@@ -45,10 +45,10 @@ class ScheduleGameCell: UITableViewCell {
     func configureCell(model: GameInfo) {
         nameLabel.text = model.name
         numberLabel.text = "#\(model.gameNumber)"
-        placeNameLabel.text = model.placeName
-        placeAddressLabel.text = model.placeAddress
+        placeNameLabel.text = model.place.name
+        placeAddressLabel.text = model.place.address
         timeLabel.text = "в \(model.time)"
-        priceLabel.text = "\(model.price) ₽ с человека, наличные"
+        priceLabel.text = "\(model.price) ₽ с человека"
         
         setNeedsLayout()
     }
