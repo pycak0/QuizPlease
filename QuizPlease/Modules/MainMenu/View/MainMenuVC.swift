@@ -56,19 +56,22 @@ class MainMenuVC: UIViewController {
 
 //MARK:- View Protocol
 extension MainMenuVC: MainMenuViewProtocol {
+    
     func configureTableView() {
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        logoImageView.image = logoImageView.image?.withRenderingMode(.alwaysOriginal)
+        cityButton.titleLabel?.adjustsFontSizeToFitWidth = true
+        cityButton.setTitleColor(.darkGray, for: .highlighted)
+        //tableView.tableHeaderView = menuHeader
+        
         tableView.register(UINib(nibName: ScheduleCell.identifier, bundle: nil), forCellReuseIdentifier: ScheduleCell.identifier)
         tableView.register(UINib(nibName: ProfileCell.identifier, bundle: nil), forCellReuseIdentifier: ProfileCell.identifier)
         tableView.register(UINib(nibName: WarmupCell.identifier, bundle: nil), forCellReuseIdentifier: WarmupCell.identifier)
         tableView.register(UINib(nibName: HomeGameCell.identifier, bundle: nil), forCellReuseIdentifier: HomeGameCell.identifier)
         tableView.register(UINib(nibName: RatingCell.identifier, bundle: nil), forCellReuseIdentifier: RatingCell.identifier)
         //tableView.register(ScheduleCell.self, forCellReuseIdentifier: ScheduleCell.identifier)
-        
-        tableView.delegate = self
-        tableView.dataSource = self
-        
-        logoImageView.image = logoImageView.image?.withRenderingMode(.alwaysOriginal)
-        //tableView.tableHeaderView = menuHeader
     }
     
     func failureLoadingMenuItems(_ error: Error) {
