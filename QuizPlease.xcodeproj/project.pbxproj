@@ -62,7 +62,6 @@
 		A469F75924E3084D007FB332 /* ScheduleGameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A469F75824E3084D007FB332 /* ScheduleGameCell.swift */; };
 		A498FCCC24E52ED80069F896 /* GameRegisterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A498FCCA24E52ED80069F896 /* GameRegisterCell.swift */; };
 		A498FCCD24E52ED80069F896 /* GameRegisterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A498FCCB24E52ED80069F896 /* GameRegisterCell.xib */; };
-		A498FCD024E52FCD0069F896 /* TextFieldEffects in Frameworks */ = {isa = PBXBuildFile; productRef = A498FCCF24E52FCD0069F896 /* TextFieldEffects */; };
 		A4A0659824E477860080E0D8 /* GameOrderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A0659724E477860080E0D8 /* GameOrderVC.swift */; };
 		A4A0659D24E477E20080E0D8 /* GameInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A0659B24E477E20080E0D8 /* GameInfoCell.swift */; };
 		A4A0659E24E477E20080E0D8 /* GameInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4A0659C24E477E20080E0D8 /* GameInfoCell.xib */; };
@@ -195,7 +194,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A498FCD024E52FCD0069F896 /* TextFieldEffects in Frameworks */,
 				A4147AD524E596FC007C131F /* IQKeyboardManagerSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -515,7 +513,6 @@
 			);
 			name = QuizPlease;
 			packageProductDependencies = (
-				A498FCCF24E52FCD0069F896 /* TextFieldEffects */,
 				A4147AD424E596FC007C131F /* IQKeyboardManagerSwift */,
 			);
 			productName = QuizPlease;
@@ -547,7 +544,6 @@
 			);
 			mainGroup = A40D814D24D2C6C1006D2CE3;
 			packageReferences = (
-				A498FCCE24E52FCD0069F896 /* XCRemoteSwiftPackageReference "TextFieldEffects" */,
 				A4147AD324E596FC007C131F /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 			);
 			productRefGroup = A40D815724D2C6C1006D2CE3 /* Products */;
@@ -870,14 +866,6 @@
 				minimumVersion = 6.5.6;
 			};
 		};
-		A498FCCE24E52FCD0069F896 /* XCRemoteSwiftPackageReference "TextFieldEffects" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/raulriera/TextFieldEffects";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.7.0;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -885,11 +873,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A4147AD324E596FC007C131F /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
 			productName = IQKeyboardManagerSwift;
-		};
-		A498FCCF24E52FCD0069F896 /* TextFieldEffects */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A498FCCE24E52FCD0069F896 /* XCRemoteSwiftPackageReference "TextFieldEffects" */;
-			productName = TextFieldEffects;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
