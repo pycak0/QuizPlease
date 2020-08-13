@@ -132,7 +132,7 @@
                                     <constraint firstAttribute="height" constant="132" id="CkG-OQ-Xb7"/>
                                 </constraints>
                             </view>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="2Gj-5f-DFQ">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="mutedStandard" pitchEnabled="NO" showsCompass="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Gj-5f-DFQ">
                                 <rect key="frame" x="0.0" y="176" width="347" height="132"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="132" id="WSz-Oz-576"/>

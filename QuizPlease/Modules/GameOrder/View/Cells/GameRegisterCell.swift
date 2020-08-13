@@ -26,30 +26,15 @@ class GameRegisterCell: UITableViewCell, TableCellProtocol {
     @IBOutlet weak var numberButtonsStack: UIStackView!
     @IBOutlet weak var feedbackFieldView: TitledTextFieldView!
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        configureTextFields()
+    }
+    
     //MARK:- Layout Subviews
     override func layoutSubviews() {
         super.layoutSubviews()
         configureViews()
-    }
-    
-    //MARK:- Configure Views
-    func configureViews() {
-        numberButtonsStack.arrangedSubviews.forEach {
-            $0.layer.cornerRadius = $0.frame.height / 2
-        }
-        
-        for (index, field) in (fieldsStack.arrangedSubviews as! [TitledTextFieldView]).enumerated() {
-            field.textField.delegate = self
-            if let type = TextFieldType(rawValue: index) {
-                field.textField.textContentType = type.contentType
-                field.textField.autocapitalizationType = type.capitalizationType
-                field.textField.keyboardType = type.keyboardType
-                field.textField.returnKeyType = .done
-            }
-        }
-        feedbackFieldView.textField.delegate = self
-        feedbackFieldView.textField.autocapitalizationType = .sentences
-        feedbackFieldView.textField.returnKeyType = .done
     }
     
     //MARK:- Team Count Button Pressed
@@ -64,6 +49,28 @@ class GameRegisterCell: UITableViewCell, TableCellProtocol {
         let number = Int(index) + 1
         delegate?.registerCell(self, didChangeNumberOfPeopleInTeam: number)
         select(sender, number: number)
+    }
+    
+    //MARK:- Configure Views
+    func configureViews() {
+        numberButtonsStack.arrangedSubviews.forEach {
+            $0.layer.cornerRadius = $0.frame.height / 2
+        }
+    }
+    
+    func configureTextFields() {
+        for (index, field) in (fieldsStack.arrangedSubviews as! [TitledTextFieldView]).enumerated() {
+            field.textField.delegate = self
+            if let type = TextFieldType(rawValue: index) {
+                field.textField.textContentType = type.contentType
+                field.textField.autocapitalizationType = type.capitalizationType
+                field.textField.keyboardType = type.keyboardType
+                field.textField.returnKeyType = .done
+            }
+        }
+        feedbackFieldView.textField.delegate = self
+        feedbackFieldView.textField.autocapitalizationType = .sentences
+        feedbackFieldView.textField.returnKeyType = .done
     }
     
     func select(_ button: UIButton, number: Int) {

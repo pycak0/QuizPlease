@@ -28,16 +28,16 @@
                                 <rect key="frame" x="0.0" y="0.0" width="328" height="184"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="scheduleBackground" translatesAutoresizingMaskIntoConstraints="NO" id="fY0-yR-kMt">
-                                <rect key="frame" x="0.0" y="101.33333333333331" width="328" height="82.666666666666686"/>
+                                <rect key="frame" x="0.0" y="103.33333333333331" width="328" height="82.666666666666686"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Игры в барах" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2U9-rk-Dt6">
-                                <rect key="frame" x="16" y="129.33333333333334" width="159.33333333333334" height="26.666666666666657"/>
+                                <rect key="frame" x="16" y="131.33333333333334" width="159.33333333333334" height="26.666666666666657"/>
                                 <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="22"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Расписание" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="w1D-n3-XoX">
-                                <rect key="frame" x="183.33333333333337" y="124.33333333333336" width="128.66666666666663" height="36.666666666666671"/>
+                                <rect key="frame" x="183.33333333333337" y="126.33333333333336" width="128.66666666666663" height="36.666666666666671"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="w1D-n3-XoX" secondAttribute="height" multiplier="7:2" id="RWa-TC-nuD"/>
@@ -51,7 +51,7 @@
                         <constraints>
                             <constraint firstItem="w1D-n3-XoX" firstAttribute="centerY" secondItem="fY0-yR-kMt" secondAttribute="centerY" id="3BC-f2-DXf"/>
                             <constraint firstItem="2U9-rk-Dt6" firstAttribute="leading" secondItem="fY0-yR-kMt" secondAttribute="leading" constant="16" id="8xb-cL-APO"/>
-                            <constraint firstAttribute="bottom" secondItem="fY0-yR-kMt" secondAttribute="bottom" id="9A6-Lq-Vf7"/>
+                            <constraint firstAttribute="bottom" secondItem="fY0-yR-kMt" secondAttribute="bottom" constant="-2" id="9A6-Lq-Vf7"/>
                             <constraint firstItem="fY0-yR-kMt" firstAttribute="height" secondItem="mJN-cz-dHU" secondAttribute="height" multiplier="0.45" id="D4l-hT-2Cm"/>
                             <constraint firstAttribute="trailing" secondItem="2fH-0s-OXy" secondAttribute="trailing" id="Vp2-lp-RII"/>
                             <constraint firstItem="fY0-yR-kMt" firstAttribute="leading" secondItem="mJN-cz-dHU" secondAttribute="leading" id="W3R-UQ-Ek2"/>
