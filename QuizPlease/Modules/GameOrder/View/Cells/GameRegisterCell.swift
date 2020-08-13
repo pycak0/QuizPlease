@@ -8,27 +8,49 @@
 
 import UIKit
 
+//MARK:- Delegate Protocol
+protocol GameRegisterCellDelegate: class {
+    func registerCell(_ registerCell: GameRegisterCell, didChangeNumberOfPeopleInTeam number: Int)
+}
+
 class GameRegisterCell: UITableViewCell, TableCellProtocol {
     static let identifier = "GameRegisterCell"
     
-    @IBOutlet weak var teamNameField: TitledTextFieldView!
-    @IBOutlet weak var captainNameField: TitledTextFieldView!
-    @IBOutlet weak var emailField: TitledTextFieldView!
-    @IBOutlet weak var phoneField: TitledTextFieldView!
+    weak var delegate: GameRegisterCellDelegate?
+    
+    @IBOutlet weak var teamNameFieldView: TitledTextFieldView!
+    @IBOutlet weak var captainNameFieldView: TitledTextFieldView!
+    @IBOutlet weak var emailFieldView: TitledTextFieldView!
+    @IBOutlet weak var phoneFieldView: TitledTextFieldView!
     @IBOutlet weak var fieldsStack: UIStackView!
     @IBOutlet weak var numberButtonsStack: UIStackView!
+    @IBOutlet weak var feedbackFieldView: TitledTextFieldView!
     
+    //MARK:- Layout Subviews
     override func layoutSubviews() {
         super.layoutSubviews()
         configureViews()
     }
     
+    //MARK:- Configure Views
     func configureViews() {
         numberButtonsStack.arrangedSubviews.forEach {
             $0.layer.cornerRadius = $0.frame.height / 2
         }
+        
+        for (index, field) in (fieldsStack.arrangedSubviews as! [TitledTextFieldView]).enumerated() {
+            field.textField.delegate = self
+            if let type = TextFieldType(rawValue: index) {
+                field.textField.textContentType = type.contentType
+                field.textField.autocapitalizationType = type.capitalizationType
+                field.textField.keyboardType = type.keyboardType
+            }
+        }
+        feedbackFieldView.textField.delegate = self
+        feedbackFieldView.textField.autocapitalizationType = .sentences
     }
     
+    //MARK:- Team Count Button Pressed
     @IBAction func teamCountButtonPressed(_ sender: UIButton) {
         guard let index = numberButtonsStack.arrangedSubviews.firstIndex(of: sender) else {
             return
@@ -38,6 +60,7 @@ class GameRegisterCell: UITableViewCell, TableCellProtocol {
             deselect(button)
         }
         let number = Int(index) + 1
+        delegate?.registerCell(self, didChangeNumberOfPeopleInTeam: number)
         select(sender, number: number)
     }
     
@@ -53,4 +76,55 @@ class GameRegisterCell: UITableViewCell, TableCellProtocol {
         button?.backgroundColor = .themeGray
     }
     
+}
+
+//MARK:- UITextFieldDelegate
+extension GameRegisterCell: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        guard textField != phoneFieldView.textField else { return true }
+        
+        
+        return true
+    }
+}
+
+
+//MARK:- Text Field Types
+fileprivate enum TextFieldType: Int, CaseIterable {
+    case team, captain, email, phone
+    
+    var contentType: UITextContentType {
+        switch self {
+        case .team:
+            return .nickname
+        case .captain:
+            return .name
+        case .email:
+            return .emailAddress
+        case .phone:
+            return .telephoneNumber
+        }
+    }
+    
+    var keyboardType: UIKeyboardType {
+        switch self {
+        case .email:
+            return .emailAddress
+        case .phone:
+            return .phonePad
+        default:
+            return .default
+        }
+    }
+    
+    var capitalizationType: UITextAutocapitalizationType {
+        switch self {
+        case .team:
+            return .sentences
+        case .captain:
+            return .words
+        default:
+            return .none
+        }
+    }
 }

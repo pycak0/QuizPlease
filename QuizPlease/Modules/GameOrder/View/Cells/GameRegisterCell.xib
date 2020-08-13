@@ -278,12 +278,13 @@
             <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="captainNameField" destination="Hh9-0Z-MQd" id="ec2-qg-kgr"/>
-                <outlet property="emailField" destination="qmT-cl-rCx" id="OVm-yy-VSi"/>
+                <outlet property="captainNameFieldView" destination="Hh9-0Z-MQd" id="ec2-qg-kgr"/>
+                <outlet property="emailFieldView" destination="qmT-cl-rCx" id="OVm-yy-VSi"/>
+                <outlet property="feedbackFieldView" destination="zUG-0G-NHg" id="dg9-Ly-WZc"/>
                 <outlet property="fieldsStack" destination="xw6-Bx-LR0" id="IDK-QN-DZY"/>
                 <outlet property="numberButtonsStack" destination="phS-Sp-LPA" id="yV1-mI-kXv"/>
-                <outlet property="phoneField" destination="wae-y6-ACP" id="05S-9G-Mpo"/>
-                <outlet property="teamNameField" destination="PGn-0s-Xzh" id="wZj-Ff-dwn"/>
+                <outlet property="phoneFieldView" destination="wae-y6-ACP" id="05S-9G-Mpo"/>
+                <outlet property="teamNameFieldView" destination="PGn-0s-Xzh" id="wZj-Ff-dwn"/>
             </connections>
             <point key="canvasLocation" x="263.768115942029" y="350.22321428571428"/>
         </tableViewCell>
