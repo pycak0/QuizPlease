@@ -18,9 +18,20 @@ class GameAnnotationCell: UITableViewCell, TableCellProtocol {
     weak var delegate: GameAnnotationCellDelegate?
     
     @IBOutlet weak var annotationLabel: UILabel!
+    @IBOutlet weak var signUpButton: UIButton!
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        configureViews()
+    }
     
     @IBAction func didPressSignUpButton(_ sender: UIButton) {
         delegate?.signUpButtonPressed(in: self)
+    }
+    
+    
+    func configureViews() {
+        signUpButton.layer.cornerRadius = signUpButton.frame.height / 2
     }
     
 }

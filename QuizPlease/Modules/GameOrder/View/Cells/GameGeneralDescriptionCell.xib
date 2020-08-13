@@ -39,6 +39,7 @@
                     <constraint firstItem="f3c-4d-cez" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="xxU-36-PpF"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="descriptionLabel" destination="f3c-4d-cez" id="lVZ-hI-o6j"/>

@@ -32,7 +32,7 @@
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5xa-DL-cSN">
+                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5xa-DL-cSN">
                         <rect key="frame" x="77" y="212" width="243" height="40"/>
                         <color key="backgroundColor" name="lightGreen"/>
                         <constraints>
@@ -61,6 +61,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="annotationLabel" destination="D7f-fq-T9G" id="s76-mh-zwn"/>
+                <outlet property="signUpButton" destination="5xa-DL-cSN" id="SsN-5a-3EE"/>
             </connections>
             <point key="canvasLocation" x="193.47826086956522" y="208.92857142857142"/>
         </tableViewCell>

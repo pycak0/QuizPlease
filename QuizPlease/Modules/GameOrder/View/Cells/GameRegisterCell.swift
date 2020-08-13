@@ -33,11 +33,11 @@ class GameRegisterCell: UITableViewCell, TableCellProtocol {
         guard let index = numberButtonsStack.arrangedSubviews.firstIndex(of: sender) else {
             return
         }
-        let number = Int(index) + 1
         numberButtonsStack.arrangedSubviews.forEach {
             let button = $0 as? UIButton
             deselect(button)
         }
+        let number = Int(index) + 1
         select(sender, number: number)
     }
     

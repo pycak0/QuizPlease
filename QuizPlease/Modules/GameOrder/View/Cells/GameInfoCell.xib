@@ -22,7 +22,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="379" height="340"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NEP-W8-Sc2">
+                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NEP-W8-Sc2">
                         <rect key="frame" x="16" y="16" width="347" height="308"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="sRF-HF-R6D">
@@ -125,17 +125,31 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ox9-Mw-Ahd">
+                                <rect key="frame" x="0.0" y="176" width="347" height="132"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="132" id="CkG-OQ-Xb7"/>
+                                </constraints>
+                            </view>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="2Gj-5f-DFQ">
                                 <rect key="frame" x="0.0" y="176" width="347" height="132"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="132" id="WSz-Oz-576"/>
+                                </constraints>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="sRF-HF-R6D" firstAttribute="leading" secondItem="NEP-W8-Sc2" secondAttribute="leading" constant="16" id="9Pj-5P-8pQ"/>
+                            <constraint firstAttribute="bottom" secondItem="Ox9-Mw-Ahd" secondAttribute="bottom" id="A9L-t3-I9e"/>
                             <constraint firstItem="2Gj-5f-DFQ" firstAttribute="top" secondItem="sRF-HF-R6D" secondAttribute="bottom" constant="16" id="DVe-Dv-4bQ"/>
                             <constraint firstAttribute="trailing" secondItem="2Gj-5f-DFQ" secondAttribute="trailing" id="DsD-Ve-eGe"/>
+                            <constraint firstAttribute="trailing" secondItem="Ox9-Mw-Ahd" secondAttribute="trailing" id="IVP-De-sfE"/>
                             <constraint firstAttribute="bottom" secondItem="2Gj-5f-DFQ" secondAttribute="bottom" id="WYr-F7-N5O"/>
                             <constraint firstAttribute="trailing" secondItem="sRF-HF-R6D" secondAttribute="trailing" constant="16" id="cOp-Eb-Dji"/>
+                            <constraint firstItem="Ox9-Mw-Ahd" firstAttribute="top" secondItem="sRF-HF-R6D" secondAttribute="bottom" constant="16" id="hF7-Iw-Hy9"/>
+                            <constraint firstItem="Ox9-Mw-Ahd" firstAttribute="leading" secondItem="NEP-W8-Sc2" secondAttribute="leading" id="jKy-fa-Nla"/>
                             <constraint firstItem="2Gj-5f-DFQ" firstAttribute="leading" secondItem="NEP-W8-Sc2" secondAttribute="leading" id="t5h-hx-nkM"/>
                             <constraint firstItem="sRF-HF-R6D" firstAttribute="top" secondItem="NEP-W8-Sc2" secondAttribute="top" constant="16" id="zOb-NM-gp3"/>
                         </constraints>
@@ -154,6 +168,7 @@
             <connections>
                 <outlet property="availablePlacesImageView" destination="d2e-vd-VKa" id="Tw6-Mv-l1O"/>
                 <outlet property="availablePlacesLabel" destination="7Qb-9g-r4Z" id="EM1-UA-Wrb"/>
+                <outlet property="cellView" destination="NEP-W8-Sc2" id="2E8-QM-8iK"/>
                 <outlet property="mapView" destination="2Gj-5f-DFQ" id="u2B-JE-36H"/>
                 <outlet property="placeAddressLabel" destination="wjt-md-0H9" id="cfb-fe-nKj"/>
                 <outlet property="placeNameLabel" destination="NZe-o4-Rza" id="g5f-24-Sw0"/>

@@ -377,7 +377,7 @@
                                         </constraints>
                                     </imageView>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="FKI-MS-LTd" firstAttribute="leading" secondItem="ahH-nd-hl4" secondAttribute="leading" id="72o-NO-jb4"/>
                                     <constraint firstAttribute="trailing" secondItem="FKI-MS-LTd" secondAttribute="trailing" id="HmQ-bX-eRh"/>

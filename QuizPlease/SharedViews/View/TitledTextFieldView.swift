@@ -81,7 +81,7 @@ class TitledTextFieldView: UIView {
     }
     
     @IBInspectable
-    var borderColor: UIColor = .themeGray {
+    var borderColor: UIColor = UIColor.lightGray.withAlphaComponent(0.3) {
         didSet {
             updateAppearance()
         }

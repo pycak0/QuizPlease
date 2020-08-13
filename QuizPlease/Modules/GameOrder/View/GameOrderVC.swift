@@ -82,7 +82,11 @@ extension GameOrderVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        createCell(tableView, at: indexPath)
+        //createCell(tableView, at: indexPath)
+        guard let kind = GameInfoItemKind(rawValue: indexPath.row) else { fatalError("Invalid Game Item Kind") }
+        let cell = tableView.dequeueReusableCell(withIdentifier: kind.identifier, for: indexPath) as! TableCellProtocol
+        
+        return cell
     }
     
 //    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -100,7 +104,6 @@ extension GameOrderVC: UIScrollViewDelegate {
             gameImageView.transform = .identity
             return
         }
-        print(scrollView.safeAreaInsets.top)
         let scale = (1 + abs(offset) / 500)
         gameImageView.transform = CGAffineTransform(scaleX: scale, y: scale)
     }

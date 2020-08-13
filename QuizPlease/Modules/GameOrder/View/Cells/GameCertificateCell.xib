@@ -23,7 +23,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="210"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="У вас есть сертификат Квиз, плиз! ?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oeN-kq-8Mf">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="У Вас есть сертификат Квиз, плиз! ?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oeN-kq-8Mf">
                         <rect key="frame" x="16" y="20" width="288" height="32"/>
                         <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="16"/>
                         <nil key="textColor"/>
@@ -31,34 +31,29 @@
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rfo-0R-A9X" customClass="TitledTextFieldView" customModule="QuizPlease" customModuleProvider="target">
                         <rect key="frame" x="16" y="72" width="288" height="70"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="536-wa-idn">
-                                <rect key="frame" x="226" y="8" width="54" height="54"/>
-                                <color key="backgroundColor" name="lightGreen"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="536-wa-idn" secondAttribute="height" multiplier="1:1" id="sc7-n4-DVF"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="16"/>
-                                <state key="normal" title="OK">
-                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="okButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="qkJ-h8-VEY"/>
-                                </connections>
-                            </button>
-                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="70" id="0LA-QR-ilB"/>
-                            <constraint firstItem="536-wa-idn" firstAttribute="top" secondItem="Rfo-0R-A9X" secondAttribute="top" constant="8" id="Wxa-u1-aX1"/>
-                            <constraint firstAttribute="trailing" secondItem="536-wa-idn" secondAttribute="trailing" constant="8" id="faH-Hq-vf1"/>
-                            <constraint firstItem="536-wa-idn" firstAttribute="centerY" secondItem="Rfo-0R-A9X" secondAttribute="centerY" id="mAs-Fi-x0w"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="string" keyPath="title" value="Введите номер сертификата"/>
                             <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="XXXXXXX"/>
                         </userDefinedRuntimeAttributes>
                     </view>
+                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="536-wa-idn">
+                        <rect key="frame" x="242" y="80" width="54" height="54"/>
+                        <color key="backgroundColor" name="lightGreen"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="536-wa-idn" secondAttribute="height" multiplier="1:1" id="sc7-n4-DVF"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="16"/>
+                        <state key="normal" title="OK">
+                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
+                        <connections>
+                            <action selector="okButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="qkJ-h8-VEY"/>
+                        </connections>
+                    </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Для активации сертификатов от наших партнеров свяжитесь с нами" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JVn-ZP-lhf">
                         <rect key="frame" x="32" y="162" width="256" height="28"/>
                         <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="12"/>
@@ -69,19 +64,23 @@
                 <constraints>
                     <constraint firstItem="JVn-ZP-lhf" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="0Ht-Z3-Hd9"/>
                     <constraint firstItem="Rfo-0R-A9X" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="0kF-sz-nRz"/>
+                    <constraint firstItem="536-wa-idn" firstAttribute="top" secondItem="Rfo-0R-A9X" secondAttribute="top" constant="8" id="3JH-nS-S55"/>
                     <constraint firstItem="JVn-ZP-lhf" firstAttribute="top" secondItem="Rfo-0R-A9X" secondAttribute="bottom" constant="20" id="7Zk-LD-b2q"/>
                     <constraint firstAttribute="trailing" secondItem="oeN-kq-8Mf" secondAttribute="trailing" constant="16" id="FGM-Id-H29"/>
+                    <constraint firstItem="536-wa-idn" firstAttribute="centerY" secondItem="Rfo-0R-A9X" secondAttribute="centerY" id="KXw-mD-Osk"/>
                     <constraint firstItem="oeN-kq-8Mf" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="LKC-XU-KrF"/>
                     <constraint firstItem="Rfo-0R-A9X" firstAttribute="top" secondItem="oeN-kq-8Mf" secondAttribute="bottom" constant="20" id="QQr-hj-veW"/>
                     <constraint firstAttribute="trailing" secondItem="Rfo-0R-A9X" secondAttribute="trailing" constant="16" id="UBc-Ao-V5E"/>
                     <constraint firstItem="JVn-ZP-lhf" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="32" id="aTk-JM-KLV"/>
                     <constraint firstAttribute="bottom" secondItem="JVn-ZP-lhf" secondAttribute="bottom" constant="20" id="ptT-qi-FSf"/>
                     <constraint firstItem="oeN-kq-8Mf" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="rUc-iN-uGU"/>
+                    <constraint firstItem="Rfo-0R-A9X" firstAttribute="trailing" secondItem="536-wa-idn" secondAttribute="trailing" constant="8" id="sIY-xi-yCJ"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="fieldView" destination="Rfo-0R-A9X" id="wNb-Nq-2Oz"/>
+                <outlet property="okButton" destination="536-wa-idn" id="H6x-Ix-PdP"/>
             </connections>
             <point key="canvasLocation" x="137.68115942028987" y="180.46875"/>
         </tableViewCell>

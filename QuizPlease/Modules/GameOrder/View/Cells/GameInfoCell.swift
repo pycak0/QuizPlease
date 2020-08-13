@@ -12,6 +12,7 @@ import MapKit
 class GameInfoCell: UITableViewCell, TableCellProtocol {
     static let identifier = "GameInfoCell"
     
+    @IBOutlet weak var cellView: UIView!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var placeNameLabel: UILabel!
@@ -20,5 +21,14 @@ class GameInfoCell: UITableViewCell, TableCellProtocol {
     @IBOutlet weak var availablePlacesLabel: UILabel!
     
     @IBOutlet weak var mapView: MKMapView!
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        configureViews()
+    }
+    
+    func configureViews() {
+        cellView.layer.cornerRadius = 20
+    }
     
 }

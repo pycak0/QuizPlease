@@ -17,6 +17,14 @@ class GameCertificateCell: UITableViewCell, TableCellProtocol {
     
     weak var delegate: CertificateCellDelegate?
     
+    @IBOutlet weak var okButton: UIButton!
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        contentView.backgroundColor = UIColor.lightGreen.withAlphaComponent(0.2)
+        okButton.layer.cornerRadius = 10
+    }
+    
     @IBOutlet weak var fieldView: TitledTextFieldView!
     
     @IBAction func okButtonPressed(_ sender: UIButton) {
