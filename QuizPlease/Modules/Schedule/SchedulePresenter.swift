@@ -18,6 +18,7 @@ protocol SchedulePresenterProtocol: class {
     func didSignUp(forGameAt index: Int)
     func didPressInfoButton(forGameAt index: Int)
     func didAskNotification(forGameAt index: Int)
+    func didAskLocation(forGameAt index: Int)
     
     //MARK:- Need to Create a data structure for filters
     func didChangeScheduleFilter(newFilter: Any?)
@@ -60,6 +61,12 @@ class SchedulePresenter: SchedulePresenterProtocol {
     func didPressInfoButton(forGameAt index: Int) {
         guard let game = games?[index] else { return }
         router.showGameInfo(game)
+    }
+    
+    func didAskLocation(forGameAt index: Int) {
+        guard let game = games?[index] else { return }
+        let place = game.place
+        interactor.openInMaps(placeName: place.name, withLongitutde: place.longitude, andLatitude: place.latitude)
     }
     
     func didAskNotification(forGameAt index: Int) {

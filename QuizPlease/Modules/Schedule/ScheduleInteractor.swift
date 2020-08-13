@@ -10,6 +10,8 @@ import Foundation
 
 protocol ScheduleInteractorProtocol: class {
     func loadSchedule(completion: @escaping (Result<[GameInfo]?, Error>) -> Void)
+    
+    func openInMaps(placeName: String, withLongitutde lon: Double, andLatitude lat: Double)
 }
 
 class ScheduleInteractor: ScheduleInteractorProtocol {
@@ -21,4 +23,9 @@ class ScheduleInteractor: ScheduleInteractorProtocol {
         }
         completion(.success(games))
     }
+    
+    func openInMaps(placeName: String, withLongitutde lon: Double, andLatitude lat: Double) {
+        MapService.openMap(for: placeName, withLongitude: lon, andLatitude: lat)
+    }
+    
 }

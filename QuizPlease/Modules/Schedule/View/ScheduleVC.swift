@@ -84,7 +84,7 @@ extension ScheduleVC: ScheduleGameCellDelegate {
     
     func locationButtonPressed(in cell: ScheduleGameCell) {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
-        //presenter.
+        presenter.didAskLocation(forGameAt: indexPath.row)
     }
     
     func remindButtonPressed(in cell: ScheduleGameCell) {
