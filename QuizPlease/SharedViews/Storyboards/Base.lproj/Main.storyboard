@@ -101,11 +101,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" delaysContentTouches="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cDB-VW-MNb">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" delaysContentTouches="NO" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cDB-VW-MNb">
                                 <rect key="frame" x="0.0" y="88" width="414" height="808"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ScheduleGameCell" rowHeight="346" id="uUr-s1-kZd" customClass="ScheduleGameCell" customModule="QuizPlease" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ScheduleGameCell" rowHeight="346" id="uUr-s1-kZd" customClass="ScheduleGameCell" customModule="QuizPlease" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="346"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="uUr-s1-kZd" id="Alr-Qi-vba">
@@ -166,7 +167,7 @@
                                                                                 <constraint firstAttribute="trailing" secondItem="uhj-Hk-GVk" secondAttribute="trailing" constant="8" id="pLt-wD-bdR"/>
                                                                             </constraints>
                                                                         </view>
-                                                                        <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eJD-6p-Qtc">
+                                                                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eJD-6p-Qtc">
                                                                             <rect key="frame" x="245" y="0.0" width="105" height="30"/>
                                                                             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <constraints>
@@ -201,7 +202,7 @@
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
-                                                                        <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="biC-lw-Llh">
+                                                                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="biC-lw-Llh">
                                                                             <rect key="frame" x="245" y="0.0" width="105" height="30"/>
                                                                             <color key="backgroundColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <constraints>
@@ -255,7 +256,7 @@
                                                                 </stackView>
                                                             </subviews>
                                                         </stackView>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LnU-kz-MRi">
+                                                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LnU-kz-MRi">
                                                             <rect key="frame" x="60" y="224.66666666666666" width="262" height="39.999999999999972"/>
                                                             <color key="backgroundColor" name="lightGreen"/>
                                                             <constraints>
@@ -306,11 +307,13 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="cellView" destination="zr8-fj-LyF" id="mI5-O8-OvY"/>
+                                            <outlet property="locationButton" destination="eJD-6p-Qtc" id="x8L-RD-XHo"/>
                                             <outlet property="nameLabel" destination="C9L-us-5OI" id="kYZ-g1-83q"/>
                                             <outlet property="numberLabel" destination="lGp-Ex-StO" id="fdf-si-Cd0"/>
                                             <outlet property="placeAddressLabel" destination="g9l-vk-Eq4" id="Ldx-0s-GYV"/>
                                             <outlet property="placeNameLabel" destination="uhj-Hk-GVk" id="cFY-jn-ndi"/>
                                             <outlet property="priceLabel" destination="Em3-eK-3du" id="mcq-Qc-Z0c"/>
+                                            <outlet property="remindButton" destination="biC-lw-Llh" id="Pnr-fd-ZfG"/>
                                             <outlet property="signUpButton" destination="LnU-kz-MRi" id="ZMy-fS-xfM"/>
                                             <outlet property="timeLabel" destination="xZx-q8-J37" id="eKU-xb-pbe"/>
                                         </connections>
@@ -328,11 +331,12 @@
                         <viewLayoutGuide key="safeArea" id="udw-hb-dYR"/>
                     </view>
                     <navigationItem key="navigationItem" title="Расписание игр" id="sKi-sP-7QX">
+                        <barButtonItem key="backBarButtonItem" title=" " id="vEW-Kt-v18"/>
                         <barButtonItem key="rightBarButtonItem" image="filter" id="Hzz-AJ-Itd"/>
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="cDB-VW-MNb" id="tas-8h-Jd6"/>
-                        <segue destination="hGT-Iz-M2s" kind="show" id="igl-eH-8rq"/>
+                        <segue destination="hGT-Iz-M2s" kind="show" identifier="ShowGameInfo" id="igl-eH-8rq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BJW-H4-f8n" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -380,9 +384,10 @@
                                     <constraint firstItem="FKI-MS-LTd" firstAttribute="top" secondItem="ahH-nd-hl4" secondAttribute="top" id="iJY-jk-71C"/>
                                 </constraints>
                             </view>
-                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zWG-FS-gI7">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" delaysContentTouches="NO" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zWG-FS-gI7">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -400,6 +405,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="ts0-9H-xLu"/>
                     <connections>
+                        <outlet property="gameImageView" destination="FKI-MS-LTd" id="JxS-99-I7O"/>
                         <outlet property="tableView" destination="zWG-FS-gI7" id="Emk-d8-6RH"/>
                     </connections>
                 </viewController>

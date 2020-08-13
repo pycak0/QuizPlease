@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -43,17 +43,30 @@
 		A40D818B24D2D24C006D2CE3 /* ScheduleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A40D818924D2D24C006D2CE3 /* ScheduleCell.xib */; };
 		A40F035D24D412D700C381F2 /* ShopItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40F035B24D412D700C381F2 /* ShopItemCell.swift */; };
 		A40F036224D4187800C381F2 /* UIKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40F036124D4187800C381F2 /* UIKitExtensions.swift */; };
-		A40F036424D419D200C381F2 /* MenuCellItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40F036324D419D200C381F2 /* MenuCellItem.swift */; };
+		A40F036424D419D200C381F2 /* MenuCellItemProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40F036324D419D200C381F2 /* MenuCellItemProtocol.swift */; };
+		A4147AD524E596FC007C131F /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = A4147AD424E596FC007C131F /* IQKeyboardManagerSwift */; };
 		A445E34824DE02BC0070B9FC /* TitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A445E34724DE02BC0070B9FC /* TitleLabel.swift */; };
+		A450E39624E559CD00C49AEE /* TitledTextFieldView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A450E39424E559CD00C49AEE /* TitledTextFieldView.xib */; };
+		A450E39724E559CD00C49AEE /* TitledTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A450E39524E559CD00C49AEE /* TitledTextFieldView.swift */; };
+		A450E39A24E564A900C49AEE /* GameCertificateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A450E39824E564A900C49AEE /* GameCertificateCell.swift */; };
+		A450E39B24E564A900C49AEE /* GameCertificateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A450E39924E564A900C49AEE /* GameCertificateCell.xib */; };
+		A450E39D24E571C900C49AEE /* GameOrderPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A450E39C24E571C900C49AEE /* GameOrderPresenter.swift */; };
+		A450E39F24E5729200C49AEE /* GameOrderConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A450E39E24E5729200C49AEE /* GameOrderConfigurator.swift */; };
+		A450E3A124E5732200C49AEE /* GameOrderInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A450E3A024E5732200C49AEE /* GameOrderInteractor.swift */; };
+		A450E3A324E5735400C49AEE /* GameOrderRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A450E3A224E5735400C49AEE /* GameOrderRouter.swift */; };
+		A450E3A524E57A8C00C49AEE /* GameInfoItemKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = A450E3A424E57A8C00C49AEE /* GameInfoItemKind.swift */; };
 		A452E3B224D428DA002EE514 /* ShopItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A452E3B024D428DA002EE514 /* ShopItemCell.xib */; };
 		A452E3B424D431C5002EE514 /* DataTypesExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A452E3B324D431C5002EE514 /* DataTypesExtensions.swift */; };
 		A469F75924E3084D007FB332 /* ScheduleGameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A469F75824E3084D007FB332 /* ScheduleGameCell.swift */; };
+		A498FCCC24E52ED80069F896 /* GameRegisterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A498FCCA24E52ED80069F896 /* GameRegisterCell.swift */; };
+		A498FCCD24E52ED80069F896 /* GameRegisterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A498FCCB24E52ED80069F896 /* GameRegisterCell.xib */; };
+		A498FCD024E52FCD0069F896 /* TextFieldEffects in Frameworks */ = {isa = PBXBuildFile; productRef = A498FCCF24E52FCD0069F896 /* TextFieldEffects */; };
 		A4A0659824E477860080E0D8 /* GameOrderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A0659724E477860080E0D8 /* GameOrderVC.swift */; };
 		A4A0659D24E477E20080E0D8 /* GameInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A0659B24E477E20080E0D8 /* GameInfoCell.swift */; };
 		A4A0659E24E477E20080E0D8 /* GameInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4A0659C24E477E20080E0D8 /* GameInfoCell.xib */; };
 		A4A065A224E47D1F0080E0D8 /* GameAnnotationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A065A024E47D1F0080E0D8 /* GameAnnotationCell.swift */; };
 		A4A065A324E47D1F0080E0D8 /* GameAnnotationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4A065A124E47D1F0080E0D8 /* GameAnnotationCell.xib */; };
-		A4A065A524E47D460080E0D8 /* CellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A065A424E47D460080E0D8 /* CellProtocol.swift */; };
+		A4A065A524E47D460080E0D8 /* TableCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A065A424E47D460080E0D8 /* TableCellProtocol.swift */; };
 		A4A065A724E47E510080E0D8 /* Gilroy-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A4A065A624E47E500080E0D8 /* Gilroy-Medium.ttf */; };
 		A4A065AA24E4812F0080E0D8 /* GameGeneralDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A065A824E4812F0080E0D8 /* GameGeneralDescriptionCell.swift */; };
 		A4A065AB24E4812F0080E0D8 /* GameGeneralDescriptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4A065A924E4812F0080E0D8 /* GameGeneralDescriptionCell.xib */; };
@@ -122,17 +135,28 @@
 		A40D818924D2D24C006D2CE3 /* ScheduleCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScheduleCell.xib; sourceTree = "<group>"; };
 		A40F035B24D412D700C381F2 /* ShopItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopItemCell.swift; sourceTree = "<group>"; };
 		A40F036124D4187800C381F2 /* UIKitExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitExtensions.swift; sourceTree = "<group>"; };
-		A40F036324D419D200C381F2 /* MenuCellItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCellItem.swift; sourceTree = "<group>"; };
+		A40F036324D419D200C381F2 /* MenuCellItemProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCellItemProtocol.swift; sourceTree = "<group>"; };
 		A445E34724DE02BC0070B9FC /* TitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleLabel.swift; sourceTree = "<group>"; };
+		A450E39424E559CD00C49AEE /* TitledTextFieldView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TitledTextFieldView.xib; sourceTree = "<group>"; };
+		A450E39524E559CD00C49AEE /* TitledTextFieldView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitledTextFieldView.swift; sourceTree = "<group>"; };
+		A450E39824E564A900C49AEE /* GameCertificateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCertificateCell.swift; sourceTree = "<group>"; };
+		A450E39924E564A900C49AEE /* GameCertificateCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameCertificateCell.xib; sourceTree = "<group>"; };
+		A450E39C24E571C900C49AEE /* GameOrderPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOrderPresenter.swift; sourceTree = "<group>"; };
+		A450E39E24E5729200C49AEE /* GameOrderConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOrderConfigurator.swift; sourceTree = "<group>"; };
+		A450E3A024E5732200C49AEE /* GameOrderInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOrderInteractor.swift; sourceTree = "<group>"; };
+		A450E3A224E5735400C49AEE /* GameOrderRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOrderRouter.swift; sourceTree = "<group>"; };
+		A450E3A424E57A8C00C49AEE /* GameInfoItemKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameInfoItemKind.swift; sourceTree = "<group>"; };
 		A452E3B024D428DA002EE514 /* ShopItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShopItemCell.xib; sourceTree = "<group>"; };
 		A452E3B324D431C5002EE514 /* DataTypesExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTypesExtensions.swift; sourceTree = "<group>"; };
 		A469F75824E3084D007FB332 /* ScheduleGameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleGameCell.swift; sourceTree = "<group>"; };
+		A498FCCA24E52ED80069F896 /* GameRegisterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRegisterCell.swift; sourceTree = "<group>"; };
+		A498FCCB24E52ED80069F896 /* GameRegisterCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameRegisterCell.xib; sourceTree = "<group>"; };
 		A4A0659724E477860080E0D8 /* GameOrderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOrderVC.swift; sourceTree = "<group>"; };
 		A4A0659B24E477E20080E0D8 /* GameInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameInfoCell.swift; sourceTree = "<group>"; };
 		A4A0659C24E477E20080E0D8 /* GameInfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameInfoCell.xib; sourceTree = "<group>"; };
 		A4A065A024E47D1F0080E0D8 /* GameAnnotationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameAnnotationCell.swift; sourceTree = "<group>"; };
 		A4A065A124E47D1F0080E0D8 /* GameAnnotationCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameAnnotationCell.xib; sourceTree = "<group>"; };
-		A4A065A424E47D460080E0D8 /* CellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellProtocol.swift; sourceTree = "<group>"; };
+		A4A065A424E47D460080E0D8 /* TableCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableCellProtocol.swift; sourceTree = "<group>"; };
 		A4A065A624E47E500080E0D8 /* Gilroy-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-Medium.ttf"; sourceTree = "<group>"; };
 		A4A065A824E4812F0080E0D8 /* GameGeneralDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameGeneralDescriptionCell.swift; sourceTree = "<group>"; };
 		A4A065A924E4812F0080E0D8 /* GameGeneralDescriptionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameGeneralDescriptionCell.xib; sourceTree = "<group>"; };
@@ -167,6 +191,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A498FCD024E52FCD0069F896 /* TextFieldEffects in Frameworks */,
+				A4147AD524E596FC007C131F /* IQKeyboardManagerSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -332,7 +358,9 @@
 				A4CC5FED24DAEA840042B41C /* NavigationBar.xib */,
 				A4CC5FEF24DAF7300042B41C /* NavigationBar.swift */,
 				A445E34724DE02BC0070B9FC /* TitleLabel.swift */,
-				A4A065A424E47D460080E0D8 /* CellProtocol.swift */,
+				A4A065A424E47D460080E0D8 /* TableCellProtocol.swift */,
+				A450E39524E559CD00C49AEE /* TitledTextFieldView.swift */,
+				A450E39424E559CD00C49AEE /* TitledTextFieldView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -341,6 +369,10 @@
 			isa = PBXGroup;
 			children = (
 				A4A0659624E477720080E0D8 /* View */,
+				A450E3A024E5732200C49AEE /* GameOrderInteractor.swift */,
+				A450E39C24E571C900C49AEE /* GameOrderPresenter.swift */,
+				A450E3A224E5735400C49AEE /* GameOrderRouter.swift */,
+				A450E39E24E5729200C49AEE /* GameOrderConfigurator.swift */,
 			);
 			path = GameOrder;
 			sourceTree = "<group>";
@@ -349,6 +381,7 @@
 			isa = PBXGroup;
 			children = (
 				A4A0659724E477860080E0D8 /* GameOrderVC.swift */,
+				A450E3A424E57A8C00C49AEE /* GameInfoItemKind.swift */,
 				A4A0659F24E477E70080E0D8 /* Cells */,
 			);
 			path = View;
@@ -357,12 +390,16 @@
 		A4A0659F24E477E70080E0D8 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				A4A0659B24E477E20080E0D8 /* GameInfoCell.swift */,
-				A4A0659C24E477E20080E0D8 /* GameInfoCell.xib */,
 				A4A065A024E47D1F0080E0D8 /* GameAnnotationCell.swift */,
 				A4A065A124E47D1F0080E0D8 /* GameAnnotationCell.xib */,
+				A4A0659B24E477E20080E0D8 /* GameInfoCell.swift */,
+				A4A0659C24E477E20080E0D8 /* GameInfoCell.xib */,
 				A4A065A824E4812F0080E0D8 /* GameGeneralDescriptionCell.swift */,
 				A4A065A924E4812F0080E0D8 /* GameGeneralDescriptionCell.xib */,
+				A498FCCA24E52ED80069F896 /* GameRegisterCell.swift */,
+				A498FCCB24E52ED80069F896 /* GameRegisterCell.xib */,
+				A450E39824E564A900C49AEE /* GameCertificateCell.swift */,
+				A450E39924E564A900C49AEE /* GameCertificateCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -430,7 +467,7 @@
 		A4DAF73324DD80CB00963C15 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				A40F036324D419D200C381F2 /* MenuCellItem.swift */,
+				A40F036324D419D200C381F2 /* MenuCellItemProtocol.swift */,
 				A40D818824D2D24C006D2CE3 /* ScheduleCell.swift */,
 				A40D818924D2D24C006D2CE3 /* ScheduleCell.xib */,
 				A4DAF73724DD987F00963C15 /* ProfileCell.swift */,
@@ -471,6 +508,10 @@
 			dependencies = (
 			);
 			name = QuizPlease;
+			packageProductDependencies = (
+				A498FCCF24E52FCD0069F896 /* TextFieldEffects */,
+				A4147AD424E596FC007C131F /* IQKeyboardManagerSwift */,
+			);
 			productName = QuizPlease;
 			productReference = A40D815624D2C6C1006D2CE3 /* QuizPlease.app */;
 			productType = "com.apple.product-type.application";
@@ -499,6 +540,10 @@
 				Base,
 			);
 			mainGroup = A40D814D24D2C6C1006D2CE3;
+			packageReferences = (
+				A498FCCE24E52FCD0069F896 /* XCRemoteSwiftPackageReference "TextFieldEffects" */,
+				A4147AD324E596FC007C131F /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
+			);
 			productRefGroup = A40D815724D2C6C1006D2CE3 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -513,6 +558,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A450E39624E559CD00C49AEE /* TitledTextFieldView.xib in Resources */,
 				A40D816624D2C6C2006D2CE3 /* LaunchScreen.storyboard in Resources */,
 				A4DAF73C24DD9BF400963C15 /* Gilroy-SemiBold.ttf in Resources */,
 				A4A065A324E47D1F0080E0D8 /* GameAnnotationCell.xib in Resources */,
@@ -520,6 +566,7 @@
 				A40D816324D2C6C2006D2CE3 /* Assets.xcassets in Resources */,
 				A4DAF74824DDCCAD00963C15 /* RatingCell.xib in Resources */,
 				A452E3B224D428DA002EE514 /* ShopItemCell.xib in Resources */,
+				A450E39B24E564A900C49AEE /* GameCertificateCell.xib in Resources */,
 				A4A065A724E47E510080E0D8 /* Gilroy-Medium.ttf in Resources */,
 				A4DAF73624DD862500963C15 /* Gilroy-Bold.ttf in Resources */,
 				A4CC5FEE24DAEA840042B41C /* NavigationBar.xib in Resources */,
@@ -529,6 +576,7 @@
 				A4DAF74024DDABFF00963C15 /* WarmupCell.xib in Resources */,
 				A40D818B24D2D24C006D2CE3 /* ScheduleCell.xib in Resources */,
 				A40D816124D2C6C1006D2CE3 /* Main.storyboard in Resources */,
+				A498FCCD24E52ED80069F896 /* GameRegisterCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -544,6 +592,7 @@
 				A40D815A24D2C6C1006D2CE3 /* AppDelegate.swift in Sources */,
 				A40B758024D9A75A006DB7D1 /* ScheduleRouterProtocol.swift in Sources */,
 				A40B758424D9A7CD006DB7D1 /* WarmupInteractor.swift in Sources */,
+				A450E3A124E5732200C49AEE /* GameOrderInteractor.swift in Sources */,
 				A4DAF74724DDCCAD00963C15 /* RatingCell.swift in Sources */,
 				A40B758824D9A7FD006DB7D1 /* WarmupRouter.swift in Sources */,
 				A4CC5FF024DAF7300042B41C /* NavigationBar.swift in Sources */,
@@ -553,6 +602,7 @@
 				A40B75A024D9A875006DB7D1 /* RatingRouter.swift in Sources */,
 				A40B759C24D9A868006DB7D1 /* RatingInteractor.swift in Sources */,
 				A40F036224D4187800C381F2 /* UIKitExtensions.swift in Sources */,
+				A450E39F24E5729200C49AEE /* GameOrderConfigurator.swift in Sources */,
 				A40B758224D9A76F006DB7D1 /* ScheduleConfigurator.swift in Sources */,
 				A4BA1CEC24D8338B00D32ADC /* MainMenuPresenter.swift in Sources */,
 				A4CC5FC124DACE0E0042B41C /* ShopInteractor.swift in Sources */,
@@ -563,23 +613,27 @@
 				A40D818224D2CA30006D2CE3 /* ProfileVC.swift in Sources */,
 				A40B759224D9A836006DB7D1 /* HomeGameConfigurator.swift in Sources */,
 				A4DAF73924DD987F00963C15 /* ProfileCell.swift in Sources */,
-				A40F036424D419D200C381F2 /* MenuCellItem.swift in Sources */,
+				A450E39A24E564A900C49AEE /* GameCertificateCell.swift in Sources */,
+				A40F036424D419D200C381F2 /* MenuCellItemProtocol.swift in Sources */,
 				A452E3B424D431C5002EE514 /* DataTypesExtensions.swift in Sources */,
 				A40B759A24D9A85B006DB7D1 /* ProfileConfigurator.swift in Sources */,
 				A4CC5FC324DACE1A0042B41C /* ShopPresenter.swift in Sources */,
-				A4A065A524E47D460080E0D8 /* CellProtocol.swift in Sources */,
+				A4A065A524E47D460080E0D8 /* TableCellProtocol.swift in Sources */,
 				A4DAF73F24DDABFF00963C15 /* WarmupCell.swift in Sources */,
 				A40D815C24D2C6C1006D2CE3 /* SceneDelegate.swift in Sources */,
 				A40B757C24D9A744006DB7D1 /* ScheduleInteractor.swift in Sources */,
 				A40D818A24D2D24C006D2CE3 /* ScheduleCell.swift in Sources */,
 				A40B759E24D9A86E006DB7D1 /* RatingPresenter.swift in Sources */,
+				A498FCCC24E52ED80069F896 /* GameRegisterCell.swift in Sources */,
 				A4BA1CF024D835DE00D32ADC /* MainMenuRouter.swift in Sources */,
 				A40D818624D2CA44006D2CE3 /* ShopVC.swift in Sources */,
 				A40D818024D2CA26006D2CE3 /* HomeGameVC.swift in Sources */,
+				A450E39724E559CD00C49AEE /* TitledTextFieldView.swift in Sources */,
 				A445E34824DE02BC0070B9FC /* TitleLabel.swift in Sources */,
 				A40B758C24D9A81A006DB7D1 /* HomeGameInteractor.swift in Sources */,
 				A40F035D24D412D700C381F2 /* ShopItemCell.swift in Sources */,
 				A4A065AA24E4812F0080E0D8 /* GameGeneralDescriptionCell.swift in Sources */,
+				A450E3A324E5735400C49AEE /* GameOrderRouter.swift in Sources */,
 				A4BA1CEE24D8347300D32ADC /* MainMenuInteractor.swift in Sources */,
 				A40D817E24D2CA1A006D2CE3 /* WarmupVC.swift in Sources */,
 				A4BA1CF524D8874C00D32ADC /* AlertExtensions.swift in Sources */,
@@ -595,6 +649,8 @@
 				A40B759024D9A829006DB7D1 /* HomeGameRouter.swift in Sources */,
 				A4A0659D24E477E20080E0D8 /* GameInfoCell.swift in Sources */,
 				A4CC5FC724DACE2D0042B41C /* ShopConfigurator.swift in Sources */,
+				A450E3A524E57A8C00C49AEE /* GameInfoItemKind.swift in Sources */,
+				A450E39D24E571C900C49AEE /* GameOrderPresenter.swift in Sources */,
 				A40B759824D9A852006DB7D1 /* ProfileRouter.swift in Sources */,
 				A4B0753224DFDBFB007778A2 /* GameInfo.swift in Sources */,
 			);
@@ -796,6 +852,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A4147AD324E596FC007C131F /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.5.6;
+			};
+		};
+		A498FCCE24E52FCD0069F896 /* XCRemoteSwiftPackageReference "TextFieldEffects" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/raulriera/TextFieldEffects";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.7.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A4147AD424E596FC007C131F /* IQKeyboardManagerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A4147AD324E596FC007C131F /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
+			productName = IQKeyboardManagerSwift;
+		};
+		A498FCCF24E52FCD0069F896 /* TextFieldEffects */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A498FCCE24E52FCD0069F896 /* XCRemoteSwiftPackageReference "TextFieldEffects" */;
+			productName = TextFieldEffects;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = A40D814E24D2C6C1006D2CE3 /* Project object */;
 }

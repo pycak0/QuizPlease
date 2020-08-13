@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ScheduleCell: UITableViewCell, MenuCellItem {
+class ScheduleCell: UITableViewCell, MenuCellItemProtocol {
     static let identifier = "ScheduleCell"
     
     @IBOutlet weak var cellView: UIView!

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HomeGameCell: UITableViewCell, MenuCellItem {
+class HomeGameCell: UITableViewCell, MenuCellItemProtocol {
     static let identifier = "HomeGameCell"
     
     @IBOutlet weak var cellView: UIView!

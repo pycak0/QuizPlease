@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Gilroy-Bold.ttf">
+            <string>Gilroy-Bold</string>
+        </array>
+        <array key="Gilroy-SemiBold.ttf">
+            <string>Gilroy-SemiBold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="GameRegisterCell" rowHeight="640" id="KGk-i7-Jjw" customClass="GameRegisterCell" customModule="QuizPlease" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="640"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="640"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Запись на игру" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GW9-rT-x6c">
+                        <rect key="frame" x="16" y="16" width="288" height="33"/>
+                        <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="28"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Введите ваши данные и нажмите на кнопку «Готово»" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="xs3-X3-veo">
+                        <rect key="frame" x="16" y="57" width="288" height="37.5"/>
+                        <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="16"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="xw6-Bx-LR0">
+                        <rect key="frame" x="16" y="110.5" width="288" height="338"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PGn-0s-Xzh" customClass="TitledTextFieldView" customModule="QuizPlease" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="288" height="78.5"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="60" id="b9b-Xf-FuI"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="title" value="Название команды"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Введите название"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hh9-0Z-MQd" customClass="TitledTextFieldView" customModule="QuizPlease" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="86.5" width="288" height="78.5"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="title" value="Имя капитана"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Введите имя"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qmT-cl-rCx" customClass="TitledTextFieldView" customModule="QuizPlease" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="173" width="288" height="78.5"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="title" value="E-mail"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Введите почту"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wae-y6-ACP" customClass="TitledTextFieldView" customModule="QuizPlease" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="259.5" width="288" height="78.5"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="title" value="Телефон капитана"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="+7"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                    </stackView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Количество человек в команде" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QOc-9Z-TGT">
+                        <rect key="frame" x="16" y="468.5" width="288" height="18"/>
+                        <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="16"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MY2-XE-TFI">
+                        <rect key="frame" x="16" y="502.5" width="288" height="35.5"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jle-dy-Y0t">
+                                <rect key="frame" x="0.0" y="15.5" width="288" height="4"/>
+                                <color key="backgroundColor" name="themeGray"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="4" id="6YM-Kl-Fsq"/>
+                                </constraints>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="phS-Sp-LPA">
+                                <rect key="frame" x="0.0" y="4" width="288" height="27.5"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VFe-5C-YOZ">
+                                        <rect key="frame" x="0.0" y="0.0" width="27.5" height="27.5"/>
+                                        <color key="backgroundColor" name="themeGray"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="VFe-5C-YOZ" secondAttribute="height" multiplier="1:1" id="zJo-D8-OE8"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="16"/>
+                                        <state key="normal" image="human">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="teamCountButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="U27-zc-Y9u"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EvX-MS-ANh">
+                                        <rect key="frame" x="32.5" y="0.0" width="27.5" height="27.5"/>
+                                        <color key="backgroundColor" name="themeGray"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="EvX-MS-ANh" secondAttribute="height" multiplier="1:1" id="oaV-gc-pJe"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="16"/>
+                                        <state key="normal" image="human">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="teamCountButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="83D-hK-atN"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ppl-vV-Wrs">
+                                        <rect key="frame" x="65" y="0.0" width="27.5" height="27.5"/>
+                                        <color key="backgroundColor" name="themeGray"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="Ppl-vV-Wrs" secondAttribute="height" multiplier="1:1" id="I5k-LQ-JBD"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="16"/>
+                                        <state key="normal" image="human">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="teamCountButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Djx-9T-ac2"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Izl-7l-a61">
+                                        <rect key="frame" x="97.5" y="0.0" width="27.5" height="27.5"/>
+                                        <color key="backgroundColor" name="themeGray"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="Izl-7l-a61" secondAttribute="height" multiplier="1:1" id="AMJ-Gz-hNE"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="16"/>
+                                        <state key="normal" image="human">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="teamCountButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="YcR-Zt-KSy"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eTT-0J-c7e">
+                                        <rect key="frame" x="130" y="0.0" width="28" height="27.5"/>
+                                        <color key="backgroundColor" name="themeGray"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="eTT-0J-c7e" secondAttribute="height" multiplier="1:1" id="dgl-vq-8I9"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="16"/>
+                                        <state key="normal" image="human">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="teamCountButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="nGA-52-iAi"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9rm-rQ-Xpw">
+                                        <rect key="frame" x="163" y="0.0" width="27.5" height="27.5"/>
+                                        <color key="backgroundColor" name="themeGray"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="9rm-rQ-Xpw" secondAttribute="height" multiplier="1:1" id="K15-aG-Cjd"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="16"/>
+                                        <state key="normal" image="human">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="teamCountButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="sZY-cz-Mx0"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="79O-Pj-MxE">
+                                        <rect key="frame" x="195.5" y="0.0" width="27.5" height="27.5"/>
+                                        <color key="backgroundColor" name="themeGray"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="79O-Pj-MxE" secondAttribute="height" multiplier="1:1" id="kny-pX-Dfq"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="16"/>
+                                        <state key="normal" image="human">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="teamCountButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="CoV-kc-xNz"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VmB-0K-PH3">
+                                        <rect key="frame" x="228" y="0.0" width="27.5" height="27.5"/>
+                                        <color key="backgroundColor" name="themeGray"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="VmB-0K-PH3" secondAttribute="height" multiplier="1:1" id="eG3-X3-RMm"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="16"/>
+                                        <state key="normal" image="human">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="teamCountButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="IlD-de-hPh"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="loF-sr-asZ">
+                                        <rect key="frame" x="260.5" y="0.0" width="27.5" height="27.5"/>
+                                        <color key="backgroundColor" name="themeGray"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="loF-sr-asZ" secondAttribute="height" multiplier="1:1" id="Zsi-FM-t2P"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="16"/>
+                                        <state key="normal" image="human">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="teamCountButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="i11-oX-uCU"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="phS-Sp-LPA" firstAttribute="leading" secondItem="MY2-XE-TFI" secondAttribute="leading" id="0JW-yN-chp"/>
+                            <constraint firstItem="jle-dy-Y0t" firstAttribute="leading" secondItem="MY2-XE-TFI" secondAttribute="leading" id="1kj-Rv-Pcv"/>
+                            <constraint firstItem="jle-dy-Y0t" firstAttribute="centerY" secondItem="MY2-XE-TFI" secondAttribute="centerY" id="DJl-KH-Jfq"/>
+                            <constraint firstItem="phS-Sp-LPA" firstAttribute="centerY" secondItem="MY2-XE-TFI" secondAttribute="centerY" id="EnU-mi-bmc"/>
+                            <constraint firstAttribute="trailing" secondItem="phS-Sp-LPA" secondAttribute="trailing" id="Vsv-QP-IYj"/>
+                            <constraint firstItem="phS-Sp-LPA" firstAttribute="top" secondItem="MY2-XE-TFI" secondAttribute="top" constant="4" id="gZk-z6-Dfg"/>
+                            <constraint firstAttribute="trailing" secondItem="jle-dy-Y0t" secondAttribute="trailing" id="jD3-qi-wVg"/>
+                            <constraint firstItem="phS-Sp-LPA" firstAttribute="centerX" secondItem="MY2-XE-TFI" secondAttribute="centerX" id="p5F-ii-RzT"/>
+                        </constraints>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zUG-0G-NHg" customClass="TitledTextFieldView" customModule="QuizPlease" customModuleProvider="target">
+                        <rect key="frame" x="16" y="554" width="288" height="70"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="70" id="9L7-0e-LpB"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="title" value="Откуда Вы узнали о нас?"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Расскажите"/>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="xs3-X3-veo" firstAttribute="trailing" secondItem="GW9-rT-x6c" secondAttribute="trailing" id="2gu-iE-uAf"/>
+                    <constraint firstItem="GW9-rT-x6c" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="4lc-TR-fUs"/>
+                    <constraint firstAttribute="trailing" secondItem="GW9-rT-x6c" secondAttribute="trailing" constant="16" id="5B5-Vp-u0o"/>
+                    <constraint firstItem="xs3-X3-veo" firstAttribute="leading" secondItem="GW9-rT-x6c" secondAttribute="leading" id="D2m-Yd-d0O"/>
+                    <constraint firstItem="QOc-9Z-TGT" firstAttribute="top" secondItem="xw6-Bx-LR0" secondAttribute="bottom" constant="20" id="EzR-a5-KVJ"/>
+                    <constraint firstItem="zUG-0G-NHg" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="Jsk-HN-BWV"/>
+                    <constraint firstAttribute="bottom" secondItem="zUG-0G-NHg" secondAttribute="bottom" constant="16" id="LmY-cQ-Z3I"/>
+                    <constraint firstItem="zUG-0G-NHg" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="M20-bT-0FT"/>
+                    <constraint firstAttribute="trailing" secondItem="MY2-XE-TFI" secondAttribute="trailing" constant="16" id="NFm-fh-Voe"/>
+                    <constraint firstAttribute="trailing" secondItem="QOc-9Z-TGT" secondAttribute="trailing" constant="16" id="RL0-Cu-EiT"/>
+                    <constraint firstItem="xw6-Bx-LR0" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="Tdt-5R-N7Q"/>
+                    <constraint firstItem="xs3-X3-veo" firstAttribute="top" secondItem="GW9-rT-x6c" secondAttribute="bottom" constant="8" id="Z01-ct-9fq"/>
+                    <constraint firstItem="QOc-9Z-TGT" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="cMG-Mx-hHk"/>
+                    <constraint firstItem="MY2-XE-TFI" firstAttribute="top" secondItem="QOc-9Z-TGT" secondAttribute="bottom" constant="16" id="cvE-U4-cXp"/>
+                    <constraint firstItem="zUG-0G-NHg" firstAttribute="top" secondItem="MY2-XE-TFI" secondAttribute="bottom" constant="16" id="dKX-HO-A2N"/>
+                    <constraint firstAttribute="trailing" secondItem="xw6-Bx-LR0" secondAttribute="trailing" constant="16" id="eQt-UJ-Ww8"/>
+                    <constraint firstAttribute="trailing" secondItem="xs3-X3-veo" secondAttribute="trailing" constant="16" id="iKL-M2-0Zz"/>
+                    <constraint firstItem="xw6-Bx-LR0" firstAttribute="top" secondItem="xs3-X3-veo" secondAttribute="bottom" constant="16" id="kYk-Cx-Pph"/>
+                    <constraint firstItem="MY2-XE-TFI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="uJ4-3f-mQ0"/>
+                    <constraint firstItem="GW9-rT-x6c" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="zj7-eW-a9z"/>
+                    <constraint firstItem="xw6-Bx-LR0" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="zoP-oN-vW7"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="captainNameField" destination="Hh9-0Z-MQd" id="ec2-qg-kgr"/>
+                <outlet property="emailField" destination="qmT-cl-rCx" id="OVm-yy-VSi"/>
+                <outlet property="fieldsStack" destination="xw6-Bx-LR0" id="IDK-QN-DZY"/>
+                <outlet property="numberButtonsStack" destination="phS-Sp-LPA" id="yV1-mI-kXv"/>
+                <outlet property="phoneField" destination="wae-y6-ACP" id="05S-9G-Mpo"/>
+                <outlet property="teamNameField" destination="PGn-0s-Xzh" id="wZj-Ff-dwn"/>
+            </connections>
+            <point key="canvasLocation" x="263.768115942029" y="350.22321428571428"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="human" width="8" height="18"/>
+        <namedColor name="themeGray">
+            <color red="0.93333333333333335" green="0.93333333333333335" blue="0.95294117647058818" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

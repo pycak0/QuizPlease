@@ -8,8 +8,9 @@
 
 import UIKit
 
-class GameGeneralDescriptionCell: UITableViewCell, CellProtocol {
+class GameGeneralDescriptionCell: UITableViewCell, TableCellProtocol {
     static let identifier = "GameGeneralDescriptionCell"
     
+    @IBOutlet weak var descriptionLabel: UILabel!
     
 }

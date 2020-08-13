@@ -40,14 +40,26 @@ class SchedulePresenter: SchedulePresenterProtocol {
     
     func configureViews() {
         view?.configureTableView()
+        
+        interactor.loadSchedule { (result) in
+            switch result {
+            case.failure(let error):
+                print(error)
+            case .success(let schedule):
+                self.games = schedule
+                self.view?.reloadScheduleList()
+            }
+        }
     }
     
     func didSignUp(forGameAt index: Int) {
-        print("did press sign up button")
+        guard let game = games?[index] else { return }
+        router.showGameInfo(game)
     }
     
     func didPressInfoButton(forGameAt index: Int) {
-        print("did press info button")
+        guard let game = games?[index] else { return }
+        router.showGameInfo(game)
     }
     
     func didAskNotification(forGameAt index: Int) {

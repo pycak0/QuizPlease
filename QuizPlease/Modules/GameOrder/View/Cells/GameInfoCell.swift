@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class GameInfoCell: UITableViewCell, CellProtocol {
+class GameInfoCell: UITableViewCell, TableCellProtocol {
     static let identifier = "GameInfoCell"
     
     @IBOutlet weak var priceLabel: UILabel!

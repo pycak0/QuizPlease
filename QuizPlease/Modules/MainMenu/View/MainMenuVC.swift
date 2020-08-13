@@ -90,9 +90,7 @@ extension MainMenuVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let items = presenter.menuItems else { return UITableViewCell() }
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: items[indexPath.row].identifier) as? MenuCellItem else {
-            fatalError("Invalid Cell Kind")
-        }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: items[indexPath.row].identifier) as? MenuCellItemProtocol else { fatalError("Invalid Cell Kind") }
         let menuItem = items[indexPath.row]
         
         cell.configureCell(with: menuItem)
@@ -117,13 +115,13 @@ extension MainMenuVC: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
-        if let cell = tableView.cellForRow(at: indexPath) as? MenuCellItem {
+        if let cell = tableView.cellForRow(at: indexPath) as? MenuCellItemProtocol {
             cell.scaleIn()
         }
     }
     
     func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
-        if let cell = tableView.cellForRow(at: indexPath) as? MenuCellItem {
+        if let cell = tableView.cellForRow(at: indexPath) as? MenuCellItemProtocol {
             cell.scaleOut()
         }
     }

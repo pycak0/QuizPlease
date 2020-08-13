@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RatingCell: UITableViewCell, MenuCellItem {
+class RatingCell: UITableViewCell, MenuCellItemProtocol {
     static let identifier = "RatingCell"
     
     @IBOutlet weak var cellView: UIView!

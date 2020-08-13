@@ -15,4 +15,5 @@ struct GameInfo {
     var placeAddress: String
     var time: String
     var price: Decimal
+    var annotation: String
 }

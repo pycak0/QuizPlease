@@ -8,7 +8,7 @@
 
 import UIKit
 
-class WarmupCell: UITableViewCell, MenuCellItem {
+class WarmupCell: UITableViewCell, MenuCellItemProtocol {
     static let identifier = "WarmupCell"
     
     @IBOutlet weak var cellView: UIView!

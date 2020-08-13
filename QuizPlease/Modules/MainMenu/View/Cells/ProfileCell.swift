@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProfileCell: UITableViewCell, MenuCellItem {
+class ProfileCell: UITableViewCell, MenuCellItemProtocol {
     static let identifier = "ProfileCell"
     
     @IBOutlet weak var cellView: UIView!

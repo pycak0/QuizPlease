@@ -7,6 +7,11 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Gilroy-Medium.ttf">
+            <string>Gilroy-Medium</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -17,16 +22,27 @@
                 <rect key="frame" x="0.0" y="0.0" width="338" height="233"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f3c-4d-cez">
-                        <rect key="frame" x="131" y="70" width="36" height="20"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="17"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f3c-4d-cez">
+                        <rect key="frame" x="16" y="16" width="306" height="201"/>
+                        <string key="text">Квиз, плиз! — это командная игра, отличный способ провести вечер с друзьями в уютном баре и получить новые позитивные впечатления.
+
+К игре невозможно подготовиться, а вопросы могут быть на абсолютно разные темы: от покемонов до истории Древнего Рима. Более того, пригодиться может любая информация, которую вы встречали в своей жизни. Более 15 тысяч команд играет в Квиз, плиз! по всему миру, попробуйте и вы.</string>
+                        <fontDescription key="fontDescription" name="Gilroy-Medium" family="Gilroy" pointSize="14"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
+                <constraints>
+                    <constraint firstItem="f3c-4d-cez" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="9km-Ob-SDk"/>
+                    <constraint firstAttribute="bottom" secondItem="f3c-4d-cez" secondAttribute="bottom" constant="16" id="rpJ-Fz-V0Z"/>
+                    <constraint firstAttribute="trailing" secondItem="f3c-4d-cez" secondAttribute="trailing" constant="16" id="vmA-PM-6Q0"/>
+                    <constraint firstItem="f3c-4d-cez" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="xxU-36-PpF"/>
+                </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="descriptionLabel" destination="f3c-4d-cez" id="lVZ-hI-o6j"/>
+            </connections>
             <point key="canvasLocation" x="150.72463768115944" y="195.87053571428569"/>
         </tableViewCell>
     </objects>

@@ -95,4 +95,8 @@ public extension UIColor {
     class var lightGreen: UIColor {
         return UIColor(named: "lightGreen")!
     }
+    
+    class var themeGray: UIColor {
+        UIColor(named: "themeGray")!
+    }
 }

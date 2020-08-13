@@ -12,7 +12,7 @@ protocol GameAnnotationCellDelegate: class {
     func signUpButtonPressed(in cell: GameAnnotationCell)
 }
 
-class GameAnnotationCell: UITableViewCell, CellProtocol {
+class GameAnnotationCell: UITableViewCell, TableCellProtocol {
     static let identifier = "GameAnnotationCell"
     
     weak var delegate: GameAnnotationCellDelegate?

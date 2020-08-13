@@ -1,5 +1,5 @@
 //
-//  MenuCellItem.swift
+//  MenuCellItemProtocol.swift
 //  QuizPlease
 //
 //  Created by Владислав on 31.07.2020.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol MenuCellItem: UITableViewCell, CellProtocol {
+protocol MenuCellItemProtocol: TableCellProtocol {
     var cellViewCornerRadius: CGFloat { get }
     
     var cellView: UIView! { get set }
@@ -23,7 +23,7 @@ protocol MenuCellItem: UITableViewCell, CellProtocol {
     
 }
 
-extension MenuCellItem {
+extension MenuCellItemProtocol {
     var cellViewCornerRadius: CGFloat {
         25
     }

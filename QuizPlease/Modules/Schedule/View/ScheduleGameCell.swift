@@ -27,14 +27,14 @@ class ScheduleGameCell: UITableViewCell {
     @IBOutlet weak var placeAddressLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
+    @IBOutlet weak var locationButton: UIButton!
+    @IBOutlet weak var remindButton: UIButton!
     
     @IBOutlet weak var signUpButton: UIButton!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        cellView.layer.cornerRadius = 20
-        cellView.layer.borderColor = UIColor.lightGreen.cgColor
-        cellView.layer.borderWidth = 4
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        configureViews()
     }
     
     override func prepareForReuse() {
@@ -47,8 +47,20 @@ class ScheduleGameCell: UITableViewCell {
         numberLabel.text = "#\(model.gameNumber)"
         placeNameLabel.text = model.placeName
         placeAddressLabel.text = model.placeAddress
-        timeLabel.text = "в" + model.time
+        timeLabel.text = "в \(model.time)"
         priceLabel.text = "\(model.price) ₽ с человека, наличные"
+        
+        setNeedsLayout()
+    }
+    
+    private func configureViews() {
+        cellView.layer.cornerRadius = 20
+        cellView.layer.borderColor = UIColor.lightGreen.cgColor
+        cellView.layer.borderWidth = 4
+        
+        signUpButton.layer.cornerRadius = signUpButton.frame.height / 2
+        locationButton.layer.cornerRadius = locationButton.frame.height / 2
+        remindButton.layer.cornerRadius = remindButton.frame.height / 2
     }
     
     @IBAction func signUpButtonPressed(_ sender: Any) {

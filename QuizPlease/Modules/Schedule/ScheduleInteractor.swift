@@ -14,6 +14,10 @@ protocol ScheduleInteractorProtocol: class {
 
 class ScheduleInteractor: ScheduleInteractorProtocol {
     func loadSchedule(completion: @escaping (Result<[GameInfo]?, Error>) -> Void) {
-        completion(.failure(NSError(domain: "loadSchedule() is not implemented", code: -1, userInfo: [:])))
+        var games = [GameInfo]()
+        for i in 0...3 {
+            games.append(GameInfo(gameNumber: i+1, name: "Game\(i)", placeName: "Place\(i)", placeAddress: "Address\(i)", time: "11:0\(i)", price: Decimal(1000 * i), annotation: "Annotation \(i)"))
+        }
+        completion(.success(games))
     }
 }
