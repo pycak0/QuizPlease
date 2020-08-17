@@ -80,6 +80,11 @@ public extension UIColor {
         return UIColor(named: "darkBlue")!
     }
     
+    ///dark blue with kind of purple
+    class var plum: UIColor {
+        UIColor(named: "plum")!
+    }
+    
     class var olive: UIColor {
         return UIColor(named: "olive")!
     }

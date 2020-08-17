@@ -7,3 +7,19 @@
 //
 
 import Foundation
+
+protocol RatingConfiguratorProtocol {
+    func configure(_ view: RatingViewProtocol)
+}
+
+class RatingConfigurator: RatingConfiguratorProtocol {
+    func configure(_ view: RatingViewProtocol) {
+        let interactor = RatingInteractor()
+        let router = RatingRouter(viewController: view)
+        let presenter = RatingPresenter(view: view, interactor: interactor, router: router)
+        
+        view.presenter = presenter
+        view.prepareNavigationBar()
+    }
+    
+}

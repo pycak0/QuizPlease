@@ -1,5 +1,5 @@
 //
-//  RatingCell.swift
+//  MenuRatingCell.swift
 //  QuizPlease
 //
 //  Created by Владислав on 07.08.2020.
@@ -8,8 +8,8 @@
 
 import UIKit
 
-class RatingCell: UITableViewCell, MenuCellItemProtocol {
-    static let identifier = "RatingCell"
+class MenuRatingCell: UITableViewCell, MenuCellItemProtocol {
+    static let identifier = "MenuRatingCell"
     
     @IBOutlet weak var cellView: UIView!
     @IBOutlet weak var titleLabel: UILabel!

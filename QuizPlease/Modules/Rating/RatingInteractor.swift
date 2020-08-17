@@ -7,3 +7,11 @@
 //
 
 import Foundation
+
+protocol RatingInteractorProtocol {
+    
+}
+
+class RatingInteractor: RatingInteractorProtocol {
+    //
+}
