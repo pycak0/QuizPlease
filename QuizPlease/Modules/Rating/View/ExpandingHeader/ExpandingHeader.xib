@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Gilroy-Bold.ttf">
+            <string>Gilroy-Bold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ExpandingHeader" customModule="QuizPlease" customModuleProvider="target">
+            <connections>
+                <outlet property="collapseButton" destination="VtX-Uc-4ZT" id="LZI-wA-OcC"/>
+                <outlet property="containerView" destination="MgA-x9-9bQ" id="pjQ-35-60O"/>
+                <outlet property="contentView" destination="iN0-l3-epB" id="FmD-9T-FJ0"/>
+                <outlet property="expandView" destination="2v8-JM-wTX" id="WhL-IE-zrd"/>
+                <outlet property="footLabel" destination="fxE-AG-rr7" id="xbd-LF-0EP"/>
+                <outlet property="gameTypesView" destination="309-PG-oHa" id="klT-a7-yF8"/>
+                <outlet property="searchField" destination="AT6-yv-NIU" id="NQI-u2-Hxt"/>
+                <outlet property="segmentControl" destination="6ah-IB-xhP" id="uS0-BT-Xxg"/>
+                <outlet property="stackView" destination="jkm-3v-BIZ" id="Eqo-71-0Vv"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="379" height="140"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MgA-x9-9bQ">
+                    <rect key="frame" x="8" y="8" width="363" height="124"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="jkm-3v-BIZ">
+                            <rect key="frame" x="16" y="8" width="331" height="50"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2v8-JM-wTX">
+                                    <rect key="frame" x="0.0" y="0.0" width="331" height="50"/>
+                                    <subviews>
+                                        <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Раскрыть фильтр" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XuA-cG-pdj">
+                                            <rect key="frame" x="16" y="0.0" width="263" height="50"/>
+                                            <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="16"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowDown" translatesAutoresizingMaskIntoConstraints="NO" id="vck-RL-gfU">
+                                            <rect key="frame" x="295" y="15" width="20" height="20"/>
+                                            <color key="tintColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="vck-RL-gfU" secondAttribute="height" multiplier="1:1" id="vFk-i2-WSJ"/>
+                                            </constraints>
+                                        </imageView>
+                                    </subviews>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="50" id="FBh-OR-CSC"/>
+                                        <constraint firstItem="XuA-cG-pdj" firstAttribute="top" secondItem="2v8-JM-wTX" secondAttribute="top" id="IZp-Ue-DtU"/>
+                                        <constraint firstItem="XuA-cG-pdj" firstAttribute="leading" secondItem="2v8-JM-wTX" secondAttribute="leading" constant="16" id="Ixn-e4-l1c"/>
+                                        <constraint firstItem="vck-RL-gfU" firstAttribute="leading" secondItem="XuA-cG-pdj" secondAttribute="trailing" constant="16" id="dCv-nh-ASQ"/>
+                                        <constraint firstItem="vck-RL-gfU" firstAttribute="centerY" secondItem="2v8-JM-wTX" secondAttribute="centerY" id="gs2-iq-eTm"/>
+                                        <constraint firstAttribute="trailing" secondItem="vck-RL-gfU" secondAttribute="trailing" constant="16" id="xQL-gI-5w3"/>
+                                        <constraint firstAttribute="bottom" secondItem="XuA-cG-pdj" secondAttribute="bottom" id="xsL-UK-5RN"/>
+                                    </constraints>
+                                </view>
+                                <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Поиск" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AT6-yv-NIU">
+                                    <rect key="frame" x="0.0" y="0.0" width="331" height="0.0"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="16"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                </textField>
+                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6ah-IB-xhP" customClass="HBSegmentedControl" customModule="QuizPlease" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="331" height="0.0"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="selectedLabelColor">
+                                            <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="unselectedLabelColor">
+                                            <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="thumbColor">
+                                            <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                            <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </view>
+                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="309-PG-oHa">
+                                    <rect key="frame" x="0.0" y="0.0" width="331" height="50"/>
+                                    <subviews>
+                                        <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Обычные игры" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jf1-gA-6KV">
+                                            <rect key="frame" x="16" y="0.0" width="263" height="50"/>
+                                            <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="16"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowDown" translatesAutoresizingMaskIntoConstraints="NO" id="Uau-yG-T3s">
+                                            <rect key="frame" x="295" y="15" width="20" height="20"/>
+                                            <color key="tintColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="Uau-yG-T3s" secondAttribute="height" multiplier="1:1" id="U5A-Zc-duj"/>
+                                            </constraints>
+                                        </imageView>
+                                    </subviews>
+                                    <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="jf1-gA-6KV" secondAttribute="bottom" id="BII-uX-W2R"/>
+                                        <constraint firstItem="Uau-yG-T3s" firstAttribute="leading" secondItem="jf1-gA-6KV" secondAttribute="trailing" constant="16" id="Hwb-zf-War"/>
+                                        <constraint firstItem="jf1-gA-6KV" firstAttribute="leading" secondItem="309-PG-oHa" secondAttribute="leading" constant="16" id="bYs-df-76c"/>
+                                        <constraint firstItem="Uau-yG-T3s" firstAttribute="centerY" secondItem="309-PG-oHa" secondAttribute="centerY" id="dbj-gI-tn0"/>
+                                        <constraint firstAttribute="height" constant="50" id="p3v-E9-h0W"/>
+                                        <constraint firstItem="jf1-gA-6KV" firstAttribute="top" secondItem="309-PG-oHa" secondAttribute="top" id="vah-BS-Kqa"/>
+                                        <constraint firstAttribute="trailing" secondItem="Uau-yG-T3s" secondAttribute="trailing" constant="16" id="vy2-ZJ-NtG"/>
+                                    </constraints>
+                                </view>
+                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VtX-Uc-4ZT">
+                                    <rect key="frame" x="0.0" y="0.0" width="331" height="0.0"/>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <state key="normal" title="Скрыть фильтр"/>
+                                    <connections>
+                                        <action selector="collapseButtonPressed:" destination="-1" eventType="touchUpInside" id="JIw-LE-bmp"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="32" id="IAw-D4-6SE"/>
+                            </constraints>
+                        </stackView>
+                        <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fxE-AG-rr7">
+                            <rect key="frame" x="16" y="75" width="331" height="39"/>
+                            <string key="text">Рейтинг классических игр
+этого сезона в Москве</string>
+                            <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="16"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="fxE-AG-rr7" firstAttribute="centerX" secondItem="MgA-x9-9bQ" secondAttribute="centerX" id="3Oe-b5-aZw"/>
+                        <constraint firstAttribute="trailing" secondItem="jkm-3v-BIZ" secondAttribute="trailing" constant="16" id="4MG-Oo-4zl"/>
+                        <constraint firstItem="jkm-3v-BIZ" firstAttribute="top" secondItem="MgA-x9-9bQ" secondAttribute="top" constant="8" id="5aw-xn-cQU"/>
+                        <constraint firstItem="jkm-3v-BIZ" firstAttribute="leading" secondItem="MgA-x9-9bQ" secondAttribute="leading" constant="16" id="FQ2-k7-Sgy"/>
+                        <constraint firstAttribute="bottom" secondItem="fxE-AG-rr7" secondAttribute="bottom" constant="10" id="Sij-aX-Y4b"/>
+                        <constraint firstItem="fxE-AG-rr7" firstAttribute="top" relation="greaterThanOrEqual" secondItem="jkm-3v-BIZ" secondAttribute="bottom" constant="16" id="UP4-ri-93g"/>
+                        <constraint firstItem="fxE-AG-rr7" firstAttribute="leading" secondItem="vpF-0f-frd" secondAttribute="leading" constant="16" id="pU3-bT-7jV"/>
+                    </constraints>
+                    <viewLayoutGuide key="safeArea" id="vpF-0f-frd"/>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="MgA-x9-9bQ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="4HL-EI-fyB"/>
+                <constraint firstAttribute="trailing" secondItem="MgA-x9-9bQ" secondAttribute="trailing" constant="8" id="Eum-A6-bDI"/>
+                <constraint firstItem="MgA-x9-9bQ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="fb0-dq-E1D"/>
+                <constraint firstAttribute="bottom" secondItem="MgA-x9-9bQ" secondAttribute="bottom" constant="8" id="y5u-G5-E0P"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="109.42028985507247" y="323.4375"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="arrowDown" width="20" height="12"/>
+    </resources>
+</document>

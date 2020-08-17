@@ -8,6 +8,9 @@
 
 import UIKit
 
+//MARK:- UIView
+///
+
 public extension UIView {
     //MARK:- View Scale Animation
     func scaleIn(scale: CGFloat = 0.96) {
@@ -71,10 +74,47 @@ public extension UIView {
         }
     }
     
+    //MARK:- Add Tap Gesture Recognizer to a View
+    fileprivate struct AssociatedObjectKeys {
+        static var tapGestureRecognizer = "MediaViewerAssociatedObjectKey_mediaViewer"
+    }
+
+    fileprivate typealias Action = (() -> Void)?
+    fileprivate var tapGestureRecognizerAction: Action? {
+        set {
+            if let newValue = newValue {
+                // Computed properties get stored as associated objects
+                objc_setAssociatedObject(self, &AssociatedObjectKeys.tapGestureRecognizer, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN)
+            }
+        }
+        get {
+            let tapGestureRecognizerActionInstance = objc_getAssociatedObject(self, &AssociatedObjectKeys.tapGestureRecognizer) as? Action
+            return tapGestureRecognizerActionInstance
+        }
+    }
+    
+    func addTapGestureRecognizer(action: (() -> Void)?) {
+        self.isUserInteractionEnabled = true
+        self.tapGestureRecognizerAction = action
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
+        self.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    @objc fileprivate func handleTapGesture(sender: UITapGestureRecognizer) {
+        if let action = self.tapGestureRecognizerAction {
+            action?()
+        } else {
+            print("no action")
+        }
+    }
+    
 }
 
 //MARK:- UITextField
+///
+
 public extension UITextField{
+    //MARK:- Placeholder color
    @IBInspectable var placeholderColor: UIColor? {
         get {
             return self.attributedPlaceholder?.attribute(.foregroundColor, at: 0, effectiveRange: nil) as? UIColor
@@ -86,6 +126,9 @@ public extension UITextField{
         }
     }
     
+    
+    //MARK:- Set Image
+    
     ///- parameter side: Preferred width and height of image's `CGrect` (the shape is a square). Is set to `frame.height` value if bigger than it
     ///- parameter textPadding: Image inset from textField's text
     ///- parameter edgePadding: Image inset from textField's left side. The default is equal to `textPadding` value
@@ -93,13 +136,15 @@ public extension UITextField{
         let side = min(side, bounds.height)
         let yOffset = (bounds.height - side) / 2
         let iconView = UIImageView(frame: CGRect(x: edgePadding ?? textPadding, y: yOffset, width: side, height: side))
-        iconView.image = UIImage(named: "search")
+        iconView.image = image
+        print(image == nil)
         
         let containerWidth = textPadding + (edgePadding ?? textPadding) + side
         let container = UIView(frame: CGRect(x: 0, y: 0, width: containerWidth, height: bounds.height))
         container.addSubview(iconView)
         leftView = container
         leftViewMode = .always
+        
     }
 }
 

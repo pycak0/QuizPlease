@@ -447,78 +447,14 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="separatorColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <view key="tableHeaderView" contentMode="scaleToFill" id="0Tg-b5-2ih">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="260"/>
+                                <view key="tableHeaderView" contentMode="scaleToFill" id="0Tg-b5-2ih" customClass="ExpandingHeader" customModule="QuizPlease" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="140"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="JWa-0C-maT">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="178"/>
-                                            <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rhA-xN-UA0">
-                                                    <rect key="frame" x="16" y="8" width="382" height="50"/>
-                                                    <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Раскрыть фильтр" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TaG-mV-Q25">
-                                                            <rect key="frame" x="16" y="15" width="314" height="20"/>
-                                                            <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="16"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowDown" translatesAutoresizingMaskIntoConstraints="NO" id="E5r-tF-xnw">
-                                                            <rect key="frame" x="346" y="15" width="20" height="20"/>
-                                                            <color key="tintColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" secondItem="E5r-tF-xnw" secondAttribute="height" multiplier="1:1" id="BQf-Oc-RGy"/>
-                                                            </constraints>
-                                                        </imageView>
-                                                    </subviews>
-                                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="50" id="0K3-De-gQU"/>
-                                                        <constraint firstItem="E5r-tF-xnw" firstAttribute="centerY" secondItem="rhA-xN-UA0" secondAttribute="centerY" id="EaS-Oa-W6w"/>
-                                                        <constraint firstItem="E5r-tF-xnw" firstAttribute="leading" secondItem="TaG-mV-Q25" secondAttribute="trailing" constant="16" id="FuO-40-Gy0"/>
-                                                        <constraint firstItem="E5r-tF-xnw" firstAttribute="height" secondItem="TaG-mV-Q25" secondAttribute="height" id="Ith-5d-3hu"/>
-                                                        <constraint firstItem="TaG-mV-Q25" firstAttribute="centerY" secondItem="rhA-xN-UA0" secondAttribute="centerY" id="Wri-7R-40j"/>
-                                                        <constraint firstItem="TaG-mV-Q25" firstAttribute="leading" secondItem="rhA-xN-UA0" secondAttribute="leading" constant="16" id="YBV-6W-xRI"/>
-                                                        <constraint firstAttribute="trailing" secondItem="E5r-tF-xnw" secondAttribute="trailing" constant="16" id="d5w-7q-Yc3"/>
-                                                    </constraints>
-                                                </view>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Поиск" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="p0Q-D0-sio">
-                                                    <rect key="frame" x="16" y="68" width="382" height="50"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="16"/>
-                                                    <textInputTraits key="textInputTraits"/>
-                                                </textField>
-                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="oHD-Zm-AZo">
-                                                    <rect key="frame" x="16" y="128" width="382" height="51"/>
-                                                    <segments>
-                                                        <segment title="За все время"/>
-                                                        <segment title="За сезон"/>
-                                                    </segments>
-                                                </segmentedControl>
-                                            </subviews>
-                                            <edgeInsets key="layoutMargins" top="8" left="16" bottom="0.0" right="16"/>
-                                        </stackView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Рейтинг классических игр этого сезона в Москве" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="boZ-n5-JKc">
-                                            <rect key="frame" x="20" y="202.66666666666666" width="374" height="37.333333333333343"/>
-                                            <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="16"/>
-                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <constraints>
-                                        <constraint firstAttribute="trailing" secondItem="boZ-n5-JKc" secondAttribute="trailing" constant="20" id="GmF-Z3-5Vn"/>
-                                        <constraint firstItem="JWa-0C-maT" firstAttribute="top" secondItem="0Tg-b5-2ih" secondAttribute="top" id="J1q-DU-4HP"/>
-                                        <constraint firstItem="boZ-n5-JKc" firstAttribute="top" relation="greaterThanOrEqual" secondItem="JWa-0C-maT" secondAttribute="bottom" constant="20" id="KiP-fM-p4g"/>
-                                        <constraint firstAttribute="bottom" secondItem="boZ-n5-JKc" secondAttribute="bottom" constant="20" id="qVF-um-MtB"/>
-                                        <constraint firstAttribute="trailing" secondItem="JWa-0C-maT" secondAttribute="trailing" id="tHB-BL-iDl"/>
-                                        <constraint firstItem="boZ-n5-JKc" firstAttribute="leading" secondItem="0Tg-b5-2ih" secondAttribute="leading" constant="20" id="tyW-4z-DF0"/>
-                                        <constraint firstItem="JWa-0C-maT" firstAttribute="leading" secondItem="0Tg-b5-2ih" secondAttribute="leading" id="ufF-ta-OpB"/>
-                                    </constraints>
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="RatingCell" rowHeight="85" id="VWG-7n-tdn" customClass="RatingCell" customModule="QuizPlease" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="288" width="414" height="85"/>
+                                        <rect key="frame" x="0.0" y="168" width="414" height="85"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="VWG-7n-tdn" id="yxK-kG-tss">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="85"/>
@@ -583,8 +519,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Рейтинг команд" id="sfK-DR-wiS"/>
                     <connections>
-                        <outlet property="searchField" destination="p0Q-D0-sio" id="ges-2C-rxP"/>
-                        <outlet property="stackView" destination="JWa-0C-maT" id="Q3V-bV-zhP"/>
+                        <outlet property="expandingHeader" destination="0Tg-b5-2ih" id="ERH-DH-Jzk"/>
                         <outlet property="tableView" destination="mYM-dG-6pj" id="KiA-kV-GlK"/>
                     </connections>
                 </viewController>
@@ -680,7 +615,7 @@
         <image name="peopleGroupPhoto" width="512" height="274"/>
         <image name="pixelGuyHatAndPlate" width="94" height="32"/>
         <namedColor name="lemon">
-            <color red="1" green="0.8901960784313725" blue="0.031372549019607843" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.88999998569488525" blue="0.030999999493360519" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="lightGreen">
             <color red="0.14900000393390656" green="0.87099999189376831" blue="0.60000002384185791" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

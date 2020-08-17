@@ -22,8 +22,7 @@ class RatingVC: UIViewController {
     var presenter: RatingPresenterProtocol!
     
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var searchField: UITextField!
-    @IBOutlet weak var stackView: UIStackView!
+    @IBOutlet weak var expandingHeader: ExpandingHeader!
     
     //MARK:- Lifecycle
     override func viewDidLoad() {
@@ -33,8 +32,13 @@ class RatingVC: UIViewController {
 
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.tintColor = .white
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
         navigationController?.navigationBar.tintColor = .labelAdapted
     }
     
@@ -63,21 +67,24 @@ extension RatingVC: RatingViewProtocol {
         refreshControl.addTarget(self, action: #selector(refreshControlTriggered), for: .valueChanged)
         tableView.refreshControl = refreshControl
         
-        stackView.addGradient(colors: [.blue, .purple], insertAt: 0)
-        configureSearchField()
+        expandingHeader.delegate = self
+    }
+    
+}
 
+//MARK:- ExpandingHeaderDelegate
+extension RatingVC: ExpandingHeaderDelegate {
+    func expandingHeader(_ expandingHeader: ExpandingHeader, didChangeStateTo isExpanded: Bool) {
+        tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .fade)
     }
     
-    func configureSearchField() {
-        searchField.setImage(UIImage(named: "search"))
-        searchField.attributedPlaceholder = NSAttributedString(
-            string: "Поиск",
-            attributes: [
-                NSAttributedString.Key.font : UIFont(name: "Gilroy-Bold", size: 16)!,
-                NSAttributedString.Key.foregroundColor : UIColor.white
-        ])
+    func expandingHeader(_ expandingHeader: ExpandingHeader, didChange selectedSegment: EHSelectedSegment) {
+        print("Did select \(selectedSegment.title)")
     }
     
+    func expandingHeader(_ expandingHeader: ExpandingHeader, didChange query: String) {
+        print("query: \(query)")
+    }
 }
 
 

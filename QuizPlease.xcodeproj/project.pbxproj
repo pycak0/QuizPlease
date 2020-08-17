@@ -61,6 +61,10 @@
 		A452E3B424D431C5002EE514 /* DataTypesExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A452E3B324D431C5002EE514 /* DataTypesExtensions.swift */; };
 		A46436E724EA7B120033F23A /* Gilroy-Heavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A46436E624EA7B110033F23A /* Gilroy-Heavy.ttf */; };
 		A46436E924EA7E590033F23A /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46436E824EA7E590033F23A /* Team.swift */; };
+		A46436ED24EAD24F0033F23A /* HBSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46436EC24EAD24F0033F23A /* HBSegmentedControl.swift */; };
+		A464370324EB37DB0033F23A /* ExpandingHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = A464370024EB37DB0033F23A /* ExpandingHeader.xib */; };
+		A464370424EB37DB0033F23A /* ExpandingHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A464370124EB37DB0033F23A /* ExpandingHeader.swift */; };
+		A464370524EB37DB0033F23A /* ExpandingHeaderTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A464370224EB37DB0033F23A /* ExpandingHeaderTextField.swift */; };
 		A469F75924E3084D007FB332 /* ScheduleGameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A469F75824E3084D007FB332 /* ScheduleGameCell.swift */; };
 		A498FCCC24E52ED80069F896 /* GameRegisterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A498FCCA24E52ED80069F896 /* GameRegisterCell.swift */; };
 		A498FCCD24E52ED80069F896 /* GameRegisterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A498FCCB24E52ED80069F896 /* GameRegisterCell.xib */; };
@@ -156,6 +160,10 @@
 		A452E3B324D431C5002EE514 /* DataTypesExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTypesExtensions.swift; sourceTree = "<group>"; };
 		A46436E624EA7B110033F23A /* Gilroy-Heavy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-Heavy.ttf"; sourceTree = "<group>"; };
 		A46436E824EA7E590033F23A /* Team.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
+		A46436EC24EAD24F0033F23A /* HBSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HBSegmentedControl.swift; sourceTree = "<group>"; };
+		A464370024EB37DB0033F23A /* ExpandingHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExpandingHeader.xib; sourceTree = "<group>"; };
+		A464370124EB37DB0033F23A /* ExpandingHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpandingHeader.swift; sourceTree = "<group>"; };
+		A464370224EB37DB0033F23A /* ExpandingHeaderTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpandingHeaderTextField.swift; sourceTree = "<group>"; };
 		A469F75824E3084D007FB332 /* ScheduleGameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleGameCell.swift; sourceTree = "<group>"; };
 		A498FCCA24E52ED80069F896 /* GameRegisterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRegisterCell.swift; sourceTree = "<group>"; };
 		A498FCCB24E52ED80069F896 /* GameRegisterCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameRegisterCell.xib; sourceTree = "<group>"; };
@@ -370,8 +378,19 @@
 				A4A065A424E47D460080E0D8 /* TableCellProtocol.swift */,
 				A450E39524E559CD00C49AEE /* TitledTextFieldView.swift */,
 				A450E39424E559CD00C49AEE /* TitledTextFieldView.xib */,
+				A46436EC24EAD24F0033F23A /* HBSegmentedControl.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		A46436FF24EB37DB0033F23A /* ExpandingHeader */ = {
+			isa = PBXGroup;
+			children = (
+				A464370024EB37DB0033F23A /* ExpandingHeader.xib */,
+				A464370124EB37DB0033F23A /* ExpandingHeader.swift */,
+				A464370224EB37DB0033F23A /* ExpandingHeaderTextField.swift */,
+			);
+			path = ExpandingHeader;
 			sourceTree = "<group>";
 		};
 		A4A0659524E4775E0080E0D8 /* GameOrder */ = {
@@ -471,6 +490,7 @@
 			children = (
 				A40D818324D2CA39006D2CE3 /* RatingVC.swift */,
 				A4C9D81224EA78BB00523688 /* RatingCell.swift */,
+				A46436FF24EB37DB0033F23A /* ExpandingHeader */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -581,6 +601,7 @@
 				A40D816624D2C6C2006D2CE3 /* LaunchScreen.storyboard in Resources */,
 				A4DAF73C24DD9BF400963C15 /* Gilroy-SemiBold.ttf in Resources */,
 				A4A065A324E47D1F0080E0D8 /* GameAnnotationCell.xib in Resources */,
+				A464370324EB37DB0033F23A /* ExpandingHeader.xib in Resources */,
 				A46436E724EA7B120033F23A /* Gilroy-Heavy.ttf in Resources */,
 				A4DAF73A24DD987F00963C15 /* ProfileCell.xib in Resources */,
 				A40D816324D2C6C2006D2CE3 /* Assets.xcassets in Resources */,
@@ -648,11 +669,13 @@
 				A498FCCC24E52ED80069F896 /* GameRegisterCell.swift in Sources */,
 				A4C9D81324EA78BB00523688 /* RatingCell.swift in Sources */,
 				A4BA1CF024D835DE00D32ADC /* MainMenuRouter.swift in Sources */,
+				A46436ED24EAD24F0033F23A /* HBSegmentedControl.swift in Sources */,
 				A40D818624D2CA44006D2CE3 /* ShopVC.swift in Sources */,
 				A40D818024D2CA26006D2CE3 /* HomeGameVC.swift in Sources */,
 				A450E39724E559CD00C49AEE /* TitledTextFieldView.swift in Sources */,
 				A445E34824DE02BC0070B9FC /* TitleLabel.swift in Sources */,
 				A40B758C24D9A81A006DB7D1 /* HomeGameInteractor.swift in Sources */,
+				A464370424EB37DB0033F23A /* ExpandingHeader.swift in Sources */,
 				A40F035D24D412D700C381F2 /* ShopItemCell.swift in Sources */,
 				A4A065AA24E4812F0080E0D8 /* GameGeneralDescriptionCell.swift in Sources */,
 				A450E3A324E5735400C49AEE /* GameOrderRouter.swift in Sources */,
@@ -672,6 +695,7 @@
 				A40B759024D9A829006DB7D1 /* HomeGameRouter.swift in Sources */,
 				A4A0659D24E477E20080E0D8 /* GameInfoCell.swift in Sources */,
 				A4147AD724E5B92D007C131F /* Place.swift in Sources */,
+				A464370524EB37DB0033F23A /* ExpandingHeaderTextField.swift in Sources */,
 				A4CC5FC724DACE2D0042B41C /* ShopConfigurator.swift in Sources */,
 				A450E3A524E57A8C00C49AEE /* GameInfoItemKind.swift in Sources */,
 				A450E39D24E571C900C49AEE /* GameOrderPresenter.swift in Sources */,
