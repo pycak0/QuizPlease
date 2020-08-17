@@ -44,10 +44,15 @@ extension UIViewController {
         ])
     }
     
-    func prepareNavigationBar(title: String? = nil) {
-        navigationController?.navigationBar.barTintColor = view.backgroundColor
+    func prepareNavigationBar(title: String? = nil, tintColor: UIColor? = nil, barTintColor: UIColor? = nil) {
+        navigationController?.navigationBar.barTintColor = barTintColor ?? view.backgroundColor
         navigationController?.navigationBar.shadowImage = UIImage()
-        navigationItem.titleView = TitleLabel(title: title ?? navigationItem.title ?? "")
+        
+        if let color = tintColor {
+            navigationController?.navigationBar.tintColor = color
+        }
+        navigationItem.titleView = TitleLabel(title: title ?? navigationItem.title ?? "",
+                                              textColor: tintColor)
     }
     
     var navBarHeight: CGFloat {

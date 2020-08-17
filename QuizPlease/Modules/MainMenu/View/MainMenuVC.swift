@@ -40,7 +40,6 @@ class MainMenuVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: true)
-        navigationItem.titleView = TitleLabel(title: "Расписание игр")
     }
     
     override func viewWillDisappear(_ animated: Bool) {

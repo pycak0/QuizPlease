@@ -14,8 +14,9 @@ protocol RatingPresenterProtocol {
     
     var teams: [Team] { get set }
     
-    func configureViews()
+    func handleRefreshControl(completion: (() -> Void)?)
     
+    func configureViews()
 }
 
 class RatingPresenter: RatingPresenterProtocol {
@@ -33,6 +34,27 @@ class RatingPresenter: RatingPresenterProtocol {
     
     func configureViews() {
         view?.configureTableView()
+        loadRating()
     }
     
+    func handleRefreshControl(completion: (() -> Void)?) {
+        loadRating(completion)
+    }
+    
+    private func loadRating(_ completion: (() -> Void)? = nil) {
+        interactor.loadRating { [weak self] (result) in
+            completion?()
+            guard let self = self else { return }
+            
+            switch result {
+            case .failure(let error):
+                self.view?.showSimpleAlert(title: "Произошла ошибка", message: error.localizedDescription)
+                
+            case .success(let teams):
+                self.teams = teams
+                self.view?.reloadRatingList()
+            }
+        }
+    }
+        
 }

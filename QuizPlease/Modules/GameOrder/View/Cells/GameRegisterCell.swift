@@ -29,6 +29,7 @@ class GameRegisterCell: UITableViewCell, TableCellProtocol {
     override func awakeFromNib() {
         super.awakeFromNib()
         configureTextFields()
+        select(numberButtonsStack.arrangedSubviews.first as! UIButton, number: 1)
     }
     
     //MARK:- Layout Subviews
