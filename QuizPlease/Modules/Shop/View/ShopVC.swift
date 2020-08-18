@@ -14,6 +14,8 @@ protocol ShopViewProtocol {
 
 class ShopVC: UIViewController {
 
+    @IBOutlet weak var userPointsLabel: UILabel!
+    
     @IBOutlet weak var shopCollectionView: UICollectionView!
     
     override func viewDidLoad() {
@@ -31,6 +33,8 @@ extension ShopVC: ShopViewProtocol {
         shopCollectionView.dataSource = self
         
         shopCollectionView.register(UINib(nibName: ShopItemCell.nibName, bundle: nil), forCellWithReuseIdentifier: ShopItemCell.reuseIdentifier)
+        
+        userPointsLabel.layer.cornerRadius = 15
     }
 }
 
