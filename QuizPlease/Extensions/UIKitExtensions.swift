@@ -108,6 +108,21 @@ public extension UIView {
         }
     }
     
+    //MARK:- Add Blur to View
+    ///Clears view's background color by default but you can specify blur background color
+    func addBlur(color: UIColor = .clear, style: UIBlurEffect.Style = .regular, alpha: CGFloat = 1) {
+        let blur = UIVisualEffectView(effect: UIBlurEffect(style: style))
+        blur.frame = self.bounds
+        blur.alpha = alpha
+        blur.isUserInteractionEnabled = false
+        blur.clipsToBounds = true
+        
+        blur.backgroundColor = color
+        self.backgroundColor = .clear
+        //self.addSubview(blur)
+        self.insertSubview(blur, at: 0)
+    }
+    
 }
 
 //MARK:- UITextField
@@ -153,45 +168,4 @@ extension CGRect {
     mutating func setHeight(_ height: CGFloat) {
         self = CGRect(origin: self.origin, size: CGSize(width: self.width, height: height))
     }
-}
-
-
-//MARK:- Colors
-public extension UIColor {
-    class var darkBlue: UIColor {
-        return UIColor(named: "darkBlue")!
-    }
-    
-    ///dark blue with kind of purple
-    class var plum: UIColor {
-        UIColor(named: "plum")!
-    }
-    
-    class var olive: UIColor {
-        return UIColor(named: "olive")!
-    }
-    
-    class var lemon: UIColor {
-        return UIColor(named: "lemon")!
-    }
-    
-    class var lightOrange: UIColor {
-        return UIColor(named: "lightOrange")!
-    }
-    
-    class var lightGreen: UIColor {
-        return UIColor(named: "lightGreen")!
-    }
-    
-    class var themeGray: UIColor {
-        UIColor(named: "themeGray")!
-    }
-    
-    class var labelAdapted: UIColor {
-        if #available(iOS 13.0, *) {
-            return .label
-        }
-        return .black
-    }
-
 }

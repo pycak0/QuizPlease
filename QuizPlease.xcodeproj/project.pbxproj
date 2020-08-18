@@ -77,6 +77,7 @@
 		A4A065A724E47E510080E0D8 /* Gilroy-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A4A065A624E47E500080E0D8 /* Gilroy-Medium.ttf */; };
 		A4A065AA24E4812F0080E0D8 /* GameGeneralDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A065A824E4812F0080E0D8 /* GameGeneralDescriptionCell.swift */; };
 		A4A065AB24E4812F0080E0D8 /* GameGeneralDescriptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4A065A924E4812F0080E0D8 /* GameGeneralDescriptionCell.xib */; };
+		A4A5370424EC7691004A10D4 /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A5370324EC7691004A10D4 /* UIColorExtensions.swift */; };
 		A4B0753224DFDBFB007778A2 /* GameInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B0753124DFDBFB007778A2 /* GameInfo.swift */; };
 		A4BA1CEA24D832D600D32ADC /* MainMenuConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BA1CE924D832D600D32ADC /* MainMenuConfigurator.swift */; };
 		A4BA1CEC24D8338B00D32ADC /* MainMenuPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BA1CEB24D8338B00D32ADC /* MainMenuPresenter.swift */; };
@@ -176,6 +177,7 @@
 		A4A065A624E47E500080E0D8 /* Gilroy-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-Medium.ttf"; sourceTree = "<group>"; };
 		A4A065A824E4812F0080E0D8 /* GameGeneralDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameGeneralDescriptionCell.swift; sourceTree = "<group>"; };
 		A4A065A924E4812F0080E0D8 /* GameGeneralDescriptionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameGeneralDescriptionCell.xib; sourceTree = "<group>"; };
+		A4A5370324EC7691004A10D4 /* UIColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtensions.swift; sourceTree = "<group>"; };
 		A4B0753124DFDBFB007778A2 /* GameInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameInfo.swift; sourceTree = "<group>"; };
 		A4BA1CE924D832D600D32ADC /* MainMenuConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuConfigurator.swift; sourceTree = "<group>"; };
 		A4BA1CEB24D8338B00D32ADC /* MainMenuPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuPresenter.swift; sourceTree = "<group>"; };
@@ -361,6 +363,7 @@
 		A40F036024D4186200C381F2 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				A4A5370324EC7691004A10D4 /* UIColorExtensions.swift */,
 				A40F036124D4187800C381F2 /* UIKitExtensions.swift */,
 				A452E3B324D431C5002EE514 /* DataTypesExtensions.swift */,
 				A4BA1CF424D8874C00D32ADC /* AlertExtensions.swift */,
@@ -653,6 +656,7 @@
 				A40B759624D9A84C006DB7D1 /* ProfilePresenter.swift in Sources */,
 				A40B759424D9A845006DB7D1 /* ProfileInteractor.swift in Sources */,
 				A40D818224D2CA30006D2CE3 /* ProfileVC.swift in Sources */,
+				A4A5370424EC7691004A10D4 /* UIColorExtensions.swift in Sources */,
 				A40B759224D9A836006DB7D1 /* HomeGameConfigurator.swift in Sources */,
 				A4DAF73924DD987F00963C15 /* ProfileCell.swift in Sources */,
 				A450E39A24E564A900C49AEE /* GameCertificateCell.swift in Sources */,
