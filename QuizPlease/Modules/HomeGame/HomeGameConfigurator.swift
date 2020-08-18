@@ -19,7 +19,8 @@ class HomeGameConfigurator: HomeGameConfiguratorProtocol {
         let presenter = HomeGamePresenter(view: view, interactor: interactor, router: router)
         
         view.presenter = presenter
-        view.prepareNavigationBar()
+        view.clearNavBarBackground()
+        view.prepareNavigationBar(tintColor: .white)
     }
     
 }

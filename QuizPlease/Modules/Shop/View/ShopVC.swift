@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol ShopViewProtocol {
+    func configureCollectionView()
+}
+
 class ShopVC: UIViewController {
 
     @IBOutlet weak var shopCollectionView: UICollectionView!
@@ -21,15 +25,16 @@ class ShopVC: UIViewController {
 
 }
 
-extension ShopVC {
+extension ShopVC: ShopViewProtocol {
     func configureCollectionView() {
-        shopCollectionView.register(UINib(nibName: ShopItemCell.nibName, bundle: nil), forCellWithReuseIdentifier: ShopItemCell.reuseIdentifier)
-        
         shopCollectionView.delegate = self
         shopCollectionView.dataSource = self
+        
+        shopCollectionView.register(UINib(nibName: ShopItemCell.nibName, bundle: nil), forCellWithReuseIdentifier: ShopItemCell.reuseIdentifier)
     }
 }
 
+//MARK:- Data Source
 extension ShopVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 5
@@ -47,6 +52,7 @@ extension ShopVC: UICollectionViewDataSource {
     
 }
 
+//MARK:- Delegate
 extension ShopVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
         if let cell = collectionView.cellForItem(at: indexPath) {
@@ -62,6 +68,7 @@ extension ShopVC: UICollectionViewDelegate {
 }
 
 
+//MARK:- Flow Layout
 extension ShopVC: UICollectionViewDelegateFlowLayout {
     private struct SectionLayout {
         static let sectionInsets: CGFloat = 16

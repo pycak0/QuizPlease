@@ -13,21 +13,28 @@ import UIKit
 extension UIViewController {
     
     //MARK:- Clear Navigation Bar
-    ///Clears navigation bar's background color and separator
+    ///Clears navigation bar's background color, separator and back button
     func clearNavigationBar(clearBorder: Bool = true) {
-        guard let navBar = navigationController?.navigationBar else {
-            return
-        }
-        navBar.backgroundColor = .clear
-        navBar.setBackgroundImage(UIImage(), for: .default)
-        if clearBorder {
-            navBar.shadowImage = UIImage()
-        }
+        guard let navBar = navigationController?.navigationBar else { return }
+        
+        clearNavBarBackground(andBorder: clearBorder)
         navBar.isTranslucent = true
         navBar.isOpaque = false
         navBar.backIndicatorTransitionMaskImage = UIImage()
         navBar.backIndicatorImage = UIImage()
         navBar.layoutIfNeeded()
+    }
+    
+    //MARK:- Clear Nav Bar Backgorund
+    ///Clears navigation bar's background color and separator
+    func clearNavBarBackground(andBorder: Bool = true) {
+        guard let navBar = navigationController?.navigationBar else { return }
+        
+        navBar.backgroundColor = .clear
+        navBar.setBackgroundImage(UIImage(), for: .default)
+        if andBorder {
+            navBar.shadowImage = UIImage()
+        }
     }
     
     func setupNavBarView(_ customNavBar: NavigationBar) {
