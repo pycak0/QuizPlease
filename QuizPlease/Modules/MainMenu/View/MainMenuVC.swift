@@ -68,7 +68,7 @@ extension MainMenuVC: MainMenuViewProtocol {
         tableView.register(UINib(nibName: ScheduleCell.identifier, bundle: nil), forCellReuseIdentifier: ScheduleCell.identifier)
         tableView.register(UINib(nibName: ProfileCell.identifier, bundle: nil), forCellReuseIdentifier: ProfileCell.identifier)
         tableView.register(UINib(nibName: WarmupCell.identifier, bundle: nil), forCellReuseIdentifier: WarmupCell.identifier)
-        tableView.register(UINib(nibName: HomeGameCell.identifier, bundle: nil), forCellReuseIdentifier: HomeGameCell.identifier)
+        tableView.register(UINib(nibName: MenuHomeGameCell.identifier, bundle: nil), forCellReuseIdentifier: MenuHomeGameCell.identifier)
         tableView.register(UINib(nibName: MenuRatingCell.identifier, bundle: nil), forCellReuseIdentifier: MenuRatingCell.identifier)
         //tableView.register(ScheduleCell.self, forCellReuseIdentifier: ScheduleCell.identifier)
     }

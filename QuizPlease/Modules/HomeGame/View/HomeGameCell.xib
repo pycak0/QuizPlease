@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Gilroy-Bold.ttf">
+            <string>Gilroy-Bold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="HomeGameCell" id="gTV-IL-0wX" customClass="HomeGameCell" customModule="QuizPlease" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="160" height="220"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="160" height="220"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6by-bE-cv8">
+                        <rect key="frame" x="0.0" y="0.0" width="160" height="220"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.59999999999999998" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="house.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="H7L-Vn-BBw">
+                                <rect key="frame" x="0.0" y="-0.5" width="160" height="173.5"/>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="sS9-SJ-VCY">
+                                <rect key="frame" x="8" y="8" width="144" height="204"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Game Name" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DEJ-wP-09L">
+                                        <rect key="frame" x="10" y="0.0" width="124" height="102"/>
+                                        <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="20"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Kol-dT-fpY">
+                                        <rect key="frame" x="32" y="112" width="80.5" height="16"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="clockIcon" translatesAutoresizingMaskIntoConstraints="NO" id="Xnl-8Z-lkn">
+                                                <rect key="frame" x="0.0" y="0.0" width="20" height="16"/>
+                                                <color key="tintColor" systemColor="systemGray4Color" red="0.81960784310000001" green="0.81960784310000001" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="20" id="Nmd-rG-aTh"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="35 минут" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DJV-Q3-RdC">
+                                                <rect key="frame" x="30" y="0.0" width="50.5" height="16"/>
+                                                <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="12"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="16" id="dWd-7d-f1R"/>
+                                        </constraints>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ZNb-5F-j8t">
+                                        <rect key="frame" x="27" y="138" width="90" height="16"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="banknoteIcon" translatesAutoresizingMaskIntoConstraints="NO" id="oJI-0T-O0h">
+                                                <rect key="frame" x="0.0" y="0.0" width="20" height="16"/>
+                                                <color key="tintColor" systemColor="systemGray4Color" red="0.81960784310000001" green="0.81960784310000001" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="20" id="0dd-Vy-U42"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Бесплатно" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mhz-9M-6y8">
+                                                <rect key="frame" x="30" y="0.0" width="60" height="16"/>
+                                                <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="12"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="16" id="IGe-Ml-Sya"/>
+                                        </constraints>
+                                    </stackView>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Сыграть" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="agV-JI-JJ2">
+                                        <rect key="frame" x="0.0" y="164" width="144" height="40"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="NB1-gX-cBD"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="agV-JI-JJ2" secondAttribute="trailing" id="5er-Od-Kc8"/>
+                                    <constraint firstItem="DEJ-wP-09L" firstAttribute="leading" secondItem="sS9-SJ-VCY" secondAttribute="leading" constant="10" id="M61-oJ-AOi"/>
+                                    <constraint firstItem="DEJ-wP-09L" firstAttribute="centerX" secondItem="sS9-SJ-VCY" secondAttribute="centerX" id="XSm-PT-zNS"/>
+                                    <constraint firstItem="agV-JI-JJ2" firstAttribute="leading" secondItem="sS9-SJ-VCY" secondAttribute="leading" id="fik-mZ-Hhg"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="H7L-Vn-BBw" secondAttribute="trailing" id="8rm-Nh-uvf"/>
+                            <constraint firstItem="sS9-SJ-VCY" firstAttribute="top" secondItem="6by-bE-cv8" secondAttribute="top" constant="8" id="DS4-ix-0GL"/>
+                            <constraint firstItem="IPr-n1-3QM" firstAttribute="trailing" secondItem="sS9-SJ-VCY" secondAttribute="trailing" constant="8" id="VGb-ee-fSg"/>
+                            <constraint firstItem="sS9-SJ-VCY" firstAttribute="centerX" secondItem="6by-bE-cv8" secondAttribute="centerX" id="VQM-3b-Byh"/>
+                            <constraint firstItem="H7L-Vn-BBw" firstAttribute="leading" secondItem="6by-bE-cv8" secondAttribute="leading" id="iU9-1X-8KL"/>
+                            <constraint firstItem="agV-JI-JJ2" firstAttribute="top" secondItem="H7L-Vn-BBw" secondAttribute="bottom" constant="-2" id="kN3-mz-OqN"/>
+                            <constraint firstItem="H7L-Vn-BBw" firstAttribute="top" secondItem="6by-bE-cv8" secondAttribute="top" id="tpr-ds-jgt"/>
+                            <constraint firstItem="sS9-SJ-VCY" firstAttribute="centerY" secondItem="6by-bE-cv8" secondAttribute="centerY" id="v0r-0B-pLl"/>
+                            <constraint firstItem="sS9-SJ-VCY" firstAttribute="leading" secondItem="6by-bE-cv8" secondAttribute="leading" constant="8" id="zf8-Pj-8d3"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="IPr-n1-3QM"/>
+                    </view>
+                </subviews>
+            </view>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="6by-bE-cv8" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Bla-z5-squ"/>
+                <constraint firstAttribute="trailing" secondItem="6by-bE-cv8" secondAttribute="trailing" id="a1E-qp-Swp"/>
+                <constraint firstAttribute="bottom" secondItem="6by-bE-cv8" secondAttribute="bottom" id="gcL-PO-BpW"/>
+                <constraint firstItem="6by-bE-cv8" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="hJx-a9-UYM"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <connections>
+                <outlet property="backgroundImage" destination="H7L-Vn-BBw" id="NTi-tK-I3K"/>
+                <outlet property="cellView" destination="6by-bE-cv8" id="4bI-HZ-RKM"/>
+                <outlet property="gameNameLabel" destination="DEJ-wP-09L" id="gfo-6N-dfw"/>
+                <outlet property="playLabel" destination="agV-JI-JJ2" id="jJt-sM-Iys"/>
+                <outlet property="priceLabel" destination="mhz-9M-6y8" id="ZEd-XL-I7X"/>
+                <outlet property="timeLabel" destination="DJV-Q3-RdC" id="YXV-87-bpv"/>
+            </connections>
+            <point key="canvasLocation" x="137.68115942028987" y="124.55357142857142"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="banknoteIcon" width="17" height="10"/>
+        <image name="clockIcon" width="14" height="14"/>
+        <image name="house.fill" catalog="system" width="128" height="106"/>
+    </resources>
+</document>

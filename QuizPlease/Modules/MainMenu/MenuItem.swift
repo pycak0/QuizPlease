@@ -50,7 +50,7 @@ enum MenuItemKind: Int, CaseIterable, MenuItemProtocol {
         case .schedule:     return ScheduleCell.identifier
         case .profile:      return ProfileCell.identifier
         case .warmup:       return WarmupCell.identifier
-        case .homeGame:     return HomeGameCell.identifier
+        case .homeGame:     return MenuHomeGameCell.identifier
         case .rating:       return MenuRatingCell.identifier
         default:            return ScheduleCell.identifier
         }

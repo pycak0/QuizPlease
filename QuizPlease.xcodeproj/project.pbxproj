@@ -78,6 +78,8 @@
 		A4A065AA24E4812F0080E0D8 /* GameGeneralDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A065A824E4812F0080E0D8 /* GameGeneralDescriptionCell.swift */; };
 		A4A065AB24E4812F0080E0D8 /* GameGeneralDescriptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4A065A924E4812F0080E0D8 /* GameGeneralDescriptionCell.xib */; };
 		A4A5370424EC7691004A10D4 /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A5370324EC7691004A10D4 /* UIColorExtensions.swift */; };
+		A4A5370824EC7AA6004A10D4 /* HomeGameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A5370624EC7AA6004A10D4 /* HomeGameCell.swift */; };
+		A4A5370924EC7AA6004A10D4 /* HomeGameCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4A5370724EC7AA6004A10D4 /* HomeGameCell.xib */; };
 		A4B0753224DFDBFB007778A2 /* GameInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B0753124DFDBFB007778A2 /* GameInfo.swift */; };
 		A4BA1CEA24D832D600D32ADC /* MainMenuConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BA1CE924D832D600D32ADC /* MainMenuConfigurator.swift */; };
 		A4BA1CEC24D8338B00D32ADC /* MainMenuPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BA1CEB24D8338B00D32ADC /* MainMenuPresenter.swift */; };
@@ -99,8 +101,8 @@
 		A4DAF73C24DD9BF400963C15 /* Gilroy-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A4DAF73B24DD9BF400963C15 /* Gilroy-SemiBold.ttf */; };
 		A4DAF73F24DDABFF00963C15 /* WarmupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DAF73D24DDABFF00963C15 /* WarmupCell.swift */; };
 		A4DAF74024DDABFF00963C15 /* WarmupCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4DAF73E24DDABFF00963C15 /* WarmupCell.xib */; };
-		A4DAF74324DDBAFE00963C15 /* HomeGameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DAF74124DDBAFE00963C15 /* HomeGameCell.swift */; };
-		A4DAF74424DDBAFE00963C15 /* HomeGameCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4DAF74224DDBAFE00963C15 /* HomeGameCell.xib */; };
+		A4DAF74324DDBAFE00963C15 /* MenuHomeGameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DAF74124DDBAFE00963C15 /* MenuHomeGameCell.swift */; };
+		A4DAF74424DDBAFE00963C15 /* MenuHomeGameCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4DAF74224DDBAFE00963C15 /* MenuHomeGameCell.xib */; };
 		A4DAF74724DDCCAD00963C15 /* MenuRatingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DAF74524DDCCAD00963C15 /* MenuRatingCell.swift */; };
 		A4DAF74824DDCCAD00963C15 /* MenuRatingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4DAF74624DDCCAD00963C15 /* MenuRatingCell.xib */; };
 /* End PBXBuildFile section */
@@ -178,6 +180,8 @@
 		A4A065A824E4812F0080E0D8 /* GameGeneralDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameGeneralDescriptionCell.swift; sourceTree = "<group>"; };
 		A4A065A924E4812F0080E0D8 /* GameGeneralDescriptionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameGeneralDescriptionCell.xib; sourceTree = "<group>"; };
 		A4A5370324EC7691004A10D4 /* UIColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtensions.swift; sourceTree = "<group>"; };
+		A4A5370624EC7AA6004A10D4 /* HomeGameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeGameCell.swift; sourceTree = "<group>"; };
+		A4A5370724EC7AA6004A10D4 /* HomeGameCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeGameCell.xib; sourceTree = "<group>"; };
 		A4B0753124DFDBFB007778A2 /* GameInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameInfo.swift; sourceTree = "<group>"; };
 		A4BA1CE924D832D600D32ADC /* MainMenuConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuConfigurator.swift; sourceTree = "<group>"; };
 		A4BA1CEB24D8338B00D32ADC /* MainMenuPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuPresenter.swift; sourceTree = "<group>"; };
@@ -199,8 +203,8 @@
 		A4DAF73B24DD9BF400963C15 /* Gilroy-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-SemiBold.ttf"; sourceTree = "<group>"; };
 		A4DAF73D24DDABFF00963C15 /* WarmupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarmupCell.swift; sourceTree = "<group>"; };
 		A4DAF73E24DDABFF00963C15 /* WarmupCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WarmupCell.xib; sourceTree = "<group>"; };
-		A4DAF74124DDBAFE00963C15 /* HomeGameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeGameCell.swift; sourceTree = "<group>"; };
-		A4DAF74224DDBAFE00963C15 /* HomeGameCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeGameCell.xib; sourceTree = "<group>"; };
+		A4DAF74124DDBAFE00963C15 /* MenuHomeGameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuHomeGameCell.swift; sourceTree = "<group>"; };
+		A4DAF74224DDBAFE00963C15 /* MenuHomeGameCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuHomeGameCell.xib; sourceTree = "<group>"; };
 		A4DAF74524DDCCAD00963C15 /* MenuRatingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuRatingCell.swift; sourceTree = "<group>"; };
 		A4DAF74624DDCCAD00963C15 /* MenuRatingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuRatingCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -331,7 +335,7 @@
 		A40D817724D2C98A006D2CE3 /* HomeGame */ = {
 			isa = PBXGroup;
 			children = (
-				A40D817F24D2CA26006D2CE3 /* HomeGameVC.swift */,
+				A4A5370524EC7706004A10D4 /* View */,
 				A40B758B24D9A81A006DB7D1 /* HomeGameInteractor.swift */,
 				A40B758D24D9A820006DB7D1 /* HomeGamePresenter.swift */,
 				A40B758F24D9A829006DB7D1 /* HomeGameRouter.swift */,
@@ -435,6 +439,16 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		A4A5370524EC7706004A10D4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A40D817F24D2CA26006D2CE3 /* HomeGameVC.swift */,
+				A4A5370624EC7AA6004A10D4 /* HomeGameCell.swift */,
+				A4A5370724EC7AA6004A10D4 /* HomeGameCell.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		A4B0753024DFDB33007778A2 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -517,8 +531,8 @@
 				A4DAF73824DD987F00963C15 /* ProfileCell.xib */,
 				A4DAF73D24DDABFF00963C15 /* WarmupCell.swift */,
 				A4DAF73E24DDABFF00963C15 /* WarmupCell.xib */,
-				A4DAF74124DDBAFE00963C15 /* HomeGameCell.swift */,
-				A4DAF74224DDBAFE00963C15 /* HomeGameCell.xib */,
+				A4DAF74124DDBAFE00963C15 /* MenuHomeGameCell.swift */,
+				A4DAF74224DDBAFE00963C15 /* MenuHomeGameCell.xib */,
 				A4DAF74524DDCCAD00963C15 /* MenuRatingCell.swift */,
 				A4DAF74624DDCCAD00963C15 /* MenuRatingCell.xib */,
 			);
@@ -614,10 +628,11 @@
 				A4A065A724E47E510080E0D8 /* Gilroy-Medium.ttf in Resources */,
 				A4DAF73624DD862500963C15 /* Gilroy-Bold.ttf in Resources */,
 				A4CC5FEE24DAEA840042B41C /* NavigationBar.xib in Resources */,
-				A4DAF74424DDBAFE00963C15 /* HomeGameCell.xib in Resources */,
+				A4DAF74424DDBAFE00963C15 /* MenuHomeGameCell.xib in Resources */,
 				A4A065AB24E4812F0080E0D8 /* GameGeneralDescriptionCell.xib in Resources */,
 				A4A0659E24E477E20080E0D8 /* GameInfoCell.xib in Resources */,
 				A4DAF74024DDABFF00963C15 /* WarmupCell.xib in Resources */,
+				A4A5370924EC7AA6004A10D4 /* HomeGameCell.xib in Resources */,
 				A40D818B24D2D24C006D2CE3 /* ScheduleCell.xib in Resources */,
 				A40D816124D2C6C1006D2CE3 /* Main.storyboard in Resources */,
 				A498FCCD24E52ED80069F896 /* GameRegisterCell.xib in Resources */,
@@ -652,7 +667,7 @@
 				A4BA1CEC24D8338B00D32ADC /* MainMenuPresenter.swift in Sources */,
 				A4CC5FC124DACE0E0042B41C /* ShopInteractor.swift in Sources */,
 				A40B757E24D9A750006DB7D1 /* SchedulePresenter.swift in Sources */,
-				A4DAF74324DDBAFE00963C15 /* HomeGameCell.swift in Sources */,
+				A4DAF74324DDBAFE00963C15 /* MenuHomeGameCell.swift in Sources */,
 				A40B759624D9A84C006DB7D1 /* ProfilePresenter.swift in Sources */,
 				A40B759424D9A845006DB7D1 /* ProfileInteractor.swift in Sources */,
 				A40D818224D2CA30006D2CE3 /* ProfileVC.swift in Sources */,
@@ -681,6 +696,7 @@
 				A40B758C24D9A81A006DB7D1 /* HomeGameInteractor.swift in Sources */,
 				A464370424EB37DB0033F23A /* ExpandingHeader.swift in Sources */,
 				A40F035D24D412D700C381F2 /* ShopItemCell.swift in Sources */,
+				A4A5370824EC7AA6004A10D4 /* HomeGameCell.swift in Sources */,
 				A4A065AA24E4812F0080E0D8 /* GameGeneralDescriptionCell.swift in Sources */,
 				A450E3A324E5735400C49AEE /* GameOrderRouter.swift in Sources */,
 				A4BA1CEE24D8347300D32ADC /* MainMenuInteractor.swift in Sources */,

@@ -16,7 +16,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="HomeGameCell" rowHeight="265" id="KGk-i7-Jjw" customClass="HomeGameCell" customModule="QuizPlease" customModuleProvider="target">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="MenuHomeGameCell" rowHeight="265" id="KGk-i7-Jjw" customClass="MenuHomeGameCell" customModule="QuizPlease" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="345" height="245"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
@@ -112,7 +112,7 @@
         <image name="radioImage" width="110" height="145"/>
         <image name="teapotImage" width="178" height="246"/>
         <namedColor name="lemon">
-            <color red="1" green="0.8901960784313725" blue="0.031372549019607843" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.88999998569488525" blue="0.030999999493360519" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="olive">
             <color red="0.57999998331069946" green="0.49500000476837158" blue="0.097999997437000275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

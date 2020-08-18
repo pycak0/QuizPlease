@@ -7,3 +7,11 @@
 //
 
 import Foundation
+
+protocol HomeGameInteractorProtocol {
+    //
+}
+
+class HomeGameInteractor: HomeGameInteractorProtocol {
+    //
+}

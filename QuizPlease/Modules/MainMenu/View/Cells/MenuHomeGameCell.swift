@@ -1,5 +1,5 @@
 //
-//  HomeGameCell.swift
+//  MenuHomeGameCell.swift
 //  QuizPlease
 //
 //  Created by Владислав on 07.08.2020.
@@ -8,8 +8,8 @@
 
 import UIKit
 
-class HomeGameCell: UITableViewCell, MenuCellItemProtocol {
-    static let identifier = "HomeGameCell"
+class MenuHomeGameCell: UITableViewCell, MenuCellItemProtocol {
+    static let identifier = "MenuHomeGameCell"
     
     @IBOutlet weak var cellView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
