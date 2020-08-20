@@ -16,6 +16,7 @@ protocol ProfilePresenterProtocol {
     func configureViews()
     
     func didPressShowShopButton()
+    func didPressAddGameButton()
 }
 
 class ProfilePresenter: ProfilePresenterProtocol {
@@ -32,10 +33,14 @@ class ProfilePresenter: ProfilePresenterProtocol {
     }
     
     func configureViews() {
-        view?.configureTableView()
+        view?.configureViews()
     }
     
     func didPressShowShopButton() {
         router.showShop()
+    }
+    
+    func didPressAddGameButton() {
+        //
     }
 }

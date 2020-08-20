@@ -13,7 +13,7 @@ protocol ProfileViewProtocol: UIViewController {
     var configurator: ProfileConfiguratorProtocol { get }
     var presenter: ProfilePresenterProtocol! { get set }
     
-    func configureTableView()
+    func configureViews()
 }
 
 class ProfileVC: UIViewController {
@@ -25,6 +25,11 @@ class ProfileVC: UIViewController {
     @IBOutlet weak var gamesCountLabel: UILabel!
     @IBOutlet weak var totalPointsScored: UILabel!
     @IBOutlet weak var showShopButton: UIButton!
+    @IBOutlet weak var addGameButton: UIButton!
+    
+    //`addGameButton` fading helpers
+    var lastOffset: CGFloat = 0
+    var startOffset: CGFloat?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,21 +42,37 @@ class ProfileVC: UIViewController {
         presenter.router.prepare(for: segue, sender: sender)
     }
 
-    @IBAction func shopButtonPressed(_ sender: Any) {
+    @IBAction func shopButtonPressed(_ sender: UIButton) {
+        //sender.scaleOut()
         presenter.didPressShowShopButton()
     }
     
+    @IBAction func addGameButtonPressed(_ sender: UIButton) {
+        sender.scaleOut()
+        presenter.didPressAddGameButton()
+    }
+    
+    @IBAction func buttonHighlighted(_ sender: UIButton) {
+        sender.scaleIn()
+    }
+    
+    @IBAction func buttonReleased(_ sender: UIButton) {
+        sender.scaleOut()
+    }
 }
 
 //MARK:- Protocol Implementation
 extension ProfileVC: ProfileViewProtocol {
-    func configureTableView() {
+    func configureViews() {
         tableView.delegate = self
         tableView.dataSource = self
         
         infoHeader.addGradient(colors: [.lemon, .lightOrange], insertAt: 0)
         totalPointsScored.layer.cornerRadius = totalPointsScored.bounds.height / 2
         showShopButton.layer.cornerRadius = showShopButton.bounds.height / 2
+        
+        addGameButton.layer.cornerRadius = 20
+        addGameButton.addGradient(colors: [.lemon, .lightOrange], insertAt: 0)
     }
 }
 
@@ -80,4 +101,49 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+}
+
+
+//MARK:- UIScrollViewDelegate
+extension ProfileVC: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let currentOffset = scrollView.contentOffset.y + scrollView.safeAreaInsets.top
+        let isScrollingDown = currentOffset > lastOffset
+        //print(currentOffset)
+        
+        if isScrollingDown && currentOffset > 10 {
+            if startOffset == nil {
+                startOffset = currentOffset
+            }
+            let translation = currentOffset - startOffset!
+            let alpha: CGFloat = max(0, (100 - currentOffset + startOffset!) / 100)
+            if addGameButton.alpha > 0 {
+                addGameButton.alpha = alpha
+                addGameButton.transform = CGAffineTransform(translationX: 0, y: translation)
+            }
+        } else {
+            UIView.animate(withDuration: 0.15) {
+                self.addGameButton.alpha = 1
+                self.addGameButton.transform = .identity
+            }
+            startOffset = nil
+        }
+        
+        lastOffset = currentOffset
+
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        guard !decelerate, addGameButton.alpha != 0 && addGameButton.alpha != 1 else { return }
+        
+        let transform = addGameButton.alpha >= 0.5 ? CGAffineTransform.identity : CGAffineTransform(translationX: 0, y: 100)
+        let alpha = addGameButton.alpha.rounded()
+        startOffset = alpha == 1 ? nil : startOffset
+        
+        UIView.animate(withDuration: 0.2) {
+            self.addGameButton.transform = transform
+            self.addGameButton.alpha = alpha
+        }
+        
+    }
 }

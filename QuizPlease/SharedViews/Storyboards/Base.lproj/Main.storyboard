@@ -667,7 +667,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lmt-Kb-Xp6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2296" y="186"/>
+            <point key="canvasLocation" x="2283" y="248"/>
         </scene>
         <!--Личный кабинет-->
         <scene sceneID="pqf-pT-YIM">
@@ -884,12 +884,36 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1jG-RD-r9N">
+                                <rect key="frame" x="20" y="782" width="374" height="60"/>
+                                <color key="backgroundColor" name="lemon"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="jcf-wk-b2j"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="20"/>
+                                <state key="normal" title="Добавить игру">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="addGameButtonPressed:" destination="8BX-jB-LoS" eventType="touchUpInside" id="hDL-1z-3Ga"/>
+                                    <action selector="buttonHighlighted:" destination="8BX-jB-LoS" eventType="touchDragEnter" id="IpK-9U-jgl"/>
+                                    <action selector="buttonHighlighted:" destination="8BX-jB-LoS" eventType="touchDragInside" id="J8O-3o-k0x"/>
+                                    <action selector="buttonHighlighted:" destination="8BX-jB-LoS" eventType="touchDown" id="Mc5-Ws-5I0"/>
+                                    <action selector="buttonReleased:" destination="8BX-jB-LoS" eventType="touchCancel" id="E1B-jm-odZ"/>
+                                    <action selector="buttonReleased:" destination="8BX-jB-LoS" eventType="touchDragOutside" id="KN5-uc-ypk"/>
+                                    <action selector="buttonReleased:" destination="8BX-jB-LoS" eventType="touchDragExit" id="Tdz-vz-vPU"/>
+                                    <action selector="buttonReleased:" destination="8BX-jB-LoS" eventType="touchUpOutside" id="i5Z-7X-0ZP"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="4Bt-cl-3gP" firstAttribute="leading" secondItem="Whk-tw-dmt" secondAttribute="leading" id="2ta-kv-0Uf"/>
+                            <constraint firstItem="1jG-RD-r9N" firstAttribute="centerX" secondItem="Whk-tw-dmt" secondAttribute="centerX" id="NNg-P2-j67"/>
                             <constraint firstAttribute="bottom" secondItem="4Bt-cl-3gP" secondAttribute="bottom" id="P1r-5w-fFg"/>
+                            <constraint firstItem="Whk-tw-dmt" firstAttribute="bottom" secondItem="1jG-RD-r9N" secondAttribute="bottom" constant="20" id="YFb-Lp-6j7"/>
                             <constraint firstItem="4Bt-cl-3gP" firstAttribute="top" secondItem="Hyd-6n-ALh" secondAttribute="top" id="ae2-g6-dpd"/>
+                            <constraint firstItem="1jG-RD-r9N" firstAttribute="leading" secondItem="Whk-tw-dmt" secondAttribute="leading" constant="20" id="vpi-YT-42d"/>
                             <constraint firstItem="Whk-tw-dmt" firstAttribute="trailing" secondItem="4Bt-cl-3gP" secondAttribute="trailing" id="y15-o0-sbm"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Whk-tw-dmt"/>
@@ -898,6 +922,7 @@
                         <barButtonItem key="backBarButtonItem" title=" " id="xuH-cj-ypZ"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="addGameButton" destination="1jG-RD-r9N" id="KFz-bf-T5g"/>
                         <outlet property="gamesCountLabel" destination="QOB-kX-Edq" id="HYc-US-NwI"/>
                         <outlet property="infoHeader" destination="tmW-ro-5TD" id="rpu-lL-OxW"/>
                         <outlet property="showShopButton" destination="pOZ-Rz-FRq" id="JHw-bY-dRS"/>
