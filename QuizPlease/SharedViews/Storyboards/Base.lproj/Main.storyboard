@@ -94,6 +94,7 @@
                         <segue destination="8BX-jB-LoS" kind="show" identifier="Show ProfileVC" id="dRI-1O-5Ym"/>
                         <segue destination="9KB-EF-Qk6" kind="show" identifier="Show RatingVC" id="nwe-ET-My6"/>
                         <segue destination="H5s-MK-eJ0" kind="show" identifier="Show ShopVC" id="C1a-qd-8Vm"/>
+                        <segue destination="9lb-5I-2Om" kind="presentation" identifier="ShowQRScreenMenu" id="HCF-Ox-xP4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iuS-O9-PLA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -109,13 +110,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Фильтр игр" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FAQ-kE-fny">
-                                <rect key="frame" x="20" y="29.999999999999996" width="338" height="32.666666666666657"/>
+                                <rect key="frame" x="20" y="30" width="338" height="34"/>
                                 <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="28"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H64-Oi-imb">
-                                <rect key="frame" x="374" y="35.333333333333336" width="20" height="22"/>
+                                <rect key="frame" x="374" y="36" width="20" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="20" id="Ezz-Xh-Ntc"/>
                                 </constraints>
@@ -126,7 +127,7 @@
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="HC7-Xb-3ht">
-                                <rect key="frame" x="20" y="92.666666666666686" width="374" height="110"/>
+                                <rect key="frame" x="20" y="94" width="374" height="110"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xFH-Oj-SE7">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="50"/>
@@ -157,7 +158,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2CW-wA-ipI">
-                                        <rect key="frame" x="0.0" y="59.999999999999986" width="374" height="50"/>
+                                        <rect key="frame" x="0.0" y="60" width="374" height="50"/>
                                         <subviews>
                                             <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Все время" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2yV-Zd-HZJ">
                                                 <rect key="frame" x="16" y="0.0" width="306" height="50"/>
@@ -187,7 +188,7 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="eYl-pM-7og">
-                                <rect key="frame" x="20" y="232.66666666666663" width="374" height="230"/>
+                                <rect key="frame" x="20" y="234" width="374" height="230"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JLy-4D-3qV">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="50"/>
@@ -218,7 +219,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l6l-0E-3ea">
-                                        <rect key="frame" x="0.0" y="60.000000000000028" width="374" height="50"/>
+                                        <rect key="frame" x="0.0" y="60" width="374" height="50"/>
                                         <subviews>
                                             <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Все форматы" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gLs-dN-Y13">
                                                 <rect key="frame" x="16" y="0.0" width="306" height="50"/>
@@ -246,7 +247,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tcv-Zo-TEa">
-                                        <rect key="frame" x="0.0" y="120.00000000000003" width="374" height="50"/>
+                                        <rect key="frame" x="0.0" y="120" width="374" height="50"/>
                                         <subviews>
                                             <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Все типы" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oIN-mv-pMN">
                                                 <rect key="frame" x="16" y="0.0" width="306" height="50"/>
@@ -274,7 +275,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jjc-KK-etM">
-                                        <rect key="frame" x="0.0" y="180.00000000000003" width="374" height="50"/>
+                                        <rect key="frame" x="0.0" y="180" width="374" height="50"/>
                                         <subviews>
                                             <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Все бары" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n2w-P7-tIs">
                                                 <rect key="frame" x="16" y="0.0" width="306" height="50"/>
@@ -304,7 +305,7 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mkl-a2-sw3">
-                                <rect key="frame" x="20" y="492.66666666666674" width="374" height="60"/>
+                                <rect key="frame" x="20" y="494" width="374" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="lJ1-Kt-VD0"/>
                                 </constraints>
@@ -372,19 +373,19 @@
                                                     <rect key="frame" x="16" y="8" width="382" height="330"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="[кино и музыка]" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="17" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C9L-us-5OI">
-                                                            <rect key="frame" x="16" y="15.999999999999996" width="287" height="32.666666666666657"/>
+                                                            <rect key="frame" x="16" y="16" width="286.66666666666669" height="34"/>
                                                             <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="28"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="#62" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lGp-Ex-StO">
-                                                            <rect key="frame" x="319" y="15.999999999999996" width="47" height="32.666666666666657"/>
+                                                            <rect key="frame" x="318.66666666666669" y="16" width="47.333333333333314" height="34"/>
                                                             <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="28"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="eU1-eQ-AwU">
-                                                            <rect key="frame" x="16" y="64.666666666666686" width="350" height="144"/>
+                                                            <rect key="frame" x="16" y="66" width="350" height="144"/>
                                                             <subviews>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="WSd-rf-qky">
                                                                     <rect key="frame" x="0.0" y="0.0" width="350" height="30"/>
@@ -400,13 +401,13 @@
                                                                             <rect key="frame" x="28" y="0.0" width="209" height="30"/>
                                                                             <subviews>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uhj-Hk-GVk">
-                                                                                    <rect key="frame" x="0.0" y="0.0" width="201" height="14"/>
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="201" height="14.666666666666666"/>
                                                                                     <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="12"/>
                                                                                     <nil key="textColor"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g9l-vk-Eq4">
-                                                                                    <rect key="frame" x="0.0" y="14" width="201" height="14"/>
+                                                                                    <rect key="frame" x="0.0" y="14.666666666666671" width="201" height="14.666666666666664"/>
                                                                                     <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="12"/>
                                                                                     <color key="textColor" systemColor="placeholderTextColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                     <nil key="highlightedColor"/>
@@ -474,7 +475,7 @@
                                                                     </subviews>
                                                                 </stackView>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="89t-BA-tXa">
-                                                                    <rect key="frame" x="0.0" y="75.999999999999986" width="350" height="30"/>
+                                                                    <rect key="frame" x="0.0" y="76" width="350" height="30"/>
                                                                     <subviews>
                                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="banknoteIcon" translatesAutoresizingMaskIntoConstraints="NO" id="0Ka-Ty-keu">
                                                                             <rect key="frame" x="0.0" y="0.0" width="20" height="30"/>
@@ -512,7 +513,7 @@
                                                             </subviews>
                                                         </stackView>
                                                         <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LnU-kz-MRi">
-                                                            <rect key="frame" x="60" y="224.66666666666666" width="262" height="39.999999999999972"/>
+                                                            <rect key="frame" x="60" y="226" width="262" height="40"/>
                                                             <color key="backgroundColor" name="lightGreen"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="40" id="yOk-xL-rkX"/>
@@ -525,7 +526,7 @@
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ssY-QN-VH5">
-                                                            <rect key="frame" x="149" y="280.66666666666669" width="84" height="33.333333333333314"/>
+                                                            <rect key="frame" x="148" y="282" width="86" height="32"/>
                                                             <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="16"/>
                                                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <state key="normal" title="Подробнее">
@@ -695,6 +696,88 @@
             </objects>
             <point key="canvasLocation" x="2702.898550724638" y="-1098.2142857142856"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="WWS-fr-LYB">
+            <objects>
+                <viewController modalPresentationStyle="overFullScreen" id="9lb-5I-2Om" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="aFZ-dI-lrd">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Добавление игры" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="jgs-et-DdD">
+                                <rect key="frame" x="60" y="66.666666666666671" width="276" height="29"/>
+                                <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="24"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G3x-O1-rSK">
+                                <rect key="frame" x="20" y="70" width="20" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="20" id="E7W-tT-Iht"/>
+                                </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" image="cross"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Al5-2C-Wtw">
+                                <rect key="frame" x="352" y="60" width="42" height="42"/>
+                                <color key="backgroundColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="42" id="V8a-e8-844"/>
+                                    <constraint firstAttribute="width" constant="42" id="hsT-q0-qiz"/>
+                                </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" image="flash"/>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Сканирование QR-кода" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="dd3-0W-Mzx">
+                                <rect key="frame" x="16" y="239" width="382" height="27"/>
+                                <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="22"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="frames" translatesAutoresizingMaskIntoConstraints="NO" id="Wv1-TK-1r3">
+                                <rect key="frame" x="80" y="326" width="254" height="254"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Wv1-TK-1r3" secondAttribute="height" multiplier="1:1" id="sQW-LE-6eJ"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WSQ-Fw-IK5">
+                                <rect key="frame" x="40" y="640" width="334" height="57.333333333333371"/>
+                                <string key="text">Наведите камеру
+на квадратный код
+на ввашей карточке</string>
+                                <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="16"/>
+                                <color key="textColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Al5-2C-Wtw" firstAttribute="top" secondItem="Thz-Hg-qgS" secondAttribute="top" constant="16" id="0Ur-45-YNr"/>
+                            <constraint firstItem="WSQ-Fw-IK5" firstAttribute="centerX" secondItem="Thz-Hg-qgS" secondAttribute="centerX" id="2Sz-iC-1Vt"/>
+                            <constraint firstItem="WSQ-Fw-IK5" firstAttribute="top" secondItem="Wv1-TK-1r3" secondAttribute="bottom" constant="60" id="63n-4a-0fR"/>
+                            <constraint firstItem="Thz-Hg-qgS" firstAttribute="trailing" secondItem="Al5-2C-Wtw" secondAttribute="trailing" constant="20" id="92Q-Sy-g5j"/>
+                            <constraint firstItem="Wv1-TK-1r3" firstAttribute="top" secondItem="dd3-0W-Mzx" secondAttribute="bottom" constant="60" id="Br4-xA-XDl"/>
+                            <constraint firstItem="Wv1-TK-1r3" firstAttribute="leading" secondItem="Thz-Hg-qgS" secondAttribute="leading" constant="80" id="DbZ-pU-keM"/>
+                            <constraint firstItem="Al5-2C-Wtw" firstAttribute="leading" secondItem="jgs-et-DdD" secondAttribute="trailing" constant="16" id="EHR-Hf-pT7"/>
+                            <constraint firstItem="dd3-0W-Mzx" firstAttribute="centerX" secondItem="Thz-Hg-qgS" secondAttribute="centerX" id="FDH-0E-1eo"/>
+                            <constraint firstItem="jgs-et-DdD" firstAttribute="centerY" secondItem="Al5-2C-Wtw" secondAttribute="centerY" id="PV4-qu-f7J"/>
+                            <constraint firstItem="dd3-0W-Mzx" firstAttribute="leading" secondItem="Thz-Hg-qgS" secondAttribute="leading" constant="16" id="YP5-mG-EPI"/>
+                            <constraint firstItem="Wv1-TK-1r3" firstAttribute="centerX" secondItem="Thz-Hg-qgS" secondAttribute="centerX" id="aq0-1i-GNe"/>
+                            <constraint firstItem="jgs-et-DdD" firstAttribute="leading" secondItem="G3x-O1-rSK" secondAttribute="trailing" constant="20" id="auh-Ob-Cxy"/>
+                            <constraint firstItem="G3x-O1-rSK" firstAttribute="centerY" secondItem="Al5-2C-Wtw" secondAttribute="centerY" id="b2I-ii-SAj"/>
+                            <constraint firstItem="Wv1-TK-1r3" firstAttribute="centerY" secondItem="Thz-Hg-qgS" secondAttribute="centerY" id="hCk-KT-b9A"/>
+                            <constraint firstItem="WSQ-Fw-IK5" firstAttribute="leading" secondItem="Thz-Hg-qgS" secondAttribute="leading" constant="40" id="rDh-dP-HHW"/>
+                            <constraint firstItem="G3x-O1-rSK" firstAttribute="leading" secondItem="Thz-Hg-qgS" secondAttribute="leading" constant="20" id="rfh-9K-yAO"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Thz-Hg-qgS"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="frP-g4-pEV"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="seK-ep-zfu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3997" y="-894"/>
+        </scene>
         <!--Game OrderVC-->
         <scene sceneID="iTE-1J-euP">
             <objects>
@@ -792,28 +875,28 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="of2-79-Hv9">
-                                                    <rect key="frame" x="20" y="13.999999999999998" width="378" height="23.333333333333329"/>
+                                                    <rect key="frame" x="20" y="14" width="378" height="24"/>
                                                     <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="20"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="21" translatesAutoresizingMaskIntoConstraints="NO" id="cAm-eW-6nc">
-                                                    <rect key="frame" x="20" y="45.333333333333336" width="378" height="25.666666666666664"/>
+                                                    <rect key="frame" x="20" y="46" width="378" height="25"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bW6-GG-1Ik">
-                                                            <rect key="frame" x="0.0" y="0.0" width="112" height="25.666666666666668"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="112" height="25"/>
                                                             <fontDescription key="fontDescription" name="Gilroy-Heavy" family="Gilroy" pointSize="16"/>
                                                             <color key="textColor" name="lemon"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ade-SY-VBQ">
-                                                            <rect key="frame" x="133" y="0.0" width="112" height="25.666666666666668"/>
+                                                            <rect key="frame" x="133" y="0.0" width="112" height="25"/>
                                                             <fontDescription key="fontDescription" name="Gilroy-Heavy" family="Gilroy" pointSize="16"/>
                                                             <color key="textColor" name="lemon"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pixelGuyHatAndPlate" translatesAutoresizingMaskIntoConstraints="NO" id="HJs-BP-l5K">
-                                                            <rect key="frame" x="266" y="0.0" width="112" height="25.666666666666668"/>
+                                                            <rect key="frame" x="266" y="0.0" width="112" height="25"/>
                                                         </imageView>
                                                     </subviews>
                                                 </stackView>
@@ -1031,13 +1114,13 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="140"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Вы сходили нв N игр и накопили" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QOB-kX-Edq">
-                                                    <rect key="frame" x="16" y="16" width="382" height="18.666666666666671"/>
+                                                    <rect key="frame" x="16" y="15.999999999999998" width="382" height="19.333333333333329"/>
                                                     <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2430 баллов" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zbv-jy-ImX">
-                                                    <rect key="frame" x="16" y="42.666666666666664" width="110" height="29.999999999999993"/>
+                                                    <rect key="frame" x="16" y="43.333333333333336" width="110" height="30.000000000000007"/>
                                                     <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="110" id="qPP-EH-rVA"/>
@@ -1048,7 +1131,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Посмотрите, что на них можно купить в нашем магазине" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dAi-cf-yfW">
-                                                    <rect key="frame" x="16" y="88.333333333333329" width="242" height="32.666666666666671"/>
+                                                    <rect key="frame" x="16" y="89" width="242" height="33.666666666666657"/>
                                                     <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="14"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
@@ -1057,7 +1140,7 @@
                                                     <rect key="frame" x="274" y="16" width="140" height="164"/>
                                                 </imageView>
                                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pOZ-Rz-FRq">
-                                                    <rect key="frame" x="274" y="84.666666666666671" width="120" height="40"/>
+                                                    <rect key="frame" x="274" y="86" width="120" height="40"/>
                                                     <color key="backgroundColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="120" id="YWj-rr-zNW"/>
@@ -1091,7 +1174,7 @@
                                             </constraints>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Игры, на которых вы зажигали" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zSP-W2-NcM">
-                                            <rect key="frame" x="16" y="150" width="382" height="18.666666666666657"/>
+                                            <rect key="frame" x="16" y="150" width="382" height="19.333333333333343"/>
                                             <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="16"/>
                                             <color key="textColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
@@ -1123,13 +1206,13 @@
                                                             <rect key="frame" x="0.0" y="1" width="382" height="188.66666666666666"/>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="[кино и музыка]" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ntf-KH-fTu">
-                                                            <rect key="frame" x="16" y="20" width="205.33333333333334" height="34"/>
+                                                            <rect key="frame" x="16" y="20" width="207.33333333333334" height="34"/>
                                                             <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="28"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#1000" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dia-4Q-MjH">
-                                                            <rect key="frame" x="288" y="20.666666666666668" width="78" height="32.666666666666657"/>
+                                                            <rect key="frame" x="284.66666666666669" y="20" width="81.333333333333314" height="34"/>
                                                             <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="28"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -1271,11 +1354,12 @@
                         <outlet property="tableView" destination="4Bt-cl-3gP" id="oej-k3-pJi"/>
                         <outlet property="totalPointsScored" destination="zbv-jy-ImX" id="woA-5P-x89"/>
                         <segue destination="H5s-MK-eJ0" kind="show" identifier="ShowShop" id="pVV-GK-MaB"/>
+                        <segue destination="9lb-5I-2Om" kind="presentation" identifier="ShowQRScreenProfile" id="kQf-Xc-fDF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YNl-MC-5yN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1816" y="-490"/>
+            <point key="canvasLocation" x="2086" y="-565"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="1qP-4D-002">
@@ -1299,6 +1383,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="pVV-GK-MaB"/>
+        <segue reference="kQf-Xc-fDF"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="arrowDown" width="20" height="12"/>
@@ -1312,6 +1397,8 @@
         <image name="cup" width="28" height="28"/>
         <image name="filter" width="42" height="42"/>
         <image name="fireIcon" width="15" height="18"/>
+        <image name="flash" width="12" height="21"/>
+        <image name="frames" width="204" height="210"/>
         <image name="homeGameBackground" width="375" height="650"/>
         <image name="logoSmall" width="60" height="60"/>
         <image name="mapIcon" width="13" height="10"/>
