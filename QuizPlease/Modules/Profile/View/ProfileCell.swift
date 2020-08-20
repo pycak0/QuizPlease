@@ -22,6 +22,7 @@ class ProfileCell: UITableViewCell, TableCellProtocol {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        configureCell()
     }
     
     private func configureCell() {
@@ -40,5 +41,16 @@ class ProfileCell: UITableViewCell, TableCellProtocol {
         
         prizeImageView.isHidden = place > 3
     }
+    
+    func configure(gameName: String, gameNumber: Int, teamName: String, place: Int, pointsScored: Int) {
+        gameNameLabel.text = gameName
+        gameNumberLabel.text = "#\(gameNumber)"
+        teamNameLabel.text = teamName
+        placeLabel.text = "\(place) место"
+        pointsScoredLabel.text = "+ \(pointsScored.string(withAssociatedMaleWord: "балл"))"
+        
+        prizeImageView.isHidden = place > 3
+    }
+
     
 }

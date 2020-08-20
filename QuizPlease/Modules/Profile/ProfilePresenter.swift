@@ -11,14 +11,19 @@ import Foundation
 protocol ProfilePresenterProtocol {
     var router: ProfileRouterProtocol! { get }
     init(view: ProfileViewProtocol, interactor: ProfileInteractorProtocol, router: ProfileRouterProtocol)
+    var games: [Any?] { get set }
     
     func configureViews()
+    
+    func didPressShowShopButton()
 }
 
 class ProfilePresenter: ProfilePresenterProtocol {
     var router: ProfileRouterProtocol!
     var interactor: ProfileInteractorProtocol
     weak var view: ProfileViewProtocol?
+    
+    var games: [Any?] = []
     
     required init(view: ProfileViewProtocol, interactor: ProfileInteractorProtocol, router: ProfileRouterProtocol) {
         self.view = view
@@ -28,5 +33,9 @@ class ProfilePresenter: ProfilePresenterProtocol {
     
     func configureViews() {
         view?.configureTableView()
+    }
+    
+    func didPressShowShopButton() {
+        router.showShop()
     }
 }

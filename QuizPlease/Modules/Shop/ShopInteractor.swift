@@ -7,3 +7,17 @@
 //
 
 import Foundation
+
+protocol ShopInteractorProtocol {
+    func loadItems(completion: @escaping (Result<[ShopItem], Error>) -> Void)
+}
+
+class ShopInteractor: ShopInteractorProtocol {
+    func loadItems(completion: @escaping (Result<[ShopItem], Error>) -> Void) {
+        var items = [ShopItem]()
+        for i in 1...5 {
+            items.append(ShopItem(id: "\(i)", name: "item\(i)", description: "Description\(i)", price: 10 * i))
+        }
+        completion(.success(items))
+    }
+}

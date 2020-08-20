@@ -8,11 +8,18 @@
 
 import UIKit
 
-protocol ShopViewProtocol {
+//MARK:- View Protocol
+protocol ShopViewProtocol: UIViewController {
+    var configurator: ShopConfiguratorProtocol { get }
+    var presenter: ShopPresenterProtocol! { get set }
+    
     func configureCollectionView()
+    func reloadCollectionView()
 }
 
 class ShopVC: UIViewController {
+    let configurator: ShopConfiguratorProtocol = ShopConfigurator()
+    var presenter: ShopPresenterProtocol!
 
     @IBOutlet weak var userPointsLabel: UILabel!
     
@@ -20,13 +27,29 @@ class ShopVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configurator.configure(self)
+        presenter.configureViews()
 
-        configureCollectionView()
+    }
+    
+    private func configureRefreshControl() {
+        let refreshControl = UIRefreshControl()
+        refreshControl.tintColor = .labelAdapted
+        refreshControl.addTarget(self, action: #selector(refreshControlTriggered), for: .valueChanged)
+        shopCollectionView.refreshControl = refreshControl
+    }
+    
+    @objc
+    private func refreshControlTriggered() {
+        presenter.handleRefreshControl { [weak self] in
+            self?.shopCollectionView.refreshControl?.endRefreshing()
+        }
     }
     
 
 }
 
+//MARK:- Protocol Implementation
 extension ShopVC: ShopViewProtocol {
     func configureCollectionView() {
         shopCollectionView.delegate = self
@@ -36,19 +59,24 @@ extension ShopVC: ShopViewProtocol {
         
         userPointsLabel.layer.cornerRadius = 15
     }
+    
+    func reloadCollectionView() {
+        shopCollectionView.reloadData()
+    }
 }
 
 //MARK:- Data Source
 extension ShopVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return presenter.items.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ShopItemCell.reuseIdentifier, for: indexPath) as? ShopItemCell else {
             fatalError("Invalid Cell Kind")
         }
-        cell.configureCell(image: nil, price: indexPath.item)
+        let item = presenter.items[indexPath.item]
+        cell.configureCell(image: nil, price: item.price)
                 
         return cell
     }
