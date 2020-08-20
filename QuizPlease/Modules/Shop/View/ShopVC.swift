@@ -32,6 +32,10 @@ class ShopVC: UIViewController {
 
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        presenter.router.prepare(for: segue, sender: sender)
+    }
+    
     private func configureRefreshControl() {
         let refreshControl = UIRefreshControl()
         refreshControl.tintColor = .labelAdapted
@@ -96,6 +100,10 @@ extension ShopVC: UICollectionViewDelegate {
         if let cell = collectionView.cellForItem(at: indexPath) {
             cell.contentView.scaleOut()
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        presenter.didSelectItem(at: indexPath.row)
     }
 }
 

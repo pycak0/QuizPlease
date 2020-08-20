@@ -16,6 +16,7 @@ protocol ShopPresenterProtocol {
     
     func configureViews()
     
+    func didSelectItem(at index: Int)
     func handleRefreshControl(completion: (() -> Void)?)
 }
 
@@ -56,6 +57,11 @@ class ShopPresenter: ShopPresenterProtocol {
                 self.view?.reloadCollectionView()
             }
         }
+    }
+    
+    func didSelectItem(at index: Int) {
+        let item = items[index]
+        router.showConfirmScreen(for: item)
     }
     
 }

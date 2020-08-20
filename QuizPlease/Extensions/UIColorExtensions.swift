@@ -14,6 +14,10 @@ public extension UIColor {
         return UIColor(named: "darkBlue")!
     }
     
+    class var middleBlue: UIColor {
+        UIColor(named: "middleBlue")!
+    }
+    
     ///dark blue with kind of purple
     class var plum: UIColor {
         UIColor(named: "plum")!

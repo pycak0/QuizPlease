@@ -31,7 +31,11 @@ class ScheduleVC: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         presenter.router.prepare(for: segue, sender: sender)
     }
-
+    
+    @IBAction func filtersButtonPressed(_ sender: Any) {
+        performSegue(withIdentifier: "ShowFilters", sender: nil)
+    }
+    
 }
 
 //MARK:- View Protocol
