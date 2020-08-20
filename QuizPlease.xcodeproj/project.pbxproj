@@ -47,6 +47,7 @@
 		A4147AD524E596FC007C131F /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = A4147AD424E596FC007C131F /* IQKeyboardManagerSwift */; };
 		A4147AD724E5B92D007C131F /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4147AD624E5B92D007C131F /* Place.swift */; };
 		A4147AD924E5BAF9007C131F /* MapService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4147AD824E5BAF9007C131F /* MapService.swift */; };
+		A423AC1B24EE864000071E68 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A423AC1A24EE864000071E68 /* ProfileCell.swift */; };
 		A445E34824DE02BC0070B9FC /* TitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A445E34724DE02BC0070B9FC /* TitleLabel.swift */; };
 		A450E39624E559CD00C49AEE /* TitledTextFieldView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A450E39424E559CD00C49AEE /* TitledTextFieldView.xib */; };
 		A450E39724E559CD00C49AEE /* TitledTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A450E39524E559CD00C49AEE /* TitledTextFieldView.swift */; };
@@ -96,8 +97,8 @@
 		A4CC5FF024DAF7300042B41C /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CC5FEF24DAF7300042B41C /* NavigationBar.swift */; };
 		A4CC5FF224DAFECF0042B41C /* VCExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CC5FF124DAFECF0042B41C /* VCExtensions.swift */; };
 		A4DAF73624DD862500963C15 /* Gilroy-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A4DAF73524DD862500963C15 /* Gilroy-Bold.ttf */; };
-		A4DAF73924DD987F00963C15 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DAF73724DD987F00963C15 /* ProfileCell.swift */; };
-		A4DAF73A24DD987F00963C15 /* ProfileCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4DAF73824DD987F00963C15 /* ProfileCell.xib */; };
+		A4DAF73924DD987F00963C15 /* MenuProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DAF73724DD987F00963C15 /* MenuProfileCell.swift */; };
+		A4DAF73A24DD987F00963C15 /* MenuProfileCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4DAF73824DD987F00963C15 /* MenuProfileCell.xib */; };
 		A4DAF73C24DD9BF400963C15 /* Gilroy-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A4DAF73B24DD9BF400963C15 /* Gilroy-SemiBold.ttf */; };
 		A4DAF73F24DDABFF00963C15 /* WarmupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DAF73D24DDABFF00963C15 /* WarmupCell.swift */; };
 		A4DAF74024DDABFF00963C15 /* WarmupCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4DAF73E24DDABFF00963C15 /* WarmupCell.xib */; };
@@ -149,6 +150,7 @@
 		A40F036324D419D200C381F2 /* MenuCellItemProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCellItemProtocol.swift; sourceTree = "<group>"; };
 		A4147AD624E5B92D007C131F /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		A4147AD824E5BAF9007C131F /* MapService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapService.swift; sourceTree = "<group>"; };
+		A423AC1A24EE864000071E68 /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
 		A445E34724DE02BC0070B9FC /* TitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleLabel.swift; sourceTree = "<group>"; };
 		A450E39424E559CD00C49AEE /* TitledTextFieldView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TitledTextFieldView.xib; sourceTree = "<group>"; };
 		A450E39524E559CD00C49AEE /* TitledTextFieldView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitledTextFieldView.swift; sourceTree = "<group>"; };
@@ -198,8 +200,8 @@
 		A4CC5FEF24DAF7300042B41C /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
 		A4CC5FF124DAFECF0042B41C /* VCExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCExtensions.swift; sourceTree = "<group>"; };
 		A4DAF73524DD862500963C15 /* Gilroy-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-Bold.ttf"; sourceTree = "<group>"; };
-		A4DAF73724DD987F00963C15 /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
-		A4DAF73824DD987F00963C15 /* ProfileCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileCell.xib; sourceTree = "<group>"; };
+		A4DAF73724DD987F00963C15 /* MenuProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuProfileCell.swift; sourceTree = "<group>"; };
+		A4DAF73824DD987F00963C15 /* MenuProfileCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuProfileCell.xib; sourceTree = "<group>"; };
 		A4DAF73B24DD9BF400963C15 /* Gilroy-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-SemiBold.ttf"; sourceTree = "<group>"; };
 		A4DAF73D24DDABFF00963C15 /* WarmupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarmupCell.swift; sourceTree = "<group>"; };
 		A4DAF73E24DDABFF00963C15 /* WarmupCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WarmupCell.xib; sourceTree = "<group>"; };
@@ -299,7 +301,7 @@
 		A40D817424D2C96B006D2CE3 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				A40D818124D2CA30006D2CE3 /* ProfileVC.swift */,
+				A423AC1924EE860200071E68 /* View */,
 				A40B759324D9A845006DB7D1 /* ProfileInteractor.swift */,
 				A40B759524D9A84C006DB7D1 /* ProfilePresenter.swift */,
 				A40B759724D9A852006DB7D1 /* ProfileRouter.swift */,
@@ -374,6 +376,15 @@
 				A4CC5FF124DAFECF0042B41C /* VCExtensions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		A423AC1924EE860200071E68 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A40D818124D2CA30006D2CE3 /* ProfileVC.swift */,
+				A423AC1A24EE864000071E68 /* ProfileCell.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		A445E34624DE02A20070B9FC /* View */ = {
@@ -527,8 +538,8 @@
 				A40F036324D419D200C381F2 /* MenuCellItemProtocol.swift */,
 				A40D818824D2D24C006D2CE3 /* ScheduleCell.swift */,
 				A40D818924D2D24C006D2CE3 /* ScheduleCell.xib */,
-				A4DAF73724DD987F00963C15 /* ProfileCell.swift */,
-				A4DAF73824DD987F00963C15 /* ProfileCell.xib */,
+				A4DAF73724DD987F00963C15 /* MenuProfileCell.swift */,
+				A4DAF73824DD987F00963C15 /* MenuProfileCell.xib */,
 				A4DAF73D24DDABFF00963C15 /* WarmupCell.swift */,
 				A4DAF73E24DDABFF00963C15 /* WarmupCell.xib */,
 				A4DAF74124DDBAFE00963C15 /* MenuHomeGameCell.swift */,
@@ -620,7 +631,7 @@
 				A4A065A324E47D1F0080E0D8 /* GameAnnotationCell.xib in Resources */,
 				A464370324EB37DB0033F23A /* ExpandingHeader.xib in Resources */,
 				A46436E724EA7B120033F23A /* Gilroy-Heavy.ttf in Resources */,
-				A4DAF73A24DD987F00963C15 /* ProfileCell.xib in Resources */,
+				A4DAF73A24DD987F00963C15 /* MenuProfileCell.xib in Resources */,
 				A40D816324D2C6C2006D2CE3 /* Assets.xcassets in Resources */,
 				A4DAF74824DDCCAD00963C15 /* MenuRatingCell.xib in Resources */,
 				A452E3B224D428DA002EE514 /* ShopItemCell.xib in Resources */,
@@ -673,7 +684,7 @@
 				A40D818224D2CA30006D2CE3 /* ProfileVC.swift in Sources */,
 				A4A5370424EC7691004A10D4 /* UIColorExtensions.swift in Sources */,
 				A40B759224D9A836006DB7D1 /* HomeGameConfigurator.swift in Sources */,
-				A4DAF73924DD987F00963C15 /* ProfileCell.swift in Sources */,
+				A4DAF73924DD987F00963C15 /* MenuProfileCell.swift in Sources */,
 				A450E39A24E564A900C49AEE /* GameCertificateCell.swift in Sources */,
 				A40F036424D419D200C381F2 /* MenuCellItemProtocol.swift in Sources */,
 				A452E3B424D431C5002EE514 /* DataTypesExtensions.swift in Sources */,
@@ -699,6 +710,7 @@
 				A4A5370824EC7AA6004A10D4 /* HomeGameCell.swift in Sources */,
 				A4A065AA24E4812F0080E0D8 /* GameGeneralDescriptionCell.swift in Sources */,
 				A450E3A324E5735400C49AEE /* GameOrderRouter.swift in Sources */,
+				A423AC1B24EE864000071E68 /* ProfileCell.swift in Sources */,
 				A4BA1CEE24D8347300D32ADC /* MainMenuInteractor.swift in Sources */,
 				A40D817E24D2CA1A006D2CE3 /* WarmupVC.swift in Sources */,
 				A4BA1CF524D8874C00D32ADC /* AlertExtensions.swift in Sources */,

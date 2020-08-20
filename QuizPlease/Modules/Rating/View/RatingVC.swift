@@ -98,7 +98,7 @@ extension RatingVC: UITableViewDataSource, UITableViewDelegate {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: RatingCell.identifier, for: indexPath) as? RatingCell else { fatalError("Invalid Cell Kind") }
         
         let team = presenter.teams[indexPath.row]
-        cell.configure(with: team.name, games: team.games, points: team.points)
+        cell.configure(with: team.name, games: team.games, points: team.pointsTotal)
         
         return cell
     }

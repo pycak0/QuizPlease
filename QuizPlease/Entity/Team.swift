@@ -11,5 +11,5 @@ import Foundation
 struct Team {
     var name: String
     var games: Int
-    var points: Int
+    var pointsTotal: Int
 }

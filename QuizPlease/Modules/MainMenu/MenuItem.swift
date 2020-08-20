@@ -48,7 +48,7 @@ enum MenuItemKind: Int, CaseIterable, MenuItemProtocol {
     var identifier: String {
         switch self {
         case .schedule:     return ScheduleCell.identifier
-        case .profile:      return ProfileCell.identifier
+        case .profile:      return MenuProfileCell.identifier
         case .warmup:       return WarmupCell.identifier
         case .homeGame:     return MenuHomeGameCell.identifier
         case .rating:       return MenuRatingCell.identifier

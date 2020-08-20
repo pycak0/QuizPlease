@@ -7,3 +7,14 @@
 //
 
 import Foundation
+
+protocol ProfileInteractorProtocol {
+    func loadGames()
+}
+
+class ProfileInteractor: ProfileInteractorProtocol {
+    func loadGames() {
+        print("NOT IMPLEMENTED")
+    }
+    
+}

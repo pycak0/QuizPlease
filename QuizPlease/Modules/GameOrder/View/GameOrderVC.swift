@@ -29,6 +29,10 @@ class GameOrderVC: UIViewController {
         presenter.configureViews()
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        presenter.router.prepare(for: segue, sender: sender)
+    }
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
     }

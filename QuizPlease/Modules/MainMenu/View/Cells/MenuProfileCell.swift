@@ -1,5 +1,5 @@
 //
-//  ProfileCell.swift
+//  MenuProfileCell.swift
 //  QuizPlease
 //
 //  Created by Владислав on 07.08.2020.
@@ -8,8 +8,8 @@
 
 import UIKit
 
-class ProfileCell: UITableViewCell, MenuCellItemProtocol {
-    static let identifier = "ProfileCell"
+class MenuProfileCell: UITableViewCell, MenuCellItemProtocol {
+    static let identifier = "MenuProfileCell"
     
     @IBOutlet weak var cellView: UIView!
     @IBOutlet weak var gradientView: UIView!

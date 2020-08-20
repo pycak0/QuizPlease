@@ -7,3 +7,18 @@
 //
 
 import Foundation
+
+protocol ProfileConfiguratorProtocol {
+    func configure(_ view: ProfileViewProtocol)
+}
+
+class ProfileConfigurator: ProfileConfiguratorProtocol {
+    func configure(_ view: ProfileViewProtocol) {
+        let interactor = ProfileInteractor()
+        let router = ProfileRouter(viewController: view)
+        let presenter = ProfilePresenter(view: view, interactor: interactor, router: router)
+        
+        view.presenter = presenter
+        view.prepareNavigationBar()
+    }
+}

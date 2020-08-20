@@ -42,6 +42,10 @@ class HomeGameVC: UIViewController {
         super.viewDidDisappear(animated)
         navigationController?.navigationBar.tintColor = .labelAdapted
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        presenter.router.prepare(for: segue, sender: sender)
+    }
 
 }
 
