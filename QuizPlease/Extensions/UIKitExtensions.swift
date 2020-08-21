@@ -19,6 +19,24 @@ public extension UIView {
         set { self.layer.cornerRadius = newValue }
     }
     
+    @IBInspectable
+    var borderWidthView: CGFloat {
+        get { self.layer.borderWidth }
+        set { self.layer.borderWidth = newValue }
+    }
+    
+    @IBInspectable
+    var borderColorView: UIColor? {
+        get {
+            if let color = self.layer.borderColor {
+                return UIColor(cgColor: color)
+            } else {
+                return nil
+            }
+        }
+        set { self.layer.borderColor = newValue?.cgColor }
+    }
+    
     //MARK:- View Scale Animation
     func scaleIn(scale: CGFloat = 0.96) {
         UIView.animate(withDuration: 0.15) {
@@ -128,6 +146,19 @@ public extension UIView {
         self.backgroundColor = .clear
         //self.addSubview(blur)
         self.insertSubview(blur, at: 0)
+    }
+    
+    //MARK:- Draw Dotted Line
+    static func drawDottedLine(in view: UIView, start p0: CGPoint, end p1: CGPoint, dashLength: NSNumber = 7, gapLength: NSNumber = 3) {
+        let shapeLayer = CAShapeLayer()
+        shapeLayer.strokeColor = UIColor.lightGray.cgColor
+        shapeLayer.lineWidth = 1
+        shapeLayer.lineDashPattern = [dashLength, gapLength] // [length of dash, length of gap]
+
+        let path = CGMutablePath()
+        path.addLines(between: [p0, p1])
+        shapeLayer.path = path
+        view.layer.addSublayer(shapeLayer)
     }
     
 }

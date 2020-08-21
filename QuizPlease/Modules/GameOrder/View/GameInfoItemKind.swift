@@ -10,7 +10,7 @@ import UIKit
 
 extension GameOrderVC {
     enum GameInfoItemKind: Int, CaseIterable {
-        case annotation, info, description, registration, certificate
+        case annotation, info, description, registration, certificate, firstPlay, payment
         
         var identifier: String {
             switch self {
@@ -24,22 +24,26 @@ extension GameOrderVC {
                 return GameRegisterCell.identifier
             case .certificate:
                 return GameCertificateCell.identifier
+            case .firstPlay:
+                return GameFirstPlayCell.identifier
+            case .payment:
+                return GamePayCell.identifier
             }
         }
         
-        var height: CGFloat {
-            switch self {
-            case .annotation:
-                return 340
-            case .info:
-                return 340
-            case .description:
-                return 220
-            case .registration:
-                return 640
-            case .certificate:
-                return 320
-            }
-        }
+//        var height: CGFloat {
+//            switch self {
+//            case .annotation:
+//                return 340
+//            case .info:
+//                return 340
+//            case .description:
+//                return 220
+//            case .registration:
+//                return 640
+//            case .certificate:
+//                return 320
+//            }
+//        }
     }
 }

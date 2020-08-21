@@ -26,6 +26,8 @@ class GameRegisterCell: UITableViewCell, TableCellProtocol {
     @IBOutlet weak var numberButtonsStack: UIStackView!
     @IBOutlet weak var feedbackFieldView: TitledTextFieldView!
     
+    var selectedNumberOfPeople: Int = 1
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         configureTextFields()
@@ -40,16 +42,17 @@ class GameRegisterCell: UITableViewCell, TableCellProtocol {
     
     //MARK:- Team Count Button Pressed
     @IBAction func teamCountButtonPressed(_ sender: UIButton) {
-        guard let index = numberButtonsStack.arrangedSubviews.firstIndex(of: sender) else {
+        guard let index = numberButtonsStack.arrangedSubviews.firstIndex(of: sender),
+            index + 1 != selectedNumberOfPeople else {
             return
         }
+        selectedNumberOfPeople = index + 1
+        delegate?.registerCell(self, didChangeNumberOfPeopleInTeam: selectedNumberOfPeople)
         numberButtonsStack.arrangedSubviews.forEach {
             let button = $0 as? UIButton
             deselect(button)
         }
-        let number = Int(index) + 1
-        delegate?.registerCell(self, didChangeNumberOfPeopleInTeam: number)
-        select(sender, number: number)
+        select(sender, number: selectedNumberOfPeople)
     }
     
     //MARK:- Configure Views
@@ -75,15 +78,22 @@ class GameRegisterCell: UITableViewCell, TableCellProtocol {
     }
     
     func select(_ button: UIButton, number: Int) {
-        button.setTitle("\(number)", for: .normal)
-        button.setImage(nil, for: .normal)
-        button.backgroundColor = .systemBlue
+        let scale: CGFloat = 1.1
+        UIView.animate(withDuration: 0.2) {
+            button.setTitle("\(number)", for: .normal)
+            button.setImage(nil, for: .normal)
+            button.backgroundColor = .systemBlue
+            button.transform = CGAffineTransform(scaleX: scale, y: scale)
+        }
     }
     
     func deselect(_ button: UIButton?) {
-        button?.setImage(UIImage(named: "human"), for: .normal)
-        button?.setTitle("", for: .normal)
-        button?.backgroundColor = .themeGray
+        UIView.animate(withDuration: 0.2) {
+            button?.setImage(UIImage(named: "human"), for: .normal)
+            button?.setTitle("", for: .normal)
+            button?.backgroundColor = .themeGray
+            button?.transform = .identity
+        }
     }
     
 }

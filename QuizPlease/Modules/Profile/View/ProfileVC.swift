@@ -25,7 +25,7 @@ class ProfileVC: UIViewController {
     @IBOutlet weak var gamesCountLabel: UILabel!
     @IBOutlet weak var totalPointsScored: UILabel!
     @IBOutlet weak var showShopButton: UIButton!
-    @IBOutlet weak var addGameButton: UIButton!
+    @IBOutlet weak var addGameButton: ScalingButton!
     
     //`addGameButton` fading helpers
     var lastOffset: CGFloat = 0

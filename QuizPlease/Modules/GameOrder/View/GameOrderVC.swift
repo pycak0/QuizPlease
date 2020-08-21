@@ -41,32 +41,10 @@ class GameOrderVC: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
-        tableView.register(UINib(nibName: GameAnnotationCell.identifier, bundle: nil), forCellReuseIdentifier: GameAnnotationCell.identifier)
-        tableView.register(UINib(nibName: GameInfoCell.identifier, bundle: nil), forCellReuseIdentifier: GameInfoCell.identifier)
-        tableView.register(UINib(nibName: GameGeneralDescriptionCell.identifier, bundle: nil), forCellReuseIdentifier: GameGeneralDescriptionCell.identifier)
-        tableView.register(UINib(nibName: GameRegisterCell.identifier, bundle: nil), forCellReuseIdentifier: GameRegisterCell.identifier)
-        tableView.register(UINib(nibName: GameCertificateCell.identifier, bundle: nil), forCellReuseIdentifier: GameCertificateCell.identifier)
-        
-    }
-    
-    func createCell(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
-        guard let kind = GameInfoItemKind(rawValue: indexPath.row) else { fatalError("Invalid Game Item Kind") }
-        
-        var cell = tableView.dequeueReusableCell(withIdentifier: kind.identifier, for: indexPath)
-        switch kind {
-        case .annotation:
-             cell = cell as! GameAnnotationCell
-        case .info:
-             cell = cell as! GameInfoCell
-        case .registration:
-             cell = cell as! GameRegisterCell
-        case .description:
-             cell = cell as! GameGeneralDescriptionCell
-        case .certificate:
-             cell = cell as! GameCertificateCell
+        for cellKind in GameInfoItemKind.allCases {
+            tableView.register(UINib(nibName: cellKind.identifier, bundle: nil), forCellReuseIdentifier: cellKind.identifier)
         }
-        print(type(of: cell))
-        return cell
+        
     }
 
 }

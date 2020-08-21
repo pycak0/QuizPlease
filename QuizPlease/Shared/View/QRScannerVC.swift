@@ -19,15 +19,15 @@ class QRScannerVC: UIViewController {
     weak var delegate: QRScannerVCDelegate?
 
     var captureSession: AVCaptureSession?
-    var captureDevice: AVCaptureDevice! = AVCaptureDevice.default(for: .video)
+    var captureDevice: AVCaptureDevice? = AVCaptureDevice.default(for: .video)
     
     //MARK:- Camera Flash
     var isFlashEnabled = false {
         didSet {
-            guard captureDevice.isTorchAvailable else { return }
+            guard captureDevice?.isTorchAvailable ?? false else { return }
             do {
-                try captureDevice.lockForConfiguration()
-                captureDevice.torchMode = isFlashEnabled ? .on : .off
+                try captureDevice?.lockForConfiguration()
+                captureDevice?.torchMode = isFlashEnabled ? .on : .off
             } catch {
                 print(error)
             }

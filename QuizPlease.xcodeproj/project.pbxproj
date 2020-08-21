@@ -53,6 +53,10 @@
 		A423AC2024EEBA0600071E68 /* BottomPopup in Frameworks */ = {isa = PBXBuildFile; productRef = A423AC1F24EEBA0600071E68 /* BottomPopup */; };
 		A423AC2224EEBCD600071E68 /* FiltersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A423AC2124EEBCD600071E68 /* FiltersVC.swift */; };
 		A423AC2424EEC65100071E68 /* ConfirmVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A423AC2324EEC65100071E68 /* ConfirmVC.swift */; };
+		A42527C324F06E9300E3FBD4 /* GameFirstPlayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A42527C124F06E9300E3FBD4 /* GameFirstPlayCell.swift */; };
+		A42527C424F06E9300E3FBD4 /* GameFirstPlayCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A42527C224F06E9300E3FBD4 /* GameFirstPlayCell.xib */; };
+		A42527C724F0782800E3FBD4 /* GamePayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A42527C524F0782800E3FBD4 /* GamePayCell.swift */; };
+		A42527C824F0782800E3FBD4 /* GamePayCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A42527C624F0782800E3FBD4 /* GamePayCell.xib */; };
 		A445E34824DE02BC0070B9FC /* TitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A445E34724DE02BC0070B9FC /* TitleLabel.swift */; };
 		A44C697624EFD45300AB3BC9 /* QRCodeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44C697524EFD45300AB3BC9 /* QRCodeService.swift */; };
 		A44C697824EFE06000AB3BC9 /* QRScannerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44C697724EFE06000AB3BC9 /* QRScannerVC.swift */; };
@@ -163,6 +167,10 @@
 		A423AC1C24EE971100071E68 /* ShopItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopItem.swift; sourceTree = "<group>"; };
 		A423AC2124EEBCD600071E68 /* FiltersVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersVC.swift; sourceTree = "<group>"; };
 		A423AC2324EEC65100071E68 /* ConfirmVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmVC.swift; sourceTree = "<group>"; };
+		A42527C124F06E9300E3FBD4 /* GameFirstPlayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameFirstPlayCell.swift; sourceTree = "<group>"; };
+		A42527C224F06E9300E3FBD4 /* GameFirstPlayCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameFirstPlayCell.xib; sourceTree = "<group>"; };
+		A42527C524F0782800E3FBD4 /* GamePayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePayCell.swift; sourceTree = "<group>"; };
+		A42527C624F0782800E3FBD4 /* GamePayCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GamePayCell.xib; sourceTree = "<group>"; };
 		A445E34724DE02BC0070B9FC /* TitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleLabel.swift; sourceTree = "<group>"; };
 		A44C697524EFD45300AB3BC9 /* QRCodeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeService.swift; sourceTree = "<group>"; };
 		A44C697724EFE06000AB3BC9 /* QRScannerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerVC.swift; sourceTree = "<group>"; };
@@ -472,6 +480,10 @@
 				A498FCCB24E52ED80069F896 /* GameRegisterCell.xib */,
 				A450E39824E564A900C49AEE /* GameCertificateCell.swift */,
 				A450E39924E564A900C49AEE /* GameCertificateCell.xib */,
+				A42527C124F06E9300E3FBD4 /* GameFirstPlayCell.swift */,
+				A42527C224F06E9300E3FBD4 /* GameFirstPlayCell.xib */,
+				A42527C524F0782800E3FBD4 /* GamePayCell.swift */,
+				A42527C624F0782800E3FBD4 /* GamePayCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -672,11 +684,13 @@
 				A4A065A724E47E510080E0D8 /* Gilroy-Medium.ttf in Resources */,
 				A4DAF73624DD862500963C15 /* Gilroy-Bold.ttf in Resources */,
 				A4CC5FEE24DAEA840042B41C /* NavigationBar.xib in Resources */,
+				A42527C424F06E9300E3FBD4 /* GameFirstPlayCell.xib in Resources */,
 				A4DAF74424DDBAFE00963C15 /* MenuHomeGameCell.xib in Resources */,
 				A4A065AB24E4812F0080E0D8 /* GameGeneralDescriptionCell.xib in Resources */,
 				A4A0659E24E477E20080E0D8 /* GameInfoCell.xib in Resources */,
 				A4DAF74024DDABFF00963C15 /* WarmupCell.xib in Resources */,
 				A4A5370924EC7AA6004A10D4 /* HomeGameCell.xib in Resources */,
+				A42527C824F0782800E3FBD4 /* GamePayCell.xib in Resources */,
 				A40D818B24D2D24C006D2CE3 /* ScheduleCell.xib in Resources */,
 				A40D816124D2C6C1006D2CE3 /* Main.storyboard in Resources */,
 				A498FCCD24E52ED80069F896 /* GameRegisterCell.xib in Resources */,
@@ -704,6 +718,7 @@
 				A469F75924E3084D007FB332 /* ScheduleGameCell.swift in Sources */,
 				A40D817C24D2CA04006D2CE3 /* ScheduleVC.swift in Sources */,
 				A44C697624EFD45300AB3BC9 /* QRCodeService.swift in Sources */,
+				A42527C324F06E9300E3FBD4 /* GameFirstPlayCell.swift in Sources */,
 				A40B75A024D9A875006DB7D1 /* RatingRouter.swift in Sources */,
 				A419F2F224F003C9004A7997 /* ScalingButton.swift in Sources */,
 				A40B759C24D9A868006DB7D1 /* RatingInteractor.swift in Sources */,
@@ -713,6 +728,7 @@
 				A4BA1CEC24D8338B00D32ADC /* MainMenuPresenter.swift in Sources */,
 				A4CC5FC124DACE0E0042B41C /* ShopInteractor.swift in Sources */,
 				A40B757E24D9A750006DB7D1 /* SchedulePresenter.swift in Sources */,
+				A42527C724F0782800E3FBD4 /* GamePayCell.swift in Sources */,
 				A4DAF74324DDBAFE00963C15 /* MenuHomeGameCell.swift in Sources */,
 				A44C697824EFE06000AB3BC9 /* QRScannerVC.swift in Sources */,
 				A40B759624D9A84C006DB7D1 /* ProfilePresenter.swift in Sources */,
