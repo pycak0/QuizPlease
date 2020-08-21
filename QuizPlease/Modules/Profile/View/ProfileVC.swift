@@ -51,14 +51,7 @@ class ProfileVC: UIViewController {
         sender.scaleOut()
         presenter.didPressAddGameButton()
     }
-    
-    @IBAction func buttonHighlighted(_ sender: UIButton) {
-        sender.scaleIn()
-    }
-    
-    @IBAction func buttonReleased(_ sender: UIButton) {
-        sender.scaleOut()
-    }
+
 }
 
 //MARK:- Protocol Implementation
