@@ -10,6 +10,7 @@ import UIKit
 
 protocol ProfileRouterProtocol: RouterProtocol {
     func showShop()
+    func showQRScanner()
 }
 
 class ProfileRouter: ProfileRouterProtocol {
@@ -25,6 +26,10 @@ class ProfileRouter: ProfileRouterProtocol {
     
     func showShop() {
         viewController?.performSegue(withIdentifier: "ShowShop", sender: nil)
+    }
+    
+    func showQRScanner() {
+        viewController?.performSegue(withIdentifier: "ShowQRScreenProfile", sender: nil)
     }
     
 }

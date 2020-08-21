@@ -17,12 +17,25 @@ protocol QRScannerVCDelegate: class {
 class QRScannerVC: UIViewController {
     
     weak var delegate: QRScannerVCDelegate?
-    
-    var isFlashEnabled = false
-    var captureSession: AVCaptureSession?
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    var captureSession: AVCaptureSession?
+    var captureDevice: AVCaptureDevice! = AVCaptureDevice.default(for: .video)
+    
+    //MARK:- Camera Flash
+    var isFlashEnabled = false {
+        didSet {
+            guard captureDevice.isTorchAvailable else { return }
+            do {
+                try captureDevice.lockForConfiguration()
+                captureDevice.torchMode = isFlashEnabled ? .on : .off
+            } catch {
+                print(error)
+            }
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         checkCamera()
     }
     
@@ -52,17 +65,26 @@ class QRScannerVC: UIViewController {
                 return
             }
             self.captureSession = captureSession
-            self.view.layer.addSublayer(previewLayer!)
+            self.view.layer.insertSublayer(previewLayer!, at: 0)
         }
+        
         captureSession?.startRunning()
     }
     
-    @IBAction func flahButtonPressed(_ sender: Any) {
+    //MARK:- Flash Button
+    @IBAction func flashButtonPressed(_ sender: UIButton) {
         isFlashEnabled.toggle()
+        sender.backgroundColor = isFlashEnabled ? .lemon : .systemBlue
+        sender.tintColor = isFlashEnabled ? .black : .white
     }
     
-    
+    //MARK:- Close Button
     @IBAction func closeButtonPressed(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func processResult(_ code: String?) {
+        delegate?.qrScanner(self, didFinishCodeScanningWith: code)
         dismiss(animated: true, completion: nil)
     }
     
@@ -77,12 +99,11 @@ extension QRScannerVC: AVCaptureMetadataOutputObjectsDelegate {
             let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject,
             let stringValue = readableObject.stringValue
         else {
-            delegate?.qrScanner(self, didFinishCodeScanningWith: nil)
+            self.processResult(nil)
             return
         }
         AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
         
-        //Check format first
-        delegate?.qrScanner(self, didFinishCodeScanningWith: stringValue)
+        processResult(stringValue)
     }
 }

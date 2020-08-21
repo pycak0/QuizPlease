@@ -12,6 +12,7 @@ protocol MainMenuRouterProtocol: RouterProtocol {
     //var viewController: MainMenuVC? { get set }
     func showMenuSection(_ kind: MenuItemProtocol, sender: Any?)
     func showChooseCityScreen()
+    func showQRScanner()
 }
 
 class MainMenuRouter: MainMenuRouterProtocol {
@@ -31,6 +32,10 @@ class MainMenuRouter: MainMenuRouterProtocol {
     
     func showChooseCityScreen() {
         print("Choosing city is not implemented")
+    }
+    
+    func showQRScanner() {
+        viewController?.performSegue(withIdentifier: "ShowQRScreenMenu", sender: nil)
     }
     
 }

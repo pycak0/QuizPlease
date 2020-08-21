@@ -12,6 +12,13 @@ import UIKit
 ///
 
 public extension UIView {
+    
+    @IBInspectable
+    var cornerRadiusView: CGFloat {
+        get { self.layer.cornerRadius }
+        set { self.layer.cornerRadius = newValue }
+    }
+    
     //MARK:- View Scale Animation
     func scaleIn(scale: CGFloat = 0.96) {
         UIView.animate(withDuration: 0.15) {

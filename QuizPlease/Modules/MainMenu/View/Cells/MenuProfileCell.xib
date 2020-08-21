@@ -56,16 +56,6 @@
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Добавить игру" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qfn-Xf-KNp">
-                                <rect key="frame" x="16" y="128" width="162" height="40"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="IdR-WQ-1a0"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="16"/>
-                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="В кабинет" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Fh-8I-ei2">
                                 <rect key="frame" x="194" y="128" width="114" height="40"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -73,26 +63,40 @@
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X3l-eg-HuW">
+                                <rect key="frame" x="16" y="128" width="162" height="40"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="SiT-gg-bkZ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="16"/>
+                                <state key="normal" title="Добавить игру">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="addGameButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="elm-y8-UmP"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="qfn-Xf-KNp" firstAttribute="width" secondItem="Bn6-sv-Sgz" secondAttribute="width" multiplier="0.5" id="3Ry-aA-3ZO"/>
-                            <constraint firstItem="1Fh-8I-ei2" firstAttribute="centerY" secondItem="qfn-Xf-KNp" secondAttribute="centerY" id="47b-76-68U"/>
-                            <constraint firstItem="1Fh-8I-ei2" firstAttribute="height" secondItem="qfn-Xf-KNp" secondAttribute="height" id="7Kl-hy-KHb"/>
+                            <constraint firstAttribute="bottom" secondItem="X3l-eg-HuW" secondAttribute="bottom" constant="16" id="8Up-Kx-x6u"/>
                             <constraint firstAttribute="trailing" secondItem="1Fh-8I-ei2" secondAttribute="trailing" constant="16" id="B6V-bb-GJu"/>
+                            <constraint firstItem="1Fh-8I-ei2" firstAttribute="centerY" secondItem="X3l-eg-HuW" secondAttribute="centerY" id="COe-cN-lOA"/>
                             <constraint firstAttribute="trailing" secondItem="uCg-rf-EOo" secondAttribute="trailing" id="DVf-J9-BEr"/>
                             <constraint firstItem="gWi-Pv-Ere" firstAttribute="leading" secondItem="DWT-4h-KyQ" secondAttribute="trailing" constant="16" id="FKR-HM-ds9"/>
                             <constraint firstItem="DWT-4h-KyQ" firstAttribute="leading" secondItem="Bn6-sv-Sgz" secondAttribute="leading" constant="16" id="FZd-Tk-mAp"/>
                             <constraint firstItem="uCg-rf-EOo" firstAttribute="leading" secondItem="Bn6-sv-Sgz" secondAttribute="leading" id="I9T-zG-YFX"/>
                             <constraint firstAttribute="trailing" secondItem="CJo-Bc-UZc" secondAttribute="trailing" constant="16" id="JGM-Y2-MNf"/>
-                            <constraint firstItem="1Fh-8I-ei2" firstAttribute="leading" secondItem="qfn-Xf-KNp" secondAttribute="trailing" constant="16" id="Jmk-ge-P1n"/>
                             <constraint firstItem="DWT-4h-KyQ" firstAttribute="top" secondItem="Bn6-sv-Sgz" secondAttribute="top" constant="20" id="MYP-qy-l5v"/>
+                            <constraint firstItem="1Fh-8I-ei2" firstAttribute="leading" secondItem="X3l-eg-HuW" secondAttribute="trailing" constant="16" id="N49-hs-fUB"/>
                             <constraint firstAttribute="trailing" secondItem="gWi-Pv-Ere" secondAttribute="trailing" constant="16" id="PIr-x1-wEe"/>
-                            <constraint firstItem="qfn-Xf-KNp" firstAttribute="leading" secondItem="Bn6-sv-Sgz" secondAttribute="leading" constant="16" id="RY3-5b-Q7J"/>
-                            <constraint firstAttribute="bottom" secondItem="qfn-Xf-KNp" secondAttribute="bottom" constant="16" id="Tm0-ON-Ces"/>
+                            <constraint firstItem="X3l-eg-HuW" firstAttribute="leading" secondItem="Bn6-sv-Sgz" secondAttribute="leading" constant="16" id="Tfc-CO-E8T"/>
+                            <constraint firstItem="X3l-eg-HuW" firstAttribute="width" secondItem="Bn6-sv-Sgz" secondAttribute="width" multiplier="0.5" id="WhN-eK-L0t"/>
                             <constraint firstItem="CJo-Bc-UZc" firstAttribute="top" secondItem="DWT-4h-KyQ" secondAttribute="bottom" constant="19" id="ZpV-ix-mw4"/>
                             <constraint firstAttribute="bottom" secondItem="uCg-rf-EOo" secondAttribute="bottom" id="a6N-Qb-RSg"/>
                             <constraint firstItem="CJo-Bc-UZc" firstAttribute="leading" secondItem="Bn6-sv-Sgz" secondAttribute="leading" constant="16" id="ci4-SX-ySQ"/>
+                            <constraint firstItem="1Fh-8I-ei2" firstAttribute="height" secondItem="X3l-eg-HuW" secondAttribute="height" id="eV4-fR-Rbw"/>
                             <constraint firstItem="uCg-rf-EOo" firstAttribute="top" secondItem="Bn6-sv-Sgz" secondAttribute="top" id="kIb-aR-sBz"/>
                             <constraint firstItem="gWi-Pv-Ere" firstAttribute="centerY" secondItem="DWT-4h-KyQ" secondAttribute="centerY" id="xyb-dF-uSe"/>
                         </constraints>
@@ -110,7 +114,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="accessoryLabel" destination="gWi-Pv-Ere" id="5Ac-yO-y2D"/>
-                <outlet property="addGameLabel" destination="qfn-Xf-KNp" id="AlM-SG-9yV"/>
+                <outlet property="addGameButton" destination="X3l-eg-HuW" id="8wp-z0-Uy1"/>
                 <outlet property="cellView" destination="Bn6-sv-Sgz" id="2sJ-ig-eY1"/>
                 <outlet property="commentLabel" destination="CJo-Bc-UZc" id="VFe-Tu-yYR"/>
                 <outlet property="gradientView" destination="uCg-rf-EOo" id="k1A-vI-0XJ"/>

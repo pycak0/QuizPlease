@@ -41,6 +41,6 @@ class ProfilePresenter: ProfilePresenterProtocol {
     }
     
     func didPressAddGameButton() {
-        //
+        router.showQRScanner()
     }
 }

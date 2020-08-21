@@ -88,6 +88,15 @@ extension MainMenuVC: MainMenuViewProtocol {
     
 }
 
+//MARK:- MenuProfileCellDelegate
+extension MainMenuVC: MenuProfileCellDelegate {
+    func addGameButtonPressed(in cell: MenuProfileCell) {
+        presenter.didPressAddGame()
+    }
+
+}
+
+
 //MARK:- Table View Data Source
 extension MainMenuVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -101,12 +110,14 @@ extension MainMenuVC: UITableViewDataSource {
         let menuItem = items[indexPath.row]
         
         cell.configureCell(with: menuItem)
+        (cell as? MenuProfileCell)?.delegate = self
         
         return cell
     }
     
 }
 
+//MARK:- Delegate
 extension MainMenuVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return presenter.menuItems?[indexPath.row].height ?? 0

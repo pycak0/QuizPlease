@@ -1,5 +1,5 @@
 //
-//  QRCodeService.swift
+//MARK:  QRCodeService.swift
 //  QuizPlease
 //
 //  Created by Владислав on 21.08.2020.
