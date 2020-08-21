@@ -53,6 +53,9 @@
 		A423AC2224EEBCD600071E68 /* FiltersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A423AC2124EEBCD600071E68 /* FiltersVC.swift */; };
 		A423AC2424EEC65100071E68 /* ConfirmVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A423AC2324EEC65100071E68 /* ConfirmVC.swift */; };
 		A445E34824DE02BC0070B9FC /* TitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A445E34724DE02BC0070B9FC /* TitleLabel.swift */; };
+		A44C697624EFD45300AB3BC9 /* QRCodeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44C697524EFD45300AB3BC9 /* QRCodeService.swift */; };
+		A44C697824EFE06000AB3BC9 /* QRScannerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44C697724EFE06000AB3BC9 /* QRScannerVC.swift */; };
+		A44C697B24EFE70B00AB3BC9 /* RouterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44C697A24EFE70B00AB3BC9 /* RouterProtocol.swift */; };
 		A450E39624E559CD00C49AEE /* TitledTextFieldView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A450E39424E559CD00C49AEE /* TitledTextFieldView.xib */; };
 		A450E39724E559CD00C49AEE /* TitledTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A450E39524E559CD00C49AEE /* TitledTextFieldView.swift */; };
 		A450E39A24E564A900C49AEE /* GameCertificateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A450E39824E564A900C49AEE /* GameCertificateCell.swift */; };
@@ -159,6 +162,9 @@
 		A423AC2124EEBCD600071E68 /* FiltersVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersVC.swift; sourceTree = "<group>"; };
 		A423AC2324EEC65100071E68 /* ConfirmVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmVC.swift; sourceTree = "<group>"; };
 		A445E34724DE02BC0070B9FC /* TitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleLabel.swift; sourceTree = "<group>"; };
+		A44C697524EFD45300AB3BC9 /* QRCodeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeService.swift; sourceTree = "<group>"; };
+		A44C697724EFE06000AB3BC9 /* QRScannerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerVC.swift; sourceTree = "<group>"; };
+		A44C697A24EFE70B00AB3BC9 /* RouterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterProtocol.swift; sourceTree = "<group>"; };
 		A450E39424E559CD00C49AEE /* TitledTextFieldView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TitledTextFieldView.xib; sourceTree = "<group>"; };
 		A450E39524E559CD00C49AEE /* TitledTextFieldView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitledTextFieldView.swift; sourceTree = "<group>"; };
 		A450E39824E564A900C49AEE /* GameCertificateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCertificateCell.swift; sourceTree = "<group>"; };
@@ -252,8 +258,7 @@
 			children = (
 				A40D816724D2C6C2006D2CE3 /* Info.plist */,
 				A40D816D24D2C73D006D2CE3 /* AppDelegates */,
-				A4CC5FEC24DAEA6C0042B41C /* SharedViews */,
-				A4B828E224D8322B00D77E67 /* Entity */,
+				A4CC5FEC24DAEA6C0042B41C /* Shared */,
 				A40D818C24D2E3DB006D2CE3 /* Services */,
 				A4BA1CF124D83A6900D32ADC /* Modules */,
 				A40F036024D4186200C381F2 /* Extensions */,
@@ -370,6 +375,7 @@
 			isa = PBXGroup;
 			children = (
 				A4147AD824E5BAF9007C131F /* MapService.swift */,
+				A44C697524EFD45300AB3BC9 /* QRCodeService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -401,12 +407,21 @@
 				A4CC5FED24DAEA840042B41C /* NavigationBar.xib */,
 				A4CC5FEF24DAF7300042B41C /* NavigationBar.swift */,
 				A445E34724DE02BC0070B9FC /* TitleLabel.swift */,
-				A4A065A424E47D460080E0D8 /* TableCellProtocol.swift */,
 				A450E39524E559CD00C49AEE /* TitledTextFieldView.swift */,
 				A450E39424E559CD00C49AEE /* TitledTextFieldView.xib */,
 				A46436EC24EAD24F0033F23A /* HBSegmentedControl.swift */,
+				A44C697724EFE06000AB3BC9 /* QRScannerVC.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		A44C697924EFE6E000AB3BC9 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				A4A065A424E47D460080E0D8 /* TableCellProtocol.swift */,
+				A44C697A24EFE70B00AB3BC9 /* RouterProtocol.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		A46436FF24EB37DB0033F23A /* ExpandingHeader */ = {
@@ -534,13 +549,15 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		A4CC5FEC24DAEA6C0042B41C /* SharedViews */ = {
+		A4CC5FEC24DAEA6C0042B41C /* Shared */ = {
 			isa = PBXGroup;
 			children = (
 				A40D816F24D2C767006D2CE3 /* Storyboards */,
 				A445E34624DE02A20070B9FC /* View */,
+				A4B828E224D8322B00D77E67 /* Entity */,
+				A44C697924EFE6E000AB3BC9 /* Protocols */,
 			);
-			path = SharedViews;
+			path = Shared;
 			sourceTree = "<group>";
 		};
 		A4DAF73324DD80CB00963C15 /* Cells */ = {
@@ -683,6 +700,7 @@
 				A4A065A224E47D1F0080E0D8 /* GameAnnotationCell.swift in Sources */,
 				A469F75924E3084D007FB332 /* ScheduleGameCell.swift in Sources */,
 				A40D817C24D2CA04006D2CE3 /* ScheduleVC.swift in Sources */,
+				A44C697624EFD45300AB3BC9 /* QRCodeService.swift in Sources */,
 				A40B75A024D9A875006DB7D1 /* RatingRouter.swift in Sources */,
 				A40B759C24D9A868006DB7D1 /* RatingInteractor.swift in Sources */,
 				A40F036224D4187800C381F2 /* UIKitExtensions.swift in Sources */,
@@ -692,6 +710,7 @@
 				A4CC5FC124DACE0E0042B41C /* ShopInteractor.swift in Sources */,
 				A40B757E24D9A750006DB7D1 /* SchedulePresenter.swift in Sources */,
 				A4DAF74324DDBAFE00963C15 /* MenuHomeGameCell.swift in Sources */,
+				A44C697824EFE06000AB3BC9 /* QRScannerVC.swift in Sources */,
 				A40B759624D9A84C006DB7D1 /* ProfilePresenter.swift in Sources */,
 				A40B759424D9A845006DB7D1 /* ProfileInteractor.swift in Sources */,
 				A40D818224D2CA30006D2CE3 /* ProfileVC.swift in Sources */,
@@ -732,6 +751,7 @@
 				A40D817A24D2C9E6006D2CE3 /* MainMenuVC.swift in Sources */,
 				A4CC5FF224DAFECF0042B41C /* VCExtensions.swift in Sources */,
 				A40D818424D2CA39006D2CE3 /* RatingVC.swift in Sources */,
+				A44C697B24EFE70B00AB3BC9 /* RouterProtocol.swift in Sources */,
 				A40B758E24D9A820006DB7D1 /* HomeGamePresenter.swift in Sources */,
 				A40B75A224D9A880006DB7D1 /* RatingConfigurator.swift in Sources */,
 				A46436E924EA7E590033F23A /* Team.swift in Sources */,

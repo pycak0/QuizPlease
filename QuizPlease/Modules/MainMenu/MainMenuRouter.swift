@@ -8,13 +8,6 @@
 
 import UIKit
 
-protocol RouterProtocol: class {
-    ///Must be weak
-    var viewController: UIViewController? { get set }
-    init(viewController: UIViewController)
-    func prepare(for segue: UIStoryboardSegue, sender: Any?)
-}
-
 protocol MainMenuRouterProtocol: RouterProtocol {
     //var viewController: MainMenuVC? { get set }
     func showMenuSection(_ kind: MenuItemProtocol, sender: Any?)
