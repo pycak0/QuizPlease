@@ -1,5 +1,5 @@
 //
-//  WarmUpШтеукфсещк.swift
+//  WarmupInteractor.swift
 //  QuizPlease
 //
 //  Created by Владислав on 04.08.2020.
@@ -7,3 +7,11 @@
 //
 
 import Foundation
+
+protocol WarmupInteractorProtocol {
+    //
+}
+
+class WarmupInteractor: WarmupInteractorProtocol {
+    //
+}

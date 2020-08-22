@@ -372,7 +372,7 @@
 		A40D817824D2C99D006D2CE3 /* WarmUp */ = {
 			isa = PBXGroup;
 			children = (
-				A40D817D24D2CA1A006D2CE3 /* WarmupVC.swift */,
+				A4E1CFF424F14CF5000F0B22 /* View */,
 				A40B758324D9A7CD006DB7D1 /* WarmupInteractor.swift */,
 				A40B758524D9A7F6006DB7D1 /* WarmupPresenter.swift */,
 				A40B758724D9A7FD006DB7D1 /* WarmupRouter.swift */,
@@ -602,6 +602,14 @@
 				A4DAF73524DD862500963C15 /* Gilroy-Bold.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		A4E1CFF424F14CF5000F0B22 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A40D817D24D2CA1A006D2CE3 /* WarmupVC.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
