@@ -17,6 +17,7 @@ protocol ShopPresenterProtocol {
     func configureViews()
     
     func didSelectItem(at index: Int)
+    func didAgreeToPurchase(_ item: ShopItem)
     func handleRefreshControl(completion: (() -> Void)?)
 }
 
@@ -62,6 +63,10 @@ class ShopPresenter: ShopPresenterProtocol {
     func didSelectItem(at index: Int) {
         let item = items[index]
         router.showConfirmScreen(for: item)
+    }
+    
+    func didAgreeToPurchase(_ item: ShopItem) {
+        router.showCompletionScreen(for: item)
     }
     
 }

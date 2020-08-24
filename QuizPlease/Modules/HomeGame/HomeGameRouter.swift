@@ -13,7 +13,7 @@ protocol HomeGameRouterProtocol: RouterProtocol {
 }
 
 class HomeGameRouter: HomeGameRouterProtocol {
-    var viewController: UIViewController?
+    weak var viewController: UIViewController?
     
     required init(viewController: UIViewController) {
         self.viewController = viewController

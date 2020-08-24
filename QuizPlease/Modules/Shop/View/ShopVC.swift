@@ -69,6 +69,12 @@ extension ShopVC: ShopViewProtocol {
     }
 }
 
+extension ShopVC: ConfirmVCDelegate {
+    func didAgreeToPurchase(item: ShopItem) {
+        presenter.didAgreeToPurchase(item)
+    }
+}
+
 //MARK:- Data Source
 extension ShopVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

@@ -55,12 +55,12 @@ class SchedulePresenter: SchedulePresenterProtocol {
     
     func didSignUp(forGameAt index: Int) {
         guard let game = games?[index] else { return }
-        router.showGameInfo(game)
+        router.showGameInfo(GameInfoPresentAttributes(game: game, shouldScrollToSignUp: true))
     }
     
     func didPressInfoButton(forGameAt index: Int) {
         guard let game = games?[index] else { return }
-        router.showGameInfo(game)
+        router.showGameInfo(GameInfoPresentAttributes(game: game, shouldScrollToSignUp: false))
     }
     
     func didAskLocation(forGameAt index: Int) {

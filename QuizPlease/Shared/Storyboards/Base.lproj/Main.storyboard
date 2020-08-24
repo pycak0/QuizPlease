@@ -1163,6 +1163,7 @@
                         <viewLayoutGuide key="safeArea" id="J3q-4e-HIV"/>
                     </view>
                     <navigationItem key="navigationItem" title="Магазин" id="RXx-vy-xBF">
+                        <barButtonItem key="backBarButtonItem" title=" " id="GZx-UZ-Qzs"/>
                         <barButtonItem key="rightBarButtonItem" style="plain" id="Nss-ms-8zo">
                             <view key="customView" contentMode="scaleToFill" id="Dn0-XF-7MI">
                                 <rect key="frame" x="302" y="6" width="92" height="33"/>
@@ -1192,11 +1193,126 @@
                         <outlet property="shopCollectionView" destination="8i9-Kw-lHF" id="KU5-2E-DRr"/>
                         <outlet property="userPointsLabel" destination="Ozp-8d-wSt" id="LhI-jb-7Vz"/>
                         <segue destination="oZJ-S8-d62" kind="presentation" identifier="ConfirmPurchase" id="y6g-Fb-faW"/>
+                        <segue destination="A8f-MD-UmN" kind="show" identifier="ShowShopCompletion" id="FhE-N1-kOn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lmt-Kb-Xp6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2123" y="246"/>
+        </scene>
+        <!--Завершение покупки-->
+        <scene sceneID="mlF-HX-aRL">
+            <objects>
+                <viewController id="A8f-MD-UmN" customClass="ShopCompletionVC" customModule="QuizPlease" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="q4P-Y8-ST4">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoSmall" translatesAutoresizingMaskIntoConstraints="NO" id="jhS-3r-YyX">
+                                <rect key="frame" x="60" y="148" width="294" height="294"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="jhS-3r-YyX" secondAttribute="height" multiplier="1:1" id="RH9-Th-oSr"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Поздравляем с покупкой!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T6i-ay-LLq">
+                                <rect key="frame" x="16" y="498" width="382" height="27"/>
+                                <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="22"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Где вы хотите забрать свой сертификат?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gu5-yq-NPT">
+                                <rect key="frame" x="20" y="541" width="374" height="20"/>
+                                <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="16"/>
+                                <color key="textColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KBr-n6-ewD" customClass="HBSegmentedControl" customModule="QuizPlease" customModuleProvider="target">
+                                <rect key="frame" x="20" y="584" width="374" height="50"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="TOP-WB-wPI"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="selectedLabelColor">
+                                        <color key="value" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="unselectedLabelColor">
+                                        <color key="value" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="thumbColor">
+                                        <color key="value" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vk2-4w-q3h" customClass="TitledTextFieldView" customModule="QuizPlease" customModuleProvider="target">
+                                <rect key="frame" x="20" y="694" width="374" height="70"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="YXL-RX-IRj"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="title" value="Электронная почта"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Введите адрес почты"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gwm-fA-j5X" customClass="ScalingButton" customModule="QuizPlease" customModuleProvider="target">
+                                <rect key="frame" x="20" y="784" width="374" height="60"/>
+                                <color key="backgroundColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="Q3s-Cl-rDA"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="20"/>
+                                <state key="normal" title="Подтвердить">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusView">
+                                        <real key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="confirmButtonPressed:" destination="A8f-MD-UmN" eventType="touchUpInside" id="QeG-tu-g3n"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="vk2-4w-q3h" firstAttribute="top" relation="greaterThanOrEqual" secondItem="KBr-n6-ewD" secondAttribute="bottom" constant="20" id="29p-FS-YL4"/>
+                            <constraint firstItem="gu5-yq-NPT" firstAttribute="centerX" secondItem="rts-Rz-ftE" secondAttribute="centerX" id="3v6-BE-7qU"/>
+                            <constraint firstItem="T6i-ay-LLq" firstAttribute="top" secondItem="jhS-3r-YyX" secondAttribute="bottom" constant="56" id="Cqw-sD-4LR"/>
+                            <constraint firstItem="Gwm-fA-j5X" firstAttribute="top" secondItem="vk2-4w-q3h" secondAttribute="bottom" constant="20" id="Hg6-OX-JR2"/>
+                            <constraint firstItem="gu5-yq-NPT" firstAttribute="top" secondItem="T6i-ay-LLq" secondAttribute="bottom" constant="16" id="MBe-T7-xZS"/>
+                            <constraint firstItem="vk2-4w-q3h" firstAttribute="leading" secondItem="rts-Rz-ftE" secondAttribute="leading" constant="20" id="MJr-Xi-7tA"/>
+                            <constraint firstItem="rts-Rz-ftE" firstAttribute="trailing" secondItem="Gwm-fA-j5X" secondAttribute="trailing" constant="20" id="VYu-nj-Uk9"/>
+                            <constraint firstItem="Gwm-fA-j5X" firstAttribute="leading" secondItem="rts-Rz-ftE" secondAttribute="leading" constant="20" id="VnX-1g-Tol"/>
+                            <constraint firstItem="KBr-n6-ewD" firstAttribute="leading" secondItem="rts-Rz-ftE" secondAttribute="leading" constant="20" id="Wt8-ZB-rOp"/>
+                            <constraint firstItem="T6i-ay-LLq" firstAttribute="leading" secondItem="rts-Rz-ftE" secondAttribute="leading" constant="16" id="aeR-zu-iAb"/>
+                            <constraint firstItem="KBr-n6-ewD" firstAttribute="centerX" secondItem="rts-Rz-ftE" secondAttribute="centerX" id="c8h-1a-Mj0"/>
+                            <constraint firstItem="gu5-yq-NPT" firstAttribute="leading" secondItem="rts-Rz-ftE" secondAttribute="leading" constant="20" id="c9W-vb-Zgt"/>
+                            <constraint firstItem="T6i-ay-LLq" firstAttribute="centerX" secondItem="rts-Rz-ftE" secondAttribute="centerX" id="dRx-5R-kQH"/>
+                            <constraint firstItem="jhS-3r-YyX" firstAttribute="top" secondItem="rts-Rz-ftE" secondAttribute="top" priority="500" constant="60" id="f84-ju-zOk"/>
+                            <constraint firstItem="rts-Rz-ftE" firstAttribute="trailing" secondItem="jhS-3r-YyX" secondAttribute="trailing" constant="60" id="fJ8-2k-N2b"/>
+                            <constraint firstItem="jhS-3r-YyX" firstAttribute="top" relation="greaterThanOrEqual" secondItem="rts-Rz-ftE" secondAttribute="top" constant="20" id="gan-MV-lfN"/>
+                            <constraint firstItem="KBr-n6-ewD" firstAttribute="top" secondItem="gu5-yq-NPT" secondAttribute="bottom" constant="23" id="hSE-6K-Cb8"/>
+                            <constraint firstItem="vk2-4w-q3h" firstAttribute="centerX" secondItem="rts-Rz-ftE" secondAttribute="centerX" id="lmY-hp-ukv"/>
+                            <constraint firstItem="rts-Rz-ftE" firstAttribute="bottom" secondItem="Gwm-fA-j5X" secondAttribute="bottom" constant="18" id="rwj-RY-85L"/>
+                            <constraint firstItem="jhS-3r-YyX" firstAttribute="leading" secondItem="rts-Rz-ftE" secondAttribute="leading" constant="60" id="y8k-sg-A2v"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="rts-Rz-ftE"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Завершение покупки" id="p7U-iT-zNo"/>
+                    <connections>
+                        <outlet property="emailField" destination="vk2-4w-q3h" id="4bE-Cq-seh"/>
+                        <outlet property="imageView" destination="jhS-3r-YyX" id="JN5-4m-hia"/>
+                        <outlet property="segmentControl" destination="KBr-n6-ewD" id="zIG-Zy-OSc"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wlQ-vh-Kgu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2575" y="1132"/>
         </scene>
         <!--ConfirmVC-->
         <scene sceneID="1sE-Mz-fVA">

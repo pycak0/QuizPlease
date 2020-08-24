@@ -13,7 +13,7 @@ protocol GameOrderRouterProtocol: RouterProtocol {
 }
 
 class GameOrderRouter: GameOrderRouterProtocol {
-    var viewController: UIViewController?
+    weak var viewController: UIViewController?
     
     required init(viewController: UIViewController) {
         self.viewController = viewController

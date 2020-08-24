@@ -9,18 +9,19 @@
 import UIKit
 
 protocol GameOrderConfiguratorProtocol {
-    func configure(_ viewController: GameOrderViewProtocol, withGame game: GameInfo)
+    func configure(_ viewController: GameOrderViewProtocol, withGameInfo gameInfo: GameInfoPresentAttributes)
 }
 
 class GameOrderConfigurator: GameOrderConfiguratorProtocol {
-    func configure(_ viewController: GameOrderViewProtocol, withGame game: GameInfo) {
+    func configure(_ viewController: GameOrderViewProtocol, withGameInfo gameInfo: GameInfoPresentAttributes) {
         let interactor = GameOrderInteractor()
         let router = GameOrderRouter(viewController: viewController)
         let presenter = GameOrderPresenter(view: viewController, interactor: interactor, router: router)
-        presenter.game = game
+        presenter.game = gameInfo.game
         
         viewController.presenter = presenter
-        viewController.prepareNavigationBar(title: "\(game.name) #\(game.gameNumber)")
+        viewController.shouldScrollToSignUp = gameInfo.shouldScrollToSignUp
+        viewController.prepareNavigationBar(title: "\(gameInfo.game.name) #\(gameInfo.game.gameNumber)")
     }
     
 }

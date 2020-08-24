@@ -9,11 +9,17 @@
 import UIKit
 
 protocol ScheduleRouterProtocol: RouterProtocol {
-    func showGameInfo(_ sender: GameInfo)
+    func showGameInfo(_ sender: GameInfoPresentAttributes)
+}
+
+struct GameInfoPresentAttributes {
+    var game: GameInfo
+    var shouldScrollToSignUp: Bool
 }
 
 class ScheduleRouter: ScheduleRouterProtocol {
-    var viewController: UIViewController?
+
+    weak var viewController: UIViewController?
     
     required init(viewController: UIViewController) {
         self.viewController = viewController
@@ -22,16 +28,16 @@ class ScheduleRouter: ScheduleRouterProtocol {
     func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case "ShowGameInfo":
-            guard let game = sender as? GameInfo,
+            guard let gameInfo = sender as? GameInfoPresentAttributes,
                 let vc = segue.destination as? GameOrderVC else { return }
             
-            vc.configurator.configure(vc, withGame: game)
+            vc.configurator.configure(vc, withGameInfo: gameInfo)
         default:
             print("Unknown segue")
         }
     }
     
-    func showGameInfo(_ sender: GameInfo) {
+    func showGameInfo(_ sender: GameInfoPresentAttributes) {
         viewController?.performSegue(withIdentifier: "ShowGameInfo", sender: sender)
     }
     

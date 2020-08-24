@@ -14,7 +14,7 @@ protocol ProfileRouterProtocol: RouterProtocol {
 }
 
 class ProfileRouter: ProfileRouterProtocol {
-    var viewController: UIViewController?
+    weak var viewController: UIViewController?
     
     required init(viewController: UIViewController) {
         self.viewController = viewController

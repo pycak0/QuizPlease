@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		A40B757C24D9A744006DB7D1 /* ScheduleInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40B757B24D9A744006DB7D1 /* ScheduleInteractor.swift */; };
 		A40B757E24D9A750006DB7D1 /* SchedulePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40B757D24D9A750006DB7D1 /* SchedulePresenter.swift */; };
-		A40B758024D9A75A006DB7D1 /* ScheduleRouterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40B757F24D9A75A006DB7D1 /* ScheduleRouterProtocol.swift */; };
+		A40B758024D9A75A006DB7D1 /* ScheduleRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40B757F24D9A75A006DB7D1 /* ScheduleRouter.swift */; };
 		A40B758224D9A76F006DB7D1 /* ScheduleConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40B758124D9A76F006DB7D1 /* ScheduleConfigurator.swift */; };
 		A40B758424D9A7CD006DB7D1 /* WarmupInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40B758324D9A7CD006DB7D1 /* WarmupInteractor.swift */; };
 		A40B758624D9A7F6006DB7D1 /* WarmupPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40B758524D9A7F6006DB7D1 /* WarmupPresenter.swift */; };
@@ -83,6 +83,7 @@
 		A48DFF7724F3EBC400E47095 /* VideoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A48DFF7624F3EBC400E47095 /* VideoView.xib */; };
 		A48DFF7924F3EBEF00E47095 /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48DFF7824F3EBEF00E47095 /* VideoView.swift */; };
 		A48DFF7B24F4070200E47095 /* HomeGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48DFF7A24F4070200E47095 /* HomeGame.swift */; };
+		A48DFF7D24F419AC00E47095 /* ShopCompletionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48DFF7C24F419AC00E47095 /* ShopCompletionVC.swift */; };
 		A498FCCC24E52ED80069F896 /* GameRegisterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A498FCCA24E52ED80069F896 /* GameRegisterCell.swift */; };
 		A498FCCD24E52ED80069F896 /* GameRegisterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A498FCCB24E52ED80069F896 /* GameRegisterCell.xib */; };
 		A4A0659824E477860080E0D8 /* GameOrderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A0659724E477860080E0D8 /* GameOrderVC.swift */; };
@@ -132,7 +133,7 @@
 /* Begin PBXFileReference section */
 		A40B757B24D9A744006DB7D1 /* ScheduleInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleInteractor.swift; sourceTree = "<group>"; };
 		A40B757D24D9A750006DB7D1 /* SchedulePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulePresenter.swift; sourceTree = "<group>"; };
-		A40B757F24D9A75A006DB7D1 /* ScheduleRouterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleRouterProtocol.swift; sourceTree = "<group>"; };
+		A40B757F24D9A75A006DB7D1 /* ScheduleRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleRouter.swift; sourceTree = "<group>"; };
 		A40B758124D9A76F006DB7D1 /* ScheduleConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleConfigurator.swift; sourceTree = "<group>"; };
 		A40B758324D9A7CD006DB7D1 /* WarmupInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarmupInteractor.swift; sourceTree = "<group>"; };
 		A40B758524D9A7F6006DB7D1 /* WarmupPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarmupPresenter.swift; sourceTree = "<group>"; };
@@ -206,6 +207,7 @@
 		A48DFF7624F3EBC400E47095 /* VideoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoView.xib; sourceTree = "<group>"; };
 		A48DFF7824F3EBEF00E47095 /* VideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
 		A48DFF7A24F4070200E47095 /* HomeGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeGame.swift; sourceTree = "<group>"; };
+		A48DFF7C24F419AC00E47095 /* ShopCompletionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopCompletionVC.swift; sourceTree = "<group>"; };
 		A498FCCA24E52ED80069F896 /* GameRegisterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRegisterCell.swift; sourceTree = "<group>"; };
 		A498FCCB24E52ED80069F896 /* GameRegisterCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameRegisterCell.xib; sourceTree = "<group>"; };
 		A4A0659724E477860080E0D8 /* GameOrderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOrderVC.swift; sourceTree = "<group>"; };
@@ -369,7 +371,7 @@
 				A4B0753024DFDB33007778A2 /* View */,
 				A40B757B24D9A744006DB7D1 /* ScheduleInteractor.swift */,
 				A40B757D24D9A750006DB7D1 /* SchedulePresenter.swift */,
-				A40B757F24D9A75A006DB7D1 /* ScheduleRouterProtocol.swift */,
+				A40B757F24D9A75A006DB7D1 /* ScheduleRouter.swift */,
 				A40B758124D9A76F006DB7D1 /* ScheduleConfigurator.swift */,
 			);
 			path = Schedule;
@@ -548,6 +550,7 @@
 				A40F035B24D412D700C381F2 /* ShopItemCell.swift */,
 				A452E3B024D428DA002EE514 /* ShopItemCell.xib */,
 				A423AC2324EEC65100071E68 /* ConfirmVC.swift */,
+				A48DFF7C24F419AC00E47095 /* ShopCompletionVC.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -743,7 +746,7 @@
 				A4BA1CEA24D832D600D32ADC /* MainMenuConfigurator.swift in Sources */,
 				A4A0659824E477860080E0D8 /* GameOrderVC.swift in Sources */,
 				A40D815A24D2C6C1006D2CE3 /* AppDelegate.swift in Sources */,
-				A40B758024D9A75A006DB7D1 /* ScheduleRouterProtocol.swift in Sources */,
+				A40B758024D9A75A006DB7D1 /* ScheduleRouter.swift in Sources */,
 				A40B758424D9A7CD006DB7D1 /* WarmupInteractor.swift in Sources */,
 				A450E3A124E5732200C49AEE /* GameOrderInteractor.swift in Sources */,
 				A4147AD924E5BAF9007C131F /* MapService.swift in Sources */,
@@ -766,6 +769,7 @@
 				A40B758224D9A76F006DB7D1 /* ScheduleConfigurator.swift in Sources */,
 				A4BA1CEC24D8338B00D32ADC /* MainMenuPresenter.swift in Sources */,
 				A4FFA4A924F39F26006A1150 /* GameOrderCellProtocol.swift in Sources */,
+				A48DFF7D24F419AC00E47095 /* ShopCompletionVC.swift in Sources */,
 				A4CC5FC124DACE0E0042B41C /* ShopInteractor.swift in Sources */,
 				A40B757E24D9A750006DB7D1 /* SchedulePresenter.swift in Sources */,
 				A42527C724F0782800E3FBD4 /* GamePayCell.swift in Sources */,

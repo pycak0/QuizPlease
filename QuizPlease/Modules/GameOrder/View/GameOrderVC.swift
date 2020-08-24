@@ -12,6 +12,8 @@ protocol GameOrderViewProtocol: UIViewController {
     var presenter: GameOrderPresenterProtocol! { get set }
     var configurator: GameOrderConfiguratorProtocol! { get }
     
+    var shouldScrollToSignUp: Bool! { get set }
+    
     func reloadInfo()
     func configureTableView()
 }
@@ -19,6 +21,8 @@ protocol GameOrderViewProtocol: UIViewController {
 class GameOrderVC: UIViewController {
     let configurator: GameOrderConfiguratorProtocol! = GameOrderConfigurator()
     var presenter: GameOrderPresenterProtocol!
+    
+    var shouldScrollToSignUp: Bool!
     
     @IBOutlet weak var gameImageView: UIImageView!
     @IBOutlet weak var tableView: UITableView!
@@ -36,7 +40,19 @@ class GameOrderVC: UIViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
     }
+    
+    func scrollToSignUp() {
+        let indexPath = IndexPath(row: GameInfoItemKind.registration.rawValue, section: 0)
+        tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+    }
 
+}
+
+extension GameOrderVC: GameOrderViewProtocol {
+    func reloadInfo() {
+        tableView.reloadData()
+    }
+    
     func configureTableView() {
         tableView.delegate = self
         tableView.dataSource = self
@@ -45,13 +61,13 @@ class GameOrderVC: UIViewController {
             tableView.register(UINib(nibName: cellKind.identifier, bundle: nil), forCellReuseIdentifier: cellKind.identifier)
         }
         
-    }
-
-}
-
-extension GameOrderVC: GameOrderViewProtocol {
-    func reloadInfo() {
-        tableView.reloadData()
+        if shouldScrollToSignUp {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.scrollToSignUp()
+            }
+            
+        }
+        
     }
     
 }

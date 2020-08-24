@@ -14,8 +14,7 @@ extension GameOrderVC: GameAnnotationCellDelegate {
     }
     
     func signUpButtonPressed(in cell: GameAnnotationCell) {
-        let indexPath = IndexPath(row: GameInfoItemKind.registration.rawValue, section: 0)
-        tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+        scrollToSignUp()
     }
     
 }

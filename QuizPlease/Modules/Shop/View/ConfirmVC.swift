@@ -9,8 +9,20 @@
 import UIKit
 import BottomPopup
 
+protocol ConfirmVCDelegate: class {
+    func didAgreeToPurchase(item: ShopItem)
+}
+
 class ConfirmVC: BottomPopupViewController {
     let duration = 0.2
+    
+    override var popupTopCornerRadius: CGFloat { 30 }
+    override var popupHeight: CGFloat { 530 }
+    override var popupDismissDuration: Double { duration }
+    override var popupPresentDuration: Double { duration }
+    //override var popupShouldBeganDismiss: Bool { false }
+    
+    weak var delegate: ConfirmVCDelegate?
     
     @IBOutlet private weak var itemImageView: UIImageView!
     @IBOutlet private weak var descriptionLabel: UILabel!
@@ -19,12 +31,6 @@ class ConfirmVC: BottomPopupViewController {
     @IBOutlet private weak var confirmButton: UIButton!
     
     var shopItem: ShopItem!
-    
-    override var popupTopCornerRadius: CGFloat { 30 }
-    override var popupHeight: CGFloat { 530 }
-    override var popupDismissDuration: Double { duration }
-    override var popupPresentDuration: Double { duration }
-    //override var popupShouldBeganDismiss: Bool { false }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,6 +64,7 @@ class ConfirmVC: BottomPopupViewController {
     }
     
     @IBAction func confirmButtonPressed(_ sender: Any) {
+        delegate?.didAgreeToPurchase(item: shopItem)
         dismiss(animated: true, completion: nil)
     }
 }

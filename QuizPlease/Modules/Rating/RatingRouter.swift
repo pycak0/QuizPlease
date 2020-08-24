@@ -13,7 +13,7 @@ protocol RatingRouterProtocol: RouterProtocol {
 }
 
 class RatingRouter: RatingRouterProtocol {
-    var viewController: UIViewController?
+    weak var viewController: UIViewController?
     
     required init(viewController: UIViewController) {
         self.viewController = viewController

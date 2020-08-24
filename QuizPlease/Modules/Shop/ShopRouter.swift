@@ -10,10 +10,11 @@ import UIKit
 
 protocol ShopRouterProtocol: RouterProtocol {
     func showConfirmScreen(for item: ShopItem)
+    func showCompletionScreen(for item: ShopItem)
 }
 
 class ShopRouter: ShopRouterProtocol {
-    var viewController: UIViewController?
+    weak var viewController: UIViewController?
     
     required init(viewController: UIViewController) {
         self.viewController = viewController
@@ -24,6 +25,10 @@ class ShopRouter: ShopRouterProtocol {
         case "ConfirmPurchase":
             guard let item = sender as? ShopItem, let vc = segue.destination as? ConfirmVC else { return }
             vc.shopItem = item
+            vc.delegate = viewController as? ConfirmVCDelegate
+        case "ShowShopCompletion":
+            guard let item = sender as? ShopItem, let vc = segue.destination as? ShopCompletionVC else { return }
+            vc.shopItem = item
         default:
             print("Unknown segue id")
         }
@@ -31,6 +36,10 @@ class ShopRouter: ShopRouterProtocol {
     
     func showConfirmScreen(for item: ShopItem) {
         viewController?.performSegue(withIdentifier: "ConfirmPurchase", sender: item)
+    }
+    
+    func showCompletionScreen(for item: ShopItem) {
+        viewController?.performSegue(withIdentifier: "ShowShopCompletion", sender: item)
     }
     
 }
