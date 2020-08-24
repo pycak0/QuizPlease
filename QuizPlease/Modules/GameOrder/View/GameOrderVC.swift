@@ -75,7 +75,9 @@ extension GameOrderVC: UITableViewDataSource, UITableViewDelegate {
     
 //    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 //        guard let kind = GameInfoItemKind(rawValue: indexPath.row) else { return 44 }
-//
+//        if let cell = tableView.cellForRow(at: indexPath) as? GamePayCell {
+//            return cell.height
+//        }
 //        return kind.height
 //    }
     

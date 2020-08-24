@@ -18,9 +18,7 @@ class ConfirmVC: BottomPopupViewController {
     @IBOutlet private weak var cancelButton: UIButton!
     @IBOutlet private weak var confirmButton: UIButton!
     
-    var image: UIImage?
-    var itemDescription: String?
-    var itemPrice: Int!
+    var shopItem: ShopItem!
     
     override var popupTopCornerRadius: CGFloat { 30 }
     override var popupHeight: CGFloat { 530 }
@@ -36,8 +34,9 @@ class ConfirmVC: BottomPopupViewController {
     }
     
     private func configureViews() {
-        let radius: CGFloat = 20
+        cancelButton.backgroundColor = UIColor.white.withAlphaComponent(0.1)
         
+        let radius: CGFloat = 20
         cancelButton.layer.cornerRadius = radius
         confirmButton.layer.cornerRadius = radius
         
@@ -46,10 +45,10 @@ class ConfirmVC: BottomPopupViewController {
     }
     
     private func setupData() {
-        itemImageView.image = image
-        descriptionLabel.text = itemDescription
+        itemImageView.image = shopItem.image
+        descriptionLabel.text = shopItem.description
         
-        let formattedPrice = itemPrice.string(withAssociatedMaleWord: "балл")
+        let formattedPrice = shopItem.price.string(withAssociatedMaleWord: "балл")
         confirmMessageLabel.text = "Потратить \(formattedPrice) баллов на электронный сертификат?"
     }
     

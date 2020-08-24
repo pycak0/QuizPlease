@@ -28,3 +28,23 @@ extension GameOrderVC: GameInfoCellDelegate {
 
 
 extension GameOrderVC: GameDescriptionDelegate {}
+
+extension GameOrderVC: GamePayCellDelegate {
+    func sumToPay(in gamePayCell: GamePayCell, forNumberOfPeople number: Int) -> Decimal {
+        //presenter. ...
+        return presenter.game.price * Decimal(number)
+    }
+    
+    func gamePayCell(_ gamePayCell: GamePayCell, didChangeNumberOfPeopleToPay number: Int) {
+        //
+    }
+    
+    func gamePayCell(_ gamePayCell: GamePayCell, didChangePaymentMethod isApplePay: Bool) {
+        //guard let indexPath = tableView.indexPath(for: gamePayCell) else { return }
+//        UIView.animate(withDuration: 0.1) {
+//            gamePayCell.frame.setHeight(isApplePay ? 444 : 290)
+//        }
+
+    }
+    
+}

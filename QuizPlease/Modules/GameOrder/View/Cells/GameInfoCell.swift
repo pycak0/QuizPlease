@@ -53,7 +53,7 @@ class GameInfoCell: UITableViewCell, GameOrderCellProtocol {
         placeNameLabel.text = info.place.name
         placeAddressLabel.text = info.place.address
                 
-        mapView.centerToLocation(info.place.location)
+        mapView.centerToAddress(info.place.address, regionRadius: 300, animated: false)
         mapView.addAnnotation(info.place)
     }
     

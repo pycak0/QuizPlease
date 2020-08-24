@@ -16,4 +16,16 @@ public extension MKMapView {
             longitudinalMeters: regionRadius)
         setRegion(coordinateRegion, animated: animated)
     }
+    
+    func centerToAddress(_ address: String, regionRadius: CLLocationDistance = 1000, animated: Bool = true) {
+        MapService.getCoordinates(from: address) { (location) in
+            guard let location = location else { return }
+            let coordinateRegion = MKCoordinateRegion(
+                center: location,
+                latitudinalMeters: regionRadius,
+                longitudinalMeters: regionRadius)
+            self.setRegion(coordinateRegion, animated: animated)
+        }
+        
+    }
 }

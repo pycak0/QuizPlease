@@ -31,19 +31,23 @@ extension GameOrderVC {
             }
         }
         
-//        var height: CGFloat {
-//            switch self {
-//            case .annotation:
-//                return 340
-//            case .info:
-//                return 340
-//            case .description:
-//                return 220
-//            case .registration:
-//                return 640
-//            case .certificate:
-//                return 320
-//            }
-//        }
+        var height: CGFloat {
+            switch self {
+            case .annotation:
+                return 272
+            case .info:
+                return 340
+            case .description:
+                return 233
+            case .registration:
+                return 640
+            case .certificate:
+                return 210
+            case .firstPlay:
+                return 90
+            case .payment:
+                return 444
+            }
+        }
     }
 }

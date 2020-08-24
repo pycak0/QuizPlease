@@ -1,5 +1,5 @@
 //
-//MARK:  HomeGameVC.swift
+//MARK:  HomeGamesListVC.swift
 //  QuizPlease
 //
 //  Created by Владислав on 30.07.2020.
@@ -18,7 +18,7 @@ protocol HomeGameViewProtocol: UIViewController {
     
 }
 
-class HomeGameVC: UIViewController {
+class HomeGamesListVC: UIViewController {
     let configurator: HomeGameConfiguratorProtocol = HomeGameConfigurator()
     var presenter: HomeGamePresenterProtocol!
 
@@ -40,7 +40,7 @@ class HomeGameVC: UIViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        navigationController?.navigationBar.tintColor = .labelAdapted
+        //navigationController?.navigationBar.tintColor = .labelAdapted
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -50,7 +50,7 @@ class HomeGameVC: UIViewController {
 }
 
 //MARK:- Protocol Implementation
-extension HomeGameVC: HomeGameViewProtocol {
+extension HomeGamesListVC: HomeGameViewProtocol {
     func congigureCollectionView() {
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -63,21 +63,27 @@ extension HomeGameVC: HomeGameViewProtocol {
     }
     
     func reloadHomeGamesList() {
-        collectionView.reloadSections(IndexSet(arrayLiteral: 0))
+       // collectionView.reloadSections(IndexSet(arrayLiteral: 0))
+        collectionView.reloadData()
     }
 }
 
 
 //MARK:- Data Source & Delegate
-extension HomeGameVC: UICollectionViewDataSource, UICollectionViewDelegate {
+extension HomeGamesListVC: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        6
+        presenter.games.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeGameCell.identifier, for: indexPath) as! HomeGameCell
-        
+        let game = presenter.games[indexPath.row]
+        cell.configureCell(with: game)
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        presenter.didSelectHomeGame(at: indexPath.row)
     }
     
     func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
@@ -92,7 +98,7 @@ extension HomeGameVC: UICollectionViewDataSource, UICollectionViewDelegate {
 
 
 //MARK:- Flow Layout
-extension HomeGameVC: UICollectionViewDelegateFlowLayout {
+extension HomeGamesListVC: UICollectionViewDelegateFlowLayout {
     private struct SectionLayout {
         static let sectionInsets: CGFloat = 16
         static let interItemSpacing: CGFloat = 16

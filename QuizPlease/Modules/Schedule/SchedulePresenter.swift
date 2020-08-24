@@ -66,7 +66,8 @@ class SchedulePresenter: SchedulePresenterProtocol {
     func didAskLocation(forGameAt index: Int) {
         guard let game = games?[index] else { return }
         let place = game.place
-        interactor.openInMaps(placeName: place.name, withLongitutde: place.longitude, andLatitude: place.latitude)
+        interactor.openInMaps(place: place)
+        //interactor.openInMaps(placeName: place.name, withLongitutde: place.longitude, andLatitude: place.latitude)
     }
     
     func didAskNotification(forGameAt index: Int) {

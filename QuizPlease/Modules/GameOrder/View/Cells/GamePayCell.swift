@@ -9,16 +9,22 @@
 import UIKit
 
 protocol GamePayCellDelegate: class {
-    func sumToPay(in gamePayCell: GamePayCell) -> Int
+    func sumToPay(in gamePayCell: GamePayCell, forNumberOfPeople number: Int) -> Decimal
     
     ///Is not called at the initial configuration
     func gamePayCell(_ gamePayCell: GamePayCell, didChangeNumberOfPeopleToPay number: Int)
+    
+    func gamePayCell(_ gamePayCell: GamePayCell, didChangePaymentMethod isApplePay: Bool)
 }
 
-class GamePayCell: UITableViewCell, TableCellProtocol {
+class GamePayCell: UITableViewCell, GameOrderCellProtocol {
     static let identifier = "GamePayCell"
     
-    weak var delegate: GamePayCellDelegate?
+    weak var delegate: AnyObject? {
+        get { _delegate }
+        set { _delegate = newValue as? GamePayCellDelegate }
+    }
+    private weak var _delegate: GamePayCellDelegate?
     
     @IBOutlet weak var paymentTypeStack: UIStackView!
     @IBOutlet weak var cashTypeView: UIStackView!
@@ -29,13 +35,13 @@ class GamePayCell: UITableViewCell, TableCellProtocol {
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var dashView: UIView!
     @IBOutlet weak var signUpButton: ScalingButton!
+    @IBOutlet weak var paymentStack: UIStackView!
     
     var isApplePay: Bool! {
         didSet {
-            cashCheckBox.image = !isApplePay ? UIImage(named: "rectDot") : nil
-            creditCardCheckBox.image = isApplePay ? UIImage(named: "rectDot") : nil
-            let title = isApplePay ? "Оплатить игру" : "Записаться на игру"
-            signUpButton.setTitle(title, for: .normal)
+            updateUI(withPaymentType: isApplePay)
+            
+            _delegate?.gamePayCell(self, didChangePaymentMethod: isApplePay)
         }
     }
     
@@ -75,10 +81,11 @@ class GamePayCell: UITableViewCell, TableCellProtocol {
         }
         
         selectedNumberOfPeople = index + 1
-        delegate?.gamePayCell(self, didChangeNumberOfPeopleToPay: selectedNumberOfPeople)
+        _delegate?.gamePayCell(self, didChangeNumberOfPeopleToPay: selectedNumberOfPeople)
         updateUI(withNumberOfPeople: selectedNumberOfPeople)
     }
     
+    //MARK:- Update Count Buttons
     private func updateUI(withNumberOfPeople number: Int) {
         guard number >= 1 && number <= teamCountStack.arrangedSubviews.count else {
             return
@@ -92,10 +99,27 @@ class GamePayCell: UITableViewCell, TableCellProtocol {
         let selectedButton = teamCountStack.arrangedSubviews[number - 1] as! UIButton
         select(selectedButton, number: number)
         
-        let newPrice = delegate?.sumToPay(in: self) ?? 900
+        let newPrice = _delegate?.sumToPay(in: self, forNumberOfPeople: number) ?? 900
         priceLabel.text = "\(newPrice)"
     }
     
+    //MARK:- Update Payment Details
+    private func updateUI(withPaymentType isApplePay: Bool) {
+        cashCheckBox.image = !isApplePay ? UIImage(named: "rectDot") : nil
+        creditCardCheckBox.image = isApplePay ? UIImage(named: "rectDot") : nil
+        let title = isApplePay ? "Оплатить игру" : "Записаться на игру"
+        signUpButton.setTitle(title, for: .normal)
+        
+//        let views = paymentStack.arrangedSubviews
+//        //UIView.animate(withDuration: 0.2) {
+//            for i in 1..<views.count {
+//                views[i].isHidden = !isApplePay
+//            }
+//       // }
+//        self.layoutIfNeeded()
+        
+    }
+        
     //MARK:- Select
     private func select(_ button: UIButton, number: Int) {
         let scale: CGFloat = 1.1

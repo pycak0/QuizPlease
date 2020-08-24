@@ -9,7 +9,7 @@
 import UIKit
 
 protocol HomeGameRouterProtocol: RouterProtocol {
-    //
+    func showGame(_ game: HomeGame)
 }
 
 class HomeGameRouter: HomeGameRouterProtocol {
@@ -20,7 +20,20 @@ class HomeGameRouter: HomeGameRouterProtocol {
     }
     
     func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        //
+        switch segue.identifier {
+        case "ShowHomeGame":
+            guard let game = sender as? HomeGame, let vc = segue.destination as? HomeGameVideoVC else {
+                print("Incorrect data")
+                return
+            }
+            vc.homeGame = game
+        default:
+            print("unknown segue from Home Games List")
+        }
+    }
+    
+    func showGame(_ game: HomeGame) {
+        viewController?.performSegue(withIdentifier: "ShowHomeGame", sender: game)
     }
     
 }

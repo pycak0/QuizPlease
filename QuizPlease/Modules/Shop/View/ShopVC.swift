@@ -80,7 +80,7 @@ extension ShopVC: UICollectionViewDataSource {
             fatalError("Invalid Cell Kind")
         }
         let item = presenter.items[indexPath.item]
-        cell.configureCell(image: nil, price: item.price)
+        cell.configureCell(image: item.image, price: item.price)
                 
         return cell
     }

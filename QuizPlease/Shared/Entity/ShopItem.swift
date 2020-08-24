@@ -6,11 +6,13 @@
 //  Copyright © 2020 Владислав. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 struct ShopItem {
     var id: String
     var name: String
     var description: String
     var price: Int
+    
+    var image: UIImage?
 }

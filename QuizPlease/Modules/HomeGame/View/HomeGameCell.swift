@@ -29,6 +29,10 @@ class HomeGameCell: UICollectionViewCell {
         playLabel.layer.cornerRadius = playLabel.frame.height / 2
     }
     
-    //func configureCell
+    func configureCell(with game: HomeGame) {
+        gameNameLabel.text = game.title
+        timeLabel.text = game.duration
+        priceLabel.text = game.price
+    }
     
 }

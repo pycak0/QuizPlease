@@ -89,7 +89,7 @@ enum MenuItemKind: Int, CaseIterable, MenuItemProtocol {
         switch self {
         case .schedule:     return "Show ScheduleVC"
         case .profile:      return "Show ProfileVC"
-        case .homeGame:     return "Show HomeGameVC"
+        case .homeGame:     return "Show HomeGamesListVC"
         case .warmup:       return "Show WarmUpVC"
         case .shop:         return "Show ShopVC"
         case .rating:       return "Show RatingVC"

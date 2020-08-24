@@ -23,8 +23,7 @@ class ShopRouter: ShopRouterProtocol {
         switch segue.identifier {
         case "ConfirmPurchase":
             guard let item = sender as? ShopItem, let vc = segue.destination as? ConfirmVC else { return }
-            vc.itemPrice = item.price
-            vc.itemDescription = item.description
+            vc.shopItem = item
         default:
             print("Unknown segue id")
         }

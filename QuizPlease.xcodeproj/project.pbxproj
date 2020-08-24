@@ -35,7 +35,7 @@
 		A40D817A24D2C9E6006D2CE3 /* MainMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40D817924D2C9E6006D2CE3 /* MainMenuVC.swift */; };
 		A40D817C24D2CA04006D2CE3 /* ScheduleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40D817B24D2CA04006D2CE3 /* ScheduleVC.swift */; };
 		A40D817E24D2CA1A006D2CE3 /* WarmupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40D817D24D2CA1A006D2CE3 /* WarmupVC.swift */; };
-		A40D818024D2CA26006D2CE3 /* HomeGameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40D817F24D2CA26006D2CE3 /* HomeGameVC.swift */; };
+		A40D818024D2CA26006D2CE3 /* HomeGamesListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40D817F24D2CA26006D2CE3 /* HomeGamesListVC.swift */; };
 		A40D818224D2CA30006D2CE3 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40D818124D2CA30006D2CE3 /* ProfileVC.swift */; };
 		A40D818424D2CA39006D2CE3 /* RatingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40D818324D2CA39006D2CE3 /* RatingVC.swift */; };
 		A40D818624D2CA44006D2CE3 /* ShopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40D818524D2CA44006D2CE3 /* ShopVC.swift */; };
@@ -79,6 +79,10 @@
 		A464370424EB37DB0033F23A /* ExpandingHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A464370124EB37DB0033F23A /* ExpandingHeader.swift */; };
 		A464370524EB37DB0033F23A /* ExpandingHeaderTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A464370224EB37DB0033F23A /* ExpandingHeaderTextField.swift */; };
 		A469F75924E3084D007FB332 /* ScheduleGameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A469F75824E3084D007FB332 /* ScheduleGameCell.swift */; };
+		A48DFF7524F3EB5000E47095 /* HomeGameVideoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48DFF7424F3EB5000E47095 /* HomeGameVideoVC.swift */; };
+		A48DFF7724F3EBC400E47095 /* VideoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A48DFF7624F3EBC400E47095 /* VideoView.xib */; };
+		A48DFF7924F3EBEF00E47095 /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48DFF7824F3EBEF00E47095 /* VideoView.swift */; };
+		A48DFF7B24F4070200E47095 /* HomeGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48DFF7A24F4070200E47095 /* HomeGame.swift */; };
 		A498FCCC24E52ED80069F896 /* GameRegisterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A498FCCA24E52ED80069F896 /* GameRegisterCell.swift */; };
 		A498FCCD24E52ED80069F896 /* GameRegisterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A498FCCB24E52ED80069F896 /* GameRegisterCell.xib */; };
 		A4A0659824E477860080E0D8 /* GameOrderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A0659724E477860080E0D8 /* GameOrderVC.swift */; };
@@ -156,7 +160,7 @@
 		A40D817924D2C9E6006D2CE3 /* MainMenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuVC.swift; sourceTree = "<group>"; };
 		A40D817B24D2CA04006D2CE3 /* ScheduleVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleVC.swift; sourceTree = "<group>"; };
 		A40D817D24D2CA1A006D2CE3 /* WarmupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarmupVC.swift; sourceTree = "<group>"; };
-		A40D817F24D2CA26006D2CE3 /* HomeGameVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeGameVC.swift; sourceTree = "<group>"; };
+		A40D817F24D2CA26006D2CE3 /* HomeGamesListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeGamesListVC.swift; sourceTree = "<group>"; };
 		A40D818124D2CA30006D2CE3 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		A40D818324D2CA39006D2CE3 /* RatingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingVC.swift; sourceTree = "<group>"; };
 		A40D818524D2CA44006D2CE3 /* ShopVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopVC.swift; sourceTree = "<group>"; };
@@ -198,6 +202,10 @@
 		A464370124EB37DB0033F23A /* ExpandingHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpandingHeader.swift; sourceTree = "<group>"; };
 		A464370224EB37DB0033F23A /* ExpandingHeaderTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpandingHeaderTextField.swift; sourceTree = "<group>"; };
 		A469F75824E3084D007FB332 /* ScheduleGameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleGameCell.swift; sourceTree = "<group>"; };
+		A48DFF7424F3EB5000E47095 /* HomeGameVideoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeGameVideoVC.swift; sourceTree = "<group>"; };
+		A48DFF7624F3EBC400E47095 /* VideoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoView.xib; sourceTree = "<group>"; };
+		A48DFF7824F3EBEF00E47095 /* VideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
+		A48DFF7A24F4070200E47095 /* HomeGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeGame.swift; sourceTree = "<group>"; };
 		A498FCCA24E52ED80069F896 /* GameRegisterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRegisterCell.swift; sourceTree = "<group>"; };
 		A498FCCB24E52ED80069F896 /* GameRegisterCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameRegisterCell.xib; sourceTree = "<group>"; };
 		A4A0659724E477860080E0D8 /* GameOrderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOrderVC.swift; sourceTree = "<group>"; };
@@ -433,6 +441,8 @@
 				A46436EC24EAD24F0033F23A /* HBSegmentedControl.swift */,
 				A44C697724EFE06000AB3BC9 /* QRScannerVC.swift */,
 				A419F2F124F003C9004A7997 /* ScalingButton.swift */,
+				A48DFF7624F3EBC400E47095 /* VideoView.xib */,
+				A48DFF7824F3EBEF00E47095 /* VideoView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -504,9 +514,10 @@
 		A4A5370524EC7706004A10D4 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				A40D817F24D2CA26006D2CE3 /* HomeGameVC.swift */,
+				A40D817F24D2CA26006D2CE3 /* HomeGamesListVC.swift */,
 				A4A5370624EC7AA6004A10D4 /* HomeGameCell.swift */,
 				A4A5370724EC7AA6004A10D4 /* HomeGameCell.xib */,
+				A48DFF7424F3EB5000E47095 /* HomeGameVideoVC.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -550,6 +561,7 @@
 				A423AC1C24EE971100071E68 /* ShopItem.swift */,
 				A4FFA4AE24F3BD73006A1150 /* RegisterForm.swift */,
 				A4FFA4B024F3BE2A006A1150 /* PaymentDetails.swift */,
+				A48DFF7A24F4070200E47095 /* HomeGame.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -706,6 +718,7 @@
 				A450E39B24E564A900C49AEE /* GameCertificateCell.xib in Resources */,
 				A4A065A724E47E510080E0D8 /* Gilroy-Medium.ttf in Resources */,
 				A4DAF73624DD862500963C15 /* Gilroy-Bold.ttf in Resources */,
+				A48DFF7724F3EBC400E47095 /* VideoView.xib in Resources */,
 				A4CC5FEE24DAEA840042B41C /* NavigationBar.xib in Resources */,
 				A42527C424F06E9300E3FBD4 /* GameFirstPlayCell.xib in Resources */,
 				A4DAF74424DDBAFE00963C15 /* MenuHomeGameCell.xib in Resources */,
@@ -737,11 +750,13 @@
 				A4DAF74724DDCCAD00963C15 /* MenuRatingCell.swift in Sources */,
 				A40B758824D9A7FD006DB7D1 /* WarmupRouter.swift in Sources */,
 				A4CC5FF024DAF7300042B41C /* NavigationBar.swift in Sources */,
+				A48DFF7B24F4070200E47095 /* HomeGame.swift in Sources */,
 				A4A065A224E47D1F0080E0D8 /* GameAnnotationCell.swift in Sources */,
 				A469F75924E3084D007FB332 /* ScheduleGameCell.swift in Sources */,
 				A40D817C24D2CA04006D2CE3 /* ScheduleVC.swift in Sources */,
 				A44C697624EFD45300AB3BC9 /* QRCodeService.swift in Sources */,
 				A42527C324F06E9300E3FBD4 /* GameFirstPlayCell.swift in Sources */,
+				A48DFF7524F3EB5000E47095 /* HomeGameVideoVC.swift in Sources */,
 				A40B75A024D9A875006DB7D1 /* RatingRouter.swift in Sources */,
 				A419F2F224F003C9004A7997 /* ScalingButton.swift in Sources */,
 				A4FFA4AB24F3AB1A006A1150 /* GameOrderCellDelegates.swift in Sources */,
@@ -778,11 +793,12 @@
 				A40B759E24D9A86E006DB7D1 /* RatingPresenter.swift in Sources */,
 				A498FCCC24E52ED80069F896 /* GameRegisterCell.swift in Sources */,
 				A4C9D81324EA78BB00523688 /* RatingCell.swift in Sources */,
+				A48DFF7924F3EBEF00E47095 /* VideoView.swift in Sources */,
 				A4BA1CF024D835DE00D32ADC /* MainMenuRouter.swift in Sources */,
 				A46436ED24EAD24F0033F23A /* HBSegmentedControl.swift in Sources */,
 				A40D818624D2CA44006D2CE3 /* ShopVC.swift in Sources */,
 				A4FFA4AD24F3AE78006A1150 /* MapExtensions.swift in Sources */,
-				A40D818024D2CA26006D2CE3 /* HomeGameVC.swift in Sources */,
+				A40D818024D2CA26006D2CE3 /* HomeGamesListVC.swift in Sources */,
 				A450E39724E559CD00C49AEE /* TitledTextFieldView.swift in Sources */,
 				A445E34824DE02BC0070B9FC /* TitleLabel.swift in Sources */,
 				A40B758C24D9A81A006DB7D1 /* HomeGameInteractor.swift in Sources */,
