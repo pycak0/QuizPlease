@@ -77,6 +77,7 @@ class GameRegisterCell: UITableViewCell, TableCellProtocol {
         feedbackFieldView.textField.returnKeyType = .done
     }
     
+    //MARK:- Select
     func select(_ button: UIButton, number: Int) {
         let scale: CGFloat = 1.1
         UIView.animate(withDuration: 0.2) {
@@ -87,11 +88,16 @@ class GameRegisterCell: UITableViewCell, TableCellProtocol {
         }
     }
     
+    //MARK:- Deselect
     func deselect(_ button: UIButton?) {
+        var color = UIColor.themeGray
+        if #available(iOS 13.0, *) {
+            color = .systemGray5
+        }
         UIView.animate(withDuration: 0.2) {
             button?.setImage(UIImage(named: "human"), for: .normal)
             button?.setTitle("", for: .normal)
-            button?.backgroundColor = .themeGray
+            button?.backgroundColor = color
             button?.transform = .identity
         }
     }

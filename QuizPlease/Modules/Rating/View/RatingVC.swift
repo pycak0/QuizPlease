@@ -75,7 +75,7 @@ extension RatingVC: RatingViewProtocol {
 //MARK:- ExpandingHeaderDelegate
 extension RatingVC: ExpandingHeaderDelegate {
     func expandingHeader(_ expandingHeader: ExpandingHeader, didChangeStateTo isExpanded: Bool) {
-        tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .fade)
+        tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .automatic)
     }
     
     func expandingHeader(_ expandingHeader: ExpandingHeader, didChange selectedSegment: EHSelectedSegment) {

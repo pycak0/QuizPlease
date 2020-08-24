@@ -37,6 +37,12 @@ extension UIViewController {
         }
     }
     
+    func setNavBarDefault() {
+        guard let navBar = navigationController?.navigationBar else { return }
+        navBar.setBackgroundImage(nil, for: .default)
+        navBar.shadowImage = nil
+    }
+    
     func setupNavBarView(_ customNavBar: NavigationBar) {
         clearNavigationBar()
     
@@ -51,6 +57,7 @@ extension UIViewController {
         ])
     }
     
+    //MARK:- Prepare Navigation Bar
     func prepareNavigationBar(title: String? = nil, tintColor: UIColor? = nil, barTintColor: UIColor? = nil) {
         navigationController?.navigationBar.barTintColor = barTintColor ?? view.backgroundColor
         navigationController?.navigationBar.shadowImage = UIImage()

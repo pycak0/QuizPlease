@@ -9,9 +9,25 @@
 import UIKit
 import MapKit
 
-class GameInfoCell: UITableViewCell, TableCellProtocol {
+protocol GameInfoCellDelegate: class {
+    func gameInfo(for gameInfoCell: GameInfoCell) -> GameInfo
+}
+
+class GameInfoCell: UITableViewCell, GameOrderCellProtocol {
     static let identifier = "GameInfoCell"
     
+    weak var delegate: AnyObject? {
+        get { _delegate }
+        set { _delegate = newValue as? GameInfoCellDelegate }
+    }
+    
+    private weak var _delegate: GameInfoCellDelegate? {
+        didSet {
+            guard let info = _delegate?.gameInfo(for: self) else { return }
+            configure(with: info)
+        }
+    }
+
     @IBOutlet weak var cellView: UIView!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
@@ -29,6 +45,16 @@ class GameInfoCell: UITableViewCell, TableCellProtocol {
     
     func configureViews() {
         cellView.layer.cornerRadius = 20
+    }
+    
+    func configure(with info: GameInfo) {
+        priceLabel.text = "\(info.price) ₽ с человека"
+        timeLabel.text = "в \(info.time)"
+        placeNameLabel.text = info.place.name
+        placeAddressLabel.text = info.place.address
+                
+        mapView.centerToLocation(info.place.location)
+        mapView.addAnnotation(info.place)
     }
     
 }

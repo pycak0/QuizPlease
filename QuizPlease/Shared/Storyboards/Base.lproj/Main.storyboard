@@ -47,7 +47,7 @@
                                             </constraints>
                                         </imageView>
                                         <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="csE-VG-Qfu">
-                                            <rect key="frame" x="90" y="26.666666666666671" width="308" height="27"/>
+                                            <rect key="frame" x="90" y="27" width="308" height="26"/>
                                             <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="22"/>
                                             <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="14" maxY="0.0"/>
@@ -347,7 +347,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tqm-1y-vDM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="928" y="-2559"/>
+            <point key="canvasLocation" x="1735" y="-2569"/>
         </scene>
         <!--Расписание игр-->
         <scene sceneID="Wkg-ye-w7i">
@@ -604,7 +604,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BJW-H4-f8n" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="604" y="-1798"/>
+            <point key="canvasLocation" x="849" y="-2020"/>
         </scene>
         <!--Хоум игры-->
         <scene sceneID="gZA-uw-vnK">
@@ -639,7 +639,7 @@
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EeL-ca-maG">
-                                        <rect key="frame" x="20" y="114" width="374" height="66"/>
+                                        <rect key="frame" x="20" y="114.66666666666669" width="374" height="65.333333333333314"/>
                                         <string key="text">Квиз, плиз! Хоум — это домашняя версия игры. Всё, что вы так любите делать с нами в барах, теперь можно устроить самостоятельно: дома, на работе, на отдыхе и вообще где захотите</string>
                                         <fontDescription key="fontDescription" name="Gilroy-Medium" family="Gilroy" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -694,7 +694,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mZx-f5-lCt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2702.898550724638" y="-1098.2142857142856"/>
+            <point key="canvasLocation" x="2767" y="-1191"/>
         </scene>
         <!--ScannerVC-->
         <scene sceneID="WWS-fr-LYB">
@@ -705,7 +705,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Добавление игры" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="jgs-et-DdD">
-                                <rect key="frame" x="60" y="66.333333333333329" width="276" height="29.333333333333329"/>
+                                <rect key="frame" x="60" y="67" width="276" height="28"/>
                                 <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="24"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -753,7 +753,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WSQ-Fw-IK5">
-                                <rect key="frame" x="40" y="640" width="334" height="57.333333333333371"/>
+                                <rect key="frame" x="40" y="640" width="334" height="56"/>
                                 <string key="text">Наведите камеру
 на квадратный код
 на ввашей карточке</string>
@@ -841,7 +841,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kct-uf-a61" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1428" y="-1961"/>
+            <point key="canvasLocation" x="1736" y="-2020"/>
         </scene>
         <!--Разминка-->
         <scene sceneID="2LJ-Dw-0Y3">
@@ -911,7 +911,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cIr-wY-gnt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1725" y="-1260"/>
+            <point key="canvasLocation" x="1543" y="-1274"/>
         </scene>
         <!--Рейтинг команд-->
         <scene sceneID="Alv-D0-KoK">
@@ -1069,7 +1069,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lmt-Kb-Xp6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2283" y="248"/>
+            <point key="canvasLocation" x="2123" y="246"/>
         </scene>
         <!--ConfirmVC-->
         <scene sceneID="1sE-Mz-fVA">
@@ -1417,7 +1417,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YNl-MC-5yN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2086" y="-565"/>
+            <point key="canvasLocation" x="2123" y="-617"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="1qP-4D-002">

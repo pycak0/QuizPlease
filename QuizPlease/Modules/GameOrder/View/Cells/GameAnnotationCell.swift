@@ -10,23 +10,34 @@ import UIKit
 
 protocol GameAnnotationCellDelegate: class {
     func signUpButtonPressed(in cell: GameAnnotationCell)
+    func gameAnnotation(for cell: GameAnnotationCell) -> String
 }
 
-class GameAnnotationCell: UITableViewCell, TableCellProtocol {
+class GameAnnotationCell: UITableViewCell, GameOrderCellProtocol {
     static let identifier = "GameAnnotationCell"
     
-    weak var delegate: GameAnnotationCellDelegate?
-    
     @IBOutlet weak var annotationLabel: UILabel!
-    @IBOutlet weak var signUpButton: UIButton!
+    @IBOutlet weak var signUpButton: ScalingButton!
     
+    weak var delegate: AnyObject? {
+        get { _delegate }
+        set { _delegate = newValue as? GameAnnotationCellDelegate }
+    }
+    private weak var _delegate: GameAnnotationCellDelegate? {
+        didSet {
+            if let text = _delegate?.gameAnnotation(for: self) {
+                annotationLabel.text = text
+            }
+        }
+    }
+
     override func layoutSubviews() {
         super.layoutSubviews()
         configureViews()
     }
     
     @IBAction func didPressSignUpButton(_ sender: UIButton) {
-        delegate?.signUpButtonPressed(in: self)
+        _delegate?.signUpButtonPressed(in: self)
     }
     
     

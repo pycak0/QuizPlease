@@ -68,6 +68,8 @@ extension GameOrderVC: UITableViewDataSource, UITableViewDelegate {
         guard let kind = GameInfoItemKind(rawValue: indexPath.row) else { fatalError("Invalid Game Item Kind") }
         let cell = tableView.dequeueReusableCell(withIdentifier: kind.identifier, for: indexPath) as! TableCellProtocol
         
+        (cell as? GameOrderCellProtocol)?.delegate = self
+        
         return cell
     }
     

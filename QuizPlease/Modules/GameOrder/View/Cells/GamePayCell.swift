@@ -96,6 +96,7 @@ class GamePayCell: UITableViewCell, TableCellProtocol {
         priceLabel.text = "\(newPrice)"
     }
     
+    //MARK:- Select
     private func select(_ button: UIButton, number: Int) {
         let scale: CGFloat = 1.1
         UIView.animate(withDuration: 0.2) {
@@ -107,11 +108,16 @@ class GamePayCell: UITableViewCell, TableCellProtocol {
         
     }
     
+    //MARK:- Deselect
     private func deselect(_ button: UIButton?) {
+        var backgroundColor = UIColor.white
+        if #available(iOS 13.0, *) {
+            backgroundColor = .systemBackground
+        }
         UIView.animate(withDuration: 0.2) {
             button?.setImage(UIImage(named: "human"), for: .normal)
             button?.setTitle("", for: .normal)
-            button?.backgroundColor = .white
+            button?.backgroundColor = backgroundColor
             button?.transform = .identity
         }
         
