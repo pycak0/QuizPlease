@@ -41,6 +41,9 @@
                                 <real key="value" value="20"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="submitButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="vUz-4u-q6V"/>
+                        </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Записываясь на игру, вы соглашаетесь c условиями пользовательского соглашения" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="7" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KO2-0p-mt9">
                         <rect key="frame" x="16" y="105" width="288" height="34"/>

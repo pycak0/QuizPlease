@@ -9,7 +9,7 @@
 import UIKit
 
 protocol GameSubmitButtonCellDelegate: class {
-    func submitButtonPressed(in cell: GameSubmitButtonCell)
+    func submitButtonCell(_ cell: GameSubmitButtonCell, didPressSubmitButton button: UIButton)
 }
 
 class GameSubmitButtonCell: UITableViewCell, GameOrderCellProtocol {
@@ -25,7 +25,7 @@ class GameSubmitButtonCell: UITableViewCell, GameOrderCellProtocol {
     private weak var _delegate: GameSubmitButtonCellDelegate?
     
     @IBAction func submitButtonPressed(_ sender: UIButton) {
-        _delegate?.submitButtonPressed(in: self)
+        _delegate?.submitButtonCell(self, didPressSubmitButton: sender)
     }
     
 }
