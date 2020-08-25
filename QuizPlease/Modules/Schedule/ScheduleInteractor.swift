@@ -18,15 +18,15 @@ protocol ScheduleInteractorProtocol: class {
 class ScheduleInteractor: ScheduleInteractorProtocol {
     func loadSchedule(completion: @escaping (Result<[GameInfo]?, Error>) -> Void) {
         var games = [GameInfo]()
-        games.insert(GameInfo(gameNumber: 62, name: "[Кино и музыка]",
+        games.insert(GameInfo(id: 11, gameNumber: 62, name: "[Кино и музыка]",
                               place: Place(name: "Chesterfield Bar",
                                            address: "ул. Новый Арбат, 19",
                                            longitude: 37.589200, latitude: 55.751983),
-                              time: "20:00", price: Decimal(500),
+                              time: "20:00", price: 500,
                               annotation: "Битва для тех, кто одинаково знаком с такими понятиями как «соль мажор», «увертюра» и «девочка-война». Для тех, кто не зря ходил на сольфеджио и понимает, о чем там поет Моргенштерн (это вообще никак не связано, если что). Для всех любителей музыки!"), at: 0)
         for i in 0...3 {
             let place = Place(name: "Place\(i)", address: "Address\(i)", longitude: 37.617635, latitude: 55.755814)
-            games.append(GameInfo(gameNumber: i+1, name: "Game\(i)", place: place, time: "11:0\(i)", price: Decimal(1000 * i), annotation: "Annotation \(i)"))
+            games.append(GameInfo(id: i, gameNumber: i+1, name: "Game\(i)", place: place, time: "11:0\(i)", price: 1000 * i, annotation: "Annotation \(i)"))
         }
         completion(.success(games))
     }

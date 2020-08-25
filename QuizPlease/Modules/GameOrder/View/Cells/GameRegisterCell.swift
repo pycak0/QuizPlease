@@ -13,10 +13,14 @@ protocol GameRegisterCellDelegate: class {
     func registerCell(_ registerCell: GameRegisterCell, didChangeNumberOfPeopleInTeam number: Int)
 }
 
-class GameRegisterCell: UITableViewCell, TableCellProtocol {
+class GameRegisterCell: UITableViewCell, GameOrderCellProtocol {
     static let identifier = "GameRegisterCell"
     
-    weak var delegate: GameRegisterCellDelegate?
+    weak var delegate: AnyObject? {
+        get { _delegate }
+        set { _delegate = newValue as? GameRegisterCellDelegate }
+    }
+    private weak var _delegate: GameRegisterCellDelegate?
     
     @IBOutlet weak var teamNameFieldView: TitledTextFieldView!
     @IBOutlet weak var captainNameFieldView: TitledTextFieldView!
@@ -26,12 +30,13 @@ class GameRegisterCell: UITableViewCell, TableCellProtocol {
     @IBOutlet weak var numberButtonsStack: UIStackView!
     @IBOutlet weak var feedbackFieldView: TitledTextFieldView!
     
-    var selectedNumberOfPeople: Int = 1
+    var selectedNumberOfPeople: Int = 2
+    let startCount = 2
     
     override func awakeFromNib() {
         super.awakeFromNib()
         configureTextFields()
-        select(numberButtonsStack.arrangedSubviews.first as! UIButton, number: 1)
+        select(numberButtonsStack.arrangedSubviews.first as! UIButton, number: selectedNumberOfPeople)
     }
     
     //MARK:- Layout Subviews
@@ -43,11 +48,11 @@ class GameRegisterCell: UITableViewCell, TableCellProtocol {
     //MARK:- Team Count Button Pressed
     @IBAction func teamCountButtonPressed(_ sender: UIButton) {
         guard let index = numberButtonsStack.arrangedSubviews.firstIndex(of: sender),
-            index + 1 != selectedNumberOfPeople else {
+            index + startCount != selectedNumberOfPeople else {
             return
         }
-        selectedNumberOfPeople = index + 1
-        delegate?.registerCell(self, didChangeNumberOfPeopleInTeam: selectedNumberOfPeople)
+        selectedNumberOfPeople = index + startCount
+        _delegate?.registerCell(self, didChangeNumberOfPeopleInTeam: selectedNumberOfPeople)
         numberButtonsStack.arrangedSubviews.forEach {
             let button = $0 as? UIButton
             deselect(button)

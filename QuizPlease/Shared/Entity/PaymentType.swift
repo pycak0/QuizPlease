@@ -1,5 +1,5 @@
 //
-//  PaymentDetails.swift
+//  PaymentType.swift
 //  QuizPlease
 //
 //  Created by Владислав on 24.08.2020.
@@ -8,11 +8,6 @@
 
 import Foundation
 
-enum PaymentType {
-    case online, cash
-}
-
-struct PaymentDetails {
-    var numberOfPeople: Int
-    var sum: Decimal
+enum PaymentType: Int, Encodable {
+    case online = 1, cash
 }

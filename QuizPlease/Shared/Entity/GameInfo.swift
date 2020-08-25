@@ -9,10 +9,11 @@
 import Foundation
 
 struct GameInfo: Decodable {
+    var id: Int
     var gameNumber: Int
     var name: String
     var place: Place
     var time: String
-    var price: Decimal
+    var price: Int
     var annotation: String
 }

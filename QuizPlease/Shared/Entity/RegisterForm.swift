@@ -8,14 +8,16 @@
 
 import Foundation
 
-struct RegisterForm: Codable {
-    var teamName: String
-    var captainName: String
-    var email: String
-    var phoneNumber: String
-    var numberOfPeople: Int
-    var certificate: String?
-    var isFirstGame: Bool
-    //var paymentType: PaymentType
+struct RegisterForm: Encodable {
+    var game_id: Int = -1
+    var teamName: String = ""
+    var captainName: String = ""
+    var email: String = ""
+    var phone: String = ""
+    var count: Int = 2
+    var certificates: [String]?
+    var first_time: Bool = false
+    var comment: String?
+    var payment_type: PaymentType = .online
     
 }

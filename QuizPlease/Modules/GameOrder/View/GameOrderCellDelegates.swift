@@ -28,22 +28,49 @@ extension GameOrderVC: GameInfoCellDelegate {
 
 extension GameOrderVC: GameDescriptionDelegate {}
 
-extension GameOrderVC: GamePayCellDelegate {
-    func sumToPay(in gamePayCell: GamePayCell, forNumberOfPeople number: Int) -> Decimal {
-        //presenter. ...
-        return presenter.game.price * Decimal(number)
+extension GameOrderVC: GameRegisterCellDelegate {
+    func registerCell(_ registerCell: GameRegisterCell, didChangeNumberOfPeopleInTeam number: Int) {
+        presenter.registerForm.count = number
+        if let cell = tableView.cellForRow(at: IndexPath(row: GameInfoItemKind.onlinePayment.rawValue, section: 0)) as? GameOnlinePaymentCell {
+            cell.maxNumber = number
+        }
+        
     }
-    
-    func gamePayCell(_ gamePayCell: GamePayCell, didChangeNumberOfPeopleToPay number: Int) {
-        //
-    }
-    
-    func gamePayCell(_ gamePayCell: GamePayCell, didChangePaymentMethod isApplePay: Bool) {
-        //guard let indexPath = tableView.indexPath(for: gamePayCell) else { return }
-//        UIView.animate(withDuration: 0.1) {
-//            gamePayCell.frame.setHeight(isApplePay ? 444 : 290)
-//        }
+}
 
+extension GameOrderVC: GamePaymentTypeCellDelegate {
+    func isOnlinePaymentInitially(in cell: GamePaymentTypeCell) -> Bool {
+        presenter.registerForm.payment_type == .online
+    }
+    
+    func paymentTypeCell(_ cell: GamePaymentTypeCell, didChangePaymentType isOnlinePayment: Bool) {
+        presenter.registerForm.payment_type = isOnlinePayment ? .online : .cash
+        let indexPath = IndexPath(row: GameInfoItemKind.onlinePayment.rawValue, section: 0)
+        
+        let onlinePaymentKind = GameInfoItemKind.onlinePayment
+        if isOnlinePayment {
+            guard items.count < GameInfoItemKind.allCases.count else { return }
+            items.insert(onlinePaymentKind, at: onlinePaymentKind.rawValue)
+            tableView.insertRows(at: [indexPath], with: .fade)
+        } else {
+            guard items.count == GameInfoItemKind.allCases.count else { return }
+            items.remove(at: onlinePaymentKind.rawValue)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
+}
+
+extension GameOrderVC: GameOnlinePaymentCellDelegate {
+    func selectedNumberOfPeople(in cell: GameOnlinePaymentCell) -> Int {
+        return presenter.registerForm.count
+    }
+    
+    func maxNumberOfPeopleToPay(in cell: GameOnlinePaymentCell) -> Int {
+        return presenter.registerForm.count
+    }
+    
+    func sumToPay(in cell: GameOnlinePaymentCell, forNumberOfPeople number: Int) -> Int {
+        return presenter.game.price * number
     }
     
 }

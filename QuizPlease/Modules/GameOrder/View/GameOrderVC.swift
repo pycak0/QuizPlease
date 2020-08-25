@@ -8,6 +8,7 @@
 
 import UIKit
 
+//MARK:- View Protocol
 protocol GameOrderViewProtocol: UIViewController {
     var presenter: GameOrderPresenterProtocol! { get set }
     var configurator: GameOrderConfiguratorProtocol! { get }
@@ -23,8 +24,10 @@ class GameOrderVC: UIViewController {
     var presenter: GameOrderPresenterProtocol!
     
     var shouldScrollToSignUp: Bool!
+    var items = GameInfoItemKind.allCases
     
     @IBOutlet weak var gameImageView: UIImageView!
+    @IBOutlet weak var imageDarkeningView: UIView!
     @IBOutlet weak var tableView: UITableView!
         
     //MARK:- Lifecycle
@@ -48,6 +51,7 @@ class GameOrderVC: UIViewController {
 
 }
 
+//MARK:- Protocol Implementation
 extension GameOrderVC: GameOrderViewProtocol {
     func reloadInfo() {
         tableView.reloadData()
@@ -65,23 +69,21 @@ extension GameOrderVC: GameOrderViewProtocol {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 self.scrollToSignUp()
             }
-            
         }
-        
     }
-    
 }
 
 
 //MARK:- Data Source & Delegate
 extension GameOrderVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return GameInfoItemKind.allCases.count
+        return items.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //createCell(tableView, at: indexPath)
-        guard let kind = GameInfoItemKind(rawValue: indexPath.row) else { fatalError("Invalid Game Item Kind") }
+        let kind = items[indexPath.row]
+        //guard let kind = GameInfoItemKind(rawValue: index) else { fatalError("Invalid Game Item Kind") }
         let cell = tableView.dequeueReusableCell(withIdentifier: kind.identifier, for: indexPath) as! TableCellProtocol
         
         (cell as? GameOrderCellProtocol)?.delegate = self
@@ -99,14 +101,21 @@ extension GameOrderVC: UITableViewDataSource, UITableViewDelegate {
     
 }
 
+//MARK:- UIScrollViewDelegate
 extension GameOrderVC: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offset = scrollView.contentOffset.y + scrollView.safeAreaInsets.top
         guard offset < 0, scrollView.isKind(of: UITableView.self) else {
             gameImageView.transform = .identity
+            imageDarkeningView.transform = .identity
             return
         }
         let scale = (1 + abs(offset) / 500)
-        gameImageView.transform = CGAffineTransform(scaleX: scale, y: scale)
+        let transform = CGAffineTransform(scaleX: scale, y: scale)
+        gameImageView.transform = transform
+        imageDarkeningView.transform = transform
+        
+        gameImageView.isHidden = offset > 300
+        imageDarkeningView.isHidden = offset > 300
     }
 }

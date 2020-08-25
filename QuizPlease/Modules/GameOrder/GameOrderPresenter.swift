@@ -10,6 +10,8 @@ import Foundation
 
 protocol GameOrderPresenterProtocol {
     var game: GameInfo! { get set }
+    var registerForm: RegisterForm { get set }
+    
     var router: GameOrderRouterProtocol! { get }
     init(view: GameOrderViewProtocol, interactor: GameOrderInteractorProtocol, router: GameOrderRouterProtocol)
     
@@ -21,8 +23,11 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
     var interactor: GameOrderInteractorProtocol!
     var router: GameOrderRouterProtocol!
     
-    var game: GameInfo!
-    
+    var registerForm = RegisterForm()
+    var game: GameInfo! {
+        didSet { registerForm.game_id = game.id }
+    }
+
     required init(view: GameOrderViewProtocol, interactor: GameOrderInteractorProtocol, router: GameOrderRouterProtocol) {
         self.view = view
         self.interactor = interactor

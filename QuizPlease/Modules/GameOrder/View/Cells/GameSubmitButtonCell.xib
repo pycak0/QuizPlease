@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Gilroy-Bold.ttf">
+            <string>Gilroy-Bold</string>
+        </array>
+        <array key="Gilroy-SemiBold.ttf">
+            <string>Gilroy-SemiBold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="GameSubmitButtonCell" rowHeight="159" id="KGk-i7-Jjw" customClass="GameSubmitButtonCell" customModule="QuizPlease" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="159"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="159"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yuM-ch-jCa" customClass="ScalingButton" customModule="QuizPlease" customModuleProvider="target">
+                        <rect key="frame" x="16" y="25" width="288" height="60"/>
+                        <color key="backgroundColor" name="lightGreen"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="60" id="IRi-aT-0WV"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="20"/>
+                        <state key="normal" title="Оплатить игру">
+                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusView">
+                                <real key="value" value="20"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Записываясь на игру, вы соглашаетесь c условиями пользовательского соглашения" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="7" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KO2-0p-mt9">
+                        <rect key="frame" x="16" y="105" width="288" height="34"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="34" id="5yM-m8-fpl"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="12"/>
+                        <color key="textColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="yuM-ch-jCa" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="25" id="6dw-sE-UQG"/>
+                    <constraint firstAttribute="trailing" secondItem="yuM-ch-jCa" secondAttribute="trailing" constant="16" id="BuB-p8-0Mm"/>
+                    <constraint firstItem="KO2-0p-mt9" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="F39-bt-DYE"/>
+                    <constraint firstItem="KO2-0p-mt9" firstAttribute="top" secondItem="yuM-ch-jCa" secondAttribute="bottom" constant="20" id="H4v-Mi-cmX"/>
+                    <constraint firstAttribute="trailing" secondItem="KO2-0p-mt9" secondAttribute="trailing" constant="16" id="OUK-HO-Br1"/>
+                    <constraint firstItem="yuM-ch-jCa" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="VHB-9P-wUG"/>
+                    <constraint firstAttribute="bottom" secondItem="KO2-0p-mt9" secondAttribute="bottom" constant="20" id="vyi-uc-q2M"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="submitButton" destination="yuM-ch-jCa" id="l3z-He-Pkj"/>
+                <outlet property="termsLabel" destination="KO2-0p-mt9" id="2fI-V8-w0J"/>
+            </connections>
+            <point key="canvasLocation" x="137.68115942028987" y="153.68303571428569"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <namedColor name="lightGreen">
+            <color red="0.14900000393390656" green="0.87099999189376831" blue="0.60000002384185791" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>
