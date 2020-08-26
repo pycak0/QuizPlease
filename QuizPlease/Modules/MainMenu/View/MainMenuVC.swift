@@ -76,7 +76,7 @@ extension MainMenuVC: MainMenuViewProtocol {
         tableView.register(UINib(nibName: WarmupCell.identifier, bundle: nil), forCellReuseIdentifier: WarmupCell.identifier)
         tableView.register(UINib(nibName: MenuHomeGameCell.identifier, bundle: nil), forCellReuseIdentifier: MenuHomeGameCell.identifier)
         tableView.register(UINib(nibName: MenuRatingCell.identifier, bundle: nil), forCellReuseIdentifier: MenuRatingCell.identifier)
-        //tableView.register(ScheduleCell.self, forCellReuseIdentifier: ScheduleCell.identifier)
+        tableView.register(UINib(nibName: MenuShopCell.identifier, bundle: nil), forCellReuseIdentifier: MenuShopCell.identifier)
     }
     
     func failureLoadingMenuItems(_ error: Error) {
@@ -112,6 +112,7 @@ extension MainMenuVC: UITableViewDataSource {
         
         cell.configureCell(with: menuItem)
         (cell as? MenuProfileCell)?.delegate = self
+        (cell as? MenuShopCell)?.registerCollectoinView(self)
         
         return cell
     }
@@ -126,6 +127,10 @@ extension MainMenuVC: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.setNeedsLayout()
+    }
+    
+    func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+        return indexPath.row != MenuItemKind.shop.rawValue
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -59,7 +59,7 @@ extension ShopVC: ShopViewProtocol {
         shopCollectionView.delegate = self
         shopCollectionView.dataSource = self
         
-        shopCollectionView.register(UINib(nibName: ShopItemCell.nibName, bundle: nil), forCellWithReuseIdentifier: ShopItemCell.reuseIdentifier)
+        shopCollectionView.register(UINib(nibName: ShopItemCell.identifier, bundle: nil), forCellWithReuseIdentifier: ShopItemCell.identifier)
         
         userPointsLabel.layer.cornerRadius = 15
     }
@@ -82,7 +82,7 @@ extension ShopVC: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ShopItemCell.reuseIdentifier, for: indexPath) as? ShopItemCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ShopItemCell.identifier, for: indexPath) as? ShopItemCell else {
             fatalError("Invalid Cell Kind")
         }
         let item = presenter.items[indexPath.item]

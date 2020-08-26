@@ -9,8 +9,7 @@
 import UIKit
 
 class ShopItemCell: UICollectionViewCell {
-    static let reuseIdentifier = "ShopItemCell"
-    static let nibName = "ShopItemCell"
+    static let identifier = "ShopItemCell"
 
     @IBOutlet private weak var cellView: UIView!
     @IBOutlet weak var imageView: UIImageView!

@@ -52,7 +52,7 @@ enum MenuItemKind: Int, CaseIterable, MenuItemProtocol {
         case .warmup:       return WarmupCell.identifier
         case .homeGame:     return MenuHomeGameCell.identifier
         case .rating:       return MenuRatingCell.identifier
-        default:            return ScheduleCell.identifier
+        case .shop:         return MenuShopCell.identifier
         }
     }
     
@@ -73,7 +73,7 @@ enum MenuItemKind: Int, CaseIterable, MenuItemProtocol {
         case .profile:      return "100 баллов"
         case .homeGame:     return "Есть новые"
         case .warmup:       return "Перейти"
-        case .shop:         return "К покупкам"
+        case .shop:         return "больше"
         case .rating:       return "15. Ваша команда"
         }
     }
@@ -81,6 +81,7 @@ enum MenuItemKind: Int, CaseIterable, MenuItemProtocol {
     var height: CGFloat {
         switch self {
         case .homeGame:     return 245
+        case .shop:         return 220
         default:            return 200
         }
     }

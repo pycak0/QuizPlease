@@ -15,7 +15,7 @@ protocol GameSubmitButtonCellDelegate: class {
 class GameSubmitButtonCell: UITableViewCell, GameOrderCellProtocol {
     static let identifier = "GameSubmitButtonCell"
     
-    @IBOutlet private weak var submitButton: ScalingButton!
+    @IBOutlet weak var submitButton: ScalingButton!
     @IBOutlet private weak var termsLabel: UILabel!
     
     weak var delegate: AnyObject? {

@@ -57,6 +57,9 @@ extension GameOrderVC: GamePaymentTypeCellDelegate {
             items.remove(at: onlinePaymentKind.rawValue)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
+        if let index = items.firstIndex(of: .submit), let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? GameSubmitButtonCell {
+            cell.submitButton.setTitle(isOnlinePayment ? "Оплатить игру" : "Записаться на игру", for: .normal)
+        }
     }
 }
 
@@ -77,25 +80,25 @@ extension GameOrderVC: GameOnlinePaymentCellDelegate {
 
 extension GameOrderVC: GameSubmitButtonCellDelegate {
     func submitButtonCell(_ cell: GameSubmitButtonCell, didPressSubmitButton button: UIButton) {
-        return
-        
-        button.isUserInteractionEnabled = false
-        button.setTitle("Хорошо", for: .normal)
-
-        for kind in items {
-            if kind != .info, let index = items.firstIndex(of: kind) {
-                items.remove(at: index)
-                let indexPath = IndexPath(row: index, section: 0)
-                tableView.beginUpdates()
-                tableView.deleteRows(at: [indexPath], with: .fade)
-                tableView.endUpdates()
-            }
-        }
-        gameImageView.isHidden = true
-        imageDarkeningView.isHidden = true
-        
-        guard let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? GameInfoCell else { return }
-        cell.cellView.layer.borderColor = UIColor.systemGreen.cgColor
-        cell.cellView.layer.borderWidth = 4
+//        return
+//
+//        button.isUserInteractionEnabled = false
+//        button.setTitle("Хорошо", for: .normal)
+//
+//        for kind in items {
+//            if kind != .info, let index = items.firstIndex(of: kind) {
+//                items.remove(at: index)
+//                let indexPath = IndexPath(row: index, section: 0)
+//                tableView.beginUpdates()
+//                tableView.deleteRows(at: [indexPath], with: .fade)
+//                tableView.endUpdates()
+//            }
+//        }
+//        gameImageView.isHidden = true
+//        imageDarkeningView.isHidden = true
+//
+//        guard let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? GameInfoCell else { return }
+//        cell.cellView.layer.borderColor = UIColor.systemGreen.cgColor
+//        cell.cellView.layer.borderWidth = 4
     }
 }

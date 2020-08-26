@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A405C98724F651C900C74787 /* MainMenuShopCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A405C98624F651C900C74787 /* MainMenuShopCollectionView.swift */; };
 		A40B757C24D9A744006DB7D1 /* ScheduleInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40B757B24D9A744006DB7D1 /* ScheduleInteractor.swift */; };
 		A40B757E24D9A750006DB7D1 /* SchedulePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40B757D24D9A750006DB7D1 /* SchedulePresenter.swift */; };
 		A40B758024D9A75A006DB7D1 /* ScheduleRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40B757F24D9A75A006DB7D1 /* ScheduleRouter.swift */; };
@@ -83,6 +84,8 @@
 		A46F303E24F5302B0062A333 /* GameSubmitButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46F303C24F5302B0062A333 /* GameSubmitButtonCell.swift */; };
 		A46F303F24F5302B0062A333 /* GameSubmitButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A46F303D24F5302B0062A333 /* GameSubmitButtonCell.xib */; };
 		A48A11EE24F55F9500F91B9C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A48A11ED24F55F9500F91B9C /* Main.storyboard */; };
+		A48A11F124F56D6900F91B9C /* MenuShopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48A11EF24F56D6900F91B9C /* MenuShopCell.swift */; };
+		A48A11F224F56D6900F91B9C /* MenuShopCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A48A11F024F56D6900F91B9C /* MenuShopCell.xib */; };
 		A48DFF7524F3EB5000E47095 /* HomeGameVideoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48DFF7424F3EB5000E47095 /* HomeGameVideoVC.swift */; };
 		A48DFF7724F3EBC400E47095 /* VideoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A48DFF7624F3EBC400E47095 /* VideoView.xib */; };
 		A48DFF7924F3EBEF00E47095 /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48DFF7824F3EBEF00E47095 /* VideoView.swift */; };
@@ -135,6 +138,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A405C98624F651C900C74787 /* MainMenuShopCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuShopCollectionView.swift; sourceTree = "<group>"; };
 		A40B757B24D9A744006DB7D1 /* ScheduleInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleInteractor.swift; sourceTree = "<group>"; };
 		A40B757D24D9A750006DB7D1 /* SchedulePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulePresenter.swift; sourceTree = "<group>"; };
 		A40B757F24D9A75A006DB7D1 /* ScheduleRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleRouter.swift; sourceTree = "<group>"; };
@@ -211,6 +215,8 @@
 		A46F303C24F5302B0062A333 /* GameSubmitButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSubmitButtonCell.swift; sourceTree = "<group>"; };
 		A46F303D24F5302B0062A333 /* GameSubmitButtonCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameSubmitButtonCell.xib; sourceTree = "<group>"; };
 		A48A11ED24F55F9500F91B9C /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		A48A11EF24F56D6900F91B9C /* MenuShopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuShopCell.swift; sourceTree = "<group>"; };
+		A48A11F024F56D6900F91B9C /* MenuShopCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuShopCell.xib; sourceTree = "<group>"; };
 		A48DFF7424F3EB5000E47095 /* HomeGameVideoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeGameVideoVC.swift; sourceTree = "<group>"; };
 		A48DFF7624F3EBC400E47095 /* VideoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoView.xib; sourceTree = "<group>"; };
 		A48DFF7824F3EBEF00E47095 /* VideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
@@ -550,6 +556,7 @@
 			isa = PBXGroup;
 			children = (
 				A40D817924D2C9E6006D2CE3 /* MainMenuVC.swift */,
+				A405C98624F651C900C74787 /* MainMenuShopCollectionView.swift */,
 				A4DAF73324DD80CB00963C15 /* Cells */,
 			);
 			path = View;
@@ -631,6 +638,8 @@
 				A4DAF74224DDBAFE00963C15 /* MenuHomeGameCell.xib */,
 				A4DAF74524DDCCAD00963C15 /* MenuRatingCell.swift */,
 				A4DAF74624DDCCAD00963C15 /* MenuRatingCell.xib */,
+				A48A11EF24F56D6900F91B9C /* MenuShopCell.swift */,
+				A48A11F024F56D6900F91B9C /* MenuShopCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -724,6 +733,7 @@
 				A40D816624D2C6C2006D2CE3 /* LaunchScreen.storyboard in Resources */,
 				A4DAF73C24DD9BF400963C15 /* Gilroy-SemiBold.ttf in Resources */,
 				A4A065A324E47D1F0080E0D8 /* GameAnnotationCell.xib in Resources */,
+				A48A11F224F56D6900F91B9C /* MenuShopCell.xib in Resources */,
 				A464370324EB37DB0033F23A /* ExpandingHeader.xib in Resources */,
 				A46F303B24F52CAE0062A333 /* GameOnlinePaymentCell.xib in Resources */,
 				A48A11EE24F55F9500F91B9C /* Main.storyboard in Resources */,
@@ -815,6 +825,7 @@
 				A48DFF7924F3EBEF00E47095 /* VideoView.swift in Sources */,
 				A4BA1CF024D835DE00D32ADC /* MainMenuRouter.swift in Sources */,
 				A46436ED24EAD24F0033F23A /* HBSegmentedControl.swift in Sources */,
+				A405C98724F651C900C74787 /* MainMenuShopCollectionView.swift in Sources */,
 				A40D818624D2CA44006D2CE3 /* ShopVC.swift in Sources */,
 				A4FFA4AD24F3AE78006A1150 /* MapExtensions.swift in Sources */,
 				A40D818024D2CA26006D2CE3 /* HomeGamesListVC.swift in Sources */,
@@ -845,6 +856,7 @@
 				A4BA1CF324D84C4B00D32ADC /* MenuItem.swift in Sources */,
 				A40B759024D9A829006DB7D1 /* HomeGameRouter.swift in Sources */,
 				A4A0659D24E477E20080E0D8 /* GameInfoCell.swift in Sources */,
+				A48A11F124F56D6900F91B9C /* MenuShopCell.swift in Sources */,
 				A4147AD724E5B92D007C131F /* Place.swift in Sources */,
 				A464370524EB37DB0033F23A /* ExpandingHeaderTextField.swift in Sources */,
 				A423AC2224EEBCD600071E68 /* FiltersVC.swift in Sources */,
