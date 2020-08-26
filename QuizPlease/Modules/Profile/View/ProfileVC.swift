@@ -69,6 +69,13 @@ extension ProfileVC: ProfileViewProtocol {
     }
 }
 
+extension ProfileVC: QRScannerVCDelegate {
+    func qrScanner(_ qrScanner: QRScannerVC, didFinishCodeScanningWith result: String?) {
+        guard let code = result else { return }
+        presenter.didAddNewGame(with: code)
+    }
+}
+
 //MARK:- Data Source & Delegate
 extension ProfileVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

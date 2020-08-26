@@ -17,6 +17,7 @@ protocol ProfilePresenterProtocol {
     
     func didPressShowShopButton()
     func didPressAddGameButton()
+    func didAddNewGame(with info: String)
 }
 
 class ProfilePresenter: ProfilePresenterProtocol {
@@ -42,5 +43,9 @@ class ProfilePresenter: ProfilePresenterProtocol {
     
     func didPressAddGameButton() {
         router.showQRScanner()
+    }
+    
+    func didAddNewGame(with info: String) {
+        router.showAddGameScreen(info)
     }
 }

@@ -102,6 +102,8 @@
 		A4A065A724E47E510080E0D8 /* Gilroy-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A4A065A624E47E500080E0D8 /* Gilroy-Medium.ttf */; };
 		A4A065AA24E4812F0080E0D8 /* GameGeneralDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A065A824E4812F0080E0D8 /* GameGeneralDescriptionCell.swift */; };
 		A4A065AB24E4812F0080E0D8 /* GameGeneralDescriptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4A065A924E4812F0080E0D8 /* GameGeneralDescriptionCell.xib */; };
+		A4A296C224F6DC2800347EB2 /* AddGameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A296C124F6DC2800347EB2 /* AddGameVC.swift */; };
+		A4A296C424F6E1A700347EB2 /* MainMenuQRDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A296C324F6E1A700347EB2 /* MainMenuQRDelegate.swift */; };
 		A4A5370424EC7691004A10D4 /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A5370324EC7691004A10D4 /* UIColorExtensions.swift */; };
 		A4A5370824EC7AA6004A10D4 /* HomeGameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A5370624EC7AA6004A10D4 /* HomeGameCell.swift */; };
 		A4A5370924EC7AA6004A10D4 /* HomeGameCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4A5370724EC7AA6004A10D4 /* HomeGameCell.xib */; };
@@ -233,6 +235,8 @@
 		A4A065A624E47E500080E0D8 /* Gilroy-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-Medium.ttf"; sourceTree = "<group>"; };
 		A4A065A824E4812F0080E0D8 /* GameGeneralDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameGeneralDescriptionCell.swift; sourceTree = "<group>"; };
 		A4A065A924E4812F0080E0D8 /* GameGeneralDescriptionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameGeneralDescriptionCell.xib; sourceTree = "<group>"; };
+		A4A296C124F6DC2800347EB2 /* AddGameVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGameVC.swift; sourceTree = "<group>"; };
+		A4A296C324F6E1A700347EB2 /* MainMenuQRDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuQRDelegate.swift; sourceTree = "<group>"; };
 		A4A5370324EC7691004A10D4 /* UIColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtensions.swift; sourceTree = "<group>"; };
 		A4A5370624EC7AA6004A10D4 /* HomeGameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeGameCell.swift; sourceTree = "<group>"; };
 		A4A5370724EC7AA6004A10D4 /* HomeGameCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeGameCell.xib; sourceTree = "<group>"; };
@@ -455,7 +459,6 @@
 				A450E39524E559CD00C49AEE /* TitledTextFieldView.swift */,
 				A450E39424E559CD00C49AEE /* TitledTextFieldView.xib */,
 				A46436EC24EAD24F0033F23A /* HBSegmentedControl.swift */,
-				A44C697724EFE06000AB3BC9 /* QRScannerVC.swift */,
 				A419F2F124F003C9004A7997 /* ScalingButton.swift */,
 				A48DFF7624F3EBC400E47095 /* VideoView.xib */,
 				A48DFF7824F3EBEF00E47095 /* VideoView.swift */,
@@ -531,6 +534,15 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		A4A296C024F6DC0600347EB2 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				A44C697724EFE06000AB3BC9 /* QRScannerVC.swift */,
+				A4A296C124F6DC2800347EB2 /* AddGameVC.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
 		A4A5370524EC7706004A10D4 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -556,6 +568,7 @@
 			isa = PBXGroup;
 			children = (
 				A40D817924D2C9E6006D2CE3 /* MainMenuVC.swift */,
+				A4A296C324F6E1A700347EB2 /* MainMenuQRDelegate.swift */,
 				A405C98624F651C900C74787 /* MainMenuShopCollectionView.swift */,
 				A4DAF73324DD80CB00963C15 /* Cells */,
 			);
@@ -617,6 +630,7 @@
 			isa = PBXGroup;
 			children = (
 				A40D816F24D2C767006D2CE3 /* Storyboards */,
+				A4A296C024F6DC0600347EB2 /* ViewControllers */,
 				A445E34624DE02A20070B9FC /* View */,
 				A4B828E224D8322B00D77E67 /* Entity */,
 				A44C697924EFE6E000AB3BC9 /* Protocols */,
@@ -781,6 +795,7 @@
 				A48DFF7B24F4070200E47095 /* HomeGame.swift in Sources */,
 				A4A065A224E47D1F0080E0D8 /* GameAnnotationCell.swift in Sources */,
 				A469F75924E3084D007FB332 /* ScheduleGameCell.swift in Sources */,
+				A4A296C224F6DC2800347EB2 /* AddGameVC.swift in Sources */,
 				A40D817C24D2CA04006D2CE3 /* ScheduleVC.swift in Sources */,
 				A44C697624EFD45300AB3BC9 /* QRCodeService.swift in Sources */,
 				A42527C324F06E9300E3FBD4 /* GameFirstPlayCell.swift in Sources */,
@@ -801,6 +816,7 @@
 				A44C697824EFE06000AB3BC9 /* QRScannerVC.swift in Sources */,
 				A40B759624D9A84C006DB7D1 /* ProfilePresenter.swift in Sources */,
 				A4FFA4AF24F3BD73006A1150 /* RegisterForm.swift in Sources */,
+				A4A296C424F6E1A700347EB2 /* MainMenuQRDelegate.swift in Sources */,
 				A40B759424D9A845006DB7D1 /* ProfileInteractor.swift in Sources */,
 				A40D818224D2CA30006D2CE3 /* ProfileVC.swift in Sources */,
 				A423AC2424EEC65100071E68 /* ConfirmVC.swift in Sources */,

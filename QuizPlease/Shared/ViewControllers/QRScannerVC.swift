@@ -84,6 +84,8 @@ class QRScannerVC: UIViewController {
     }
     
     func processResult(_ code: String?) {
+        //if ok
+        captureSession?.stopRunning()
         delegate?.qrScanner(self, didFinishCodeScanningWith: code)
         dismiss(animated: true, completion: nil)
     }

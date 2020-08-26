@@ -39,9 +39,9 @@ extension UIViewController {
     
     //MARK:- Show Action Sheet With Configurable Option
     ///Cancel button is set by default
-    func showActionSheetWithOptions(title: String?, buttons: [UIAlertAction], buttonTextAligment: CATextLayerAlignmentMode = .center, cancelTitle: String = "Отмена") {
+    func showActionSheetWithOptions(title: String?, buttons: [UIAlertAction], buttonTextAligment: CATextLayerAlignmentMode = .center, cancelTitle: String = "Отмена", tintColor: UIColor = .labelAdapted) {
         let alert = UIAlertController(title: title, message: nil, preferredStyle: .actionSheet)
-        //alert.view.tintColor = tintColor
+        alert.view.tintColor = tintColor
         
         buttons.forEach { (button) in
             //button.titleAlignment = buttonTextAligment
@@ -91,5 +91,17 @@ extension UIViewController {
         let okBtn = UIAlertAction(title: "OK", style: .cancel, handler: nil)
         alert.addAction(okBtn)
         present(alert, animated: true, completion: nil)
+    }
+    
+    func showChooseTeamActionSheet(teamNames: [String], completion: ((_ selectedName: String) -> Void)?) {
+        var buttons = [UIAlertAction]()
+        for name in teamNames {
+            buttons.append(
+                UIAlertAction(title: name, style: .default) { (action) in
+                    completion?(name)
+                }
+            )
+        }
+        showActionSheetWithOptions(title: nil, buttons: buttons)
     }
 }

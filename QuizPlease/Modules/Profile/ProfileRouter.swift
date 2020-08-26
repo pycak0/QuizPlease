@@ -11,6 +11,7 @@ import UIKit
 protocol ProfileRouterProtocol: RouterProtocol {
     func showShop()
     func showQRScanner()
+    func showAddGameScreen(_ info: String)
 }
 
 class ProfileRouter: ProfileRouterProtocol {
@@ -21,7 +22,18 @@ class ProfileRouter: ProfileRouterProtocol {
     }
     
     func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        //
+        switch segue.identifier {
+        case "ShowQRScreenProfile":
+            guard let vc = segue.destination as? QRScannerVC else { return }
+            vc.delegate = viewController as? QRScannerVCDelegate
+        case "AddGameProfile":
+            guard let vc = segue.destination as? AddGameVC, let info = sender as? String else {
+                fatalError("Incorrect Data Passed when showing AddGameVC from Profile")
+            }
+            vc.gameName = info
+        default:
+            print("no preparations made for segue with id '\(String(describing: segue.identifier))' (from ProfileVC)")
+        }
     }
     
     func showShop() {
@@ -30,6 +42,10 @@ class ProfileRouter: ProfileRouterProtocol {
     
     func showQRScanner() {
         viewController?.performSegue(withIdentifier: "ShowQRScreenProfile", sender: nil)
+    }
+    
+    func showAddGameScreen(_ info: String) {
+        viewController?.performSegue(withIdentifier: "AddGameProfile", sender: info)
     }
     
 }

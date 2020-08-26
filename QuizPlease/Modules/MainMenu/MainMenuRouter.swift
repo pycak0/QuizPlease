@@ -13,6 +13,7 @@ protocol MainMenuRouterProtocol: RouterProtocol {
     func showMenuSection(_ kind: MenuItemProtocol, sender: Any?)
     func showChooseCityScreen()
     func showQRScanner()
+    func showAddGameScreen(_ info: String)
 }
 
 class MainMenuRouter: MainMenuRouterProtocol {
@@ -27,7 +28,19 @@ class MainMenuRouter: MainMenuRouterProtocol {
     }
     
     func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        print("Prepraring for segue with id '\(segue.identifier!)'")
+        switch segue.identifier {
+        case "ShowQRScreenMenu":
+            guard let vc = segue.destination as? QRScannerVC else { return }
+            vc.delegate = viewController as? QRScannerVCDelegate
+        case "AddGameMenu":
+            guard let vc = segue.destination as? AddGameVC, let info = sender as? String else {
+                fatalError("Incorrect Data passed when showing AddGameVC from MainMenuVC")
+            }
+            vc.gameName = info
+            
+        default:
+            print("no preparations made for segue with id '\(String(describing: segue.identifier))'")
+        }
     }
     
     func showChooseCityScreen() {
@@ -38,11 +51,8 @@ class MainMenuRouter: MainMenuRouterProtocol {
         viewController?.performSegue(withIdentifier: "ShowQRScreenMenu", sender: nil)
     }
     
-}
-
-extension MainMenuRouter: NavigationBarDelegate {
-    func backButtonPressed(_ sender: Any) {
-        viewController?.navigationController?.popViewController(animated: true)
+    func showAddGameScreen(_ info: String) {
+        viewController?.performSegue(withIdentifier: "AddGameMenu", sender: info)
     }
-        
+    
 }
