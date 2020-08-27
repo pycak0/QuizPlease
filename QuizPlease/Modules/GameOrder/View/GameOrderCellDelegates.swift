@@ -53,6 +53,8 @@ extension GameOrderVC: GamePaymentTypeCellDelegate {
             items.insert(onlinePaymentKind, at: onlinePaymentKind.rawValue)
             tableView.insertRows(at: [indexPath], with: .fade)
         } else {
+            presenter.registerForm.countPaidOnline = nil
+            
             guard items.count == GameInfoItemKind.allCases.count else { return }
             items.remove(at: onlinePaymentKind.rawValue)
             tableView.deleteRows(at: [indexPath], with: .fade)
@@ -65,7 +67,7 @@ extension GameOrderVC: GamePaymentTypeCellDelegate {
 
 extension GameOrderVC: GameOnlinePaymentCellDelegate {
     func selectedNumberOfPeople(in cell: GameOnlinePaymentCell) -> Int {
-        return presenter.registerForm.count
+        return presenter.registerForm.countPaidOnline ?? presenter.registerForm.count
     }
     
     func maxNumberOfPeopleToPay(in cell: GameOnlinePaymentCell) -> Int {
@@ -73,6 +75,7 @@ extension GameOrderVC: GameOnlinePaymentCellDelegate {
     }
     
     func sumToPay(in cell: GameOnlinePaymentCell, forNumberOfPeople number: Int) -> Int {
+        presenter.registerForm.countPaidOnline = number
         return presenter.game.price * number
     }
     

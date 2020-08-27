@@ -15,6 +15,7 @@ struct RegisterForm: Encodable {
     var email: String = ""
     var phone: String = ""
     var count: Int = 2
+    var countPaidOnline: Int?
     var certificates: [String]?
     var first_time: Bool = false
     var comment: String?
