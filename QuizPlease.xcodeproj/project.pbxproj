@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		A405C98724F651C900C74787 /* MainMenuShopCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A405C98624F651C900C74787 /* MainMenuShopCollectionView.swift */; };
+		A40689F924F7D11A001273B2 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40689F824F7D11A001273B2 /* City.swift */; };
+		A40689FB24F7D86F001273B2 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40689FA24F7D86F001273B2 /* NetworkService.swift */; };
+		A40689FD24F7D913001273B2 /* SessionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40689FC24F7D913001273B2 /* SessionError.swift */; };
+		A40689FF24F7D94B001273B2 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40689FE24F7D94B001273B2 /* Globals.swift */; };
+		A4068A0124F7DAE2001273B2 /* ServerResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4068A0024F7DAE2001273B2 /* ServerResponse.swift */; };
+		A4068A0324F7DB3C001273B2 /* CityResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4068A0224F7DB3C001273B2 /* CityResponse.swift */; };
 		A40B757C24D9A744006DB7D1 /* ScheduleInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40B757B24D9A744006DB7D1 /* ScheduleInteractor.swift */; };
 		A40B757E24D9A750006DB7D1 /* SchedulePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40B757D24D9A750006DB7D1 /* SchedulePresenter.swift */; };
 		A40B758024D9A75A006DB7D1 /* ScheduleRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40B757F24D9A75A006DB7D1 /* ScheduleRouter.swift */; };
@@ -141,6 +147,12 @@
 
 /* Begin PBXFileReference section */
 		A405C98624F651C900C74787 /* MainMenuShopCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuShopCollectionView.swift; sourceTree = "<group>"; };
+		A40689F824F7D11A001273B2 /* City.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
+		A40689FA24F7D86F001273B2 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		A40689FC24F7D913001273B2 /* SessionError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionError.swift; sourceTree = "<group>"; };
+		A40689FE24F7D94B001273B2 /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
+		A4068A0024F7DAE2001273B2 /* ServerResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerResponse.swift; sourceTree = "<group>"; };
+		A4068A0224F7DB3C001273B2 /* CityResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityResponse.swift; sourceTree = "<group>"; };
 		A40B757B24D9A744006DB7D1 /* ScheduleInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleInteractor.swift; sourceTree = "<group>"; };
 		A40B757D24D9A750006DB7D1 /* SchedulePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulePresenter.swift; sourceTree = "<group>"; };
 		A40B757F24D9A75A006DB7D1 /* ScheduleRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleRouter.swift; sourceTree = "<group>"; };
@@ -285,6 +297,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A4068A0424F7DB49001273B2 /* ServerModels */ = {
+			isa = PBXGroup;
+			children = (
+				A40689FC24F7D913001273B2 /* SessionError.swift */,
+				A4068A0024F7DAE2001273B2 /* ServerResponse.swift */,
+				A4068A0224F7DB3C001273B2 /* CityResponse.swift */,
+			);
+			path = ServerModels;
+			sourceTree = "<group>";
+		};
 		A40D814D24D2C6C1006D2CE3 = {
 			isa = PBXGroup;
 			children = (
@@ -424,6 +446,7 @@
 			children = (
 				A4147AD824E5BAF9007C131F /* MapService.swift */,
 				A44C697524EFD45300AB3BC9 /* QRCodeService.swift */,
+				A40689FA24F7D86F001273B2 /* NetworkService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -453,6 +476,8 @@
 		A445E34624DE02A20070B9FC /* View */ = {
 			isa = PBXGroup;
 			children = (
+				A40F035B24D412D700C381F2 /* ShopItemCell.swift */,
+				A452E3B024D428DA002EE514 /* ShopItemCell.xib */,
 				A4CC5FED24DAEA840042B41C /* NavigationBar.xib */,
 				A4CC5FEF24DAF7300042B41C /* NavigationBar.swift */,
 				A445E34724DE02BC0070B9FC /* TitleLabel.swift */,
@@ -579,8 +604,6 @@
 			isa = PBXGroup;
 			children = (
 				A40D818524D2CA44006D2CE3 /* ShopVC.swift */,
-				A40F035B24D412D700C381F2 /* ShopItemCell.swift */,
-				A452E3B024D428DA002EE514 /* ShopItemCell.xib */,
 				A423AC2324EEC65100071E68 /* ConfirmVC.swift */,
 				A48DFF7C24F419AC00E47095 /* ShopCompletionVC.swift */,
 			);
@@ -590,6 +613,8 @@
 		A4B828E224D8322B00D77E67 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
+				A40689FE24F7D94B001273B2 /* Globals.swift */,
+				A4068A0424F7DB49001273B2 /* ServerModels */,
 				A4B0753124DFDBFB007778A2 /* GameInfo.swift */,
 				A4147AD624E5B92D007C131F /* Place.swift */,
 				A46436E824EA7E590033F23A /* Team.swift */,
@@ -597,6 +622,7 @@
 				A4FFA4AE24F3BD73006A1150 /* RegisterForm.swift */,
 				A4FFA4B024F3BE2A006A1150 /* PaymentType.swift */,
 				A48DFF7A24F4070200E47095 /* HomeGame.swift */,
+				A40689F824F7D11A001273B2 /* City.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -785,6 +811,7 @@
 				A4A0659824E477860080E0D8 /* GameOrderVC.swift in Sources */,
 				A40D815A24D2C6C1006D2CE3 /* AppDelegate.swift in Sources */,
 				A40B758024D9A75A006DB7D1 /* ScheduleRouter.swift in Sources */,
+				A4068A0124F7DAE2001273B2 /* ServerResponse.swift in Sources */,
 				A40B758424D9A7CD006DB7D1 /* WarmupInteractor.swift in Sources */,
 				A450E3A124E5732200C49AEE /* GameOrderInteractor.swift in Sources */,
 				A4147AD924E5BAF9007C131F /* MapService.swift in Sources */,
@@ -803,11 +830,13 @@
 				A40B75A024D9A875006DB7D1 /* RatingRouter.swift in Sources */,
 				A419F2F224F003C9004A7997 /* ScalingButton.swift in Sources */,
 				A4FFA4AB24F3AB1A006A1150 /* GameOrderCellDelegates.swift in Sources */,
+				A40689FB24F7D86F001273B2 /* NetworkService.swift in Sources */,
 				A40B759C24D9A868006DB7D1 /* RatingInteractor.swift in Sources */,
 				A40F036224D4187800C381F2 /* UIKitExtensions.swift in Sources */,
 				A450E39F24E5729200C49AEE /* GameOrderConfigurator.swift in Sources */,
 				A40B758224D9A76F006DB7D1 /* ScheduleConfigurator.swift in Sources */,
 				A4BA1CEC24D8338B00D32ADC /* MainMenuPresenter.swift in Sources */,
+				A4068A0324F7DB3C001273B2 /* CityResponse.swift in Sources */,
 				A4FFA4A924F39F26006A1150 /* GameOrderCellProtocol.swift in Sources */,
 				A48DFF7D24F419AC00E47095 /* ShopCompletionVC.swift in Sources */,
 				A4CC5FC124DACE0E0042B41C /* ShopInteractor.swift in Sources */,
@@ -831,6 +860,7 @@
 				A4CC5FC324DACE1A0042B41C /* ShopPresenter.swift in Sources */,
 				A4A065A524E47D460080E0D8 /* TableCellProtocol.swift in Sources */,
 				A4DAF73F24DDABFF00963C15 /* WarmupCell.swift in Sources */,
+				A40689FD24F7D913001273B2 /* SessionError.swift in Sources */,
 				A40D815C24D2C6C1006D2CE3 /* SceneDelegate.swift in Sources */,
 				A40B757C24D9A744006DB7D1 /* ScheduleInteractor.swift in Sources */,
 				A40D818A24D2D24C006D2CE3 /* ScheduleCell.swift in Sources */,
@@ -848,6 +878,7 @@
 				A450E39724E559CD00C49AEE /* TitledTextFieldView.swift in Sources */,
 				A445E34824DE02BC0070B9FC /* TitleLabel.swift in Sources */,
 				A40B758C24D9A81A006DB7D1 /* HomeGameInteractor.swift in Sources */,
+				A40689F924F7D11A001273B2 /* City.swift in Sources */,
 				A464370424EB37DB0033F23A /* ExpandingHeader.swift in Sources */,
 				A40F035D24D412D700C381F2 /* ShopItemCell.swift in Sources */,
 				A4A5370824EC7AA6004A10D4 /* HomeGameCell.swift in Sources */,
@@ -862,6 +893,7 @@
 				A40D817A24D2C9E6006D2CE3 /* MainMenuVC.swift in Sources */,
 				A4CC5FF224DAFECF0042B41C /* VCExtensions.swift in Sources */,
 				A40D818424D2CA39006D2CE3 /* RatingVC.swift in Sources */,
+				A40689FF24F7D94B001273B2 /* Globals.swift in Sources */,
 				A44C697B24EFE70B00AB3BC9 /* RouterProtocol.swift in Sources */,
 				A40B758E24D9A820006DB7D1 /* HomeGamePresenter.swift in Sources */,
 				A40B75A224D9A880006DB7D1 /* RatingConfigurator.swift in Sources */,
