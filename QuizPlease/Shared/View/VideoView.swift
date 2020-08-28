@@ -13,6 +13,8 @@ class VideoView: UIView {
     static let nibName = "VideoView"
     
     @IBOutlet var contentView: UIView!
+    
+    weak var parent: UIViewController!
     private var playerVC = AVPlayerViewController()
     var url: URL?
 
@@ -28,8 +30,9 @@ class VideoView: UIView {
     
     convenience init(parent: UIViewController, url: URL?) {
         self.init()
+        self.parent = parent
         self.url = url
-        configureVideoView(parent: parent)
+        configureVideoView()
         configurePlayer(url: url)
     }
     
@@ -40,7 +43,9 @@ class VideoView: UIView {
         contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
     }
     
-    func configureVideoView(parent: UIViewController) {
+    private func configureVideoView() {
+        guard parent != nil else { fatalError("VideoView must have `parent` property set") }
+        
         playerVC.view.frame = contentView.bounds
         playerVC.videoGravity = .resizeAspectFill
         playerVC.view.layer.masksToBounds = true
@@ -49,7 +54,7 @@ class VideoView: UIView {
         playerVC.showsPlaybackControls = true
         
         //MARK:- insert player into videoView
-        parent.addChild(playerVC)
+        parent?.addChild(playerVC)
         playerVC.didMove(toParent: parent)
         contentView.addSubview(playerVC.view)
         contentView.backgroundColor = .clear

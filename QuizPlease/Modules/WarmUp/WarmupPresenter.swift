@@ -10,15 +10,21 @@ import Foundation
 
 protocol WarmupPresenterProtocol {
     var router: WarmupRouterProtocol! { get }
+    var questions: [WarmupQuestion]! { get set }
+    
     init(view: WarmupViewProtocol, interactor: WarmupInteractorProtocol, router: WarmupRouterProtocol)
     
     func configureViews()
+    
+    func didPressStartGame()
 }
 
 class WarmupPresenter: WarmupPresenterProtocol {
     var router: WarmupRouterProtocol!
     var interactor: WarmupInteractorProtocol
     weak var view: WarmupViewProtocol?
+    
+    var questions: [WarmupQuestion]!
     
     required init(view: WarmupViewProtocol, interactor: WarmupInteractorProtocol, router: WarmupRouterProtocol) {
         self.view = view
@@ -27,7 +33,23 @@ class WarmupPresenter: WarmupPresenterProtocol {
     }
     
     func configureViews() {
-        //
+        view?.configureViews()
+        
+        interactor.loadQuestions { [weak self] (result) in
+            guard let self = self else { return }
+            switch result {
+            case .failure(let error):
+                print(error)
+                self.view?.showErrorConnectingToServerAlert()
+            case .success(let questions):
+                self.questions = questions
+                self.view?.setQuestions()
+            }
+        }
+    }
+    
+    func didPressStartGame() {
+        view?.startGame()
     }
     
 }

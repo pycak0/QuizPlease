@@ -698,7 +698,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mZx-f5-lCt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2767" y="-1191"/>
+            <point key="canvasLocation" x="3154" y="-1006"/>
         </scene>
         <!--Game Name-->
         <scene sceneID="Yrw-Md-A1n">
@@ -814,7 +814,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Bt-Q7-f0i" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3589.8550724637685" y="-1606.4732142857142"/>
+            <point key="canvasLocation" x="4097" y="-1006"/>
         </scene>
         <!--ScannerVC-->
         <scene sceneID="WWS-fr-LYB">
@@ -907,7 +907,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="seK-ep-zfu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3997" y="-894"/>
+            <point key="canvasLocation" x="970" y="725"/>
         </scene>
         <!--Добавление игры-->
         <scene sceneID="hYT-P3-y8g">
@@ -1085,7 +1085,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VAm-gC-Ene" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="614" y="655"/>
+            <point key="canvasLocation" x="233" y="725"/>
         </scene>
         <!--Game OrderVC-->
         <scene sceneID="iTE-1J-euP">
@@ -1201,10 +1201,20 @@
                                     <constraint firstItem="Xve-qv-4fo" firstAttribute="leading" secondItem="TmP-N2-jXg" secondAttribute="leading" constant="20" id="iIh-y3-szK"/>
                                 </constraints>
                             </stackView>
+                            <containerView hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yzA-8B-bIa">
+                                <rect key="frame" x="0.0" y="88" width="414" height="754"/>
+                                <connections>
+                                    <segue destination="JO0-RJ-kRi" kind="embed" identifier="WarmupPageVCEmbedded" id="Vqt-cj-hdd"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <color key="backgroundColor" name="darkBlue"/>
                         <constraints>
                             <constraint firstItem="eUE-ns-Nb1" firstAttribute="bottom" secondItem="TmP-N2-jXg" secondAttribute="bottom" constant="20" id="20f-5F-CUC"/>
+                            <constraint firstItem="yzA-8B-bIa" firstAttribute="trailing" secondItem="TmP-N2-jXg" secondAttribute="trailing" id="Bbq-QS-4YB"/>
+                            <constraint firstItem="yzA-8B-bIa" firstAttribute="top" secondItem="eUE-ns-Nb1" secondAttribute="top" id="DPF-uq-cWA"/>
+                            <constraint firstItem="yzA-8B-bIa" firstAttribute="leading" secondItem="TmP-N2-jXg" secondAttribute="leading" id="PMD-jp-hXi"/>
+                            <constraint firstItem="yzA-8B-bIa" firstAttribute="bottom" secondItem="TmP-N2-jXg" secondAttribute="bottom" id="TmK-Eg-15u"/>
                             <constraint firstItem="TmP-N2-jXg" firstAttribute="top" secondItem="eUE-ns-Nb1" secondAttribute="top" constant="70" id="WY4-nY-64p"/>
                             <constraint firstAttribute="trailing" secondItem="TmP-N2-jXg" secondAttribute="trailing" id="lrj-5T-Ymi"/>
                             <constraint firstItem="TmP-N2-jXg" firstAttribute="leading" secondItem="CGK-0S-nNX" secondAttribute="leading" id="vi6-3W-Psf"/>
@@ -1213,12 +1223,21 @@
                     </view>
                     <navigationItem key="navigationItem" title="Разминка" id="cDU-mL-3XB"/>
                     <connections>
+                        <outlet property="container" destination="yzA-8B-bIa" id="w79-Be-s8V"/>
                         <outlet property="previewStack" destination="TmP-N2-jXg" id="hpa-E6-jMG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cIr-wY-gnt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1543" y="-1274"/>
+            <point key="canvasLocation" x="2458" y="-1702"/>
+        </scene>
+        <!--Question PageVC-->
+        <scene sceneID="UyG-Qa-0P2">
+            <objects>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="JO0-RJ-kRi" customClass="QuestionPageVC" customModule="QuizPlease" customModuleProvider="target" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="No5-bz-pkR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3278" y="-1668"/>
         </scene>
         <!--Рейтинг команд-->
         <scene sceneID="Alv-D0-KoK">
@@ -1311,7 +1330,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="16X-Ca-Bqo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3035" y="-203"/>
+            <point key="canvasLocation" x="3996" y="74"/>
         </scene>
         <!--Магазин-->
         <scene sceneID="4UR-t7-0fQ">
@@ -1378,7 +1397,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lmt-Kb-Xp6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2123" y="246"/>
+            <point key="canvasLocation" x="2201" y="457"/>
         </scene>
         <!--Завершение покупки-->
         <scene sceneID="mlF-HX-aRL">
@@ -1523,19 +1542,19 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Этот подарочный сертификат дает право на бесплатную игру Квиз, плиз! [стрим] для целой команды." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KJa-4c-mae">
-                                <rect key="frame" x="20" y="292" width="374" height="49"/>
+                                <rect key="frame" x="20" y="292" width="374" height="50.333333333333314"/>
                                 <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="14"/>
                                 <color key="textColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Потратить N баллов на электронный сертификат?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xvi-EP-uSy">
-                                <rect key="frame" x="20" y="361" width="374" height="51.333333333333314"/>
+                                <rect key="frame" x="20" y="362.33333333333331" width="374" height="53.333333333333314"/>
                                 <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="22"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="btf-Ro-wml">
-                                <rect key="frame" x="20" y="438.33333333333331" width="374" height="50"/>
+                                <rect key="frame" x="20" y="441.66666666666669" width="374" height="50"/>
                                 <subviews>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b4o-HT-k4w">
                                         <rect key="frame" x="0.0" y="0.0" width="180" height="50"/>
@@ -1854,7 +1873,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YNl-MC-5yN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2123" y="-617"/>
+            <point key="canvasLocation" x="2459" y="-410"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="1qP-4D-002">
@@ -1877,9 +1896,9 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="C1a-qd-8Vm"/>
-        <segue reference="smb-dh-maI"/>
-        <segue reference="HCF-Ox-xP4"/>
+        <segue reference="pVV-GK-MaB"/>
+        <segue reference="mmH-hO-g5X"/>
+        <segue reference="kQf-Xc-fDF"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="arrowDown" width="20" height="12"/>

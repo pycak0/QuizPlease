@@ -27,9 +27,9 @@ class HomeGameVideoVC: UIViewController {
     
     private func configureViews() {
         descriptionBackground.blurView.setup(style: .regular, alpha: 0.8).enable()
-        descriptionBackground.addBlur(color: .systemPurple, style: blurStyle, alpha: 0.7)
+        //descriptionBackground.addBlur(color: .systemPurple, style: blurStyle, alpha: 0.7)
         
-        videoView.configureVideoView(parent: self)
+        videoView.parent = self
         videoView.configurePlayer(url: homeGame.url)
         rulesButton.backgroundColor = UIColor.systemRed.withAlphaComponent(0.2)
         blanksButton.backgroundColor = UIColor.systemBlue.withAlphaComponent(0.2)

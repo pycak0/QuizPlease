@@ -63,6 +63,8 @@
 		A42527C424F06E9300E3FBD4 /* GameFirstPlayCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A42527C224F06E9300E3FBD4 /* GameFirstPlayCell.xib */; };
 		A445E34824DE02BC0070B9FC /* TitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A445E34724DE02BC0070B9FC /* TitleLabel.swift */; };
 		A44A462C24F8EEC500C81F82 /* UIView+Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44A462B24F8EEC500C81F82 /* UIView+Blur.swift */; };
+		A44A462F24F901ED00C81F82 /* WarmupQuestionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44A462D24F901ED00C81F82 /* WarmupQuestionVC.swift */; };
+		A44A463024F901ED00C81F82 /* WarmupQuestionVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = A44A462E24F901ED00C81F82 /* WarmupQuestionVC.xib */; };
 		A44C697624EFD45300AB3BC9 /* QRCodeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44C697524EFD45300AB3BC9 /* QRCodeService.swift */; };
 		A44C697824EFE06000AB3BC9 /* QRScannerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44C697724EFE06000AB3BC9 /* QRScannerVC.swift */; };
 		A44C697B24EFE70B00AB3BC9 /* RouterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44C697A24EFE70B00AB3BC9 /* RouterProtocol.swift */; };
@@ -129,6 +131,9 @@
 		A4CC5FEE24DAEA840042B41C /* NavigationBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4CC5FED24DAEA840042B41C /* NavigationBar.xib */; };
 		A4CC5FF024DAF7300042B41C /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CC5FEF24DAF7300042B41C /* NavigationBar.swift */; };
 		A4CC5FF224DAFECF0042B41C /* VCExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CC5FF124DAFECF0042B41C /* VCExtensions.swift */; };
+		A4D230A624F91F0100524A01 /* QuestionPageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D230A524F91F0100524A01 /* QuestionPageVC.swift */; };
+		A4D230A824F9203500524A01 /* WarmupQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D230A724F9203500524A01 /* WarmupQuestion.swift */; };
+		A4D230AA24F9219D00524A01 /* UIImageView+LoadImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D230A924F9219D00524A01 /* UIImageView+LoadImage.swift */; };
 		A4DAF73624DD862500963C15 /* Gilroy-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A4DAF73524DD862500963C15 /* Gilroy-Bold.ttf */; };
 		A4DAF73924DD987F00963C15 /* MenuProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DAF73724DD987F00963C15 /* MenuProfileCell.swift */; };
 		A4DAF73A24DD987F00963C15 /* MenuProfileCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4DAF73824DD987F00963C15 /* MenuProfileCell.xib */; };
@@ -203,6 +208,8 @@
 		A42527C224F06E9300E3FBD4 /* GameFirstPlayCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameFirstPlayCell.xib; sourceTree = "<group>"; };
 		A445E34724DE02BC0070B9FC /* TitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleLabel.swift; sourceTree = "<group>"; };
 		A44A462B24F8EEC500C81F82 /* UIView+Blur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Blur.swift"; sourceTree = "<group>"; };
+		A44A462D24F901ED00C81F82 /* WarmupQuestionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarmupQuestionVC.swift; sourceTree = "<group>"; };
+		A44A462E24F901ED00C81F82 /* WarmupQuestionVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WarmupQuestionVC.xib; sourceTree = "<group>"; };
 		A44C697524EFD45300AB3BC9 /* QRCodeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeService.swift; sourceTree = "<group>"; };
 		A44C697724EFE06000AB3BC9 /* QRScannerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerVC.swift; sourceTree = "<group>"; };
 		A44C697A24EFE70B00AB3BC9 /* RouterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterProtocol.swift; sourceTree = "<group>"; };
@@ -269,6 +276,9 @@
 		A4CC5FED24DAEA840042B41C /* NavigationBar.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NavigationBar.xib; sourceTree = "<group>"; };
 		A4CC5FEF24DAF7300042B41C /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
 		A4CC5FF124DAFECF0042B41C /* VCExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCExtensions.swift; sourceTree = "<group>"; };
+		A4D230A524F91F0100524A01 /* QuestionPageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionPageVC.swift; sourceTree = "<group>"; };
+		A4D230A724F9203500524A01 /* WarmupQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarmupQuestion.swift; sourceTree = "<group>"; };
+		A4D230A924F9219D00524A01 /* UIImageView+LoadImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+LoadImage.swift"; sourceTree = "<group>"; };
 		A4DAF73524DD862500963C15 /* Gilroy-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-Bold.ttf"; sourceTree = "<group>"; };
 		A4DAF73724DD987F00963C15 /* MenuProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuProfileCell.swift; sourceTree = "<group>"; };
 		A4DAF73824DD987F00963C15 /* MenuProfileCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuProfileCell.xib; sourceTree = "<group>"; };
@@ -463,6 +473,7 @@
 				A4CC5FF124DAFECF0042B41C /* VCExtensions.swift */,
 				A4FFA4AC24F3AE78006A1150 /* MapExtensions.swift */,
 				A44A462B24F8EEC500C81F82 /* UIView+Blur.swift */,
+				A4D230A924F9219D00524A01 /* UIImageView+LoadImage.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -626,6 +637,7 @@
 				A4FFA4B024F3BE2A006A1150 /* PaymentType.swift */,
 				A48DFF7A24F4070200E47095 /* HomeGame.swift */,
 				A40689F824F7D11A001273B2 /* City.swift */,
+				A4D230A724F9203500524A01 /* WarmupQuestion.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -702,6 +714,9 @@
 			isa = PBXGroup;
 			children = (
 				A40D817D24D2CA1A006D2CE3 /* WarmupVC.swift */,
+				A44A462D24F901ED00C81F82 /* WarmupQuestionVC.swift */,
+				A44A462E24F901ED00C81F82 /* WarmupQuestionVC.xib */,
+				A4D230A524F91F0100524A01 /* QuestionPageVC.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -799,6 +814,7 @@
 				A4A5370924EC7AA6004A10D4 /* HomeGameCell.xib in Resources */,
 				A40D818B24D2D24C006D2CE3 /* ScheduleCell.xib in Resources */,
 				A498FCCD24E52ED80069F896 /* GameRegisterCell.xib in Resources */,
+				A44A463024F901ED00C81F82 /* WarmupQuestionVC.xib in Resources */,
 				A46F303F24F5302B0062A333 /* GameSubmitButtonCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -817,6 +833,7 @@
 				A4068A0124F7DAE2001273B2 /* ServerResponse.swift in Sources */,
 				A40B758424D9A7CD006DB7D1 /* WarmupInteractor.swift in Sources */,
 				A450E3A124E5732200C49AEE /* GameOrderInteractor.swift in Sources */,
+				A4D230AA24F9219D00524A01 /* UIImageView+LoadImage.swift in Sources */,
 				A4147AD924E5BAF9007C131F /* MapService.swift in Sources */,
 				A4DAF74724DDCCAD00963C15 /* MenuRatingCell.swift in Sources */,
 				A40B758824D9A7FD006DB7D1 /* WarmupRouter.swift in Sources */,
@@ -833,6 +850,7 @@
 				A40B75A024D9A875006DB7D1 /* RatingRouter.swift in Sources */,
 				A419F2F224F003C9004A7997 /* ScalingButton.swift in Sources */,
 				A4FFA4AB24F3AB1A006A1150 /* GameOrderCellDelegates.swift in Sources */,
+				A4D230A824F9203500524A01 /* WarmupQuestion.swift in Sources */,
 				A40689FB24F7D86F001273B2 /* NetworkService.swift in Sources */,
 				A40B759C24D9A868006DB7D1 /* RatingInteractor.swift in Sources */,
 				A40F036224D4187800C381F2 /* UIKitExtensions.swift in Sources */,
@@ -864,6 +882,7 @@
 				A4CC5FC324DACE1A0042B41C /* ShopPresenter.swift in Sources */,
 				A4A065A524E47D460080E0D8 /* TableCellProtocol.swift in Sources */,
 				A4DAF73F24DDABFF00963C15 /* WarmupCell.swift in Sources */,
+				A44A462F24F901ED00C81F82 /* WarmupQuestionVC.swift in Sources */,
 				A40689FD24F7D913001273B2 /* SessionError.swift in Sources */,
 				A40D815C24D2C6C1006D2CE3 /* SceneDelegate.swift in Sources */,
 				A40B757C24D9A744006DB7D1 /* ScheduleInteractor.swift in Sources */,
@@ -904,6 +923,7 @@
 				A46436E924EA7E590033F23A /* Team.swift in Sources */,
 				A40B758A24D9A806006DB7D1 /* WarmupConfigurator.swift in Sources */,
 				A423AC1D24EE971100071E68 /* ShopItem.swift in Sources */,
+				A4D230A624F91F0100524A01 /* QuestionPageVC.swift in Sources */,
 				A4CC5FC524DACE230042B41C /* ShopRouter.swift in Sources */,
 				A4BA1CF324D84C4B00D32ADC /* MenuItem.swift in Sources */,
 				A40B759024D9A829006DB7D1 /* HomeGameRouter.swift in Sources */,

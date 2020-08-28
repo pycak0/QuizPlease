@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Gilroy-Bold.ttf">
+            <string>Gilroy-Bold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WarmupQuestionVC" customModule="QuizPlease" customModuleProvider="target">
+            <connections>
+                <outlet property="answerStack" destination="FLC-LN-3GM" id="Ebm-ji-gi4"/>
+                <outlet property="backgrndHeightConstraint" destination="ruy-Pa-Iia" id="GfO-2Q-pyd"/>
+                <outlet property="backgroundView" destination="Zp1-Ic-565" id="acJ-tf-4H1"/>
+                <outlet property="imageEdgeInsetConstraint" destination="7mA-Lh-Dcn" id="kPQ-Qh-Ibf"/>
+                <outlet property="imageLabelSpacingConstraint" destination="tqv-1l-miC" id="T5S-8o-eEs"/>
+                <outlet property="imageView" destination="eZE-Qh-gOX" id="d7d-2w-5c6"/>
+                <outlet property="labelBottomConstraint" destination="uyX-h5-ed4" id="3na-Yl-AJG"/>
+                <outlet property="questionLabel" destination="88g-Ae-qcD" id="esX-M8-z8l"/>
+                <outlet property="questionView" destination="tja-8m-qlc" id="1IW-eC-KT8"/>
+                <outlet property="videoView" destination="xgh-XC-mWM" id="Zvw-SP-DSb"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="755"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tja-8m-qlc">
+                    <rect key="frame" x="20" y="30" width="374" height="374"/>
+                    <subviews>
+                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zp1-Ic-565">
+                            <rect key="frame" x="0.0" y="168.5" width="374" height="205.5"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="14" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="88g-Ae-qcD">
+                                    <rect key="frame" x="20" y="153.5" width="334" height="27"/>
+                                    <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="22"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstItem="88g-Ae-qcD" firstAttribute="leading" secondItem="Zp1-Ic-565" secondAttribute="leading" constant="20" id="gA0-Su-2Sb"/>
+                                <constraint firstAttribute="trailing" secondItem="88g-Ae-qcD" secondAttribute="trailing" constant="20" id="pqs-Gb-X6A"/>
+                                <constraint firstAttribute="bottom" secondItem="88g-Ae-qcD" secondAttribute="bottom" constant="25" id="uyX-h5-ed4"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusView">
+                                    <real key="value" value="20"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </view>
+                        <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xgh-XC-mWM" customClass="VideoView" customModule="QuizPlease" customModuleProvider="target">
+                            <rect key="frame" x="40" y="85.5" width="294" height="165.5"/>
+                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="xgh-XC-mWM" secondAttribute="height" multiplier="16:9" id="tT9-9E-JaQ"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusView">
+                                    <real key="value" value="20"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </view>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eZE-Qh-gOX">
+                            <rect key="frame" x="40" y="0.0" width="294" height="294"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="eZE-Qh-gOX" secondAttribute="height" multiplier="1:1" id="2rb-c1-jd3"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusView">
+                                    <real key="value" value="20"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="eZE-Qh-gOX" firstAttribute="leading" secondItem="tja-8m-qlc" secondAttribute="leading" constant="40" id="7mA-Lh-Dcn"/>
+                        <constraint firstAttribute="trailing" secondItem="Zp1-Ic-565" secondAttribute="trailing" id="9Y5-SS-58d"/>
+                        <constraint firstItem="eZE-Qh-gOX" firstAttribute="top" secondItem="tja-8m-qlc" secondAttribute="top" id="IXM-6B-Cti"/>
+                        <constraint firstItem="xgh-XC-mWM" firstAttribute="leading" secondItem="tja-8m-qlc" secondAttribute="leading" constant="40" id="IvN-no-aeV"/>
+                        <constraint firstItem="eZE-Qh-gOX" firstAttribute="width" secondItem="eZE-Qh-gOX" secondAttribute="height" multiplier="1:1" id="NaD-AB-61o"/>
+                        <constraint firstItem="eZE-Qh-gOX" firstAttribute="centerX" secondItem="tja-8m-qlc" secondAttribute="centerX" id="aIn-r0-WEI"/>
+                        <constraint firstAttribute="bottom" secondItem="Zp1-Ic-565" secondAttribute="bottom" id="cxV-mp-dAR"/>
+                        <constraint firstItem="xgh-XC-mWM" firstAttribute="centerY" secondItem="Zp1-Ic-565" secondAttribute="top" id="gDl-VW-kjl"/>
+                        <constraint firstItem="xgh-XC-mWM" firstAttribute="centerX" secondItem="tja-8m-qlc" secondAttribute="centerX" id="ieT-yd-feV"/>
+                        <constraint firstAttribute="width" secondItem="tja-8m-qlc" secondAttribute="height" multiplier="1:1" id="oVf-bY-To1"/>
+                        <constraint firstItem="Zp1-Ic-565" firstAttribute="leading" secondItem="tja-8m-qlc" secondAttribute="leading" id="qJZ-Df-ENI"/>
+                        <constraint firstItem="Zp1-Ic-565" firstAttribute="height" secondItem="tja-8m-qlc" secondAttribute="height" multiplier="0.55" id="ruy-Pa-Iia"/>
+                        <constraint firstItem="88g-Ae-qcD" firstAttribute="top" relation="greaterThanOrEqual" secondItem="eZE-Qh-gOX" secondAttribute="bottom" constant="10" id="tqv-1l-miC"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusView">
+                            <real key="value" value="30"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="FLC-LN-3GM">
+                    <rect key="frame" x="20" y="428" width="374" height="327"/>
+                    <subviews>
+                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bSU-mV-Yqy" customClass="ScalingButton" customModule="QuizPlease" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="374" height="74.5"/>
+                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="22"/>
+                            <state key="normal" title="Button">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <state key="selected">
+                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <state key="highlighted">
+                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusView">
+                                    <real key="value" value="20"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </button>
+                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eT5-Qz-oer" customClass="ScalingButton" customModule="QuizPlease" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="84.5" width="374" height="74"/>
+                            <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="22"/>
+                            <state key="normal" title="Button">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <state key="selected">
+                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusView">
+                                    <real key="value" value="20"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </button>
+                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mBk-h7-h2i" customClass="ScalingButton" customModule="QuizPlease" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="168.5" width="374" height="74.5"/>
+                            <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="22"/>
+                            <state key="normal" title="Button">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <state key="selected">
+                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusView">
+                                    <real key="value" value="20"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </button>
+                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gtr-bf-mXq" customClass="ScalingButton" customModule="QuizPlease" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="253" width="374" height="74"/>
+                            <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="22"/>
+                            <state key="normal" title="Button">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <state key="selected">
+                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusView">
+                                    <real key="value" value="20"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </button>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="FLC-LN-3GM" secondAttribute="bottom" id="7lq-Uo-KZn"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="FLC-LN-3GM" secondAttribute="trailing" constant="20" id="BQj-3X-gjJ"/>
+                <constraint firstItem="FLC-LN-3GM" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="Idx-A0-ln5"/>
+                <constraint firstItem="FLC-LN-3GM" firstAttribute="top" secondItem="tja-8m-qlc" secondAttribute="bottom" constant="24" id="MQX-3Q-iqX"/>
+                <constraint firstItem="tja-8m-qlc" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="QQU-R3-z90"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="tja-8m-qlc" secondAttribute="trailing" constant="20" id="hdo-bT-iN2"/>
+                <constraint firstItem="tja-8m-qlc" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="30" id="wXC-4L-ySp"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="137.68115942028987" y="177.12053571428569"/>
+        </view>
+    </objects>
+</document>
