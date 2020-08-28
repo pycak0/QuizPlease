@@ -16,11 +16,13 @@ class QuestionPageVC: UIPageViewController {
         super.viewDidLoad()
     }
     
-    func configure(with items: [WarmupQuestion]) {
+    func configure(with items: [WarmupQuestion], delegate: WarmupQuestionVCAnswerDelegate?) {
         dataSource = self
         
         items.forEach {
-            self._viewControllers.append(WarmupQuestionVC($0))
+            let vc = WarmupQuestionVC($0)
+            vc.delegate = delegate
+            self._viewControllers.append(vc)
         }
     }
     

@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol WarmupQuestionVCAnswerDelegate: class {
+    func questionVC(_ vc: WarmupQuestionVC, didPressButtonWith answer: String)
+}
+
 class WarmupQuestionVC: UIViewController {
 
     @IBOutlet weak var videoView: VideoView!
@@ -23,6 +27,12 @@ class WarmupQuestionVC: UIViewController {
     @IBOutlet weak var labelBottomConstraint: NSLayoutConstraint!
     
     var question: WarmupQuestion!
+    
+    weak var delegate: WarmupQuestionVCAnswerDelegate?
+        
+    @IBAction func answerButtonPressed(_ sender: UIButton) {
+        delegate?.questionVC(self, didPressButtonWith: sender.titleLabel!.text!)
+    }
     
     private override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -44,9 +54,12 @@ class WarmupQuestionVC: UIViewController {
     
     private func configureViews() {
        // backgroundView.addGradient(colors: [.purple, .systemBlue], insertAt: 0)
-        answerStack.arrangedSubviews.forEach {
-            $0.backgroundColor = UIColor.white.withAlphaComponent(0.1)
+        for (index, button) in (answerStack.arrangedSubviews as! [UIButton]).enumerated() {
+            button.backgroundColor = UIColor.white.withAlphaComponent(0.1)
+            button.setTitle(question.answerVariants[index], for: .normal)
         }
+        
+        setupQuestionType()
     }
     
     private func setupQuestionType() {

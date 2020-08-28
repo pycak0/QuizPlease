@@ -8,6 +8,7 @@
 
 import UIKit
 
+//MARK:- View Protocol
 protocol WarmupViewProtocol: UIViewController {
     var configurator: WarmupConfiguratorProtocol { get }
     var presenter: WarmupPresenterProtocol! { get set }
@@ -48,6 +49,7 @@ class WarmupVC: UIViewController {
     
 }
 
+//MARK:- View Protocol Implemenation
 extension WarmupVC: WarmupViewProtocol {
     func configureViews() {
         //
@@ -60,6 +62,13 @@ extension WarmupVC: WarmupViewProtocol {
     }
     
     func setQuestions() {
-        pageVC.configure(with: presenter.questions)
+        pageVC.configure(with: presenter.questions, delegate: self)
+    }
+}
+
+
+extension WarmupVC: WarmupQuestionVCAnswerDelegate {
+    func questionVC(_ vc: WarmupQuestionVC, didPressButtonWith answer: String) {
+        pageVC.next()
     }
 }
