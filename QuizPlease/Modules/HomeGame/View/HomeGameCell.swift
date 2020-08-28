@@ -24,8 +24,12 @@ class HomeGameCell: UICollectionViewCell {
     }
     
     private func configureViews() {
+        layer.cornerRadius = 20
         cellView.layer.cornerRadius = 20
-        cellView.backgroundColor = .systemPurple
+        cellView.backgroundColor = UIColor.systemPurple.withAlphaComponent(0.5)
+        //cellView.addBlur(color: .systemPurple, style: .regular, alpha: 0.7)
+        cellView.blurView.setup(style: .regular, alpha: 0.9).enable()
+        cellView.blurView.backgroundColor = UIColor.systemPurple.withAlphaComponent(0.4)
         playLabel.layer.cornerRadius = playLabel.frame.height / 2
     }
     

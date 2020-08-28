@@ -141,9 +141,10 @@ public extension UIView {
         blur.alpha = alpha
         blur.isUserInteractionEnabled = false
         blur.clipsToBounds = true
-        
+        blur.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         blur.backgroundColor = color
         self.backgroundColor = .clear
+
         //self.addSubview(blur)
         self.insertSubview(blur, at: 0)
     }

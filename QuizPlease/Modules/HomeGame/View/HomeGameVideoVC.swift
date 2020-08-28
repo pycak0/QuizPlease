@@ -26,14 +26,13 @@ class HomeGameVideoVC: UIViewController {
     }
     
     private func configureViews() {
-        var blurStyle = UIBlurEffect.Style.prominent
-        if #available(iOS 13.0, *) { blurStyle = .systemUltraThinMaterialDark }
+        descriptionBackground.blurView.setup(style: .regular, alpha: 0.8).enable()
         descriptionBackground.addBlur(color: .systemPurple, style: blurStyle, alpha: 0.7)
         
         videoView.configureVideoView(parent: self)
         videoView.configurePlayer(url: homeGame.url)
-        rulesButton.backgroundColor = UIColor.systemRed.withAlphaComponent(0.1)
-        blanksButton.backgroundColor = UIColor.systemBlue.withAlphaComponent(0.1)
+        rulesButton.backgroundColor = UIColor.systemRed.withAlphaComponent(0.2)
+        blanksButton.backgroundColor = UIColor.systemBlue.withAlphaComponent(0.2)
         
         let buttonRadius: CGFloat = 20
         let videoRadius: CGFloat = 30

@@ -876,7 +876,7 @@
                                 <rect key="frame" x="40" y="640" width="334" height="57.333333333333371"/>
                                 <string key="text">Наведите камеру
 на квадратный код
-на ввашей карточке</string>
+на вашей карточке</string>
                                 <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="16"/>
                                 <color key="textColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -1523,19 +1523,19 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Этот подарочный сертификат дает право на бесплатную игру Квиз, плиз! [стрим] для целой команды." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KJa-4c-mae">
-                                <rect key="frame" x="20" y="292" width="374" height="50.333333333333314"/>
+                                <rect key="frame" x="20" y="292" width="374" height="49"/>
                                 <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="14"/>
                                 <color key="textColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Потратить N баллов на электронный сертификат?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xvi-EP-uSy">
-                                <rect key="frame" x="20" y="362.33333333333331" width="374" height="53.333333333333314"/>
+                                <rect key="frame" x="20" y="361" width="374" height="51.333333333333314"/>
                                 <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="22"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="btf-Ro-wml">
-                                <rect key="frame" x="20" y="441.66666666666669" width="374" height="50"/>
+                                <rect key="frame" x="20" y="438.33333333333331" width="374" height="50"/>
                                 <subviews>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b4o-HT-k4w">
                                         <rect key="frame" x="0.0" y="0.0" width="180" height="50"/>
