@@ -27,8 +27,8 @@ class ConfirmVC: BottomPopupViewController {
     @IBOutlet private weak var itemImageView: UIImageView!
     @IBOutlet private weak var descriptionLabel: UILabel!
     @IBOutlet private weak var confirmMessageLabel: UILabel!
-    @IBOutlet private weak var cancelButton: UIButton!
-    @IBOutlet private weak var confirmButton: UIButton!
+    @IBOutlet private weak var cancelButton: ScalingButton!
+    @IBOutlet private weak var confirmButton: ScalingButton!
     
     var shopItem: ShopItem!
 
@@ -46,7 +46,7 @@ class ConfirmVC: BottomPopupViewController {
         cancelButton.layer.cornerRadius = radius
         confirmButton.layer.cornerRadius = radius
         
-        view.addBlur(color: UIColor.middleBlue.withAlphaComponent(0.4))
+        view.blurView.setupPopupBlur()
         
     }
     

@@ -94,6 +94,14 @@ extension UIView {
             return self
         }
         
+        ///Blur preset made especially for bottom popup screens
+        ///
+        ///- parameter color: Blur background color. Color's `alpha` is set automatically to the value of `0.4`
+        func setupPopupBlur(_ color: UIColor = .middleBlue) {
+            setup(style: .regular, alpha: 1).enable()
+            backgroundColor = color.withAlphaComponent(0.4)
+        }
+        
         func enable(isHidden: Bool = false) {
             if blur == nil {
                 applyBlurEffect()

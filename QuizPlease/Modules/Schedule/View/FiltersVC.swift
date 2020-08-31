@@ -41,7 +41,8 @@ class FiltersVC: BottomPopupViewController {
         
         clearFilterButton.layer.cornerRadius = radius
         clearFilterButton.backgroundColor = UIColor.white.withAlphaComponent(0.1)
-        view.addBlur(color: UIColor.middleBlue.withAlphaComponent(0.4))
+        view.blurView.setupPopupBlur()
+        //view.addBlur(color: UIColor.middleBlue.withAlphaComponent(0.4))
     }
     
     @IBAction func closeButtonPressed(_ sender: Any) {
