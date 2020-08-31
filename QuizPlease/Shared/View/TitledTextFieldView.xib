@@ -10,6 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TitledTextFieldView" customModule="QuizPlease" customModuleProvider="target">
             <connections>
+                <outlet property="listener" destination="9Xv-7X-0Y3" id="z5P-uO-hiB"/>
                 <outlet property="textField" destination="Y0M-Ku-QaC" id="iMo-yY-cBp"/>
                 <outlet property="titleLabel" destination="cWa-q1-HUw" id="pQd-fZ-nVp"/>
             </connections>
@@ -23,6 +24,9 @@
                     <rect key="frame" x="14" y="28" width="251" height="34"/>
                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                     <textInputTraits key="textInputTraits"/>
+                    <connections>
+                        <outlet property="delegate" destination="9Xv-7X-0Y3" id="lT5-mw-HQH"/>
+                    </connections>
                 </textField>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cWa-q1-HUw">
                     <rect key="frame" x="14" y="14" width="251" height="14"/>
@@ -45,5 +49,15 @@
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <point key="canvasLocation" x="39.855072463768117" y="387.72321428571428"/>
         </view>
+        <customObject id="9Xv-7X-0Y3" customClass="MaskedTextFieldDelegate" customModule="InputMask">
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="boolean" keyPath="autocomplete" value="YES"/>
+                <userDefinedRuntimeAttribute type="boolean" keyPath="autocompleteOnFocus" value="YES"/>
+                <userDefinedRuntimeAttribute type="string" keyPath="primaryMaskFormat" value="[…]"/>
+            </userDefinedRuntimeAttributes>
+            <connections>
+                <outlet property="delegate" destination="-1" id="98J-B8-M8p"/>
+            </connections>
+        </customObject>
     </objects>
 </document>

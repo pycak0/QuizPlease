@@ -74,6 +74,7 @@
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="title" value="Телефон капитана"/>
                                     <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="+7"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="inputMask" value="+7 ([000]) [000]-[00]-[00]"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>

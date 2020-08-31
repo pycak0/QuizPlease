@@ -45,3 +45,20 @@ extension Int {
         return result
     }
 }
+
+
+extension String {
+    //MARK:- Is Valid Email
+    var isValidEmail: Bool {
+        let list = self.map { String($0) }
+        guard let atSymbol = list.firstIndex(of: "@"),
+            let dotSymbol = list.lastIndex(of: ".") else {
+            return false
+        }
+
+        if !(atSymbol > 0 && atSymbol + 1 < dotSymbol) {
+            return false
+        }
+        return true
+    }
+}

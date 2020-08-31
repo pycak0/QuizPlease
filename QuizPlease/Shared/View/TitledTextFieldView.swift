@@ -7,14 +7,22 @@
 //
 
 import UIKit
+import InputMask
+
+protocol TitledTextFieldViewDelegate: class {
+    func textFieldView(_ textFieldView: TitledTextFieldView, didChangeTextField text: String, didCompleteMask isComplete: Bool)
+}
 
 //@IBDesignable
 class TitledTextFieldView: UIView {
     static let nibName = "TitledTextFieldView"
     
-    var contentView: UIView!
+    weak var delegate: TitledTextFieldViewDelegate?
+    
+    private var contentView: UIView!
     @IBOutlet weak var textField: UITextField!
-    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet private var listener: MaskedTextFieldDelegate!
+    @IBOutlet private weak var titleLabel: UILabel!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -49,6 +57,16 @@ class TitledTextFieldView: UIView {
     var placeholder: String = "Placeholder" {
         didSet {
             updateAppearance()
+        }
+    }
+    
+    ///Make sure that mask satisfies the syntax described here:
+    ///https://github.com/RedMadRobot/input-mask-ios/wiki/1.-Mask-Syntax
+    @IBInspectable
+    var inputMask: String = "[...]" {
+        didSet {
+            listener.primaryMaskFormat = inputMask
+            //listener.
         }
     }
     
@@ -114,6 +132,7 @@ class TitledTextFieldView: UIView {
                 
     }
     
+    //MARK:- Configure
     func configure() {
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(startEditing))
         self.addGestureRecognizer(tapRecognizer)
@@ -138,4 +157,13 @@ private extension TitledTextFieldView {
         contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
     }
     
+}
+
+
+//MARK:- MaskedTextFieldDelegateListener
+extension TitledTextFieldView: MaskedTextFieldDelegateListener {
+    func textField(_ textField: UITextField, didFillMandatoryCharacters complete: Bool, didExtractValue value: String) {
+        print(value)
+        delegate?.textFieldView(self, didChangeTextField: value, didCompleteMask: complete)
+    }
 }

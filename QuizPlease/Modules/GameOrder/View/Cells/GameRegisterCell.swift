@@ -69,7 +69,7 @@ class GameRegisterCell: UITableViewCell, GameOrderCellProtocol {
     
     func configureTextFields() {
         for (index, field) in (fieldsStack.arrangedSubviews as! [TitledTextFieldView]).enumerated() {
-            field.textField.delegate = self
+            field.delegate = self
             if let type = TextFieldType(rawValue: index) {
                 field.textField.textContentType = type.contentType
                 field.textField.autocapitalizationType = type.capitalizationType
@@ -77,7 +77,7 @@ class GameRegisterCell: UITableViewCell, GameOrderCellProtocol {
                 field.textField.returnKeyType = .done
             }
         }
-        feedbackFieldView.textField.delegate = self
+        feedbackFieldView.delegate = self
         feedbackFieldView.textField.autocapitalizationType = .sentences
         feedbackFieldView.textField.returnKeyType = .done
     }
@@ -109,13 +109,12 @@ class GameRegisterCell: UITableViewCell, GameOrderCellProtocol {
     
 }
 
-//MARK:- UITextFieldDelegate
-extension GameRegisterCell: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        true
+//MARK:- TitledTextFieldViewDelegate
+extension GameRegisterCell: TitledTextFieldViewDelegate {
+    func textFieldView(_ textFieldView: TitledTextFieldView, didChangeTextField text: String, didCompleteMask isComplete: Bool) {
+        //
     }
 }
-
 
 //MARK:- Text Field Types
 fileprivate enum TextFieldType: Int, CaseIterable {

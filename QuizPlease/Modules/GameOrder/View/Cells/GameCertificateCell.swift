@@ -42,14 +42,14 @@ class GameCertificateCell: UITableViewCell, TableCellProtocol {
     func configureTextField() {
         fieldView.textField.autocapitalizationType = .allCharacters
         fieldView.textField.returnKeyType = .done
-        fieldView.textField.delegate = self
+        fieldView.delegate = self
     }
     
 }
 
 
-extension GameCertificateCell: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        true
+extension GameCertificateCell: TitledTextFieldViewDelegate {
+    func textFieldView(_ textFieldView: TitledTextFieldView, didChangeTextField text: String, didCompleteMask isComplete: Bool) {
+        //
     }
 }

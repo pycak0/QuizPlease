@@ -85,6 +85,7 @@
 		A464370324EB37DB0033F23A /* ExpandingHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = A464370024EB37DB0033F23A /* ExpandingHeader.xib */; };
 		A464370424EB37DB0033F23A /* ExpandingHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A464370124EB37DB0033F23A /* ExpandingHeader.swift */; };
 		A464370524EB37DB0033F23A /* ExpandingHeaderTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A464370224EB37DB0033F23A /* ExpandingHeaderTextField.swift */; };
+		A468E12224FD0BE40083ADB2 /* InputMask in Frameworks */ = {isa = PBXBuildFile; productRef = A468E12124FD0BE40083ADB2 /* InputMask */; };
 		A469F75924E3084D007FB332 /* ScheduleGameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A469F75824E3084D007FB332 /* ScheduleGameCell.swift */; };
 		A46F303624F5284E0062A333 /* GamePaymentTypeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46F303424F5284E0062A333 /* GamePaymentTypeCell.swift */; };
 		A46F303724F5284E0062A333 /* GamePaymentTypeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A46F303524F5284E0062A333 /* GamePaymentTypeCell.xib */; };
@@ -301,6 +302,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A468E12224FD0BE40083ADB2 /* InputMask in Frameworks */,
 				A423AC2024EEBA0600071E68 /* BottomPopup in Frameworks */,
 				A4147AD524E596FC007C131F /* IQKeyboardManagerSwift in Frameworks */,
 			);
@@ -740,6 +742,7 @@
 			packageProductDependencies = (
 				A4147AD424E596FC007C131F /* IQKeyboardManagerSwift */,
 				A423AC1F24EEBA0600071E68 /* BottomPopup */,
+				A468E12124FD0BE40083ADB2 /* InputMask */,
 			);
 			productName = QuizPlease;
 			productReference = A40D815624D2C6C1006D2CE3 /* QuizPlease.app */;
@@ -772,6 +775,7 @@
 			packageReferences = (
 				A4147AD324E596FC007C131F /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 				A423AC1E24EEBA0600071E68 /* XCRemoteSwiftPackageReference "BottomPopup" */,
+				A468E12024FD0BE40083ADB2 /* XCRemoteSwiftPackageReference "input-mask-ios" */,
 			);
 			productRefGroup = A40D815724D2C6C1006D2CE3 /* Products */;
 			projectDirPath = "";
@@ -1146,6 +1150,14 @@
 				minimumVersion = 0.6.0;
 			};
 		};
+		A468E12024FD0BE40083ADB2 /* XCRemoteSwiftPackageReference "input-mask-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RedMadRobot/input-mask-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1158,6 +1170,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A423AC1E24EEBA0600071E68 /* XCRemoteSwiftPackageReference "BottomPopup" */;
 			productName = BottomPopup;
+		};
+		A468E12124FD0BE40083ADB2 /* InputMask */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A468E12024FD0BE40083ADB2 /* XCRemoteSwiftPackageReference "input-mask-ios" */;
+			productName = InputMask;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
