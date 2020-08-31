@@ -10,5 +10,5 @@ import Foundation
 
 struct CityResponse: Decodable {
     var data: [City]
-    //var count: String?
+    var count: String?
 }

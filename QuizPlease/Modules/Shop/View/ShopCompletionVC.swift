@@ -47,7 +47,7 @@ class ShopCompletionVC: UIViewController {
     @objc
     private func didPressFieldView() {
         guard !textFieldView.textField.isEnabled else { return }
-        showChooseTeamActionSheet(teamNames: ["game1", "game2"]) { (selectedName) in
+        showChooseItemActionSheet(itemNames: ["game1", "game2"]) { (selectedName, _) in
             self.textFieldView.textField.text = selectedName
         }
     }

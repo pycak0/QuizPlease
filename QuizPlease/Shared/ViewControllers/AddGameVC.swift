@@ -52,7 +52,7 @@ class AddGameVC: UIViewController {
     
     @objc
     private func didPressChooseTeam() {
-        showChooseTeamActionSheet(teamNames: ["team1", "team2"]) { [unowned self] (teamName) in
+        showChooseItemActionSheet(itemNames: ["team1", "team2"]) { [unowned self] (teamName, index) in
             self.chooseTeamView.textField.text = teamName
         }
     }

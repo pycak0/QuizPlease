@@ -9,6 +9,6 @@
 import Foundation
 
 enum SessionError: Error {
-    case invalidUrl, serverError, jsonError
+    case invalidUrl, jsonError, serverError(_ statusCode: Int)
     case other(Error)
 }

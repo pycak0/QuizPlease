@@ -67,19 +67,30 @@ extension RatingVC: RatingViewProtocol {
         refreshControl.addTarget(self, action: #selector(refreshControlTriggered), for: .valueChanged)
         tableView.refreshControl = refreshControl
         
-        expandingHeader.delegate = self
+        expandingHeader.configure(self, selectedScope: presenter.filter.scope.rawValue, selectedGameType: presenter.availableGameTypeNames.first!)
     }
     
 }
 
 //MARK:- ExpandingHeaderDelegate
 extension RatingVC: ExpandingHeaderDelegate {
+    func didPressGameTypeView(in expandingHeader: ExpandingHeader) {
+        showChooseItemActionSheet(itemNames: presenter.availableGameTypeNames) { [unowned self] (selectedName, index) in
+            expandingHeader.selectedGameTypeLabel.text = selectedName
+            self.presenter.didChangeLeague(index)
+        }
+    }
+    
     func expandingHeader(_ expandingHeader: ExpandingHeader, didChangeStateTo isExpanded: Bool) {
         tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .automatic)
     }
     
-    func expandingHeader(_ expandingHeader: ExpandingHeader, didChange selectedSegment: EHSelectedSegment) {
-        print("Did select \(selectedSegment.title)")
+    func expandingHeader(_ expandingHeader: ExpandingHeader, didChange selectedSegment: Int) {
+        presenter.didChangeRatingScope(selectedSegment)
+    }
+    
+    func expandingHeader(_ expandingHeader: ExpandingHeader, didEndSearchingWith query: String) {
+        presenter.didChangeTeamName(query)
     }
     
     func expandingHeader(_ expandingHeader: ExpandingHeader, didChange query: String) {

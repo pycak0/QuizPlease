@@ -93,12 +93,13 @@ extension UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    func showChooseTeamActionSheet(teamNames: [String], completion: ((_ selectedName: String) -> Void)?) {
+    func showChooseItemActionSheet(itemNames: [String], completion: ((_ selectedName: String, _ index: Int) -> Void)?) {
         var buttons = [UIAlertAction]()
-        for name in teamNames {
+        for name in itemNames {
             buttons.append(
                 UIAlertAction(title: name, style: .default) { (action) in
-                    completion?(name)
+                    let index = Int(itemNames.firstIndex(of: name)!)
+                    completion?(name, index)
                 }
             )
         }

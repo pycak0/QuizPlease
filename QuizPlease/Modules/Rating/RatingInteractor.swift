@@ -9,18 +9,13 @@
 import Foundation
 
 protocol RatingInteractorProtocol {
-    func loadRating(completion: @escaping (Result<[Team], Error>) -> Void)
+    func loadRating(with filter: RatingFilter, completion: @escaping (Result<[RatingItem], SessionError>) -> Void)
 }
 
 class RatingInteractor: RatingInteractorProtocol {
-    func loadRating(completion: @escaping (Result<[Team], Error>) -> Void) {
-        var teams = [Team]()
-        let amount = 15
-        for i in 0...amount {
-            teams.append(Team(name: "Name \(i)", games: amount - i, pointsTotal: 10 * amount - i))
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            completion(.success(teams))
+    func loadRating(with filter: RatingFilter, completion: @escaping (Result<[RatingItem], SessionError>) -> Void) {
+        NetworkService.shared.getRating(cityId: filter.city.id, teamName: filter.teamName, league: filter.league.rawValue, ratingScope: filter.scope.rawValue) { (serverResult) in
+            completion(serverResult)
         }
         
     }

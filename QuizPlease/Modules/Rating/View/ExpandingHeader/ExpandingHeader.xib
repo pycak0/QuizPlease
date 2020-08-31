@@ -23,6 +23,7 @@
                 <outlet property="gameTypesView" destination="309-PG-oHa" id="klT-a7-yF8"/>
                 <outlet property="searchField" destination="AT6-yv-NIU" id="NQI-u2-Hxt"/>
                 <outlet property="segmentControl" destination="6ah-IB-xhP" id="uS0-BT-Xxg"/>
+                <outlet property="selectedGameTypeLabel" destination="jf1-gA-6KV" id="58F-nA-mjy"/>
                 <outlet property="stackView" destination="jkm-3v-BIZ" id="Eqo-71-0Vv"/>
             </connections>
         </placeholder>

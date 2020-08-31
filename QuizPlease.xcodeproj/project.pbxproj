@@ -80,12 +80,13 @@
 		A452E3B224D428DA002EE514 /* ShopItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A452E3B024D428DA002EE514 /* ShopItemCell.xib */; };
 		A452E3B424D431C5002EE514 /* DataTypesExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A452E3B324D431C5002EE514 /* DataTypesExtensions.swift */; };
 		A46436E724EA7B120033F23A /* Gilroy-Heavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A46436E624EA7B110033F23A /* Gilroy-Heavy.ttf */; };
-		A46436E924EA7E590033F23A /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46436E824EA7E590033F23A /* Team.swift */; };
+		A46436E924EA7E590033F23A /* RatingItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46436E824EA7E590033F23A /* RatingItem.swift */; };
 		A46436ED24EAD24F0033F23A /* HBSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46436EC24EAD24F0033F23A /* HBSegmentedControl.swift */; };
 		A464370324EB37DB0033F23A /* ExpandingHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = A464370024EB37DB0033F23A /* ExpandingHeader.xib */; };
 		A464370424EB37DB0033F23A /* ExpandingHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A464370124EB37DB0033F23A /* ExpandingHeader.swift */; };
 		A464370524EB37DB0033F23A /* ExpandingHeaderTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A464370224EB37DB0033F23A /* ExpandingHeaderTextField.swift */; };
 		A468E12224FD0BE40083ADB2 /* InputMask in Frameworks */ = {isa = PBXBuildFile; productRef = A468E12124FD0BE40083ADB2 /* InputMask */; };
+		A468E12424FD37390083ADB2 /* RatingFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A468E12324FD37390083ADB2 /* RatingFilter.swift */; };
 		A469F75924E3084D007FB332 /* ScheduleGameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A469F75824E3084D007FB332 /* ScheduleGameCell.swift */; };
 		A46F303624F5284E0062A333 /* GamePaymentTypeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46F303424F5284E0062A333 /* GamePaymentTypeCell.swift */; };
 		A46F303724F5284E0062A333 /* GamePaymentTypeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A46F303524F5284E0062A333 /* GamePaymentTypeCell.xib */; };
@@ -226,11 +227,12 @@
 		A452E3B024D428DA002EE514 /* ShopItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShopItemCell.xib; sourceTree = "<group>"; };
 		A452E3B324D431C5002EE514 /* DataTypesExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTypesExtensions.swift; sourceTree = "<group>"; };
 		A46436E624EA7B110033F23A /* Gilroy-Heavy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-Heavy.ttf"; sourceTree = "<group>"; };
-		A46436E824EA7E590033F23A /* Team.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
+		A46436E824EA7E590033F23A /* RatingItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingItem.swift; sourceTree = "<group>"; };
 		A46436EC24EAD24F0033F23A /* HBSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HBSegmentedControl.swift; sourceTree = "<group>"; };
 		A464370024EB37DB0033F23A /* ExpandingHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExpandingHeader.xib; sourceTree = "<group>"; };
 		A464370124EB37DB0033F23A /* ExpandingHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpandingHeader.swift; sourceTree = "<group>"; };
 		A464370224EB37DB0033F23A /* ExpandingHeaderTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpandingHeaderTextField.swift; sourceTree = "<group>"; };
+		A468E12324FD37390083ADB2 /* RatingFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingFilter.swift; sourceTree = "<group>"; };
 		A469F75824E3084D007FB332 /* ScheduleGameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleGameCell.swift; sourceTree = "<group>"; };
 		A46F303424F5284E0062A333 /* GamePaymentTypeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePaymentTypeCell.swift; sourceTree = "<group>"; };
 		A46F303524F5284E0062A333 /* GamePaymentTypeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GamePaymentTypeCell.xib; sourceTree = "<group>"; };
@@ -633,13 +635,14 @@
 				A4068A0424F7DB49001273B2 /* ServerModels */,
 				A4B0753124DFDBFB007778A2 /* GameInfo.swift */,
 				A4147AD624E5B92D007C131F /* Place.swift */,
-				A46436E824EA7E590033F23A /* Team.swift */,
+				A46436E824EA7E590033F23A /* RatingItem.swift */,
 				A423AC1C24EE971100071E68 /* ShopItem.swift */,
 				A4FFA4AE24F3BD73006A1150 /* RegisterForm.swift */,
 				A4FFA4B024F3BE2A006A1150 /* PaymentType.swift */,
 				A48DFF7A24F4070200E47095 /* HomeGame.swift */,
 				A40689F824F7D11A001273B2 /* City.swift */,
 				A4D230A724F9203500524A01 /* WarmupQuestion.swift */,
+				A468E12324FD37390083ADB2 /* RatingFilter.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -854,6 +857,7 @@
 				A40B75A024D9A875006DB7D1 /* RatingRouter.swift in Sources */,
 				A419F2F224F003C9004A7997 /* ScalingButton.swift in Sources */,
 				A4FFA4AB24F3AB1A006A1150 /* GameOrderCellDelegates.swift in Sources */,
+				A468E12424FD37390083ADB2 /* RatingFilter.swift in Sources */,
 				A4D230A824F9203500524A01 /* WarmupQuestion.swift in Sources */,
 				A40689FB24F7D86F001273B2 /* NetworkService.swift in Sources */,
 				A40B759C24D9A868006DB7D1 /* RatingInteractor.swift in Sources */,
@@ -924,7 +928,7 @@
 				A44C697B24EFE70B00AB3BC9 /* RouterProtocol.swift in Sources */,
 				A40B758E24D9A820006DB7D1 /* HomeGamePresenter.swift in Sources */,
 				A40B75A224D9A880006DB7D1 /* RatingConfigurator.swift in Sources */,
-				A46436E924EA7E590033F23A /* Team.swift in Sources */,
+				A46436E924EA7E590033F23A /* RatingItem.swift in Sources */,
 				A40B758A24D9A806006DB7D1 /* WarmupConfigurator.swift in Sources */,
 				A423AC1D24EE971100071E68 /* ShopItem.swift in Sources */,
 				A4D230A624F91F0100524A01 /* QuestionPageVC.swift in Sources */,

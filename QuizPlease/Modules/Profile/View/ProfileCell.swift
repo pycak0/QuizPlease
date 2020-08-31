@@ -32,7 +32,7 @@ class ProfileCell: UITableViewCell, TableCellProtocol {
         pointsScoredLabel.layer.cornerRadius = pointsScoredLabel.bounds.height / 2
     }
     
-    func configure(game: GameInfo, team: Team, place: Int, pointsScored: Int) {
+    func configure(game: GameInfo, team: RatingItem, place: Int, pointsScored: Int) {
         gameNameLabel.text = game.name
         gameNumberLabel.text = "#\(game.gameNumber)"
         teamNameLabel.text = team.name

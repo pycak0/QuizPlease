@@ -136,6 +136,9 @@ class TitledTextFieldView: UIView {
     func configure() {
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(startEditing))
         self.addGestureRecognizer(tapRecognizer)
+        if inputMask != listener.primaryMaskFormat {
+            listener.primaryMaskFormat = inputMask
+        }
     }
     
     @objc

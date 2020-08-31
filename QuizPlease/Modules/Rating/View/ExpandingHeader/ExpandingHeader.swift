@@ -8,32 +8,20 @@
 
 import UIKit
 
-//MARK:- Selected Segment
-enum EHSelectedSegment: Int, CaseIterable {
-    case allTime, season
-    
-    var title: String {
-        switch self {
-        case .allTime:
-            return "За все время"
-        case .season:
-            return "За сезон"
-        }
-    }
-}
-
 //MARK:- Delegate Protocol
-protocol ExpandingHeaderDelegate: class {
+protocol ExpandingHeaderDelegate: class {        
+    ///Delegate must perform updating `selectedGameTypeLabel` with selected type name
+    func didPressGameTypeView(in expandingHeader: ExpandingHeader)
+    
     func expandingHeader(_ expandingHeader: ExpandingHeader, didChangeStateTo isExpanded: Bool)
     
-    func expandingHeader(_ expandingHeader: ExpandingHeader, didChange selectedSegment: EHSelectedSegment)
+    func expandingHeader(_ expandingHeader: ExpandingHeader, didChange selectedSegment: Int)
     
     func expandingHeader(_ expandingHeader: ExpandingHeader, didChange query: String)
     
-    //func expandingHeader(_ expandingHeader: ExpandingHeader, didEndSearchingWith query: String)
+    func expandingHeader(_ expandingHeader: ExpandingHeader, didEndSearchingWith query: String)
     
 }
-
 
 class ExpandingHeader: UIView {
     static let nibName = "ExpandingHeader"
@@ -43,18 +31,25 @@ class ExpandingHeader: UIView {
     
     weak var delegate: ExpandingHeaderDelegate?
     
-    @IBOutlet var contentView: UIView!
-    @IBOutlet weak var containerView: UIView!
-    @IBOutlet weak var expandView: UIView!
-    @IBOutlet weak var footLabel: UILabel!
-    @IBOutlet weak var stackView: UIStackView!
+    @IBOutlet private var contentView: UIView!
+    @IBOutlet private weak var containerView: UIView!
+    @IBOutlet private weak var expandView: UIView!
+    @IBOutlet private weak var footLabel: UILabel!
+    @IBOutlet private weak var stackView: UIStackView!
     
-    @IBOutlet weak var searchField: UITextField!
-    @IBOutlet weak var segmentControl: HBSegmentedControl!
-    @IBOutlet weak var gameTypesView: UIView!
-    @IBOutlet weak var collapseButton: UIButton!
+    @IBOutlet private weak var searchField: UITextField!
+    @IBOutlet private weak var segmentControl: HBSegmentedControl!
+    @IBOutlet private weak var gameTypesView: UIView!
+    @IBOutlet weak var selectedGameTypeLabel: UILabel!
+    @IBOutlet private weak var collapseButton: UIButton!
     
     unowned var gradientLayer: CAGradientLayer!
+    
+    public func configure(_ delegate: ExpandingHeaderDelegate?, selectedScope: Int, selectedGameType: String) {
+        self.delegate = delegate
+        segmentControl.selectedIndex = selectedScope
+        selectedGameTypeLabel.text = selectedGameType
+    }
     
     //MARK:- is Expanded
     public var isExpanded = false {
@@ -108,8 +103,7 @@ class ExpandingHeader: UIView {
     //MARK:- Segment Changed
     @objc
     private func segmentChanged() {
-        guard let selectedSegment = EHSelectedSegment(rawValue: segmentControl.selectedIndex) else { return }
-        delegate?.expandingHeader(self, didChange: selectedSegment)
+        delegate?.expandingHeader(self, didChange: segmentControl.selectedIndex)
     }
     
     //MARK:- Init
@@ -137,7 +131,7 @@ class ExpandingHeader: UIView {
         setExpanded(isExpanded)
     }
     
-    func configureViews() {
+    private func configureViews() {
         let itemsCornerRadius: CGFloat = 20
         let color = UIColor.plum.withAlphaComponent(0.5)
         
@@ -151,6 +145,9 @@ class ExpandingHeader: UIView {
         
         gameTypesView.layer.cornerRadius = itemsCornerRadius
         gameTypesView.backgroundColor = color
+        gameTypesView.addTapGestureRecognizer {
+            self.delegate?.didPressGameTypeView(in: self)
+        }
         
         setupGradient()
     }

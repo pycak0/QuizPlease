@@ -12,5 +12,11 @@ class Globals {
     private init() {}
     
     static let domain = "https://staging.quizplease.ru:81/"
-    static let baseUrl = URLComponents(string: Globals.domain)!
+    static var baseUrl: URLComponents {
+        var urlComps = URLComponents(string: Globals.domain)!
+        urlComps.queryItems = []
+        return urlComps
+    }
+    
+    static var defaultCity: City = City(id: 9, title: "Москва")
 }

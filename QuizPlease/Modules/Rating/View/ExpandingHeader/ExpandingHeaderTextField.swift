@@ -14,7 +14,7 @@ extension ExpandingHeader: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        //
+        delegate?.expandingHeader(self, didEndSearchingWith: textField.text ?? "")
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
