@@ -18,11 +18,11 @@ class TitleLabel: UILabel {
         fatalError("init(coder:) has not been implemented")
     }
     
-    convenience init(title: String, textColor: UIColor? = nil) {
+    convenience init(title: String, textColor: UIColor? = nil, textAlignment: NSTextAlignment = .left) {
         self.init()
         frame = CGRect(x: 0, y: 0, width: 1000, height: 22)
         font = UIFont(name: "Gilroy-Bold", size: 24)!
-        textAlignment = .left
+        self.textAlignment = textAlignment
         text = title
         if let color = textColor {
             self.textColor = color

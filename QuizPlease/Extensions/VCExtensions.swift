@@ -58,7 +58,7 @@ extension UIViewController {
     }
     
     //MARK:- Prepare Navigation Bar
-    func prepareNavigationBar(title: String? = nil, tintColor: UIColor? = nil, barTintColor: UIColor? = nil) {
+    func prepareNavigationBar(title: String? = nil, titleAlignment: NSTextAlignment = .left, tintColor: UIColor? = nil, barTintColor: UIColor? = nil) {
         navigationController?.navigationBar.barTintColor = barTintColor ?? view.backgroundColor
         navigationController?.navigationBar.shadowImage = UIImage()
         
@@ -66,7 +66,7 @@ extension UIViewController {
             navigationController?.navigationBar.tintColor = color
         }
         navigationItem.titleView = TitleLabel(title: title ?? navigationItem.title ?? "",
-                                              textColor: tintColor)
+                                              textColor: tintColor, textAlignment: titleAlignment)
     }
     
     var navBarHeight: CGFloat {
