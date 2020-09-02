@@ -99,21 +99,21 @@ class TitledTextFieldView: UIView {
     }
     
     @IBInspectable
-    var borderColor: UIColor = UIColor.lightGray.withAlphaComponent(0.3) {
+    var viewBorderColor: UIColor = UIColor.lightGray.withAlphaComponent(0.3) {
         didSet {
             updateAppearance()
         }
     }
     
     @IBInspectable
-    var borderWidth: CGFloat = 2 {
+    var viewBorderWidth: CGFloat = 2 {
         didSet {
             updateAppearance()
         }
     }
     
     @IBInspectable
-    var cornerRadius: CGFloat = 20 {
+    var viewCornerRadius: CGFloat = 20 {
         didSet {
             updateAppearance()
         }
@@ -122,10 +122,10 @@ class TitledTextFieldView: UIView {
     func updateAppearance() {
         titleLabel.text = title
         textField.placeholder = placeholder
-        layer.borderColor = borderColor.cgColor
-        layer.borderWidth = borderWidth
-        layer.cornerRadius = cornerRadius
-        layer.masksToBounds = cornerRadius > 0
+        layer.borderColor = viewBorderColor.cgColor
+        layer.borderWidth = viewBorderWidth
+        layer.cornerRadius = viewCornerRadius
+        layer.masksToBounds = viewCornerRadius > 0
         
         titleLabel.font = titleFontName != nil ? UIFont(name: titleFontName!, size: titleFontSize) : .systemFont(ofSize: titleFontSize, weight: .semibold)
         textField.font = textFontName != nil ? UIFont(name: textFontName!, size: textFontSize) : .systemFont(ofSize: textFontSize, weight: .semibold)

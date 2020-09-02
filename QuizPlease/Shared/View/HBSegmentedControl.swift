@@ -37,8 +37,8 @@ import UIKit
         didSet { setSelectedColors() }
     }
     
-    @IBInspectable public var borderColor: UIColor = UIColor.white {
-        didSet { layer.borderColor = borderColor.cgColor }
+    @IBInspectable public var controlBorderColor: UIColor = UIColor.white {
+        didSet { layer.borderColor = controlBorderColor.cgColor }
     }
     
     @IBInspectable public var font: UIFont? = UIFont.systemFont(ofSize: 12) {
@@ -49,10 +49,10 @@ import UIKit
         didSet { setupLabels() }
     }
     
-    public var cornerRadius: CGFloat = 20 {
+    public var controlCornerRadius: CGFloat = 20 {
         didSet {
-            layer.cornerRadius = cornerRadius
-            thumbView.layer.cornerRadius = cornerRadius
+            layer.cornerRadius = controlCornerRadius
+            thumbView.layer.cornerRadius = controlCornerRadius
         }
     }
     
@@ -73,7 +73,7 @@ import UIKit
     }
     
     private func setupView() {
-        layer.cornerRadius = cornerRadius
+        layer.cornerRadius = controlCornerRadius
         layer.borderColor = UIColor(white: 1.0, alpha: 0.5).cgColor
         layer.borderWidth = 2
         
@@ -112,7 +112,7 @@ import UIKit
             label.textColor = selectedLabelColor
             thumbView.frame = label.frame
             thumbView.backgroundColor = thumbColor
-            thumbView.layer.cornerRadius = cornerRadius
+            thumbView.layer.cornerRadius = controlCornerRadius
             displayNewSelectedIndex()
         }
     }
