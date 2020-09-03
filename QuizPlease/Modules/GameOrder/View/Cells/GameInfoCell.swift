@@ -50,7 +50,7 @@ class GameInfoCell: UITableViewCell, GameOrderCellProtocol {
     func configure(with info: GameInfo) {
         priceLabel.text = "\(info.price) ₽ с человека"
         timeLabel.text = "в \(info.time)"
-        placeNameLabel.text = info.place.name
+        placeNameLabel.text = info.place.title
         placeAddressLabel.text = info.place.address
                 
         mapView.centerToAddress(info.place.address, regionRadius: 300, animated: false)

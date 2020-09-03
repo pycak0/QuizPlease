@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol PickCityVCDelegate: class {
+    func didPick(_ city: City)
+}
+
 class PickCityVC: UITableViewController {
 
     override func viewDidLoad() {

@@ -37,11 +37,11 @@ class FiltersVC: BottomPopupViewController {
     
     weak var delegate: FiltersVCDelegate?
     
-    var dates = [String]()
-    var statuses = [String]()
+    var dates: [ScheduleDate]?
+    var statuses: [ScheduleStatus]?
     var formats = [String]()
-    var gameTypes = [String]()
-    var bars = [String]()
+    var gameTypes: [GameType]?
+    var bars: [SchedulePlace]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,8 +66,12 @@ class FiltersVC: BottomPopupViewController {
         view.blurView.setupPopupBlur()
         //view.addBlur(color: UIColor.middleBlue.withAlphaComponent(0.4))
         
+        addActions()
+    }
+    
+    func addActions() {
         cityFilterView.addTapGestureRecognizer {
-            //load values and show alert/picker
+            
         }
         dateFilterView.addTapGestureRecognizer {
             
@@ -80,6 +84,25 @@ class FiltersVC: BottomPopupViewController {
         }
         barFilterView.addTapGestureRecognizer {
         }
+    }
+    
+    private func loadFilters<T: ScheduleFilter>(_ type: T.Type, completion: @escaping ([T]?) -> Void) {
+        NetworkService.shared.getFilterOptions(type) { serverResult in
+            switch serverResult {
+            case let .failure(error):
+                print(error)
+                completion(nil)
+            case let .success(filterValues):
+                completion(filterValues)
+            }
+        }
+    }
+    
+    func loadAllFilters() {
+        loadFilters(GameType.self) { [weak self] in self?.gameTypes = $0 }
+        loadFilters(ScheduleStatus.self) { [weak self] in self?.statuses = $0 }
+        loadFilters(SchedulePlace.self) { [weak self] in self?.bars = $0 }
+        loadFilters(ScheduleDate.self) { [weak self] in self?.dates = $0 }
     }
     
     

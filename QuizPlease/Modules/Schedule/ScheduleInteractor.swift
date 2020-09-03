@@ -36,7 +36,7 @@ class ScheduleInteractor: ScheduleInteractorProtocol {
     }
     
     func openInMaps(place: Place) {
-        MapService.openMap(for: place.name, withAddress: place.address)
+        MapService.openMap(for: place.title!, withAddress: place.address)
     }
     
 }

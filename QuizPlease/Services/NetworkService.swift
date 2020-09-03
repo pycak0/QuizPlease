@@ -47,15 +47,13 @@ class NetworkService {
         
     }
     
-    //MARK:- Available Time
+    //MARK:- Get Filter Options
     ///Used for filtering schedule
-    func getFilterList(_ type: ScheduleFilterType, completion: @escaping (Result<[String], SessionError>) -> Void) {
-        var timeUrlComponents = Globals.baseUrl
-        timeUrlComponents.path = "/api/game/\(type.rawValue)"
+    func getFilterOptions<FilterType: ScheduleFilter>(_ type: FilterType.Type, completion: @escaping (Result<[FilterType], SessionError>) -> Void) {
+        var filterUrlComponents = Globals.baseUrl
+        filterUrlComponents.path = "/api/game/\(type.apiName)"
+        get([FilterType].self, urlComponents: filterUrlComponents) { completion($0) }
         
-        get([String].self, urlComponents: timeUrlComponents) { (getResult) in
-            completion(getResult)
-        }
     }
     
     //MARK:- Get Request
