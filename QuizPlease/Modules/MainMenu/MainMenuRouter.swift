@@ -11,7 +11,7 @@ import UIKit
 protocol MainMenuRouterProtocol: RouterProtocol {
     //var viewController: MainMenuVC? { get set }
     func showMenuSection(_ kind: MenuItemProtocol, sender: Any?)
-    func showChooseCityScreen()
+    func showChooseCityScreen(_ selectedCity: City)
     func showQRScanner()
     func showAddGameScreen(_ info: String)
 }
@@ -37,14 +37,21 @@ class MainMenuRouter: MainMenuRouterProtocol {
                 fatalError("Incorrect Data passed when showing AddGameVC from MainMenuVC")
             }
             vc.gameName = info
-            
+        case "PickCityMenu":
+            guard let navC = segue.destination as? UINavigationController,
+                let vc = navC.viewControllers.first as? PickCityVC,
+                let city = sender as? City else {
+                fatalError("Incorrect Data passed when showing PickCityVC from MainMenuVC")
+            }
+            vc.selectedCity = city
+            vc.delegate = viewController as? PickCityVCDelegate
         default:
             print("no preparations made for segue with id '\(String(describing: segue.identifier))'")
         }
     }
     
-    func showChooseCityScreen() {
-        print("Choosing city is not implemented")
+    func showChooseCityScreen(_ selectedCity: City) {
+        viewController?.performSegue(withIdentifier: "PickCityMenu", sender: selectedCity)
     }
     
     func showQRScanner() {

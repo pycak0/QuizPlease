@@ -89,6 +89,13 @@ extension MainMenuVC: MainMenuViewProtocol {
     
 }
 
+extension MainMenuVC: PickCityVCDelegate {
+    func didPick(_ city: City) {
+        cityButton.setTitle(city.title, for: .normal)
+        presenter.didChangeDefaultCity(city)
+    }
+}
+
 //MARK:- MenuProfileCellDelegate
 extension MainMenuVC: MenuProfileCellDelegate {
     func addGameButtonPressed(in cell: MenuProfileCell) {

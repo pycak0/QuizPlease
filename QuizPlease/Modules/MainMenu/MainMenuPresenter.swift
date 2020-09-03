@@ -16,6 +16,7 @@ protocol MainMenuPresenterProtocol: class {
     func configureViews()
     func didSelectMenuItem(at index: Int)
     func didSelectCityButton()
+    func didChangeDefaultCity(_ newCity: City)
     func didPressAddGame()
     func didAddNewGame(with info: String)
 }
@@ -54,7 +55,11 @@ class MainMenuPresenter: MainMenuPresenterProtocol {
     }
     
     func didSelectCityButton() {
-        router.showChooseCityScreen()
+        router.showChooseCityScreen(Globals.defaultCity)
+    }
+    
+    func didChangeDefaultCity(_ newCity: City) {
+        Globals.defaultCity = newCity
     }
     
     func didPressAddGame() {
