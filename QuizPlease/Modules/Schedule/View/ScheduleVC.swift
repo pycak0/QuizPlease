@@ -33,7 +33,7 @@ class ScheduleVC: UIViewController {
     }
     
     @IBAction func filtersButtonPressed(_ sender: Any) {
-        performSegue(withIdentifier: "ShowFilters", sender: nil)
+        presenter.didPressFilterButton()
     }
     
 }

@@ -12,6 +12,7 @@ protocol MainMenuViewProtocol: UIViewController {
     var configurator: MainMenuConfiguratorProtocol { get }
     var presenter: MainMenuPresenterProtocol! { get set }    
     func configureTableView()
+    func updateCityName(with name: String)
     func reloadMenuItems()
     func failureLoadingMenuItems(_ error: Error)
     
@@ -79,6 +80,10 @@ extension MainMenuVC: MainMenuViewProtocol {
         tableView.register(UINib(nibName: MenuShopCell.identifier, bundle: nil), forCellReuseIdentifier: MenuShopCell.identifier)
     }
     
+    func updateCityName(with name: String) {
+        cityButton.setTitle(name, for: .normal)
+    }
+    
     func failureLoadingMenuItems(_ error: Error) {
         showErrorConnectingToServerAlert()
     }
@@ -91,7 +96,6 @@ extension MainMenuVC: MainMenuViewProtocol {
 
 extension MainMenuVC: PickCityVCDelegate {
     func didPick(_ city: City) {
-        cityButton.setTitle(city.title, for: .normal)
         presenter.didChangeDefaultCity(city)
     }
 }

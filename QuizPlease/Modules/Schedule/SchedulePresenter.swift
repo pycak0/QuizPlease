@@ -13,6 +13,7 @@ protocol SchedulePresenterProtocol: class {
     init(view: ScheduleViewProtocol, interactor: ScheduleInteractorProtocol, router: ScheduleRouterProtocol)
     
     var games: [GameInfo]? { get set }
+    var scheduleFilter: ScheduleFilter { get set }
     
     func configureViews()
     func didSignUp(forGameAt index: Int)
@@ -20,8 +21,8 @@ protocol SchedulePresenterProtocol: class {
     func didAskNotification(forGameAt index: Int)
     func didAskLocation(forGameAt index: Int)
     
-    //MARK:- Need to Create a data structure for filters
-    func didChangeScheduleFilter(newFilter: Any?)
+    func didPressFilterButton()
+    func didChangeScheduleFilter(newFilter: ScheduleFilter)
     
 }
 
@@ -39,18 +40,12 @@ class SchedulePresenter: SchedulePresenterProtocol {
     
     var games: [GameInfo]?
     
+    var scheduleFilter = ScheduleFilter()
+    
     func configureViews() {
         view?.configureTableView()
         
-        interactor.loadSchedule { (result) in
-            switch result {
-            case.failure(let error):
-                print(error)
-            case .success(let schedule):
-                self.games = schedule
-                self.view?.reloadScheduleList()
-            }
-        }
+        updateSchedule()
     }
     
     func didSignUp(forGameAt index: Int) {
@@ -74,8 +69,26 @@ class SchedulePresenter: SchedulePresenterProtocol {
         print("did press notification button")
     }
     
-    func didChangeScheduleFilter(newFilter: Any?) {
-        print("did change filter")
+    func didPressFilterButton() {
+        router.showScheduleFilters(with: scheduleFilter)
+    }
+    
+    func didChangeScheduleFilter(newFilter: ScheduleFilter) {
+        scheduleFilter = newFilter
+        updateSchedule()
+    }
+    
+    private func updateSchedule() {
+        interactor.loadSchedule(filter: scheduleFilter) { [weak self] (result) in
+            guard let self = self else { return }
+            switch result {
+            case.failure(let error):
+                print(error)
+            case .success(let schedule):
+                self.games = schedule
+                self.view?.reloadScheduleList()
+            }
+        }
     }
     
 }

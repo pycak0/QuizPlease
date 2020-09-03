@@ -9,14 +9,14 @@
 import Foundation
 
 protocol ScheduleInteractorProtocol: class {
-    func loadSchedule(completion: @escaping (Result<[GameInfo]?, Error>) -> Void)
+    func loadSchedule(filter: ScheduleFilter, completion: @escaping (Result<[GameInfo]?, Error>) -> Void)
     
     func openInMaps(placeName: String, withLongitutde lon: Double, andLatitude lat: Double)
     func openInMaps(place: Place)
 }
 
 class ScheduleInteractor: ScheduleInteractorProtocol {
-    func loadSchedule(completion: @escaping (Result<[GameInfo]?, Error>) -> Void) {
+    func loadSchedule(filter: ScheduleFilter, completion: @escaping (Result<[GameInfo]?, Error>) -> Void) {
         var games = [GameInfo]()
         games.insert(GameInfo(id: 11, gameNumber: 62, name: "[Кино и музыка]",
                               place: Place(name: "Chesterfield Bar",

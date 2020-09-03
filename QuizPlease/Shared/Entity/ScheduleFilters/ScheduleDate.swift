@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct ScheduleDate: ScheduleFilter {
+struct ScheduleDate: ScheduleFilterProtocol {
     static let apiName = "months"
     
     var item: String

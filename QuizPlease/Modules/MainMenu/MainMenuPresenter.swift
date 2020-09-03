@@ -36,6 +36,7 @@ class MainMenuPresenter: MainMenuPresenterProtocol {
     
     func configureViews() {
         view?.configureTableView()
+        view?.updateCityName(with: Globals.defaultCity.title)
         
         //MARK:- Make sure that interactor clouse is being called on main thread
         interactor.loadMenuItems { result in
@@ -60,6 +61,7 @@ class MainMenuPresenter: MainMenuPresenterProtocol {
     
     func didChangeDefaultCity(_ newCity: City) {
         Globals.defaultCity = newCity
+        view?.updateCityName(with: newCity.title)
     }
     
     func didPressAddGame() {

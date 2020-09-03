@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Gilroy-Bold.ttf">
+            <string>Gilroy-Bold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FilterView" customModule="QuizPlease" customModuleProvider="target">
+            <connections>
+                <outlet property="backgroundView" destination="2VI-7k-Iks" id="phO-i6-18X"/>
+                <outlet property="contentView" destination="iN0-l3-epB" id="MA5-hR-fne"/>
+                <outlet property="expandImageView" destination="0yl-Ts-11T" id="icZ-FS-TiT"/>
+                <outlet property="titleLabel" destination="BYU-rf-HAH" id="lyI-C8-xUP"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2VI-7k-Iks">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                    <subviews>
+                        <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Все форматы" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BYU-rf-HAH">
+                            <rect key="frame" x="16" y="0.0" width="252" height="50"/>
+                            <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="16"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowDown" translatesAutoresizingMaskIntoConstraints="NO" id="0yl-Ts-11T">
+                            <rect key="frame" x="284" y="15" width="20" height="20"/>
+                            <color key="tintColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="0yl-Ts-11T" secondAttribute="height" multiplier="1:1" id="2CI-vH-5jn"/>
+                            </constraints>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="BYU-rf-HAH" secondAttribute="bottom" id="1Q3-la-Rm4"/>
+                        <constraint firstAttribute="trailing" secondItem="0yl-Ts-11T" secondAttribute="trailing" constant="16" id="6YV-6k-77c"/>
+                        <constraint firstItem="BYU-rf-HAH" firstAttribute="leading" secondItem="2VI-7k-Iks" secondAttribute="leading" constant="16" id="U4K-Y8-4wB"/>
+                        <constraint firstItem="0yl-Ts-11T" firstAttribute="centerY" secondItem="2VI-7k-Iks" secondAttribute="centerY" id="Xte-gy-yJ8"/>
+                        <constraint firstItem="0yl-Ts-11T" firstAttribute="leading" secondItem="BYU-rf-HAH" secondAttribute="trailing" constant="16" id="igP-zA-sjt"/>
+                        <constraint firstItem="BYU-rf-HAH" firstAttribute="top" secondItem="2VI-7k-Iks" secondAttribute="top" id="nM3-Ag-bRi"/>
+                    </constraints>
+                    <viewLayoutGuide key="safeArea" id="GfP-1b-Aa4"/>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="2VI-7k-Iks" secondAttribute="bottom" id="48X-Zp-Jbs"/>
+                <constraint firstItem="2VI-7k-Iks" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="7Kj-8W-Tfn"/>
+                <constraint firstItem="2VI-7k-Iks" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="AJi-TQ-hrZ"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="2VI-7k-Iks" secondAttribute="trailing" id="xcD-Zo-GFk"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="69.565217391304358" y="332.8125"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="arrowDown" width="20" height="12"/>
+    </resources>
+</document>

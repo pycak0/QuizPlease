@@ -10,6 +10,7 @@ import UIKit
 
 protocol ScheduleRouterProtocol: RouterProtocol {
     func showGameInfo(_ sender: GameInfoPresentAttributes)
+    func showScheduleFilters(with filterInfo: ScheduleFilter)
 }
 
 struct GameInfoPresentAttributes {
@@ -32,6 +33,10 @@ class ScheduleRouter: ScheduleRouterProtocol {
                 let vc = segue.destination as? GameOrderVC else { return }
             
             vc.configurator.configure(vc, withGameInfo: gameInfo)
+        case "ShowFilters":
+            guard let vc = segue.destination as? FiltersVC,
+                let filter = sender as? ScheduleFilter else { return }
+            vc.filter = filter
         default:
             print("Unknown segue")
         }
@@ -39,6 +44,10 @@ class ScheduleRouter: ScheduleRouterProtocol {
     
     func showGameInfo(_ sender: GameInfoPresentAttributes) {
         viewController?.performSegue(withIdentifier: "ShowGameInfo", sender: sender)
+    }
+    
+    func showScheduleFilters(with filterInfo: ScheduleFilter) {
+        viewController?.performSegue(withIdentifier: "ShowFilters", sender: filterInfo)
     }
     
 }

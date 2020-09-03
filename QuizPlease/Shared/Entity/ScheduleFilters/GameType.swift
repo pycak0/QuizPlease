@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct GameType: ScheduleFilter {
+struct GameType: ScheduleFilterProtocol {
     static let apiName = "types"
     
     var id: Int

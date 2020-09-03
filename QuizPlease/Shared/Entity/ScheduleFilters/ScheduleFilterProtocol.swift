@@ -1,5 +1,5 @@
 //
-//  ScheduleStatus.swift
+//  ScheduleFilterProtocol.swift
 //  QuizPlease
 //
 //  Created by Владислав on 03.09.2020.
@@ -8,8 +8,6 @@
 
 import Foundation
 
-struct ScheduleStatus: ScheduleFilterProtocol {
-    static let apiName: String = "statuses"
-        
-    var item: String
+protocol ScheduleFilterProtocol: Decodable {
+    static var apiName: String { get }
 }

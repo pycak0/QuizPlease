@@ -49,7 +49,7 @@ class NetworkService {
     
     //MARK:- Get Filter Options
     ///Used for filtering schedule
-    func getFilterOptions<FilterType: ScheduleFilter>(_ type: FilterType.Type, completion: @escaping (Result<[FilterType], SessionError>) -> Void) {
+    func getFilterOptions<FilterType: ScheduleFilterProtocol>(_ type: FilterType.Type, completion: @escaping (Result<[FilterType], SessionError>) -> Void) {
         var filterUrlComponents = Globals.baseUrl
         filterUrlComponents.path = "/api/game/\(type.apiName)"
         get([FilterType].self, urlComponents: filterUrlComponents) { completion($0) }

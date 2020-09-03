@@ -40,7 +40,7 @@ class PickCityVC: UITableViewController {
     }
     
     func reloadDataAndSelect() {
-        if let index = cities.firstIndex(where: { selectedCity.id == $0.id }) {
+        if let index = cities.firstIndex(where: { selectedCity?.id == $0.id }) {
             cities.remove(at: index)
             cities.insert(self.selectedCity, at: 0)
             tableView.reloadData()
