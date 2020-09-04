@@ -36,6 +36,7 @@ class ScheduleRouter: ScheduleRouterProtocol {
         case "ShowFilters":
             guard let vc = segue.destination as? FiltersVC,
                 let filter = sender as? ScheduleFilter else { return }
+            vc.delegate = viewController as? FiltersVCDelegate
             vc.filter = filter
         default:
             print("Unknown segue")

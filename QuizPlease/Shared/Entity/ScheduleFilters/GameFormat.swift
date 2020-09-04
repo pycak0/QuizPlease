@@ -11,7 +11,10 @@ import Foundation
 enum GameFormat: Int, Decodable, ScheduleFilterProtocol, CaseIterable {
     static let apiName = "format"
     
-    case offline, online, all
+    case offline, online
+    
+    ///Do not assign to this case. It is used for system purposes
+    case all
     
     var title: String {
         switch self {

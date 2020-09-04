@@ -10,5 +10,6 @@ import Foundation
 
 enum SessionError: Error {
     case invalidUrl, jsonError, serverError(_ statusCode: Int)
+    case decoding(Error)
     case other(Error)
 }

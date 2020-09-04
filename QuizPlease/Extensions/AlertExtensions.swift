@@ -39,7 +39,7 @@ extension UIViewController {
     
     //MARK:- Show Action Sheet With Configurable Option
     ///Cancel button is set by default
-    func showActionSheetWithOptions(title: String?, buttons: [UIAlertAction], buttonTextAligment: CATextLayerAlignmentMode = .center, cancelTitle: String = "Отмена", tintColor: UIColor = .labelAdapted) {
+    func showActionSheetWithOptions(title: String?, buttons: [UIAlertAction], buttonTextAligment: CATextLayerAlignmentMode = .center, cancelTitle: String = "Отмена", tintColor: UIColor? = .labelAdapted) {
         let alert = UIAlertController(title: title, message: nil, preferredStyle: .actionSheet)
         alert.view.tintColor = tintColor
         
@@ -93,7 +93,7 @@ extension UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    func showChooseItemActionSheet(itemNames: [String], completion: ((_ selectedName: String, _ index: Int) -> Void)?) {
+    func showChooseItemActionSheet(itemNames: [String], tintColor: UIColor? = .labelAdapted, completion: ((_ selectedName: String, _ index: Int) -> Void)?) {
         var buttons = [UIAlertAction]()
         for name in itemNames {
             buttons.append(
@@ -103,15 +103,16 @@ extension UIViewController {
                 }
             )
         }
-        showActionSheetWithOptions(title: nil, buttons: buttons)
+        showActionSheetWithOptions(title: nil, buttons: buttons, tintColor: tintColor)
     }
     
     func showPickerSheet(_ title: String, with values: [String], selectedIndex: Int,
                          cancelButtonTitle: String = "Готово",
                          handler: @escaping (_ selectedIndex: Int) -> Void) {
         let alert = UIAlertController(style: .actionSheet, title: title, message: nil)
-        alert.view.tintColor = .labelAdapted
-        alert.addPickerView(values: [values], initialSelection: (column: 0, row: 1)) { (_, picker, _, _) in
+        //works incorrect
+        //alert.view.tintColor = .labelAdapted
+        alert.addPickerView(values: [values], initialSelection: (column: 0, row: selectedIndex)) { (_, picker, _, _) in
             handler(picker.selectedRow(inComponent: 0))
         }
         alert.addAction(title: cancelButtonTitle, style: .cancel)

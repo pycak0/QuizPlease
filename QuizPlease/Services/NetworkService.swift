@@ -134,7 +134,7 @@ class NetworkService {
                 }
             } catch {
                 DispatchQueue.main.async {
-                    completion(.failure(.other(error)))
+                    completion(.failure(.decoding(error)))
                 }
             }
             

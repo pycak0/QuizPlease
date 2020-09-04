@@ -795,6 +795,9 @@
 		A4B828E224D8322B00D77E67 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
+				A4D498CA2502648D00CB70EE /* ScheduledGame */,
+				A4B2C3E125013DC3008D5175 /* ScheduleFilters */,
+				A4B2C3E225013DD5008D5175 /* City */,
 				A40689FE24F7D94B001273B2 /* Globals.swift */,
 				A4068A0024F7DAE2001273B2 /* ServerResponse.swift */,
 				A40689FC24F7D913001273B2 /* SessionError.swift */,
@@ -806,9 +809,6 @@
 				A48DFF7A24F4070200E47095 /* HomeGame.swift */,
 				A4D230A724F9203500524A01 /* WarmupQuestion.swift */,
 				A468E12324FD37390083ADB2 /* RatingFilter.swift */,
-				A4B2C3E225013DD5008D5175 /* City */,
-				A4D498CA2502648D00CB70EE /* ScheduledGame */,
-				A4B2C3E125013DC3008D5175 /* ScheduleFilters */,
 			);
 			path = Entity;
 			sourceTree = "<group>";

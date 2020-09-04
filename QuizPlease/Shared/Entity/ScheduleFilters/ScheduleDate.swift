@@ -11,5 +11,6 @@ import Foundation
 struct ScheduleDate: ScheduleFilterProtocol {
     static let apiName = "months"
     
-    var item: String
+    var id: Int
+    var title: String
 }

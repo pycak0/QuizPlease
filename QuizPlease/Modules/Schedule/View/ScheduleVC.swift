@@ -11,9 +11,12 @@ import UIKit
 protocol ScheduleViewProtocol: UIViewController {
     var configarator: ScheduleConfiguratorProtocol { get }
     var presenter: SchedulePresenterProtocol! { get set }
+    
     func reloadScheduleList()
     func reloadGame(at index: Int)
     func endLoadingAnimation()
+    func showNoGamesScheduled()
+    
     func configureTableView()
 }
 
@@ -47,10 +50,12 @@ class ScheduleVC: UIViewController {
 //MARK:- View Protocol
 extension ScheduleVC: ScheduleViewProtocol {
     func reloadScheduleList() {
+        tableView.isHidden = false
         tableView.reloadData()
     }
     
     func reloadGame(at index: Int) {
+        tableView.isHidden = false
         tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .fade)
     }
     
@@ -66,6 +71,20 @@ extension ScheduleVC: ScheduleViewProtocol {
         
     }
     
+    func showNoGamesScheduled() {
+        tableView.isHidden = true
+    }
+    
+}
+
+extension ScheduleVC: FiltersVCDelegate {
+    func didChangeFilter(_ newFilter: ScheduleFilter) {
+        presenter.didChangeScheduleFilter(newFilter: newFilter)
+    }
+    
+    func didEndEditingFilters() {
+        //
+    }
 }
 
 

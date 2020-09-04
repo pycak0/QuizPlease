@@ -13,7 +13,7 @@ import BottomPopup
 protocol FiltersVCDelegate: class {
     func didChangeFilter(_ newFilter: ScheduleFilter)
     
-    func didResetFilter()
+    //func didResetFilter()
     
     func didEndEditingFilters()
 }
@@ -98,21 +98,28 @@ class FiltersVC: BottomPopupViewController {
         }
         dateFilterView.addTapGestureRecognizer {
             guard let dates = self.dates else { return }
-            let dateNames = ["Все время"] + dates.map { $0.item }
+            let dateNames = dates.map { $0.title }
             var selectedIndex = 0
-            if let index = dateNames.firstIndex(of: self.filter.date?.item ?? "") { selectedIndex = index }
+            if let index = dateNames.firstIndex(of: self.filter.date?.title ?? "") { selectedIndex = index }
             self.showPickerSheet("Выберите время", with: dateNames, selectedIndex: selectedIndex) { [weak self] (selectedIndex) in
                 guard let self = self else { return }
-                self.filter.date = selectedIndex == 0 ? nil : dates[selectedIndex - 1]
+                self.filter.date = dates[selectedIndex]
                 self.updateUI()
                 self.delegate?.didChangeFilter(self.filter)
             }
         }
         statusFilterView.addTapGestureRecognizer {
+            guard let statuses = self.statuses else { return }
+            let statusNames = ["Все игры"] + statuses.map { $0.title }
+            self.showChooseItemActionSheet(itemNames: statusNames, tintColor: .darkBlue) { [unowned self] (item, selectedIndex) in
+                self.filter.status = selectedIndex == 0 ? nil : statuses[selectedIndex - 1]
+                self.updateUI()
+                self.delegate?.didChangeFilter(self.filter)
+            }
         }
         formatFilterView.addTapGestureRecognizer {
             let formats = GameFormat.allCases.map { $0.title }
-            self.showChooseItemActionSheet(itemNames: formats) { [weak self] (item, selectedIndex) in
+            self.showChooseItemActionSheet(itemNames: formats, tintColor: .darkBlue) { [weak self] (item, selectedIndex) in
                 guard let self = self else { return }
                 let newFormat = GameFormat.allCases[selectedIndex]
                 self.filter.format = newFormat
@@ -121,8 +128,24 @@ class FiltersVC: BottomPopupViewController {
             }
         }
         gameTypeFilterView.addTapGestureRecognizer {
+            guard let types = self.gameTypes else { return }
+            let typeNames = types.map { $0.title }
+            self.showChooseItemActionSheet(itemNames: typeNames, tintColor: .darkBlue) { [weak self] (item, selectedIndex) in
+                guard let self = self else { return }
+                self.filter.type = types[selectedIndex]
+                self.updateUI()
+                self.delegate?.didChangeFilter(self.filter)
+            }
         }
         barFilterView.addTapGestureRecognizer {
+            guard let bars = self.bars else { return }
+            let barNames = ["Все бары"] + bars.map { $0.title }
+            self.showPickerSheet("Выберите место", with: barNames, selectedIndex: 0) { [weak self] (selectedIndex) in
+                guard let self = self else { return }
+                self.filter.place = selectedIndex == 0 ? nil : bars[selectedIndex - 1]
+                self.updateUI()
+                self.delegate?.didChangeFilter(self.filter)
+            }
         }
     }
     
@@ -149,8 +172,8 @@ class FiltersVC: BottomPopupViewController {
     //MARK:- Update UI
     private func updateUI() {
         cityFilterView.title = filter.city.title
-        dateFilterView.title = filter.date?.item ?? "Все время"
-        statusFilterView.title = filter.status?.item ?? "Все игры"
+        dateFilterView.title = filter.date?.title ?? "Все время"
+        statusFilterView.title = filter.status?.title ?? "Все игры"
         formatFilterView.title = filter.format?.title ?? "Все форматы"
         gameTypeFilterView.title = filter.type?.title ?? "Все типы"
         barFilterView.title = filter.place?.title ?? "Все бары"
@@ -166,6 +189,7 @@ class FiltersVC: BottomPopupViewController {
     @IBAction func clearFiltersButtonPressed(_ sender: Any) {
         filter = ScheduleFilter()
         updateUI()
+        delegate?.didChangeFilter(filter)
     }
     
 }
@@ -174,6 +198,7 @@ class FiltersVC: BottomPopupViewController {
 extension FiltersVC: PickCityVCDelegate {
     func didPick(_ city: City) {
         filter.city = city
+        loadFilters(SchedulePlace.self, city_id: filter.city.id) { [weak self] in self?.bars = $0 }
         updateUI()
         delegate?.didChangeFilter(filter)
     }

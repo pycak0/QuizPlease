@@ -91,7 +91,14 @@ class SchedulePresenter: SchedulePresenterProtocol {
             switch result {
             case.failure(let error):
                 print(error)
-                self.view?.showErrorConnectingToServerAlert()
+                switch error {
+                case .other(_), .serverError(_), .invalidUrl:
+                    self.view?.showErrorConnectingToServerAlert()
+                default:
+                    self.games?.removeAll()
+                    self.view?.reloadScheduleList()
+                    self.view?.showNoGamesScheduled()
+                }
             case .success(let schedule):
                 self.games = schedule
                 self.view?.reloadScheduleList()

@@ -11,5 +11,6 @@ import Foundation
 struct ScheduleStatus: ScheduleFilterProtocol {
     static let apiName: String = "statuses"
         
-    var item: String
+    var id: Int
+    var title: String
 }
