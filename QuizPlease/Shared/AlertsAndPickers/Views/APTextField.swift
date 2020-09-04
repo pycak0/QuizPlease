@@ -1,8 +1,8 @@
 import UIKit
 
-open class TextField: UITextField {
+open class APTextField: UITextField {
     
-    public typealias Config = (TextField) -> Swift.Void
+    public typealias Config = (APTextField) -> Swift.Void
     
     public func configure(configurate: Config?) {
         configurate?(self)
@@ -35,7 +35,7 @@ open class TextField: UITextField {
     
     public func action(closure: @escaping Action) {
         if actionEditingChanged == nil {
-            addTarget(self, action: #selector(TextField.textFieldDidChange), for: .editingChanged)
+            addTarget(self, action: #selector(APTextField.textFieldDidChange), for: .editingChanged)
         }
         actionEditingChanged = closure
     }

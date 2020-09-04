@@ -6,7 +6,7 @@ import Foundation
 @IBDesignable
 extension UIView {
     
-    @IBInspectable
+    //@IBInspectable
     /// Should the corner be as circle
     public var circleCorner: Bool {
         get {

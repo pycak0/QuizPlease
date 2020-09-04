@@ -12,6 +12,13 @@ import UIKit
 
 extension UIViewController {
     
+    func configureRefreshControl(_ scrollView: UIScrollView, tintColor: UIColor = .lightGray, target: Any? = self, action: Selector) {
+        let refreshControl = UIRefreshControl()
+        refreshControl.tintColor = tintColor
+        refreshControl.addTarget(target, action: action, for: .valueChanged)
+        scrollView.refreshControl = refreshControl
+    }
+    
     //MARK:- Clear Navigation Bar
     ///Clears navigation bar's background color, separator and back button
     func clearNavigationBar(clearBorder: Bool = true) {

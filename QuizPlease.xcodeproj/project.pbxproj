@@ -147,6 +147,8 @@
 		A4D230A624F91F0100524A01 /* QuestionPageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D230A524F91F0100524A01 /* QuestionPageVC.swift */; };
 		A4D230A824F9203500524A01 /* WarmupQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D230A724F9203500524A01 /* WarmupQuestion.swift */; };
 		A4D230AA24F9219D00524A01 /* UIImageView+LoadImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D230A924F9219D00524A01 /* UIImageView+LoadImage.swift */; };
+		A4D498CC250264AC00CB70EE /* GameShortInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D498CB250264AC00CB70EE /* GameShortInfo.swift */; };
+		A4D498CE25026AA100CB70EE /* ScheduledGamesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D498CD25026AA100CB70EE /* ScheduledGamesResponse.swift */; };
 		A4DA985F24FFE5DB003EDA8E /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DA981024FFE5D9003EDA8E /* Array+Extensions.swift */; };
 		A4DA986024FFE5DB003EDA8E /* UISegmentedControl+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DA981124FFE5D9003EDA8E /* UISegmentedControl+Extensions.swift */; };
 		A4DA986124FFE5DB003EDA8E /* UIImageView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DA981224FFE5D9003EDA8E /* UIImageView+Extensions.swift */; };
@@ -185,7 +187,6 @@
 		A4DA988224FFE5DB003EDA8E /* Contacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DA984124FFE5DB003EDA8E /* Contacts.swift */; };
 		A4DA988324FFE5DB003EDA8E /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DA984324FFE5DB003EDA8E /* Contact.swift */; };
 		A4DA988424FFE5DB003EDA8E /* ContactCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DA984524FFE5DB003EDA8E /* ContactCell.swift */; };
-		A4DA988524FFE5DB003EDA8E /* ColorPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DA984724FFE5DB003EDA8E /* ColorPickerViewController.swift */; };
 		A4DA988624FFE5DB003EDA8E /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DA984924FFE5DB003EDA8E /* DatePickerViewController.swift */; };
 		A4DA988724FFE5DB003EDA8E /* ImagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DA984B24FFE5DB003EDA8E /* ImagePickerViewController.swift */; };
 		A4DA988824FFE5DB003EDA8E /* ItemWithImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DA984D24FFE5DB003EDA8E /* ItemWithImage.swift */; };
@@ -193,11 +194,10 @@
 		A4DA988A24FFE5DB003EDA8E /* TelegramPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DA985124FFE5DB003EDA8E /* TelegramPickerViewController.swift */; };
 		A4DA988B24FFE5DB003EDA8E /* ItemWithPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DA985324FFE5DB003EDA8E /* ItemWithPhoto.swift */; };
 		A4DA988C24FFE5DB003EDA8E /* LikeButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DA985424FFE5DB003EDA8E /* LikeButtonCell.swift */; };
-		A4DA988D24FFE5DB003EDA8E /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DA985624FFE5DB003EDA8E /* Label.swift */; };
-		A4DA988E24FFE5DB003EDA8E /* SegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DA985724FFE5DB003EDA8E /* SegmentedControl.swift */; };
-		A4DA988F24FFE5DB003EDA8E /* GradientSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DA985824FFE5DB003EDA8E /* GradientSlider.swift */; };
-		A4DA989024FFE5DB003EDA8E /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DA985924FFE5DB003EDA8E /* TextField.swift */; };
-		A4DA989124FFE5DB003EDA8E /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DA985A24FFE5DB003EDA8E /* Button.swift */; };
+		A4DA988D24FFE5DB003EDA8E /* APLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DA985624FFE5DB003EDA8E /* APLabel.swift */; };
+		A4DA988E24FFE5DB003EDA8E /* APSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DA985724FFE5DB003EDA8E /* APSegmentedControl.swift */; };
+		A4DA989024FFE5DB003EDA8E /* APTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DA985924FFE5DB003EDA8E /* APTextField.swift */; };
+		A4DA989124FFE5DB003EDA8E /* APButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DA985A24FFE5DB003EDA8E /* APButton.swift */; };
 		A4DA989224FFE5DB003EDA8E /* AttributedTextBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DA985D24FFE5DB003EDA8E /* AttributedTextBlock.swift */; };
 		A4DA989324FFE5DB003EDA8E /* TextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DA985E24FFE5DB003EDA8E /* TextViewController.swift */; };
 		A4DAF73624DD862500963C15 /* Gilroy-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A4DAF73524DD862500963C15 /* Gilroy-Bold.ttf */; };
@@ -357,6 +357,8 @@
 		A4D230A524F91F0100524A01 /* QuestionPageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionPageVC.swift; sourceTree = "<group>"; };
 		A4D230A724F9203500524A01 /* WarmupQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarmupQuestion.swift; sourceTree = "<group>"; };
 		A4D230A924F9219D00524A01 /* UIImageView+LoadImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+LoadImage.swift"; sourceTree = "<group>"; };
+		A4D498CB250264AC00CB70EE /* GameShortInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameShortInfo.swift; sourceTree = "<group>"; };
+		A4D498CD25026AA100CB70EE /* ScheduledGamesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduledGamesResponse.swift; sourceTree = "<group>"; };
 		A4DA981024FFE5D9003EDA8E /* Array+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
 		A4DA981124FFE5D9003EDA8E /* UISegmentedControl+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UISegmentedControl+Extensions.swift"; sourceTree = "<group>"; };
 		A4DA981224FFE5D9003EDA8E /* UIImageView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extensions.swift"; sourceTree = "<group>"; };
@@ -395,7 +397,6 @@
 		A4DA984124FFE5DB003EDA8E /* Contacts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Contacts.swift; sourceTree = "<group>"; };
 		A4DA984324FFE5DB003EDA8E /* Contact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		A4DA984524FFE5DB003EDA8E /* ContactCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactCell.swift; sourceTree = "<group>"; };
-		A4DA984724FFE5DB003EDA8E /* ColorPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorPickerViewController.swift; sourceTree = "<group>"; };
 		A4DA984924FFE5DB003EDA8E /* DatePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
 		A4DA984B24FFE5DB003EDA8E /* ImagePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePickerViewController.swift; sourceTree = "<group>"; };
 		A4DA984D24FFE5DB003EDA8E /* ItemWithImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemWithImage.swift; sourceTree = "<group>"; };
@@ -403,11 +404,10 @@
 		A4DA985124FFE5DB003EDA8E /* TelegramPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TelegramPickerViewController.swift; sourceTree = "<group>"; };
 		A4DA985324FFE5DB003EDA8E /* ItemWithPhoto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemWithPhoto.swift; sourceTree = "<group>"; };
 		A4DA985424FFE5DB003EDA8E /* LikeButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikeButtonCell.swift; sourceTree = "<group>"; };
-		A4DA985624FFE5DB003EDA8E /* Label.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
-		A4DA985724FFE5DB003EDA8E /* SegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedControl.swift; sourceTree = "<group>"; };
-		A4DA985824FFE5DB003EDA8E /* GradientSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientSlider.swift; sourceTree = "<group>"; };
-		A4DA985924FFE5DB003EDA8E /* TextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
-		A4DA985A24FFE5DB003EDA8E /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
+		A4DA985624FFE5DB003EDA8E /* APLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APLabel.swift; sourceTree = "<group>"; };
+		A4DA985724FFE5DB003EDA8E /* APSegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APSegmentedControl.swift; sourceTree = "<group>"; };
+		A4DA985924FFE5DB003EDA8E /* APTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APTextField.swift; sourceTree = "<group>"; };
+		A4DA985A24FFE5DB003EDA8E /* APButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APButton.swift; sourceTree = "<group>"; };
 		A4DA985D24FFE5DB003EDA8E /* AttributedTextBlock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributedTextBlock.swift; sourceTree = "<group>"; };
 		A4DA985E24FFE5DB003EDA8E /* TextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewController.swift; sourceTree = "<group>"; };
 		A4DAF73524DD862500963C15 /* Gilroy-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-Bold.ttf"; sourceTree = "<group>"; };
@@ -798,7 +798,6 @@
 				A40689FE24F7D94B001273B2 /* Globals.swift */,
 				A4068A0024F7DAE2001273B2 /* ServerResponse.swift */,
 				A40689FC24F7D913001273B2 /* SessionError.swift */,
-				A4B0753124DFDBFB007778A2 /* GameInfo.swift */,
 				A4147AD624E5B92D007C131F /* Place.swift */,
 				A46436E824EA7E590033F23A /* RatingItem.swift */,
 				A423AC1C24EE971100071E68 /* ShopItem.swift */,
@@ -808,6 +807,7 @@
 				A4D230A724F9203500524A01 /* WarmupQuestion.swift */,
 				A468E12324FD37390083ADB2 /* RatingFilter.swift */,
 				A4B2C3E225013DD5008D5175 /* City */,
+				A4D498CA2502648D00CB70EE /* ScheduledGame */,
 				A4B2C3E125013DC3008D5175 /* ScheduleFilters */,
 			);
 			path = Entity;
@@ -851,6 +851,16 @@
 			path = Shared;
 			sourceTree = "<group>";
 		};
+		A4D498CA2502648D00CB70EE /* ScheduledGame */ = {
+			isa = PBXGroup;
+			children = (
+				A4D498CD25026AA100CB70EE /* ScheduledGamesResponse.swift */,
+				A4B0753124DFDBFB007778A2 /* GameInfo.swift */,
+				A4D498CB250264AC00CB70EE /* GameShortInfo.swift */,
+			);
+			path = ScheduledGame;
+			sourceTree = "<group>";
+		};
 		A4DA980F24FFE5D9003EDA8E /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -884,7 +894,6 @@
 				A4DA983424FFE5DB003EDA8E /* Location */,
 				A4DA983C24FFE5DB003EDA8E /* PickerView */,
 				A4DA983E24FFE5DB003EDA8E /* Contacts */,
-				A4DA984624FFE5DB003EDA8E /* Color */,
 				A4DA984824FFE5DB003EDA8E /* Date */,
 				A4DA984A24FFE5DB003EDA8E /* Image */,
 				A4DA984E24FFE5DB003EDA8E /* Telegram */,
@@ -1027,14 +1036,6 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		A4DA984624FFE5DB003EDA8E /* Color */ = {
-			isa = PBXGroup;
-			children = (
-				A4DA984724FFE5DB003EDA8E /* ColorPickerViewController.swift */,
-			);
-			path = Color;
-			sourceTree = "<group>";
-		};
 		A4DA984824FFE5DB003EDA8E /* Date */ = {
 			isa = PBXGroup;
 			children = (
@@ -1090,11 +1091,10 @@
 		A4DA985524FFE5DB003EDA8E /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				A4DA985624FFE5DB003EDA8E /* Label.swift */,
-				A4DA985724FFE5DB003EDA8E /* SegmentedControl.swift */,
-				A4DA985824FFE5DB003EDA8E /* GradientSlider.swift */,
-				A4DA985924FFE5DB003EDA8E /* TextField.swift */,
-				A4DA985A24FFE5DB003EDA8E /* Button.swift */,
+				A4DA985624FFE5DB003EDA8E /* APLabel.swift */,
+				A4DA985724FFE5DB003EDA8E /* APSegmentedControl.swift */,
+				A4DA985924FFE5DB003EDA8E /* APTextField.swift */,
+				A4DA985A24FFE5DB003EDA8E /* APButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1271,6 +1271,7 @@
 				A4B2C3E025013D99008D5175 /* GameType.swift in Sources */,
 				A4DA988924FFE5DB003EDA8E /* PhotoLayout.swift in Sources */,
 				A4A0659824E477860080E0D8 /* GameOrderVC.swift in Sources */,
+				A4D498CE25026AA100CB70EE /* ScheduledGamesResponse.swift in Sources */,
 				A40D815A24D2C6C1006D2CE3 /* AppDelegate.swift in Sources */,
 				A4DA986724FFE5DB003EDA8E /* UIColor+Extensions.swift in Sources */,
 				A40B758024D9A75A006DB7D1 /* ScheduleRouter.swift in Sources */,
@@ -1287,6 +1288,7 @@
 				A4DAF74724DDCCAD00963C15 /* MenuRatingCell.swift in Sources */,
 				A40B758824D9A7FD006DB7D1 /* WarmupRouter.swift in Sources */,
 				A4A5DE95250197C300EBC408 /* FilterView.swift in Sources */,
+				A4D498CC250264AC00CB70EE /* GameShortInfo.swift in Sources */,
 				A46F303E24F5302B0062A333 /* GameSubmitButtonCell.swift in Sources */,
 				A4DA988324FFE5DB003EDA8E /* Contact.swift in Sources */,
 				A4DA986F24FFE5DB003EDA8E /* UITextField+Extensions.swift in Sources */,
@@ -1342,7 +1344,7 @@
 				A4DA986D24FFE5DB003EDA8E /* Common+Extensions.swift in Sources */,
 				A40F036424D419D200C381F2 /* MenuCellItemProtocol.swift in Sources */,
 				A4DA987B24FFE5DB003EDA8E /* LocationSearchResultsViewController.swift in Sources */,
-				A4DA989024FFE5DB003EDA8E /* TextField.swift in Sources */,
+				A4DA989024FFE5DB003EDA8E /* APTextField.swift in Sources */,
 				A4DA988824FFE5DB003EDA8E /* ItemWithImage.swift in Sources */,
 				A4DA987524FFE5DB003EDA8E /* CurrencyCell.swift in Sources */,
 				A452E3B424D431C5002EE514 /* DataTypesExtensions.swift in Sources */,
@@ -1352,7 +1354,7 @@
 				A4CC5FC324DACE1A0042B41C /* ShopPresenter.swift in Sources */,
 				A4DA988224FFE5DB003EDA8E /* Contacts.swift in Sources */,
 				A4DA985F24FFE5DB003EDA8E /* Array+Extensions.swift in Sources */,
-				A4DA988E24FFE5DB003EDA8E /* SegmentedControl.swift in Sources */,
+				A4DA988E24FFE5DB003EDA8E /* APSegmentedControl.swift in Sources */,
 				A4A065A524E47D460080E0D8 /* TableCellProtocol.swift in Sources */,
 				A4A5DE912501907300EBC408 /* GameFormat.swift in Sources */,
 				A4DAF73F24DDABFF00963C15 /* WarmupCell.swift in Sources */,
@@ -1365,14 +1367,13 @@
 				A4DA986024FFE5DB003EDA8E /* UISegmentedControl+Extensions.swift in Sources */,
 				A40D818A24D2D24C006D2CE3 /* ScheduleCell.swift in Sources */,
 				A46F303A24F52CAE0062A333 /* GameOnlinePaymentCell.swift in Sources */,
-				A4DA988F24FFE5DB003EDA8E /* GradientSlider.swift in Sources */,
 				A40B759E24D9A86E006DB7D1 /* RatingPresenter.swift in Sources */,
 				A4DA986224FFE5DB003EDA8E /* UIViewController+Extensions.swift in Sources */,
 				A4DA988124FFE5DB003EDA8E /* ContactsPickerViewController.swift in Sources */,
 				A498FCCC24E52ED80069F896 /* GameRegisterCell.swift in Sources */,
 				A4DA988424FFE5DB003EDA8E /* ContactCell.swift in Sources */,
 				A4C9D81324EA78BB00523688 /* RatingCell.swift in Sources */,
-				A4DA988D24FFE5DB003EDA8E /* Label.swift in Sources */,
+				A4DA988D24FFE5DB003EDA8E /* APLabel.swift in Sources */,
 				A48DFF7924F3EBEF00E47095 /* VideoView.swift in Sources */,
 				A4BA1CF024D835DE00D32ADC /* MainMenuRouter.swift in Sources */,
 				A46436ED24EAD24F0033F23A /* HBSegmentedControl.swift in Sources */,
@@ -1431,9 +1432,8 @@
 				A48A11F124F56D6900F91B9C /* MenuShopCell.swift in Sources */,
 				A4147AD724E5B92D007C131F /* Place.swift in Sources */,
 				A464370524EB37DB0033F23A /* ExpandingHeaderTextField.swift in Sources */,
-				A4DA988524FFE5DB003EDA8E /* ColorPickerViewController.swift in Sources */,
 				A423AC2224EEBCD600071E68 /* FiltersVC.swift in Sources */,
-				A4DA989124FFE5DB003EDA8E /* Button.swift in Sources */,
+				A4DA989124FFE5DB003EDA8E /* APButton.swift in Sources */,
 				A4DA986324FFE5DB003EDA8E /* UIView+Extensions.swift in Sources */,
 				A4CC5FC724DACE2D0042B41C /* ShopConfigurator.swift in Sources */,
 				A450E3A524E57A8C00C49AEE /* GameInfoItemKind.swift in Sources */,

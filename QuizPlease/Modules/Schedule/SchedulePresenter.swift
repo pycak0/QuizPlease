@@ -24,6 +24,8 @@ protocol SchedulePresenterProtocol: class {
     func didPressFilterButton()
     func didChangeScheduleFilter(newFilter: ScheduleFilter)
     
+    func handleRefreshControl()
+    
 }
 
 class SchedulePresenter: SchedulePresenterProtocol {
@@ -60,7 +62,7 @@ class SchedulePresenter: SchedulePresenterProtocol {
     
     func didAskLocation(forGameAt index: Int) {
         guard let game = games?[index] else { return }
-        let place = game.place
+        let place = game.placeInfo
         interactor.openInMaps(place: place)
         //interactor.openInMaps(placeName: place.name, withLongitutde: place.longitude, andLatitude: place.latitude)
     }
@@ -78,15 +80,35 @@ class SchedulePresenter: SchedulePresenterProtocol {
         updateSchedule()
     }
     
+    func handleRefreshControl() {
+        updateSchedule()
+    }
+    
     private func updateSchedule() {
         interactor.loadSchedule(filter: scheduleFilter) { [weak self] (result) in
             guard let self = self else { return }
+            self.view?.endLoadingAnimation()
             switch result {
             case.failure(let error):
                 print(error)
+                self.view?.showErrorConnectingToServerAlert()
             case .success(let schedule):
                 self.games = schedule
                 self.view?.reloadScheduleList()
+                for (index, game) in self.games!.enumerated() {
+                    self.updateGameInfo(game: game, at: index)
+                }
+            }
+        }
+    }
+    
+    private func updateGameInfo(game: GameInfo, at index: Int) {
+        interactor.loadDetailInfo(for: game.id) { [weak self] (fullInfo) in
+            guard let self = self else { return }
+            if let game = fullInfo {
+                self.games?[index] = game
+                //self.view?.reloadScheduleList()
+                self.view?.reloadGame(at: index)
             }
         }
     }

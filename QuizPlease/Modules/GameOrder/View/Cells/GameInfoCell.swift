@@ -48,13 +48,23 @@ class GameInfoCell: UITableViewCell, GameOrderCellProtocol {
     }
     
     func configure(with info: GameInfo) {
-        priceLabel.text = "\(info.price) ₽ с человека"
+        priceLabel.text = info.priceDetails
         timeLabel.text = "в \(info.time)"
-        placeNameLabel.text = info.place.title
-        placeAddressLabel.text = info.place.address
+        placeNameLabel.text = info.placeInfo.title
+        placeAddressLabel.text = info.placeInfo.address
+        
+        configureMapView(with: info.placeInfo)
                 
-        mapView.centerToAddress(info.place.address, regionRadius: 300, animated: false)
-        mapView.addAnnotation(info.place)
+        //mapView.centerToAddress(info.placeInfo.address, addAnnotation: info.placeInfo, regionRadius: 300, animated: false)
+    }
+    
+    func configureMapView(with place: Place) {
+        MapService.getLocation(from: place.address) { [weak self] (location) in
+            guard let self = self, let location = location else { return }
+            self.mapView.centerToLocation(location, animated: false)
+            place.coordinate = location.coordinate
+            self.mapView.addAnnotation(place)
+        }
     }
     
 }

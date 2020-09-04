@@ -8,7 +8,7 @@
 
 import MapKit
 
-public extension MKMapView {
+extension MKMapView {
     func centerToLocation(_ location: CLLocation, regionRadius: CLLocationDistance = 1000, animated: Bool = true) {
         let coordinateRegion = MKCoordinateRegion(
             center: location.coordinate,
@@ -17,7 +17,8 @@ public extension MKMapView {
         setRegion(coordinateRegion, animated: animated)
     }
     
-    func centerToAddress(_ address: String, regionRadius: CLLocationDistance = 1000, animated: Bool = true) {
+    ///- parameter annotation: Optionally adds given annotation. If `nil`, no annotation is set. Default is `nil`
+    func centerToAddress(_ address: String, addAnnotation annotation: MKAnnotation? = nil, regionRadius: CLLocationDistance = 1000, animated: Bool = true) {
         MapService.getCoordinates(from: address) { (location) in
             guard let location = location else { return }
             let coordinateRegion = MKCoordinateRegion(
@@ -25,6 +26,9 @@ public extension MKMapView {
                 latitudinalMeters: regionRadius,
                 longitudinalMeters: regionRadius)
             self.setRegion(coordinateRegion, animated: animated)
+            if let place = annotation {
+                self.addAnnotation(place)
+            }
         }
         
     }

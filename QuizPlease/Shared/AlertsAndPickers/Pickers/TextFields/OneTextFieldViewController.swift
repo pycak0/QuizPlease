@@ -10,7 +10,7 @@ extension UIAlertController {
     ///   - vInset: bottom margin to button
     ///   - configuration: textField
     
-    func addOneTextField(configuration: TextField.Config?) {
+    func addOneTextField(configuration: APTextField.Config?) {
         let textField = OneTextFieldViewController(vInset: preferredStyle == .alert ? 12 : 0, configuration: configuration)
         let height: CGFloat = OneTextFieldViewController.ui.height + OneTextFieldViewController.ui.vInset
         set(vc: textField, height: height)
@@ -19,7 +19,7 @@ extension UIAlertController {
 
 final class OneTextFieldViewController: UIViewController {
     
-    fileprivate lazy var textField: TextField = TextField()
+    fileprivate lazy var textField: APTextField = APTextField()
     
     struct ui {
         static let height: CGFloat = 44
@@ -28,7 +28,7 @@ final class OneTextFieldViewController: UIViewController {
     }
     
     
-    init(vInset: CGFloat = 12, configuration: TextField.Config?) {
+    init(vInset: CGFloat = 12, configuration: APTextField.Config?) {
         super.init(nibName: nil, bundle: nil)
         view.addSubview(textField)
         ui.vInset = vInset

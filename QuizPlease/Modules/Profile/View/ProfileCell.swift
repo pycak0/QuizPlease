@@ -33,8 +33,8 @@ class ProfileCell: UITableViewCell, TableCellProtocol {
     }
     
     func configure(game: GameInfo, team: RatingItem, place: Int, pointsScored: Int) {
-        gameNameLabel.text = game.name
-        gameNumberLabel.text = "#\(game.gameNumber)"
+        gameNameLabel.text = game.nameGame
+        gameNumberLabel.text = game.numberGame
         teamNameLabel.text = team.name
         placeLabel.text = "\(place) место"
         pointsScoredLabel.text = "+ \(pointsScored.string(withAssociatedMaleWord: "балл"))"

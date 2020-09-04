@@ -21,7 +21,7 @@ class GameOrderConfigurator: GameOrderConfiguratorProtocol {
         
         viewController.presenter = presenter
         viewController.shouldScrollToSignUp = gameInfo.shouldScrollToSignUp
-        viewController.prepareNavigationBar(title: "\(gameInfo.game.name) #\(gameInfo.game.gameNumber)")
+        viewController.prepareNavigationBar(title: "\(gameInfo.game.nameGame) \(gameInfo.game.numberGame)")
     }
     
 }

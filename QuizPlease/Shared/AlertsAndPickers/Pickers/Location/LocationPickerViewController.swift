@@ -86,7 +86,7 @@ final class LocationPickerViewController: UIViewController {
         return $0
     }(MKScaleView(mapView: mapView))
     
-    lazy var locationButton: Button = {
+    lazy var locationButton: APButton = {
         $0.backgroundColor = UIColor.white.withAlphaComponent(0.8)
         $0.maskToBounds = true
         $0.cornerRadius = 22
@@ -94,7 +94,7 @@ final class LocationPickerViewController: UIViewController {
         $0.addTarget(self, action: #selector(LocationPickerViewController.currentLocationPressed),
                          for: .touchUpInside)
         return $0
-    }(Button(frame: CGRect(x: 0, y: 0, width: 44, height: 44)))
+    }(APButton(frame: CGRect(x: 0, y: 0, width: 44, height: 44)))
 	
 	lazy var results: LocationSearchResultsViewController = {
 		let results = LocationSearchResultsViewController()

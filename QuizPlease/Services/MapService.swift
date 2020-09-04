@@ -45,6 +45,12 @@ class MapService {
     
     //MARK:- Get Coordinates
     static func getCoordinates(from address: String, completion: @escaping (CLLocationCoordinate2D?) -> Void) {
+        getLocation(from: address) { (location) in
+            completion(location?.coordinate)
+        }
+    }
+    
+    static func getLocation(from address: String, completion: @escaping (CLLocation?) -> Void) {
         let geocoder = CLGeocoder()
         geocoder.geocodeAddressString(address) {
             (placemarks, error) in
@@ -53,7 +59,7 @@ class MapService {
                 completion(nil)
                 return
             }
-            completion(placemarks?.first?.location?.coordinate)
+            completion(placemarks?.first?.location)
         }
     }
     

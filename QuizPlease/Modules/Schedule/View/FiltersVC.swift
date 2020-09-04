@@ -112,8 +112,7 @@ class FiltersVC: BottomPopupViewController {
         }
         formatFilterView.addTapGestureRecognizer {
             let formats = GameFormat.allCases.map { $0.title }
-            let index = GameFormat.allCases.firstIndex(of: self.filter.format!)!
-            self.showPickerSheet("Выберите формат игры", with: formats, selectedIndex: index) { [weak self] (selectedIndex) in
+            self.showChooseItemActionSheet(itemNames: formats) { [weak self] (item, selectedIndex) in
                 guard let self = self else { return }
                 let newFormat = GameFormat.allCases[selectedIndex]
                 self.filter.format = newFormat
@@ -127,19 +126,9 @@ class FiltersVC: BottomPopupViewController {
         }
     }
     
-    private func showPickerSheet(_ title: String, with values: [String], selectedIndex: Int,
-                                 handler: @escaping (_ selectedIndex: Int) -> Void) {
-        let alert = UIAlertController(style: .actionSheet, title: title, message: nil)
-        alert.addPickerView(values: [values], initialSelection: (column: 0, row: 1)) { (_, picker, _, _) in
-            handler(picker.selectedRow(inComponent: 0))
-        }
-        alert.addAction(title: "Готово", style: .cancel)
-        present(alert, animated: true)
-    }
-    
     //MARK:- Loaf Filters
-    private func loadFilters<T: ScheduleFilterProtocol>(_ type: T.Type, completion: @escaping ([T]?) -> Void) {
-        NetworkService.shared.getFilterOptions(type) { serverResult in
+    private func loadFilters<T: ScheduleFilterProtocol>(_ type: T.Type, city_id: Int? = nil, completion: @escaping ([T]?) -> Void) {
+        NetworkService.shared.getFilterOptions(type, scopeFor: city_id) { serverResult in
             switch serverResult {
             case let .failure(error):
                 print(error)
@@ -153,10 +142,11 @@ class FiltersVC: BottomPopupViewController {
     func loadAllFilters() {
         loadFilters(GameType.self) { [weak self] in self?.gameTypes = $0 }
         loadFilters(ScheduleStatus.self) { [weak self] in self?.statuses = $0 }
-        loadFilters(SchedulePlace.self) { [weak self] in self?.bars = $0 }
         loadFilters(ScheduleDate.self) { [weak self] in self?.dates = $0 }
+        loadFilters(SchedulePlace.self, city_id: filter.city.id) { [weak self] in self?.bars = $0 }
     }
     
+    //MARK:- Update UI
     private func updateUI() {
         cityFilterView.title = filter.city.title
         dateFilterView.title = filter.date?.item ?? "Все время"

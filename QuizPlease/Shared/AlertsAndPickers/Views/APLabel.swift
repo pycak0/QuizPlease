@@ -1,8 +1,8 @@
 import UIKit
 
-open class Label: UILabel {
+open class APLabel: UILabel {
     
-    public typealias Action = (Label) -> Swift.Void
+    public typealias Action = (APLabel) -> Swift.Void
     
     fileprivate var actionOnTouch: Action?
     
@@ -33,7 +33,7 @@ open class Label: UILabel {
         if actionOnTouch == nil {
             let gesture = UITapGestureRecognizer(
                 target: self,
-                action: #selector(Label.actionOnTouchUpInside))
+                action: #selector(APLabel.actionOnTouchUpInside))
             gesture.numberOfTapsRequired = 1
             gesture.numberOfTouchesRequired = 1
             self.addGestureRecognizer(gesture)

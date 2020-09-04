@@ -14,6 +14,8 @@ protocol RatingViewProtocol: UIViewController {
     var presenter: RatingPresenterProtocol! { get set }
     
     func reloadRatingList()
+    func endLoadingAnimation()
+    
     func configureTableView()
 }
 
@@ -44,10 +46,7 @@ class RatingVC: UIViewController {
     
     @objc
     private func refreshControlTriggered() {
-        presenter.handleRefreshControl() { [weak self] in
-            guard let self = self else { return }
-            self.tableView.refreshControl?.endRefreshing()
-        }
+        presenter.handleRefreshControl()
     }
 
 }
@@ -58,14 +57,15 @@ extension RatingVC: RatingViewProtocol {
         tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .fade)
     }
     
+    func endLoadingAnimation() {
+        tableView.refreshControl?.endRefreshing()
+    }
+    
     func configureTableView() {
         tableView.delegate = self
         tableView.dataSource = self
         
-        let refreshControl = UIRefreshControl()
-        refreshControl.tintColor = .lemon
-        refreshControl.addTarget(self, action: #selector(refreshControlTriggered), for: .valueChanged)
-        tableView.refreshControl = refreshControl
+        configureRefreshControl(tableView, tintColor: .lemon, action: #selector(refreshControlTriggered))
         
         expandingHeader.configure(self, selectedScope: presenter.filter.scope.rawValue, selectedGameType: presenter.availableGameTypeNames.first!)
     }

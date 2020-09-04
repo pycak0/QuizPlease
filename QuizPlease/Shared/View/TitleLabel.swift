@@ -27,5 +27,6 @@ class TitleLabel: UILabel {
         if let color = textColor {
             self.textColor = color
         }
+        adjustsFontSizeToFitWidth = true
     }
 }

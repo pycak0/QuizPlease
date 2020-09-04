@@ -10,7 +10,7 @@ import UIKit
 
 extension GameOrderVC: GameAnnotationCellDelegate {
     func gameAnnotation(for cell: GameAnnotationCell) -> String {
-        presenter.game.annotation
+        presenter.game.description
     }
     
     func signUpButtonPressed(in cell: GameAnnotationCell) {
@@ -76,7 +76,7 @@ extension GameOrderVC: GameOnlinePaymentCellDelegate {
     
     func sumToPay(in cell: GameOnlinePaymentCell, forNumberOfPeople number: Int) -> Int {
         presenter.registerForm.countPaidOnline = number
-        return presenter.game.price * number
+        return presenter.game.priceNumber ?? 0 * number
     }
     
 }

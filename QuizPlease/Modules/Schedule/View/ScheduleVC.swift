@@ -12,6 +12,8 @@ protocol ScheduleViewProtocol: UIViewController {
     var configarator: ScheduleConfiguratorProtocol { get }
     var presenter: SchedulePresenterProtocol! { get set }
     func reloadScheduleList()
+    func reloadGame(at index: Int)
+    func endLoadingAnimation()
     func configureTableView()
 }
 
@@ -36,6 +38,10 @@ class ScheduleVC: UIViewController {
         presenter.didPressFilterButton()
     }
     
+    @objc private func refreshControlTriggered() {
+        presenter.handleRefreshControl()
+    }
+    
 }
 
 //MARK:- View Protocol
@@ -44,9 +50,20 @@ extension ScheduleVC: ScheduleViewProtocol {
         tableView.reloadData()
     }
     
+    func reloadGame(at index: Int) {
+        tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .fade)
+    }
+    
+    func endLoadingAnimation() {
+        tableView.refreshControl?.endRefreshing()
+    }
+    
     func configureTableView() {
         tableView.delegate = self
         tableView.dataSource = self
+        
+        configureRefreshControl(tableView, tintColor: .systemBlue, action: #selector(refreshControlTriggered))
+        
     }
     
 }

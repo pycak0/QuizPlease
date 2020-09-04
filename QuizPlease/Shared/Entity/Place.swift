@@ -11,23 +11,17 @@ import MapKit
 class Place: NSObject, MKAnnotation, Decodable {
     var title: String?
     var address: String
-    var longitude: Double
-    var latitude: Double
+    var longitude: Double = 0
+    var latitude: Double = 0
     
-    init(name: String, address: String, longitude: Double, latitude: Double) {
+    init(name: String, address: String) {
         self.title = name
         self.address = address
-        self.longitude = longitude
-        self.latitude = latitude
-    }
-}
-
-extension Place {
-    var location: CLLocation {
-        CLLocation(latitude: latitude, longitude: longitude)
+//        self.longitude = longitude
+//        self.latitude = latitude
     }
     
-    var coordinate: CLLocationCoordinate2D {
+    lazy var coordinate: CLLocationCoordinate2D = {
         CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-    }
+    }()
 }

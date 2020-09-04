@@ -18,7 +18,7 @@ class NetworkService {
         var cityUrlComponents = Globals.baseUrl
         cityUrlComponents.path = "/api/city"
         
-        get(CityResponse.self, urlComponents: cityUrlComponents) { (getResult) in
+        getStandard(CityResponse.self, urlComponents: cityUrlComponents) { (getResult) in
             switch getResult {
             case let .failure(error):
                 completion(.failure(error))
@@ -41,19 +41,63 @@ class NetworkService {
             ratingUrlComponents.queryItems?.append(URLQueryItem(name: "teamName", value: teamName))
         }
         
-        get([RatingItem].self, urlComponents: ratingUrlComponents) { (getResult) in
+        getStandard([RatingItem].self, urlComponents: ratingUrlComponents) { (getResult) in
             completion(getResult)
         }
         
     }
     
+    //MARK:- Get Game Info
+    func getGameInfo(by id: Int, completion: @escaping (Result<GameInfo, SessionError>) -> Void) {
+        var gameUrlComponents = Globals.baseUrl
+        gameUrlComponents.path = "/ajax/scope-game"
+        gameUrlComponents.queryItems?.append(URLQueryItem(name: "id", value: "\(id)"))
+        get(GameInfo.self, urlComponents: gameUrlComponents) { (getResult) in
+            completion(getResult)
+        }
+    }
+    
+    //MARK:- Get Schedule
+    func getSchedule(with filter: ScheduleFilter, completion: @escaping (Result<[GameShortInfo], SessionError>) -> Void) {
+        var scheduleUrlComponents = Globals.baseUrl
+        scheduleUrlComponents.path = "/api/game"
+        scheduleUrlComponents.queryItems?.append([
+            URLQueryItem(name: "city_id", value: "\(filter.city.id)")
+        ])
+        getStandard(ScheduledGamesResponse.self, urlComponents: scheduleUrlComponents) { (getResult) in
+            switch getResult {
+            case let .failure(error):
+                completion(.failure(error))
+            case let .success(response):
+                completion(.success(response.data))
+            }
+        }
+    }
+    
     //MARK:- Get Filter Options
     ///Used for filtering schedule
-    func getFilterOptions<FilterType: ScheduleFilterProtocol>(_ type: FilterType.Type, completion: @escaping (Result<[FilterType], SessionError>) -> Void) {
+    ///- parameter cityId: Optionally request scoping the results for given city id
+    func getFilterOptions<FilterType: ScheduleFilterProtocol>(_ type: FilterType.Type, scopeFor cityId: Int? = nil, completion: @escaping (Result<[FilterType], SessionError>) -> Void) {
         var filterUrlComponents = Globals.baseUrl
         filterUrlComponents.path = "/api/game/\(type.apiName)"
-        get([FilterType].self, urlComponents: filterUrlComponents) { completion($0) }
+        if let id = cityId {
+            filterUrlComponents.queryItems?.append(URLQueryItem(name: "city_id", value: "\(id)"))
+        }
+        getStandard([FilterType].self, urlComponents: filterUrlComponents) { completion($0) }
         
+    }
+    
+    //MARK:- Get Standard Server Request
+    ///A get request for standard server response containing requested object in `data` field. You should mostly use this method rather than simple `get(:urlComponents:completion:)`.
+    func getStandard<T: Decodable>(_ type: T.Type, urlComponents: URLComponents, completion: @escaping ((Result<T, SessionError>) -> Void)) {
+        get(ServerResponse<T>.self, urlComponents: urlComponents) { getResult in
+            switch getResult {
+            case let .failure(error):
+                completion(.failure(error))
+            case let .success(response):
+                completion(.success(response.data))
+            }
+        }
     }
     
     //MARK:- Get Request
@@ -79,15 +123,19 @@ class NetworkService {
                 return
             }
             
-            guard let serverResponse = try? JSONDecoder().decode(ServerResponse<T>.self, from: data) else {
-                DispatchQueue.main.async {
-                    completion(.failure(.jsonError))
-                }
-                return
-            }
+//            let json = try! JSONSerialization.jsonObject(with: data, options: .allowFragments)
+//            print(json)
             
-            DispatchQueue.main.async {
-                completion(.success(serverResponse.data))
+            do {
+                let object = try JSONDecoder().decode(T.self, from: data)
+                
+                DispatchQueue.main.async {
+                    completion(.success(object))
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    completion(.failure(.other(error)))
+                }
             }
             
         }.resume()

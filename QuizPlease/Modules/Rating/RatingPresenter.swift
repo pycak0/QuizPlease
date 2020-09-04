@@ -16,7 +16,7 @@ protocol RatingPresenterProtocol {
     var availableGameTypeNames: [String] { get }
     var teams: [RatingItem] { get set }
     
-    func handleRefreshControl(completion: (() -> Void)?)
+    func handleRefreshControl()
     
     func configureViews()
     
@@ -62,14 +62,14 @@ class RatingPresenter: RatingPresenterProtocol {
         loadRating()
     }
     
-    func handleRefreshControl(completion: (() -> Void)?) {
-        loadRating(completion)
+    func handleRefreshControl() {
+        loadRating()
     }
     
-    private func loadRating(_ completion: (() -> Void)? = nil) {
+    private func loadRating() {
         interactor.loadRating(with: filter) { [weak self] (result) in
-            completion?()
             guard let self = self else { return }
+            self.view?.endLoadingAnimation()
             
             switch result {
             case .failure(let error):

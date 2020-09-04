@@ -9,26 +9,38 @@
 import Foundation
 
 protocol ScheduleInteractorProtocol: class {
-    func loadSchedule(filter: ScheduleFilter, completion: @escaping (Result<[GameInfo]?, Error>) -> Void)
+    func loadSchedule(filter: ScheduleFilter, completion: @escaping (Result<[GameInfo]?, SessionError>) -> Void)
+    func loadDetailInfo(for gameId: Int, completion: @escaping (GameInfo?) -> Void)
     
     func openInMaps(placeName: String, withLongitutde lon: Double, andLatitude lat: Double)
     func openInMaps(place: Place)
 }
 
 class ScheduleInteractor: ScheduleInteractorProtocol {
-    func loadSchedule(filter: ScheduleFilter, completion: @escaping (Result<[GameInfo]?, Error>) -> Void) {
-        var games = [GameInfo]()
-        games.insert(GameInfo(id: 11, gameNumber: 62, name: "[Кино и музыка]",
-                              place: Place(name: "Chesterfield Bar",
-                                           address: "ул. Новый Арбат, 19",
-                                           longitude: 37.589200, latitude: 55.751983),
-                              time: "20:00", price: 500,
-                              annotation: "Битва для тех, кто одинаково знаком с такими понятиями как «соль мажор», «увертюра» и «девочка-война». Для тех, кто не зря ходил на сольфеджио и понимает, о чем там поет Моргенштерн (это вообще никак не связано, если что). Для всех любителей музыки!"), at: 0)
-        for i in 0...3 {
-            let place = Place(name: "Place\(i)", address: "Address\(i)", longitude: 37.617635, latitude: 55.755814)
-            games.append(GameInfo(id: i, gameNumber: i+1, name: "Game\(i)", place: place, time: "11:0\(i)", price: 1000 * i, annotation: "Annotation \(i)"))
+    func loadSchedule(filter: ScheduleFilter, completion: @escaping (Result<[GameInfo]?, SessionError>) -> Void) {
+        NetworkService.shared.getSchedule(with: filter) { (serverResult) in
+            switch serverResult {
+            case let .failure(error):
+                completion(.failure(error))
+            case let .success(gamesList):
+                let gamesInfo: [GameInfo] = gamesList.map { GameInfo(id: $0.id) }
+                completion(.success(gamesInfo))
+            }
         }
-        completion(.success(games))
+    }
+    
+    func loadDetailInfo(for gameId: Int, completion: @escaping (GameInfo?) -> Void) {
+        NetworkService.shared.getGameInfo(by: gameId) { (result) in
+            switch result {
+            case let .failure(error):
+                print(error)
+                completion(nil)
+            case let .success(gameInfo):
+                var fullInfo = gameInfo
+                fullInfo.id = gameId
+                completion(fullInfo)
+            }
+        }
     }
     
     func openInMaps(placeName: String, withLongitutde lon: Double, andLatitude lat: Double) {
