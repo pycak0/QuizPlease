@@ -12,6 +12,7 @@ class Globals {
     private init() {}
     
     // https://quizplease.ru/
+    // https://staging.quizplease.ru:81/
     static let domain = "https://staging.quizplease.ru:81/"
     static var baseUrl: URLComponents {
         var urlComps = URLComponents(string: Globals.domain)!

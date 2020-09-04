@@ -29,6 +29,7 @@ class ScheduleGameCell: UITableViewCell {
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var locationButton: UIButton!
     @IBOutlet weak var remindButton: UIButton!
+    @IBOutlet weak var dateLabel: UILabel!
     
     @IBOutlet weak var signUpButton: UIButton!
     
@@ -49,6 +50,7 @@ class ScheduleGameCell: UITableViewCell {
         placeAddressLabel.text = model.placeInfo.address
         timeLabel.text = "в \(model.time)"
         priceLabel.text = model.priceDetails
+        dateLabel.text = model.blockData
         
         setNeedsLayout()
     }
