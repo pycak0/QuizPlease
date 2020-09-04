@@ -63,7 +63,7 @@ class TitledTextFieldView: UIView {
     ///Make sure that mask satisfies the syntax described here:
     ///https://github.com/RedMadRobot/input-mask-ios/wiki/1.-Mask-Syntax
     @IBInspectable
-    var inputMask: String = "[...]" {
+    var inputMask: String = "[…]" {
         didSet {
             listener.primaryMaskFormat = inputMask
             //listener.
