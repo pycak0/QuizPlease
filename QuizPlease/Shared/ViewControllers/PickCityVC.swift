@@ -44,8 +44,8 @@ class PickCityVC: UITableViewController {
             cities.remove(at: index)
             cities.insert(self.selectedCity, at: 0)
             tableView.reloadData()
-            let indexPath = IndexPath(row: 0, section: 0)
-            tableView.selectRow(at: indexPath, animated: true, scrollPosition: .top)
+            //let indexPath = IndexPath(row: 0, section: 0)
+            //tableView.selectRow(at: indexPath, animated: true, scrollPosition: .top)
         } else {
             tableView.reloadData()
         }
@@ -72,11 +72,14 @@ extension PickCityVC {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PickCityCell", for: indexPath)
         
         cell.textLabel?.text = cities[indexPath.row].title
+        cell.accessoryType = cities[indexPath.row].title == selectedCity.title ? .checkmark : .none
         
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        tableView.visibleCells.forEach { $0.accessoryType = .none }
         guard let cell = tableView.cellForRow(at: indexPath) else { return }
         selectedCity = cities[indexPath.row]
         cell.accessoryType = .checkmark
@@ -84,7 +87,6 @@ extension PickCityVC {
     
     override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath) else { return }
-        
         cell.accessoryType = .none
     }
 
