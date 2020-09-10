@@ -106,16 +106,16 @@ extension UIViewController {
         showActionSheetWithOptions(title: nil, buttons: buttons, tintColor: tintColor)
     }
     
-    func showPickerSheet(_ title: String, with values: [String], selectedIndex: Int,
-                         cancelButtonTitle: String = "Готово",
-                         handler: @escaping (_ selectedIndex: Int) -> Void) {
-        let alert = UIAlertController(style: .actionSheet, title: title, message: nil)
-        //works incorrect
-        //alert.view.tintColor = .labelAdapted
-        alert.addPickerView(values: [values], initialSelection: (column: 0, row: selectedIndex)) { (_, picker, _, _) in
-            handler(picker.selectedRow(inComponent: 0))
-        }
-        alert.addAction(title: cancelButtonTitle, style: .cancel)
-        present(alert, animated: true)
-    }
+//    func showPickerSheet(_ title: String, with values: [String], selectedIndex: Int,
+//                         cancelButtonTitle: String = "Готово",
+//                         handler: @escaping (_ selectedIndex: Int) -> Void) {
+//        let alert = UIAlertController(style: .actionSheet, title: title, message: nil)
+//        //works incorrect
+//        //alert.view.tintColor = .labelAdapted
+//        alert.addPickerView(values: [values], initialSelection: (column: 0, row: selectedIndex)) { (_, picker, _, _) in
+//            handler(picker.selectedRow(inComponent: 0))
+//        }
+//        alert.addAction(title: cancelButtonTitle, style: .cancel)
+//        present(alert, animated: true)
+//    }
 }

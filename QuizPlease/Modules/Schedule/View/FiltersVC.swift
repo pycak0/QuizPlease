@@ -99,9 +99,9 @@ class FiltersVC: BottomPopupViewController {
         dateFilterView.addTapGestureRecognizer {
             guard let dates = self.dates else { return }
             let dateNames = dates.map { $0.title }
-            var selectedIndex = 0
-            if let index = dateNames.firstIndex(of: self.filter.date?.title ?? "") { selectedIndex = index }
-            self.showPickerSheet("Выберите время", with: dateNames, selectedIndex: selectedIndex) { [weak self] (selectedIndex) in
+           // var selectedIndex = 0
+           // if let index = dateNames.firstIndex(of: self.filter.date?.title ?? "") { selectedIndex = index }
+            self.showChooseItemActionSheet(itemNames: dateNames) { [weak self] (_, selectedIndex) in
                 guard let self = self else { return }
                 self.filter.date = dates[selectedIndex]
                 self.updateUI()
@@ -140,7 +140,7 @@ class FiltersVC: BottomPopupViewController {
         barFilterView.addTapGestureRecognizer {
             guard let bars = self.bars else { return }
             let barNames = ["Все бары"] + bars.map { $0.title }
-            self.showPickerSheet("Выберите место", with: barNames, selectedIndex: 0) { [weak self] (selectedIndex) in
+            self.showChooseItemActionSheet(itemNames: barNames) { [weak self] (_, selectedIndex) in
                 guard let self = self else { return }
                 self.filter.place = selectedIndex == 0 ? nil : bars[selectedIndex - 1]
                 self.updateUI()

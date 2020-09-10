@@ -8,7 +8,8 @@
 
 import UIKit
 
-@IBDesignable public class HBSegmentedControl: UIControl {
+//@IBDesignable
+public class HBSegmentedControl: UIControl {
     
     fileprivate var labels = [UILabel]()
     private var thumbView = UIView()

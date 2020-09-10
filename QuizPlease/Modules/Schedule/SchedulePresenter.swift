@@ -8,6 +8,7 @@
 
 import Foundation
 
+//MARK:- Presenter Protocol
 protocol SchedulePresenterProtocol: class {
     var router: ScheduleRouterProtocol! { get }
     init(view: ScheduleViewProtocol, interactor: ScheduleInteractorProtocol, router: ScheduleRouterProtocol)
@@ -28,6 +29,7 @@ protocol SchedulePresenterProtocol: class {
     
 }
 
+//MARK:- Presenter Implementation
 class SchedulePresenter: SchedulePresenterProtocol {
     var router: ScheduleRouterProtocol!
     weak var view: ScheduleViewProtocol?
@@ -50,6 +52,7 @@ class SchedulePresenter: SchedulePresenterProtocol {
         updateSchedule()
     }
     
+    //MARK:- Actions
     func didSignUp(forGameAt index: Int) {
         guard let game = games?[index] else { return }
         router.showGameInfo(GameInfoPresentAttributes(game: game, shouldScrollToSignUp: true))
@@ -80,10 +83,12 @@ class SchedulePresenter: SchedulePresenterProtocol {
         updateSchedule()
     }
     
+    //MARK:- Handle Refresh Control
     func handleRefreshControl() {
         updateSchedule()
     }
     
+    //MARK:- Loading
     private func updateSchedule() {
         interactor.loadSchedule(filter: scheduleFilter) { [weak self] (result) in
             guard let self = self else { return }

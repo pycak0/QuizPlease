@@ -61,7 +61,7 @@ class NetworkService {
     func getSchedule(with filter: ScheduleFilter, completion: @escaping (Result<[GameShortInfo], SessionError>) -> Void) {
         var scheduleUrlComponents = Globals.baseUrl
         scheduleUrlComponents.path = "/api/game"
-        scheduleUrlComponents.queryItems?.append([
+        scheduleUrlComponents.queryItems?.append(contentsOf: [
             URLQueryItem(name: "city_id", value: "\(filter.city.id)")
         ])
         getStandard(ScheduledGamesResponse.self, urlComponents: scheduleUrlComponents) { (getResult) in
