@@ -8,19 +8,36 @@
 
 import Foundation
 
-struct HomeGame {
+struct HomeGame: Decodable {
     var id: Int
     var title: String
-    var description: String
+    var description: String?
     var duration: String
-    var videos_link: String
-    var cover: String
+    private var videos_link: String?
+    private var front_image: String?
+//    var cover: String
     var number: String
-    var price: String
+    var price: Int
 }
 
 extension HomeGame {
-    var url: URL? {
-        return URL(string: videos_link)
+    var videoUrl: URL? {
+        var path = videos_link ?? ""
+        if !path.hasPrefix("/") {
+            path = "/" + path
+        }
+        var components = URLComponents(string: Globals.mainDomain)!
+        components.path = path
+        return components.url
+    }
+    
+    var frontImageUrl: URL? {
+        var path = front_image ?? ""
+        if !path.hasPrefix("/") {
+            path = "/" + path
+        }
+        var components = URLComponents(string: Globals.mainDomain)!
+        components.path = path
+        return components.url
     }
 }

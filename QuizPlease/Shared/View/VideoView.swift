@@ -12,7 +12,9 @@ import AVKit
 class VideoView: UIView {
     static let nibName = "VideoView"
     
-    @IBOutlet var contentView: UIView!
+    @IBOutlet private var contentView: UIView!
+    @IBOutlet private weak var playerView: UIView!
+    @IBOutlet weak var imageView: UIImageView!
     
     weak var parent: UIViewController!
     private var playerVC = AVPlayerViewController()
@@ -43,10 +45,10 @@ class VideoView: UIView {
         contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
     }
     
-    private func configureVideoView() {
+    func configureVideoView() {
         guard parent != nil else { fatalError("VideoView must have `parent` property set") }
         
-        playerVC.view.frame = contentView.bounds
+        playerVC.view.frame = playerView.bounds
         playerVC.videoGravity = .resizeAspectFill
         playerVC.view.layer.masksToBounds = true
         
@@ -56,8 +58,8 @@ class VideoView: UIView {
         //MARK:- insert player into videoView
         parent?.addChild(playerVC)
         playerVC.didMove(toParent: parent)
-        contentView.addSubview(playerVC.view)
-        contentView.backgroundColor = .clear
+        playerView.addSubview(playerVC.view)
+        playerView.backgroundColor = .clear
         playerVC.entersFullScreenWhenPlaybackBegins = false
     }
     

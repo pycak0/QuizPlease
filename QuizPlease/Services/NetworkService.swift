@@ -18,7 +18,7 @@ class NetworkService {
         var cityUrlComponents = Globals.baseUrl
         cityUrlComponents.path = "/api/city"
         
-        getStandard(CityResponse.self, urlComponents: cityUrlComponents) { (getResult) in
+        getStandard(CityResponse.self, with: cityUrlComponents) { (getResult) in
             switch getResult {
             case let .failure(error):
                 completion(.failure(error))
@@ -41,10 +41,30 @@ class NetworkService {
             ratingUrlComponents.queryItems?.append(URLQueryItem(name: "teamName", value: teamName))
         }
         
-        getStandard([RatingItem].self, urlComponents: ratingUrlComponents) { (getResult) in
+        getStandard([RatingItem].self, with: ratingUrlComponents) { (getResult) in
             completion(getResult)
         }
         
+    }
+    
+    //MARK:- Home Games
+    ///- parameter cityId: Optional city parameter. If `nil`, user's `defaultCity` is used.
+    func getHomeGames(cityId: Int? = nil, completion: @escaping (Result<[HomeGame], SessionError>) -> Void) {
+        let id = cityId ?? Globals.defaultCity.id
+        var homeUrlComponents = Globals.baseUrl
+        homeUrlComponents.path = "/api/home-game"
+        homeUrlComponents.queryItems?.append(URLQueryItem(name: "city_id", value: "\(id)"))
+        getStandard([HomeGame].self, with: homeUrlComponents) { (getResult) in
+            completion(getResult)
+        }
+    }
+    
+    func getHomeGame(by id: Int, completion: @escaping (Result<HomeGame, SessionError>) -> Void) {
+        var homeComps = Globals.baseUrl
+        homeComps.path = "/api/home-game/\(id)"
+        getStandard(HomeGame.self, with: homeComps) { (getResult) in
+            completion(getResult)
+        }
     }
     
     //MARK:- Get Game Info
@@ -52,7 +72,7 @@ class NetworkService {
         var gameUrlComponents = Globals.baseUrl
         gameUrlComponents.path = "/ajax/scope-game"
         gameUrlComponents.queryItems?.append(URLQueryItem(name: "id", value: "\(id)"))
-        get(GameInfo.self, urlComponents: gameUrlComponents) { (getResult) in
+        get(GameInfo.self, with: gameUrlComponents) { (getResult) in
             completion(getResult)
         }
     }
@@ -79,7 +99,7 @@ class NetworkService {
         }
         scheduleUrlComponents.queryItems?.append(contentsOf: queryItems)
         
-        getStandard(ScheduledGamesResponse.self, urlComponents: scheduleUrlComponents) { (getResult) in
+        getStandard(ScheduledGamesResponse.self, with: scheduleUrlComponents) { (getResult) in
             switch getResult {
             case let .failure(error):
                 completion(.failure(error))
@@ -98,14 +118,14 @@ class NetworkService {
         if let id = cityId {
             filterUrlComponents.queryItems?.append(URLQueryItem(name: "city_id", value: "\(id)"))
         }
-        getStandard([ScheduleFilterOption].self, urlComponents: filterUrlComponents) { completion($0) }
+        getStandard([ScheduleFilterOption].self, with: filterUrlComponents) { completion($0) }
         
     }
     
     //MARK:- Get Standard Server Request
     ///A get request for standard server response containing requested object in `data` field. You should mostly use this method rather than simple `get(:urlComponents:completion:)`.
-    func getStandard<T: Decodable>(_ type: T.Type, urlComponents: URLComponents, completion: @escaping ((Result<T, SessionError>) -> Void)) {
-        get(ServerResponse<T>.self, urlComponents: urlComponents) { getResult in
+    func getStandard<T: Decodable>(_ type: T.Type, with urlComponents: URLComponents, completion: @escaping ((Result<T, SessionError>) -> Void)) {
+        get(ServerResponse<T>.self, with: urlComponents) { getResult in
             switch getResult {
             case let .failure(error):
                 completion(.failure(error))
@@ -116,7 +136,7 @@ class NetworkService {
     }
     
     //MARK:- Get Request
-    func get<T: Decodable>(_ type: T.Type, urlComponents: URLComponents, completion: @escaping ((Result<T, SessionError>) -> Void)) {
+    func get<T: Decodable>(_ type: T.Type, with urlComponents: URLComponents, completion: @escaping ((Result<T, SessionError>) -> Void)) {
         guard let url = urlComponents.url else {
             completion(.failure(.invalidUrl))
             return

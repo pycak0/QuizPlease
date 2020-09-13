@@ -36,7 +36,7 @@ class HomeGameCell: UICollectionViewCell {
     func configureCell(with game: HomeGame) {
         gameNameLabel.text = game.title
         timeLabel.text = game.duration
-        priceLabel.text = game.price
+        priceLabel.text = game.price == 0 ? "Бесплатно" : "\(game.price)"
     }
     
 }

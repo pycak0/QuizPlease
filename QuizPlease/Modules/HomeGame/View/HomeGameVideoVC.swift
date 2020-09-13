@@ -1,5 +1,5 @@
 //
-//  HomeGameVideoVC.swift
+//MARK:  HomeGameVideoVC.swift
 //  QuizPlease
 //
 //  Created by Владислав on 24.08.2020.
@@ -23,14 +23,17 @@ class HomeGameVideoVC: UIViewController {
         prepareNavigationBar(title: homeGame.title, tintColor: .white)
 
         configureViews()
+        updateUI()
+        loadDetail()
     }
     
+    //MARK:- Configure Views
     private func configureViews() {
+        videoView.parent = self
+        videoView.configureVideoView()
         descriptionBackground.blurView.setup(style: .regular, alpha: 0.8).enable()
         //descriptionBackground.addBlur(color: .systemPurple, style: blurStyle, alpha: 0.7)
         
-        videoView.parent = self
-        videoView.configurePlayer(url: homeGame.url)
         rulesButton.backgroundColor = UIColor.systemRed.withAlphaComponent(0.2)
         blanksButton.backgroundColor = UIColor.systemBlue.withAlphaComponent(0.2)
         
@@ -42,6 +45,29 @@ class HomeGameVideoVC: UIViewController {
         videoView.layer.cornerRadius = videoRadius
         descriptionBackground.layer.cornerRadius = videoRadius
         descriptionBackground.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+    }
+    
+    //MARK:- Load Details
+    private func loadDetail() {
+        NetworkService.shared.getHomeGame(by: homeGame.id) { (result) in
+            switch result {
+            case let .failure(error):
+                print(error)
+                self.showErrorConnectingToServerAlert()
+            case let .success(gameDetailed):
+                self.homeGame = gameDetailed
+                self.updateUI()
+            }
+        }
+    }
+    
+    //MARK:- Update UI
+    private func updateUI() {
+        videoView.configurePlayer(url: homeGame.videoUrl)
+        videoView.imageView.loadImage(url: homeGame.frontImageUrl)
+        
+        descriptionLabel.text = homeGame.description ?? "..."
+        
     }
 
 }

@@ -13,9 +13,10 @@ class Globals {
     
     // https://quizplease.ru/
     // https://staging.quizplease.ru:81/
-    static let domain = "https://staging.quizplease.ru:81/"
+    static let mainDomain = "https://quizplease.ru/"
+    static let devDomain = "https://staging.quizplease.ru:81/"
     static var baseUrl: URLComponents {
-        var urlComps = URLComponents(string: Globals.domain)!
+        var urlComps = URLComponents(string: Globals.devDomain)!
         urlComps.queryItems = []
         return urlComps
     }
