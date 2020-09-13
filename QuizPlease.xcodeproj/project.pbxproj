@@ -61,7 +61,6 @@
 		A423AC2424EEC65100071E68 /* ConfirmVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A423AC2324EEC65100071E68 /* ConfirmVC.swift */; };
 		A42527C324F06E9300E3FBD4 /* GameFirstPlayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A42527C124F06E9300E3FBD4 /* GameFirstPlayCell.swift */; };
 		A42527C424F06E9300E3FBD4 /* GameFirstPlayCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A42527C224F06E9300E3FBD4 /* GameFirstPlayCell.xib */; };
-		A4448ED0250E9D660020686D /* URLQueryItem+optional.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4448ECF250E9D660020686D /* URLQueryItem+optional.swift */; };
 		A4448ED2250EA16C0020686D /* ScheduleFilterOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4448ED1250EA16C0020686D /* ScheduleFilterOption.swift */; };
 		A445E34824DE02BC0070B9FC /* TitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A445E34724DE02BC0070B9FC /* TitleLabel.swift */; };
 		A44A462C24F8EEC500C81F82 /* UIView+Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44A462B24F8EEC500C81F82 /* UIView+Blur.swift */; };
@@ -219,7 +218,6 @@
 		A423AC2324EEC65100071E68 /* ConfirmVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmVC.swift; sourceTree = "<group>"; };
 		A42527C124F06E9300E3FBD4 /* GameFirstPlayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameFirstPlayCell.swift; sourceTree = "<group>"; };
 		A42527C224F06E9300E3FBD4 /* GameFirstPlayCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameFirstPlayCell.xib; sourceTree = "<group>"; };
-		A4448ECF250E9D660020686D /* URLQueryItem+optional.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLQueryItem+optional.swift"; sourceTree = "<group>"; };
 		A4448ED1250EA16C0020686D /* ScheduleFilterOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleFilterOption.swift; sourceTree = "<group>"; };
 		A445E34724DE02BC0070B9FC /* TitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleLabel.swift; sourceTree = "<group>"; };
 		A44A462B24F8EEC500C81F82 /* UIView+Blur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Blur.swift"; sourceTree = "<group>"; };
@@ -490,7 +488,6 @@
 				A4FFA4AC24F3AE78006A1150 /* MapExtensions.swift */,
 				A44A462B24F8EEC500C81F82 /* UIView+Blur.swift */,
 				A4D230A924F9219D00524A01 /* UIImageView+LoadImage.swift */,
-				A4448ECF250E9D660020686D /* URLQueryItem+optional.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -943,7 +940,6 @@
 				A44A462C24F8EEC500C81F82 /* UIView+Blur.swift in Sources */,
 				A40D818224D2CA30006D2CE3 /* ProfileVC.swift in Sources */,
 				A423AC2424EEC65100071E68 /* ConfirmVC.swift in Sources */,
-				A4448ED0250E9D660020686D /* URLQueryItem+optional.swift in Sources */,
 				A4FFA4B124F3BE2A006A1150 /* PaymentType.swift in Sources */,
 				A4A5370424EC7691004A10D4 /* UIColorExtensions.swift in Sources */,
 				A40B759224D9A836006DB7D1 /* HomeGameConfigurator.swift in Sources */,
