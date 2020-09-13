@@ -34,7 +34,9 @@ class PickCityVC: UITableViewController {
     }
     
     func confirmSelection() {
-        view.endEditing(true)
+        if navigationItem.searchController?.isActive ?? false {
+            navigationItem.searchController?.isActive = false
+        }
         delegate?.didPick(selectedCity)
         dismiss(animated: true)
     }
@@ -58,10 +60,9 @@ class PickCityVC: UITableViewController {
         if let index = filteredCities.firstIndex(where: { selectedCity?.id == $0.id }) {
             filteredCities.remove(at: index)
             filteredCities.insert(self.selectedCity, at: 0)
-            tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .automatic)
-        } else {
-            tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .automatic)
         }
+        tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .fade)
+        //tableView.reloadData()
     }
     
     //MARK:- Search Controller Configuration
