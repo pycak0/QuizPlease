@@ -42,10 +42,10 @@ class FiltersVC: BottomPopupViewController {
     
     var filter: ScheduleFilter!
     
-    var dates: [ScheduleDate]?
-    var statuses: [ScheduleStatus]?
-    var gameTypes: [GameType]?
-    var bars: [SchedulePlace]?
+    var dates: [ScheduleFilterOption]?
+    var statuses: [ScheduleFilterOption]?
+    var gameTypes: [ScheduleFilterOption]?
+    var bars: [ScheduleFilterOption]?
     
     //MARK:- Lifecycle
     override func viewDidLoad() {
@@ -97,60 +97,46 @@ class FiltersVC: BottomPopupViewController {
             self.performSegue(withIdentifier: "PickCityFilter", sender: nil)
         }
         dateFilterView.addTapGestureRecognizer {
-            guard let dates = self.dates else { return }
-            let dateNames = dates.map { $0.title }
-           // var selectedIndex = 0
-           // if let index = dateNames.firstIndex(of: self.filter.date?.title ?? "") { selectedIndex = index }
-            self.showChooseItemActionSheet(itemNames: dateNames) { [weak self] (_, selectedIndex) in
-                guard let self = self else { return }
-                self.filter.date = dates[selectedIndex]
-                self.updateUI()
-                self.delegate?.didChangeFilter(self.filter)
-            }
+            self.showOptions(for: self.dates) { self.filter.date = $0 }
         }
         statusFilterView.addTapGestureRecognizer {
-            guard let statuses = self.statuses else { return }
-            let statusNames = ["Все игры"] + statuses.map { $0.title }
-            self.showChooseItemActionSheet(itemNames: statusNames, tintColor: .darkBlue) { [unowned self] (item, selectedIndex) in
-                self.filter.status = selectedIndex == 0 ? nil : statuses[selectedIndex - 1]
-                self.updateUI()
-                self.delegate?.didChangeFilter(self.filter)
-            }
+            self.showOptions(for: self.statuses) { self.filter.status = $0 }
+        }
+        gameTypeFilterView.addTapGestureRecognizer {
+            self.showOptions(for: self.gameTypes) { self.filter.type = $0 }
+        }
+        barFilterView.addTapGestureRecognizer {
+            self.showOptions(for: self.bars) { self.filter.place = $0 }
         }
         formatFilterView.addTapGestureRecognizer {
             let formats = GameFormat.allCases.map { $0.title }
-            self.showChooseItemActionSheet(itemNames: formats, tintColor: .darkBlue) { [weak self] (item, selectedIndex) in
-                guard let self = self else { return }
+            self.showOptions(with: formats) { (selectedIndex) in
                 let newFormat = GameFormat.allCases[selectedIndex]
-                self.filter.format = newFormat
-                self.updateUI()
-                self.delegate?.didChangeFilter(self.filter)
-            }
-        }
-        gameTypeFilterView.addTapGestureRecognizer {
-            guard let types = self.gameTypes else { return }
-            let typeNames = types.map { $0.title }
-            self.showChooseItemActionSheet(itemNames: typeNames, tintColor: .darkBlue) { [weak self] (item, selectedIndex) in
-                guard let self = self else { return }
-                self.filter.type = types[selectedIndex]
-                self.updateUI()
-                self.delegate?.didChangeFilter(self.filter)
-            }
-        }
-        barFilterView.addTapGestureRecognizer {
-            guard let bars = self.bars else { return }
-            let barNames = ["Все бары"] + bars.map { $0.title }
-            self.showChooseItemActionSheet(itemNames: barNames) { [weak self] (_, selectedIndex) in
-                guard let self = self else { return }
-                self.filter.place = selectedIndex == 0 ? nil : bars[selectedIndex - 1]
-                self.updateUI()
-                self.delegate?.didChangeFilter(self.filter)
+                self.filter.format = newFormat == .all ? nil : newFormat
             }
         }
     }
     
+    //MARK:- Show Options Sheet
+    ///- warning: `updateFilterWith` closure must update `filter`'s property with new value for correct work.
+    private func showOptions(for filterOptions: [ScheduleFilterOption]?, updateFilterWith: @escaping (ScheduleFilterOption?) -> Void) {
+        guard let names = filterOptions?.map({ $0.title }) else { return }
+        showOptions(with: names) { (selectedIndex) in
+            updateFilterWith(filterOptions?[selectedIndex])
+        }
+    }
+    
+    private func showOptions(with givenNames: [String], updateWithSelectedIndex: @escaping (Int) -> Void) {
+        showChooseItemActionSheet(itemNames: givenNames, tintColor: .darkBlue) { [weak self] (_, selectedIndex) in
+            guard let self = self else { return }
+            updateWithSelectedIndex(selectedIndex)
+            self.updateUI()
+            self.delegate?.didChangeFilter(self.filter)
+        }
+    }
+    
     //MARK:- Loaf Filters
-    private func loadFilters<T: ScheduleFilterProtocol>(_ type: T.Type, city_id: Int? = nil, completion: @escaping ([T]?) -> Void) {
+    private func loadFilters(_ type: ScheduleFilterType, city_id: Int? = nil, completion: @escaping ([ScheduleFilterOption]?) -> Void) {
         NetworkService.shared.getFilterOptions(type, scopeFor: city_id) { serverResult in
             switch serverResult {
             case let .failure(error):
@@ -163,10 +149,10 @@ class FiltersVC: BottomPopupViewController {
     }
     
     func loadAllFilters() {
-        loadFilters(GameType.self) { [weak self] in self?.gameTypes = $0 }
-        loadFilters(ScheduleStatus.self) { [weak self] in self?.statuses = $0 }
-        loadFilters(ScheduleDate.self) { [weak self] in self?.dates = $0 }
-        loadFilters(SchedulePlace.self, city_id: filter.city.id) { [weak self] in self?.bars = $0 }
+        loadFilters(.types) { [weak self] in self?.gameTypes = $0 }
+        loadFilters(.statuses) { [weak self] in self?.statuses = $0 }
+        loadFilters(.months) { [weak self] in self?.dates = $0 }
+        loadFilters(.places, city_id: filter.city.id) { [weak self] in self?.bars = $0 }
     }
     
     //MARK:- Update UI
@@ -198,7 +184,7 @@ class FiltersVC: BottomPopupViewController {
 extension FiltersVC: PickCityVCDelegate {
     func didPick(_ city: City) {
         filter.city = city
-        loadFilters(SchedulePlace.self, city_id: filter.city.id) { [weak self] in self?.bars = $0 }
+        loadFilters(.places, city_id: filter.city.id) { [weak self] in self?.bars = $0 }
         updateUI()
         delegate?.didChangeFilter(filter)
     }

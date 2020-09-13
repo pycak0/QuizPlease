@@ -8,6 +8,7 @@
 
 import Foundation
 
-protocol ScheduleFilterProtocol: Decodable {
-    static var apiName: String { get }
+protocol ScheduleFilterProtocol: Decodable {    
+    var id: Int { get }
+    var title: String { get }
 }

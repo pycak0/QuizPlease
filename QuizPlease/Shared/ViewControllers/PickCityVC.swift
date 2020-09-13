@@ -61,7 +61,7 @@ class PickCityVC: UITableViewController {
             filteredCities.remove(at: index)
             filteredCities.insert(self.selectedCity, at: 0)
         }
-        tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .fade)
+        tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .automatic)
         //tableView.reloadData()
     }
     

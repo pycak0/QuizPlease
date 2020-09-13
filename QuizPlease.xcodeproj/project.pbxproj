@@ -61,6 +61,8 @@
 		A423AC2424EEC65100071E68 /* ConfirmVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A423AC2324EEC65100071E68 /* ConfirmVC.swift */; };
 		A42527C324F06E9300E3FBD4 /* GameFirstPlayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A42527C124F06E9300E3FBD4 /* GameFirstPlayCell.swift */; };
 		A42527C424F06E9300E3FBD4 /* GameFirstPlayCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A42527C224F06E9300E3FBD4 /* GameFirstPlayCell.xib */; };
+		A4448ED0250E9D660020686D /* URLQueryItem+optional.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4448ECF250E9D660020686D /* URLQueryItem+optional.swift */; };
+		A4448ED2250EA16C0020686D /* ScheduleFilterOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4448ED1250EA16C0020686D /* ScheduleFilterOption.swift */; };
 		A445E34824DE02BC0070B9FC /* TitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A445E34724DE02BC0070B9FC /* TitleLabel.swift */; };
 		A44A462C24F8EEC500C81F82 /* UIView+Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44A462B24F8EEC500C81F82 /* UIView+Blur.swift */; };
 		A44A462F24F901ED00C81F82 /* WarmupQuestionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44A462D24F901ED00C81F82 /* WarmupQuestionVC.swift */; };
@@ -105,8 +107,6 @@
 		A48DFF7D24F419AC00E47095 /* ShopCompletionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48DFF7C24F419AC00E47095 /* ShopCompletionVC.swift */; };
 		A48F64642501416300E7A528 /* ScheduleFilterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48F64632501416300E7A528 /* ScheduleFilterProtocol.swift */; };
 		A48F64662501438D00E7A528 /* ScheduleFilterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48F64652501438D00E7A528 /* ScheduleFilterType.swift */; };
-		A48F6468250143C800E7A528 /* SchedulePlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48F6467250143C800E7A528 /* SchedulePlace.swift */; };
-		A48F646A250144BE00E7A528 /* ScheduleDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48F6469250144BE00E7A528 /* ScheduleDate.swift */; };
 		A498FCCC24E52ED80069F896 /* GameRegisterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A498FCCA24E52ED80069F896 /* GameRegisterCell.swift */; };
 		A498FCCD24E52ED80069F896 /* GameRegisterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A498FCCB24E52ED80069F896 /* GameRegisterCell.xib */; };
 		A4A0659824E477860080E0D8 /* GameOrderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A0659724E477860080E0D8 /* GameOrderVC.swift */; };
@@ -128,8 +128,6 @@
 		A4A5DE95250197C300EBC408 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A5DE94250197C300EBC408 /* FilterView.swift */; };
 		A4A5DE9825019DA800EBC408 /* ScheduleFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A5DE9725019DA800EBC408 /* ScheduleFilter.swift */; };
 		A4B0753224DFDBFB007778A2 /* GameInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B0753124DFDBFB007778A2 /* GameInfo.swift */; };
-		A4B2C3E025013D99008D5175 /* GameType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B2C3DF25013D99008D5175 /* GameType.swift */; };
-		A4B2C3E425013E02008D5175 /* ScheduleStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B2C3E325013E02008D5175 /* ScheduleStatus.swift */; };
 		A4BA1CEA24D832D600D32ADC /* MainMenuConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BA1CE924D832D600D32ADC /* MainMenuConfigurator.swift */; };
 		A4BA1CEC24D8338B00D32ADC /* MainMenuPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BA1CEB24D8338B00D32ADC /* MainMenuPresenter.swift */; };
 		A4BA1CEE24D8347300D32ADC /* MainMenuInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BA1CED24D8347300D32ADC /* MainMenuInteractor.swift */; };
@@ -221,6 +219,8 @@
 		A423AC2324EEC65100071E68 /* ConfirmVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmVC.swift; sourceTree = "<group>"; };
 		A42527C124F06E9300E3FBD4 /* GameFirstPlayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameFirstPlayCell.swift; sourceTree = "<group>"; };
 		A42527C224F06E9300E3FBD4 /* GameFirstPlayCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameFirstPlayCell.xib; sourceTree = "<group>"; };
+		A4448ECF250E9D660020686D /* URLQueryItem+optional.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLQueryItem+optional.swift"; sourceTree = "<group>"; };
+		A4448ED1250EA16C0020686D /* ScheduleFilterOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleFilterOption.swift; sourceTree = "<group>"; };
 		A445E34724DE02BC0070B9FC /* TitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleLabel.swift; sourceTree = "<group>"; };
 		A44A462B24F8EEC500C81F82 /* UIView+Blur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Blur.swift"; sourceTree = "<group>"; };
 		A44A462D24F901ED00C81F82 /* WarmupQuestionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarmupQuestionVC.swift; sourceTree = "<group>"; };
@@ -264,8 +264,6 @@
 		A48DFF7C24F419AC00E47095 /* ShopCompletionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopCompletionVC.swift; sourceTree = "<group>"; };
 		A48F64632501416300E7A528 /* ScheduleFilterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleFilterProtocol.swift; sourceTree = "<group>"; };
 		A48F64652501438D00E7A528 /* ScheduleFilterType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleFilterType.swift; sourceTree = "<group>"; };
-		A48F6467250143C800E7A528 /* SchedulePlace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulePlace.swift; sourceTree = "<group>"; };
-		A48F6469250144BE00E7A528 /* ScheduleDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleDate.swift; sourceTree = "<group>"; };
 		A498FCCA24E52ED80069F896 /* GameRegisterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRegisterCell.swift; sourceTree = "<group>"; };
 		A498FCCB24E52ED80069F896 /* GameRegisterCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameRegisterCell.xib; sourceTree = "<group>"; };
 		A4A0659724E477860080E0D8 /* GameOrderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOrderVC.swift; sourceTree = "<group>"; };
@@ -287,8 +285,6 @@
 		A4A5DE94250197C300EBC408 /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
 		A4A5DE9725019DA800EBC408 /* ScheduleFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleFilter.swift; sourceTree = "<group>"; };
 		A4B0753124DFDBFB007778A2 /* GameInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameInfo.swift; sourceTree = "<group>"; };
-		A4B2C3DF25013D99008D5175 /* GameType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameType.swift; sourceTree = "<group>"; };
-		A4B2C3E325013E02008D5175 /* ScheduleStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleStatus.swift; sourceTree = "<group>"; };
 		A4BA1CE924D832D600D32ADC /* MainMenuConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuConfigurator.swift; sourceTree = "<group>"; };
 		A4BA1CEB24D8338B00D32ADC /* MainMenuPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuPresenter.swift; sourceTree = "<group>"; };
 		A4BA1CED24D8347300D32ADC /* MainMenuInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuInteractor.swift; sourceTree = "<group>"; };
@@ -494,6 +490,7 @@
 				A4FFA4AC24F3AE78006A1150 /* MapExtensions.swift */,
 				A44A462B24F8EEC500C81F82 /* UIView+Blur.swift */,
 				A4D230A924F9219D00524A01 /* UIImageView+LoadImage.swift */,
+				A4448ECF250E9D660020686D /* URLQueryItem+optional.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -639,10 +636,7 @@
 			children = (
 				A48F64652501438D00E7A528 /* ScheduleFilterType.swift */,
 				A48F64632501416300E7A528 /* ScheduleFilterProtocol.swift */,
-				A4B2C3DF25013D99008D5175 /* GameType.swift */,
-				A4B2C3E325013E02008D5175 /* ScheduleStatus.swift */,
-				A48F6467250143C800E7A528 /* SchedulePlace.swift */,
-				A48F6469250144BE00E7A528 /* ScheduleDate.swift */,
+				A4448ED1250EA16C0020686D /* ScheduleFilterOption.swift */,
 				A4A5DE902501907300EBC408 /* GameFormat.swift */,
 				A4A5DE9725019DA800EBC408 /* ScheduleFilter.swift */,
 			);
@@ -898,7 +892,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A4BA1CEA24D832D600D32ADC /* MainMenuConfigurator.swift in Sources */,
-				A4B2C3E025013D99008D5175 /* GameType.swift in Sources */,
 				A4A0659824E477860080E0D8 /* GameOrderVC.swift in Sources */,
 				A4D498CE25026AA100CB70EE /* ScheduledGamesResponse.swift in Sources */,
 				A40D815A24D2C6C1006D2CE3 /* AppDelegate.swift in Sources */,
@@ -909,7 +902,6 @@
 				A450E3A124E5732200C49AEE /* GameOrderInteractor.swift in Sources */,
 				A4D230AA24F9219D00524A01 /* UIImageView+LoadImage.swift in Sources */,
 				A4147AD924E5BAF9007C131F /* MapService.swift in Sources */,
-				A48F646A250144BE00E7A528 /* ScheduleDate.swift in Sources */,
 				A4DAF74724DDCCAD00963C15 /* MenuRatingCell.swift in Sources */,
 				A40B758824D9A7FD006DB7D1 /* WarmupRouter.swift in Sources */,
 				A4A5DE95250197C300EBC408 /* FilterView.swift in Sources */,
@@ -926,6 +918,7 @@
 				A48DFF7524F3EB5000E47095 /* HomeGameVideoVC.swift in Sources */,
 				A40B75A024D9A875006DB7D1 /* RatingRouter.swift in Sources */,
 				A419F2F224F003C9004A7997 /* ScalingButton.swift in Sources */,
+				A4448ED2250EA16C0020686D /* ScheduleFilterOption.swift in Sources */,
 				A4FFA4AB24F3AB1A006A1150 /* GameOrderCellDelegates.swift in Sources */,
 				A468E12424FD37390083ADB2 /* RatingFilter.swift in Sources */,
 				A4D230A824F9203500524A01 /* WarmupQuestion.swift in Sources */,
@@ -941,7 +934,6 @@
 				A4CC5FC124DACE0E0042B41C /* ShopInteractor.swift in Sources */,
 				A40B757E24D9A750006DB7D1 /* SchedulePresenter.swift in Sources */,
 				A4DAF74324DDBAFE00963C15 /* MenuHomeGameCell.swift in Sources */,
-				A48F6468250143C800E7A528 /* SchedulePlace.swift in Sources */,
 				A44C697824EFE06000AB3BC9 /* QRScannerVC.swift in Sources */,
 				A40B759624D9A84C006DB7D1 /* ProfilePresenter.swift in Sources */,
 				A4FFA4AF24F3BD73006A1150 /* RegisterForm.swift in Sources */,
@@ -951,6 +943,7 @@
 				A44A462C24F8EEC500C81F82 /* UIView+Blur.swift in Sources */,
 				A40D818224D2CA30006D2CE3 /* ProfileVC.swift in Sources */,
 				A423AC2424EEC65100071E68 /* ConfirmVC.swift in Sources */,
+				A4448ED0250E9D660020686D /* URLQueryItem+optional.swift in Sources */,
 				A4FFA4B124F3BE2A006A1150 /* PaymentType.swift in Sources */,
 				A4A5370424EC7691004A10D4 /* UIColorExtensions.swift in Sources */,
 				A40B759224D9A836006DB7D1 /* HomeGameConfigurator.swift in Sources */,
@@ -988,7 +981,6 @@
 				A40F035D24D412D700C381F2 /* ShopItemCell.swift in Sources */,
 				A4A5370824EC7AA6004A10D4 /* HomeGameCell.swift in Sources */,
 				A4A065AA24E4812F0080E0D8 /* GameGeneralDescriptionCell.swift in Sources */,
-				A4B2C3E425013E02008D5175 /* ScheduleStatus.swift in Sources */,
 				A450E3A324E5735400C49AEE /* GameOrderRouter.swift in Sources */,
 				A423AC1B24EE864000071E68 /* ProfileCell.swift in Sources */,
 				A4BA1CEE24D8347300D32ADC /* MainMenuInteractor.swift in Sources */,

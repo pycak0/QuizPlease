@@ -10,9 +10,9 @@ import Foundation
 
 struct ScheduleFilter {
     var city: City = Globals.defaultCity
-    var date: ScheduleDate?
+    var date: ScheduleFilterOption?
     var format: GameFormat?
-    var type: GameType?
-    var place: SchedulePlace?
-    var status: ScheduleStatus?
+    var type: ScheduleFilterOption?
+    var place: ScheduleFilterOption?
+    var status: ScheduleFilterOption?
 }

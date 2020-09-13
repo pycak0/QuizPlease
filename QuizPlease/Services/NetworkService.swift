@@ -61,9 +61,24 @@ class NetworkService {
     func getSchedule(with filter: ScheduleFilter, completion: @escaping (Result<[GameShortInfo], SessionError>) -> Void) {
         var scheduleUrlComponents = Globals.baseUrl
         scheduleUrlComponents.path = "/api/game"
-        scheduleUrlComponents.queryItems?.append(contentsOf: [
-            URLQueryItem(name: "city_id", value: "\(filter.city.id)")
-        ])
+        var queryItems = [URLQueryItem(name: "city_id", value: "\(filter.city.id)")]
+        if let id = filter.date?.id {
+            queryItems.append(URLQueryItem(name: "month", value: "\(id)"))
+        }
+        if let id = filter.format?.rawValue {
+            queryItems.append(URLQueryItem(name: "format", value: "\(id)"))
+        }
+        if let id = filter.place?.id {
+            queryItems.append(URLQueryItem(name: "place_id", value: "\(id)"))
+        }
+        if let id = filter.status?.id {
+            queryItems.append(URLQueryItem(name: "status", value: "\(id)"))
+        }
+        if let id = filter.type?.id {
+            queryItems.append(URLQueryItem(name: "type", value: "\(id)"))
+        }
+        scheduleUrlComponents.queryItems?.append(contentsOf: queryItems)
+        
         getStandard(ScheduledGamesResponse.self, urlComponents: scheduleUrlComponents) { (getResult) in
             switch getResult {
             case let .failure(error):
@@ -77,13 +92,13 @@ class NetworkService {
     //MARK:- Get Filter Options
     ///Used for filtering schedule
     ///- parameter cityId: Optionally request scoping the results for given city id
-    func getFilterOptions<FilterType: ScheduleFilterProtocol>(_ type: FilterType.Type, scopeFor cityId: Int? = nil, completion: @escaping (Result<[FilterType], SessionError>) -> Void) {
+    func getFilterOptions(_ type: ScheduleFilterType, scopeFor cityId: Int? = nil, completion: @escaping (Result<[ScheduleFilterOption], SessionError>) -> Void) {
         var filterUrlComponents = Globals.baseUrl
-        filterUrlComponents.path = "/api/game/\(type.apiName)"
+        filterUrlComponents.path = "/api/game/\(type.rawValue)"
         if let id = cityId {
             filterUrlComponents.queryItems?.append(URLQueryItem(name: "city_id", value: "\(id)"))
         }
-        getStandard([FilterType].self, urlComponents: filterUrlComponents) { completion($0) }
+        getStandard([ScheduleFilterOption].self, urlComponents: filterUrlComponents) { completion($0) }
         
     }
     
