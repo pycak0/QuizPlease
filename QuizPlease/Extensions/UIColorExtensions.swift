@@ -14,6 +14,11 @@ public extension UIColor {
         return UIColor(named: "darkBlue")!
     }
     
+    ///In the light appearance, it's the same color as `darkBlue` but in the dark appearance it becomes white.
+    class var darkBlueDynamic: UIColor {
+        UIColor(named: "darkBlueDynamic")!
+    }
+    
     class var middleBlue: UIColor {
         UIColor(named: "middleBlue")!
     }

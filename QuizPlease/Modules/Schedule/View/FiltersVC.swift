@@ -127,7 +127,7 @@ class FiltersVC: BottomPopupViewController {
     }
     
     private func showOptions(with givenNames: [String], updateWithSelectedIndex: @escaping (Int) -> Void) {
-        showChooseItemActionSheet(itemNames: givenNames, tintColor: .darkBlue) { [weak self] (_, selectedIndex) in
+        showChooseItemActionSheet(itemNames: givenNames, tintColor: .darkBlueDynamic) { [weak self] (_, selectedIndex) in
             guard let self = self else { return }
             updateWithSelectedIndex(selectedIndex)
             self.updateUI()
