@@ -47,7 +47,7 @@ class ScheduleGameCell: UITableViewCell {
         nameLabel.text = model.nameGame
         numberLabel.text = model.numberGame
         placeNameLabel.text = model.placeInfo.title
-        placeAddressLabel.text = model.placeInfo.address
+        placeAddressLabel.text = model.placeInfo.shortAddress
         timeLabel.text = "в \(model.time)"
         priceLabel.text = model.priceDetails
         dateLabel.text = model.blockData

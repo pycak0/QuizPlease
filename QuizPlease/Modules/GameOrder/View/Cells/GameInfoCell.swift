@@ -51,7 +51,7 @@ class GameInfoCell: UITableViewCell, GameOrderCellProtocol {
         priceLabel.text = info.priceDetails
         timeLabel.text = "в \(info.time)"
         placeNameLabel.text = info.placeInfo.title
-        placeAddressLabel.text = info.placeInfo.address
+        placeAddressLabel.text = info.placeInfo.shortAddress
         
         configureMapView(with: info.placeInfo)
                 
@@ -59,7 +59,7 @@ class GameInfoCell: UITableViewCell, GameOrderCellProtocol {
     }
     
     func configureMapView(with place: Place) {
-        MapService.getLocation(from: place.address) { [weak self] (location) in
+        MapService.getLocation(from: place.fullAddress) { [weak self] (location) in
             guard let self = self, let location = location else { return }
             self.mapView.centerToLocation(location, animated: false)
             place.coordinate = location.coordinate
