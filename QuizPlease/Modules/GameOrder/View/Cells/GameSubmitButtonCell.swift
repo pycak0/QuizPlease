@@ -10,6 +10,8 @@ import UIKit
 
 protocol GameSubmitButtonCellDelegate: class {
     func submitButtonCell(_ cell: GameSubmitButtonCell, didPressSubmitButton button: UIButton)
+    
+    func titleForButton(in cell: GameSubmitButtonCell) -> String?
 }
 
 class GameSubmitButtonCell: UITableViewCell, GameOrderCellProtocol {
@@ -22,10 +24,18 @@ class GameSubmitButtonCell: UITableViewCell, GameOrderCellProtocol {
         get { _delegate }
         set { _delegate = newValue as? GameSubmitButtonCellDelegate }
     }
-    private weak var _delegate: GameSubmitButtonCellDelegate?
+    private weak var _delegate: GameSubmitButtonCellDelegate? {
+        didSet {
+            updateTitle(with: _delegate?.titleForButton(in: self))
+        }
+    }
     
     @IBAction func submitButtonPressed(_ sender: UIButton) {
         _delegate?.submitButtonCell(self, didPressSubmitButton: sender)
+    }
+    
+    func updateTitle(with newTitle: String?) {
+        submitButton.setTitle(newTitle, for: .normal)
     }
     
 }

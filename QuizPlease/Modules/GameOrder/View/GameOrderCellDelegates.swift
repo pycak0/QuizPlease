@@ -38,7 +38,12 @@ extension GameOrderVC: GameRegisterCellDelegate {
     }
 }
 
+//MARK:- Payment Type
 extension GameOrderVC: GamePaymentTypeCellDelegate {
+    func availablePaymentTypes(in cell: GamePaymentTypeCell) -> [PaymentType] {
+        return presenter.game.availablePaymentTypes
+    }
+    
     func isOnlinePaymentInitially(in cell: GamePaymentTypeCell) -> Bool {
         presenter.registerForm.payment_type == .online
     }
@@ -47,24 +52,31 @@ extension GameOrderVC: GamePaymentTypeCellDelegate {
         presenter.registerForm.payment_type = isOnlinePayment ? .online : .cash
         let indexPath = IndexPath(row: GameInfoItemKind.onlinePayment.rawValue, section: 0)
         
-        let onlinePaymentKind = GameInfoItemKind.onlinePayment
+        let onlinePaymentSection = GameInfoItemKind.onlinePayment
+        if let index = items.firstIndex(of: .submit), let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? GameSubmitButtonCell {
+            let title = isOnlinePayment ? "Оплатить игру" : "Записаться на игру"
+            cell.updateTitle(with: title)
+        }
+        
+        //guard !isFirstLoad else { isFirstLoad = false; return }
+        
         if isOnlinePayment {
             guard items.count < GameInfoItemKind.allCases.count else { return }
-            items.insert(onlinePaymentKind, at: onlinePaymentKind.rawValue)
-            tableView.insertRows(at: [indexPath], with: .fade)
+            items.insert(onlinePaymentSection, at: onlinePaymentSection.rawValue)
+            tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .automatic)
+            //tableView.insertRows(at: [indexPath], with: .fade)
         } else {
             presenter.registerForm.countPaidOnline = nil
             
             guard items.count == GameInfoItemKind.allCases.count else { return }
-            items.remove(at: onlinePaymentKind.rawValue)
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        }
-        if let index = items.firstIndex(of: .submit), let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? GameSubmitButtonCell {
-            cell.submitButton.setTitle(isOnlinePayment ? "Оплатить игру" : "Записаться на игру", for: .normal)
+            items.remove(at: onlinePaymentSection.rawValue)
+            tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .automatic)
+            //tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
 }
 
+//MARK:- Online Payment
 extension GameOrderVC: GameOnlinePaymentCellDelegate {
     func selectedNumberOfPeople(in cell: GameOnlinePaymentCell) -> Int {
         return presenter.registerForm.countPaidOnline ?? presenter.registerForm.count
@@ -81,7 +93,15 @@ extension GameOrderVC: GameOnlinePaymentCellDelegate {
     
 }
 
+
+//MARK:- Submit Button
 extension GameOrderVC: GameSubmitButtonCellDelegate {
+    func titleForButton(in cell: GameSubmitButtonCell) -> String? {
+        let isOnlinePayment = presenter.registerForm.payment_type == .online
+        let title = isOnlinePayment ? "Оплатить игру" : "Записаться на игру"
+        return title
+    }
+    
     func submitButtonCell(_ cell: GameSubmitButtonCell, didPressSubmitButton button: UIButton) {
 //        return
 //

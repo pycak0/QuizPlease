@@ -24,7 +24,17 @@ class GameOrderVC: UIViewController {
     var presenter: GameOrderPresenterProtocol!
     
     var shouldScrollToSignUp: Bool!
-    var items = GameInfoItemKind.allCases
+    
+    lazy var items: [GameInfoItemKind] = {
+        let types = presenter.game.availablePaymentTypes
+        var _items = GameInfoItemKind.allCases
+        if types.count == 1 && types.first! == .cash {
+            _items.remove(at: GameInfoItemKind.onlinePayment.rawValue)
+        }
+        return _items
+    }()
+    
+    var isFirstLoad = true
     
     @IBOutlet weak var gameImageView: UIImageView!
     @IBOutlet weak var imageDarkeningView: UIView!
@@ -82,6 +92,7 @@ extension GameOrderVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //createCell(tableView, at: indexPath)
+
         let kind = items[indexPath.row]
         //guard let kind = GameInfoItemKind(rawValue: index) else { fatalError("Invalid Game Item Kind") }
         let cell = tableView.dequeueReusableCell(withIdentifier: kind.identifier, for: indexPath) as! TableCellProtocol
@@ -89,6 +100,9 @@ extension GameOrderVC: UITableViewDataSource, UITableViewDelegate {
         (cell as? GameOrderCellProtocol)?.delegate = self
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
     }
     
 //    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

@@ -26,6 +26,7 @@ struct GameInfo: Decodable {
     private var place: String = "-"
     private var address: String = "-"
     private var cityName: String = ""
+    private var payment_icon: Int = 0
     
     init(id: Int) {
         self.id = id
@@ -43,5 +44,18 @@ extension GameInfo {
     
     var priceDetails: String {
         "\(price) \(text)"
+    }
+    
+    var availablePaymentTypes: [PaymentType] {
+        switch payment_icon {
+        case 0:
+            return [.cash]
+        case 1, 3:
+            return [.online]
+        case 2, 5:
+            return [.cash, .online]
+        default:
+            return [.cash]
+        }
     }
 }

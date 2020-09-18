@@ -34,6 +34,7 @@ class MainMenuVC: UIViewController {
         presenter.configureViews()
     }
     
+    // delegate prepare(for:sender:) to the router
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         presenter.router.prepare(for: segue, sender: sender)
     }

@@ -9,6 +9,8 @@
 import UIKit
 
 protocol GamePaymentTypeCellDelegate: class {
+    func availablePaymentTypes(in cell: GamePaymentTypeCell) -> [PaymentType]
+    
     func isOnlinePaymentInitially(in cell: GamePaymentTypeCell) -> Bool
     
     func paymentTypeCell(_ cell: GamePaymentTypeCell, didChangePaymentType isOnlinePayment: Bool)
@@ -29,6 +31,7 @@ class GamePaymentTypeCell: UITableViewCell, GameOrderCellProtocol {
     private weak var _delegate: GamePaymentTypeCellDelegate? {
         didSet {
             guard let delegate = _delegate else { return }
+            setPaymentTypes()
             updatePaymentType(isOnlinePayment: delegate.isOnlinePaymentInitially(in: self))
         }
     }
@@ -48,10 +51,21 @@ class GamePaymentTypeCell: UITableViewCell, GameOrderCellProtocol {
     }
     
     //MARK:- Update Payment Type
-    private func updatePaymentType(isOnlinePayment: Bool) {
+    func updatePaymentType(isOnlinePayment: Bool) {
         _delegate?.paymentTypeCell(self, didChangePaymentType: isOnlinePayment)
         
         cashCheckBox.image = !isOnlinePayment ? UIImage(named: "rectDot") : nil
         onlineCheckBox.image = isOnlinePayment ? UIImage(named: "rectDot") : nil
+    }
+    
+    func setPaymentTypes() {
+        guard let types = _delegate?.availablePaymentTypes(in: self) else { return }
+        guard types.count <= 2, types.count >= 1 else {
+            fatalError("Invalid count of payment types. Only online and cash (max 2, min 1) type(s) are supported now.")
+        }
+        guard types.count == 1 else { return }
+        let singleType = types.first!
+        cashTypeView.isHidden = singleType == .online
+        onlineTypeView.isHidden = singleType == .cash
     }
 }

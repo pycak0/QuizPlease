@@ -8,6 +8,7 @@
 
 import Foundation
 
+//MARK:- Presenter Protocol
 protocol GameOrderPresenterProtocol {
     var game: GameInfo! { get set }
     var registerForm: RegisterForm { get set }
@@ -25,7 +26,10 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
     
     var registerForm = RegisterForm()
     var game: GameInfo! {
-        didSet { registerForm.game_id = game.id }
+        didSet {
+            registerForm.game_id = game.id
+            registerForm.payment_type = game.availablePaymentTypes.contains(.online) ? .online : .cash
+        }
     }
 
     required init(view: GameOrderViewProtocol, interactor: GameOrderInteractorProtocol, router: GameOrderRouterProtocol) {

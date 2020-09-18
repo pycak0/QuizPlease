@@ -8,6 +8,6 @@
 
 import Foundation
 
-enum PaymentType: Int, Encodable {
+enum PaymentType: Int, CaseIterable, Encodable {
     case online = 1, cash
 }
