@@ -48,7 +48,7 @@
                                             </constraints>
                                         </imageView>
                                         <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="csE-VG-Qfu">
-                                            <rect key="frame" x="90" y="26.666666666666671" width="308" height="27"/>
+                                            <rect key="frame" x="90" y="27" width="308" height="26"/>
                                             <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="22"/>
                                             <color key="tintColor" systemColor="labelColor"/>
                                             <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="14" maxY="0.0"/>
@@ -603,7 +603,7 @@
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EeL-ca-maG">
-                                        <rect key="frame" x="20" y="114" width="374" height="66"/>
+                                        <rect key="frame" x="20" y="114.66666666666669" width="374" height="65.333333333333314"/>
                                         <string key="text">Квиз, плиз! Хоум — это домашняя версия игры. Всё, что вы так любите делать с нами в барах, теперь можно устроить самостоятельно: дома, на работе, на отдыхе и вообще где захотите</string>
                                         <fontDescription key="fontDescription" name="Gilroy-Medium" family="Gilroy" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -788,7 +788,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Добавление игры" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="jgs-et-DdD">
-                                <rect key="frame" x="60" y="66.333333333333329" width="276" height="29.333333333333329"/>
+                                <rect key="frame" x="60" y="67" width="276" height="28"/>
                                 <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="24"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -836,7 +836,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WSQ-Fw-IK5">
-                                <rect key="frame" x="40" y="640" width="334" height="57.333333333333371"/>
+                                <rect key="frame" x="40" y="640" width="334" height="56"/>
                                 <string key="text">Наведите камеру
 на квадратный код
 на вашей карточке</string>
@@ -1107,6 +1107,7 @@
                         <outlet property="gameImageView" destination="FKI-MS-LTd" id="JxS-99-I7O"/>
                         <outlet property="imageDarkeningView" destination="OF9-qh-Dyj" id="mhu-FG-faY"/>
                         <outlet property="tableView" destination="zWG-FS-gI7" id="Emk-d8-6RH"/>
+                        <segue destination="aTk-QU-tXA" kind="presentation" identifier="ShowGameOrderCompletionScreen" modalPresentationStyle="overFullScreen" id="T8Y-vv-sYG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kct-uf-a61" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1508,19 +1509,19 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Этот подарочный сертификат дает право на бесплатную игру Квиз, плиз! [стрим] для целой команды." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KJa-4c-mae">
-                                <rect key="frame" x="20" y="292" width="374" height="50.333333333333314"/>
+                                <rect key="frame" x="20" y="292" width="374" height="49"/>
                                 <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="14"/>
                                 <color key="textColor" systemColor="opaqueSeparatorColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Потратить N баллов на электронный сертификат?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xvi-EP-uSy">
-                                <rect key="frame" x="20" y="362.33333333333331" width="374" height="53.333333333333314"/>
+                                <rect key="frame" x="20" y="361" width="374" height="51.333333333333314"/>
                                 <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="22"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="btf-Ro-wml">
-                                <rect key="frame" x="20" y="441.66666666666669" width="374" height="50"/>
+                                <rect key="frame" x="20" y="438.33333333333331" width="374" height="50"/>
                                 <subviews>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b4o-HT-k4w" customClass="ScalingButton" customModule="QuizPlease" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="180" height="50"/>
@@ -1899,30 +1900,87 @@
         <!--[Game Name]-->
         <scene sceneID="kLd-U1-iMA">
             <objects>
-                <viewController id="Biu-cA-03G" sceneMemberID="viewController">
+                <viewController id="Biu-cA-03G" customClass="GameOrderCompletionVC" customModule="QuizPlease" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Tda-HK-gwT">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2WS-Pf-8RB">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="724"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fYL-Hz-GwJ">
+                                <rect key="frame" x="0.0" y="674" width="414" height="222"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Вы успешно записаны" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fhR-co-3bE">
+                                        <rect key="frame" x="20" y="70.333333333333371" width="374" height="25.666666666666671"/>
+                                        <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="22"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="252" image="tick" translatesAutoresizingMaskIntoConstraints="NO" id="bCJ-mt-zL7">
+                                        <rect key="frame" x="20" y="14.000000000000004" width="374" height="46.333333333333343"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="fhR-co-3bE" firstAttribute="centerX" secondItem="fYL-Hz-GwJ" secondAttribute="centerX" id="MTI-rk-O56"/>
+                                    <constraint firstItem="bCJ-mt-zL7" firstAttribute="leading" secondItem="fYL-Hz-GwJ" secondAttribute="leading" constant="20" id="SWT-9X-wWJ"/>
+                                    <constraint firstItem="fhR-co-3bE" firstAttribute="leading" secondItem="fYL-Hz-GwJ" secondAttribute="leading" constant="20" id="UNG-Vc-ChX"/>
+                                    <constraint firstItem="fhR-co-3bE" firstAttribute="top" secondItem="bCJ-mt-zL7" secondAttribute="bottom" constant="10" id="gey-GV-DSV"/>
+                                    <constraint firstItem="bCJ-mt-zL7" firstAttribute="centerX" secondItem="fYL-Hz-GwJ" secondAttribute="centerX" id="oGh-9C-Qa6"/>
+                                    <constraint firstItem="bCJ-mt-zL7" firstAttribute="top" secondItem="fYL-Hz-GwJ" secondAttribute="top" constant="14" id="zzs-Rz-LjY"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cPT-Wi-S6w" customClass="ScalingButton" customModule="QuizPlease" customModuleProvider="target">
+                                <rect key="frame" x="20" y="786" width="374" height="60"/>
+                                <color key="backgroundColor" name="lightGreen"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="gK4-ir-Gab"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="20"/>
+                                <state key="normal" title="Хорошо">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusView">
+                                        <real key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="addGameButtonPressed:" destination="8BX-jB-LoS" eventType="touchUpInside" id="Apt-DT-roY"/>
+                                    <action selector="okButtonPressed:" destination="Biu-cA-03G" eventType="touchUpInside" id="9p3-k2-Mai"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="UkL-mi-hl5"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="cPT-Wi-S6w" firstAttribute="centerX" secondItem="fYL-Hz-GwJ" secondAttribute="centerX" id="9A7-jZ-TnZ"/>
+                            <constraint firstItem="fYL-Hz-GwJ" firstAttribute="top" secondItem="2WS-Pf-8RB" secondAttribute="bottom" constant="-50" id="DYt-cS-NY3"/>
                             <constraint firstItem="2WS-Pf-8RB" firstAttribute="leading" secondItem="UkL-mi-hl5" secondAttribute="leading" id="IsC-Zy-p07"/>
+                            <constraint firstItem="cPT-Wi-S6w" firstAttribute="top" secondItem="fhR-co-3bE" secondAttribute="bottom" constant="16" id="JdX-Rv-Yfy"/>
                             <constraint firstItem="UkL-mi-hl5" firstAttribute="trailing" secondItem="2WS-Pf-8RB" secondAttribute="trailing" id="LDV-A8-9wC"/>
+                            <constraint firstAttribute="bottom" secondItem="fYL-Hz-GwJ" secondAttribute="bottom" id="Lqf-kJ-4fi"/>
+                            <constraint firstItem="UkL-mi-hl5" firstAttribute="trailing" secondItem="fYL-Hz-GwJ" secondAttribute="trailing" id="Mym-7r-8hA"/>
                             <constraint firstItem="2WS-Pf-8RB" firstAttribute="top" secondItem="Tda-HK-gwT" secondAttribute="top" id="V0J-9A-7Xd"/>
-                            <constraint firstAttribute="bottom" secondItem="2WS-Pf-8RB" secondAttribute="bottom" id="gms-gU-Rat"/>
+                            <constraint firstItem="fYL-Hz-GwJ" firstAttribute="leading" secondItem="UkL-mi-hl5" secondAttribute="leading" id="ZgZ-8R-bAo"/>
+                            <constraint firstItem="UkL-mi-hl5" firstAttribute="bottom" secondItem="cPT-Wi-S6w" secondAttribute="bottom" constant="16" id="bsv-0t-dJ8"/>
+                            <constraint firstItem="cPT-Wi-S6w" firstAttribute="leading" secondItem="UkL-mi-hl5" secondAttribute="leading" constant="20" id="gLZ-fY-2ua"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="[Game Name]" id="VJ6-gu-vq9"/>
+                    <navigationItem key="navigationItem" title="[Game Name]" id="VJ6-gu-vq9">
+                        <barButtonItem key="leftBarButtonItem" id="TkV-VS-3b6"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="bottomView" destination="fYL-Hz-GwJ" id="tYe-X5-XYh"/>
+                        <outlet property="tableView" destination="2WS-Pf-8RB" id="KTU-wC-6yx"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LZB-4L-gsr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4170" y="-2229"/>
+            <point key="canvasLocation" x="4169.5652173913049" y="-2229.2410714285711"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
@@ -1953,6 +2011,7 @@
         <image name="pixelGuyHatAndPlate" width="94" height="32"/>
         <image name="radioImage" width="110" height="145"/>
         <image name="teapotImage" width="178" height="246"/>
+        <image name="tick" width="64" height="47"/>
         <image name="tv.music.note" catalog="system" width="128" height="97"/>
         <image name="warmupPreview" width="375" height="227"/>
         <image name="xmarkIcon" width="24" height="24"/>

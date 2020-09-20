@@ -11,7 +11,7 @@ import UIKit
 //MARK:- View Protocol
 protocol GameOrderViewProtocol: UIViewController {
     var presenter: GameOrderPresenterProtocol! { get set }
-    var configurator: GameOrderConfiguratorProtocol! { get }
+    //var configurator: GameOrderConfiguratorProtocol! { get }
     
     var shouldScrollToSignUp: Bool! { get set }
     
@@ -20,7 +20,7 @@ protocol GameOrderViewProtocol: UIViewController {
 }
 
 class GameOrderVC: UIViewController {
-    let configurator: GameOrderConfiguratorProtocol! = GameOrderConfigurator()
+    //let configurator: GameOrderConfiguratorProtocol! = GameOrderConfigurator()
     var presenter: GameOrderPresenterProtocol!
     
     var shouldScrollToSignUp: Bool!
@@ -82,7 +82,6 @@ extension GameOrderVC: GameOrderViewProtocol {
         }
     }
 }
-
 
 //MARK:- Data Source & Delegate
 extension GameOrderVC: UITableViewDataSource, UITableViewDelegate {

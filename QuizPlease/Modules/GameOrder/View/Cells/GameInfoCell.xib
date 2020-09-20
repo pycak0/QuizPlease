@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -86,7 +87,7 @@
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wjt-md-0H9">
                                                         <rect key="frame" x="0.0" y="15" width="279" height="15"/>
                                                         <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="12"/>
-                                                        <color key="textColor" systemColor="placeholderTextColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="textColor" systemColor="placeholderTextColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
@@ -139,7 +140,7 @@
                                 </constraints>
                             </mapView>
                         </subviews>
-                        <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="tableCellGroupedBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="sRF-HF-R6D" firstAttribute="leading" secondItem="NEP-W8-Sc2" secondAttribute="leading" constant="16" id="9Pj-5P-8pQ"/>
                             <constraint firstAttribute="bottom" secondItem="Ox9-Mw-Ahd" secondAttribute="bottom" id="A9L-t3-I9e"/>
@@ -163,11 +164,12 @@
                     <constraint firstItem="NEP-W8-Sc2" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="rDw-jE-1BL"/>
                 </constraints>
             </tableViewCellContentView>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="availablePlacesImageView" destination="d2e-vd-VKa" id="Tw6-Mv-l1O"/>
                 <outlet property="availablePlacesLabel" destination="7Qb-9g-r4Z" id="EM1-UA-Wrb"/>
+                <outlet property="availablePlacesStack" destination="YAP-FK-phu" id="Qm4-3I-JDV"/>
                 <outlet property="cellView" destination="NEP-W8-Sc2" id="2E8-QM-8iK"/>
                 <outlet property="mapView" destination="2Gj-5f-DFQ" id="u2B-JE-36H"/>
                 <outlet property="placeAddressLabel" destination="wjt-md-0H9" id="cfb-fe-nKj"/>
@@ -183,5 +185,11 @@
         <image name="clockIcon" width="14" height="14"/>
         <image name="fireIcon" width="15" height="18"/>
         <image name="mapPointIcon" width="14" height="16"/>
+        <systemColor name="placeholderTextColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="tableCellGroupedBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

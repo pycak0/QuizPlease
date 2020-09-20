@@ -109,6 +109,7 @@ extension GameOrderVC: GameSubmitButtonCellDelegate {
     }
     
     func submitButtonCell(_ cell: GameSubmitButtonCell, didPressSubmitButton button: UIButton) {
+        presenter.didPressSubmitButton()
 //        return
 //
 //        button.isUserInteractionEnabled = false

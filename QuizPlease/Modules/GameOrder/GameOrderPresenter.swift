@@ -17,6 +17,8 @@ protocol GameOrderPresenterProtocol {
     init(view: GameOrderViewProtocol, interactor: GameOrderInteractorProtocol, router: GameOrderRouterProtocol)
     
     func configureViews()
+    
+    func didPressSubmitButton()
 }
 
 class GameOrderPresenter: GameOrderPresenterProtocol {
@@ -40,6 +42,10 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
     
     func configureViews() {
         view?.configureTableView()
+    }
+    
+    func didPressSubmitButton() {
+        router.showCompletionScreen(with: game, numberOfPeopleInTeam: registerForm.count)
     }
     
 }

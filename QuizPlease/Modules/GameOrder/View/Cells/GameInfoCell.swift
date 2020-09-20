@@ -33,6 +33,8 @@ class GameInfoCell: UITableViewCell, GameOrderCellProtocol {
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var placeNameLabel: UILabel!
     @IBOutlet weak var placeAddressLabel: UILabel!
+    
+    @IBOutlet weak var availablePlacesStack: UIStackView!
     @IBOutlet weak var availablePlacesImageView: UIImageView!
     @IBOutlet weak var availablePlacesLabel: UILabel!
     

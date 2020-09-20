@@ -32,7 +32,7 @@ class ScheduleRouter: ScheduleRouterProtocol {
             guard let gameInfo = sender as? GameInfoPresentAttributes,
                 let vc = segue.destination as? GameOrderVC else { return }
             
-            vc.configurator.configure(vc, withGameInfo: gameInfo)
+            GameOrderConfigurator().configure(vc, withGameInfo: gameInfo)
         case "ShowFilters":
             guard let vc = segue.destination as? FiltersVC,
                 let filter = sender as? ScheduleFilter else { return }

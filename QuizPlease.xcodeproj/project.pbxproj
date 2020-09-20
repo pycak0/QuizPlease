@@ -159,6 +159,8 @@
 		A4DAF74424DDBAFE00963C15 /* MenuHomeGameCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4DAF74224DDBAFE00963C15 /* MenuHomeGameCell.xib */; };
 		A4DAF74724DDCCAD00963C15 /* MenuRatingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DAF74524DDCCAD00963C15 /* MenuRatingCell.swift */; };
 		A4DAF74824DDCCAD00963C15 /* MenuRatingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4DAF74624DDCCAD00963C15 /* MenuRatingCell.xib */; };
+		A4FB0485251790CD00054DE4 /* GOCPeopleNumberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FB0483251790CD00054DE4 /* GOCPeopleNumberCell.swift */; };
+		A4FB0486251790CD00054DE4 /* GOCPeopleNumberCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4FB0484251790CD00054DE4 /* GOCPeopleNumberCell.xib */; };
 		A4FFA4A924F39F26006A1150 /* GameOrderCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FFA4A824F39F26006A1150 /* GameOrderCellProtocol.swift */; };
 		A4FFA4AB24F3AB1A006A1150 /* GameOrderCellDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FFA4AA24F3AB1A006A1150 /* GameOrderCellDelegates.swift */; };
 		A4FFA4AD24F3AE78006A1150 /* MapExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FFA4AC24F3AE78006A1150 /* MapExtensions.swift */; };
@@ -318,6 +320,8 @@
 		A4DAF74224DDBAFE00963C15 /* MenuHomeGameCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuHomeGameCell.xib; sourceTree = "<group>"; };
 		A4DAF74524DDCCAD00963C15 /* MenuRatingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuRatingCell.swift; sourceTree = "<group>"; };
 		A4DAF74624DDCCAD00963C15 /* MenuRatingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuRatingCell.xib; sourceTree = "<group>"; };
+		A4FB0483251790CD00054DE4 /* GOCPeopleNumberCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GOCPeopleNumberCell.swift; sourceTree = "<group>"; };
+		A4FB0484251790CD00054DE4 /* GOCPeopleNumberCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GOCPeopleNumberCell.xib; sourceTree = "<group>"; };
 		A4FFA4A824F39F26006A1150 /* GameOrderCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOrderCellProtocol.swift; sourceTree = "<group>"; };
 		A4FFA4AA24F3AB1A006A1150 /* GameOrderCellDelegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOrderCellDelegates.swift; sourceTree = "<group>"; };
 		A4FFA4AC24F3AE78006A1150 /* MapExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapExtensions.swift; sourceTree = "<group>"; };
@@ -597,7 +601,6 @@
 				A4FFA4AA24F3AB1A006A1150 /* GameOrderCellDelegates.swift */,
 				A450E3A424E57A8C00C49AEE /* GameInfoItemKind.swift */,
 				A4A0659F24E477E70080E0D8 /* Cells */,
-				A4779C7E251618C90064F863 /* GameOrderCompletionVC.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -714,10 +717,10 @@
 		A4B828E224D8322B00D77E67 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
+				A40689FE24F7D94B001273B2 /* Globals.swift */,
 				A4D498CA2502648D00CB70EE /* ScheduledGame */,
 				A4B2C3E125013DC3008D5175 /* ScheduleFilters */,
 				A4B2C3E225013DD5008D5175 /* City */,
-				A40689FE24F7D94B001273B2 /* Globals.swift */,
 				A4068A0024F7DAE2001273B2 /* ServerResponse.swift */,
 				A40689FC24F7D913001273B2 /* SessionError.swift */,
 				A4147AD624E5B92D007C131F /* Place.swift */,
@@ -738,6 +741,7 @@
 				A40D817224D2C95D006D2CE3 /* MainMenu */,
 				A40D817624D2C97E006D2CE3 /* Schedule */,
 				A4A0659524E4775E0080E0D8 /* GameOrder */,
+				A4FB047C25178B3400054DE4 /* GameOrderCompletion */,
 				A40D817824D2C99D006D2CE3 /* WarmUp */,
 				A40D817724D2C98A006D2CE3 /* HomeGame */,
 				A40D817424D2C96B006D2CE3 /* Profile */,
@@ -821,6 +825,16 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		A4FB047C25178B3400054DE4 /* GameOrderCompletion */ = {
+			isa = PBXGroup;
+			children = (
+				A4779C7E251618C90064F863 /* GameOrderCompletionVC.swift */,
+				A4FB0483251790CD00054DE4 /* GOCPeopleNumberCell.swift */,
+				A4FB0484251790CD00054DE4 /* GOCPeopleNumberCell.xib */,
+			);
+			path = GameOrderCompletion;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -902,6 +916,7 @@
 				A40D816324D2C6C2006D2CE3 /* Assets.xcassets in Resources */,
 				A4A5DE932501975A00EBC408 /* FilterView.xib in Resources */,
 				A4DAF74824DDCCAD00963C15 /* MenuRatingCell.xib in Resources */,
+				A4FB0486251790CD00054DE4 /* GOCPeopleNumberCell.xib in Resources */,
 				A452E3B224D428DA002EE514 /* ShopItemCell.xib in Resources */,
 				A450E39B24E564A900C49AEE /* GameCertificateCell.xib in Resources */,
 				A4A065A724E47E510080E0D8 /* Gilroy-Medium.ttf in Resources */,
@@ -1011,6 +1026,7 @@
 				A405C98724F651C900C74787 /* MainMenuShopCollectionView.swift in Sources */,
 				A40D818624D2CA44006D2CE3 /* ShopVC.swift in Sources */,
 				A4FFA4AD24F3AE78006A1150 /* MapExtensions.swift in Sources */,
+				A4FB0485251790CD00054DE4 /* GOCPeopleNumberCell.swift in Sources */,
 				A40D818024D2CA26006D2CE3 /* HomeGamesListVC.swift in Sources */,
 				A450E39724E559CD00C49AEE /* TitledTextFieldView.swift in Sources */,
 				A4A5DE9825019DA800EBC408 /* ScheduleFilter.swift in Sources */,
