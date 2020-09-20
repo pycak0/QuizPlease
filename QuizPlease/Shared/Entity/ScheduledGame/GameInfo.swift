@@ -35,7 +35,7 @@ struct GameInfo: Decodable {
 
 extension GameInfo {
     var priceNumber: Int? {
-        return Int(price.trimmingCharacters(in: CharacterSet(charactersIn: "0123456789.").inverted))
+        return Int(price.trimmingCharacters(in: CharacterSet(charactersIn: "0123456789").inverted))
     }
     
     var placeInfo: Place {

@@ -82,6 +82,7 @@
 		A452E3B424D431C5002EE514 /* DataTypesExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A452E3B324D431C5002EE514 /* DataTypesExtensions.swift */; };
 		A45488C52513719800992261 /* UIPageViewController+PagingToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45488C42513719700992261 /* UIPageViewController+PagingToggle.swift */; };
 		A45A072124FFED6D00137637 /* PickCityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45A072024FFED6D00137637 /* PickCityVC.swift */; };
+		A4617344251763AA00B002D1 /* CountPickView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4617343251763AA00B002D1 /* CountPickView.swift */; };
 		A46436E724EA7B120033F23A /* Gilroy-Heavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A46436E624EA7B110033F23A /* Gilroy-Heavy.ttf */; };
 		A46436E924EA7E590033F23A /* RatingItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46436E824EA7E590033F23A /* RatingItem.swift */; };
 		A46436ED24EAD24F0033F23A /* HBSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46436EC24EAD24F0033F23A /* HBSegmentedControl.swift */; };
@@ -97,6 +98,7 @@
 		A46F303B24F52CAE0062A333 /* GameOnlinePaymentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A46F303924F52CAE0062A333 /* GameOnlinePaymentCell.xib */; };
 		A46F303E24F5302B0062A333 /* GameSubmitButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46F303C24F5302B0062A333 /* GameSubmitButtonCell.swift */; };
 		A46F303F24F5302B0062A333 /* GameSubmitButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A46F303D24F5302B0062A333 /* GameSubmitButtonCell.xib */; };
+		A4779C7F251618C90064F863 /* GameOrderCompletionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4779C7E251618C90064F863 /* GameOrderCompletionVC.swift */; };
 		A48A11EE24F55F9500F91B9C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A48A11ED24F55F9500F91B9C /* Main.storyboard */; };
 		A48A11F124F56D6900F91B9C /* MenuShopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48A11EF24F56D6900F91B9C /* MenuShopCell.swift */; };
 		A48A11F224F56D6900F91B9C /* MenuShopCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A48A11F024F56D6900F91B9C /* MenuShopCell.xib */; };
@@ -240,6 +242,7 @@
 		A452E3B324D431C5002EE514 /* DataTypesExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTypesExtensions.swift; sourceTree = "<group>"; };
 		A45488C42513719700992261 /* UIPageViewController+PagingToggle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIPageViewController+PagingToggle.swift"; sourceTree = "<group>"; };
 		A45A072024FFED6D00137637 /* PickCityVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickCityVC.swift; sourceTree = "<group>"; };
+		A4617343251763AA00B002D1 /* CountPickView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountPickView.swift; sourceTree = "<group>"; };
 		A46436E624EA7B110033F23A /* Gilroy-Heavy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-Heavy.ttf"; sourceTree = "<group>"; };
 		A46436E824EA7E590033F23A /* RatingItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingItem.swift; sourceTree = "<group>"; };
 		A46436EC24EAD24F0033F23A /* HBSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HBSegmentedControl.swift; sourceTree = "<group>"; };
@@ -254,6 +257,7 @@
 		A46F303924F52CAE0062A333 /* GameOnlinePaymentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameOnlinePaymentCell.xib; sourceTree = "<group>"; };
 		A46F303C24F5302B0062A333 /* GameSubmitButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSubmitButtonCell.swift; sourceTree = "<group>"; };
 		A46F303D24F5302B0062A333 /* GameSubmitButtonCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameSubmitButtonCell.xib; sourceTree = "<group>"; };
+		A4779C7E251618C90064F863 /* GameOrderCompletionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOrderCompletionVC.swift; sourceTree = "<group>"; };
 		A48A11ED24F55F9500F91B9C /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		A48A11EF24F56D6900F91B9C /* MenuShopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuShopCell.swift; sourceTree = "<group>"; };
 		A48A11F024F56D6900F91B9C /* MenuShopCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuShopCell.xib; sourceTree = "<group>"; };
@@ -507,16 +511,14 @@
 		A445E34624DE02A20070B9FC /* View */ = {
 			isa = PBXGroup;
 			children = (
-				A40F035B24D412D700C381F2 /* ShopItemCell.swift */,
-				A452E3B024D428DA002EE514 /* ShopItemCell.xib */,
-				A4CC5FED24DAEA840042B41C /* NavigationBar.xib */,
-				A4CC5FEF24DAF7300042B41C /* NavigationBar.swift */,
+				A461733D2517635C00B002D1 /* ShopItemCell */,
+				A461733F2517636F00B002D1 /* NavigationBar */,
+				A46173412517637E00B002D1 /* TitledTextFieldView */,
+				A446BD762510128E00AFEBDB /* VideoView */,
 				A445E34724DE02BC0070B9FC /* TitleLabel.swift */,
-				A450E39524E559CD00C49AEE /* TitledTextFieldView.swift */,
-				A450E39424E559CD00C49AEE /* TitledTextFieldView.xib */,
 				A46436EC24EAD24F0033F23A /* HBSegmentedControl.swift */,
 				A419F2F124F003C9004A7997 /* ScalingButton.swift */,
-				A446BD762510128E00AFEBDB /* VideoView */,
+				A4617343251763AA00B002D1 /* CountPickView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -537,6 +539,33 @@
 				A44C697A24EFE70B00AB3BC9 /* RouterProtocol.swift */,
 			);
 			path = Protocols;
+			sourceTree = "<group>";
+		};
+		A461733D2517635C00B002D1 /* ShopItemCell */ = {
+			isa = PBXGroup;
+			children = (
+				A40F035B24D412D700C381F2 /* ShopItemCell.swift */,
+				A452E3B024D428DA002EE514 /* ShopItemCell.xib */,
+			);
+			path = ShopItemCell;
+			sourceTree = "<group>";
+		};
+		A461733F2517636F00B002D1 /* NavigationBar */ = {
+			isa = PBXGroup;
+			children = (
+				A4CC5FED24DAEA840042B41C /* NavigationBar.xib */,
+				A4CC5FEF24DAF7300042B41C /* NavigationBar.swift */,
+			);
+			path = NavigationBar;
+			sourceTree = "<group>";
+		};
+		A46173412517637E00B002D1 /* TitledTextFieldView */ = {
+			isa = PBXGroup;
+			children = (
+				A450E39524E559CD00C49AEE /* TitledTextFieldView.swift */,
+				A450E39424E559CD00C49AEE /* TitledTextFieldView.xib */,
+			);
+			path = TitledTextFieldView;
 			sourceTree = "<group>";
 		};
 		A46436FF24EB37DB0033F23A /* ExpandingHeader */ = {
@@ -568,6 +597,7 @@
 				A4FFA4AA24F3AB1A006A1150 /* GameOrderCellDelegates.swift */,
 				A450E3A424E57A8C00C49AEE /* GameInfoItemKind.swift */,
 				A4A0659F24E477E70080E0D8 /* Cells */,
+				A4779C7E251618C90064F863 /* GameOrderCompletionVC.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -823,7 +853,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1160;
-				LastUpgradeCheck = 1160;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = "Владислав";
 				TargetAttributes = {
 					A40D815524D2C6C1006D2CE3 = {
@@ -912,6 +942,7 @@
 				A4D230AA24F9219D00524A01 /* UIImageView+LoadImage.swift in Sources */,
 				A4147AD924E5BAF9007C131F /* MapService.swift in Sources */,
 				A4DAF74724DDCCAD00963C15 /* MenuRatingCell.swift in Sources */,
+				A4617344251763AA00B002D1 /* CountPickView.swift in Sources */,
 				A40B758824D9A7FD006DB7D1 /* WarmupRouter.swift in Sources */,
 				A4A5DE95250197C300EBC408 /* FilterView.swift in Sources */,
 				A4D498CC250264AC00CB70EE /* GameShortInfo.swift in Sources */,
@@ -920,6 +951,7 @@
 				A48DFF7B24F4070200E47095 /* HomeGame.swift in Sources */,
 				A4A065A224E47D1F0080E0D8 /* GameAnnotationCell.swift in Sources */,
 				A469F75924E3084D007FB332 /* ScheduleGameCell.swift in Sources */,
+				A4779C7F251618C90064F863 /* GameOrderCompletionVC.swift in Sources */,
 				A4A296C224F6DC2800347EB2 /* AddGameVC.swift in Sources */,
 				A40D817C24D2CA04006D2CE3 /* ScheduleVC.swift in Sources */,
 				A44C697624EFD45300AB3BC9 /* QRCodeService.swift in Sources */,
@@ -1064,6 +1096,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -1124,6 +1157,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;

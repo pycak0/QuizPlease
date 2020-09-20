@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -28,136 +29,26 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="XC4-G7-1T2">
                                 <rect key="frame" x="0.0" y="0.0" width="288" height="135"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DvY-Bt-mnf">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DvY-Bt-mnf" customClass="CountPickView" customModule="QuizPlease" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="288" height="30"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iyC-Pr-yum">
-                                                <rect key="frame" x="0.0" y="13" width="288" height="4"/>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="4" id="tOL-ZM-Jjn"/>
-                                                </constraints>
-                                            </view>
-                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Hc2-kz-8eE">
-                                                <rect key="frame" x="0.0" y="0.0" width="288" height="30"/>
-                                                <subviews>
-                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ERi-c9-yDx">
-                                                        <rect key="frame" x="0.0" y="0.0" width="27.5" height="30"/>
-                                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                                        <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="16"/>
-                                                        <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                        <state key="normal" image="human">
-                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="countButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="TEZ-cg-lkb"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ppy-q6-qfC">
-                                                        <rect key="frame" x="37.5" y="0.0" width="27" height="30"/>
-                                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                                        <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="16"/>
-                                                        <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                        <state key="normal" image="human">
-                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="countButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="jue-tj-aqe"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="huG-Ud-ihy">
-                                                        <rect key="frame" x="74.5" y="0.0" width="27.5" height="30"/>
-                                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                                        <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="16"/>
-                                                        <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                        <state key="normal" image="human">
-                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="countButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="hYg-la-13h"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fi4-my-J4J">
-                                                        <rect key="frame" x="112" y="0.0" width="27" height="30"/>
-                                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                                        <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="16"/>
-                                                        <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                        <state key="normal" image="human">
-                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="countButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Ogz-Xj-cjM"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dsw-dd-hVM">
-                                                        <rect key="frame" x="149" y="0.0" width="27.5" height="30"/>
-                                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                                        <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="16"/>
-                                                        <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                        <state key="normal" image="human">
-                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="countButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Lax-xQ-401"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nOd-Hy-zFl">
-                                                        <rect key="frame" x="186.5" y="0.0" width="27" height="30"/>
-                                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                                        <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="16"/>
-                                                        <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                        <state key="normal" image="human">
-                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="countButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="T86-df-Nh7"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XTW-vd-Qok">
-                                                        <rect key="frame" x="223.5" y="0.0" width="27.5" height="30"/>
-                                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                                        <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="16"/>
-                                                        <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                        <state key="normal" image="human">
-                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="countButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="hm8-2Q-oUY"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kuq-Gb-L64">
-                                                        <rect key="frame" x="261" y="0.0" width="27" height="30"/>
-                                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                                        <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="16"/>
-                                                        <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                        <state key="normal" image="human">
-                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="countButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="bJ9-QE-jUv"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="30" id="jkQ-1z-g8p"/>
-                                                </constraints>
-                                            </stackView>
-                                        </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="tintColor" systemColor="labelColor"/>
                                         <constraints>
-                                            <constraint firstItem="iyC-Pr-yum" firstAttribute="centerY" secondItem="Hc2-kz-8eE" secondAttribute="centerY" id="5nW-5r-7Si"/>
-                                            <constraint firstAttribute="bottom" secondItem="Hc2-kz-8eE" secondAttribute="bottom" id="6ff-Ca-5zv"/>
-                                            <constraint firstAttribute="trailing" secondItem="iyC-Pr-yum" secondAttribute="trailing" id="8U0-u4-uUY"/>
-                                            <constraint firstAttribute="trailing" secondItem="Hc2-kz-8eE" secondAttribute="trailing" id="Eni-2W-4I9"/>
-                                            <constraint firstItem="iyC-Pr-yum" firstAttribute="leading" secondItem="DvY-Bt-mnf" secondAttribute="leading" id="F5g-p8-6Zf"/>
-                                            <constraint firstItem="Hc2-kz-8eE" firstAttribute="top" secondItem="DvY-Bt-mnf" secondAttribute="top" id="QoJ-0y-hG9"/>
-                                            <constraint firstItem="Hc2-kz-8eE" firstAttribute="leading" secondItem="DvY-Bt-mnf" secondAttribute="leading" id="WQV-d5-KsQ"/>
+                                            <constraint firstAttribute="height" constant="30" id="sIX-ov-dqV"/>
                                         </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="maxButtonsCount">
+                                                <integer key="value" value="8"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="image" keyPath="unselectedImage" value="human"/>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="buttonsTitleColor">
+                                                <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="* Доплатить за оставшихся участников можно будет позже по ссылке из письма или прям на игре." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="7" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6yc-dq-UHc">
                                         <rect key="frame" x="0.0" y="53" width="288" height="29"/>
                                         <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="12"/>
-                                        <color key="textColor" systemColor="placeholderTextColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="textColor" systemColor="placeholderTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="apN-Ze-uFS">
@@ -203,17 +94,26 @@
                     <constraint firstItem="UeY-E3-ObH" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="tz5-uv-5iV"/>
                 </constraints>
             </tableViewCellContentView>
-            <color key="backgroundColor" systemColor="systemGray5Color" red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <color key="backgroundColor" systemColor="systemGray5Color"/>
             <connections>
+                <outlet property="countPicker" destination="DvY-Bt-mnf" id="bKr-vw-ce2"/>
                 <outlet property="dashView" destination="CDh-0K-8Gp" id="SAU-ce-nQ5"/>
                 <outlet property="priceLabel" destination="Duf-DX-wK9" id="dKT-4X-HxV"/>
-                <outlet property="teamCountStack" destination="Hc2-kz-8eE" id="JPb-ih-YAY"/>
             </connections>
             <point key="canvasLocation" x="137.68115942028987" y="231.36160714285714"/>
         </tableViewCell>
     </objects>
     <resources>
         <image name="human" width="8" height="18"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="placeholderTextColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGray5Color">
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
     </resources>
 </document>

@@ -32,7 +32,7 @@ extension GameOrderVC: GameRegisterCellDelegate {
     func registerCell(_ registerCell: GameRegisterCell, didChangeNumberOfPeopleInTeam number: Int) {
         presenter.registerForm.count = number
         if let cell = tableView.cellForRow(at: IndexPath(row: GameInfoItemKind.onlinePayment.rawValue, section: 0)) as? GameOnlinePaymentCell {
-            cell.maxNumber = number
+            cell.updateMaxNumberOfPeople(number)
         }
         
     }
@@ -88,7 +88,7 @@ extension GameOrderVC: GameOnlinePaymentCellDelegate {
     
     func sumToPay(in cell: GameOnlinePaymentCell, forNumberOfPeople number: Int) -> Int {
         presenter.registerForm.countPaidOnline = number
-        return presenter.game.priceNumber ?? 0 * number
+        return (presenter.game.priceNumber ?? 0) * number
     }
     
 }
