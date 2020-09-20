@@ -82,7 +82,7 @@
 		A452E3B424D431C5002EE514 /* DataTypesExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A452E3B324D431C5002EE514 /* DataTypesExtensions.swift */; };
 		A45488C52513719800992261 /* UIPageViewController+PagingToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45488C42513719700992261 /* UIPageViewController+PagingToggle.swift */; };
 		A45A072124FFED6D00137637 /* PickCityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45A072024FFED6D00137637 /* PickCityVC.swift */; };
-		A4617344251763AA00B002D1 /* CountPickView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4617343251763AA00B002D1 /* CountPickView.swift */; };
+		A4617344251763AA00B002D1 /* CountPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4617343251763AA00B002D1 /* CountPickerView.swift */; };
 		A46436E724EA7B120033F23A /* Gilroy-Heavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A46436E624EA7B110033F23A /* Gilroy-Heavy.ttf */; };
 		A46436E924EA7E590033F23A /* RatingItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46436E824EA7E590033F23A /* RatingItem.swift */; };
 		A46436ED24EAD24F0033F23A /* HBSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46436EC24EAD24F0033F23A /* HBSegmentedControl.swift */; };
@@ -242,7 +242,7 @@
 		A452E3B324D431C5002EE514 /* DataTypesExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTypesExtensions.swift; sourceTree = "<group>"; };
 		A45488C42513719700992261 /* UIPageViewController+PagingToggle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIPageViewController+PagingToggle.swift"; sourceTree = "<group>"; };
 		A45A072024FFED6D00137637 /* PickCityVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickCityVC.swift; sourceTree = "<group>"; };
-		A4617343251763AA00B002D1 /* CountPickView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountPickView.swift; sourceTree = "<group>"; };
+		A4617343251763AA00B002D1 /* CountPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountPickerView.swift; sourceTree = "<group>"; };
 		A46436E624EA7B110033F23A /* Gilroy-Heavy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-Heavy.ttf"; sourceTree = "<group>"; };
 		A46436E824EA7E590033F23A /* RatingItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingItem.swift; sourceTree = "<group>"; };
 		A46436EC24EAD24F0033F23A /* HBSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HBSegmentedControl.swift; sourceTree = "<group>"; };
@@ -518,7 +518,7 @@
 				A445E34724DE02BC0070B9FC /* TitleLabel.swift */,
 				A46436EC24EAD24F0033F23A /* HBSegmentedControl.swift */,
 				A419F2F124F003C9004A7997 /* ScalingButton.swift */,
-				A4617343251763AA00B002D1 /* CountPickView.swift */,
+				A4617343251763AA00B002D1 /* CountPickerView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -942,7 +942,7 @@
 				A4D230AA24F9219D00524A01 /* UIImageView+LoadImage.swift in Sources */,
 				A4147AD924E5BAF9007C131F /* MapService.swift in Sources */,
 				A4DAF74724DDCCAD00963C15 /* MenuRatingCell.swift in Sources */,
-				A4617344251763AA00B002D1 /* CountPickView.swift in Sources */,
+				A4617344251763AA00B002D1 /* CountPickerView.swift in Sources */,
 				A40B758824D9A7FD006DB7D1 /* WarmupRouter.swift in Sources */,
 				A4A5DE95250197C300EBC408 /* FilterView.swift in Sources */,
 				A4D498CC250264AC00CB70EE /* GameShortInfo.swift in Sources */,

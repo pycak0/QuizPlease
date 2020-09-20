@@ -10,6 +10,9 @@ import UIKit
 
 //MARK:- Delegate Protocol
 protocol GameRegisterCellDelegate: class {
+    ///The delegate should return a  number of people to select in picker. If the number is invalid, picker will select the first button.
+    func selectedNumberOfPeople(in registerCell: GameRegisterCell) -> Int
+    
     func registerCell(_ registerCell: GameRegisterCell, didChangeNumberOfPeopleInTeam number: Int)
 }
 
@@ -27,47 +30,36 @@ class GameRegisterCell: UITableViewCell, GameOrderCellProtocol {
     @IBOutlet weak var emailFieldView: TitledTextFieldView!
     @IBOutlet weak var phoneFieldView: TitledTextFieldView!
     @IBOutlet weak var fieldsStack: UIStackView!
-    @IBOutlet weak var numberButtonsStack: UIStackView!
+    @IBOutlet weak var countPicker: CountPickerView!
     @IBOutlet weak var feedbackFieldView: TitledTextFieldView!
-    
-    var selectedNumberOfPeople: Int = 2
-    let startCount = 2
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        configureTextFields()
-        select(numberButtonsStack.arrangedSubviews.first as! UIButton, number: selectedNumberOfPeople)
+        configureCell()
     }
     
     //MARK:- Layout Subviews
     override func layoutSubviews() {
         super.layoutSubviews()
-        configureViews()
+        countPicker.buttonsCornerRadius = 15
+        guard let number = _delegate?.selectedNumberOfPeople(in: self) else { return }
+        let index = number - countPicker.startCount
+        countPicker.setSelectedButton(at: index)
     }
     
-    //MARK:- Team Count Button Pressed
-    @IBAction func teamCountButtonPressed(_ sender: UIButton) {
-        guard let index = numberButtonsStack.arrangedSubviews.firstIndex(of: sender),
-            index + startCount != selectedNumberOfPeople else {
-            return
-        }
-        selectedNumberOfPeople = index + startCount
-        _delegate?.registerCell(self, didChangeNumberOfPeopleInTeam: selectedNumberOfPeople)
-        numberButtonsStack.arrangedSubviews.forEach {
-            let button = $0 as? UIButton
-            deselect(button)
-        }
-        select(sender, number: selectedNumberOfPeople)
+    private func configureCell() {
+        configurePicker()
+        configureTextFields()
     }
     
-    //MARK:- Configure Views
-    func configureViews() {
-        numberButtonsStack.arrangedSubviews.forEach {
-            $0.layer.cornerRadius = $0.frame.height / 2
-        }
+    private func configurePicker() {
+        countPicker.delegate = self
+        let font = UIFont(name: "Gilroy-SemiBold", size: 16)!
+        countPicker.titleLabel.font = font
+        countPicker.buttonsTitleFont = font
     }
     
-    func configureTextFields() {
+    private func configureTextFields() {
         for (index, field) in (fieldsStack.arrangedSubviews as! [TitledTextFieldView]).enumerated() {
             field.delegate = self
             if let type = TextFieldType(rawValue: index) {
@@ -82,37 +74,19 @@ class GameRegisterCell: UITableViewCell, GameOrderCellProtocol {
         feedbackFieldView.textField.returnKeyType = .done
     }
     
-    //MARK:- Select
-    func select(_ button: UIButton, number: Int) {
-        let scale: CGFloat = 1.1
-        UIView.animate(withDuration: 0.2) {
-            button.setTitle("\(number)", for: .normal)
-            button.setImage(nil, for: .normal)
-            button.backgroundColor = .systemBlue
-            button.transform = CGAffineTransform(scaleX: scale, y: scale)
-        }
-    }
-    
-    //MARK:- Deselect
-    func deselect(_ button: UIButton?) {
-        var color = UIColor.themeGray
-        if #available(iOS 13.0, *) {
-            color = .systemGray5
-        }
-        UIView.animate(withDuration: 0.2) {
-            button?.setImage(UIImage(named: "human"), for: .normal)
-            button?.setTitle("", for: .normal)
-            button?.backgroundColor = color
-            button?.transform = .identity
-        }
-    }
-    
 }
 
 //MARK:- TitledTextFieldViewDelegate
 extension GameRegisterCell: TitledTextFieldViewDelegate {
     func textFieldView(_ textFieldView: TitledTextFieldView, didChangeTextField text: String, didCompleteMask isComplete: Bool) {
         //
+    }
+}
+
+//MARK:- CountPickViewDelegate
+extension GameRegisterCell: CountPickerViewDelegate {
+    func countPicker(_ picker: CountPickerView, didChangeSelectedNumber number: Int) {
+        _delegate?.registerCell(self, didChangeNumberOfPeopleInTeam: number)
     }
 }
 

@@ -34,16 +34,16 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Введите ваши данные и нажмите на кнопку «Готово»" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="xs3-X3-veo">
-                        <rect key="frame" x="16" y="57" width="288" height="37.5"/>
+                        <rect key="frame" x="16" y="57" width="288" height="14"/>
                         <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="16"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="xw6-Bx-LR0">
-                        <rect key="frame" x="16" y="110.5" width="288" height="338"/>
+                        <rect key="frame" x="16" y="87" width="288" height="360"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PGn-0s-Xzh" customClass="TitledTextFieldView" customModule="QuizPlease" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="288" height="78.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="288" height="84"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="65" id="b9b-Xf-FuI"/>
@@ -54,7 +54,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hh9-0Z-MQd" customClass="TitledTextFieldView" customModule="QuizPlease" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="86.5" width="288" height="78.5"/>
+                                <rect key="frame" x="0.0" y="92" width="288" height="84"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="title" value="Имя капитана"/>
@@ -62,7 +62,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qmT-cl-rCx" customClass="TitledTextFieldView" customModule="QuizPlease" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="173" width="288" height="78.5"/>
+                                <rect key="frame" x="0.0" y="184" width="288" height="84"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="title" value="E-mail"/>
@@ -70,7 +70,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wae-y6-ACP" customClass="TitledTextFieldView" customModule="QuizPlease" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="259.5" width="288" height="78.5"/>
+                                <rect key="frame" x="0.0" y="276" width="288" height="84"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="title" value="Телефон капитана"/>
@@ -80,139 +80,6 @@
                             </view>
                         </subviews>
                     </stackView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Количество человек в команде" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QOc-9Z-TGT">
-                        <rect key="frame" x="16" y="468.5" width="288" height="15.5"/>
-                        <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="16"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MY2-XE-TFI">
-                        <rect key="frame" x="16" y="500" width="288" height="38"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jle-dy-Y0t">
-                                <rect key="frame" x="0.0" y="17" width="288" height="4"/>
-                                <color key="backgroundColor" systemColor="systemGray5Color"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="4" id="6YM-Kl-Fsq"/>
-                                </constraints>
-                            </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="phS-Sp-LPA">
-                                <rect key="frame" x="0.0" y="4" width="288" height="30"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VFe-5C-YOZ">
-                                        <rect key="frame" x="0.0" y="0.0" width="27.5" height="30"/>
-                                        <color key="backgroundColor" systemColor="systemGray5Color"/>
-                                        <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="16"/>
-                                        <color key="tintColor" systemColor="labelColor"/>
-                                        <state key="normal" image="human">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="teamCountButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="U27-zc-Y9u"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EvX-MS-ANh">
-                                        <rect key="frame" x="37.5" y="0.0" width="27" height="30"/>
-                                        <color key="backgroundColor" systemColor="systemGray5Color"/>
-                                        <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="16"/>
-                                        <color key="tintColor" systemColor="labelColor"/>
-                                        <state key="normal" image="human">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="teamCountButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="83D-hK-atN"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ppl-vV-Wrs">
-                                        <rect key="frame" x="74.5" y="0.0" width="27.5" height="30"/>
-                                        <color key="backgroundColor" systemColor="systemGray5Color"/>
-                                        <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="16"/>
-                                        <color key="tintColor" systemColor="labelColor"/>
-                                        <state key="normal" image="human">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="teamCountButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Djx-9T-ac2"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Izl-7l-a61">
-                                        <rect key="frame" x="112" y="0.0" width="27" height="30"/>
-                                        <color key="backgroundColor" systemColor="systemGray5Color"/>
-                                        <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="16"/>
-                                        <color key="tintColor" systemColor="labelColor"/>
-                                        <state key="normal" image="human">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="teamCountButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="YcR-Zt-KSy"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eTT-0J-c7e">
-                                        <rect key="frame" x="149" y="0.0" width="27.5" height="30"/>
-                                        <color key="backgroundColor" systemColor="systemGray5Color"/>
-                                        <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="16"/>
-                                        <color key="tintColor" systemColor="labelColor"/>
-                                        <state key="normal" image="human">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="teamCountButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="nGA-52-iAi"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9rm-rQ-Xpw">
-                                        <rect key="frame" x="186.5" y="0.0" width="27" height="30"/>
-                                        <color key="backgroundColor" systemColor="systemGray5Color"/>
-                                        <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="16"/>
-                                        <color key="tintColor" systemColor="labelColor"/>
-                                        <state key="normal" image="human">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="teamCountButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="sZY-cz-Mx0"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="79O-Pj-MxE">
-                                        <rect key="frame" x="223.5" y="0.0" width="27.5" height="30"/>
-                                        <color key="backgroundColor" systemColor="systemGray5Color"/>
-                                        <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="16"/>
-                                        <color key="tintColor" systemColor="labelColor"/>
-                                        <state key="normal" image="human">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="teamCountButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="CoV-kc-xNz"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VmB-0K-PH3">
-                                        <rect key="frame" x="261" y="0.0" width="27" height="30"/>
-                                        <color key="backgroundColor" systemColor="systemGray5Color"/>
-                                        <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="16"/>
-                                        <color key="tintColor" systemColor="labelColor"/>
-                                        <state key="normal" image="human">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="teamCountButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="IlD-de-hPh"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="faC-zT-gxO"/>
-                                </constraints>
-                            </stackView>
-                        </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="phS-Sp-LPA" firstAttribute="leading" secondItem="MY2-XE-TFI" secondAttribute="leading" id="0JW-yN-chp"/>
-                            <constraint firstItem="jle-dy-Y0t" firstAttribute="leading" secondItem="MY2-XE-TFI" secondAttribute="leading" id="1kj-Rv-Pcv"/>
-                            <constraint firstItem="jle-dy-Y0t" firstAttribute="centerY" secondItem="MY2-XE-TFI" secondAttribute="centerY" id="DJl-KH-Jfq"/>
-                            <constraint firstItem="phS-Sp-LPA" firstAttribute="centerY" secondItem="MY2-XE-TFI" secondAttribute="centerY" id="EnU-mi-bmc"/>
-                            <constraint firstAttribute="trailing" secondItem="phS-Sp-LPA" secondAttribute="trailing" id="Vsv-QP-IYj"/>
-                            <constraint firstItem="phS-Sp-LPA" firstAttribute="top" secondItem="MY2-XE-TFI" secondAttribute="top" constant="4" id="gZk-z6-Dfg"/>
-                            <constraint firstAttribute="trailing" secondItem="jle-dy-Y0t" secondAttribute="trailing" id="jD3-qi-wVg"/>
-                            <constraint firstItem="phS-Sp-LPA" firstAttribute="centerX" secondItem="MY2-XE-TFI" secondAttribute="centerX" id="p5F-ii-RzT"/>
-                        </constraints>
-                    </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zUG-0G-NHg" customClass="TitledTextFieldView" customModule="QuizPlease" customModuleProvider="target">
                         <rect key="frame" x="16" y="554" width="288" height="70"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -224,27 +91,36 @@
                             <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Расскажите"/>
                         </userDefinedRuntimeAttributes>
                     </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K1q-EO-BIz" customClass="CountPickerView" customModule="QuizPlease" customModuleProvider="target">
+                        <rect key="frame" x="16" y="463" width="288" height="75"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" systemColor="labelColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="75" id="Zn3-6v-wfc"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="title" value="Количество человек в команде"/>
+                            <userDefinedRuntimeAttribute type="image" keyPath="unselectedImage" value="human"/>
+                        </userDefinedRuntimeAttributes>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="xs3-X3-veo" firstAttribute="trailing" secondItem="GW9-rT-x6c" secondAttribute="trailing" id="2gu-iE-uAf"/>
                     <constraint firstItem="GW9-rT-x6c" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="4lc-TR-fUs"/>
                     <constraint firstAttribute="trailing" secondItem="GW9-rT-x6c" secondAttribute="trailing" constant="16" id="5B5-Vp-u0o"/>
+                    <constraint firstAttribute="trailing" secondItem="K1q-EO-BIz" secondAttribute="trailing" constant="16" id="9DN-GX-ahZ"/>
                     <constraint firstItem="xs3-X3-veo" firstAttribute="leading" secondItem="GW9-rT-x6c" secondAttribute="leading" id="D2m-Yd-d0O"/>
-                    <constraint firstItem="QOc-9Z-TGT" firstAttribute="top" secondItem="xw6-Bx-LR0" secondAttribute="bottom" constant="20" id="EzR-a5-KVJ"/>
                     <constraint firstItem="zUG-0G-NHg" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="Jsk-HN-BWV"/>
                     <constraint firstAttribute="bottom" secondItem="zUG-0G-NHg" secondAttribute="bottom" constant="16" id="LmY-cQ-Z3I"/>
                     <constraint firstItem="zUG-0G-NHg" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="M20-bT-0FT"/>
-                    <constraint firstAttribute="trailing" secondItem="MY2-XE-TFI" secondAttribute="trailing" constant="16" id="NFm-fh-Voe"/>
-                    <constraint firstAttribute="trailing" secondItem="QOc-9Z-TGT" secondAttribute="trailing" constant="16" id="RL0-Cu-EiT"/>
                     <constraint firstItem="xw6-Bx-LR0" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="Tdt-5R-N7Q"/>
                     <constraint firstItem="xs3-X3-veo" firstAttribute="top" secondItem="GW9-rT-x6c" secondAttribute="bottom" constant="8" id="Z01-ct-9fq"/>
-                    <constraint firstItem="QOc-9Z-TGT" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="cMG-Mx-hHk"/>
-                    <constraint firstItem="MY2-XE-TFI" firstAttribute="top" secondItem="QOc-9Z-TGT" secondAttribute="bottom" constant="16" id="cvE-U4-cXp"/>
-                    <constraint firstItem="zUG-0G-NHg" firstAttribute="top" secondItem="MY2-XE-TFI" secondAttribute="bottom" constant="16" id="dKX-HO-A2N"/>
+                    <constraint firstItem="K1q-EO-BIz" firstAttribute="top" secondItem="xw6-Bx-LR0" secondAttribute="bottom" constant="16" id="aR7-sY-YEw"/>
                     <constraint firstAttribute="trailing" secondItem="xw6-Bx-LR0" secondAttribute="trailing" constant="16" id="eQt-UJ-Ww8"/>
                     <constraint firstAttribute="trailing" secondItem="xs3-X3-veo" secondAttribute="trailing" constant="16" id="iKL-M2-0Zz"/>
+                    <constraint firstItem="zUG-0G-NHg" firstAttribute="top" secondItem="K1q-EO-BIz" secondAttribute="bottom" constant="16" id="jMo-0f-a4B"/>
                     <constraint firstItem="xw6-Bx-LR0" firstAttribute="top" secondItem="xs3-X3-veo" secondAttribute="bottom" constant="16" id="kYk-Cx-Pph"/>
-                    <constraint firstItem="MY2-XE-TFI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="uJ4-3f-mQ0"/>
+                    <constraint firstItem="K1q-EO-BIz" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="vlc-52-Bzz"/>
                     <constraint firstItem="GW9-rT-x6c" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="zj7-eW-a9z"/>
                     <constraint firstItem="xw6-Bx-LR0" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="zoP-oN-vW7"/>
                 </constraints>
@@ -253,10 +129,10 @@
             <color key="backgroundColor" systemColor="systemGray6Color"/>
             <connections>
                 <outlet property="captainNameFieldView" destination="Hh9-0Z-MQd" id="ec2-qg-kgr"/>
+                <outlet property="countPicker" destination="K1q-EO-BIz" id="cEO-rF-zPu"/>
                 <outlet property="emailFieldView" destination="qmT-cl-rCx" id="OVm-yy-VSi"/>
                 <outlet property="feedbackFieldView" destination="zUG-0G-NHg" id="dg9-Ly-WZc"/>
                 <outlet property="fieldsStack" destination="xw6-Bx-LR0" id="IDK-QN-DZY"/>
-                <outlet property="numberButtonsStack" destination="phS-Sp-LPA" id="yV1-mI-kXv"/>
                 <outlet property="phoneFieldView" destination="wae-y6-ACP" id="05S-9G-Mpo"/>
                 <outlet property="teamNameFieldView" destination="PGn-0s-Xzh" id="wZj-Ff-dwn"/>
             </connections>
@@ -267,9 +143,6 @@
         <image name="human" width="8" height="18"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemGray5Color">
-            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray6Color">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

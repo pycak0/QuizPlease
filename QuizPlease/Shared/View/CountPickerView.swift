@@ -1,5 +1,5 @@
 //
-//  CountPickView.swift
+//  CountPickerView.swift
 //  TestPickCount
 //
 //  Created by Владислав on 19.09.2020.
@@ -8,17 +8,17 @@
 import UIKit
 
 //MARK:- Delegate Protocol
-protocol CountPickViewDelegate: class {
-    ///Tells the delegate that selected value is changed (both by user or programmatically).
+protocol CountPickerViewDelegate: class {
+    ///Tells the delegate that selected value is changed (only when by user, not via `setSelectedButton(at:)` method).
     ///
     ///The value of `number` is calculated according to the specified `startCount` value.
     ///For example, if the new selected index is `1` and the `startCount` is `2`, the `number` will be equal to `3`.
-    func countPicker(_ picker: CountPickView, didChangeSelectedNumber number: Int)
+    func countPicker(_ picker: CountPickerView, didChangeSelectedNumber number: Int)
 }
 
 
 @IBDesignable
-class CountPickView: UIView {
+class CountPickerView: UIView {
     
     private var vStack: UIStackView!
     var titleLabel: UILabel!
@@ -27,9 +27,9 @@ class CountPickView: UIView {
     private var pickerStack: UIStackView!
     
     private var buttons = [UIButton]()
-    private var selectedIndex: Int = 0
+    private(set) var selectedIndex: Int = 0
     
-    weak var delegate: CountPickViewDelegate?
+    weak var delegate: CountPickerViewDelegate?
     
     //MARK:- IBInspectable
     @IBInspectable
@@ -38,7 +38,7 @@ class CountPickView: UIView {
     }
     
     @IBInspectable
-    var maxButtonsCount: Int = 7 {
+    var maxButtonsCount: Int = 8 {
         didSet {
             //guard maxButtonsCount > 0 else { print("Error. Count Picker must have at least one option."); return }
             setButtons()
@@ -49,7 +49,7 @@ class CountPickView: UIView {
 ////                buttons[i].alpha = 0.4
 ////                buttons[i].isUserInteractionEnabled = false
 //            }
-//            updateSelectedButton(at: buttons.endIndex)
+//            setSelectedButton(at: buttons.endIndex)
         }
     }
     
@@ -86,19 +86,18 @@ class CountPickView: UIView {
         didSet { updateButtonViews() }
     }
     
-    var buttonsTitleFont: UIFont = .systemFont(ofSize: 16, weight: .semibold) {
+    var buttonsTitleFont: UIFont? = .systemFont(ofSize: 16, weight: .semibold) {
         didSet { updateButtonViews() }
     }
     
     //MARK:- Update Selected Button
-    func updateSelectedButton(at index: Int) {
+    func setSelectedButton(at index: Int) {
         deselectAllButtons()
         guard index >= 0 && index < buttons.count else { return }
         selectedIndex = index
         let selectedNumber = selectedIndex + startCount
         let selectedButton = buttons[index]
         
-        delegate?.countPicker(self, didChangeSelectedNumber: selectedNumber)
         select(selectedButton, withNumber: index + startCount)
     }
     
@@ -107,7 +106,8 @@ class CountPickView: UIView {
     private func pickerButtonPressed(_ sender: UIButton) {
         guard let index = buttons.firstIndex(of: sender), index != selectedIndex else { return }
         
-        updateSelectedButton(at: index)
+        delegate?.countPicker(self, didChangeSelectedNumber: index + startCount)
+        setSelectedButton(at: index)
     }
     
     //MARK:- Set Buttons
@@ -123,7 +123,7 @@ class CountPickView: UIView {
             pickerStack.addArrangedSubview(button)
             //button.layer.cornerRadius = pickerStack.frame.height / 2
         }
-        updateSelectedButton(at: maxButtonsCount - 1)
+        setSelectedButton(at: maxButtonsCount - 1)
     }
     
     //MARK:- Update Button Views
@@ -132,7 +132,7 @@ class CountPickView: UIView {
             updateView(for: button, at: i)
         }
         pickerLine.backgroundColor = pickerBackgroundColor
-        updateSelectedButton(at: buttons.startIndex)
+        setSelectedButton(at: maxButtonsCount - 1)
     }
     
     private func updateView(for button: UIButton, at index: Int) {
@@ -195,7 +195,6 @@ class CountPickView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        print(pickerStack.frame.height)
         //buttons.forEach { $0.layer.cornerRadius = $0.frame.height / 2 }
     }
     

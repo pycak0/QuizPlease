@@ -28,7 +28,13 @@ extension GameOrderVC: GameInfoCellDelegate {
 
 extension GameOrderVC: GameDescriptionDelegate {}
 
+
+//MARK:- Register
 extension GameOrderVC: GameRegisterCellDelegate {
+    func selectedNumberOfPeople(in registerCell: GameRegisterCell) -> Int {
+        return presenter.registerForm.count
+    }
+    
     func registerCell(_ registerCell: GameRegisterCell, didChangeNumberOfPeopleInTeam number: Int) {
         presenter.registerForm.count = number
         if let cell = tableView.cellForRow(at: IndexPath(row: GameInfoItemKind.onlinePayment.rawValue, section: 0)) as? GameOnlinePaymentCell {
