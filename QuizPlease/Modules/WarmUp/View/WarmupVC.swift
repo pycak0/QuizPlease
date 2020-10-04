@@ -77,9 +77,9 @@ class WarmupVC: UIViewController {
         timerRing.outerRingColor = UIColor.black.withAlphaComponent(0.1)
         timerRing.innerRingWidth = 5
         timerRing.innerRingColor = .lightGreen
-        let formatter = UICircularTimerRingFormatter(units: .second, style: .short)
+        let formatter = UICircularProgressRingFormatter(valueIndicator: "", rightToLeft: true, showFloatingPoint: false, decimalPlaces: 0)
         timerRing.valueFormatter = formatter
-        timerRing.shouldShowValueText = false
+       // timerRing.shouldShowValueText = false
     }
     
     private func configureResultLabels() {
@@ -96,7 +96,7 @@ class WarmupVC: UIViewController {
     }
     
     private func startTimer() {
-        timerRing.startTimer(from: 0, to: 5) { [weak self] (timerState) in
+        timerRing.startTimer(from: 0, to: 60) { [weak self] (timerState) in
             guard let self = self else { return }
             switch timerState {
             case .finished:
@@ -110,12 +110,14 @@ class WarmupVC: UIViewController {
                 }
             }
         }
+        
     }
     
     private func setResults() {
         let count = presenter.questions.count
         let correct = presenter.questions.count // replace with "correct count"
-        resultTextLabel.text = "Я прошел разминку Квиз, плиз! и ответил правильно на \(correct) вопросов из \(count)"
+        let correctQuestionsPrompt = correct.string(withAssociatedMaleWord: "вопрос")
+        resultTextLabel.text = "Я прошел разминку Квиз, плиз! и ответил правильно на \(correctQuestionsPrompt) из \(count)"
         let passedTime = presenter.timePassed
         minutesLabel.text = String(format: "%02d", Int(passedTime) / 60)
         secondsLabel.text = String(format: "%02d", Int(passedTime) % 60)
