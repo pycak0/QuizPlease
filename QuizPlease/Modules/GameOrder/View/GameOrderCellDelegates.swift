@@ -40,7 +40,31 @@ extension GameOrderVC: GameRegisterCellDelegate {
         if let cell = tableView.cellForRow(at: IndexPath(row: GameInfoItemKind.onlinePayment.rawValue, section: 0)) as? GameOnlinePaymentCell {
             cell.updateMaxNumberOfPeople(number)
         }
-        
+    }
+    
+    func registerCell(_ registerCell: GameRegisterCell, didChangeTeamName newName: String) {
+        presenter.registerForm.teamName = newName
+    }
+    
+    func registerCell(_ registerCell: GameRegisterCell, didChangeCaptainName newName: String) {
+        presenter.registerForm.captainName = newName
+    }
+    
+    func registerCell(_ registerCell: GameRegisterCell, didChangeEmail email: String) {
+        presenter.registerForm.email = email
+    }
+    
+    func registerCell(_ registerCell: GameRegisterCell, didChangePhone number: String, didCompleteMask: Bool) {
+        if didCompleteMask {
+            let phoneNumber = "8" + number
+            presenter.registerForm.phone = phoneNumber
+        } else {
+            presenter.registerForm.phone = ""
+        }
+    }
+    
+    func registerCell(_ registerCell: GameRegisterCell, didChangeFeedback newValue: String) {
+        presenter.registerForm.comment = newValue
     }
 }
 
@@ -69,15 +93,15 @@ extension GameOrderVC: GamePaymentTypeCellDelegate {
         if isOnlinePayment {
             guard items.count < GameInfoItemKind.allCases.count else { return }
             items.insert(onlinePaymentSection, at: onlinePaymentSection.rawValue)
-            tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .automatic)
-            //tableView.insertRows(at: [indexPath], with: .fade)
+            //tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .automatic)
+            tableView.insertRows(at: [indexPath], with: .fade)
         } else {
             presenter.registerForm.countPaidOnline = nil
             
             guard items.count == GameInfoItemKind.allCases.count else { return }
             items.remove(at: onlinePaymentSection.rawValue)
-            tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .automatic)
-            //tableView.deleteRows(at: [indexPath], with: .fade)
+            //tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .automatic)
+            tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
 }

@@ -16,10 +16,11 @@ class Globals {
     static let mainDomain = "https://quizplease.ru/"
     static let devDomain = "https://staging.quizplease.ru:81/"
     static var baseUrl: URLComponents {
-        var urlComps = URLComponents(string: Globals.mainDomain)!
-        urlComps.queryItems = []
+        var urlComps = URLComponents(string: Globals.devDomain)!
+        urlComps.queryItems = nil
         return urlComps
     }
     
+    static var userToken: String?
     static var defaultCity: City = City(id: 9, title: "Москва")
 }

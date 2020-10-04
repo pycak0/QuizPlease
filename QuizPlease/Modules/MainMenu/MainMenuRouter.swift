@@ -36,7 +36,7 @@ class MainMenuRouter: MainMenuRouterProtocol {
             guard let vc = segue.destination as? AddGameVC, let info = sender as? String else {
                 fatalError("Incorrect Data passed when showing AddGameVC from MainMenuVC")
             }
-            vc.gameName = info
+            vc.token = info
         case "PickCityMenu":
             guard let navC = segue.destination as? UINavigationController,
                 let vc = navC.viewControllers.first as? PickCityVC,

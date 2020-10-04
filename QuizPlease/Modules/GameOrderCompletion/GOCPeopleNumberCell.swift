@@ -26,7 +26,7 @@ class GOCPeopleNumberCell: UITableViewCell {
     }
     
     func setNumber(_ number: Int) {
-        countPicker.setSelectedButton(at: number - countPicker.startCount)
+        countPicker.setSelectedButton(at: number - countPicker.startCount, animated: false)
     }
 
 }

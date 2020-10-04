@@ -12,6 +12,8 @@ protocol ProfileRouterProtocol: RouterProtocol {
     func showShop()
     func showQRScanner()
     func showAddGameScreen(_ info: String)
+    
+    func showAuthScreen()
 }
 
 class ProfileRouter: ProfileRouterProtocol {
@@ -30,7 +32,14 @@ class ProfileRouter: ProfileRouterProtocol {
             guard let vc = segue.destination as? AddGameVC, let info = sender as? String else {
                 fatalError("Incorrect Data Passed when showing AddGameVC from Profile")
             }
-            vc.gameName = info
+            vc.token = info
+        case "ProfileAuthVC":
+            guard let navC = segue.destination as? UINavigationController,
+                  let vc = navC.viewControllers.first as? AuthVC
+            else {
+                fatalError("Incorrect Data Passed when showing AuthVC from Profile Router")
+            }
+            vc.delegate = self
         default:
             print("no preparations made for segue with id '\(String(describing: segue.identifier))' (from ProfileVC)")
         }
@@ -48,4 +57,21 @@ class ProfileRouter: ProfileRouterProtocol {
         viewController?.performSegue(withIdentifier: "AddGameProfile", sender: info)
     }
     
+    func showAuthScreen() {
+        viewController?.performSegue(withIdentifier: "ProfileAuthVC", sender: nil)
+    }
+    
+}
+
+//MARK:- Auth VC Delegate
+extension ProfileRouter: AuthVCDelegate {
+    func didSuccessfullyAuthenticate(in authVC: AuthVC) {
+        authVC.dismiss(animated: true)
+    }
+    
+    func didCancelAuth(in authVC: AuthVC) {
+        authVC.dismiss(animated: true) { [unowned self] in
+            viewController?.navigationController?.popViewController(animated: true)
+        }
+    }
 }

@@ -166,7 +166,7 @@ private extension TitledTextFieldView {
 //MARK:- MaskedTextFieldDelegateListener
 extension TitledTextFieldView: MaskedTextFieldDelegateListener {
     func textField(_ textField: UITextField, didFillMandatoryCharacters complete: Bool, didExtractValue value: String) {
-        print(value)
+        //print(value)
         delegate?.textFieldView(self, didChangeTextField: value, didCompleteMask: complete)
     }
 }

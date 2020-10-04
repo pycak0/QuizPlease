@@ -34,7 +34,7 @@ class ProfileVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configurator.configure(self)
-        presenter.configureViews()
+        presenter.setupView()
 
     }
     

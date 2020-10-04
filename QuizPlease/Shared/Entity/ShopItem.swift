@@ -8,11 +8,18 @@
 
 import UIKit
 
-struct ShopItem {
-    var id: String
-    var name: String
+struct ShopItem: Decodable {
+    var id: String?
+    var title: String
     var description: String
     var price: Int
-    
-    var image: UIImage?
+}
+
+extension ShopItem {
+    var image: UIImage? {
+//        if price > 0 {
+//            return UIImage(named: "logoSmall")?.withRenderingMode(.alwaysOriginal)
+//        }
+        return UIImage(named: "logoSmall")?.withRenderingMode(.alwaysOriginal)
+    }
 }

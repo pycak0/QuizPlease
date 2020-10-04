@@ -14,6 +14,16 @@ protocol GameRegisterCellDelegate: class {
     func selectedNumberOfPeople(in registerCell: GameRegisterCell) -> Int
     
     func registerCell(_ registerCell: GameRegisterCell, didChangeNumberOfPeopleInTeam number: Int)
+    
+    func registerCell(_ registerCell: GameRegisterCell, didChangeTeamName newName: String)
+    
+    func registerCell(_ registerCell: GameRegisterCell, didChangeCaptainName newName: String)
+    
+    func registerCell(_ registerCell: GameRegisterCell, didChangeEmail email: String)
+    
+    func registerCell(_ registerCell: GameRegisterCell, didChangePhone number: String, didCompleteMask: Bool)
+    
+    func registerCell(_ registerCell: GameRegisterCell, didChangeFeedback newValue: String)
 }
 
 class GameRegisterCell: UITableViewCell, GameOrderCellProtocol {
@@ -44,7 +54,9 @@ class GameRegisterCell: UITableViewCell, GameOrderCellProtocol {
         countPicker.buttonsCornerRadius = 15
         guard let number = _delegate?.selectedNumberOfPeople(in: self) else { return }
         let index = number - countPicker.startCount
-        countPicker.setSelectedButton(at: index)
+        if countPicker.selectedIndex != index {
+            countPicker.setSelectedButton(at: index, animated: false)
+        }
     }
     
     private func configureCell() {
@@ -79,7 +91,20 @@ class GameRegisterCell: UITableViewCell, GameOrderCellProtocol {
 //MARK:- TitledTextFieldViewDelegate
 extension GameRegisterCell: TitledTextFieldViewDelegate {
     func textFieldView(_ textFieldView: TitledTextFieldView, didChangeTextField text: String, didCompleteMask isComplete: Bool) {
-        //
+        switch textFieldView {
+        case phoneFieldView:
+            _delegate?.registerCell(self, didChangePhone: text, didCompleteMask: isComplete)
+        case teamNameFieldView:
+            _delegate?.registerCell(self, didChangeTeamName: text)
+        case emailFieldView:
+            _delegate?.registerCell(self, didChangeEmail: text)
+        case captainNameFieldView:
+            _delegate?.registerCell(self, didChangeCaptainName: text)
+        case feedbackFieldView:
+            _delegate?.registerCell(self, didChangeFeedback: text)
+        default:
+            break
+        }
     }
 }
 

@@ -22,3 +22,9 @@ struct RegisterForm: Encodable {
     var payment_type: PaymentType = .online
     
 }
+
+extension RegisterForm {
+    var isValid: Bool {
+        return game_id >= 0 && email.isValidEmail && phone.count == 11 && teamName.count > 0 && captainName.count > 0
+    }
+}

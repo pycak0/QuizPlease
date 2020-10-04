@@ -98,6 +98,14 @@
 		A46F303B24F52CAE0062A333 /* GameOnlinePaymentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A46F303924F52CAE0062A333 /* GameOnlinePaymentCell.xib */; };
 		A46F303E24F5302B0062A333 /* GameSubmitButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46F303C24F5302B0062A333 /* GameSubmitButtonCell.swift */; };
 		A46F303F24F5302B0062A333 /* GameSubmitButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A46F303D24F5302B0062A333 /* GameSubmitButtonCell.xib */; };
+		A472D28F25288C0F00AA9906 /* UserAuthData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A472D28E25288C0F00AA9906 /* UserAuthData.swift */; };
+		A472D29825288F0800AA9906 /* AuthResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A472D29725288F0800AA9906 /* AuthResponse.swift */; };
+		A472D29B25288F1100AA9906 /* RegisterResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A472D29A25288F1100AA9906 /* RegisterResponse.swift */; };
+		A472D29E2528962A00AA9906 /* TeamInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A472D29D2528962A00AA9906 /* TeamInfo.swift */; };
+		A472D2A12528975900AA9906 /* CheckInTeamsInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A472D2A02528975900AA9906 /* CheckInTeamsInfo.swift */; };
+		A472D2A7252897CC00AA9906 /* CheckInData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A472D2A6252897CC00AA9906 /* CheckInData.swift */; };
+		A472D2AD2528A89100AA9906 /* AuthVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A472D2AC2528A89100AA9906 /* AuthVC.swift */; };
+		A472D2B325291F0200AA9906 /* UserRegisterData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A472D2B225291F0200AA9906 /* UserRegisterData.swift */; };
 		A4779C7F251618C90064F863 /* GameOrderCompletionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4779C7E251618C90064F863 /* GameOrderCompletionVC.swift */; };
 		A48A11EE24F55F9500F91B9C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A48A11ED24F55F9500F91B9C /* Main.storyboard */; };
 		A48A11F124F56D6900F91B9C /* MenuShopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48A11EF24F56D6900F91B9C /* MenuShopCell.swift */; };
@@ -259,6 +267,14 @@
 		A46F303924F52CAE0062A333 /* GameOnlinePaymentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameOnlinePaymentCell.xib; sourceTree = "<group>"; };
 		A46F303C24F5302B0062A333 /* GameSubmitButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSubmitButtonCell.swift; sourceTree = "<group>"; };
 		A46F303D24F5302B0062A333 /* GameSubmitButtonCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameSubmitButtonCell.xib; sourceTree = "<group>"; };
+		A472D28E25288C0F00AA9906 /* UserAuthData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthData.swift; sourceTree = "<group>"; };
+		A472D29725288F0800AA9906 /* AuthResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponse.swift; sourceTree = "<group>"; };
+		A472D29A25288F1100AA9906 /* RegisterResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterResponse.swift; sourceTree = "<group>"; };
+		A472D29D2528962A00AA9906 /* TeamInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamInfo.swift; sourceTree = "<group>"; };
+		A472D2A02528975900AA9906 /* CheckInTeamsInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInTeamsInfo.swift; sourceTree = "<group>"; };
+		A472D2A6252897CC00AA9906 /* CheckInData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInData.swift; sourceTree = "<group>"; };
+		A472D2AC2528A89100AA9906 /* AuthVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthVC.swift; sourceTree = "<group>"; };
+		A472D2B225291F0200AA9906 /* UserRegisterData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRegisterData.swift; sourceTree = "<group>"; };
 		A4779C7E251618C90064F863 /* GameOrderCompletionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOrderCompletionVC.swift; sourceTree = "<group>"; };
 		A48A11ED24F55F9500F91B9C /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		A48A11EF24F56D6900F91B9C /* MenuShopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuShopCell.swift; sourceTree = "<group>"; };
@@ -364,8 +380,9 @@
 			children = (
 				A40D816724D2C6C2006D2CE3 /* Info.plist */,
 				A40D816D24D2C73D006D2CE3 /* AppDelegates */,
-				A4CC5FEC24DAEA6C0042B41C /* Shared */,
+				A40D816F24D2C767006D2CE3 /* Storyboards */,
 				A40D818C24D2E3DB006D2CE3 /* Services */,
+				A4CC5FEC24DAEA6C0042B41C /* Shared */,
 				A4BA1CF124D83A6900D32ADC /* Modules */,
 				A40F036024D4186200C381F2 /* Extensions */,
 				A40D816224D2C6C2006D2CE3 /* Assets.xcassets */,
@@ -582,6 +599,58 @@
 			path = ExpandingHeader;
 			sourceTree = "<group>";
 		};
+		A472D29125288D4400AA9906 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				A472D28E25288C0F00AA9906 /* UserAuthData.swift */,
+				A472D29725288F0800AA9906 /* AuthResponse.swift */,
+				A472D29A25288F1100AA9906 /* RegisterResponse.swift */,
+				A472D2B225291F0200AA9906 /* UserRegisterData.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		A472D2A4252897BA00AA9906 /* CheckIn */ = {
+			isa = PBXGroup;
+			children = (
+				A472D2A02528975900AA9906 /* CheckInTeamsInfo.swift */,
+				A472D2A6252897CC00AA9906 /* CheckInData.swift */,
+			);
+			path = CheckIn;
+			sourceTree = "<group>";
+		};
+		A472D2AB2528A87D00AA9906 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				A472D2AC2528A89100AA9906 /* AuthVC.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		A472D2C7252941EC00AA9906 /* QrScanner */ = {
+			isa = PBXGroup;
+			children = (
+				A44C697724EFE06000AB3BC9 /* QRScannerVC.swift */,
+			);
+			path = QrScanner;
+			sourceTree = "<group>";
+		};
+		A472D2C92529420D00AA9906 /* AddGame */ = {
+			isa = PBXGroup;
+			children = (
+				A4A296C124F6DC2800347EB2 /* AddGameVC.swift */,
+			);
+			path = AddGame;
+			sourceTree = "<group>";
+		};
+		A472D2CB2529422400AA9906 /* PickCity */ = {
+			isa = PBXGroup;
+			children = (
+				A45A072024FFED6D00137637 /* PickCityVC.swift */,
+			);
+			path = PickCity;
+			sourceTree = "<group>";
+		};
 		A4A0659524E4775E0080E0D8 /* GameOrder */ = {
 			isa = PBXGroup;
 			children = (
@@ -629,16 +698,6 @@
 				A46F303D24F5302B0062A333 /* GameSubmitButtonCell.xib */,
 			);
 			path = Cells;
-			sourceTree = "<group>";
-		};
-		A4A296C024F6DC0600347EB2 /* ViewControllers */ = {
-			isa = PBXGroup;
-			children = (
-				A44C697724EFE06000AB3BC9 /* QRScannerVC.swift */,
-				A4A296C124F6DC2800347EB2 /* AddGameVC.swift */,
-				A45A072024FFED6D00137637 /* PickCityVC.swift */,
-			);
-			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 		A4A5370524EC7706004A10D4 /* View */ = {
@@ -731,6 +790,9 @@
 				A48DFF7A24F4070200E47095 /* HomeGame.swift */,
 				A4D230A724F9203500524A01 /* WarmupQuestion.swift */,
 				A468E12324FD37390083ADB2 /* RatingFilter.swift */,
+				A472D29125288D4400AA9906 /* Auth */,
+				A472D29D2528962A00AA9906 /* TeamInfo.swift */,
+				A472D2A4252897BA00AA9906 /* CheckIn */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -745,8 +807,12 @@
 				A40D817824D2C99D006D2CE3 /* WarmUp */,
 				A40D817724D2C98A006D2CE3 /* HomeGame */,
 				A40D817424D2C96B006D2CE3 /* Profile */,
+				A472D2AB2528A87D00AA9906 /* Auth */,
 				A40D817524D2C974006D2CE3 /* Rating */,
 				A40D817324D2C963006D2CE3 /* Shop */,
+				A472D2C7252941EC00AA9906 /* QrScanner */,
+				A472D2CB2529422400AA9906 /* PickCity */,
+				A472D2C92529420D00AA9906 /* AddGame */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -764,8 +830,6 @@
 		A4CC5FEC24DAEA6C0042B41C /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				A40D816F24D2C767006D2CE3 /* Storyboards */,
-				A4A296C024F6DC0600347EB2 /* ViewControllers */,
 				A445E34624DE02A20070B9FC /* View */,
 				A4B828E224D8322B00D77E67 /* Entity */,
 				A44C697924EFE6E000AB3BC9 /* Protocols */,
@@ -944,11 +1008,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A472D2A12528975900AA9906 /* CheckInTeamsInfo.swift in Sources */,
 				A4BA1CEA24D832D600D32ADC /* MainMenuConfigurator.swift in Sources */,
 				A4A0659824E477860080E0D8 /* GameOrderVC.swift in Sources */,
 				A4D498CE25026AA100CB70EE /* ScheduledGamesResponse.swift in Sources */,
 				A45488C52513719800992261 /* UIPageViewController+PagingToggle.swift in Sources */,
 				A40D815A24D2C6C1006D2CE3 /* AppDelegate.swift in Sources */,
+				A472D29B25288F1100AA9906 /* RegisterResponse.swift in Sources */,
 				A40B758024D9A75A006DB7D1 /* ScheduleRouter.swift in Sources */,
 				A4068A0124F7DAE2001273B2 /* ServerResponse.swift in Sources */,
 				A40B758424D9A7CD006DB7D1 /* WarmupInteractor.swift in Sources */,
@@ -963,6 +1029,7 @@
 				A4D498CC250264AC00CB70EE /* GameShortInfo.swift in Sources */,
 				A46F303E24F5302B0062A333 /* GameSubmitButtonCell.swift in Sources */,
 				A4CC5FF024DAF7300042B41C /* NavigationBar.swift in Sources */,
+				A472D29E2528962A00AA9906 /* TeamInfo.swift in Sources */,
 				A48DFF7B24F4070200E47095 /* HomeGame.swift in Sources */,
 				A4A065A224E47D1F0080E0D8 /* GameAnnotationCell.swift in Sources */,
 				A469F75924E3084D007FB332 /* ScheduleGameCell.swift in Sources */,
@@ -1002,6 +1069,7 @@
 				A4FFA4B124F3BE2A006A1150 /* PaymentType.swift in Sources */,
 				A4A5370424EC7691004A10D4 /* UIColorExtensions.swift in Sources */,
 				A40B759224D9A836006DB7D1 /* HomeGameConfigurator.swift in Sources */,
+				A472D2B325291F0200AA9906 /* UserRegisterData.swift in Sources */,
 				A4DAF73924DD987F00963C15 /* MenuProfileCell.swift in Sources */,
 				A450E39A24E564A900C49AEE /* GameCertificateCell.swift in Sources */,
 				A40F036424D419D200C381F2 /* MenuCellItemProtocol.swift in Sources */,
@@ -1031,8 +1099,10 @@
 				A450E39724E559CD00C49AEE /* TitledTextFieldView.swift in Sources */,
 				A4A5DE9825019DA800EBC408 /* ScheduleFilter.swift in Sources */,
 				A445E34824DE02BC0070B9FC /* TitleLabel.swift in Sources */,
+				A472D2A7252897CC00AA9906 /* CheckInData.swift in Sources */,
 				A40B758C24D9A81A006DB7D1 /* HomeGameInteractor.swift in Sources */,
 				A40689F924F7D11A001273B2 /* City.swift in Sources */,
+				A472D29825288F0800AA9906 /* AuthResponse.swift in Sources */,
 				A464370424EB37DB0033F23A /* ExpandingHeader.swift in Sources */,
 				A40F035D24D412D700C381F2 /* ShopItemCell.swift in Sources */,
 				A4A5370824EC7AA6004A10D4 /* HomeGameCell.swift in Sources */,
@@ -1065,9 +1135,11 @@
 				A464370524EB37DB0033F23A /* ExpandingHeaderTextField.swift in Sources */,
 				A423AC2224EEBCD600071E68 /* FiltersVC.swift in Sources */,
 				A4CC5FC724DACE2D0042B41C /* ShopConfigurator.swift in Sources */,
+				A472D2AD2528A89100AA9906 /* AuthVC.swift in Sources */,
 				A450E3A524E57A8C00C49AEE /* GameInfoItemKind.swift in Sources */,
 				A450E39D24E571C900C49AEE /* GameOrderPresenter.swift in Sources */,
 				A40B759824D9A852006DB7D1 /* ProfileRouter.swift in Sources */,
+				A472D28F25288C0F00AA9906 /* UserAuthData.swift in Sources */,
 				A4B0753224DFDBFB007778A2 /* GameInfo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

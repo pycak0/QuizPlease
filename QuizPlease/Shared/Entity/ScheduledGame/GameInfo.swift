@@ -10,7 +10,7 @@ import Foundation
 
 struct GameInfo: Decodable {
     var id: Int!
-    var numberGame: String = "#"
+    private var numberGame: String = "#"
     var nameGame: String = "-"
     
     ///Date of the game
@@ -44,6 +44,13 @@ extension GameInfo {
     
     var priceDetails: String {
         "\(price) \(text)"
+    }
+    
+    var gameNumber: String {
+        if numberGame.hasPrefix("#") {
+            return numberGame
+        }
+        return "#" + numberGame
     }
     
     var availablePaymentTypes: [PaymentType] {

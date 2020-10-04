@@ -45,6 +45,7 @@ class GameOnlinePaymentCell: UITableViewCell, GameOrderCellProtocol {
     
     func updateMaxNumberOfPeople(_ number: Int) {
         countPicker.maxButtonsCount = number - countPicker.startCount + 1
+        updatePrice(withNumberOfPeople: number)
     }
     
     //MARK:- Awake From Nib
@@ -57,6 +58,7 @@ class GameOnlinePaymentCell: UITableViewCell, GameOrderCellProtocol {
     override func layoutSubviews() {
         super.layoutSubviews()
         configureViews()
+        updatePicker()
     }
     
     private func configureCell() {
@@ -71,14 +73,26 @@ class GameOnlinePaymentCell: UITableViewCell, GameOrderCellProtocol {
         let end = CGPoint(x: priceLabel.frame.minX - 3, y: dashView.frame.maxY - 8)
         UIView.drawDottedLine(in: dashView, start: start, end: end, dashLength: 4, gapLength: 2)
     }
+    
+    private func updatePicker() {
+        guard let delegate = _delegate else { return }
+        let numberOfPeople = delegate.selectedNumberOfPeople(in: self)
+        let selectedIndex = numberOfPeople - countPicker.startCount
+        countPicker.setSelectedButton(at: selectedIndex, animated: true)
+        updatePrice(withNumberOfPeople: numberOfPeople)
+    }
+    
+    private func updatePrice(withNumberOfPeople number: Int) {
+        let newPrice = _delegate?.sumToPay(in: self, forNumberOfPeople: number) ?? 0
+        //print("\(newPrice)")
+        priceLabel.text = "\(newPrice)"
+    }
 
 }
 
 //MARK:- CountPickViewDelegate
 extension GameOnlinePaymentCell: CountPickerViewDelegate {
     func countPicker(_ picker: CountPickerView, didChangeSelectedNumber number: Int) {
-        let newPrice = _delegate?.sumToPay(in: self, forNumberOfPeople: number) ?? 0
-        //print("\(newPrice)")
-        priceLabel.text = "\(newPrice)"
+        updatePrice(withNumberOfPeople: number)
     }
 }

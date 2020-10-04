@@ -13,7 +13,7 @@ protocol ProfilePresenterProtocol {
     init(view: ProfileViewProtocol, interactor: ProfileInteractorProtocol, router: ProfileRouterProtocol)
     var games: [Any?] { get set }
     
-    func configureViews()
+    func setupView()
     
     func didPressShowShopButton()
     func didPressAddGameButton()
@@ -33,8 +33,12 @@ class ProfilePresenter: ProfilePresenterProtocol {
         self.interactor = interactor
     }
     
-    func configureViews() {
+    func setupView() {
         view?.configureViews()
+        
+        if Globals.userToken == nil {
+            router.showAuthScreen()
+        }
     }
     
     func didPressShowShopButton() {

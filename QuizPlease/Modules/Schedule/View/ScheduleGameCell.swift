@@ -8,6 +8,7 @@
 
 import UIKit
 
+//MARK:- Delegate Protocol
 protocol ScheduleGameCellDelegate: class {
     func signUpButtonPressed(in cell: ScheduleGameCell)
     func infoButtonPressed(in cell: ScheduleGameCell)
@@ -20,6 +21,7 @@ class ScheduleGameCell: UITableViewCell {
     
     weak var delegate: ScheduleGameCellDelegate?
 
+    //MARK:- Outlets
     @IBOutlet weak var cellView: UIView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var numberLabel: UILabel!
@@ -33,6 +35,23 @@ class ScheduleGameCell: UITableViewCell {
     
     @IBOutlet weak var signUpButton: UIButton!
     
+    //MARK:- Actions
+    @IBAction func signUpButtonPressed(_ sender: Any) {
+        delegate?.signUpButtonPressed(in: self)
+    }
+    
+    @IBAction func infoButtonPressed(_ sender: Any) {
+        delegate?.infoButtonPressed(in: self)
+    }
+    
+    @IBAction func locationButtonPressed(_ sender: Any) {
+        delegate?.locationButtonPressed(in: self)
+    }
+    
+    @IBAction func remindButtonPressed(_ sender: Any) {
+        delegate?.remindButtonPressed(in: self)
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         configureViews()
@@ -43,9 +62,10 @@ class ScheduleGameCell: UITableViewCell {
         delegate = nil
     }
     
+    //MARK:- Configure Cell Data
     func configureCell(model: GameInfo) {
         nameLabel.text = model.nameGame
-        numberLabel.text = model.numberGame
+        numberLabel.text = model.gameNumber
         placeNameLabel.text = model.placeInfo.title
         placeAddressLabel.text = model.placeInfo.shortAddress
         timeLabel.text = "в \(model.time)"
@@ -63,22 +83,6 @@ class ScheduleGameCell: UITableViewCell {
         signUpButton.layer.cornerRadius = signUpButton.frame.height / 2
         locationButton.layer.cornerRadius = locationButton.frame.height / 2
         remindButton.layer.cornerRadius = remindButton.frame.height / 2
-    }
-    
-    @IBAction func signUpButtonPressed(_ sender: Any) {
-        delegate?.signUpButtonPressed(in: self)
-    }
-    
-    @IBAction func infoButtonPressed(_ sender: Any) {
-        delegate?.infoButtonPressed(in: self)
-    }
-    
-    @IBAction func locationButtonPressed(_ sender: Any) {
-        delegate?.locationButtonPressed(in: self)
-    }
-    
-    @IBAction func remindButtonPressed(_ sender: Any) {
-        delegate?.remindButtonPressed(in: self)
     }
     
 }

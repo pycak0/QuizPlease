@@ -9,17 +9,13 @@
 import UIKit
 
 protocol ShopInteractorProtocol {
-    func loadItems(completion: @escaping (Result<[ShopItem], Error>) -> Void)
+    func loadItems(completion: @escaping (Result<[ShopItem], SessionError>) -> Void)
 }
 
 class ShopInteractor: ShopInteractorProtocol {
-    func loadItems(completion: @escaping (Result<[ShopItem], Error>) -> Void) {
-        var items = [ShopItem]()
-        for i in 1...5 {
-            items.append(
-                ShopItem(id: "\(i)", name: "item\(i)", description: "Description\(i)", price: 10 * i, image: UIImage(named: "logoSmall")?.withRenderingMode(.alwaysOriginal))
-            )
+    func loadItems(completion: @escaping (Result<[ShopItem], SessionError>) -> Void) {
+        NetworkService.shared.getShopItems { (serverResult) in
+            completion(serverResult)
         }
-        completion(.success(items))
     }
 }

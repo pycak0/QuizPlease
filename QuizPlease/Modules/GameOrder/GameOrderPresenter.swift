@@ -45,6 +45,11 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
     }
     
     func didPressSubmitButton() {
+        guard registerForm.isValid else {
+            view?.showSimpleAlert(title: "Заполнены не все необходимые поля",
+                                  message: "Пожалуйста, введите нужные данные и проверьте их правильность")
+            return
+        }
         router.showCompletionScreen(with: game, numberOfPeopleInTeam: registerForm.count)
     }
     

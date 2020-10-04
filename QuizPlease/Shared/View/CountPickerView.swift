@@ -42,6 +42,7 @@ class CountPickerView: UIView {
         didSet {
             //guard maxButtonsCount > 0 else { print("Error. Count Picker must have at least one option."); return }
             setButtons()
+            setSelectedButton(at: maxButtonsCount - 1, animated: true)
             
 //            let index = maxButtonsCount + 1 - startCount
 //            for i in 0..<buttons.count {
@@ -83,7 +84,9 @@ class CountPickerView: UIView {
     
     @IBInspectable
     var buttonsCornerRadius: CGFloat = 10 {
-        didSet { updateButtonViews() }
+        didSet {
+            buttons.forEach { $0.layer.cornerRadius = buttonsCornerRadius }
+        }
     }
     
     var buttonsTitleFont: UIFont? = .systemFont(ofSize: 16, weight: .semibold) {
@@ -91,14 +94,14 @@ class CountPickerView: UIView {
     }
     
     //MARK:- Update Selected Button
-    func setSelectedButton(at index: Int) {
+    func setSelectedButton(at index: Int, animated: Bool) {
         deselectAllButtons()
         guard index >= 0 && index < buttons.count else { return }
         selectedIndex = index
         let selectedNumber = selectedIndex + startCount
         let selectedButton = buttons[index]
         
-        select(selectedButton, withNumber: index + startCount)
+        select(selectedButton, withNumber: index + startCount, animated: animated)
     }
     
     //MARK:- Count Button Pressed
@@ -107,7 +110,7 @@ class CountPickerView: UIView {
         guard let index = buttons.firstIndex(of: sender), index != selectedIndex else { return }
         
         delegate?.countPicker(self, didChangeSelectedNumber: index + startCount)
-        setSelectedButton(at: index)
+        setSelectedButton(at: index, animated: true)
     }
     
     //MARK:- Set Buttons
@@ -121,9 +124,8 @@ class CountPickerView: UIView {
             button.addTarget(self, action: #selector(pickerButtonPressed(_:)), for: [.touchUpInside])
             buttons.append(button)
             pickerStack.addArrangedSubview(button)
-            //button.layer.cornerRadius = pickerStack.frame.height / 2
+            button.layer.cornerRadius = pickerStack.frame.height / 2
         }
-        setSelectedButton(at: maxButtonsCount - 1)
     }
     
     //MARK:- Update Button Views
@@ -132,7 +134,7 @@ class CountPickerView: UIView {
             updateView(for: button, at: i)
         }
         pickerLine.backgroundColor = pickerBackgroundColor
-        setSelectedButton(at: maxButtonsCount - 1)
+        setSelectedButton(at: maxButtonsCount - 1, animated: false)
     }
     
     private func updateView(for button: UIButton, at index: Int) {
@@ -144,15 +146,15 @@ class CountPickerView: UIView {
         button.titleLabel?.font = buttonsTitleFont
         button.setTitleColor(buttonsTitleColor, for: .normal)
         button.backgroundColor = button.isSelected ? selectedColor : pickerBackgroundColor
-        button.layer.cornerRadius = buttonsCornerRadius
+        //button.layer.cornerRadius = buttonsCornerRadius
     }
     
     //MARK:- Select
     ///- parameter number: The value to set as the button's title
-    private func select(_ button: UIButton, withNumber number: Int) {
+    private func select(_ button: UIButton, withNumber number: Int, animated: Bool = true) {
         let scale: CGFloat = 1.1
         button.isSelected = true
-        UIView.animate(withDuration: 0.2) {
+        UIView.animate(withDuration: animated ? 0.2 : 0.0) {
             //button.setTitle("\(number)", for: .normal)
             button.setImage(nil, for: .normal)
             button.backgroundColor = self.selectedColor
@@ -227,6 +229,7 @@ class CountPickerView: UIView {
         pickerView.addSubview(pickerStack)
         activateConstraints(for: pickerStack, fillInto: pickerView)
         setButtons()
+        setSelectedButton(at: maxButtonsCount - 1, animated: false)
     }
     
     //MARK:- Constraints
