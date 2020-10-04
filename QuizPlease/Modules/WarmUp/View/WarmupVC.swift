@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UICircularProgressRing
 
 //MARK:- View Protocol
 protocol WarmupViewProtocol: UIViewController {
@@ -17,6 +18,8 @@ protocol WarmupViewProtocol: UIViewController {
     
     func startGame()
     func setQuestions()
+    
+    func showResults()
 }
 
 class WarmupVC: UIViewController {
@@ -24,8 +27,20 @@ class WarmupVC: UIViewController {
     var presenter: WarmupPresenterProtocol!
     
     @IBOutlet weak var previewStack: UIStackView!
+    @IBOutlet weak var startButton: ScalingButton!
     @IBOutlet weak var container: UIView!
+    @IBOutlet weak var timerRing: UICircularTimerRing!
+    
+    @IBOutlet weak var completionView: UIView!
+    @IBOutlet weak var resultsView: UIView!
+    @IBOutlet weak var resultTextLabel: UILabel!
+    @IBOutlet weak var minutesLabel: UILabel!
+    @IBOutlet weak var secondsLabel: UILabel!
+    @IBOutlet weak var secondPartsLabel: UILabel!
+    
     weak var pageVC: QuestionPageVC!
+    
+    var isGameStarted = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,32 +58,115 @@ class WarmupVC: UIViewController {
         pageVC = vc
     }
     
-    @IBAction func startGamePressed(_ sender: UIButton) {
+    
+    @IBAction func startButtonPressed(_ sender: UIButton) {
         presenter.didPressStartGame()
     }
+    
+    @IBAction func shareButtonPressed(_ sender: Any) {
+        presenter.shareAction()
+    }
+    
+    
+    private func configureTimerRing() {
+        timerRing.isHidden = true
+        timerRing.style = .ontop
+        timerRing.startAngle = 270
+        timerRing.endAngle = 270
+        timerRing.outerRingWidth = 5
+        timerRing.outerRingColor = UIColor.black.withAlphaComponent(0.1)
+        timerRing.innerRingWidth = 5
+        timerRing.innerRingColor = .lightGreen
+        let formatter = UICircularTimerRingFormatter(units: .second, style: .short)
+        timerRing.valueFormatter = formatter
+        timerRing.shouldShowValueText = false
+    }
+    
+    private func configureResultLabels() {
+        let bgColor = UIColor.white.withAlphaComponent(0.1)
+        let cRadius: CGFloat = 10
+        minutesLabel.backgroundColor = bgColor
+        secondsLabel.backgroundColor = bgColor
+        secondPartsLabel.backgroundColor = bgColor
+        
+        minutesLabel.layer.cornerRadius = cRadius
+        secondsLabel.layer.cornerRadius = cRadius
+        secondPartsLabel.layer.cornerRadius = cRadius
+        
+    }
+    
+    private func startTimer() {
+        timerRing.startTimer(from: 0, to: 5) { [weak self] (timerState) in
+            guard let self = self else { return }
+            switch timerState {
+            case .finished:
+                self.presenter.timePassed += 5
+                self.startTimer()
+            case .continued(elapsedTime: _):
+                break
+            case let .paused(elpasedTime: time):
+                if let time = time {
+                    self.presenter.timePassed += time
+                }
+            }
+        }
+    }
+    
+    private func setResults() {
+        let count = presenter.questions.count
+        let correct = presenter.questions.count // replace with "correct count"
+        resultTextLabel.text = "Я прошел разминку Квиз, плиз! и ответил правильно на \(correct) вопросов из \(count)"
+        let passedTime = presenter.timePassed
+        minutesLabel.text = String(format: "%02d", Int(passedTime) / 60)
+        secondsLabel.text = String(format: "%02d", Int(passedTime) % 60)
+        let parts = Int(100 * (passedTime - passedTime.rounded(.down)))
+        secondPartsLabel.text = String(format: "%02d", parts)
+    }
+    
     
 }
 
 //MARK:- View Protocol Implemenation
 extension WarmupVC: WarmupViewProtocol {
     func configureViews() {
-        //
+        configureTimerRing()
     }
     
     func startGame() {
         previewStack.isHidden = true
         container.isHidden = false
         pageVC.start()
+        
+        timerRing.isHidden = false
+        
+        startTimer()
+        isGameStarted = true
     }
     
     func setQuestions() {
         pageVC.configure(with: presenter.questions, delegate: self)
+    }
+    
+    func showResults() {
+        timerRing.isHidden = true
+        timerRing.alpha = 0
+        completionView.isHidden = false
+        setResults()
     }
 }
 
 
 extension WarmupVC: WarmupQuestionVCAnswerDelegate {
     func questionVC(_ vc: WarmupQuestionVC, didPressButtonWith answer: String) {
+//        timerRing.pauseTimer()
         pageVC.next()
+      //  timerRing.continueTimer()
+    }
+}
+
+extension WarmupVC: QuestionPageVCDelegate {
+    func questionsDidEnd() {
+        timerRing.pauseTimer()
+        presenter.gameEnded()
     }
 }

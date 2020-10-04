@@ -6,10 +6,12 @@
 //  Copyright © 2020 Владислав. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 protocol WarmupInteractorProtocol {
     func loadQuestions(completion: (Result<[WarmupQuestion], SessionError>) -> Void)
+    
+    func shareResults(_ image: UIImage, delegate: UIViewController)
 }
 
 class WarmupInteractor: WarmupInteractorProtocol {
@@ -19,5 +21,9 @@ class WarmupInteractor: WarmupInteractorProtocol {
             questions.append(WarmupQuestion(type: WarmupQuestionType(rawValue: i)!, text: "Test \(i)", imageUrl: nil, videoUrl: nil, soundUrl: nil, answerVariants: Array(repeating: "foo", count: 4), correctAnswer: "foo"))
         }
         completion(.success(questions))
+    }
+    
+    func shareResults(_ image: UIImage, delegate: UIViewController) {
+        ShareManager.presentShareSheet(for: image, delegate: delegate)
     }
 }

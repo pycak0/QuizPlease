@@ -62,6 +62,8 @@
 	</array>
 	<key>NSCameraUsageDescription</key>
 	<string>Камера используется для сканирования QR-кодов</string>
+    <key>NSPhotoLibraryAddUsageDescription</key>
+    <string>Разрешите доступ к Фото, чтобы сохранять результаты Ваших разминок</string>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

@@ -47,6 +47,9 @@
 		A40D818624D2CA44006D2CE3 /* ShopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40D818524D2CA44006D2CE3 /* ShopVC.swift */; };
 		A40D818A24D2D24C006D2CE3 /* ScheduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40D818824D2D24C006D2CE3 /* ScheduleCell.swift */; };
 		A40D818B24D2D24C006D2CE3 /* ScheduleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A40D818924D2D24C006D2CE3 /* ScheduleCell.xib */; };
+		A40E2A6A25294B4D00986CCA /* UICircularProgressRing in Frameworks */ = {isa = PBXBuildFile; productRef = A40E2A6925294B4D00986CCA /* UICircularProgressRing */; };
+		A40E2A6D25295B4400986CCA /* Snapshotting.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40E2A6C25295B4400986CCA /* Snapshotting.swift */; };
+		A40E2A7025295B7400986CCA /* ShareManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40E2A6F25295B7400986CCA /* ShareManager.swift */; };
 		A40F035D24D412D700C381F2 /* ShopItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40F035B24D412D700C381F2 /* ShopItemCell.swift */; };
 		A40F036224D4187800C381F2 /* UIKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40F036124D4187800C381F2 /* UIKitExtensions.swift */; };
 		A40F036424D419D200C381F2 /* MenuCellItemProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40F036324D419D200C381F2 /* MenuCellItemProtocol.swift */; };
@@ -219,6 +222,8 @@
 		A40D818524D2CA44006D2CE3 /* ShopVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopVC.swift; sourceTree = "<group>"; };
 		A40D818824D2D24C006D2CE3 /* ScheduleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCell.swift; sourceTree = "<group>"; };
 		A40D818924D2D24C006D2CE3 /* ScheduleCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScheduleCell.xib; sourceTree = "<group>"; };
+		A40E2A6C25295B4400986CCA /* Snapshotting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snapshotting.swift; sourceTree = "<group>"; };
+		A40E2A6F25295B7400986CCA /* ShareManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareManager.swift; sourceTree = "<group>"; };
 		A40F035B24D412D700C381F2 /* ShopItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopItemCell.swift; sourceTree = "<group>"; };
 		A40F036124D4187800C381F2 /* UIKitExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitExtensions.swift; sourceTree = "<group>"; };
 		A40F036324D419D200C381F2 /* MenuCellItemProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCellItemProtocol.swift; sourceTree = "<group>"; };
@@ -352,6 +357,7 @@
 			files = (
 				A468E12224FD0BE40083ADB2 /* InputMask in Frameworks */,
 				A423AC2024EEBA0600071E68 /* BottomPopup in Frameworks */,
+				A40E2A6A25294B4D00986CCA /* UICircularProgressRing in Frameworks */,
 				A4147AD524E596FC007C131F /* IQKeyboardManagerSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -500,6 +506,7 @@
 				A4147AD824E5BAF9007C131F /* MapService.swift */,
 				A44C697524EFD45300AB3BC9 /* QRCodeService.swift */,
 				A40689FA24F7D86F001273B2 /* NetworkService.swift */,
+				A40E2A6F25295B7400986CCA /* ShareManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -516,6 +523,7 @@
 				A44A462B24F8EEC500C81F82 /* UIView+Blur.swift */,
 				A4D230A924F9219D00524A01 /* UIImageView+LoadImage.swift */,
 				A45488C42513719700992261 /* UIPageViewController+PagingToggle.swift */,
+				A40E2A6C25295B4400986CCA /* Snapshotting.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -919,6 +927,7 @@
 				A4147AD424E596FC007C131F /* IQKeyboardManagerSwift */,
 				A423AC1F24EEBA0600071E68 /* BottomPopup */,
 				A468E12124FD0BE40083ADB2 /* InputMask */,
+				A40E2A6925294B4D00986CCA /* UICircularProgressRing */,
 			);
 			productName = QuizPlease;
 			productReference = A40D815624D2C6C1006D2CE3 /* QuizPlease.app */;
@@ -952,6 +961,7 @@
 				A4147AD324E596FC007C131F /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 				A423AC1E24EEBA0600071E68 /* XCRemoteSwiftPackageReference "BottomPopup" */,
 				A468E12024FD0BE40083ADB2 /* XCRemoteSwiftPackageReference "input-mask-ios" */,
+				A40E2A6825294B4D00986CCA /* XCRemoteSwiftPackageReference "UICircularProgressRing" */,
 			);
 			productRefGroup = A40D815724D2C6C1006D2CE3 /* Products */;
 			projectDirPath = "";
@@ -1037,6 +1047,7 @@
 				A4A296C224F6DC2800347EB2 /* AddGameVC.swift in Sources */,
 				A40D817C24D2CA04006D2CE3 /* ScheduleVC.swift in Sources */,
 				A44C697624EFD45300AB3BC9 /* QRCodeService.swift in Sources */,
+				A40E2A6D25295B4400986CCA /* Snapshotting.swift in Sources */,
 				A42527C324F06E9300E3FBD4 /* GameFirstPlayCell.swift in Sources */,
 				A48DFF7524F3EB5000E47095 /* HomeGameVideoVC.swift in Sources */,
 				A40B75A024D9A875006DB7D1 /* RatingRouter.swift in Sources */,
@@ -1091,6 +1102,7 @@
 				A48DFF7924F3EBEF00E47095 /* VideoView.swift in Sources */,
 				A4BA1CF024D835DE00D32ADC /* MainMenuRouter.swift in Sources */,
 				A46436ED24EAD24F0033F23A /* HBSegmentedControl.swift in Sources */,
+				A40E2A7025295B7400986CCA /* ShareManager.swift in Sources */,
 				A405C98724F651C900C74787 /* MainMenuShopCollectionView.swift in Sources */,
 				A40D818624D2CA44006D2CE3 /* ShopVC.swift in Sources */,
 				A4FFA4AD24F3AE78006A1150 /* MapExtensions.swift in Sources */,
@@ -1336,6 +1348,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		A40E2A6825294B4D00986CCA /* XCRemoteSwiftPackageReference "UICircularProgressRing" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/luispadron/UICircularProgressRing";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
+			};
+		};
 		A4147AD324E596FC007C131F /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager";
@@ -1363,6 +1383,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		A40E2A6925294B4D00986CCA /* UICircularProgressRing */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A40E2A6825294B4D00986CCA /* XCRemoteSwiftPackageReference "UICircularProgressRing" */;
+			productName = UICircularProgressRing;
+		};
 		A4147AD424E596FC007C131F /* IQKeyboardManagerSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = A4147AD324E596FC007C131F /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;

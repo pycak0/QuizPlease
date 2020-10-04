@@ -6,17 +6,24 @@
 //  Copyright © 2020 Владислав. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 protocol WarmupPresenterProtocol {
     var router: WarmupRouterProtocol! { get }
     var questions: [WarmupQuestion]! { get set }
+    
+    ///In seconds
+    var timePassed: Double { get set }
     
     init(view: WarmupViewProtocol, interactor: WarmupInteractorProtocol, router: WarmupRouterProtocol)
     
     func configureViews()
     
     func didPressStartGame()
+    
+    func shareAction()
+    
+    func gameEnded()
 }
 
 class WarmupPresenter: WarmupPresenterProtocol {
@@ -25,6 +32,8 @@ class WarmupPresenter: WarmupPresenterProtocol {
     weak var view: WarmupViewProtocol?
     
     var questions: [WarmupQuestion]!
+    
+    var timePassed: Double = 0
     
     required init(view: WarmupViewProtocol, interactor: WarmupInteractorProtocol, router: WarmupRouterProtocol) {
         self.view = view
@@ -50,6 +59,17 @@ class WarmupPresenter: WarmupPresenterProtocol {
     
     func didPressStartGame() {
         view?.startGame()
+    }
+    
+    func gameEnded() {
+        view?.showResults()
+    }
+    
+    func shareAction() {
+        if let viewController = view, let image = UIApplication.shared.makeSnapshot() {
+            interactor.shareResults(image, delegate: viewController)
+        }
+        
     }
     
 }

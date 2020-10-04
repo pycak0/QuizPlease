@@ -8,15 +8,21 @@
 
 import UIKit
 
+protocol QuestionPageVCDelegate: class {
+    func questionsDidEnd()
+}
+
 class QuestionPageVC: UIPageViewController {
     
     private var _viewControllers = [UIViewController]()
+    
+    private weak var questionsDelegate: QuestionPageVCDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
-    func configure(with items: [WarmupQuestion], delegate: WarmupQuestionVCAnswerDelegate?) {
+    func configure(with items: [WarmupQuestion], delegate: (QuestionPageVCDelegate & WarmupQuestionVCAnswerDelegate)?) {
         dataSource = self
         
         items.forEach {
@@ -24,6 +30,7 @@ class QuestionPageVC: UIPageViewController {
             vc.delegate = delegate
             self._viewControllers.append(vc)
         }
+        questionsDelegate = delegate
     }
     
     func start() {
@@ -32,8 +39,14 @@ class QuestionPageVC: UIPageViewController {
     }
     
     func next() {
-        guard _viewControllers.count > 1 else { return }
-        setViewControllers([_viewControllers[1]], direction: .forward, animated: true, completion: nil)
+        guard _viewControllers.count > 1 else {
+            questionsDelegate?.questionsDidEnd()
+            return
+        }
+        isPagingEnabled = false
+        setViewControllers([_viewControllers[1]], direction: .forward, animated: true) { _ in
+            self.isPagingEnabled = true
+        }
         _viewControllers.removeFirst()
     }
 
