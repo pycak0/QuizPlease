@@ -132,6 +132,8 @@ class WarmupVC: UIViewController {
 extension WarmupVC: WarmupViewProtocol {
     func configureViews() {
         configureTimerRing()
+        configureResultLabels()
+        resultsView.addGradient(.warmupItems)
     }
     
     func startGame() {

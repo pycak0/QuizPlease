@@ -19,7 +19,50 @@ class VideoView: UIView {
     weak var parent: UIViewController!
     private var playerVC = AVPlayerViewController()
     var url: URL?
+    
+    //MARK:- Public
+    func play() {
+        setCategoryPlayback()
+        playerVC.player?.play()
+    }
+    
+    func pause() {
+        playerVC.player?.pause()
+    }
+    
+    func configurePlayer(url: URL?, andPlay: Bool = true) {
+        guard let url = url else { return }
+        playerVC.player = AVPlayer(url: url)
+        play()
+    }
+    
+    func configureVideoView() {
+        guard parent != nil else { fatalError("VideoView must have `parent` property set") }
+        
+        playerVC.view.frame = playerView.bounds
+        playerVC.videoGravity = .resizeAspectFill
+        playerVC.view.layer.masksToBounds = true
+        
+        playerVC.view.backgroundColor = .black
+        playerVC.showsPlaybackControls = true
+        
+        //MARK:- insert player into videoView
+        parent?.addChild(playerVC)
+        playerVC.didMove(toParent: parent)
+        playerView.addSubview(playerVC.view)
+        playerView.backgroundColor = .clear
+        playerVC.entersFullScreenWhenPlaybackBegins = false
+    }
+    
+    private func setCategoryPlayback() {
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [])
+        } catch {
+            print(error)
+        }
+    }
 
+    //MARK:- Init
     override init(frame: CGRect) {
         super.init(frame: frame)
         xibSetup()
@@ -45,34 +88,6 @@ class VideoView: UIView {
         contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
     }
     
-    func configureVideoView() {
-        guard parent != nil else { fatalError("VideoView must have `parent` property set") }
-        
-        playerVC.view.frame = playerView.bounds
-        playerVC.videoGravity = .resizeAspectFill
-        playerVC.view.layer.masksToBounds = true
-        
-        playerVC.view.backgroundColor = .black
-        playerVC.showsPlaybackControls = true
-        
-        //MARK:- insert player into videoView
-        parent?.addChild(playerVC)
-        playerVC.didMove(toParent: parent)
-        playerView.addSubview(playerVC.view)
-        playerView.backgroundColor = .clear
-        playerVC.entersFullScreenWhenPlaybackBegins = false
-    }
-    
-    func configurePlayer(url: URL?) {
-        guard let url = url else { return }
-        do {
-            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [])
-        } catch {
-            print(error)
-        }
-        
-        playerVC.player = AVPlayer(url: url)
-        
-    }
+
     
 }

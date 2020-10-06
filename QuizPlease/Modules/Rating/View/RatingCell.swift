@@ -29,8 +29,11 @@ class RatingCell: UITableViewCell, TableCellProtocol {
     
     func configure(with team: String, games: Int, points: Int) {
         teamNameLabel.text = team
-        gamesPlayedLabel.text = "\(games) игр"
-        pointsScoredLabel.text = points.string(withAssociatedMaleWord: "балл")
+        gamesPlayedLabel.text = games.string(withAssociatedFirstCaseWord: "игра")
+        //if let points = Int(points) {
+            pointsScoredLabel.text = points.string(withAssociatedMaleWord: "балл")
+       // }
+        
     }
     
 }

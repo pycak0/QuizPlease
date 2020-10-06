@@ -18,6 +18,8 @@ struct GameInfo: Decodable {
     
     var time: String = "-"
     var description: String = "-"
+    
+    var status: GameStatus?
 
     private var price: String = "-"
     ///Describing price e.g. "с человека". Use `priceDetails` instead of this

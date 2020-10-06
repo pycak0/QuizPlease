@@ -8,15 +8,26 @@
 
 import UIKit
 
-class GameFirstPlayCell: UITableViewCell, TableCellProtocol {
+protocol GameFirstPlayCellDelegate: class {
+    func firstPlayCell(_ cell: GameFirstPlayCell, didChangeStateTo isFirstPlay: Bool)
+}
+
+class GameFirstPlayCell: UITableViewCell, GameOrderCellProtocol {
     static let identifier = "GameFirstPlayCell"
     
     @IBOutlet private weak var checkBoxImageView: UIImageView!
     @IBOutlet private weak var checkBoxStack: UIStackView!
     
+    weak var delegate: AnyObject? {
+        get { _delegate }
+        set { _delegate = newValue as? GameFirstPlayCellDelegate }
+    }
+    private weak var _delegate: GameFirstPlayCellDelegate?
+    
     var isPlayingFirstTime: Bool! {
         didSet {
             checkBoxImageView.image = isPlayingFirstTime ? UIImage(named: "rectDot") : nil
+            _delegate?.firstPlayCell(self, didChangeStateTo: isPlayingFirstTime)
         }
     }
     

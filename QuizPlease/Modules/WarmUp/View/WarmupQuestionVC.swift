@@ -53,7 +53,8 @@ class WarmupQuestionVC: UIViewController {
     }
     
     private func configureViews() {
-       // backgroundView.addGradient(colors: [.purple, .systemBlue], insertAt: 0)
+        //backgroundView.addGradient(.warmupItems)
+        
         for (index, button) in (answerStack.arrangedSubviews as! [UIButton]).enumerated() {
             button.backgroundColor = UIColor.white.withAlphaComponent(0.1)
             button.setTitle(question.answerVariants[index], for: .normal)

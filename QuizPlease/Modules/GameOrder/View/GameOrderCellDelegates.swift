@@ -68,6 +68,22 @@ extension GameOrderVC: GameRegisterCellDelegate {
     }
 }
 
+
+//MARK:- Certificate
+extension GameOrderVC: GameCertificateCellDelegate {
+    func certificateCell(_ certificateCell: GameCertificateCell, didChangeCertificateCode newCode: String) {
+        presenter.registerForm.certificates = [newCode]
+    }
+}
+
+
+//MARK:- First Play
+extension GameOrderVC: GameFirstPlayCellDelegate {
+    func firstPlayCell(_ cell: GameFirstPlayCell, didChangeStateTo isFirstPlay: Bool) {
+        presenter.registerForm.first_time = isFirstPlay
+    }
+}
+
 //MARK:- Payment Type
 extension GameOrderVC: GamePaymentTypeCellDelegate {
     func availablePaymentTypes(in cell: GamePaymentTypeCell) -> [PaymentType] {

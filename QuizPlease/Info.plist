@@ -17,11 +17,15 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Камера используется для сканирования QR-кодов</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Разрешите доступ к Фото, чтобы сохранять результаты Ваших разминок</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Gilroy-Bold.ttf</string>
@@ -60,10 +64,6 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
-	<key>NSCameraUsageDescription</key>
-	<string>Камера используется для сканирования QR-кодов</string>
-    <key>NSPhotoLibraryAddUsageDescription</key>
-    <string>Разрешите доступ к Фото, чтобы сохранять результаты Ваших разминок</string>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

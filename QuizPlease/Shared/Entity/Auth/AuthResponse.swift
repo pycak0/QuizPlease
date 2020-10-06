@@ -9,7 +9,9 @@
 import Foundation
 
 struct AuthResponse: Decodable {
-    var access_token: String
-    var expired_at: Int
-    var refresh_token: String
+    var access_token: String?
+    var expired_at: Int?
+    var refresh_token: String?
+    
+    var message: String?
 }

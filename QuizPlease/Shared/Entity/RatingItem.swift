@@ -11,9 +11,9 @@ import Foundation
 struct RatingItem: Decodable {
     var name: String
     var games: Int
-    var pointsTotal: Int
-    var rank: String
-    private var imageUrlString: String
+    var pointsTotal: Double
+    var rank: String?
+    private var imageUrlString: String?
     
     enum CodingKeys: String, CodingKey {
         case teamName, count, balls, rang, rang_image
@@ -24,8 +24,17 @@ struct RatingItem: Decodable {
         
         name = try container.decode(String.self, forKey: .teamName)
         games = try container.decode(Int.self, forKey: .count)
-        pointsTotal = try container.decode(Int.self, forKey: .balls)
-        rank = try container.decode(String.self, forKey: .rang)
-        imageUrlString = try container.decode(String.self, forKey: .rang_image)
+        pointsTotal = try container.decode(Double.self, forKey: .balls)
+        rank = try? container.decode(String.self, forKey: .rang)
+        imageUrlString = try? container.decode(String.self, forKey: .rang_image)
     }
 }
+//
+//extension RatingItem {
+//    var imageUrl: URL? {
+//        guard let urlString = imageUrlString else {
+//            return nil
+//        }
+//        return URL(string: Globals.mainDomain + urlString)
+//    }
+//}

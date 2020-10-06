@@ -121,17 +121,18 @@ extension GameOrderVC: UITableViewDataSource, UITableViewDelegate {
 extension GameOrderVC: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offset = scrollView.contentOffset.y + scrollView.safeAreaInsets.top
+        
+        gameImageView.isHidden = offset > 700
+        imageDarkeningView.isHidden = offset > 700
+        
         guard offset < 0, scrollView.isKind(of: UITableView.self) else {
             gameImageView.transform = .identity
             imageDarkeningView.transform = .identity
             return
         }
-        let scale = (1 + abs(offset) / 500)
+        let scale = (1 + abs(offset) / 300)
         let transform = CGAffineTransform(scaleX: scale, y: scale)
         gameImageView.transform = transform
         imageDarkeningView.transform = transform
-        
-        gameImageView.isHidden = offset > 300
-        imageDarkeningView.isHidden = offset > 300
     }
 }

@@ -30,6 +30,9 @@
                             <userDefinedRuntimeAttribute type="color" keyPath="pickerBackgroundColor">
                                 <color key="value" systemColor="systemGray6Color"/>
                             </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="buttonsCornerRadius">
+                                <real key="value" value="10"/>
+                            </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
                 </subviews>

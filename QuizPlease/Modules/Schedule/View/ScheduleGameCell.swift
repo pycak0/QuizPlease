@@ -29,9 +29,14 @@ class ScheduleGameCell: UITableViewCell {
     @IBOutlet weak var placeAddressLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
+    
     @IBOutlet weak var locationButton: UIButton!
     @IBOutlet weak var remindButton: UIButton!
+    @IBOutlet weak var infoButton: UIButton!
+    
     @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var gameStatusLabel: UILabel!
+    @IBOutlet weak var statusImageView: UIImageView!
     
     @IBOutlet weak var signUpButton: UIButton!
     
@@ -59,7 +64,7 @@ class ScheduleGameCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        delegate = nil
+        onReuseActions()
     }
     
     //MARK:- Configure Cell Data
@@ -72,12 +77,40 @@ class ScheduleGameCell: UITableViewCell {
         priceLabel.text = model.priceDetails
         dateLabel.text = model.blockData
         
+        gameStatusLabel.text = model.status?.comment ?? ""
+        signUpButton.setTitle(model.status?.buttonTitle ?? "Запись недоступна", for: .normal)
+        switch model.status {
+        case .placesAvailable:
+            statusImageView.image = UIImage(named: "fireIcon")
+            let availableColor = UIColor.lightGreen
+            cellView.layer.borderColor = availableColor.cgColor
+            signUpButton.backgroundColor = availableColor
+        case .reserveAvailable, .noPlaces:
+            statusImageView.image = UIImage(named: "soldOut")
+            let soldOutColor = UIColor.lemon
+            cellView.layer.borderColor = soldOutColor.cgColor
+            signUpButton.backgroundColor = soldOutColor
+        default:
+            statusImageView.image = nil
+            cellView.layer.borderColor = UIColor.lightGray.cgColor
+            signUpButton.isEnabled = false
+            infoButton.isEnabled = false
+            remindButton.isEnabled = false
+        }
+ 
         setNeedsLayout()
+    }
+    
+    private func onReuseActions() {
+        delegate = nil
+        signUpButton.isEnabled = true
+        infoButton.isEnabled = true
+        remindButton.isEnabled = true
     }
     
     private func configureViews() {
         cellView.layer.cornerRadius = 20
-        cellView.layer.borderColor = UIColor.lightGreen.cgColor
+        //cellView.layer.borderColor = UIColor.lightGreen.cgColor
         cellView.layer.borderWidth = 4
         
         signUpButton.layer.cornerRadius = signUpButton.frame.height / 2

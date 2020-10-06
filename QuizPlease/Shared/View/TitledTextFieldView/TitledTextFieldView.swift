@@ -16,6 +16,7 @@ protocol TitledTextFieldViewDelegate: class {
 //@IBDesignable
 class TitledTextFieldView: UIView {
     static let nibName = "TitledTextFieldView"
+    static let noMask = "[…]"
     
     weak var delegate: TitledTextFieldViewDelegate?
     
@@ -63,10 +64,13 @@ class TitledTextFieldView: UIView {
     ///Make sure that mask satisfies the syntax described here:
     ///https://github.com/RedMadRobot/input-mask-ios/wiki/1.-Mask-Syntax
     @IBInspectable
-    var inputMask: String = "[…]" {
+    var inputMask: String = TitledTextFieldView.noMask {
         didSet {
             listener.primaryMaskFormat = inputMask
-            //listener.
+            if inputMask == TitledTextFieldView.noMask {
+                textField.delegate = nil
+                textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+            }
         }
     }
     
@@ -139,12 +143,21 @@ class TitledTextFieldView: UIView {
         if inputMask != listener.primaryMaskFormat {
             listener.primaryMaskFormat = inputMask
         }
+        if inputMask == TitledTextFieldView.noMask {
+            textField.delegate = nil
+            textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        }
     }
     
     @objc
     private func startEditing() {
         guard !textField.isFirstResponder else { return }
         textField.becomeFirstResponder()
+    }
+    
+    @objc
+    private func textFieldDidChange(_ textField: UITextField) {
+        delegate?.textFieldView(self, didChangeTextField: textField.text ?? "", didCompleteMask: true)
     }
     
 }

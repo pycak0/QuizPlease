@@ -59,8 +59,10 @@ class AuthVC: UIViewController {
         activityIndicator.startAnimating()
         if isCodeSent {
             if let code = smsCode {
+                setViews(hidden: true)
                 auth(with: phoneNumber, smsCode: code)
             } else {
+                activityIndicator.stopAnimating()
                 showIncorrectInputNotification()
                 return
             }
@@ -74,7 +76,7 @@ class AuthVC: UIViewController {
     
     //MARK:- Register
     private func register(phone: String) {
-        let userData = UserRegisterData(phone: phone)
+        let userData = UserRegisterData(phone: phone, cityId: "\(Globals.defaultCity.id)")
         NetworkService.shared.register(userData) { [weak self] (serverResult) in
             guard let self = self else { return }
             
@@ -116,13 +118,21 @@ class AuthVC: UIViewController {
         NetworkService.shared.authenticate(phoneNumber: phoneNumber, smsCode: smsCode, firebaseId: firebaseId) { [weak self] (serverResponse) in
             guard let self = self else { return }
             self.activityIndicator.stopAnimating()
+            self.setViews(hidden: false)
+
             switch serverResponse {
             case let .failure(error):
                 print(error)
                 self.showErrorConnectingToServerAlert()
             case let .success(authResponse):
-                Globals.userToken = authResponse.access_token
-                self.delegate?.didSuccessfullyAuthenticate(in: self)
+                if let token = authResponse.access_token {
+                    Globals.userToken = token
+                    self.delegate?.didSuccessfullyAuthenticate(in: self)
+                } else {
+                    self.showSimpleAlert(title: "Произошла ошибка", message: "Пожалуйста, попробуйте повторить еще раз")
+                    print("Message from server:", authResponse.message ?? "no message")
+                }
+                
             }
         }
     }
@@ -150,8 +160,12 @@ class AuthVC: UIViewController {
     private func setSmsMode() {
         imageView.image = UIImage(named: "key")
         descriptionLabel.text = "Введите код из СМС"
+        authButton.setTitle("Отправить код", for: .normal)
         textFieldView.title = "Код"
-        textFieldView.inputMask = "[…]"
+        textFieldView.textField.text = ""
+        textFieldView.textField.placeholder = "XXXX"
+        textFieldView.textField.textContentType = .oneTimeCode
+        textFieldView.inputMask = TitledTextFieldView.noMask
     }
     
     private func showIncorrectInputNotification() {
@@ -163,12 +177,16 @@ class AuthVC: UIViewController {
         }
 
     }
-    
 }
+
 
 //MARK:- Text Field View Delegate
 extension AuthVC: TitledTextFieldViewDelegate {
     func textFieldView(_ textFieldView: TitledTextFieldView, didChangeTextField text: String, didCompleteMask isComplete: Bool) {
-        phoneNumber = isComplete ? text : nil
+        if isCodeSent {
+            smsCode = text
+        } else {
+            phoneNumber = isComplete ? text : nil
+        }
     }
 }

@@ -9,13 +9,17 @@
 import UIKit
 
 protocol GameCertificateCellDelegate: class {
-    func certificateCell(_ certificateCell: GameCertificateCell, didAskConfirmationFor code: String)
+    func certificateCell(_ certificateCell: GameCertificateCell, didChangeCertificateCode newCode: String)
 }
 
-class GameCertificateCell: UITableViewCell, TableCellProtocol {
+class GameCertificateCell: UITableViewCell, GameOrderCellProtocol {
     static let identifier = "GameCertificateCell"
     
-    weak var delegate: GameCertificateCellDelegate?
+    weak var delegate: AnyObject? {
+        get { _delegate }
+        set { _delegate = newValue as? GameCertificateCellDelegate }
+    }
+    private weak var _delegate: GameCertificateCellDelegate?
     
     @IBOutlet weak var okButton: UIButton!
     @IBOutlet weak var fieldView: TitledTextFieldView!
@@ -31,7 +35,7 @@ class GameCertificateCell: UITableViewCell, TableCellProtocol {
     }
 
     @IBAction func okButtonPressed(_ sender: UIButton) {
-        delegate?.certificateCell(self, didAskConfirmationFor: fieldView.textField.text ?? "")
+        _delegate?.certificateCell(self, didChangeCertificateCode: fieldView.textField.text ?? "")
     }
     
     func configureViews() {
@@ -50,6 +54,6 @@ class GameCertificateCell: UITableViewCell, TableCellProtocol {
 
 extension GameCertificateCell: TitledTextFieldViewDelegate {
     func textFieldView(_ textFieldView: TitledTextFieldView, didChangeTextField text: String, didCompleteMask isComplete: Bool) {
-        //
+        _delegate?.certificateCell(self, didChangeCertificateCode: text)
     }
 }

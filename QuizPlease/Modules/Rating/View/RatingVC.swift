@@ -64,6 +64,7 @@ extension RatingVC: RatingViewProtocol {
     func configureTableView() {
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.allowsSelection = false
         
         configureRefreshControl(tableView, tintColor: .lemon, action: #selector(refreshControlTriggered))
         
@@ -109,7 +110,7 @@ extension RatingVC: UITableViewDataSource, UITableViewDelegate {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: RatingCell.identifier, for: indexPath) as? RatingCell else { fatalError("Invalid Cell Kind") }
         
         let team = presenter.teams[indexPath.row]
-        cell.configure(with: team.name, games: team.games, points: team.pointsTotal)
+        cell.configure(with: team.name, games: team.games, points: Int(team.pointsTotal))
         
         return cell
     }

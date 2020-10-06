@@ -525,6 +525,8 @@
                                         <connections>
                                             <outlet property="cellView" destination="zr8-fj-LyF" id="mI5-O8-OvY"/>
                                             <outlet property="dateLabel" destination="WId-mG-um3" id="8mW-AW-zSt"/>
+                                            <outlet property="gameStatusLabel" destination="yre-gd-kEd" id="84e-rE-RuM"/>
+                                            <outlet property="infoButton" destination="ssY-QN-VH5" id="sbx-51-kgi"/>
                                             <outlet property="locationButton" destination="eJD-6p-Qtc" id="x8L-RD-XHo"/>
                                             <outlet property="nameLabel" destination="C9L-us-5OI" id="kYZ-g1-83q"/>
                                             <outlet property="numberLabel" destination="lGp-Ex-StO" id="fdf-si-Cd0"/>
@@ -533,6 +535,7 @@
                                             <outlet property="priceLabel" destination="Em3-eK-3du" id="mcq-Qc-Z0c"/>
                                             <outlet property="remindButton" destination="biC-lw-Llh" id="Pnr-fd-ZfG"/>
                                             <outlet property="signUpButton" destination="LnU-kz-MRi" id="ZMy-fS-xfM"/>
+                                            <outlet property="statusImageView" destination="P9G-GH-3wL" id="Zvf-FE-xws"/>
                                             <outlet property="timeLabel" destination="xZx-q8-J37" id="eKU-xb-pbe"/>
                                         </connections>
                                     </tableViewCell>
@@ -2056,7 +2059,7 @@
                                             <constraint firstAttribute="height" constant="60" id="5lb-Oi-nti"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="20"/>
-                                        <state key="normal" title="Отправить код">
+                                        <state key="normal" title="Получить код">
                                             <color key="titleColor" systemColor="labelColor"/>
                                         </state>
                                         <connections>

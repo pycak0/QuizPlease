@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Alamofire
 
 class NetworkService {
     private init() {}
@@ -55,9 +56,7 @@ class NetworkService {
             ratingUrlComponents.queryItems?.append(URLQueryItem(name: "teamName", value: teamName))
         }
         
-        getStandard([RatingItem].self, with: ratingUrlComponents) { (getResult) in
-            completion(getResult)
-        }
+        getStandard([RatingItem].self, with: ratingUrlComponents, completion: completion)
         
     }
     
@@ -66,12 +65,10 @@ class NetworkService {
         var shopUrlComponents = Globals.baseUrl
         shopUrlComponents.path = "/api/product"
         
-        getStandard([ShopItem].self, with: shopUrlComponents) { (getResult) in
-            completion(getResult)
-        }
+        getStandard([ShopItem].self, with: shopUrlComponents, completion: completion)
     }
     
-    //MARK:- Home Games
+    //MARK:- Home Games List
     ///- parameter cityId: Optional city parameter. If `nil`, user's `defaultCity` is used.
     func getHomeGames(cityId: Int? = nil, completion: @escaping (Result<[HomeGame], SessionError>) -> Void) {
         let id = cityId ?? Globals.defaultCity.id
@@ -80,17 +77,14 @@ class NetworkService {
         homeUrlComponents.queryItems = ([//?.append(
             URLQueryItem(name: "city_id", value: "\(id)")
         ])
-        getStandard([HomeGame].self, with: homeUrlComponents) { (getResult) in
-            completion(getResult)
-        }
+        getStandard([HomeGame].self, with: homeUrlComponents, completion: completion)
     }
     
+    //MARK:- Home Game by ID
     func getHomeGame(by id: Int, completion: @escaping (Result<HomeGame, SessionError>) -> Void) {
         var homeComps = Globals.baseUrl
         homeComps.path = "/api/home-game/\(id)"
-        getStandard(HomeGame.self, with: homeComps) { (getResult) in
-            completion(getResult)
-        }
+        getStandard(HomeGame.self, with: homeComps, completion: completion)
     }
     
     //MARK:- Get Game Info
@@ -100,9 +94,7 @@ class NetworkService {
         gameUrlComponents.queryItems = ([//?.append(
             URLQueryItem(name: "id", value: "\(id)")
         ])
-        get(GameInfo.self, with: gameUrlComponents) { (getResult) in
-            completion(getResult)
-        }
+        get(GameInfo.self, with: gameUrlComponents, completion: completion)
     }
     
     //MARK:- Get Schedule
@@ -148,7 +140,7 @@ class NetworkService {
                 URLQueryItem(name: "city_id", value: "\(id)")
             ])
         }
-        getStandard([ScheduleFilterOption].self, with: filterUrlComponents) { completion($0) }
+        getStandard([ScheduleFilterOption].self, with: filterUrlComponents, completion: completion)
         
     }
     
@@ -247,18 +239,29 @@ class NetworkService {
     func register(_ user: UserRegisterData, completion: @escaping (Result<RegisterResponse, SessionError>) -> Void) {
         var registerUrlComps = Globals.baseUrl
         registerUrlComps.path = "/api/auth/register"
-        post(user, with: registerUrlComps, reponseType: RegisterResponse.self, completion: completion)
+        let parameters: [String: String] = [
+            "phone" : user.phone,
+            "city_id": user.cityId
+        ]
+        afPost(with: parameters, to: registerUrlComps, responseType: RegisterResponse.self, completion: completion)
     }
     
     //MARK:- Send SMS Code
     func sendCode(to number: String, completion: @escaping (_ isSuccess: Bool) -> Void) {
         var codeUrlComps = Globals.baseUrl
         codeUrlComps.path = "/api/auth/token"
-        let userData = UserAuthData(phone: number)
-        post(userData, with: codeUrlComps) { (postResult) in
+        let parameters: [String: String] = [
+            "phone" : number,
+        ]
+        afPost(with: parameters, to: codeUrlComps, responseType: [String: String?]?.self) { (postResult) in
             let isSuccess = (try? postResult.get()) != nil
             completion(isSuccess)
         }
+//        let userData = UserAuthData(phone: number)
+//        post(userData, with: codeUrlComps) { (postResult) in
+//            let isSuccess = (try? postResult.get()) != nil
+//            completion(isSuccess)
+//        }
     }
     
     //MARK:- Authenticate
@@ -266,8 +269,14 @@ class NetworkService {
                       completion: @escaping (Result<AuthResponse, SessionError>) -> Void) {
         var authUrlComps = Globals.baseUrl
         authUrlComps.path = "/api/auth/token"
-        let userData = UserAuthData(phone: phoneNumber, code: smsCode, device_id: firebaseId)
-        post(userData, with: authUrlComps, reponseType: AuthResponse.self, completion: completion)
+        let parameters: [String: String] = [
+            "phone" : phoneNumber,
+            "city_id": smsCode,
+            //"device_id": firebaseId
+        ]
+        afPost(with: parameters, to: authUrlComps, responseType: AuthResponse.self, completion: completion)
+//        let userData = UserAuthData(phone: phoneNumber, code: smsCode, device_id: firebaseId)
+//        post(userData, with: authUrlComps, reponseType: AuthResponse.self, completion: completion)
     }
     
     //MARK:- Post with decoding response
@@ -312,6 +321,7 @@ class NetworkService {
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
+        request.addValue("multipart/form-data", forHTTPHeaderField: "Content-Type")
         request.httpBody = data
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
@@ -339,6 +349,38 @@ class NetworkService {
             }
         }.resume()
         
+    }
+    
+    //MARK:- Alamofire POST
+    func afPost<Response: Decodable>(with parameters: [String: String?], to urlComponents: URLComponents,
+                                     responseType: Response.Type,
+                                     completion: @escaping ((Result<Response, SessionError>) -> Void)) {
+        
+        AF.upload(multipartFormData: { (multipartFormData) in
+            for (key, value) in parameters {
+                if let value = value {
+                    multipartFormData.append(Data(value.utf8), withName: key)
+                }
+            }
+        }, to: urlComponents)
+        .responseData { (afResponse) in
+            switch afResponse.result {
+            case let .failure(error):
+                completion(.failure(.other(error)))
+            case let .success(data):
+                do {
+                    let serverResponse = try JSONDecoder().decode(ServerResponse<Response>.self, from: data)
+                    completion(.success(serverResponse.data))
+                } catch {
+                    completion(.failure(.decoding(error)))
+                    
+                    guard let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any?] else {
+                        return
+                    }
+                    print(">>> Response data:\n\n", json)
+                }
+            }
+        }
     }
     
 }

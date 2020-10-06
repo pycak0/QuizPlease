@@ -11,5 +11,5 @@ import Foundation
 struct UserRegisterData: Encodable {
     var phone: String
     
-    var city_id: String? = nil
+    var cityId: String // = nil
 }
