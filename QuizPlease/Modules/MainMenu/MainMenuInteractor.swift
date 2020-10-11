@@ -10,6 +10,8 @@ import Foundation
 
 protocol MainMenuInteractorProtocol: class {
     func loadMenuItems(completion: @escaping (Result<[MenuItemProtocol]?, Error>) -> Void)
+    
+    func loadUserInfo(completion: @escaping ((Result<UserInfo, SessionError>) -> Void))
 }
 
 class MainMenuInteractor: MainMenuInteractorProtocol {
@@ -21,6 +23,10 @@ class MainMenuInteractor: MainMenuInteractorProtocol {
         }
         
         completion(.success(items))
+    }
+    
+    func loadUserInfo(completion: @escaping ((Result<UserInfo, SessionError>) -> Void)) {
+        NetworkService.shared.getUserInfo(completion: completion)
     }
     
 }

@@ -1,5 +1,5 @@
 //
-//  AuthResponse.swift
+//  AuthInfoResponse.swift
 //  QuizPlease
 //
 //  Created by Владислав on 03.10.2020.
@@ -8,10 +8,11 @@
 
 import Foundation
 
-struct AuthResponse: Decodable {
+struct AuthInfoResponse: Decodable {
     var access_token: String?
-    var expired_at: Int?
     var refresh_token: String?
-    
+    var expired_at: Double?
+
     var message: String?
+    var status: Int?
 }

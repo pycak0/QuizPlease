@@ -12,7 +12,7 @@ struct ShopItem: Decodable {
     var id: String?
     var title: String
     var description: String
-    var price: Int
+    private var price: String
 }
 
 extension ShopItem {
@@ -21,5 +21,9 @@ extension ShopItem {
 //            return UIImage(named: "logoSmall")?.withRenderingMode(.alwaysOriginal)
 //        }
         return UIImage(named: "logoSmall")?.withRenderingMode(.alwaysOriginal)
+    }
+    
+    var priceNumber: Int {
+        Int(Double(price) ?? 99999)
     }
 }

@@ -8,6 +8,7 @@
 
 import UIKit
 
+//MARK:- View Protocol
 protocol MainMenuViewProtocol: UIViewController {
     var configurator: MainMenuConfiguratorProtocol { get }
     var presenter: MainMenuPresenterProtocol! { get set }    
@@ -15,6 +16,8 @@ protocol MainMenuViewProtocol: UIViewController {
     func updateCityName(with name: String)
     func reloadMenuItems()
     func failureLoadingMenuItems(_ error: Error)
+    
+    func updateUserPointsAmount(with points: Int)
     
 }
 
@@ -31,12 +34,7 @@ class MainMenuVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configurator.configure(self)
-        presenter.configureViews()
-    }
-    
-    // delegate prepare(for:sender:) to the router
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        presenter.router.prepare(for: segue, sender: sender)
+        presenter.setupView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -55,13 +53,18 @@ class MainMenuVC: UIViewController {
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
+    // delegate prepare(for:sender:) to the router
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        presenter.router.prepare(for: segue, sender: sender)
+    }
+    
     @IBAction func cityButtonPressed(_ sender: UIButton) {
         presenter.didSelectCityButton()
     }
     
 }
 
-//MARK:- View Protocol
+//MARK:- View Protocol Implementation
 extension MainMenuVC: MainMenuViewProtocol {
     
     func configureTableView() {
@@ -91,6 +94,13 @@ extension MainMenuVC: MainMenuViewProtocol {
     
     func reloadMenuItems() {
         tableView.reloadData()
+    }
+    
+    func updateUserPointsAmount(with points: Int) {
+        let indexPath = IndexPath(row: MenuItemKind.profile.rawValue, section: 0)
+        if let cell = tableView.cellForRow(at: indexPath) as? MenuProfileCell {
+            cell.setUserPoints(points)
+        }
     }
     
 }

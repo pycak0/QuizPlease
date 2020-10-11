@@ -8,8 +8,9 @@
 
 import UIKit
 
+//MARK:- Router Protocol
 protocol ProfileRouterProtocol: RouterProtocol {
-    func showShop()
+    func showShop(with userInfo: UserInfo?)
     func showQRScanner()
     func showAddGameScreen(_ info: String)
     
@@ -23,6 +24,7 @@ class ProfileRouter: ProfileRouterProtocol {
         self.viewController = viewController
     }
     
+    //MARK:- Prepare for Segue
     func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case "ShowQRScreenProfile":
@@ -40,13 +42,22 @@ class ProfileRouter: ProfileRouterProtocol {
                 fatalError("Incorrect Data Passed when showing AuthVC from Profile Router")
             }
             vc.delegate = self
+            
+        case "ShowShop":
+            guard let vc = segue.destination as? ShopVC      
+            else { fatalError("Incorrect Data Passed when showing ShopVC from Profile Router") }
+            
+            let userInfo = sender as? UserInfo
+            ShopConfigurator().configure(vc, userInfo: userInfo)
+            
         default:
             print("no preparations made for segue with id '\(String(describing: segue.identifier))' (from ProfileVC)")
         }
     }
     
-    func showShop() {
-        viewController?.performSegue(withIdentifier: "ShowShop", sender: nil)
+    //MARK:- Segues
+    func showShop(with userInfo: UserInfo?) {
+        viewController?.performSegue(withIdentifier: "ShowShop", sender: userInfo)
     }
     
     func showQRScanner() {
@@ -66,6 +77,7 @@ class ProfileRouter: ProfileRouterProtocol {
 //MARK:- Auth VC Delegate
 extension ProfileRouter: AuthVCDelegate {
     func didSuccessfullyAuthenticate(in authVC: AuthVC) {
+        (viewController as? ProfileViewProtocol)?.presenter.didPerformAuth()
         authVC.dismiss(animated: true)
     }
     

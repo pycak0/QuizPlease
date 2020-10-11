@@ -8,12 +8,13 @@
 
 import Foundation
 
+//MARK:- Presenter Protocol
 protocol MainMenuPresenterProtocol: class {
     var router: MainMenuRouterProtocol! { get }
     init(view: MainMenuViewProtocol, interactor: MainMenuInteractorProtocol, router: MainMenuRouterProtocol)
     var menuItems: [MenuItemProtocol]? { get set }
     
-    func configureViews()
+    func setupView()
     func didSelectMenuItem(at index: Int)
     func didSelectCityButton()
     func didChangeDefaultCity(_ newCity: City)
@@ -28,13 +29,15 @@ class MainMenuPresenter: MainMenuPresenterProtocol {
     
     var menuItems: [MenuItemProtocol]?
     
+    var userInfo: UserInfo?
+    
     required init(view: MainMenuViewProtocol, interactor: MainMenuInteractorProtocol, router: MainMenuRouterProtocol) {
         self.router = router
         self.view = view
         self.interactor = interactor
     }
     
-    func configureViews() {
+    func setupView() {
         view?.configureTableView()
         view?.updateCityName(with: Globals.defaultCity.title)
         
@@ -48,11 +51,38 @@ class MainMenuPresenter: MainMenuPresenterProtocol {
                 self.view?.reloadMenuItems()
             }
         }
+        
+        if Globals.userToken != nil {
+            loadUserInfo()
+        }
     }
     
+    //MARK:- Load User Info
+    func loadUserInfo() {
+        interactor.loadUserInfo { [weak self] (serverResult) in
+            guard let self = self else { return }
+            switch serverResult {
+            case let .failure(error):
+                print(error)
+            case let .success(userInfo):
+                self.userInfo = userInfo
+                self.view?.updateUserPointsAmount(with: userInfo.pointsAmount)
+                
+            }
+        }
+    }
+    
+    //MARK:- Actions
     func didSelectMenuItem(at index: Int) {
         guard let item = menuItems?[index] else { return }
-        router.showMenuSection(item, sender: nil)
+        var sender: UserInfo?
+        switch item._kind {
+        case .profile, .shop:
+            sender = userInfo
+        default:
+            break
+        }
+        router.showMenuSection(item, sender: sender)
     }
     
     func didSelectCityButton() {

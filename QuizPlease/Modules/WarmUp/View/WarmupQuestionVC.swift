@@ -57,7 +57,7 @@ class WarmupQuestionVC: UIViewController {
         
         for (index, button) in (answerStack.arrangedSubviews as! [UIButton]).enumerated() {
             button.backgroundColor = UIColor.white.withAlphaComponent(0.1)
-            button.setTitle(question.answerVariants[index], for: .normal)
+            button.setTitle(question.answers[index].value, for: .normal)
         }
         
         setupQuestionType()
@@ -76,27 +76,29 @@ class WarmupQuestionVC: UIViewController {
         case .imageWithText:
             imageView.loadImage(url: question.imageUrl)
             imageView.image = UIImage(named: "logoSmall")
-            questionLabel.text = question.text
+            questionLabel.text = question.question
             
         case .videoWithText:
             imageView.isHidden = true
             videoView.isHidden = false
             videoView.parent = self
             videoView.configurePlayer(url: question.imageUrl)
-            questionLabel.text = question.text
+            questionLabel.text = question.question
             
         case .text:
             imageView.isHidden = true
-            questionLabel.text = question.text
+            questionLabel.text = question.question
             imageLabelSpacingConstraint.isActive = false
             backgrndHeightConstraint.constant = questionView.frame.height
             questionLabel.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: 20).isActive = true
             
         case .soundWithText:
-            questionLabel.text = question.text
+            questionLabel.text = question.question
             backgrndHeightConstraint.constant = questionView.frame.height
             //configure sound view
             break
+            
+        default: break
             
         }
     }

@@ -21,6 +21,16 @@ class Globals {
         return urlComps
     }
     
-    static var userToken: String?
-    static var defaultCity: City = City(id: 9, title: "Москва")
+    static var userToken: String? {
+        didSet {
+            guard let token = userToken else { return }
+            //DefaultsManager.shared.saveUserToken(token)
+        }
+    }
+    
+    static var defaultCity: City = City(id: 9, title: "Москва") {
+        didSet {
+            DefaultsManager.shared.saveDefaultCity(defaultCity)
+        }
+    }
 }

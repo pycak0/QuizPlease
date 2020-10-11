@@ -10,6 +10,8 @@ import UIKit
 
 protocol ShopInteractorProtocol {
     func loadItems(completion: @escaping (Result<[ShopItem], SessionError>) -> Void)
+    
+    func loadUserInfo(completion: @escaping ((Result<UserInfo, SessionError>) -> Void))
 }
 
 class ShopInteractor: ShopInteractorProtocol {
@@ -17,5 +19,9 @@ class ShopInteractor: ShopInteractorProtocol {
         NetworkService.shared.getShopItems { (serverResult) in
             completion(serverResult)
         }
+    }
+    
+    func loadUserInfo(completion: @escaping ((Result<UserInfo, SessionError>) -> Void)) {
+        NetworkService.shared.getUserInfo(completion: completion)
     }
 }

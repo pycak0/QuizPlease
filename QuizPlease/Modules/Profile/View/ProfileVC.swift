@@ -10,20 +10,22 @@ import UIKit
 
 //MARK:- View Protocol
 protocol ProfileViewProtocol: UIViewController {
-    var configurator: ProfileConfiguratorProtocol { get }
     var presenter: ProfilePresenterProtocol! { get set }
     
     func configureViews()
+    
+    func reloadGames()
+    
+    func updateUserInfo(with pointsScored: Int)
 }
 
 class ProfileVC: UIViewController {
-    let configurator: ProfileConfiguratorProtocol = ProfileConfigurator()
     var presenter: ProfilePresenterProtocol!
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var infoHeader: UIView!
     @IBOutlet weak var gamesCountLabel: UILabel!
-    @IBOutlet weak var totalPointsScored: UILabel!
+    @IBOutlet weak var totalPointsScoredLabel: UILabel!
     @IBOutlet weak var showShopButton: UIButton!
     @IBOutlet weak var addGameButton: ScalingButton!
     
@@ -33,7 +35,6 @@ class ProfileVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configurator.configure(self)
         presenter.setupView()
 
     }
@@ -54,21 +55,33 @@ class ProfileVC: UIViewController {
 
 }
 
-//MARK:- Protocol Implementation
+//MARK:- View Protocol Implementation
 extension ProfileVC: ProfileViewProtocol {
     func configureViews() {
         tableView.delegate = self
         tableView.dataSource = self
         
         infoHeader.addGradient(colors: [.lemon, .lightOrange], insertAt: 0)
-        totalPointsScored.layer.cornerRadius = totalPointsScored.bounds.height / 2
+        totalPointsScoredLabel.layer.cornerRadius = totalPointsScoredLabel.bounds.height / 2
         showShopButton.layer.cornerRadius = showShopButton.bounds.height / 2
         
         addGameButton.layer.cornerRadius = 20
         addGameButton.addGradient(colors: [.lemon, .lightOrange], insertAt: 0)
     }
+    
+    func reloadGames() {
+        tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .automatic)
+    }
+    
+    func updateUserInfo(with pointsScored: Int) {
+        let gamesCount = presenter.userInfo?.games?.count ?? 0
+        totalPointsScoredLabel.text = pointsScored.string(withAssociatedMaleWord: "балл")
+        let gamesFormattedCount = gamesCount.string(withAssociatedFirstCaseWord: "игра")
+        gamesCountLabel.text = "Вы сходили на \(gamesFormattedCount) и накопили"
+    }
 }
 
+//MARK:- QR Scanner VC Delegate
 extension ProfileVC: QRScannerVCDelegate {
     func qrScanner(_ qrScanner: QRScannerVC, didFinishCodeScanningWith result: String?) {
         guard let code = result else { return }
@@ -79,24 +92,19 @@ extension ProfileVC: QRScannerVCDelegate {
 //MARK:- Data Source & Delegate
 extension ProfileVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //let count = 3
-        let count = presenter.games.count
-        let gamesFormattedCount = count.string(withAssociatedFirstCaseWord: "игра")
-        gamesCountLabel.text = "Вы сходили на \(gamesFormattedCount) и накопили"
-        
-        return count
+        return presenter.userInfo?.games?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ProfileCell.identifier, for: indexPath) as! ProfileCell
         
-        //let game = presenter.games[indexPath.row]
-        //let number = indexPath.row + 1
-//        cell.configure( gameName:       "Game\(number)",
-//                        gameNumber:     number,
-//                        teamName:       "Team\(number)",
-//                        place:          number,
-//                        pointsScored:   10 * indexPath.row + number)
+        guard let game = presenter.userInfo?.games?[indexPath.row] else { return cell }
+        
+        cell.configure( gameName:       game.name,
+                        gameNumber:     game.title,
+                        teamName:       "",
+                        place:          game.place,
+                        pointsScored:   0)
         
         return cell
     }

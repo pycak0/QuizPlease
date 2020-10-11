@@ -25,6 +25,7 @@ class ConfirmVC: BottomPopupViewController {
     weak var delegate: ConfirmVCDelegate?
     
     @IBOutlet private weak var itemImageView: UIImageView!
+    @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var descriptionLabel: UILabel!
     @IBOutlet private weak var confirmMessageLabel: UILabel!
     @IBOutlet private weak var cancelButton: ScalingButton!
@@ -53,9 +54,9 @@ class ConfirmVC: BottomPopupViewController {
     private func setupData() {
         itemImageView.image = shopItem.image
         descriptionLabel.text = shopItem.description
+        titleLabel.text = shopItem.title
+        confirmMessageLabel.text = "Потратить \(shopItem.priceNumber) на электронный сертификат?"
         
-        let formattedPrice = shopItem.price.string(withAssociatedMaleWord: "балл")
-        confirmMessageLabel.text = "Потратить \(formattedPrice) баллов на электронный сертификат?"
     }
     
     
@@ -64,7 +65,7 @@ class ConfirmVC: BottomPopupViewController {
     }
     
     @IBAction func confirmButtonPressed(_ sender: Any) {
-        delegate?.didAgreeToPurchase(item: shopItem)
         dismiss(animated: true, completion: nil)
+        delegate?.didAgreeToPurchase(item: shopItem)
     }
 }

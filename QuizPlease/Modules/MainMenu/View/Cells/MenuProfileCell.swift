@@ -29,9 +29,24 @@ class MenuProfileCell: UITableViewCell, MenuCellItemProtocol {
         delegate?.addGameButtonPressed(in: self)
     }
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        configureViews()
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
-        configureViews()
+        accessoryLabel.layer.cornerRadius = accessoryLabel.frame.height / 2
+        
+        addGameButton.layer.cornerRadius = addGameButton.frame.height / 2
+        profileLabel.layer.cornerRadius = profileLabel.frame.height / 2
+        
+        cellView.layer.cornerRadius = cellViewCornerRadius
+    }
+    
+    func setUserPoints(_ points: Int) {
+        accessoryLabel.text = points.string(withAssociatedMaleWord: "балл")
+        accessoryLabel.isHidden = false
     }
     
     func configureCell(with model: MenuItemProtocol) {
@@ -40,13 +55,9 @@ class MenuProfileCell: UITableViewCell, MenuCellItemProtocol {
     }
     
     func configureViews() {
+        accessoryLabel.isHidden = true
         commentLabel.textColor = UIColor.black.withAlphaComponent(0.5)
-        accessoryLabel.layer.cornerRadius = accessoryLabel.frame.height / 2
         
-        addGameButton.layer.cornerRadius = addGameButton.frame.height / 2
-        profileLabel.layer.cornerRadius = profileLabel.frame.height / 2
-        
-        cellView.layer.cornerRadius = cellViewCornerRadius
         cellView.addGradient(colors: [.yellow, .lightOrange],
                              frame: CGRect(origin: contentView.bounds.origin,
                                            size: CGSize(width: UIScreen.main.bounds.width,

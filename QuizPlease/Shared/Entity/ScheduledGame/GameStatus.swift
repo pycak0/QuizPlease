@@ -9,7 +9,7 @@
 import Foundation
 
 enum GameStatus: Int, Decodable {
-    case placesAvailable = 1, reserveAvailable, noPlaces, invite, ended
+    case placesAvailable = 1, reserveAvailable = 2, noPlaces = 3, invite = 4, ended = 6
     
     var comment: String {
         switch self {

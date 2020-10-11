@@ -791,7 +791,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Добавление игры" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="jgs-et-DdD">
-                                <rect key="frame" x="60" y="66.666666666666671" width="276" height="29"/>
+                                <rect key="frame" x="60" y="66.333333333333329" width="276" height="29.333333333333329"/>
                                 <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="24"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -826,7 +826,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Сканирование QR-кода" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="dd3-0W-Mzx">
-                                <rect key="frame" x="16" y="239" width="382" height="27"/>
+                                <rect key="frame" x="16" y="240" width="382" height="26"/>
                                 <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="22"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -1521,19 +1521,19 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Поздравляем с покупкой!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T6i-ay-LLq">
-                                <rect key="frame" x="16" y="498" width="382" height="26.666666666666629"/>
+                                <rect key="frame" x="16" y="498" width="382" height="26"/>
                                 <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="22"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Где вы хотите забрать свой сертификат?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gu5-yq-NPT">
-                                <rect key="frame" x="20" y="540.66666666666663" width="374" height="19"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Где Вы хотите забрать свой сертификат?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gu5-yq-NPT">
+                                <rect key="frame" x="20" y="540" width="374" height="19"/>
                                 <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="16"/>
                                 <color key="textColor" systemColor="opaqueSeparatorColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KBr-n6-ewD" customClass="HBSegmentedControl" customModule="QuizPlease" customModuleProvider="target">
-                                <rect key="frame" x="20" y="582.66666666666663" width="374" height="50"/>
+                                <rect key="frame" x="20" y="582" width="374" height="50"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="TOP-WB-wPI"/>
@@ -1644,70 +1644,82 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="530"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Sph-jC-MSS">
-                                <rect key="frame" x="79" y="20" width="256" height="256"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="256" id="mle-ti-bzi"/>
-                                    <constraint firstAttribute="width" secondItem="Sph-jC-MSS" secondAttribute="height" multiplier="1:1" id="rFZ-bA-Fvu"/>
-                                </constraints>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Этот подарочный сертификат дает право на бесплатную игру Квиз, плиз! [стрим] для целой команды." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KJa-4c-mae">
-                                <rect key="frame" x="20" y="292" width="374" height="50.333333333333314"/>
-                                <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="14"/>
-                                <color key="textColor" systemColor="opaqueSeparatorColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Потратить N баллов на электронный сертификат?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xvi-EP-uSy">
-                                <rect key="frame" x="20" y="362.33333333333331" width="374" height="53.333333333333314"/>
-                                <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="22"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="btf-Ro-wml">
-                                <rect key="frame" x="20" y="441.66666666666669" width="374" height="50"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="Hpu-tS-ZHT">
+                                <rect key="frame" x="20" y="20" width="374" height="490"/>
                                 <subviews>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b4o-HT-k4w" customClass="ScalingButton" customModule="QuizPlease" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="180" height="50"/>
-                                        <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="16"/>
-                                        <state key="normal" title="НЕТ">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="cancelButtonPressed:" destination="oZJ-S8-d62" eventType="touchUpInside" id="K7b-LG-glR"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MCs-oJ-cB3" customClass="ScalingButton" customModule="QuizPlease" customModuleProvider="target">
-                                        <rect key="frame" x="194" y="0.0" width="180" height="50"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="16"/>
-                                        <state key="normal" title="ДА">
-                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="confirmButtonPressed:" destination="oZJ-S8-d62" eventType="touchUpInside" id="ZJo-pq-cOR"/>
-                                        </connections>
-                                    </button>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Sph-jC-MSS">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="259"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Название сертификата" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MvR-Ta-BqL">
+                                        <rect key="frame" x="0.0" y="273" width="374" height="20.666666666666686"/>
+                                        <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Этот подарочный сертификат дает право на бесплатную игру Квиз, плиз! [стрим] для целой команды." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KJa-4c-mae">
+                                        <rect key="frame" x="0.0" y="307.66666666666669" width="374" height="50.333333333333314"/>
+                                        <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="14"/>
+                                        <color key="textColor" systemColor="opaqueSeparatorColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Потратить N баллов на электронный сертификат?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xvi-EP-uSy">
+                                        <rect key="frame" x="0.0" y="372" width="374" height="54"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="54" id="Yqr-10-qN1"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="22"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="btf-Ro-wml">
+                                        <rect key="frame" x="0.0" y="440" width="374" height="50"/>
+                                        <subviews>
+                                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b4o-HT-k4w" customClass="ScalingButton" customModule="QuizPlease" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="180" height="50"/>
+                                                <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="16"/>
+                                                <state key="normal" title="НЕТ">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="cancelButtonPressed:" destination="oZJ-S8-d62" eventType="touchUpInside" id="K7b-LG-glR"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MCs-oJ-cB3" customClass="ScalingButton" customModule="QuizPlease" customModuleProvider="target">
+                                                <rect key="frame" x="194" y="0.0" width="180" height="50"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="16"/>
+                                                <state key="normal" title="ДА">
+                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="confirmButtonPressed:" destination="oZJ-S8-d62" eventType="touchUpInside" id="ZJo-pq-cOR"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="1Le-XR-00d"/>
+                                        </constraints>
+                                    </stackView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="1Le-XR-00d"/>
+                                    <constraint firstItem="btf-Ro-wml" firstAttribute="leading" secondItem="Hpu-tS-ZHT" secondAttribute="leading" id="5ka-MV-7me"/>
+                                    <constraint firstItem="KJa-4c-mae" firstAttribute="leading" secondItem="Hpu-tS-ZHT" secondAttribute="leading" id="BF0-p6-4vA"/>
+                                    <constraint firstAttribute="trailing" secondItem="xvi-EP-uSy" secondAttribute="trailing" id="Mgb-gE-AJd"/>
+                                    <constraint firstAttribute="trailing" secondItem="btf-Ro-wml" secondAttribute="trailing" id="PIW-em-s4Y"/>
+                                    <constraint firstItem="xvi-EP-uSy" firstAttribute="leading" secondItem="Hpu-tS-ZHT" secondAttribute="leading" id="T38-4b-awJ"/>
+                                    <constraint firstItem="MvR-Ta-BqL" firstAttribute="leading" secondItem="Hpu-tS-ZHT" secondAttribute="leading" id="hkE-fh-j5k"/>
+                                    <constraint firstAttribute="trailing" secondItem="MvR-Ta-BqL" secondAttribute="trailing" id="plr-1B-SL9"/>
+                                    <constraint firstAttribute="trailing" secondItem="KJa-4c-mae" secondAttribute="trailing" id="yUs-EY-zfU"/>
                                 </constraints>
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="qVT-Un-eKm"/>
                         <color key="backgroundColor" systemColor="systemPurpleColor"/>
                         <constraints>
-                            <constraint firstItem="xvi-EP-uSy" firstAttribute="top" secondItem="KJa-4c-mae" secondAttribute="bottom" constant="20" id="0AL-Vz-Oqn"/>
-                            <constraint firstItem="btf-Ro-wml" firstAttribute="leading" secondItem="qVT-Un-eKm" secondAttribute="leading" constant="20" id="0R5-Bd-vSe"/>
-                            <constraint firstItem="KJa-4c-mae" firstAttribute="leading" secondItem="qVT-Un-eKm" secondAttribute="leading" constant="20" id="1mt-Ix-0nm"/>
-                            <constraint firstItem="qVT-Un-eKm" firstAttribute="trailing" secondItem="btf-Ro-wml" secondAttribute="trailing" constant="20" id="V7N-Qe-2Lr"/>
-                            <constraint firstItem="KJa-4c-mae" firstAttribute="centerX" secondItem="qVT-Un-eKm" secondAttribute="centerX" id="Zns-ZX-zSr"/>
-                            <constraint firstItem="KJa-4c-mae" firstAttribute="top" secondItem="Sph-jC-MSS" secondAttribute="bottom" constant="16" id="bPo-Jg-g94"/>
-                            <constraint firstItem="btf-Ro-wml" firstAttribute="top" secondItem="xvi-EP-uSy" secondAttribute="bottom" constant="26" id="e92-Rb-wQ5"/>
-                            <constraint firstItem="Sph-jC-MSS" firstAttribute="top" secondItem="3GV-tc-Zjr" secondAttribute="top" constant="20" id="eKj-G2-4av"/>
-                            <constraint firstItem="qVT-Un-eKm" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="btf-Ro-wml" secondAttribute="bottom" constant="20" id="m4n-JH-kEa"/>
-                            <constraint firstItem="xvi-EP-uSy" firstAttribute="centerX" secondItem="qVT-Un-eKm" secondAttribute="centerX" id="t2n-2T-okZ"/>
-                            <constraint firstItem="Sph-jC-MSS" firstAttribute="centerX" secondItem="qVT-Un-eKm" secondAttribute="centerX" id="teD-mi-I93"/>
-                            <constraint firstItem="xvi-EP-uSy" firstAttribute="leading" secondItem="qVT-Un-eKm" secondAttribute="leading" constant="20" id="wD3-pe-aKL"/>
+                            <constraint firstAttribute="trailing" secondItem="Hpu-tS-ZHT" secondAttribute="trailing" constant="20" id="19B-3p-jOo"/>
+                            <constraint firstItem="qVT-Un-eKm" firstAttribute="bottom" secondItem="Hpu-tS-ZHT" secondAttribute="bottom" constant="20" id="6Lb-hS-VWS"/>
+                            <constraint firstItem="Hpu-tS-ZHT" firstAttribute="top" secondItem="3GV-tc-Zjr" secondAttribute="top" constant="20" id="nVp-CA-9sR"/>
+                            <constraint firstItem="Hpu-tS-ZHT" firstAttribute="leading" secondItem="qVT-Un-eKm" secondAttribute="leading" constant="20" id="vsW-Vl-m02"/>
                         </constraints>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -1718,6 +1730,7 @@
                         <outlet property="confirmMessageLabel" destination="xvi-EP-uSy" id="4HV-u7-bIt"/>
                         <outlet property="descriptionLabel" destination="KJa-4c-mae" id="Tzr-jx-l0N"/>
                         <outlet property="itemImageView" destination="Sph-jC-MSS" id="b92-sN-jwl"/>
+                        <outlet property="titleLabel" destination="MvR-Ta-BqL" id="gjT-SV-Fta"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4OE-sd-O9l" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1743,13 +1756,13 @@
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tmW-ro-5TD">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="140"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Вы сходили нв N игр и накопили" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QOB-kX-Edq">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Загрузка…" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QOB-kX-Edq">
                                                     <rect key="frame" x="16" y="16" width="382" height="18.666666666666671"/>
                                                     <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2430 баллов" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zbv-jy-ImX">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zbv-jy-ImX">
                                                     <rect key="frame" x="16" y="42.666666666666664" width="110" height="29.999999999999993"/>
                                                     <color key="backgroundColor" systemColor="viewFlipsideBackgroundColor"/>
                                                     <constraints>
@@ -1832,8 +1845,9 @@
                                                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0y9-iW-geg">
                                                     <rect key="frame" x="16" y="5" width="382" height="190"/>
                                                     <subviews>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tv.music.note" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="TYD-XW-cvU">
-                                                            <rect key="frame" x="0.0" y="1" width="382" height="188.33333333333334"/>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.10000000000000001" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoSmall" translatesAutoresizingMaskIntoConstraints="NO" id="TYD-XW-cvU">
+                                                            <rect key="frame" x="0.0" y="0.0" width="382" height="190"/>
+                                                            <color key="tintColor" name="lemon"/>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="[кино и музыка]" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ntf-KH-fTu">
                                                             <rect key="frame" x="16" y="20" width="205.33333333333334" height="34"/>
@@ -1975,7 +1989,7 @@
                         <outlet property="infoHeader" destination="tmW-ro-5TD" id="rpu-lL-OxW"/>
                         <outlet property="showShopButton" destination="pOZ-Rz-FRq" id="JHw-bY-dRS"/>
                         <outlet property="tableView" destination="4Bt-cl-3gP" id="oej-k3-pJi"/>
-                        <outlet property="totalPointsScored" destination="zbv-jy-ImX" id="woA-5P-x89"/>
+                        <outlet property="totalPointsScoredLabel" destination="zbv-jy-ImX" id="woA-5P-x89"/>
                         <segue destination="H5s-MK-eJ0" kind="show" identifier="ShowShop" id="pVV-GK-MaB"/>
                         <segue destination="9lb-5I-2Om" kind="presentation" identifier="ShowQRScreenProfile" id="kQf-Xc-fDF"/>
                         <segue destination="a3e-UY-Aou" kind="show" identifier="AddGameProfile" id="mmH-hO-g5X"/>
@@ -2164,21 +2178,21 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2WS-Pf-8RB">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="724"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="723"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fYL-Hz-GwJ">
-                                <rect key="frame" x="0.0" y="674" width="414" height="222"/>
+                                <rect key="frame" x="0.0" y="673" width="414" height="223"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Вы успешно записаны" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fhR-co-3bE">
-                                        <rect key="frame" x="20" y="70.333333333333371" width="374" height="25.666666666666671"/>
+                                        <rect key="frame" x="20" y="71" width="374" height="26"/>
                                         <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="22"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="252" image="tick" translatesAutoresizingMaskIntoConstraints="NO" id="bCJ-mt-zL7">
-                                        <rect key="frame" x="20" y="14.000000000000004" width="374" height="46.333333333333343"/>
+                                        <rect key="frame" x="20" y="14" width="374" height="47"/>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -2290,7 +2304,6 @@
         <image name="radioImage" width="110" height="145"/>
         <image name="teapotImage" width="178" height="246"/>
         <image name="tick" width="64" height="47"/>
-        <image name="tv.music.note" catalog="system" width="128" height="97"/>
         <image name="warmupPreview" width="375" height="227"/>
         <namedColor name="darkBlue">
             <color red="0.25882352941176473" green="0.16078431372549021" blue="0.46274509803921571" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -9,14 +9,15 @@
 import Foundation
 
 protocol ShopConfiguratorProtocol {
-    func configure(_ view: ShopViewProtocol)
+    func configure(_ view: ShopViewProtocol, userInfo: UserInfo?)
 }
 
 class ShopConfigurator: ShopConfiguratorProtocol {
-    func configure(_ view: ShopViewProtocol) {
+    func configure(_ view: ShopViewProtocol, userInfo: UserInfo?) {
         let interactor = ShopInteractor()
         let router = ShopRouter(viewController: view)
         let presenter = ShopPresenter(view: view, interactor: interactor, router: router)
+        presenter.userInfo = userInfo
         
         view.presenter = presenter
         view.prepareNavigationBar()

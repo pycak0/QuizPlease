@@ -124,13 +124,14 @@ class AuthVC: UIViewController {
             case let .failure(error):
                 print(error)
                 self.showErrorConnectingToServerAlert()
-            case let .success(authResponse):
-                if let token = authResponse.access_token {
+            case let .success(authInfo):
+                if let token = authInfo.accessToken {
                     Globals.userToken = token
+                    DefaultsManager.shared.saveAuthInfo(authInfo)
                     self.delegate?.didSuccessfullyAuthenticate(in: self)
                 } else {
                     self.showSimpleAlert(title: "Произошла ошибка", message: "Пожалуйста, попробуйте повторить еще раз")
-                    print("Message from server:", authResponse.message ?? "no message")
+                    
                 }
                 
             }
@@ -169,12 +170,7 @@ class AuthVC: UIViewController {
     }
     
     private func showIncorrectInputNotification() {
-        textFieldView.transform = CGAffineTransform(translationX: 30, y: 0)
-        UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 0.2, initialSpringVelocity: 10, options: []) {
-            self.textFieldView.transform = .identity
-        } completion: { _ in
-            //
-        }
+        textFieldView.shakeAnimation()
 
     }
 }

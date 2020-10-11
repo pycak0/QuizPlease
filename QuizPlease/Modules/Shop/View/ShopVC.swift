@@ -10,15 +10,17 @@ import UIKit
 
 //MARK:- View Protocol
 protocol ShopViewProtocol: UIViewController {
-    var configurator: ShopConfiguratorProtocol { get }
     var presenter: ShopPresenterProtocol! { get set }
     
     func configureCollectionView()
     func reloadCollectionView()
+    func endLoadingAnimation()
+
+    func showUserPoints(_ points: Int)
+    
 }
 
 class ShopVC: UIViewController {
-    let configurator: ShopConfiguratorProtocol = ShopConfigurator()
     var presenter: ShopPresenterProtocol!
 
     @IBOutlet weak var userPointsLabel: UILabel!
@@ -27,8 +29,7 @@ class ShopVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configurator.configure(self)
-        presenter.configureViews()
+        presenter.setupView()
 
     }
     
@@ -45,9 +46,7 @@ class ShopVC: UIViewController {
     
     @objc
     private func refreshControlTriggered() {
-        presenter.handleRefreshControl { [weak self] in
-            self?.shopCollectionView.refreshControl?.endRefreshing()
-        }
+        presenter.handleRefreshControl()
     }
     
 
@@ -61,14 +60,25 @@ extension ShopVC: ShopViewProtocol {
         
         shopCollectionView.register(UINib(nibName: ShopItemCell.identifier, bundle: nil), forCellWithReuseIdentifier: ShopItemCell.identifier)
         
+        userPointsLabel.isHidden = true
         userPointsLabel.layer.cornerRadius = 15
+    }
+    
+    func endLoadingAnimation() {
+        shopCollectionView.refreshControl?.endRefreshing()
     }
     
     func reloadCollectionView() {
         shopCollectionView.reloadData()
     }
+    
+    func showUserPoints(_ points: Int) {
+        userPointsLabel.isHidden = false
+        userPointsLabel.text = "\(points) Б"
+    }
 }
 
+//MARK:- ConfirmVC Delegate
 extension ShopVC: ConfirmVCDelegate {
     func didAgreeToPurchase(item: ShopItem) {
         presenter.didAgreeToPurchase(item)
@@ -86,7 +96,7 @@ extension ShopVC: UICollectionViewDataSource {
             fatalError("Invalid Cell Kind")
         }
         let item = presenter.items[indexPath.item]
-        cell.configureCell(image: item.image, price: item.price)
+        cell.configureCell(image: item.image, price: item.priceNumber)
                 
         return cell
     }

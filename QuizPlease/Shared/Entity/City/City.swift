@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct City: Decodable {
+struct City: Codable {
     var id: Int
     var title: String
 }

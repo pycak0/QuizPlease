@@ -9,14 +9,13 @@
 import Foundation
 
 struct WarmupQuestion: Decodable {
-    var type: WarmupQuestionType
-    var text: String?
+    var type: WarmupQuestionType? = .imageWithText
+    var question: String?
     var imageUrl: URL?
     var videoUrl: URL?
     var soundUrl: URL?
     
-    var answerVariants: [String]
-    var correctAnswer: String
+    var answers: [WarmupAnswer]
 }
 
 enum WarmupQuestionType: Int, CaseIterable, Decodable {
