@@ -13,8 +13,7 @@ class NetworkService {
     private init() {}
     
     static let shared = NetworkService()
-    
-    
+        
     ///
     //MARK:- GET REQUESTS =======
     ///
@@ -330,6 +329,72 @@ class NetworkService {
         afPostAuth(with: params, to: tokenUrlComps, completion: completion)
     }
     
+    //MARK:- Send Firebase ID
+    func sendFirebaseId(_ fcmToken: String) {
+        guard let userToken = Globals.userToken else { return }
+        var urlComps = Globals.baseUrl
+        urlComps.path = "/api/device/create"
+        let params = ["device_id" : fcmToken]
+        let headers = ["Authorization" : "Bearer \(userToken)"]
+        afPost(with: params, and: headers, to: urlComps, responseType: [String: String].self) { (postResult) in
+            print("Firebase ID sending result:")
+            print(postResult)
+        }
+    }
+    
+    //MARK:- AF Post Auth
+    ///Post request with response type of `SavedAuthInfo`
+    func afPostAuth(with parameters: [String: String?], to urlComponents: URLComponents,
+                    completion: @escaping ((Result<SavedAuthInfo, SessionError>) -> Void)) {
+        afPost(with: parameters, to: urlComponents, responseType: AuthInfoResponse.self) { (postResult) in
+            switch postResult {
+            case let .failure(error):
+                completion(.failure(error))
+            case let .success(response):
+                if let message = response.message {
+                    let error = NSError(domain: message, code: response.status ?? -999, userInfo: nil)
+                    completion(.failure(.other(error)))
+                    return
+                }
+                let authInfo = SavedAuthInfo(authInfoResponse: response)
+                completion(.success(authInfo))
+            }
+        }
+    }
+    
+    //MARK:- Alamofire POST
+    func afPost<Response: Decodable>(with parameters: [String: String?], and headers: [String : String]? = nil,
+                                     to urlComponents: URLComponents, responseType: Response.Type,
+                                     completion: @escaping ((Result<Response, SessionError>) -> Void)) {
+        
+        let httpHeaders = headers != nil ? HTTPHeaders(headers!) : nil
+        AF.upload(multipartFormData: { (multipartFormData) in
+            for (key, value) in parameters {
+                if let value = value {
+                    multipartFormData.append(Data(value.utf8), withName: key)
+                }
+            }
+        }, to: urlComponents, headers: httpHeaders)
+        .responseData { (afResponse) in
+            switch afResponse.result {
+            case let .failure(error):
+                completion(.failure(.other(error)))
+            case let .success(data):
+                do {
+                    let serverResponse = try JSONDecoder().decode(ServerResponse<Response>.self, from: data)
+                    completion(.success(serverResponse.data))
+                } catch {
+                    completion(.failure(.decoding(error)))
+                    
+                    guard let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any?] else {
+                        return
+                    }
+                    print(">>> Response data:\n\n", json)
+                }
+            }
+        }
+    }
+    
     //MARK:- Post with decoding response
     ///Response decoding is performed on the main queue
     func post<Object: Encodable, Response: Decodable>(_ object: Object, with urlComponents: URLComponents, reponseType: Response.Type, completion: @escaping ((Result<Response, SessionError>) -> Void)) {
@@ -400,58 +465,6 @@ class NetworkService {
             }
         }.resume()
         
-    }
-    
-    //MARK:- AF Post Auth
-    ///Post request with response type of `SavedAuthInfo`
-    func afPostAuth(with parameters: [String: String?], to urlComponents: URLComponents,
-                    completion: @escaping ((Result<SavedAuthInfo, SessionError>) -> Void)) {
-        afPost(with: parameters, to: urlComponents, responseType: AuthInfoResponse.self) { (postResult) in
-            switch postResult {
-            case let .failure(error):
-                completion(.failure(error))
-            case let .success(response):
-                if let message = response.message {
-                    let error = NSError(domain: message, code: response.status ?? -999, userInfo: nil)
-                    completion(.failure(.other(error)))
-                    return
-                }
-                let authInfo = SavedAuthInfo(authInfoResponse: response)
-                completion(.success(authInfo))
-            }
-        }
-    }
-    
-    //MARK:- Alamofire POST
-    func afPost<Response: Decodable>(with parameters: [String: String?], to urlComponents: URLComponents,
-                                     responseType: Response.Type,
-                                     completion: @escaping ((Result<Response, SessionError>) -> Void)) {
-        
-        AF.upload(multipartFormData: { (multipartFormData) in
-            for (key, value) in parameters {
-                if let value = value {
-                    multipartFormData.append(Data(value.utf8), withName: key)
-                }
-            }
-        }, to: urlComponents)
-        .responseData { (afResponse) in
-            switch afResponse.result {
-            case let .failure(error):
-                completion(.failure(.other(error)))
-            case let .success(data):
-                do {
-                    let serverResponse = try JSONDecoder().decode(ServerResponse<Response>.self, from: data)
-                    completion(.success(serverResponse.data))
-                } catch {
-                    completion(.failure(.decoding(error)))
-                    
-                    guard let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any?] else {
-                        return
-                    }
-                    print(">>> Response data:\n\n", json)
-                }
-            }
-        }
     }
     
 }

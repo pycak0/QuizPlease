@@ -19,6 +19,7 @@ class DefaultsManager {
     private let authInfoKey = "user-auth-info"
     private let defaultCityKey = "default-city"
     private let userInfoKey = "user-saved-info"
+    private let fcmTokenKey = "fcm-token-key"
     
     //MARK:- Auth Info
 //    func getUserToken() -> String? {
@@ -62,5 +63,14 @@ class DefaultsManager {
         } catch {
             print(error)
         }
+    }
+    
+    //MARK:- FCM Token
+    func getFcmToken() -> String? {
+        defaults.string(forKey: fcmTokenKey)
+    }
+    
+    func saveFcmToken(_ token: String) {
+        defaults.setValue(token, forKey: fcmTokenKey)
     }
 }
