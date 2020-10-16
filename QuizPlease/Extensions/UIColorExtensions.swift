@@ -54,6 +54,13 @@ public extension UIColor {
         }
         return .black
     }
+    
+    class var systemBackgroundAdapted: UIColor {
+        if #available(iOS 13.0, *) {
+            return .systemBackground
+        }
+        return .white
+    }
 
 }
 

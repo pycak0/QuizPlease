@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -15,6 +17,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WarmupQuestionVC" customModule="QuizPlease" customModuleProvider="target">
             <connections>
+                <outlet property="activityIndicator" destination="c86-Zc-0Ep" id="FtB-eR-K1c"/>
                 <outlet property="answerStack" destination="FLC-LN-3GM" id="Ebm-ji-gi4"/>
                 <outlet property="backgrndHeightConstraint" destination="ruy-Pa-Iia" id="GfO-2Q-pyd"/>
                 <outlet property="backgroundView" destination="Zp1-Ic-565" id="acJ-tf-4H1"/>
@@ -40,15 +43,21 @@
                             <rect key="frame" x="0.0" y="168.5" width="374" height="205.5"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="14" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="88g-Ae-qcD">
-                                    <rect key="frame" x="20" y="153.5" width="334" height="27"/>
+                                    <rect key="frame" x="20" y="154.5" width="334" height="26"/>
                                     <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="22"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
+                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="c86-Zc-0Ep">
+                                    <rect key="frame" x="177" y="92.5" width="20" height="20"/>
+                                    <color key="color" name="lemon"/>
+                                </activityIndicatorView>
                             </subviews>
-                            <color key="backgroundColor" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="backgroundColor" systemColor="systemIndigoColor"/>
                             <constraints>
                                 <constraint firstItem="88g-Ae-qcD" firstAttribute="leading" secondItem="Zp1-Ic-565" secondAttribute="leading" constant="20" id="gA0-Su-2Sb"/>
+                                <constraint firstItem="c86-Zc-0Ep" firstAttribute="centerY" secondItem="Zp1-Ic-565" secondAttribute="centerY" id="gQS-0K-K0e"/>
+                                <constraint firstItem="c86-Zc-0Ep" firstAttribute="centerX" secondItem="Zp1-Ic-565" secondAttribute="centerX" id="okw-bJ-qjf"/>
                                 <constraint firstAttribute="trailing" secondItem="88g-Ae-qcD" secondAttribute="trailing" constant="20" id="pqs-Gb-X6A"/>
                                 <constraint firstAttribute="bottom" secondItem="88g-Ae-qcD" secondAttribute="bottom" constant="25" id="uyX-h5-ed4"/>
                             </constraints>
@@ -107,7 +116,7 @@
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="FLC-LN-3GM">
                     <rect key="frame" x="20" y="428" width="374" height="327"/>
                     <subviews>
-                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bSU-mV-Yqy" customClass="ScalingButton" customModule="QuizPlease" customModuleProvider="target">
+                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bSU-mV-Yqy" customClass="ScalingButton" customModule="QuizPlease" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="0.0" width="374" height="74.5"/>
                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="22"/>
@@ -129,7 +138,7 @@
                                 <action selector="answerButtonPressed:" destination="-1" eventType="touchUpInside" id="YFh-xd-JNU"/>
                             </connections>
                         </button>
-                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eT5-Qz-oer" customClass="ScalingButton" customModule="QuizPlease" customModuleProvider="target">
+                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eT5-Qz-oer" customClass="ScalingButton" customModule="QuizPlease" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="84.5" width="374" height="74"/>
                             <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="22"/>
@@ -148,7 +157,7 @@
                                 <action selector="answerButtonPressed:" destination="-1" eventType="touchUpInside" id="su4-bi-Zm7"/>
                             </connections>
                         </button>
-                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mBk-h7-h2i" customClass="ScalingButton" customModule="QuizPlease" customModuleProvider="target">
+                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mBk-h7-h2i" customClass="ScalingButton" customModule="QuizPlease" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="168.5" width="374" height="74.5"/>
                             <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="22"/>
@@ -167,7 +176,7 @@
                                 <action selector="answerButtonPressed:" destination="-1" eventType="touchUpInside" id="zl5-mu-r9Z"/>
                             </connections>
                         </button>
-                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gtr-bf-mXq" customClass="ScalingButton" customModule="QuizPlease" customModuleProvider="target">
+                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gtr-bf-mXq" customClass="ScalingButton" customModule="QuizPlease" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="253" width="374" height="74"/>
                             <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="22"/>
@@ -189,6 +198,7 @@
                     </subviews>
                 </stackView>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="FLC-LN-3GM" secondAttribute="bottom" id="7lq-Uo-KZn"/>
@@ -200,8 +210,15 @@
                 <constraint firstItem="tja-8m-qlc" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="30" id="wXC-4L-ySp"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="137.68115942028987" y="177.12053571428569"/>
         </view>
     </objects>
+    <resources>
+        <namedColor name="lemon">
+            <color red="1" green="0.88999998569488525" blue="0.030999999493360519" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemIndigoColor">
+            <color red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
 </document>

@@ -20,6 +20,7 @@ class DefaultsManager {
     private let defaultCityKey = "default-city"
     private let userInfoKey = "user-saved-info"
     private let fcmTokenKey = "fcm-token-key"
+    private let answeredQuestionsKey = "answered-questions-key"
     
     //MARK:- Auth Info
 //    func getUserToken() -> String? {
@@ -72,5 +73,12 @@ class DefaultsManager {
     
     func saveFcmToken(_ token: String) {
         defaults.setValue(token, forKey: fcmTokenKey)
+    }
+    
+    //MARK:- Answered Questions
+    func saveAnsweredQuestionId(_ id: String) {
+        var array = defaults.stringArray(forKey: answeredQuestionsKey) ?? []
+        array.append(id)
+        defaults.set(array, forKey: answeredQuestionsKey)
     }
 }

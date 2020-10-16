@@ -60,6 +60,7 @@
 		A4147AD724E5B92D007C131F /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4147AD624E5B92D007C131F /* Place.swift */; };
 		A4147AD924E5BAF9007C131F /* MapService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4147AD824E5BAF9007C131F /* MapService.swift */; };
 		A419F2F224F003C9004A7997 /* ScalingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A419F2F124F003C9004A7997 /* ScalingButton.swift */; };
+		A41A506E253783DF00EBFA69 /* String+Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = A41A506D253783DF00EBFA69 /* String+Formatting.swift */; };
 		A423AC1B24EE864000071E68 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A423AC1A24EE864000071E68 /* ProfileCell.swift */; };
 		A423AC1D24EE971100071E68 /* ShopItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A423AC1C24EE971100071E68 /* ShopItem.swift */; };
 		A423AC2024EEBA0600071E68 /* BottomPopup in Frameworks */ = {isa = PBXBuildFile; productRef = A423AC1F24EEBA0600071E68 /* BottomPopup */; };
@@ -104,6 +105,8 @@
 		A46F303B24F52CAE0062A333 /* GameOnlinePaymentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A46F303924F52CAE0062A333 /* GameOnlinePaymentCell.xib */; };
 		A46F303E24F5302B0062A333 /* GameSubmitButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46F303C24F5302B0062A333 /* GameSubmitButtonCell.swift */; };
 		A46F303F24F5302B0062A333 /* GameSubmitButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A46F303D24F5302B0062A333 /* GameSubmitButtonCell.xib */; };
+		A47003C8253A4CD0002E8EA2 /* PushSubscribeResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47003C7253A4CD0002E8EA2 /* PushSubscribeResponse.swift */; };
+		A47003CB253A53C1002E8EA2 /* GameOrderResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47003CA253A53C1002E8EA2 /* GameOrderResponse.swift */; };
 		A472D28F25288C0F00AA9906 /* UserAuthData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A472D28E25288C0F00AA9906 /* UserAuthData.swift */; };
 		A472D29825288F0800AA9906 /* AuthInfoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A472D29725288F0800AA9906 /* AuthInfoResponse.swift */; };
 		A472D29B25288F1100AA9906 /* RegisterResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A472D29A25288F1100AA9906 /* RegisterResponse.swift */; };
@@ -246,6 +249,7 @@
 		A4147AD624E5B92D007C131F /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		A4147AD824E5BAF9007C131F /* MapService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapService.swift; sourceTree = "<group>"; };
 		A419F2F124F003C9004A7997 /* ScalingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScalingButton.swift; sourceTree = "<group>"; };
+		A41A506D253783DF00EBFA69 /* String+Formatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Formatting.swift"; sourceTree = "<group>"; };
 		A423AC1A24EE864000071E68 /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
 		A423AC1C24EE971100071E68 /* ShopItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopItem.swift; sourceTree = "<group>"; };
 		A423AC2124EEBCD600071E68 /* FiltersVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersVC.swift; sourceTree = "<group>"; };
@@ -288,6 +292,8 @@
 		A46F303924F52CAE0062A333 /* GameOnlinePaymentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameOnlinePaymentCell.xib; sourceTree = "<group>"; };
 		A46F303C24F5302B0062A333 /* GameSubmitButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSubmitButtonCell.swift; sourceTree = "<group>"; };
 		A46F303D24F5302B0062A333 /* GameSubmitButtonCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameSubmitButtonCell.xib; sourceTree = "<group>"; };
+		A47003C7253A4CD0002E8EA2 /* PushSubscribeResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushSubscribeResponse.swift; sourceTree = "<group>"; };
+		A47003CA253A53C1002E8EA2 /* GameOrderResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOrderResponse.swift; sourceTree = "<group>"; };
 		A472D28E25288C0F00AA9906 /* UserAuthData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthData.swift; sourceTree = "<group>"; };
 		A472D29725288F0800AA9906 /* AuthInfoResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthInfoResponse.swift; sourceTree = "<group>"; };
 		A472D29A25288F1100AA9906 /* RegisterResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterResponse.swift; sourceTree = "<group>"; };
@@ -582,6 +588,7 @@
 				A4D230A924F9219D00524A01 /* UIImageView+LoadImage.swift */,
 				A45488C42513719700992261 /* UIPageViewController+PagingToggle.swift */,
 				A40E2A6C25295B4400986CCA /* Snapshotting.swift */,
+				A41A506D253783DF00EBFA69 /* String+Formatting.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -886,6 +893,8 @@
 				A48DFF7A24F4070200E47095 /* HomeGame.swift */,
 				A468E12324FD37390083ADB2 /* RatingFilter.swift */,
 				A472D29D2528962A00AA9906 /* TeamInfo.swift */,
+				A47003C7253A4CD0002E8EA2 /* PushSubscribeResponse.swift */,
+				A47003CA253A53C1002E8EA2 /* GameOrderResponse.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -1173,6 +1182,7 @@
 				A48F64642501416300E7A528 /* ScheduleFilterProtocol.swift in Sources */,
 				A450E3A124E5732200C49AEE /* GameOrderInteractor.swift in Sources */,
 				A4D230AA24F9219D00524A01 /* UIImageView+LoadImage.swift in Sources */,
+				A47003CB253A53C1002E8EA2 /* GameOrderResponse.swift in Sources */,
 				A4147AD924E5BAF9007C131F /* MapService.swift in Sources */,
 				A4DAF74724DDCCAD00963C15 /* MenuRatingCell.swift in Sources */,
 				A4617344251763AA00B002D1 /* CountPickerView.swift in Sources */,
@@ -1191,6 +1201,7 @@
 				A40D817C24D2CA04006D2CE3 /* ScheduleVC.swift in Sources */,
 				A44C697624EFD45300AB3BC9 /* QRCodeService.swift in Sources */,
 				A40E2A6D25295B4400986CCA /* Snapshotting.swift in Sources */,
+				A41A506E253783DF00EBFA69 /* String+Formatting.swift in Sources */,
 				A42527C324F06E9300E3FBD4 /* GameFirstPlayCell.swift in Sources */,
 				A48DFF7524F3EB5000E47095 /* HomeGameVideoVC.swift in Sources */,
 				A40B75A024D9A875006DB7D1 /* RatingRouter.swift in Sources */,
@@ -1270,6 +1281,7 @@
 				A450E3A324E5735400C49AEE /* GameOrderRouter.swift in Sources */,
 				A423AC1B24EE864000071E68 /* ProfileCell.swift in Sources */,
 				A4BA1CEE24D8347300D32ADC /* MainMenuInteractor.swift in Sources */,
+				A47003C8253A4CD0002E8EA2 /* PushSubscribeResponse.swift in Sources */,
 				A46F303624F5284E0062A333 /* GamePaymentTypeCell.swift in Sources */,
 				A40D817E24D2CA1A006D2CE3 /* WarmupVC.swift in Sources */,
 				A4BA1CF524D8874C00D32ADC /* AlertExtensions.swift in Sources */,

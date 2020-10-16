@@ -9,5 +9,5 @@
 import Foundation
 
 struct CheckInTeamsInfo: Decodable {
-    var records: [TeamInfo]?
+    var records: [TeamInfo]
 }

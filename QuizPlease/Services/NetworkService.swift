@@ -220,6 +220,27 @@ class NetworkService {
     ///
     ///
     
+    //MARK:- Push Subscribe
+    ///Completion `nil` value means that some errors occured on server side
+    func subscribePushOnGame(with id: String, completion: @escaping (_ isSubscribe: Bool?) -> Void) {
+        var urlComps = Globals.baseUrl
+        urlComps.path = "/api/game/subscribe-notification"
+        let params = [
+            "game_id" : id,
+            //"subscribe" : isSubscribe ? "1" : "0"
+        ]
+        afPost(with: params, to: urlComps, responseType: PushSubscribeResponse.self) { (postResult) in
+            switch postResult {
+            case let .failure(error):
+                print(error)
+                completion(nil)
+            case let .success(response):
+                completion(response.message == .subscribe)
+            }
+        }
+    }
+    
+    
     //MARK:- Purchase Product
     func purchaseProduct(with id: String, deliveryMethod: DeliveryMethod, completion: @escaping (_ isSuccess: Bool) -> Void) {
         var urlComps = Globals.baseUrl
@@ -237,10 +258,7 @@ class NetworkService {
             params["game_id"] = id
         }
         
-        afPost(with: params, to: urlComps, responseType: [String: String].self) { (postResult) in
-            let isSuccess = (try? postResult.get()) != nil
-            completion(isSuccess)
-        }
+        afPost(with: params, to: urlComps, completion: completion)
     }
     
     
@@ -252,25 +270,29 @@ class NetworkService {
             "token": "\(qrCode)",
             "recordId": "\(chosenTeamId)"
         ]
-        afPost(with: params, to: urlComps, responseType: [String: String].self) { (postResult) in
-            let isSuccess = (try? postResult.get()) != nil
-            completion(isSuccess)
-        }
+        afPost(with: params, to: urlComps, completion: completion)
     }
     
     //MARK:- Get Teams List From QR
     func getTeamsFromQR(_ qrCode: String, completion: @escaping (Result<[TeamInfo], SessionError>) -> Void) {
+        guard let userToken = Globals.userToken else {
+            completion(.failure(.invalidToken))
+            return
+        }
         var urlComps = Globals.baseUrl
         urlComps.path = "/api/game/check-qr"
-        let params = [ "token": "\(qrCode)" ]
-        afPost(with: params, to: urlComps, responseType: CheckInTeamsInfo.self) { (postResult) in
+        let params = ["token" : "\(qrCode)"]
+        let headers = ["Authorization" : "Bearer \(userToken)"]
+        afPost(with: params, and: headers, to: urlComps, responseType: CheckInTeamsInfo.self) { (postResult) in
             switch postResult {
             case let .failure(error):
                 completion(.failure(error))
+                
             case let .success(response):
-                if let teams = response.records, teams.count > 0 {
-                    completion(.success(teams))
+                if response.records.count > 0 {
+                    completion(.success(response.records))
                 } else {
+                    print(response)
                     completion(.failure(.jsonError))
                 }
             }
@@ -295,10 +317,7 @@ class NetworkService {
         let parameters = [
             "phone" : number
         ]
-        afPost(with: parameters, to: codeUrlComps, responseType: [String: String?]?.self) { (postResult) in
-            let isSuccess = (try? postResult.get()) != nil
-            completion(isSuccess)
-        }
+        afPost(with: parameters, to: codeUrlComps, completion: completion)
 //        let userData = UserAuthData(phone: number)
 //        post(userData, with: codeUrlComps) { (postResult) in
 //            let isSuccess = (try? postResult.get()) != nil
@@ -342,6 +361,31 @@ class NetworkService {
         }
     }
     
+    //MARK:- Register on Game
+    func registerOnGame(registerForm: RegisterForm, completion: @escaping (_ orderResponse: GameOrderResponse?) -> Void) {
+        var registerUrlComps = Globals.baseUrl
+        registerUrlComps.path = "/ajax/save-record"
+        
+        let parameters: [String: String] = [
+            "QpRecord[captainName]"     : registerForm.captainName,
+            "QpRecord[email]"           : registerForm.email,
+            "QpRecord[phone]"           : registerForm.phone,
+            "QpRecord[comment]"         : registerForm.comment ?? "",
+            "QpRecord[game_id]"         : "\(registerForm.gameId)",
+            "QpRecord[first_time]"      : registerForm.isFirstTime ? "1" : "0",
+            "certificates[]"            : registerForm.certificates ?? "",
+            "QpRecord[payment_type]"    : registerForm.paymentType == .online ? "1" : "2",
+            "QpRecord[count]"           : "\(registerForm.count)",
+            "QpRecord[teamName]"        : registerForm.teamName
+        ]
+        
+        afPost(with: parameters, to: registerUrlComps, responseType: GameOrderResponse.self) { (postResult) in
+            let response = try? postResult.get()
+            completion(response)
+        }
+        
+    }
+    
     //MARK:- AF Post Auth
     ///Post request with response type of `SavedAuthInfo`
     func afPostAuth(with parameters: [String: String?], to urlComponents: URLComponents,
@@ -359,6 +403,16 @@ class NetworkService {
                 let authInfo = SavedAuthInfo(authInfoResponse: response)
                 completion(.success(authInfo))
             }
+        }
+    }
+    
+    //MARK:- Post with Bool completion
+    ///Wraps server response to the success or failure. Use this method if you don't mind about data that is passed via response and you only want to know if the request was successul or not
+    func afPost(with parameters: [String: String?], and headers: [String : String]? = nil,
+                to urlComponents: URLComponents, completion: @escaping ((_ isSuccess: Bool) -> Void)) {
+        afPost(with: parameters, and: headers, to: urlComponents, responseType: [String : String].self) { (postResult) in
+            let isSuccess = (try? postResult.get()) != nil
+            completion(isSuccess)
         }
     }
     

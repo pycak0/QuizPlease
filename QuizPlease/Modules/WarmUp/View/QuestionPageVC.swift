@@ -28,7 +28,7 @@ class QuestionPageVC: UIPageViewController {
         items.forEach {
             let vc = WarmupQuestionVC($0)
             vc.delegate = delegate
-            self._viewControllers.append(vc)
+            _viewControllers.append(vc)
         }
         questionsDelegate = delegate
     }

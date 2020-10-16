@@ -8,18 +8,21 @@
 
 import UIKit
 
+//MARK:- Delegate Protocol
 protocol WarmupQuestionVCAnswerDelegate: class {
-    func questionVC(_ vc: WarmupQuestionVC, didPressButtonWith answer: String)
+    func questionVC(_ vc: WarmupQuestionVC, didSelectAnswer answer: String, forQuestion question: WarmupQuestion)
 }
 
 class WarmupQuestionVC: UIViewController {
 
+    //MARK:- Outlets
     @IBOutlet weak var videoView: VideoView!
     @IBOutlet weak var questionView: UIView!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var questionLabel: UILabel!
     @IBOutlet weak var backgroundView: UIView!
     @IBOutlet weak var answerStack: UIStackView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     @IBOutlet weak var imageEdgeInsetConstraint: NSLayoutConstraint!
     @IBOutlet weak var imageLabelSpacingConstraint: NSLayoutConstraint!
@@ -31,9 +34,10 @@ class WarmupQuestionVC: UIViewController {
     weak var delegate: WarmupQuestionVCAnswerDelegate?
         
     @IBAction func answerButtonPressed(_ sender: UIButton) {
-        delegate?.questionVC(self, didPressButtonWith: sender.titleLabel!.text!)
+        delegate?.questionVC(self, didSelectAnswer: sender.titleLabel!.text!, forQuestion: question)
     }
     
+    //MARK:- Init
     private override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
@@ -47,6 +51,7 @@ class WarmupQuestionVC: UIViewController {
         self.question = question
     }
     
+    //MARK:- Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViews()
@@ -63,26 +68,27 @@ class WarmupQuestionVC: UIViewController {
         setupQuestionType()
     }
     
+    //MARK:- Setup Question
     private func setupQuestionType() {
         switch question.type {
         case .image:
-            imageView.loadImage(url: question.imageUrl)
-            imageView.image = UIImage(named: "logoSmall")
+            loadImage()
+            //imageView.image = UIImage(named: "logoSmall")
             questionLabel.isHidden = true
             
             imageEdgeInsetConstraint.constant = 0
             imageLabelSpacingConstraint.isActive = false
             backgrndHeightConstraint.constant = questionView.frame.height
         case .imageWithText:
-            imageView.loadImage(url: question.imageUrl)
-            imageView.image = UIImage(named: "logoSmall")
+            loadImage()
+            //imageView.image = UIImage(named: "logoSmall")
             questionLabel.text = question.question
             
         case .videoWithText:
             imageView.isHidden = true
             videoView.isHidden = false
             videoView.parent = self
-            videoView.configurePlayer(url: question.imageUrl)
+            videoView.configurePlayer(url: question.videoUrl)
             questionLabel.text = question.question
             
         case .text:
@@ -98,10 +104,16 @@ class WarmupQuestionVC: UIViewController {
             //configure sound view
             break
             
-        default: break
+        //default: break
             
         }
     }
     
+    private func loadImage() {
+        activityIndicator.startAnimating()
+        imageView.loadImage(url: question.imageUrl) { _ in
+            self.activityIndicator.stopAnimating()
+        }
+    }
     
 }

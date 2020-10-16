@@ -12,6 +12,8 @@ protocol WarmupInteractorProtocol {
     func loadQuestions(completion: @escaping (Result<[WarmupQuestion], SessionError>) -> Void)
     
     func shareResults(_ image: UIImage, delegate: UIViewController)
+    
+    func saveQuestionId(_ id: String)
 }
 
 class WarmupInteractor: WarmupInteractorProtocol {
@@ -21,5 +23,9 @@ class WarmupInteractor: WarmupInteractorProtocol {
     
     func shareResults(_ image: UIImage, delegate: UIViewController) {
         ShareManager.presentShareSheet(for: image, delegate: delegate)
+    }
+    
+    func saveQuestionId(_ id: String) {
+        DefaultsManager.shared.saveAnsweredQuestionId(id)
     }
 }

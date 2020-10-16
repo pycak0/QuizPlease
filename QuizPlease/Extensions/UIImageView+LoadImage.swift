@@ -16,10 +16,21 @@ extension UIImageView {
         if placeholderImage != nil {
             image = placeholderImage
         }
-//
-//        return PixabaySearch.shared.getImage(with: url) { (image) in
-//            self.image = image
-//            handler?(image)
-//        }
+        print(url)
+        
+        URLSession.shared.dataTask(with: url) { (data, _, _) in
+            if let data = data,
+               let image = UIImage(data: data) {
+                DispatchQueue.main.async {
+                    self.image = image
+                    handler?(image)
+                }
+            } else {
+                DispatchQueue.main.async {
+                    handler?(nil)
+                }
+            }
+        }.resume()
+        
     }
 }

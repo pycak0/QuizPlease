@@ -9,9 +9,11 @@
 import Foundation
 
 protocol GameOrderInteractorProtocol {
-    //
+    func register(with form: RegisterForm, completion: @escaping (_ orderResponse: GameOrderResponse?) -> Void)
 }
 
 class GameOrderInteractor: GameOrderInteractorProtocol {
-    
+    func register(with form: RegisterForm, completion: @escaping (_ orderResponse: GameOrderResponse?) -> Void) {
+        NetworkService.shared.registerOnGame(registerForm: form, completion: completion)
+    }
 }

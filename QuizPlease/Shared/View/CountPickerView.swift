@@ -98,7 +98,7 @@ class CountPickerView: UIView {
         deselectAllButtons()
         guard index >= 0 && index < buttons.count else { return }
         selectedIndex = index
-        let selectedNumber = selectedIndex + startCount
+        //let selectedNumber = selectedIndex + startCount
         let selectedButton = buttons[index]
         
         select(selectedButton, withNumber: index + startCount, animated: animated)

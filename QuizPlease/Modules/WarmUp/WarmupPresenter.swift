@@ -8,6 +8,7 @@
 
 import UIKit
 
+//MARK:- Presenter Protocol
 protocol WarmupPresenterProtocol {
     var router: WarmupRouterProtocol! { get }
     var questions: [WarmupQuestion]! { get set }
@@ -15,11 +16,15 @@ protocol WarmupPresenterProtocol {
     ///In seconds
     var timePassed: Double { get set }
     
+    var correctAnswersCount: Int { get }
+    
     init(view: WarmupViewProtocol, interactor: WarmupInteractorProtocol, router: WarmupRouterProtocol)
     
-    func configureViews()
+    func setupView()
     
     func didPressStartGame()
+    
+    func didAnswer(_ answer: String, for question: WarmupQuestion)
     
     func shareAction()
     
@@ -33,6 +38,8 @@ class WarmupPresenter: WarmupPresenterProtocol {
     
     var questions: [WarmupQuestion]!
     
+    var correctAnswersCount: Int = 0
+    
     var timePassed: Double = 0
     
     required init(view: WarmupViewProtocol, interactor: WarmupInteractorProtocol, router: WarmupRouterProtocol) {
@@ -41,8 +48,9 @@ class WarmupPresenter: WarmupPresenterProtocol {
         self.router = router
     }
     
-    func configureViews() {
-        view?.configureViews()
+    //MARK:- Setup
+    func setupView() {
+        view?.configure()
         
         interactor.loadQuestions { [weak self] (result) in
             guard let self = self else { return }
@@ -57,12 +65,22 @@ class WarmupPresenter: WarmupPresenterProtocol {
         }
     }
     
+    //MARK:- Actions
     func didPressStartGame() {
         view?.startGame()
     }
     
+    func didAnswer(_ answer: String, for question: WarmupQuestion) {
+        //guard questions.contains { $0 == question }
+        if let answer = question.answers.first(where: { $0.value == answer }), answer.correct {
+            correctAnswersCount += 1
+        }
+        //interactor.saveQuestionId(question.id)
+    }
+    
     func gameEnded() {
         view?.showResults()
+        
     }
     
     func shareAction() {

@@ -95,7 +95,14 @@ class MainMenuPresenter: MainMenuPresenterProtocol {
     }
     
     func didPressAddGame() {
-        router.showQRScanner()
+        if Globals.userToken != nil {
+            router.showQRScanner()
+        } else {
+            if let item = menuItems?.first(where: { $0._kind == .profile }) {
+                router.showMenuSection(item, sender: userInfo)
+            }
+        }
+        
     }
     
     func didAddNewGame(with info: String) {

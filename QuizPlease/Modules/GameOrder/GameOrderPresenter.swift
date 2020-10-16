@@ -29,8 +29,8 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
     var registerForm = RegisterForm()
     var game: GameInfo! {
         didSet {
-            registerForm.game_id = game.id
-            registerForm.payment_type = game.availablePaymentTypes.contains(.online) ? .online : .cash
+            registerForm.gameId = game.id
+            registerForm.paymentType = game.availablePaymentTypes.contains(.online) ? .online : .cash
         }
     }
 
@@ -44,13 +44,47 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
         view?.configureTableView()
     }
     
+    //MARK:- Submit Button Action
     func didPressSubmitButton() {
         guard registerForm.isValid else {
             view?.showSimpleAlert(title: "Заполнены не все необходимые поля",
                                   message: "Пожалуйста, введите нужные данные и проверьте их правильность")
             return
         }
-        router.showCompletionScreen(with: game, numberOfPeopleInTeam: registerForm.count)
+        
+        register()
+        
+    }
+    
+    //MARK:- Register
+    private func register() {
+        interactor.register(with: registerForm) { [weak self] (registerResponse) in
+            guard let self = self else { return }
+            guard let response = registerResponse else {
+                self.view?.showErrorConnectingToServerAlert()
+                return
+            }
+            
+            guard let isSuccess = response.success else {
+                self.view?.showErrorConnectingToServerAlert()
+                return
+            }
+            
+            let title = "Запись на игру"
+            var message: String?
+            if isSuccess {
+                message = response.successMsg
+            } else {
+                message = response.successMsg ?? response.errorMsg ?? "Произошла ошибка при записи на игру"
+            }
+            
+            if message != nil {
+                self.view?.showSimpleAlert(title: title, message: message!)
+            } else {
+                self.router.showCompletionScreen(with: self.game, numberOfPeopleInTeam: self.registerForm.count)
+            }
+            
+        }
     }
     
 }

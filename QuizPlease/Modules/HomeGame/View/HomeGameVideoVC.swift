@@ -18,6 +18,7 @@ class HomeGameVideoVC: UIViewController {
     
     var homeGame: HomeGame!
     
+    //MARK:- Lifecycle 
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareNavigationBar(title: homeGame.title, tintColor: .white)
@@ -26,6 +27,23 @@ class HomeGameVideoVC: UIViewController {
         updateUI()
         loadDetail()
     }
+    
+    @IBAction func rulesButtonPressed(_ sender: Any) {
+        //openUrl(with: homeGame.rulesPath)
+    }
+    
+    @IBAction func blanksButtonPressed(_ sender: Any) {
+        openUrl(with: homeGame.blanksPath)
+    }
+    
+    private func openUrl(with path: String) {
+        var rulesUrlComps = Globals.baseUrl
+        rulesUrlComps.path = path
+        if let url = rulesUrlComps.url, UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url)
+        }
+    }
+    
     
     //MARK:- Configure Views
     private func configureViews() {

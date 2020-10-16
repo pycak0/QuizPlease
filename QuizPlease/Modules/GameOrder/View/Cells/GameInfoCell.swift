@@ -35,8 +35,8 @@ class GameInfoCell: UITableViewCell, GameOrderCellProtocol {
     @IBOutlet weak var placeAddressLabel: UILabel!
     
     @IBOutlet weak var availablePlacesStack: UIStackView!
-    @IBOutlet weak var availablePlacesImageView: UIImageView!
-    @IBOutlet weak var availablePlacesLabel: UILabel!
+    @IBOutlet weak var statusImageView: UIImageView!
+    @IBOutlet weak var gameStatusLabel: UILabel!
     
     @IBOutlet weak var mapView: MKMapView!
     
@@ -49,6 +49,7 @@ class GameInfoCell: UITableViewCell, GameOrderCellProtocol {
         cellView.layer.cornerRadius = 20
     }
     
+    //MARK:- Configure
     func configure(with info: GameInfo) {
         priceLabel.text = info.priceDetails
         timeLabel.text = "в \(info.time)"
@@ -56,6 +57,16 @@ class GameInfoCell: UITableViewCell, GameOrderCellProtocol {
         placeAddressLabel.text = info.placeInfo.shortAddress
         
         configureMapView(with: info.placeInfo)
+        
+        gameStatusLabel.text = info.status?.comment ?? ""
+        switch info.status {
+        case .placesAvailable:
+            statusImageView.image = UIImage(named: "fireIcon")
+        case .reserveAvailable, .noPlaces:
+            statusImageView.image = UIImage(named: "soldOut")
+        default:
+            statusImageView.image = nil
+        }
                 
         //mapView.centerToAddress(info.placeInfo.address, addAnnotation: info.placeInfo, regionRadius: 300, animated: false)
     }

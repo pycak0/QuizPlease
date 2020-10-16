@@ -66,7 +66,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         print("Registration Token: \(fcmToken)")
         //let savedToken = DefaultsManager.shared.getFcmToken() ?? ""
         //if savedToken != fcmToken {
-            NetworkService.shared.sendFirebaseId(fcmToken)
+           NetworkService.shared.sendFirebaseId(fcmToken)
             DefaultsManager.shared.saveFcmToken(fcmToken)
         //}
         
@@ -81,7 +81,7 @@ extension AppDelegate {
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
         // If you are receiving a notification message while your app is in the background,
         // this callback will not be fired till the user taps on the notification launching the application.
-        // MARK:TODO: Handle data of notification
+        // TODO: Handle data of notification
         
         // With swizzling disabled you must let Messaging know about the message, for Analytics
         // Messaging.messaging().appDidReceiveMessage(userInfo)
@@ -90,14 +90,6 @@ extension AppDelegate {
         if let messageID = userInfo[gcmMessageIDKey] {
             print("Message ID: \(messageID)")
         }
-//
-//        if let aps = userInfo["aps"] as? [AnyHashable: Any],
-//            let alert = aps["alert"] as? [AnyHashable: Any],
-//            let body = alert["body"] as? String {
-//            if body.contains("Хочет увидеть тебя") {
-//                Globals.notificationsTabBarItem?.badgeValue = "♥"
-//            }
-//        }
         
         // Print full message.
         print(userInfo)
@@ -140,10 +132,6 @@ extension AppDelegate {
         
         // Print full message.
         print(userInfo)
-        //        let isLikeNotification = notification.request.content.body.contains("Хочет увидеть тебя в финале")
-        //        if isLikeNotification {
-        //            Globals.notificationsTabBarItem?.badgeValue = "♥"
-        //        }
         
         // Change this to your preferred presentation option
         completionHandler([.alert, .badge, .sound])
