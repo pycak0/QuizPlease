@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol ShopCompletionVCDelegate: class {
+    func shopCompletionVC(_ vc: ShopCompletionVC, didCompletePurchaseForItem shopItem: ShopItem)
+}
+
 class ShopCompletionVC: UIViewController {
     
     //MARK:- Segment Kind
@@ -29,6 +33,8 @@ class ShopCompletionVC: UIViewController {
     @IBOutlet weak var textFieldView: TitledTextFieldView!
     @IBOutlet weak var arrowImageView: UIImageView!
     @IBOutlet weak var segmentControl: HBSegmentedControl!
+    
+    weak var delegate: ShopCompletionVCDelegate?
     
     var shopItem: ShopItem!
     //var selectedGame: PassedGame?
@@ -87,11 +93,12 @@ class ShopCompletionVC: UIViewController {
             return
         }
         //let isSuccess = false
-        NetworkService.shared.purchaseProduct(with: itemId, deliveryMethod: method, email: email) { [weak self] (isSuccess) in
-            guard let self = self else { return }
+        NetworkService.shared.purchaseProduct(with: itemId, deliveryMethod: method, email: email) {  (isSuccess) in
+            //guard let self = self else { return }
             if isSuccess {
                 self.showSimpleAlert(title: "Покупка прошла успешно",
                                      message: method.message, okButtonTitle: "Завершить") { okAction in
+                    self.delegate?.shopCompletionVC(self, didCompletePurchaseForItem: self.shopItem)
                     self.navigationController?.popViewController(animated: true)
                 }
             } else {

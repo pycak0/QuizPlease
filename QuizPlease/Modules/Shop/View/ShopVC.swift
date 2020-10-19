@@ -85,6 +85,12 @@ extension ShopVC: ConfirmVCDelegate {
     }
 }
 
+extension ShopVC: ShopCompletionVCDelegate {
+    func shopCompletionVC(_ vc: ShopCompletionVC, didCompletePurchaseForItem shopItem: ShopItem) {
+        <#code#>
+    }
+}
+
 //MARK:- Data Source
 extension ShopVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
