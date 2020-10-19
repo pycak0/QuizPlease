@@ -242,21 +242,15 @@ class NetworkService {
     
     
     //MARK:- Purchase Product
-    func purchaseProduct(with id: String, deliveryMethod: DeliveryMethod, completion: @escaping (_ isSuccess: Bool) -> Void) {
+    func purchaseProduct(with id: String, deliveryMethod: DeliveryMethod, email: String, completion: @escaping (_ isSuccess: Bool) -> Void) {
         var urlComps = Globals.baseUrl
         urlComps.path = "/api/order/buy"
         
-        var params: [String : String] = [
+        let params: [String : String] = [
             "product_id": id,
-            "delivery_method": "\(deliveryMethod.id)"
+            "delivery_method": "\(deliveryMethod.id)",
+            "email" : email
         ]
-        
-        switch deliveryMethod {
-        case let .email(address):
-            params["email"] = address
-        case let .game(id):
-            params["game_id"] = id
-        }
         
         afPost(with: params, to: urlComps, completion: completion)
     }

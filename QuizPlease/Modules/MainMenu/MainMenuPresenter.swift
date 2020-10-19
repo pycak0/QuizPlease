@@ -20,6 +20,8 @@ protocol MainMenuPresenterProtocol: class {
     func didChangeDefaultCity(_ newCity: City)
     func didPressAddGame()
     func didAddNewGame(with info: String)
+    
+    func handleViewDidAppear()
 }
 
 class MainMenuPresenter: MainMenuPresenterProtocol {
@@ -51,7 +53,9 @@ class MainMenuPresenter: MainMenuPresenterProtocol {
                 self.view?.reloadMenuItems()
             }
         }
-        
+    }
+    
+    func handleViewDidAppear() {
         if Globals.userToken != nil {
             loadUserInfo()
         }

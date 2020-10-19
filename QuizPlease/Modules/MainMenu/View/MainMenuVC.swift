@@ -47,6 +47,7 @@ class MainMenuVC: UIViewController {
         navigationController?.navigationBar.tintColor = .labelAdapted
         navigationController?.navigationBar.barTintColor = .systemBackgroundAdapted
         setNavBarDefault()
+        presenter.handleViewDidAppear()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
