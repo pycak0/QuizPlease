@@ -87,7 +87,7 @@ extension ShopVC: ConfirmVCDelegate {
 
 extension ShopVC: ShopCompletionVCDelegate {
     func shopCompletionVC(_ vc: ShopCompletionVC, didCompletePurchaseForItem shopItem: ShopItem) {
-        <#code#>
+        presenter.didPurchase(shopItem)
     }
 }
 
