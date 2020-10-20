@@ -60,6 +60,7 @@ public extension UIView {
                      secondColor: UIColor,
                      transform: CGAffineTransform = CGAffineTransform(a: 0, b: 1, c: -1, d: 0, tx: 1, ty: 0)) {
         self.backgroundColor = .white
+        self.clipsToBounds = true
 
         let gradLayer = CAGradientLayer()
 
@@ -88,6 +89,7 @@ public extension UIView {
     ///- parameter pos: A position to insert gradient layer at. The default is `0`, i.e. adding it as the bottom view's layer. If `nil`, adds as the top view layer
     func addGradient(colors: [UIColor], startPoint: CGPoint? = nil, endPoint: CGPoint? = nil, frame: CGRect? = nil, insertAt pos: UInt32? = 0) {
         self.backgroundColor = .clear
+        self.clipsToBounds = true
         
         let gradLayer = CAGradientLayer()
         gradLayer.colors = colors.map { $0.cgColor }
