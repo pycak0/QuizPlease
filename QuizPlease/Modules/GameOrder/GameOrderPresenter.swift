@@ -65,14 +65,9 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
                 return
             }
             
-            guard let isSuccess = response.success else {
-                self.view?.showErrorConnectingToServerAlert()
-                return
-            }
-            
             let title = "Запись на игру"
             var message: String?
-            if isSuccess {
+            if response.isSuccess {
                 message = response.successMsg
             } else {
                 message = response.successMsg ?? response.errorMsg ?? "Произошла ошибка при записи на игру"

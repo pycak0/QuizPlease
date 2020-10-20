@@ -9,7 +9,12 @@
 import Foundation
 
 struct GameOrderResponse: Decodable {
-    var success: Bool?
+    private var success: Int?
     var successMsg: String?
     var errorMsg: String?
+    
+    var isSuccess: Bool {
+        return (success ?? 0) == 0 ? false : true
+    }
 }
+

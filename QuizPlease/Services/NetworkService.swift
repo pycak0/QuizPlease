@@ -223,13 +223,18 @@ class NetworkService {
     //MARK:- Push Subscribe
     ///Completion `nil` value means that some errors occured on server side
     func subscribePushOnGame(with id: String, completion: @escaping (_ isSubscribe: Bool?) -> Void) {
+        guard let token = Globals.userToken else {
+            completion(nil)
+            return
+        }
         var urlComps = Globals.baseUrl
         urlComps.path = "/api/game/subscribe-notification"
         let params = [
             "game_id" : id,
             //"subscribe" : isSubscribe ? "1" : "0"
         ]
-        afPost(with: params, to: urlComps, responseType: PushSubscribeResponse.self) { (postResult) in
+        let headers = ["Authorization" : "Bearer \(token)"]
+        afPostStandard(with: params, and: headers, to: urlComps, responseType: PushSubscribeResponse.self) { (postResult) in
             switch postResult {
             case let .failure(error):
                 print(error)
@@ -252,19 +257,24 @@ class NetworkService {
             "email" : email
         ]
         
-        afPost(with: params, to: urlComps, completion: completion)
+        afPostBool(with: params, to: urlComps, completion: completion)
     }
     
     
     //MARK:- Check In On Game
     func checkInOnGame(with qrCode: String, chosenTeamId: Int, completion: @escaping (_ isSuccess: Bool) -> Void) {
+        guard let userToken = Globals.userToken else {
+            completion(false)
+            return
+        }
         var urlComps = Globals.baseUrl
         urlComps.path = "/api/game/check-qr"
         let params = [
             "token": "\(qrCode)",
             "recordId": "\(chosenTeamId)"
         ]
-        afPost(with: params, to: urlComps, completion: completion)
+        let headers = ["Authorization" : "Bearer \(userToken)"]
+        afPostBool(with: params, and: headers, to: urlComps, completion: completion)
     }
     
     //MARK:- Get Teams List From QR
@@ -277,7 +287,7 @@ class NetworkService {
         urlComps.path = "/api/game/check-qr"
         let params = ["token" : "\(qrCode)"]
         let headers = ["Authorization" : "Bearer \(userToken)"]
-        afPost(with: params, and: headers, to: urlComps, responseType: CheckInTeamsInfo.self) { (postResult) in
+        afPostStandard(with: params, and: headers, to: urlComps, responseType: CheckInTeamsInfo.self) { (postResult) in
             switch postResult {
             case let .failure(error):
                 completion(.failure(error))
@@ -301,7 +311,7 @@ class NetworkService {
             "phone" : user.phone,
             "city_id": user.cityId
         ]
-        afPost(with: parameters, to: registerUrlComps, responseType: RegisterResponse.self, completion: completion)
+        afPostStandard(with: parameters, to: registerUrlComps, responseType: RegisterResponse.self, completion: completion)
     }
     
     //MARK:- Send SMS Code
@@ -311,7 +321,7 @@ class NetworkService {
         let parameters = [
             "phone" : number
         ]
-        afPost(with: parameters, to: codeUrlComps, completion: completion)
+        afPostBool(with: parameters, to: codeUrlComps, completion: completion)
 //        let userData = UserAuthData(phone: number)
 //        post(userData, with: codeUrlComps) { (postResult) in
 //            let isSuccess = (try? postResult.get()) != nil
@@ -349,14 +359,14 @@ class NetworkService {
         urlComps.path = "/api/device/create"
         let params = ["device_id" : fcmToken]
         let headers = ["Authorization" : "Bearer \(userToken)"]
-        afPost(with: params, and: headers, to: urlComps, responseType: [String: String].self) { (postResult) in
+        afPostStandard(with: params, and: headers, to: urlComps, responseType: [String: String].self) { (postResult) in
             print("Firebase ID sending result:")
             print(postResult)
         }
     }
     
     //MARK:- Register on Game
-    func registerOnGame(registerForm: RegisterForm, completion: @escaping (_ orderResponse: GameOrderResponse?) -> Void) {
+    func registerOnGame(registerForm: RegisterForm, completion: @escaping (Result<GameOrderResponse, SessionError>) -> Void) {
         var registerUrlComps = Globals.baseUrl
         registerUrlComps.path = "/ajax/save-record"
         
@@ -373,10 +383,7 @@ class NetworkService {
             "QpRecord[teamName]"        : registerForm.teamName
         ]
         
-        afPost(with: parameters, to: registerUrlComps, responseType: GameOrderResponse.self) { (postResult) in
-            let response = try? postResult.get()
-            completion(response)
-        }
+        afPost(with: parameters, to: registerUrlComps, responseType: GameOrderResponse.self, completion: completion)
         
     }
     
@@ -384,7 +391,7 @@ class NetworkService {
     ///Post request with response type of `SavedAuthInfo`
     func afPostAuth(with parameters: [String: String?], to urlComponents: URLComponents,
                     completion: @escaping ((Result<SavedAuthInfo, SessionError>) -> Void)) {
-        afPost(with: parameters, to: urlComponents, responseType: AuthInfoResponse.self) { (postResult) in
+        afPostStandard(with: parameters, to: urlComponents, responseType: AuthInfoResponse.self) { (postResult) in
             switch postResult {
             case let .failure(error):
                 completion(.failure(error))
@@ -402,11 +409,27 @@ class NetworkService {
     
     //MARK:- Post with Bool completion
     ///Wraps server response to the success or failure. Use this method if you don't mind about data that is passed via response and you only want to know if the request was successul or not
-    func afPost(with parameters: [String: String?], and headers: [String : String]? = nil,
+    func afPostBool(with parameters: [String: String?], and headers: [String : String]? = nil,
                 to urlComponents: URLComponents, completion: @escaping ((_ isSuccess: Bool) -> Void)) {
-        afPost(with: parameters, and: headers, to: urlComponents, responseType: [String : String].self) { (postResult) in
+        afPostStandard(with: parameters, and: headers, to: urlComponents, responseType: [String : AnyValue?]?.self) { (postResult) in
             let isSuccess = (try? postResult.get()) != nil
             completion(isSuccess)
+        }
+    }
+    
+    //MARK:- AF Post Standard
+    /// Makes POST request with afPost method, then wraps server reponse into the `ServerResponse<Response>` struct where `Response` type is passed via `responseType` parameter
+    func afPostStandard<Response: Decodable>(with parameters: [String: String?], and headers: [String : String]? = nil,
+                                             to urlComponents: URLComponents, responseType: Response.Type,
+                                             completion: @escaping ((Result<Response, SessionError>) -> Void)) {
+        
+        afPost(with: parameters, and: headers, to: urlComponents, responseType: ServerResponse<Response>.self) { postResult in
+            switch postResult {
+            case let .failure(error):
+                completion(.failure(error))
+            case let .success(result):
+                completion(.success(result.data))
+            }
         }
     }
     
@@ -429,15 +452,12 @@ class NetworkService {
                 completion(.failure(.other(error)))
             case let .success(data):
                 do {
-                    let serverResponse = try JSONDecoder().decode(ServerResponse<Response>.self, from: data)
-                    completion(.success(serverResponse.data))
+                    let serverResponse = try JSONDecoder().decode(Response.self, from: data)
+                    completion(.success(serverResponse))
                 } catch {
                     completion(.failure(.decoding(error)))
                     
-                    guard let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any?] else {
-                        return
-                    }
-                    print(">>> Response data:\n\n", json)
+                    print(">>> Response data:\n\n", String(data: data, encoding: .utf8) ?? "json decoding error")
                 }
             }
         }

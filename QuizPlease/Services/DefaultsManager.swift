@@ -23,14 +23,6 @@ class DefaultsManager {
     private let answeredQuestionsKey = "answered-questions-key"
     
     //MARK:- Auth Info
-//    func getUserToken() -> String? {
-//        return defaults.string(forKey: userTokenKey)
-//    }
-//    
-//    func saveUserToken(_ token: String) {
-//        defaults.set(token, forKey: userTokenKey)
-//    }
-    
     func getUserAuthInfo() -> SavedAuthInfo? {
         if let data = defaults.data(forKey: authInfoKey),
            let authInfo = try? JSONDecoder().decode(SavedAuthInfo.self, from: data) {

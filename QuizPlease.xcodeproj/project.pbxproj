@@ -68,6 +68,8 @@
 		A423AC2424EEC65100071E68 /* ConfirmVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A423AC2324EEC65100071E68 /* ConfirmVC.swift */; };
 		A42527C324F06E9300E3FBD4 /* GameFirstPlayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A42527C124F06E9300E3FBD4 /* GameFirstPlayCell.swift */; };
 		A42527C424F06E9300E3FBD4 /* GameFirstPlayCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A42527C224F06E9300E3FBD4 /* GameFirstPlayCell.xib */; };
+		A441A80B253F2799007146D3 /* CheckInResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A441A80A253F2799007146D3 /* CheckInResponse.swift */; };
+		A441A80E253F2834007146D3 /* AnyValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = A441A80D253F2834007146D3 /* AnyValue.swift */; };
 		A4448ED2250EA16C0020686D /* ScheduleFilterOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4448ED1250EA16C0020686D /* ScheduleFilterOption.swift */; };
 		A445E34824DE02BC0070B9FC /* TitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A445E34724DE02BC0070B9FC /* TitleLabel.swift */; };
 		A44A462C24F8EEC500C81F82 /* UIView+Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44A462B24F8EEC500C81F82 /* UIView+Blur.swift */; };
@@ -256,6 +258,8 @@
 		A423AC2324EEC65100071E68 /* ConfirmVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmVC.swift; sourceTree = "<group>"; };
 		A42527C124F06E9300E3FBD4 /* GameFirstPlayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameFirstPlayCell.swift; sourceTree = "<group>"; };
 		A42527C224F06E9300E3FBD4 /* GameFirstPlayCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameFirstPlayCell.xib; sourceTree = "<group>"; };
+		A441A80A253F2799007146D3 /* CheckInResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInResponse.swift; sourceTree = "<group>"; };
+		A441A80D253F2834007146D3 /* AnyValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyValue.swift; sourceTree = "<group>"; };
 		A4448ED1250EA16C0020686D /* ScheduleFilterOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleFilterOption.swift; sourceTree = "<group>"; };
 		A445E34724DE02BC0070B9FC /* TitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleLabel.swift; sourceTree = "<group>"; };
 		A44A462B24F8EEC500C81F82 /* UIView+Blur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Blur.swift"; sourceTree = "<group>"; };
@@ -688,6 +692,7 @@
 			isa = PBXGroup;
 			children = (
 				A472D2A02528975900AA9906 /* CheckInTeamsInfo.swift */,
+				A441A80A253F2799007146D3 /* CheckInResponse.swift */,
 			);
 			path = CheckIn;
 			sourceTree = "<group>";
@@ -895,6 +900,7 @@
 				A472D29D2528962A00AA9906 /* TeamInfo.swift */,
 				A47003C7253A4CD0002E8EA2 /* PushSubscribeResponse.swift */,
 				A47003CA253A53C1002E8EA2 /* GameOrderResponse.swift */,
+				A441A80D253F2834007146D3 /* AnyValue.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -1199,6 +1205,7 @@
 				A4779C7F251618C90064F863 /* GameOrderCompletionVC.swift in Sources */,
 				A4A296C224F6DC2800347EB2 /* AddGameVC.swift in Sources */,
 				A40D817C24D2CA04006D2CE3 /* ScheduleVC.swift in Sources */,
+				A441A80E253F2834007146D3 /* AnyValue.swift in Sources */,
 				A44C697624EFD45300AB3BC9 /* QRCodeService.swift in Sources */,
 				A40E2A6D25295B4400986CCA /* Snapshotting.swift in Sources */,
 				A41A506E253783DF00EBFA69 /* String+Formatting.swift in Sources */,
@@ -1269,6 +1276,7 @@
 				A40D818024D2CA26006D2CE3 /* HomeGamesListVC.swift in Sources */,
 				A450E39724E559CD00C49AEE /* TitledTextFieldView.swift in Sources */,
 				A4A5DE9825019DA800EBC408 /* ScheduleFilter.swift in Sources */,
+				A441A80B253F2799007146D3 /* CheckInResponse.swift in Sources */,
 				A445E34824DE02BC0070B9FC /* TitleLabel.swift in Sources */,
 				A40B758C24D9A81A006DB7D1 /* HomeGameInteractor.swift in Sources */,
 				A48E2FC425335A9500CD6BE6 /* SavedAuthInfo.swift in Sources */,

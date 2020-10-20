@@ -14,6 +14,14 @@ protocol GameOrderInteractorProtocol {
 
 class GameOrderInteractor: GameOrderInteractorProtocol {
     func register(with form: RegisterForm, completion: @escaping (_ orderResponse: GameOrderResponse?) -> Void) {
-        NetworkService.shared.registerOnGame(registerForm: form, completion: completion)
+        NetworkService.shared.registerOnGame(registerForm: form) { serverResponse in
+            switch serverResponse {
+            case let .failure(error):
+                print(error)
+                completion(nil)
+            case let .success(response):
+                completion(response)
+            }
+        }
     }
 }
