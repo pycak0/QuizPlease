@@ -26,6 +26,7 @@ class WarmupVC: UIViewController {
     let configurator: WarmupConfiguratorProtocol = WarmupConfigurator()
     var presenter: WarmupPresenterProtocol!
     
+    //MARK:- Outlets
     @IBOutlet weak var previewStack: UIStackView!
     @IBOutlet weak var startButton: ScalingButton!
     @IBOutlet weak var container: UIView!
@@ -38,9 +39,12 @@ class WarmupVC: UIViewController {
     @IBOutlet weak var secondsLabel: UILabel!
     @IBOutlet weak var secondPartsLabel: UILabel!
     
+    //MARK:- Properties
     weak var pageVC: QuestionPageVC!
     
     var isGameStarted = false
+    
+    let timerCircleTime: Double = 60
     
     //MARK:- Lifecycle
     override func viewDidLoad() {
@@ -99,11 +103,11 @@ class WarmupVC: UIViewController {
     
     //MARK:- Start Timer
     private func startTimer() {
-        timerRing.startTimer(from: 0, to: 60) { [weak self] (timerState) in
+        timerRing.startTimer(from: 0, to: timerCircleTime) { [weak self] (timerState) in
             guard let self = self else { return }
             switch timerState {
             case .finished:
-                self.presenter.timePassed += 5
+                self.presenter.timePassed += self.timerCircleTime
                 self.startTimer()
             case .continued(elapsedTime: _):
                 break
@@ -167,9 +171,9 @@ extension WarmupVC: WarmupViewProtocol {
 extension WarmupVC: WarmupQuestionVCAnswerDelegate {
     func questionVC(_ vc: WarmupQuestionVC, didSelectAnswer answer: String, forQuestion question: WarmupQuestion) {
         presenter.didAnswer(answer, for: question)
-        timerRing.pauseTimer()
+        //timerRing.pauseTimer()
         pageVC.next()
-        timerRing.continueTimer()
+       // timerRing.continueTimer()
     }
 }
 

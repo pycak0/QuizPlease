@@ -26,7 +26,7 @@ struct WarmupQuestion {
     }
     
     var imageUrl: URL? {
-        let filePath = file ?? "" //?.removingPercentEncoding ?? ""
+        let filePath = file?.removingPercentEncoding ?? ""
         if filePath == "" {
             return nil
         }
