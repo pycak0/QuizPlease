@@ -36,7 +36,8 @@ class HomeGameVideoVC: UIViewController {
         openUrl(with: homeGame.blanksPath)
     }
     
-    private func openUrl(with path: String) {
+    private func openUrl(with path: String?) {
+        guard let path = path else { return }
         var rulesUrlComps = Globals.baseUrl
         rulesUrlComps.path = path
         if let url = rulesUrlComps.url, UIApplication.shared.canOpenURL(url) {
@@ -82,7 +83,7 @@ class HomeGameVideoVC: UIViewController {
     //MARK:- Update UI
     private func updateUI() {
         videoView.configurePlayer(url: homeGame.videoUrl)
-        videoView.imageView.loadImage(url: homeGame.frontImageUrl)
+        videoView.imageView.loadImage(path: homeGame.frontImagePath)
         
         descriptionLabel.text = homeGame.description ?? "..."
         

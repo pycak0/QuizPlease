@@ -11,13 +11,14 @@ import UIKit
 //MARK:- Shop Cell Collection View
 extension MainMenuVC: UICollectionViewDelegate, UICollectionViewDataSource, MenuShopCellDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return presenter.sampleShopItems.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ShopItemCell.identifier, for: indexPath) as! ShopItemCell
         
-        cell.configureCell(image: UIImage(named: "logoSmall"), price: 20 + indexPath.row)
+        let item = presenter.sampleShopItems[indexPath.row]
+        cell.configureCell(imagePath: item.imagePath, price: item.priceNumber)
         cell.getLabel.isHidden = true
         
         return cell

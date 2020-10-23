@@ -124,6 +124,10 @@ extension GameOrderVC: GamePaymentTypeCellDelegate {
 
 //MARK:- Online Payment
 extension GameOrderVC: GameOnlinePaymentCellDelegate {
+    func shouldDisplayCountPicker(in cell: GameOnlinePaymentCell) -> Bool {
+        return !presenter.game.isOnlineGame
+    }
+    
     func selectedNumberOfPeople(in cell: GameOnlinePaymentCell) -> Int {
         return presenter.registerForm.countPaidOnline ?? presenter.registerForm.count
     }
@@ -133,8 +137,7 @@ extension GameOrderVC: GameOnlinePaymentCellDelegate {
     }
     
     func sumToPay(in cell: GameOnlinePaymentCell, forNumberOfPeople number: Int) -> Int {
-        presenter.registerForm.countPaidOnline = number
-        return (presenter.game.priceNumber ?? 0) * number
+        return presenter.sumToPay(forPeople: number)
     }
     
 }

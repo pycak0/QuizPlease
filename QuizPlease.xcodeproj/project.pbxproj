@@ -71,6 +71,8 @@
 		A441A80B253F2799007146D3 /* CheckInResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A441A80A253F2799007146D3 /* CheckInResponse.swift */; };
 		A441A80E253F2834007146D3 /* AnyValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = A441A80D253F2834007146D3 /* AnyValue.swift */; };
 		A4448ED2250EA16C0020686D /* ScheduleFilterOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4448ED1250EA16C0020686D /* ScheduleFilterOption.swift */; };
+		A445C88D25436497003B68E8 /* ShopItemImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A445C88C25436497003B68E8 /* ShopItemImage.swift */; };
+		A445C89125436C9D003B68E8 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = A445C89025436C9D003B68E8 /* Kingfisher */; };
 		A445E34824DE02BC0070B9FC /* TitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A445E34724DE02BC0070B9FC /* TitleLabel.swift */; };
 		A44A462C24F8EEC500C81F82 /* UIView+Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44A462B24F8EEC500C81F82 /* UIView+Blur.swift */; };
 		A44A462F24F901ED00C81F82 /* WarmupQuestionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44A462D24F901ED00C81F82 /* WarmupQuestionVC.swift */; };
@@ -261,6 +263,7 @@
 		A441A80A253F2799007146D3 /* CheckInResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInResponse.swift; sourceTree = "<group>"; };
 		A441A80D253F2834007146D3 /* AnyValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyValue.swift; sourceTree = "<group>"; };
 		A4448ED1250EA16C0020686D /* ScheduleFilterOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleFilterOption.swift; sourceTree = "<group>"; };
+		A445C88C25436497003B68E8 /* ShopItemImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopItemImage.swift; sourceTree = "<group>"; };
 		A445E34724DE02BC0070B9FC /* TitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleLabel.swift; sourceTree = "<group>"; };
 		A44A462B24F8EEC500C81F82 /* UIView+Blur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Blur.swift"; sourceTree = "<group>"; };
 		A44A462D24F901ED00C81F82 /* WarmupQuestionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarmupQuestionVC.swift; sourceTree = "<group>"; };
@@ -391,6 +394,7 @@
 			files = (
 				A4A2647C252BC9D2005C0894 /* Alamofire in Frameworks */,
 				A468E12224FD0BE40083ADB2 /* InputMask in Frameworks */,
+				A445C89125436C9D003B68E8 /* Kingfisher in Frameworks */,
 				A423AC2024EEBA0600071E68 /* BottomPopup in Frameworks */,
 				A40E2A6A25294B4D00986CCA /* UICircularProgressRing in Frameworks */,
 				A4147AD524E596FC007C131F /* IQKeyboardManagerSwift in Frameworks */,
@@ -752,6 +756,7 @@
 			children = (
 				A423AC1C24EE971100071E68 /* ShopItem.swift */,
 				A48E2FBB253330D900CD6BE6 /* DeliveryMethod.swift */,
+				A445C88C25436497003B68E8 /* ShopItemImage.swift */,
 			);
 			path = Shop;
 			sourceTree = "<group>";
@@ -1041,6 +1046,7 @@
 				A468E12124FD0BE40083ADB2 /* InputMask */,
 				A40E2A6925294B4D00986CCA /* UICircularProgressRing */,
 				A4A2647B252BC9D2005C0894 /* Alamofire */,
+				A445C89025436C9D003B68E8 /* Kingfisher */,
 			);
 			productName = QuizPlease;
 			productReference = A40D815624D2C6C1006D2CE3 /* QuizPlease.app */;
@@ -1076,6 +1082,7 @@
 				A468E12024FD0BE40083ADB2 /* XCRemoteSwiftPackageReference "input-mask-ios" */,
 				A40E2A6825294B4D00986CCA /* XCRemoteSwiftPackageReference "UICircularProgressRing" */,
 				A4A2647A252BC9D2005C0894 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				A445C88F25436C9D003B68E8 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = A40D815724D2C6C1006D2CE3 /* Products */;
 			projectDirPath = "";
@@ -1323,6 +1330,7 @@
 				A40B759824D9A852006DB7D1 /* ProfileRouter.swift in Sources */,
 				A472D28F25288C0F00AA9906 /* UserAuthData.swift in Sources */,
 				A4B0753224DFDBFB007778A2 /* GameInfo.swift in Sources */,
+				A445C88D25436497003B68E8 /* ShopItemImage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1548,6 +1556,14 @@
 				minimumVersion = 0.6.0;
 			};
 		};
+		A445C88F25436C9D003B68E8 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.15.6;
+			};
+		};
 		A468E12024FD0BE40083ADB2 /* XCRemoteSwiftPackageReference "input-mask-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/RedMadRobot/input-mask-ios";
@@ -1581,6 +1597,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A423AC1E24EEBA0600071E68 /* XCRemoteSwiftPackageReference "BottomPopup" */;
 			productName = BottomPopup;
+		};
+		A445C89025436C9D003B68E8 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A445C88F25436C9D003B68E8 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 		A468E12124FD0BE40083ADB2 /* InputMask */ = {
 			isa = XCSwiftPackageProductDependency;

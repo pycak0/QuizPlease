@@ -30,13 +30,11 @@ extension HomeGame {
         return components.url
     }
     
-    var frontImageUrl: URL? {
-        var components = URLComponents(string: Globals.mainDomain)!
-        components.path = (front_image ?? "").pathProof
-        return components.url
+    var frontImagePath: String? {
+        return front_image?.pathProof
     }
     
-    var blanksPath: String {
-        (packages_link ?? "").pathProof
+    var blanksPath: String? {
+        packages_link?.pathProof
     }
 }

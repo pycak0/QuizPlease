@@ -89,12 +89,11 @@ class ShopCompletionVC: UIViewController {
     //MARK:- Purchase
     private func purchase(withDelivryMethod method: DeliveryMethod, email: String) {
         guard let itemId = shopItem.id else {
-            self.showSimpleAlert(title: "Не удалось завершить покупку", message: "Произошла ошибка, но не волнуйтесь, Ваши бонусные баллы не были списаны. Можете попробовать подтвердить заказ ещё раз")
+            self.showSimpleAlert(title: "Не удалось завершить покупку", message: "Произошла ошибка, но не волнуйтесь, Ваши бонусные баллы не были списаны. (desc: product id not found)")
             return
         }
         //let isSuccess = false
         NetworkService.shared.purchaseProduct(with: itemId, deliveryMethod: method, email: email) {  (isSuccess) in
-            //guard let self = self else { return }
             if isSuccess {
                 self.showSimpleAlert(title: "Покупка прошла успешно",
                                      message: method.message, okButtonTitle: "Завершить") { okAction in
@@ -108,7 +107,7 @@ class ShopCompletionVC: UIViewController {
     }
     
     private func configureViews() {
-        imageView.image = shopItem.image
+        imageView.loadImage(path: shopItem.imagePath, placeholderImage: .logoColoredImage)
         configureSegmentControl()
         configureTextField()
     }

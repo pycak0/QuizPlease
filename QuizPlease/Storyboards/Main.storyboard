@@ -3,7 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
@@ -1370,6 +1370,21 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </view>
+                                <view key="tableFooterView" hidden="YES" contentMode="scaleToFill" id="gbU-AV-f8p">
+                                    <rect key="frame" x="0.0" y="281" width="414" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="QZP-B7-ScY">
+                                            <rect key="frame" x="197" y="12" width="20" height="20"/>
+                                            <color key="color" name="lemon"/>
+                                        </activityIndicatorView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstItem="QZP-B7-ScY" firstAttribute="centerY" secondItem="gbU-AV-f8p" secondAttribute="centerY" id="0P7-KC-qo5"/>
+                                        <constraint firstItem="QZP-B7-ScY" firstAttribute="centerX" secondItem="gbU-AV-f8p" secondAttribute="centerX" id="RBk-0V-n4x"/>
+                                    </constraints>
+                                </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="RatingCell" rowHeight="85" id="VWG-7n-tdn" customClass="RatingCell" customModule="QuizPlease" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="168" width="414" height="85"/>
@@ -1420,6 +1435,7 @@
                                         <connections>
                                             <outlet property="gamesPlayedLabel" destination="bW6-GG-1Ik" id="mFD-d4-uCD"/>
                                             <outlet property="pointsScoredLabel" destination="ade-SY-VBQ" id="Zjq-5m-bK6"/>
+                                            <outlet property="teamImageView" destination="HJs-BP-l5K" id="ji3-7T-glR"/>
                                             <outlet property="teamNameLabel" destination="of2-79-Hv9" id="tq2-dp-016"/>
                                         </connections>
                                     </tableViewCell>
@@ -1653,16 +1669,16 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="Hpu-tS-ZHT">
                                 <rect key="frame" x="20" y="20" width="374" height="490"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Sph-jC-MSS">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Sph-jC-MSS">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="258.5"/>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Название сертификата" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MvR-Ta-BqL">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Название сертификата" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MvR-Ta-BqL">
                                         <rect key="frame" x="0.0" y="272.5" width="374" height="21"/>
                                         <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Этот подарочный сертификат дает право на бесплатную игру Квиз, плиз! [стрим] для целой команды." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KJa-4c-mae">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" verticalCompressionResistancePriority="751" text="Этот подарочный сертификат дает право на бесплатную игру Квиз, плиз! [стрим] для целой команды." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KJa-4c-mae">
                                         <rect key="frame" x="0.0" y="307.5" width="374" height="50.5"/>
                                         <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="14"/>
                                         <color key="textColor" systemColor="opaqueSeparatorColor"/>

@@ -67,7 +67,11 @@ class WarmupPresenter: WarmupPresenterProtocol {
     
     //MARK:- Actions
     func didPressStartGame() {
-        view?.startGame()
+        if questions.count > 0 {
+            view?.startGame()
+        } else {
+            view?.showSimpleAlert(title: "Новых вопросов пока нет", message: "Но скоро они появятся, загляните чуть позже")
+        }
     }
     
     func didAnswer(_ answer: String, for question: WarmupQuestion) {
@@ -75,7 +79,8 @@ class WarmupPresenter: WarmupPresenterProtocol {
         if let answer = question.answers.first(where: { $0.value == answer }), answer.correct {
             correctAnswersCount += 1
         }
-        //interactor.saveQuestionId(question.id)
+        let id = "\(question.id)"
+        interactor.saveQuestionId(id)
     }
     
     func gameEnded() {

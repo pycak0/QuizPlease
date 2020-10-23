@@ -19,6 +19,7 @@ protocol MainMenuViewProtocol: UIViewController {
     
     func updateUserPointsAmount(with points: Int)
     
+    func reloadShopItems()
 }
 
 class MainMenuVC: UIViewController {
@@ -98,6 +99,13 @@ extension MainMenuVC: MainMenuViewProtocol {
         tableView.reloadData()
     }
     
+    func reloadShopItems() {
+        let indexPath = IndexPath(row: MenuItemKind.shop.rawValue, section: 0)
+        if let cell = tableView.cellForRow(at: indexPath) as? MenuShopCell {
+            cell.reloadItems()
+        }
+    }
+    
     func updateUserPointsAmount(with points: Int) {
         let indexPath = IndexPath(row: MenuItemKind.profile.rawValue, section: 0)
         if let cell = tableView.cellForRow(at: indexPath) as? MenuProfileCell {
@@ -151,6 +159,9 @@ extension MainMenuVC: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.setNeedsLayout()
+        if let cell = cell as? MenuShopCell {
+            cell.reloadItemsIfNeeded()
+        }
     }
     
     func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {

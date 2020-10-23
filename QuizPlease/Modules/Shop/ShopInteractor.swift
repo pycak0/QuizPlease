@@ -16,9 +16,7 @@ protocol ShopInteractorProtocol {
 
 class ShopInteractor: ShopInteractorProtocol {
     func loadItems(completion: @escaping (Result<[ShopItem], SessionError>) -> Void) {
-        NetworkService.shared.getShopItems { (serverResult) in
-            completion(serverResult)
-        }
+        NetworkService.shared.getShopItems(completion: completion)
     }
     
     func loadUserInfo(completion: @escaping ((Result<UserInfo, SessionError>) -> Void)) {

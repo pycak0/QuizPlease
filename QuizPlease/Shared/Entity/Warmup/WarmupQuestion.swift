@@ -13,6 +13,7 @@ enum WarmupQuestionType: Int, CaseIterable, Decodable {
 }
 
 struct WarmupQuestion {
+    var id: Double
     var question: String?
     var answers: [WarmupAnswer]
     
@@ -45,7 +46,7 @@ struct WarmupQuestion {
 //MARK:- Decodable
 extension WarmupQuestion: Decodable {
     private enum CodingKeys: String, CodingKey {
-        case question, answers, file
+        case question, answers, file, id
     }
     
     init(from decoder: Decoder) throws {
@@ -58,5 +59,6 @@ extension WarmupQuestion: Decodable {
         
         file = try container.decode(String.self, forKey: .file)
         
+        id = try container.decode(Double.self, forKey: .id)
     }
 }

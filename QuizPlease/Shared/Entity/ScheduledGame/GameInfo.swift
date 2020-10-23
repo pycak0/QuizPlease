@@ -29,6 +29,7 @@ struct GameInfo: Decodable {
     private var address: String = "-"
     private var cityName: String = ""
     private var payment_icon: Int = 0
+    private var game_type: Int = 0
     
     init(id: Int) {
         self.id = id
@@ -66,5 +67,9 @@ extension GameInfo {
         default:
             return [.cash]
         }
+    }
+    
+    var isOnlineGame: Bool {
+        return game_type == 1
     }
 }

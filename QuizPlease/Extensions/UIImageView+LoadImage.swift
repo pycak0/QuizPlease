@@ -7,30 +7,36 @@
 //
 
 import UIKit
+import Kingfisher
 
 extension UIImageView {
     func loadImage(url: URL?, placeholderImage: UIImage? = nil, handler: ((UIImage?) -> Void)? = nil) {
         guard let url = url else {
             return
         }
-        if placeholderImage != nil {
-            image = placeholderImage
-        }
-        print(url)
+        self.kf.setImage(with: url, placeholder: placeholderImage)
         
-        URLSession.shared.dataTask(with: url) { (data, _, _) in
-            if let data = data,
-               let image = UIImage(data: data) {
-                DispatchQueue.main.async {
-                    self.image = image
-                    handler?(image)
-                }
-            } else {
-                DispatchQueue.main.async {
-                    handler?(nil)
-                }
-            }
-        }.resume()
+    }
+    
+    func loadImage(path: String?, placeholderImage: UIImage? = nil, handler: ((UIImage?) -> Void)? = nil) {
+        guard let path = path else { return }
+        var urlComponents = Globals.baseUrl
+        urlComponents.path = path
         
+        loadImage(url: urlComponents.url, placeholderImage: placeholderImage, handler: handler)
+    }
+    
+    func loadImageFromMainDomain(path: String?, placeholderImage: UIImage? = nil, handler: ((UIImage?) -> Void)? = nil) {
+        guard let path = path else { return }
+        var urlComponents = URLComponents(string: Globals.mainDomain)!
+        urlComponents.path = path
+        
+        loadImage(url: urlComponents.url, placeholderImage: placeholderImage, handler: handler)
+    }
+}
+
+extension UIImage {
+    class var logoColoredImage: UIImage? {
+        UIImage(named: "logoSmall")?.withRenderingMode(.alwaysOriginal)
     }
 }

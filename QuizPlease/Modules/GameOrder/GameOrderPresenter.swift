@@ -19,6 +19,8 @@ protocol GameOrderPresenterProtocol {
     func configureViews()
     
     func didPressSubmitButton()
+    
+    func sumToPay(forPeople number: Int) -> Int
 }
 
 class GameOrderPresenter: GameOrderPresenterProtocol {
@@ -42,6 +44,16 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
     
     func configureViews() {
         view?.configureTableView()
+    }
+    
+    func sumToPay(forPeople number: Int) -> Int {
+        registerForm.countPaidOnline = number
+        let price = game.priceNumber ?? 0
+        if game.isOnlineGame {
+            return price
+        } else {
+            return price * number
+        }
     }
     
     //MARK:- Submit Button Action

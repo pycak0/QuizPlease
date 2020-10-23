@@ -13,14 +13,18 @@ struct ShopItem: Decodable {
     var title: String
     var description: String
     private var price: String
+    private var images: [ShopItemImage]?
+    
+    init(title: String, description: String, price: String) {
+        self.title = title
+        self.description = description
+        self.price = price
+    }
 }
 
 extension ShopItem {
-    var image: UIImage? {
-//        if price > 0 {
-//            return UIImage(named: "logoSmall")?.withRenderingMode(.alwaysOriginal)
-//        }
-        return UIImage(named: "logoSmall")?.withRenderingMode(.alwaysOriginal)
+    var imagePath: String? {
+        return images?.first?.path?.pathProof
     }
     
     var priceNumber: Int {

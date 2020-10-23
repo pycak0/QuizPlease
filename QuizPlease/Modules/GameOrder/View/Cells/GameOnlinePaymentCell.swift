@@ -17,12 +17,15 @@ protocol GameOnlinePaymentCellDelegate: class {
     
     ///Requires the sum to pay for selected number of people. Delegate (Data source) must update its value with the new `number` value here.
     func sumToPay(in cell: GameOnlinePaymentCell, forNumberOfPeople number: Int) -> Int
+    
+    func shouldDisplayCountPicker(in cell: GameOnlinePaymentCell) -> Bool
 }
 
 class GameOnlinePaymentCell: UITableViewCell, GameOrderCellProtocol {
     static let identifier = "GameOnlinePaymentCell"
     
     @IBOutlet private weak var countPicker: CountPickerView!
+    @IBOutlet private weak var paymentCommentLabel: UILabel!
     @IBOutlet private weak var dashView: UIView!
     @IBOutlet private weak var priceLabel: UILabel!
     
@@ -80,6 +83,11 @@ class GameOnlinePaymentCell: UITableViewCell, GameOrderCellProtocol {
     //MARK:- Update Picker
     private func updatePicker() {
         guard let delegate = _delegate else { return }
+        guard delegate.shouldDisplayCountPicker(in: self) else {
+            countPicker.isHidden = true
+            paymentCommentLabel.isHidden = true
+            return
+        }
         let maxNumberOfPeople = delegate.maxNumberOfPeopleToPay(in: self)
         if maxNumberOfPeople != self.maxNumberOfPeople {
             updateMaxNumberOfPeople(maxNumberOfPeople)

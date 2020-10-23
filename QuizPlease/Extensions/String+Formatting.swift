@@ -9,11 +9,12 @@
 import Foundation
 
 extension String {
-    ///Ensures that string has a "/" prefix
+    ///Ensures that string has a "/" prefix and removes percent encoding
     var pathProof: String {
+        var res = self
         if !self.hasPrefix("/") {
-            return "/" + self
+            res = "/" + self
         }
-        return self
+        return res.removingPercentEncoding ?? res
     }
 }

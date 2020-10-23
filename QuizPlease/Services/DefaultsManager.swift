@@ -69,8 +69,12 @@ class DefaultsManager {
     
     //MARK:- Answered Questions
     func saveAnsweredQuestionId(_ id: String) {
-        var array = defaults.stringArray(forKey: answeredQuestionsKey) ?? []
+        var array = getSavedQuestionIds() ?? []
         array.append(id)
         defaults.set(array, forKey: answeredQuestionsKey)
+    }
+    
+    func getSavedQuestionIds() -> [String]? {
+        defaults.stringArray(forKey: answeredQuestionsKey)
     }
 }

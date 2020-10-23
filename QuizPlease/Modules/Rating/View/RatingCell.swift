@@ -14,6 +14,7 @@ class RatingCell: UITableViewCell, TableCellProtocol {
     @IBOutlet weak var teamNameLabel: UILabel!
     @IBOutlet weak var gamesPlayedLabel: UILabel!
     @IBOutlet weak var pointsScoredLabel: UILabel!
+    @IBOutlet weak var teamImageView: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -27,13 +28,13 @@ class RatingCell: UITableViewCell, TableCellProtocol {
         selectedBackgroundView = selectedView
     }
     
-    func configure(with team: String, games: Int, points: Int) {
+    func configure(with team: String, games: Int, points: Int, imagePath: String?) {
         teamNameLabel.text = team
         gamesPlayedLabel.text = games.string(withAssociatedFirstCaseWord: "игра")
         //if let points = Int(points) {
             pointsScoredLabel.text = points.string(withAssociatedMaleWord: "балл")
        // }
-        
+        teamImageView.loadImageFromMainDomain(path: imagePath, placeholderImage: UIImage(named: "pixelGuyHatAndPlate"))
     }
     
 }

@@ -22,11 +22,9 @@ class ShopItemCell: UICollectionViewCell {
         configureViews()
     }
     
-    func configureCell(image: UIImage?, price: Int) {
-        if image != nil {
-            imageView.image = image
-        }
+    func configureCell(imagePath: String?, price: Int) {
         priceLabel.text = price.string(withAssociatedMaleWord: "балл")
+        imageView.loadImage(path: imagePath, placeholderImage: .logoColoredImage)
     }
     
     private func configureViews() {

@@ -14,6 +14,8 @@ protocol MainMenuPresenterProtocol: class {
     init(view: MainMenuViewProtocol, interactor: MainMenuInteractorProtocol, router: MainMenuRouterProtocol)
     var menuItems: [MenuItemProtocol]? { get set }
     
+    var sampleShopItems: [ShopItem] { get }
+    
     func setupView()
     func didSelectMenuItem(at index: Int)
     func didSelectCityButton()
@@ -30,6 +32,8 @@ class MainMenuPresenter: MainMenuPresenterProtocol {
     var router: MainMenuRouterProtocol!
     
     var menuItems: [MenuItemProtocol]?
+    
+    var sampleShopItems: [ShopItem] = []
     
     var userInfo: UserInfo?
     
@@ -58,6 +62,10 @@ class MainMenuPresenter: MainMenuPresenterProtocol {
     func handleViewDidAppear() {
         if Globals.userToken != nil {
             loadUserInfo()
+        }
+        
+        if sampleShopItems.count == 0 || sampleShopItems.first?.title == "SAMPLE" {
+            reloadShopItems()
         }
     }
     
@@ -111,6 +119,14 @@ class MainMenuPresenter: MainMenuPresenterProtocol {
     
     func didAddNewGame(with info: String) {
         router.showAddGameScreen(info)
+    }
+    
+    private func reloadShopItems() {
+        interactor.loadShopItems { [weak self] (items) in
+            guard let self = self else { return }
+            self.sampleShopItems = items
+            self.view?.reloadShopItems()
+        }
     }
     
 }

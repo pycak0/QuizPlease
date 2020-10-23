@@ -14,7 +14,9 @@ protocol RatingPresenterProtocol {
     
     var filter: RatingFilter { get set }
     var availableGameTypeNames: [String] { get }
-    var teams: [RatingItem] { get set }
+    //var teams: [RatingItem] { get set }
+    
+    var filteredTeams: [RatingItem] { get }
     
     func handleRefreshControl()
     
@@ -23,6 +25,7 @@ protocol RatingPresenterProtocol {
     func didChangeLeague(_ selectedIndex: Int)
     func didChangeRatingScope(_ rawValue: Int)
     func didChangeTeamName(_ name: String)
+    func searchByTeamName(_ name: String)
 }
 
 class RatingPresenter: RatingPresenterProtocol {
@@ -31,6 +34,8 @@ class RatingPresenter: RatingPresenterProtocol {
     weak var view: RatingViewProtocol?
     
     var teams: [RatingItem] = []
+    var filteredTeams: [RatingItem] = []
+    
     let availableGameTypeNames = RatingFilter.RatingLeague.allCases.map { $0.name }
     var filter = RatingFilter(scope: .season)
     
@@ -53,7 +58,16 @@ class RatingPresenter: RatingPresenterProtocol {
     }
     
     func didChangeTeamName(_ name: String) {
+        filteredTeams = teams.filter { $0.name.lowercased().contains(name.lowercased()) }
+        view?.reloadRatingList()
+        if filteredTeams.count == 0 {
+            searchByTeamName(name)
+        }
+    }
+    
+    func searchByTeamName(_ name: String) {
         filter.teamName = name
+        view?.startLoadingAnimation()
         loadRating()
     }
     
@@ -79,6 +93,7 @@ class RatingPresenter: RatingPresenterProtocol {
                 
             case .success(let teams):
                 self.teams = teams
+                self.filteredTeams = teams
                 self.view?.reloadRatingList()
             }
         }
