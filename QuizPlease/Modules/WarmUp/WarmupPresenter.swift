@@ -76,7 +76,7 @@ class WarmupPresenter: WarmupPresenterProtocol {
     
     func didAnswer(_ answer: String, for question: WarmupQuestion) {
         //guard questions.contains { $0 == question }
-        if let answer = question.answers.first(where: { $0.value == answer }), answer.correct {
+        if question.isAnswerCorrect(answer) {
             correctAnswersCount += 1
         }
         let id = "\(question.id)"

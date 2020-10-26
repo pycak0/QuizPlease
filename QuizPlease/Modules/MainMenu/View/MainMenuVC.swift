@@ -115,6 +115,7 @@ extension MainMenuVC: MainMenuViewProtocol {
     
 }
 
+//MARK:- PickCityVCDelegate
 extension MainMenuVC: PickCityVCDelegate {
     func didPick(_ city: City) {
         presenter.didChangeDefaultCity(city)

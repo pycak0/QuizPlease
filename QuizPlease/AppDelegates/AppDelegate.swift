@@ -35,7 +35,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         IQKeyboardManager.shared.enable = true
         
         Utilities.main.updateDefaultCity()
-        Utilities.main.updateToken()
+        ///updated in `applicationWillEnterForeground` and `sceneWillEnterForeground`
+       // Utilities.main.updateToken()
         
         return true
     }

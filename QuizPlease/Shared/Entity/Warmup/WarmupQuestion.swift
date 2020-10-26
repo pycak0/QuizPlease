@@ -41,6 +41,11 @@ struct WarmupQuestion {
     }
     
     var soundUrl: URL? { nil }
+    
+    ///Returns `true` if the given answer was correct
+    func isAnswerCorrect(_ answer: String) -> Bool {
+        return answers.contains(where: { $0.value == answer && $0.correct })
+    }
 }
 
 //MARK:- Decodable

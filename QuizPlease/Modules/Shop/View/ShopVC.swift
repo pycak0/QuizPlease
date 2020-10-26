@@ -15,6 +15,7 @@ protocol ShopViewProtocol: UIViewController {
     func configureCollectionView()
     func reloadCollectionView()
     func endLoadingAnimation()
+    func showItemsEmpty()
 
     func showUserPoints(_ points: Int)
     
@@ -26,7 +27,7 @@ class ShopVC: UIViewController {
     @IBOutlet weak var userPointsLabel: UILabel!
     
     @IBOutlet weak var shopCollectionView: UICollectionView!
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter.setupView()
@@ -35,13 +36,6 @@ class ShopVC: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         presenter.router.prepare(for: segue, sender: sender)
-    }
-    
-    private func configureRefreshControl() {
-        let refreshControl = UIRefreshControl()
-        refreshControl.tintColor = .labelAdapted
-        refreshControl.addTarget(self, action: #selector(refreshControlTriggered), for: .valueChanged)
-        shopCollectionView.refreshControl = refreshControl
     }
     
     @objc
@@ -59,9 +53,12 @@ extension ShopVC: ShopViewProtocol {
         shopCollectionView.dataSource = self
         
         shopCollectionView.register(UINib(nibName: ShopItemCell.identifier, bundle: nil), forCellWithReuseIdentifier: ShopItemCell.identifier)
+        configureRefreshControl(shopCollectionView, action: #selector(refreshControlTriggered))
         
         userPointsLabel.isHidden = true
         userPointsLabel.layer.cornerRadius = 15
+
+        shopCollectionView.refreshControl?.beginRefreshing()
     }
     
     func endLoadingAnimation() {
@@ -69,7 +66,13 @@ extension ShopVC: ShopViewProtocol {
     }
     
     func reloadCollectionView() {
-        shopCollectionView.reloadData()
+        //shopCollectionView.reloadData()
+        shopCollectionView.isHidden = false
+        shopCollectionView.reloadSections(IndexSet(arrayLiteral: 0))
+    }
+    
+    func showItemsEmpty() {
+        shopCollectionView.isHidden = true
     }
     
     func showUserPoints(_ points: Int) {

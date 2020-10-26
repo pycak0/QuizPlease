@@ -16,25 +16,29 @@ protocol WarmupQuestionVCAnswerDelegate: class {
 class WarmupQuestionVC: UIViewController {
 
     //MARK:- Outlets
-    @IBOutlet weak var videoView: VideoView!
-    @IBOutlet weak var questionView: UIView!
-    @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var questionLabel: UILabel!
-    @IBOutlet weak var backgroundView: UIView!
-    @IBOutlet weak var answerStack: UIStackView!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet private weak var videoView: VideoView!
+    @IBOutlet private weak var questionView: UIView!
+    @IBOutlet private weak var imageView: UIImageView!
+    @IBOutlet private weak var questionLabel: UILabel!
+    @IBOutlet private weak var backgroundView: UIView!
+    @IBOutlet private weak var answerStack: UIStackView!
+    @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     
-    @IBOutlet weak var imageEdgeInsetConstraint: NSLayoutConstraint!
-    @IBOutlet weak var imageLabelSpacingConstraint: NSLayoutConstraint!
-    @IBOutlet weak var backgrndHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var labelBottomConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var imageEdgeInsetConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var imageLabelSpacingConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var backgrndHeightConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var labelBottomConstraint: NSLayoutConstraint!
     
+    private weak var selectedButton: UIButton?
+    
+    //MARK:- Public
     var question: WarmupQuestion!
     
     weak var delegate: WarmupQuestionVCAnswerDelegate?
-        
-    @IBAction func answerButtonPressed(_ sender: UIButton) {
-        delegate?.questionVC(self, didSelectAnswer: sender.titleLabel!.text!, forQuestion: question)
+    
+    func highlightAnswer(isCorrect: Bool) {
+        let color: UIColor = isCorrect ? .lightGreen : .systemRed
+        selectedButton?.backgroundColor = color
     }
     
     //MARK:- Init
@@ -55,6 +59,10 @@ class WarmupQuestionVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViews()
+    }
+    
+    @IBAction private func answerButtonPressed(_ sender: UIButton) {
+        delegate?.questionVC(self, didSelectAnswer: sender.titleLabel!.text!, forQuestion: question)
     }
     
     private func configureViews() {

@@ -181,7 +181,10 @@ class NetworkService {
         for (key, value) in headers ?? [:] {
             request.setValue(value, forHTTPHeaderField: key)
         }
-        URLSession.shared.dataTask(with: request) { (data, response, error) in
+        let config = URLSessionConfiguration.default
+        config.timeoutIntervalForRequest = 15
+        let session = URLSession(configuration: config)
+        session.dataTask(with: request) { (data, response, error) in
             if let error = error {
                 DispatchQueue.main.async {
                     completion(.failure(.other(error)))

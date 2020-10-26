@@ -63,20 +63,22 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
                                   message: "Пожалуйста, введите нужные данные и проверьте их правильность")
             return
         }
-        
+
         register()
         
     }
     
     //MARK:- Register
     private func register() {
+        view?.enableLoading()
         interactor.register(with: registerForm) { [weak self] (registerResponse) in
             guard let self = self else { return }
+            self.view?.disableLoading()
             guard let response = registerResponse else {
                 self.view?.showErrorConnectingToServerAlert()
                 return
             }
-            
+
             let title = "Запись на игру"
             var message: String?
             if response.isSuccess {
@@ -84,13 +86,13 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
             } else {
                 message = response.successMsg ?? response.errorMsg ?? "Произошла ошибка при записи на игру"
             }
-            
-            if message != nil {
-                self.view?.showSimpleAlert(title: title, message: message!)
-            } else {
-                self.router.showCompletionScreen(with: self.game, numberOfPeopleInTeam: self.registerForm.count)
+
+            self.view?.showSimpleAlert(title: title, message: message!) { _ in
+                if response.isSuccess {
+                    self.router.showCompletionScreen(with: self.game, numberOfPeopleInTeam: self.registerForm.count)
+                }
             }
-            
+
         }
     }
     

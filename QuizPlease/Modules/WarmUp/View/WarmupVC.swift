@@ -20,6 +20,8 @@ protocol WarmupViewProtocol: UIViewController {
     func setQuestions()
     
     func showResults()
+    
+    //func addPenaltySeconds(_ seconds: Double)
 }
 
 class WarmupVC: UIViewController {
@@ -102,8 +104,8 @@ class WarmupVC: UIViewController {
     }
     
     //MARK:- Start Timer
-    private func startTimer() {
-        timerRing.startTimer(from: 0, to: timerCircleTime) { [weak self] (timerState) in
+    private func startTimer(startTime: Double = 0) {
+        timerRing.startTimer(from: startTime, to: timerCircleTime) { [weak self] (timerState) in
             guard let self = self else { return }
             switch timerState {
             case .finished:
@@ -117,7 +119,6 @@ class WarmupVC: UIViewController {
                 }
             }
         }
-        
     }
     
     //MARK:- Set Results
@@ -165,12 +166,19 @@ extension WarmupVC: WarmupViewProtocol {
         completionView.isHidden = false
         setResults()
     }
+    
 }
 
 //MARK:- Answer Delegate
 extension WarmupVC: WarmupQuestionVCAnswerDelegate {
     func questionVC(_ vc: WarmupQuestionVC, didSelectAnswer answer: String, forQuestion question: WarmupQuestion) {
         presenter.didAnswer(answer, for: question)
+        let isCorrect = question.isAnswerCorrect(answer)
+        if !isCorrect {
+            presenter.timePassed += 15
+            startTimer(startTime: presenter.timePassed)
+        }
+        vc.highlightAnswer(isCorrect: isCorrect)
         //timerRing.pauseTimer()
         pageVC.next()
        // timerRing.continueTimer()

@@ -1469,6 +1469,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="04c-Oc-wki">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Сейчас тут пусто, загляните попозже" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="16" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vuH-PS-6wX">
+                                        <rect key="frame" x="25" y="385" width="364" height="52.5"/>
+                                        <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="22"/>
+                                        <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="vuH-PS-6wX" firstAttribute="centerY" secondItem="04c-Oc-wki" secondAttribute="centerY" constant="-20" id="2rN-EE-l99"/>
+                                    <constraint firstItem="vuH-PS-6wX" firstAttribute="centerX" secondItem="04c-Oc-wki" secondAttribute="centerX" id="Qkd-3Y-F2n"/>
+                                    <constraint firstItem="vuH-PS-6wX" firstAttribute="leading" secondItem="04c-Oc-wki" secondAttribute="leading" constant="25" id="e1V-1S-hJI"/>
+                                </constraints>
+                            </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" delaysContentTouches="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="8i9-Kw-lHF">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -1486,8 +1503,12 @@
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="8i9-Kw-lHF" secondAttribute="bottom" id="Ddf-rs-7Yl"/>
                             <constraint firstItem="8i9-Kw-lHF" firstAttribute="leading" secondItem="J3q-4e-HIV" secondAttribute="leading" id="E7o-x8-su0"/>
+                            <constraint firstItem="04c-Oc-wki" firstAttribute="leading" secondItem="J3q-4e-HIV" secondAttribute="leading" id="IeH-zX-0yS"/>
                             <constraint firstItem="J3q-4e-HIV" firstAttribute="trailing" secondItem="8i9-Kw-lHF" secondAttribute="trailing" id="N8b-yO-aAa"/>
+                            <constraint firstItem="04c-Oc-wki" firstAttribute="top" secondItem="io5-Vl-k0z" secondAttribute="top" id="UJs-pW-xJk"/>
+                            <constraint firstItem="J3q-4e-HIV" firstAttribute="bottom" secondItem="04c-Oc-wki" secondAttribute="bottom" id="a5P-Hu-Cv3"/>
                             <constraint firstItem="8i9-Kw-lHF" firstAttribute="top" secondItem="io5-Vl-k0z" secondAttribute="top" id="c6w-UE-2f4"/>
+                            <constraint firstItem="04c-Oc-wki" firstAttribute="trailing" secondItem="J3q-4e-HIV" secondAttribute="trailing" id="jV3-72-kgL"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Магазин" id="RXx-vy-xBF">

@@ -17,6 +17,9 @@ protocol GameOrderViewProtocol: UIViewController {
     
     func reloadInfo()
     func configureTableView()
+    
+    func enableLoading()
+    func disableLoading()
 }
 
 class GameOrderVC: UIViewController {
@@ -36,8 +39,10 @@ class GameOrderVC: UIViewController {
     
     var isFirstLoad = true
     
-    @IBOutlet weak var gameImageView: UIImageView!
-    @IBOutlet weak var imageDarkeningView: UIView!
+    private var activityIndicator = UIActivityIndicatorView()
+    
+    @IBOutlet private weak var gameImageView: UIImageView!
+    @IBOutlet private weak var imageDarkeningView: UIView!
     @IBOutlet weak var tableView: UITableView!
         
     //MARK:- Lifecycle
@@ -80,6 +85,14 @@ extension GameOrderVC: GameOrderViewProtocol {
                 self.scrollToSignUp()
             }
         }
+    }
+    
+    func enableLoading() {
+        activityIndicator.enableCentered(in: view, color: .systemBlue)
+    }
+    
+    func disableLoading() {
+        activityIndicator.stopAnimating()
     }
 }
 

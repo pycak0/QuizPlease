@@ -69,7 +69,11 @@ class ShopPresenter: ShopPresenterProtocol {
                 self.view?.showErrorConnectingToServerAlert()
             case .success(let items):
                 self.items = items
-                self.view?.reloadCollectionView()
+                if items.isEmpty {
+                    self.view?.showItemsEmpty()
+                } else {
+                    self.view?.reloadCollectionView()
+                }
             }
         }
     }

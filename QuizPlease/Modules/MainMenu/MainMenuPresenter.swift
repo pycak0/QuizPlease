@@ -47,8 +47,8 @@ class MainMenuPresenter: MainMenuPresenterProtocol {
         view?.configureTableView()
         view?.updateCityName(with: Globals.defaultCity.title)
         
-        //MARK:- Make sure that interactor clouse is being called on main thread
-        interactor.loadMenuItems { result in
+        interactor.loadMenuItems { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case .failure(let error):
                 self.view?.failureLoadingMenuItems(error)

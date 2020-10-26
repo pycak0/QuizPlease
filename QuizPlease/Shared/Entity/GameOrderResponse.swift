@@ -9,12 +9,20 @@
 import Foundation
 
 struct GameOrderResponse: Decodable {
-    private var success: Int?
+    private var success: AnyValue?
     var successMsg: String?
     var errorMsg: String?
     
     var isSuccess: Bool {
-        return (success ?? 0) == 0 ? false : true
+        if let number = success?.value() as? Int {
+            return number == 0 ? false : true
+        }
+        else if let isSuccess = success?.value() as? Bool {
+            return isSuccess
+        }
+        else {
+            return false
+        }
     }
 }
 

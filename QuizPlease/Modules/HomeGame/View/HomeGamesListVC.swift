@@ -63,8 +63,8 @@ extension HomeGamesListVC: HomeGameViewProtocol {
     }
     
     func reloadHomeGamesList() {
-       // collectionView.reloadSections(IndexSet(arrayLiteral: 0))
-        collectionView.reloadData()
+        collectionView.reloadSections(IndexSet(arrayLiteral: 0))
+        //collectionView.reloadData()
     }
 }
 
