@@ -93,7 +93,7 @@ class ShopCompletionVC: UIViewController {
             return
         }
         //let isSuccess = false
-        NetworkService.shared.purchaseProduct(with: itemId, deliveryMethod: method, email: email) {  (isSuccess) in
+        NetworkService.shared.purchaseProduct(with: "\(itemId)", deliveryMethod: method, email: email) {  (isSuccess) in
             if isSuccess {
                 self.showSimpleAlert(title: "Покупка прошла успешно",
                                      message: method.message, okButtonTitle: "Завершить") { okAction in

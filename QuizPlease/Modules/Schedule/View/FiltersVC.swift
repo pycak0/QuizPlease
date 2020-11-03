@@ -135,7 +135,7 @@ class FiltersVC: BottomPopupViewController {
         }
     }
     
-    //MARK:- Loaf Filters
+    //MARK:- Load Filters
     private func loadFilters(_ type: ScheduleFilterType, city_id: Int? = nil, completion: @escaping ([ScheduleFilterOption]?) -> Void) {
         NetworkService.shared.getFilterOptions(type, scopeFor: city_id) { serverResult in
             switch serverResult {

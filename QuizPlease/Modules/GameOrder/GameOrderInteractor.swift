@@ -10,6 +10,8 @@ import Foundation
 
 protocol GameOrderInteractorProtocol {
     func register(with form: RegisterForm, completion: @escaping (_ orderResponse: GameOrderResponse?) -> Void)
+    
+    func pay(with token: String, completion: @escaping (SessionError?) -> Void)
 }
 
 class GameOrderInteractor: GameOrderInteractorProtocol {
@@ -23,5 +25,9 @@ class GameOrderInteractor: GameOrderInteractorProtocol {
                 completion(response)
             }
         }
+    }
+    
+    func pay(with token: String, completion: @escaping (SessionError?) -> Void) {
+        completion(.invalidToken)
     }
 }

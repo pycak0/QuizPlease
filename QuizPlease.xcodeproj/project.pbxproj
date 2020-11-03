@@ -164,6 +164,12 @@
 		A4BA1CF024D835DE00D32ADC /* MainMenuRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BA1CEF24D835DE00D32ADC /* MainMenuRouter.swift */; };
 		A4BA1CF324D84C4B00D32ADC /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BA1CF224D84C4B00D32ADC /* MenuItem.swift */; };
 		A4BA1CF524D8874C00D32ADC /* AlertExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BA1CF424D8874C00D32ADC /* AlertExtensions.swift */; };
+		A4C7175E254C5A6500898CA5 /* TMXProfiling.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4C7175D254C5A6500898CA5 /* TMXProfiling.framework */; };
+		A4C7175F254C5A6500898CA5 /* TMXProfiling.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A4C7175D254C5A6500898CA5 /* TMXProfiling.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A4C71762254C5A7500898CA5 /* TMXProfilingConnections.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4C71761254C5A7500898CA5 /* TMXProfilingConnections.framework */; };
+		A4C71763254C5A7500898CA5 /* TMXProfilingConnections.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A4C71761254C5A7500898CA5 /* TMXProfilingConnections.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A4C71766254DE61600898CA5 /* YooMoneyPaymentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C71765254DE61600898CA5 /* YooMoneyPaymentProvider.swift */; };
+		A4C71769254E016400898CA5 /* PaymentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C71768254E016400898CA5 /* PaymentProvider.swift */; };
 		A4C9D81324EA78BB00523688 /* RatingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C9D81224EA78BB00523688 /* RatingCell.swift */; };
 		A4CC5FC124DACE0E0042B41C /* ShopInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CC5FC024DACE0E0042B41C /* ShopInteractor.swift */; };
 		A4CC5FC324DACE1A0042B41C /* ShopPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CC5FC224DACE1A0042B41C /* ShopPresenter.swift */; };
@@ -197,6 +203,21 @@
 		A4FFA4B124F3BE2A006A1150 /* PaymentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FFA4B024F3BE2A006A1150 /* PaymentType.swift */; };
 		C4DEE76AA7FCCB889CFD83AD /* Pods_QuizPlease.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB695B57617419B2043DA271 /* Pods_QuizPlease.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		A4C71760254C5A6500898CA5 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				A4C7175F254C5A6500898CA5 /* TMXProfiling.framework in Embed Frameworks */,
+				A4C71763254C5A7500898CA5 /* TMXProfilingConnections.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		2F3D1527D54FDB51379F8B59 /* Pods-QuizPlease.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuizPlease.release.xcconfig"; path = "Target Support Files/Pods-QuizPlease/Pods-QuizPlease.release.xcconfig"; sourceTree = "<group>"; };
@@ -355,6 +376,10 @@
 		A4BA1CEF24D835DE00D32ADC /* MainMenuRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuRouter.swift; sourceTree = "<group>"; };
 		A4BA1CF224D84C4B00D32ADC /* MenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItem.swift; sourceTree = "<group>"; };
 		A4BA1CF424D8874C00D32ADC /* AlertExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertExtensions.swift; sourceTree = "<group>"; };
+		A4C7175D254C5A6500898CA5 /* TMXProfiling.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TMXProfiling.framework; path = Frameworks/TMXProfiling.framework; sourceTree = "<group>"; };
+		A4C71761254C5A7500898CA5 /* TMXProfilingConnections.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TMXProfilingConnections.framework; path = Frameworks/TMXProfilingConnections.framework; sourceTree = "<group>"; };
+		A4C71765254DE61600898CA5 /* YooMoneyPaymentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YooMoneyPaymentProvider.swift; sourceTree = "<group>"; };
+		A4C71768254E016400898CA5 /* PaymentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentProvider.swift; sourceTree = "<group>"; };
 		A4C9D81224EA78BB00523688 /* RatingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingCell.swift; sourceTree = "<group>"; };
 		A4CC5FC024DACE0E0042B41C /* ShopInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopInteractor.swift; sourceTree = "<group>"; };
 		A4CC5FC224DACE1A0042B41C /* ShopPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopPresenter.swift; sourceTree = "<group>"; };
@@ -399,7 +424,9 @@
 				A445C89125436C9D003B68E8 /* Kingfisher in Frameworks */,
 				A423AC2024EEBA0600071E68 /* BottomPopup in Frameworks */,
 				A40E2A6A25294B4D00986CCA /* UICircularProgressRing in Frameworks */,
+				A4C7175E254C5A6500898CA5 /* TMXProfiling.framework in Frameworks */,
 				A4147AD524E596FC007C131F /* IQKeyboardManagerSwift in Frameworks */,
+				A4C71762254C5A7500898CA5 /* TMXProfilingConnections.framework in Frameworks */,
 				C4DEE76AA7FCCB889CFD83AD /* Pods_QuizPlease.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -410,6 +437,8 @@
 		3FBF868AED3CA480A5E1D30A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A4C71761254C5A7500898CA5 /* TMXProfilingConnections.framework */,
+				A4C7175D254C5A6500898CA5 /* TMXProfiling.framework */,
 				EB695B57617419B2043DA271 /* Pods_QuizPlease.framework */,
 			);
 			name = Frameworks;
@@ -581,6 +610,7 @@
 				A40E2A6F25295B7400986CCA /* ShareManager.swift */,
 				A40C807A252E7E7900CE40D8 /* DefaultsManager.swift */,
 				A48E2FB52530E23800CD6BE6 /* Utilities.swift */,
+				A4C71767254E014E00898CA5 /* PaymentProvider */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -933,6 +963,15 @@
 			path = Modules;
 			sourceTree = "<group>";
 		};
+		A4C71767254E014E00898CA5 /* PaymentProvider */ = {
+			isa = PBXGroup;
+			children = (
+				A4C71765254DE61600898CA5 /* YooMoneyPaymentProvider.swift */,
+				A4C71768254E016400898CA5 /* PaymentProvider.swift */,
+			);
+			path = PaymentProvider;
+			sourceTree = "<group>";
+		};
 		A4C9D81124EA78AA00523688 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -1037,6 +1076,8 @@
 				A40D815324D2C6C1006D2CE3 /* Frameworks */,
 				A40D815424D2C6C1006D2CE3 /* Resources */,
 				62BAFFE0B22ADFFC5D082A13 /* [CP] Embed Pods Frameworks */,
+				A4C71760254C5A6500898CA5 /* Embed Frameworks */,
+				A4C71764254D8BAC00898CA5 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1147,6 +1188,8 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-QuizPlease/Pods-QuizPlease-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-QuizPlease/Pods-QuizPlease-frameworks-${CONFIGURATION}-output-files.xcfilelist",
@@ -1178,6 +1221,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		A4C71764254D8BAC00898CA5 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/sh\n\n#  Created by Samin Pour on 18/6/18.\n#  Copyright © 2018 ThreatMetrix. All rights reserved.\n#\n# ThreatMetrix iOS SDK contains multiple architectures, armv7, armv7s, arm64, x86_64. The arm\n# architectures are for devices, x86_64 is for simulators. When preparing application for publishing\n# Xcode removes simulator architectures from your application, but due to a bug / design flaw it\n# doesn't strip these slices from dynamic frameworks.\n#\n# If these architectures are not removed Apple will reject the binary.\n# http://www.openradar.me/radar?id=6409498411401216#ag9zfm9wZW5yYWRhci1ocmRyFAsSB0NvbW1lbnQYgICAuO-k9QgM\n# Possible error  messages in Xcode are\n# 1. “iTunes Store Operation Failed: Unsupported Architectures. The executable YourApp contains unsupported architectures '[(x86_64, i386)]'”\n# 2. “LC_ENCRYPTION_INFO”\n# 3. “Invalid Segment Alignment”\n# 4. “The binary is invalid.”\n# Removing simulator slices will resolve these issues.\n#\n# This script automatically strips unused architectures from ThreatMetrix framework, to use it please\n# add a new \"Run Script Phase\" to the build phase and add the content of this file there.\n#\n# IMPORTANT NOTE: Please make sure to add this script after \"Embed Frameworks\" / \"Copy File(s)\"  phase\n\n\nAPP_PATH=\"${TARGET_BUILD_DIR}/${WRAPPER_NAME}\"\n\nfind \"$APP_PATH\" -name 'TMX*.framework' -type d | while read -r FRAMEWORK; do\n    FRAMEWORK_EXECUTABLE_NAME=$(defaults read \"$FRAMEWORK/Info.plist\" CFBundleExecutable)\n    FRAMEWORK_EXECUTABLE_PATH=\"$FRAMEWORK/$FRAMEWORK_EXECUTABLE_NAME\"\n\n    EXTRACTED_ARCHS=()\n\n    for ARCH in $ARCHS; do\n        lipo -extract \"$ARCH\" \"$FRAMEWORK_EXECUTABLE_PATH\" -o \"$FRAMEWORK_EXECUTABLE_PATH-$ARCH\"\n        EXTRACTED_ARCHS+=(\"$FRAMEWORK_EXECUTABLE_PATH-$ARCH\")\n    done\n\n    lipo -o \"$FRAMEWORK_EXECUTABLE_PATH-merged\" -create \"${EXTRACTED_ARCHS[@]}\"\n    rm \"${EXTRACTED_ARCHS[@]}\"\n\n    rm \"$FRAMEWORK_EXECUTABLE_PATH\"\n    mv \"$FRAMEWORK_EXECUTABLE_PATH-merged\" \"$FRAMEWORK_EXECUTABLE_PATH\"\n\ndone\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1194,6 +1254,7 @@
 				A472D29B25288F1100AA9906 /* RegisterResponse.swift in Sources */,
 				A40B758024D9A75A006DB7D1 /* ScheduleRouter.swift in Sources */,
 				A4068A0124F7DAE2001273B2 /* ServerResponse.swift in Sources */,
+				A4C71769254E016400898CA5 /* PaymentProvider.swift in Sources */,
 				A40B758424D9A7CD006DB7D1 /* WarmupInteractor.swift in Sources */,
 				A48F64642501416300E7A528 /* ScheduleFilterProtocol.swift in Sources */,
 				A450E3A124E5732200C49AEE /* GameOrderInteractor.swift in Sources */,
@@ -1269,6 +1330,7 @@
 				A40689FD24F7D913001273B2 /* SessionError.swift in Sources */,
 				A40D815C24D2C6C1006D2CE3 /* SceneDelegate.swift in Sources */,
 				A40B757C24D9A744006DB7D1 /* ScheduleInteractor.swift in Sources */,
+				A4C71766254DE61600898CA5 /* YooMoneyPaymentProvider.swift in Sources */,
 				A40D818A24D2D24C006D2CE3 /* ScheduleCell.swift in Sources */,
 				A46F303A24F52CAE0062A333 /* GameOnlinePaymentCell.swift in Sources */,
 				A40B759E24D9A86E006DB7D1 /* RatingPresenter.swift in Sources */,
@@ -1477,6 +1539,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = P89V4KBVYT;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Frameworks",
+				);
 				INFOPLIST_FILE = QuizPlease/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1499,6 +1566,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = P89V4KBVYT;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Frameworks",
+				);
 				INFOPLIST_FILE = QuizPlease/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (

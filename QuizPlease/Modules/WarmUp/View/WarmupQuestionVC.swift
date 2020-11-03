@@ -37,8 +37,11 @@ class WarmupQuestionVC: UIViewController {
     weak var delegate: WarmupQuestionVCAnswerDelegate?
     
     func highlightAnswer(isCorrect: Bool) {
-        let color: UIColor = isCorrect ? .lightGreen : .systemRed
+        let color: UIColor = isCorrect ? .lightGreen : .red
         selectedButton?.backgroundColor = color
+        if !isCorrect {
+            selectedButton?.shakeAnimation()
+        }
     }
     
     //MARK:- Init
@@ -62,6 +65,8 @@ class WarmupQuestionVC: UIViewController {
     }
     
     @IBAction private func answerButtonPressed(_ sender: UIButton) {
+        view.isUserInteractionEnabled = false
+        selectedButton = sender
         delegate?.questionVC(self, didSelectAnswer: sender.titleLabel!.text!, forQuestion: question)
     }
     

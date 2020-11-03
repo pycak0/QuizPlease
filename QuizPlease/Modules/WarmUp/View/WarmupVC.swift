@@ -21,6 +21,7 @@ protocol WarmupViewProtocol: UIViewController {
     
     func showResults()
     
+    func updatePassedMinutes(with value: Int)
     //func addPenaltySeconds(_ seconds: Double)
 }
 
@@ -32,7 +33,8 @@ class WarmupVC: UIViewController {
     @IBOutlet weak var previewStack: UIStackView!
     @IBOutlet weak var startButton: ScalingButton!
     @IBOutlet weak var container: UIView!
-    @IBOutlet weak var timerRing: UICircularTimerRing!
+    @IBOutlet var timerRing: UICircularTimerRing!
+    @IBOutlet weak var minutesPassedItem: UIBarButtonItem!
     
     @IBOutlet weak var completionView: UIView!
     @IBOutlet weak var resultsView: UIView!
@@ -84,9 +86,11 @@ class WarmupVC: UIViewController {
         timerRing.outerRingColor = UIColor.black.withAlphaComponent(0.1)
         timerRing.innerRingWidth = 5
         timerRing.innerRingColor = .lightGreen
+        timerRing.tintColor = .white
         let formatter = UICircularProgressRingFormatter(valueIndicator: "", rightToLeft: true, showFloatingPoint: false, decimalPlaces: 0)
         timerRing.valueFormatter = formatter
        // timerRing.shouldShowValueText = false
+
     }
     
     //MARK:- Configure Result Labels
@@ -161,10 +165,14 @@ extension WarmupVC: WarmupViewProtocol {
     }
     
     func showResults() {
-        timerRing.isHidden = true
-        timerRing.alpha = 0
+        navigationItem.setRightBarButtonItems(nil, animated: true)
         completionView.isHidden = false
         setResults()
+    }
+    
+    func updatePassedMinutes(with value: Int) {
+        let text = value > 0 ? "\(value) мин +" : ""
+        minutesPassedItem.title = text
     }
     
 }
@@ -175,13 +183,25 @@ extension WarmupVC: WarmupQuestionVCAnswerDelegate {
         presenter.didAnswer(answer, for: question)
         let isCorrect = question.isAnswerCorrect(answer)
         if !isCorrect {
+            //MARK:- TODO:
+            /// Replace timer ring with just circular progress ring. Timer logic and count will be held on `presenter` side
+            timerRing.pauseTimer()
             presenter.timePassed += 15
-            startTimer(startTime: presenter.timePassed)
+            timerRing.resetTimer()
+            //navigationItem.setRightBarButton(nil, animated: true)
         }
+        
         vc.highlightAnswer(isCorrect: isCorrect)
-        //timerRing.pauseTimer()
-        pageVC.next()
-       // timerRing.continueTimer()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
+            guard let self = self else { return }
+            if !isCorrect {
+                //self.navigationItem.setRightBarButton(UIBarButtonItem(customView: self.timerRing), animated: true)
+                self.startTimer(startTime: self.presenter.timePassed.truncatingRemainder(dividingBy: self.timerCircleTime))
+            }
+            self.pageVC.next()
+        }
+        
     }
 }
 

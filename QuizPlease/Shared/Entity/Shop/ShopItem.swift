@@ -9,7 +9,7 @@
 import UIKit
 
 struct ShopItem: Decodable {
-    var id: String?
+    var id: Int?
     var title: String
     var description: String
     private var price: String

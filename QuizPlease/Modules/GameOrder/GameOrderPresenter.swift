@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import YandexCheckoutPayments
+import YandexCheckoutPaymentsApi
 
 //MARK:- Presenter Protocol
 protocol GameOrderPresenterProtocol {
@@ -63,9 +65,19 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
                                   message: "Пожалуйста, введите нужные данные и проверьте их правильность")
             return
         }
-
-        register()
         
+        if registerForm.paymentType == .online {
+            let count = registerForm.countPaidOnline ?? 0
+            router.showPaymentView(
+                provider: YooMoneyPaymentProvider(),
+                withSum: Double(sumToPay(forPeople: count)),
+                description: createPaymentDescription(),
+                delegate: self)
+            
+        } else {
+            register()
+        }
+
     }
     
     //MARK:- Register
@@ -89,10 +101,48 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
 
             self.view?.showSimpleAlert(title: title, message: message!) { _ in
                 if response.isSuccess {
-                    self.router.showCompletionScreen(with: self.game, numberOfPeopleInTeam: self.registerForm.count)
+                    self.completeOrder()
                 }
             }
 
+        }
+    }
+    
+    private func completeOrder() {
+        router.showCompletionScreen(with: game, numberOfPeopleInTeam: registerForm.count)
+    }
+    
+    //MARK:- Create Payment Description
+    private func createPaymentDescription() -> String {
+        let name = game.nameGame.trimmingCharacters(in: .whitespacesAndNewlines)
+        return "Игра \"\(name)\": \(game.blockData), \(game.priceDetails)"
+    }
+    
+}
+
+//MARK:- TokenizationModuleOutput
+extension GameOrderPresenter: TokenizationModuleOutput {
+    func didFinish(on module: TokenizationModuleInput, with error: YandexCheckoutPaymentsError?) {
+        view?.dismiss(animated: true)
+        print("Error:", error as Any)
+    }
+    
+    func didSuccessfullyPassedCardSec(on module: TokenizationModuleInput) {
+        view?.dismiss(animated: true)
+        print("3-D Secure process successfully passed")
+    }
+    
+    func tokenizationModule(_ module: TokenizationModuleInput, didTokenize token: Tokens, paymentMethodType: PaymentMethodType) {
+        interactor.pay(with: token.paymentToken) { [weak self] (error) in
+            guard let self = self else { return }
+            self.view?.dismiss(animated: true)
+            if let error = error {
+                print(error)
+                self.view?.showErrorConnectingToServerAlert()
+                
+            } else {
+                self.completeOrder()
+            }
         }
     }
     

@@ -1319,18 +1319,24 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Разминка" id="cDU-mL-3XB">
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="Xq3-rt-oYB">
-                            <view key="customView" contentMode="scaleToFill" id="yQg-cG-nGF" customClass="UICircularTimerRing" customModule="UICircularProgressRing">
-                                <rect key="frame" x="344" y="0.0" width="50" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem style="plain" id="Xq3-rt-oYB">
+                                <view key="customView" contentMode="scaleToFill" id="yQg-cG-nGF" customClass="UICircularTimerRing" customModule="UICircularProgressRing">
+                                    <rect key="frame" x="344" y="0.0" width="50" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </view>
+                            </barButtonItem>
+                            <barButtonItem style="done" id="AYD-h8-0YH">
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="completionView" destination="dRf-ZR-6Az" id="Oiz-jN-9HT"/>
                         <outlet property="container" destination="yzA-8B-bIa" id="w79-Be-s8V"/>
                         <outlet property="minutesLabel" destination="VvR-lk-giY" id="Niy-Ki-mpV"/>
+                        <outlet property="minutesPassedItem" destination="AYD-h8-0YH" id="UPS-Eq-IWX"/>
                         <outlet property="previewStack" destination="TmP-N2-jXg" id="hpa-E6-jMG"/>
                         <outlet property="resultTextLabel" destination="UJ6-aZ-N8R" id="Dtq-CK-t8m"/>
                         <outlet property="resultsView" destination="rkO-kp-YWw" id="vhg-9b-Wb0"/>

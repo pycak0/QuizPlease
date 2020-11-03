@@ -40,7 +40,11 @@ class WarmupPresenter: WarmupPresenterProtocol {
     
     var correctAnswersCount: Int = 0
     
-    var timePassed: Double = 0
+    var timePassed: Double = 0 {
+        didSet {
+            view?.updatePassedMinutes(with: Int(timePassed) / 60)
+        }
+    }
     
     required init(view: WarmupViewProtocol, interactor: WarmupInteractorProtocol, router: WarmupRouterProtocol) {
         self.view = view

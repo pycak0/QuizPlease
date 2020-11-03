@@ -76,8 +76,9 @@ class SchedulePresenter: SchedulePresenterProtocol {
             guard let self = self else { return }
             if let isSubscribe = subscibeStatus {
                 let subscirbeMessage = isSubscribe ? "подписаны на уведомления" : "отписаны от уведомлений"
-                self.view?.showSimpleAlert(title: "Уведомления об игре",
-                                           message: "Вы были успешно \(subscirbeMessage) об игре")
+                let title = isSubscribe ? "Подписка на уведомления" : "Отписка от уведомлений"
+                self.view?.showSimpleAlert(title: title,
+                                           message: "Вы были успешно \(subscirbeMessage) об игре. Если хотите изменить статус подписки, нажмите на кнопку ещё раз")
             } else {
                 self.view?.showErrorConnectingToServerAlert()
             }
