@@ -1321,7 +1321,7 @@
                     <navigationItem key="navigationItem" title="Разминка" id="cDU-mL-3XB">
                         <rightBarButtonItems>
                             <barButtonItem style="plain" id="Xq3-rt-oYB">
-                                <view key="customView" contentMode="scaleToFill" id="yQg-cG-nGF" customClass="UICircularTimerRing" customModule="UICircularProgressRing">
+                                <view key="customView" contentMode="scaleToFill" id="yQg-cG-nGF" customClass="UICircularProgressRing" customModule="UICircularProgressRing">
                                     <rect key="frame" x="344" y="0.0" width="50" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1338,12 +1338,12 @@
                         <outlet property="minutesLabel" destination="VvR-lk-giY" id="Niy-Ki-mpV"/>
                         <outlet property="minutesPassedItem" destination="AYD-h8-0YH" id="UPS-Eq-IWX"/>
                         <outlet property="previewStack" destination="TmP-N2-jXg" id="hpa-E6-jMG"/>
+                        <outlet property="progressRing" destination="yQg-cG-nGF" id="TyY-4I-sZt"/>
                         <outlet property="resultTextLabel" destination="UJ6-aZ-N8R" id="Dtq-CK-t8m"/>
                         <outlet property="resultsView" destination="rkO-kp-YWw" id="vhg-9b-Wb0"/>
                         <outlet property="secondPartsLabel" destination="hvg-Wa-lcj" id="fYT-dG-xh3"/>
                         <outlet property="secondsLabel" destination="qc7-cH-5Vm" id="G3M-xE-Qad"/>
                         <outlet property="startButton" destination="hDU-dv-0VE" id="WZS-ol-bRh"/>
-                        <outlet property="timerRing" destination="yQg-cG-nGF" id="cka-zx-hZZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cIr-wY-gnt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

@@ -28,7 +28,7 @@ class WarmupInteractor: WarmupInteractorProtocol {
                 completion(.failure(error))
             case let .success(questions):
                 self.loadSavedQuestionIds { (savedQuestions) in
-                    let filteredData = questions.filter { !savedQuestions.contains("\($0.id)") }
+                    let filteredData = questions + questions + questions + questions // .filter { !savedQuestions.contains("\($0.id)") }
                     completion(.success(filteredData))
                 }
             }

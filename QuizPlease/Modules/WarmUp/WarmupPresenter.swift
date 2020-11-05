@@ -42,9 +42,14 @@ class WarmupPresenter: WarmupPresenterProtocol {
     
     var timePassed: Double = 0 {
         didSet {
-            view?.updatePassedMinutes(with: Int(timePassed) / 60)
+            let timePassed = Int(self.timePassed)
+            let minutes = timePassed / 60
+            let seconds = timePassed % 60
+            view?.updatePassedTime(withMinutes: minutes, seconds: seconds)
         }
     }
+    
+    private var timer: Timer?
     
     required init(view: WarmupViewProtocol, interactor: WarmupInteractorProtocol, router: WarmupRouterProtocol) {
         self.view = view
@@ -73,6 +78,7 @@ class WarmupPresenter: WarmupPresenterProtocol {
     func didPressStartGame() {
         if questions.count > 0 {
             view?.startGame()
+            startTimer()
         } else {
             view?.showSimpleAlert(title: "Новых вопросов пока нет", message: "Но скоро они появятся, загляните чуть позже")
         }
@@ -82,14 +88,16 @@ class WarmupPresenter: WarmupPresenterProtocol {
         //guard questions.contains { $0 == question }
         if question.isAnswerCorrect(answer) {
             correctAnswersCount += 1
+        } else {
+            timePassed += 15
         }
         let id = "\(question.id)"
         interactor.saveQuestionId(id)
     }
     
     func gameEnded() {
+        stopTimer()
         view?.showResults()
-        
     }
     
     func shareAction() {
@@ -97,6 +105,19 @@ class WarmupPresenter: WarmupPresenterProtocol {
             interactor.shareResults(image, delegate: viewController)
         }
         
+    }
+    
+    //MARK:- Private
+    private func startTimer() {
+        let interval: Double = 1
+        timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { t in
+            self.timePassed += interval
+        }
+    }
+    
+    private func stopTimer() {
+        timer?.invalidate()
+        timer = nil
     }
     
 }

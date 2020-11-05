@@ -21,8 +21,7 @@ protocol WarmupViewProtocol: UIViewController {
     
     func showResults()
     
-    func updatePassedMinutes(with value: Int)
-    //func addPenaltySeconds(_ seconds: Double)
+    func updatePassedTime(withMinutes minutes: Int, seconds: Int)
 }
 
 class WarmupVC: UIViewController {
@@ -30,26 +29,21 @@ class WarmupVC: UIViewController {
     var presenter: WarmupPresenterProtocol!
     
     //MARK:- Outlets
-    @IBOutlet weak var previewStack: UIStackView!
-    @IBOutlet weak var startButton: ScalingButton!
-    @IBOutlet weak var container: UIView!
-    @IBOutlet var timerRing: UICircularTimerRing!
-    @IBOutlet weak var minutesPassedItem: UIBarButtonItem!
+    @IBOutlet private weak var previewStack: UIStackView!
+    @IBOutlet private weak var startButton: ScalingButton!
+    @IBOutlet private weak var container: UIView!
+    @IBOutlet private var progressRing: UICircularProgressRing!
+    @IBOutlet private weak var minutesPassedItem: UIBarButtonItem!
     
-    @IBOutlet weak var completionView: UIView!
-    @IBOutlet weak var resultsView: UIView!
-    @IBOutlet weak var resultTextLabel: UILabel!
-    @IBOutlet weak var minutesLabel: UILabel!
-    @IBOutlet weak var secondsLabel: UILabel!
-    @IBOutlet weak var secondPartsLabel: UILabel!
+    @IBOutlet private weak var completionView: UIView!
+    @IBOutlet private weak var resultsView: UIView!
+    @IBOutlet private weak var resultTextLabel: UILabel!
+    @IBOutlet private weak var minutesLabel: UILabel!
+    @IBOutlet private weak var secondsLabel: UILabel!
+    @IBOutlet private weak var secondPartsLabel: UILabel!
     
-    //MARK:- Properties
-    weak var pageVC: QuestionPageVC!
-    
-    var isGameStarted = false
-    
-    let timerCircleTime: Double = 60
-    
+    private weak var pageVC: QuestionPageVC!
+            
     //MARK:- Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,6 +52,7 @@ class WarmupVC: UIViewController {
 
     }
     
+    //MARK:- Prepare for Segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard segue.identifier == "WarmupPageVCEmbedded" else {
             presenter.router.prepare(for: segue, sender: sender)
@@ -78,18 +73,23 @@ class WarmupVC: UIViewController {
     
     //MARK:- Configure Timer View
     private func configureTimerRing() {
-        timerRing.isHidden = true
-        timerRing.style = .ontop
-        timerRing.startAngle = 270
-        timerRing.endAngle = 270
-        timerRing.outerRingWidth = 5
-        timerRing.outerRingColor = UIColor.black.withAlphaComponent(0.1)
-        timerRing.innerRingWidth = 5
-        timerRing.innerRingColor = .lightGreen
-        timerRing.tintColor = .white
+        progressRing.isHidden = true
+        progressRing.style = .ontop
+        progressRing.startAngle = 270
+        progressRing.endAngle = 270
+        progressRing.outerRingWidth = 5
+        progressRing.outerRingColor = UIColor.black.withAlphaComponent(0.1)
+        progressRing.innerRingWidth = 5
+        progressRing.innerRingColor = .lightGreen
+        progressRing.minValue = 0
+        progressRing.maxValue = 60
+        
+        if let font = UIFont(name: "Gilroy-SemiBold", size: 15) {
+            progressRing.font = font
+        }
+        progressRing.fontColor = .white
         let formatter = UICircularProgressRingFormatter(valueIndicator: "", rightToLeft: true, showFloatingPoint: false, decimalPlaces: 0)
-        timerRing.valueFormatter = formatter
-       // timerRing.shouldShowValueText = false
+        progressRing.valueFormatter = formatter
 
     }
     
@@ -105,24 +105,6 @@ class WarmupVC: UIViewController {
         secondsLabel.layer.cornerRadius = cRadius
         secondPartsLabel.layer.cornerRadius = cRadius
         
-    }
-    
-    //MARK:- Start Timer
-    private func startTimer(startTime: Double = 0) {
-        timerRing.startTimer(from: startTime, to: timerCircleTime) { [weak self] (timerState) in
-            guard let self = self else { return }
-            switch timerState {
-            case .finished:
-                self.presenter.timePassed += self.timerCircleTime
-                self.startTimer()
-            case .continued(elapsedTime: _):
-                break
-            case let .paused(elpasedTime: time):
-                if let time = time {
-                    self.presenter.timePassed += time
-                }
-            }
-        }
     }
     
     //MARK:- Set Results
@@ -154,10 +136,7 @@ extension WarmupVC: WarmupViewProtocol {
         container.isHidden = false
         pageVC.start()
         
-        timerRing.isHidden = false
-        
-        startTimer()
-        isGameStarted = true
+        progressRing.isHidden = false
     }
     
     func setQuestions() {
@@ -170,9 +149,10 @@ extension WarmupVC: WarmupViewProtocol {
         setResults()
     }
     
-    func updatePassedMinutes(with value: Int) {
-        let text = value > 0 ? "\(value) мин +" : ""
-        minutesPassedItem.title = text
+    func updatePassedTime(withMinutes minutes: Int, seconds: Int) {
+        let text = minutes > 0 ? "\(minutes) мин +" : ""
+        minutesPassedItem?.title = text
+        progressRing?.startProgress(to: CGFloat(seconds), duration: 0.2)
     }
     
 }
@@ -181,25 +161,10 @@ extension WarmupVC: WarmupViewProtocol {
 extension WarmupVC: WarmupQuestionVCAnswerDelegate {
     func questionVC(_ vc: WarmupQuestionVC, didSelectAnswer answer: String, forQuestion question: WarmupQuestion) {
         presenter.didAnswer(answer, for: question)
-        let isCorrect = question.isAnswerCorrect(answer)
-        if !isCorrect {
-            //MARK:- TODO:
-            /// Replace timer ring with just circular progress ring. Timer logic and count will be held on `presenter` side
-            timerRing.pauseTimer()
-            presenter.timePassed += 15
-            timerRing.resetTimer()
-            //navigationItem.setRightBarButton(nil, animated: true)
-        }
-        
-        vc.highlightAnswer(isCorrect: isCorrect)
+        vc.highlightAnswer(isCorrect: question.isAnswerCorrect(answer))
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
-            guard let self = self else { return }
-            if !isCorrect {
-                //self.navigationItem.setRightBarButton(UIBarButtonItem(customView: self.timerRing), animated: true)
-                self.startTimer(startTime: self.presenter.timePassed.truncatingRemainder(dividingBy: self.timerCircleTime))
-            }
-            self.pageVC.next()
+            self?.pageVC.next()
         }
         
     }
@@ -208,7 +173,6 @@ extension WarmupVC: WarmupQuestionVCAnswerDelegate {
 //MARK:- Page VC Delegate
 extension WarmupVC: QuestionPageVCDelegate {
     func questionsDidEnd() {
-        timerRing.pauseTimer()
         presenter.gameEnded()
     }
 }
