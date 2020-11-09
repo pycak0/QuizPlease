@@ -103,7 +103,7 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource {
         cell.configure( gameName:       game.title,
                         gameNumber:     game.name,
                         teamName:       "",
-                        place:          game.place ?? "1",
+                        place:          game.place,
                         pointsScored:   0)
         
         return cell

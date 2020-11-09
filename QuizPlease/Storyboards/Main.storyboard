@@ -713,7 +713,7 @@
                                     <action selector="rulesButtonPressed:" destination="91j-IJ-Xql" eventType="touchUpInside" id="UPO-Ve-wNi"/>
                                 </connections>
                             </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="carpetImage" translatesAutoresizingMaskIntoConstraints="NO" id="FzP-Sr-chM">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="carpetVertical" translatesAutoresizingMaskIntoConstraints="NO" id="FzP-Sr-chM">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="667"/>
                             </imageView>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7qy-R2-uOg">
@@ -777,6 +777,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Game Name" id="puO-tf-bht"/>
                     <connections>
+                        <outlet property="backgroundImageView" destination="FzP-Sr-chM" id="NAT-Ax-oI5"/>
                         <outlet property="blanksButton" destination="lu4-z4-p3d" id="EQU-OH-U63"/>
                         <outlet property="descriptionBackground" destination="7qy-R2-uOg" id="Nby-ds-5t9"/>
                         <outlet property="descriptionLabel" destination="TeC-f4-I5Q" id="6yE-Yg-p8q"/>
@@ -2334,6 +2335,7 @@
         <image name="banknoteIcon" width="17" height="10"/>
         <image name="bell" width="10" height="12"/>
         <image name="carpetImage" width="512" height="274"/>
+        <image name="carpetVertical" width="187.5" height="300"/>
         <image name="certAd" width="136" height="179"/>
         <image name="clockIcon" width="14" height="14"/>
         <image name="cross" width="20" height="20"/>

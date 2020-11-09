@@ -32,26 +32,18 @@ class ProfileCell: UITableViewCell, TableCellProtocol {
         pointsScoredLabel.layer.cornerRadius = pointsScoredLabel.bounds.height / 2
     }
     
-    func configure(game: GameInfo, team: RatingItem, place: Int, pointsScored: Int) {
-        gameNameLabel.text = game.nameGame
-        gameNumberLabel.text = game.gameNumber
-        teamNameLabel.text = team.name
-        placeLabel.text = "\(place) место"
-        pointsScoredLabel.text = "+ \(pointsScored.string(withAssociatedMaleWord: "балл"))"
-        
-        prizeImageView.isHidden = place > 3
-    }
-    
-    func configure(gameName: String, gameNumber: String, teamName: String, place: String, pointsScored: Int) {
+    func configure(gameName: String, gameNumber: String, teamName: String, place: String?, pointsScored: Int) {
         gameNameLabel.text = gameName
         gameNumberLabel.text = "#\(gameNumber)"
         teamNameLabel.text = teamName
-        placeLabel.text = "\(place) место"
         pointsScoredLabel.text = "+ \(pointsScored.string(withAssociatedMaleWord: "балл"))"
         
-        if let number = Double(place) {
+        if let placeStr = place {
+            placeLabel.text = "\(placeStr) место"
+            let number = Double(placeStr) ?? 99
             prizeImageView.isHidden = number > 3
         } else {
+            placeLabel.isHidden = true 
             prizeImageView.isHidden = true
         }
         

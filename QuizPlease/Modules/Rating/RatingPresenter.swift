@@ -26,6 +26,8 @@ protocol RatingPresenterProtocol {
     func didChangeRatingScope(_ rawValue: Int)
     func didChangeTeamName(_ name: String)
     func searchByTeamName(_ name: String)
+    
+    func didAlmostScrollToEnd()
 }
 
 class RatingPresenter: RatingPresenterProtocol {
@@ -39,6 +41,8 @@ class RatingPresenter: RatingPresenterProtocol {
     let availableGameTypeNames = RatingFilter.RatingLeague.allCases.map { $0.name }
     var filter = RatingFilter(scope: .season)
     
+    private var currentPage = 1
+    
     required init(view: RatingViewProtocol, interactor: RatingInteractorProtocol, router: RatingRouterProtocol) {
         self.router = router
         self.interactor = interactor
@@ -48,13 +52,13 @@ class RatingPresenter: RatingPresenterProtocol {
     func didChangeLeague(_ selectedIndex: Int) {
         let league = RatingFilter.RatingLeague.allCases[selectedIndex]
         filter.league = league
-        loadRating()
+        reloadRating()
     }
     
     func didChangeRatingScope(_ rawValue: Int) {
         guard let scope = RatingFilter.RatingScope(rawValue: rawValue) else { return }
         filter.scope = scope
-        loadRating()
+        reloadRating()
     }
     
     func didChangeTeamName(_ name: String) {
@@ -67,8 +71,8 @@ class RatingPresenter: RatingPresenterProtocol {
     
     func searchByTeamName(_ name: String) {
         filter.teamName = name
-        view?.startLoadingAnimation()
-        loadRating()
+        //view?.startLoadingAnimation()
+        reloadRating()
     }
     
     func configureViews() {
@@ -77,11 +81,24 @@ class RatingPresenter: RatingPresenterProtocol {
     }
     
     func handleRefreshControl() {
+        reloadRating()
+    }
+    
+    func didAlmostScrollToEnd() {
+        currentPage += 1
         loadRating()
     }
     
+    ///Resets `currentPage` value to `1` and calls `loadRating` method
+    private func reloadRating() {
+        currentPage = 1
+        loadRating()
+    }
+    
+    ///Calls interactor's `loadRating` method using value of the `currentPage` without changing it
     private func loadRating() {
-        interactor.loadRating(with: filter) { [weak self] (result) in
+        view?.startLoadingAnimation()
+        interactor.loadRating(with: filter, page: currentPage) { [weak self] (result) in
             guard let self = self else { return }
             self.view?.endLoadingAnimation()
             
@@ -92,9 +109,20 @@ class RatingPresenter: RatingPresenterProtocol {
                 //self.view?.showSimpleAlert(title: "Произошла ошибка", message: error.localizedDescription)
                 
             case .success(let teams):
-                self.teams = teams
-                self.filteredTeams = teams
-                self.view?.reloadRatingList()
+                var indices = 0..<0
+                if self.currentPage > 1 {
+                    let startIndex = self.teams.count
+                    self.teams += teams
+                    indices = startIndex..<self.teams.count
+                } else {
+                    self.teams = teams
+                }
+                self.filteredTeams = self.teams
+                if !indices.isEmpty {
+                    self.view?.appendRaingItems(at: indices)
+                } else {
+                    self.view?.reloadRatingList()
+                }
             }
         }
     }

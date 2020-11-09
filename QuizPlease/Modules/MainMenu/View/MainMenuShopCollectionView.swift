@@ -21,6 +21,12 @@ extension MainMenuVC: UICollectionViewDelegate, UICollectionViewDataSource, Menu
         cell.configureCell(imagePath: item.imagePath, price: item.priceNumber)
         cell.getLabel.isHidden = true
         
+        let count = UIView.GradientPreset.shopItemPresets.count
+        if count > 0 {
+            let gradientPreset = UIView.GradientPreset.shopItemPresets[indexPath.row % count]
+            cell.cellView.addGradient(gradientPreset)
+        }
+        
         return cell
     }
     

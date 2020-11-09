@@ -50,10 +50,15 @@ extension GameInfo {
     }
     
     var gameNumber: String {
-        if numberGame.hasPrefix("#") {
+        if numberGame.trimmingCharacters(in: .whitespaces).hasPrefix("#") {
             return numberGame
         }
         return "#" + numberGame
+    }
+    
+    ///A title of game containing its `nameGame` and `gameNumber` properties separated by a whitespace
+    var fullTitle: String {
+        return "\(nameGame.trimmingCharacters(in: .whitespaces)) \(gameNumber)"
     }
     
     var availablePaymentTypes: [PaymentType] {

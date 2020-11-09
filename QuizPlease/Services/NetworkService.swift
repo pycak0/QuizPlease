@@ -57,13 +57,14 @@ class NetworkService {
     }
     
     //MARK:- Get Rating
-    func getRating(cityId: Int, teamName: String, league: Int, ratingScope: Int, completion: @escaping (Result<[RatingItem], SessionError>) -> Void) {
+    func getRating(cityId: Int, teamName: String, league: Int, ratingScope: Int, page: Int, completion: @escaping (Result<[RatingItem], SessionError>) -> Void) {
         var ratingUrlComponents = Globals.baseUrl
         ratingUrlComponents.path = "/api/rating"
         ratingUrlComponents.queryItems = ([//?.append(contentsOf: [
             URLQueryItem(name: "city_id", value: "\(cityId)"),
             URLQueryItem(name: "league", value: "\(league)"),
-            URLQueryItem(name: "general", value: "\(ratingScope)")
+            URLQueryItem(name: "general", value: "\(ratingScope)"),
+            URLQueryItem(name: "page", value: "\(page)")
         ])
         if teamName.count > 0 {
             ratingUrlComponents.queryItems?.append(URLQueryItem(name: "teamName", value: teamName))

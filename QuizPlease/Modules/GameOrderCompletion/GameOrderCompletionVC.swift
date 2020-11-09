@@ -29,7 +29,7 @@ class GameOrderCompletionVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        prepareNavigationBar(title: "\(gameInfo.nameGame) \(gameInfo.gameNumber)")
+        prepareNavigationBar(title: gameInfo.fullTitle)
         configureViews()
     }
     

@@ -24,9 +24,11 @@ protocol ShopViewProtocol: UIViewController {
 class ShopVC: UIViewController {
     var presenter: ShopPresenterProtocol!
 
-    @IBOutlet weak var userPointsLabel: UILabel!
+    @IBOutlet private weak var userPointsLabel: UILabel!
     
-    @IBOutlet weak var shopCollectionView: UICollectionView!
+    @IBOutlet private weak var shopCollectionView: UICollectionView!
+    
+    private var gradients = UIView.GradientPreset.shopItemPresets
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -106,6 +108,9 @@ extension ShopVC: UICollectionViewDataSource {
         }
         let item = presenter.items[indexPath.item]
         cell.configureCell(imagePath: item.imagePath, price: item.priceNumber)
+        
+        let index = indexPath.row % gradients.count
+        cell.cellView.addGradient(gradients[index])
                 
         return cell
     }

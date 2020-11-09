@@ -115,14 +115,26 @@ public extension UIView {
     }
     
     enum GradientPreset {
-        case warmupItems
+        case warmupItems, turquoise, lemonOrange, rose, azure
         
         var colors: [UIColor] {
             switch self {
             case .warmupItems:
                 return [UIColor(red: 0.392, green: 0.161, blue: 0.686, alpha: 1),
                         UIColor(red: 0.387, green: 0.315, blue: 0.921, alpha: 1)]
+            case .turquoise:
+                return [.turquoise, .bluishGreen]
+            case .lemonOrange:
+                return [.lemon, .lightOrange]
+            case .rose:
+                return [.systemPink, .roseRed]
+            case .azure:
+                return [.skyAzure, .citySky]
             }
+        }
+        
+        static var shopItemPresets: [GradientPreset] {
+            return [.turquoise, lemonOrange, .warmupItems, .rose, .azure]
         }
     }
     

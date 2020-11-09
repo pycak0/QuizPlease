@@ -14,6 +14,7 @@ protocol RatingViewProtocol: UIViewController {
     var presenter: RatingPresenterProtocol! { get set }
     
     func reloadRatingList()
+    func appendRaingItems(at indices: Range<Int>)
     func endLoadingAnimation()
     func startLoadingAnimation()
     
@@ -24,8 +25,8 @@ class RatingVC: UIViewController {
     let configurator: RatingConfiguratorProtocol! = RatingConfigurator()
     var presenter: RatingPresenterProtocol!
     
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var expandingHeader: ExpandingHeader!
+    @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private weak var expandingHeader: ExpandingHeader!
     
     //MARK:- Lifecycle
     override func viewDidLoad() {
@@ -56,6 +57,13 @@ class RatingVC: UIViewController {
 extension RatingVC: RatingViewProtocol {
     func reloadRatingList() {
         tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .fade)
+    }
+    
+    func appendRaingItems(at indices: Range<Int>) {
+        let indexPaths = indices.map { IndexPath(row: $0, section: 0) }
+        tableView.beginUpdates()
+        tableView.insertRows(at: indexPaths, with: .automatic)
+        tableView.endUpdates()
     }
     
     func endLoadingAnimation() {
@@ -117,6 +125,10 @@ extension RatingVC: UITableViewDataSource, UITableViewDelegate {
         
         let team = presenter.filteredTeams[indexPath.row]
         cell.configure(with: team.name, games: team.games, points: Int(team.pointsTotal), imagePath: team.imagePath)
+        
+        if indexPath.row == presenter.filteredTeams.count - 1 {
+            presenter.didAlmostScrollToEnd()
+        }
         
         return cell
     }

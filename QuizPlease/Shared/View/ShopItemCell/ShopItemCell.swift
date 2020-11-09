@@ -11,7 +11,7 @@ import UIKit
 class ShopItemCell: UICollectionViewCell {
     static let identifier = "ShopItemCell"
 
-    @IBOutlet private weak var cellView: UIView!
+    @IBOutlet weak var cellView: UIView!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var getLabel: UILabel!
