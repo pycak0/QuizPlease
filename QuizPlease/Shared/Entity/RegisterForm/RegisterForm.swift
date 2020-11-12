@@ -25,6 +25,7 @@ struct RegisterForm: Encodable {
 
 extension RegisterForm {
     var isValid: Bool {
-        return gameId >= 0 && email.isValidEmail && phone.count == 11 && teamName.count > 0 && captainName.count > 0
+        return gameId >= 0 && email.isValidEmail && phone.isValidMobilePhone &&
+            !teamName.isEmpty && !captainName.isEmpty
     }
 }

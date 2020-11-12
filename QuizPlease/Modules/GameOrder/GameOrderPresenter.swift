@@ -60,9 +60,26 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
     
     //MARK:- Submit Button Action
     func didPressSubmitButton() {
+        view?.view.endEditing(true)
         guard registerForm.isValid else {
-            view?.showSimpleAlert(title: "Заполнены не все необходимые поля",
-                                  message: "Пожалуйста, введите нужные данные и проверьте их правильность")
+            if registerForm.email.isEmpty {
+                view?.showSimpleAlert(title: "Заполнены не все необходимые поля",
+                                      message: "Пожалуйста, заполните все поля, отмеченные звездочкой, и проверьте их корректность")
+            } else if !registerForm.email.isValidEmail {
+                view?.showSimpleAlert(title: "Некорректный e-mail",
+                                      message: "Пожалуйста, введите корректный адрес и попробуйте еще раз")
+                { (okAction) in
+                    self.view?.editEmail()
+                }
+                
+            } else if !registerForm.phone.isValidMobilePhone {
+                view?.showSimpleAlert(title: "Некорректный номер телефона",
+                                      message: "Пожалуйста, введите корректный номер и попробуйте еще раз")
+                { (okAction) in
+                    self.view?.editPhone()
+                }
+            }
+            
             return
         }
         
@@ -92,14 +109,14 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
             }
 
             let title = "Запись на игру"
-            var message: String?
+            var message: String = ""
             if response.isSuccess {
-                message = response.successMsg
+                message = response.successMsg ?? "Успешно"
             } else {
                 message = response.successMsg ?? response.errorMsg ?? "Произошла ошибка при записи на игру"
             }
 
-            self.view?.showSimpleAlert(title: title, message: message!) { _ in
+            self.view?.showSimpleAlert(title: title, message: message) { okAction in
                 if response.isSuccess {
                     self.completeOrder()
                 }
@@ -114,7 +131,7 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
     
     //MARK:- Create Payment Description
     private func createPaymentDescription() -> String {
-        let name = game.nameGame.trimmingCharacters(in: .whitespacesAndNewlines)
+        let name = game.fullTitle.trimmingCharacters(in: .whitespaces)
         return "Игра \"\(name)\": \(game.blockData), \(game.priceDetails)"
     }
     
@@ -123,26 +140,43 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
 //MARK:- TokenizationModuleOutput
 extension GameOrderPresenter: TokenizationModuleOutput {
     func didFinish(on module: TokenizationModuleInput, with error: YandexCheckoutPaymentsError?) {
-        view?.dismiss(animated: true)
+        DispatchQueue.main.async {
+            self.view?.dismiss(animated: true)
+        }
+        
         print("Error:", error as Any)
     }
     
     func didSuccessfullyPassedCardSec(on module: TokenizationModuleInput) {
-        view?.dismiss(animated: true)
+        DispatchQueue.main.async {
+            self.view?.dismiss(animated: true)
+        }
         print("3-D Secure process successfully passed")
     }
     
     func tokenizationModule(_ module: TokenizationModuleInput, didTokenize token: Tokens, paymentMethodType: PaymentMethodType) {
-        interactor.pay(with: token.paymentToken) { [weak self] (error) in
-            guard let self = self else { return }
+        DispatchQueue.main.async {
             self.view?.dismiss(animated: true)
-            if let error = error {
-                print(error)
-                self.view?.showErrorConnectingToServerAlert()
-                
-            } else {
-                self.completeOrder()
+            
+            self.view?.showTwoOptionsAlert(
+                title: "Токен для оплаты сгенерирован",
+                message: token.paymentToken,
+                option1Title: "OK", handler1: nil,
+                option2Title: "Скопировать") { (copyAction) in
+                    UIPasteboard.general.string = token.paymentToken
             }
+            
+//            interactor.pay(with: token.paymentToken) { [weak self] (error) in
+//                guard let self = self else { return }
+//                self.view?.dismiss(animated: true)
+//                if let error = error {
+//                    print(error)
+//                    self.view?.showErrorConnectingToServerAlert()
+//
+//                } else {
+//                    self.completeOrder()
+//                }
+//            }
         }
     }
     

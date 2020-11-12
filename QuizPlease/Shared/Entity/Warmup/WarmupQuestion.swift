@@ -20,31 +20,53 @@ struct WarmupQuestion {
     private var file: String?
     
     var type: WarmupQuestionType {
-        if let file = file, file != "" {
+        guard file != nil, file != "" else {
+            return .text
+        }
+        if imageUrl != nil {
             return .imageWithText
+        }
+        if soundUrl != nil {
+            return .soundWithText
+        }
+        if videoUrl != nil {
+            return .videoWithText
         }
         return .text
     }
     
     var imageUrl: URL? {
-        let filePath = file?.removingPercentEncoding ?? ""
-        if filePath == "" {
-            return nil
+        if let url = buildUrl(from: file?.pathProof),
+           url.pathExtension == "jpg" || url.pathExtension == "png" {
+            return url
         }
-        var urlComps = Globals.baseUrl // URLComponents(string: Globals.mainDomain)
-        urlComps.path = filePath.pathProof
-        return urlComps.url
+        return nil
     }
     
     var videoUrl: URL? {
-        nil
+        if let url = buildUrl(from: file?.pathProof), url.pathExtension == "mp4" {
+            return url
+        }
+        return nil
     }
     
-    var soundUrl: URL? { nil }
+    var soundUrl: URL? {
+        if let url = buildUrl(from: file?.pathProof), url.pathExtension == "mp3" {
+            return url
+        }
+        return nil
+    }
     
     ///Returns `true` if the given answer was correct
     func isAnswerCorrect(_ answer: String) -> Bool {
         return answers.contains(where: { $0.value == answer && $0.correct })
+    }
+    
+    private func buildUrl(from path: String?) -> URL? {
+        guard let path = path else { return nil }
+        var urlComps = Globals.baseUrl // URLComponents(string: Globals.mainDomain)
+        urlComps.path = path
+        return urlComps.url
     }
 }
 

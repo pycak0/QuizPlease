@@ -13,7 +13,10 @@ import YandexCheckoutPaymentsApi
 final class YooMoneyPaymentProvider: PaymentProvider {
     typealias Delegate = TokenizationModuleOutput
         
-    private let apiKey = "live_NzU1NTU07gLSO5hNG4ORAWfm2xDZmiS3lLBoXLpF3JQ"
+    private let devKey = "test_Njg0NDMx448Lmmlqf-gSAxW6E5sj-WpKuwztgFRr-c0"
+    private let productionKey = "live_NzU1NTU07gLSO5hNG4ORAWfm2xDZmiS3lLBoXLpF3JQ"
+    
+    private var apiKey: String { devKey }
     
     func showPaymentView(for amount: Double, description: String, from presentationController: UIViewController, delegate: Delegate) {
         

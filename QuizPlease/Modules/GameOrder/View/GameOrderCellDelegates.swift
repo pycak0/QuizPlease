@@ -8,6 +8,7 @@
 
 import UIKit
 
+//MARK:- Game Annotation
 extension GameOrderVC: GameAnnotationCellDelegate {
     func gameAnnotation(for cell: GameAnnotationCell) -> String {
         presenter.game.description
@@ -19,6 +20,7 @@ extension GameOrderVC: GameAnnotationCellDelegate {
     
 }
 
+//MARK:- Game Info
 extension GameOrderVC: GameInfoCellDelegate {
     func gameInfo(for gameInfoCell: GameInfoCell) -> GameInfo {
         return presenter.game
@@ -26,7 +28,9 @@ extension GameOrderVC: GameInfoCellDelegate {
 }
 
 
+//MARK:- Game Description
 extension GameOrderVC: GameDescriptionDelegate {}
+
 
 
 //MARK:- Register
@@ -73,6 +77,10 @@ extension GameOrderVC: GameRegisterCellDelegate {
 extension GameOrderVC: GameCertificateCellDelegate {
     func certificateCell(_ certificateCell: GameCertificateCell, didChangeCertificateCode newCode: String) {
         presenter.registerForm.certificates = newCode
+    }
+    
+    func didPressOkButton(in certificateCell: GameCertificateCell) {
+        view.endEditing(true)
     }
 }
 

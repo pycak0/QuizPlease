@@ -58,8 +58,8 @@ class GameInfoCell: UITableViewCell, GameOrderCellProtocol {
         
         configureMapView(with: info.placeInfo)
         
-        gameStatusLabel.text = info.status?.comment ?? ""
-        switch info.status {
+        gameStatusLabel.text = info.gameStatus?.comment ?? ""
+        switch info.gameStatus {
         case .placesAvailable:
             statusImageView.image = UIImage(named: "fireIcon")
         case .reserveAvailable, .noPlaces:

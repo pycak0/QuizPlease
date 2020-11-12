@@ -10,6 +10,8 @@ import UIKit
 
 protocol GameCertificateCellDelegate: class {
     func certificateCell(_ certificateCell: GameCertificateCell, didChangeCertificateCode newCode: String)
+    
+    func didPressOkButton(in certificateCell: GameCertificateCell)
 }
 
 class GameCertificateCell: UITableViewCell, GameOrderCellProtocol {
@@ -35,7 +37,8 @@ class GameCertificateCell: UITableViewCell, GameOrderCellProtocol {
     }
 
     @IBAction func okButtonPressed(_ sender: UIButton) {
-        _delegate?.certificateCell(self, didChangeCertificateCode: fieldView.textField.text ?? "")
+        _delegate?.didPressOkButton(in: self)
+        //_delegate?.certificateCell(self, didChangeCertificateCode: fieldView.textField.text ?? "")
     }
     
     func configureViews() {
@@ -52,6 +55,7 @@ class GameCertificateCell: UITableViewCell, GameOrderCellProtocol {
 }
 
 
+//MARK:- TitledTextFieldViewDelegate
 extension GameCertificateCell: TitledTextFieldViewDelegate {
     func textFieldView(_ textFieldView: TitledTextFieldView, didChangeTextField text: String, didCompleteMask isComplete: Bool) {
         _delegate?.certificateCell(self, didChangeCertificateCode: text)

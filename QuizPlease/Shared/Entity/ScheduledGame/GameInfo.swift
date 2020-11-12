@@ -19,7 +19,7 @@ struct GameInfo: Decodable {
     var time: String = "-"
     var description: String = "-"
     
-    var status: GameStatus?
+    private var status: Int?
 
     private var price: String = "-"
     ///Describing price e.g. "с человека". Use `priceDetails` instead of this
@@ -76,5 +76,9 @@ extension GameInfo {
     
     var isOnlineGame: Bool {
         return game_type == 1
+    }
+    
+    var gameStatus: GameStatus? {
+        return GameStatus(rawValue: status ?? -999)
     }
 }

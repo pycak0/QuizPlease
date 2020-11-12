@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AudioView" customModule="QuizPlease" customModuleProvider="target">
+            <connections>
+                <outlet property="contentView" destination="iN0-l3-epB" id="9YQ-Z5-YWT"/>
+                <outlet property="playPauseButton" destination="jdE-GZ-0G7" id="suL-HK-BvR"/>
+                <outlet property="progressView" destination="Pv9-oA-ZWZ" id="Wwl-lq-neT"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="335" height="60"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wdP-KE-2Ad">
+                    <rect key="frame" x="0.0" y="0.0" width="335" height="60"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jdE-GZ-0G7">
+                            <rect key="frame" x="16" y="16" width="30" height="28"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="30" id="NUk-iO-BPx"/>
+                            </constraints>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <state key="normal" image="play"/>
+                            <connections>
+                                <action selector="playPauseButtonPressed:" destination="-1" eventType="touchUpInside" id="Xx1-qj-QZp"/>
+                            </connections>
+                        </button>
+                        <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Pv9-oA-ZWZ">
+                            <rect key="frame" x="62" y="28" width="257" height="4"/>
+                            <color key="progressTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </progressView>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="jdE-GZ-0G7" firstAttribute="leading" secondItem="wdP-KE-2Ad" secondAttribute="leading" constant="16" id="3GQ-uY-Bin"/>
+                        <constraint firstItem="Pv9-oA-ZWZ" firstAttribute="centerY" secondItem="jdE-GZ-0G7" secondAttribute="centerY" id="6mg-kK-Iep"/>
+                        <constraint firstAttribute="trailing" secondItem="Pv9-oA-ZWZ" secondAttribute="trailing" constant="16" id="KCb-oi-Z6m"/>
+                        <constraint firstItem="jdE-GZ-0G7" firstAttribute="centerY" secondItem="wdP-KE-2Ad" secondAttribute="centerY" id="RZD-Q4-a2f"/>
+                        <constraint firstItem="Pv9-oA-ZWZ" firstAttribute="leading" secondItem="jdE-GZ-0G7" secondAttribute="trailing" constant="16" id="bQX-yo-9df"/>
+                        <constraint firstItem="jdE-GZ-0G7" firstAttribute="top" secondItem="wdP-KE-2Ad" secondAttribute="top" constant="16" id="nle-ua-pO9"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusView">
+                            <real key="value" value="30"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="wdP-KE-2Ad" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="BEX-l5-Dfa"/>
+                <constraint firstAttribute="trailing" secondItem="wdP-KE-2Ad" secondAttribute="trailing" id="NtP-Kf-J5h"/>
+                <constraint firstItem="wdP-KE-2Ad" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="b6t-e3-Wsd"/>
+                <constraint firstAttribute="bottom" secondItem="wdP-KE-2Ad" secondAttribute="bottom" id="vtd-2c-Mhn"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="35.507246376811594" y="273.21428571428572"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="play" width="20" height="26"/>
+    </resources>
+</document>
