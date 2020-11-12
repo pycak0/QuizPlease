@@ -11,7 +11,7 @@ import UIKit
 class ShopItemCell: UICollectionViewCell {
     static let identifier = "ShopItemCell"
 
-    @IBOutlet private weak var cellView: UIView!
+    @IBOutlet weak var cellView: UIView!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var getLabel: UILabel!
@@ -22,11 +22,9 @@ class ShopItemCell: UICollectionViewCell {
         configureViews()
     }
     
-    func configureCell(image: UIImage?, price: Int) {
-        if image != nil {
-            imageView.image = image
-        }
+    func configureCell(imagePath: String?, price: Int) {
         priceLabel.text = price.string(withAssociatedMaleWord: "балл")
+        imageView.loadImage(path: imagePath, placeholderImage: .logoColoredImage)
     }
     
     private func configureViews() {

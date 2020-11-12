@@ -14,7 +14,9 @@ protocol RatingViewProtocol: UIViewController {
     var presenter: RatingPresenterProtocol! { get set }
     
     func reloadRatingList()
+    func appendRaingItems(at indices: Range<Int>)
     func endLoadingAnimation()
+    func startLoadingAnimation()
     
     func configureTableView()
 }
@@ -23,8 +25,8 @@ class RatingVC: UIViewController {
     let configurator: RatingConfiguratorProtocol! = RatingConfigurator()
     var presenter: RatingPresenterProtocol!
     
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var expandingHeader: ExpandingHeader!
+    @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private weak var expandingHeader: ExpandingHeader!
     
     //MARK:- Lifecycle
     override func viewDidLoad() {
@@ -57,8 +59,20 @@ extension RatingVC: RatingViewProtocol {
         tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .fade)
     }
     
+    func appendRaingItems(at indices: Range<Int>) {
+        let indexPaths = indices.map { IndexPath(row: $0, section: 0) }
+        tableView.beginUpdates()
+        tableView.insertRows(at: indexPaths, with: .automatic)
+        tableView.endUpdates()
+    }
+    
     func endLoadingAnimation() {
         tableView.refreshControl?.endRefreshing()
+        tableView.tableFooterView?.isHidden = true
+    }
+    
+    func startLoadingAnimation() {
+        tableView.tableFooterView?.isHidden = false
     }
     
     func configureTableView() {
@@ -91,11 +105,11 @@ extension RatingVC: ExpandingHeaderDelegate {
     }
     
     func expandingHeader(_ expandingHeader: ExpandingHeader, didEndSearchingWith query: String) {
-        presenter.didChangeTeamName(query)
+        presenter.searchByTeamName(query)
     }
     
     func expandingHeader(_ expandingHeader: ExpandingHeader, didChange query: String) {
-        print("query: \(query)")
+        presenter.didChangeTeamName(query)
     }
 }
 
@@ -103,14 +117,18 @@ extension RatingVC: ExpandingHeaderDelegate {
 //MARK:- Data Source & Delegate
 extension RatingVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter.teams.count
+        return presenter.filteredTeams.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: RatingCell.identifier, for: indexPath) as? RatingCell else { fatalError("Invalid Cell Kind") }
         
-        let team = presenter.teams[indexPath.row]
-        cell.configure(with: team.name, games: team.games, points: Int(team.pointsTotal))
+        let team = presenter.filteredTeams[indexPath.row]
+        cell.configure(with: team.name, games: team.games, points: Int(team.pointsTotal), imagePath: team.imagePath)
+        
+        if indexPath.row == presenter.filteredTeams.count - 1 {
+            presenter.didAlmostScrollToEnd()
+        }
         
         return cell
     }

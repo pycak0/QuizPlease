@@ -60,6 +60,7 @@ public extension UIView {
                      secondColor: UIColor,
                      transform: CGAffineTransform = CGAffineTransform(a: 0, b: 1, c: -1, d: 0, tx: 1, ty: 0)) {
         self.backgroundColor = .white
+        self.clipsToBounds = true
 
         let gradLayer = CAGradientLayer()
 
@@ -88,6 +89,7 @@ public extension UIView {
     ///- parameter pos: A position to insert gradient layer at. The default is `0`, i.e. adding it as the bottom view's layer. If `nil`, adds as the top view layer
     func addGradient(colors: [UIColor], startPoint: CGPoint? = nil, endPoint: CGPoint? = nil, frame: CGRect? = nil, insertAt pos: UInt32? = 0) {
         self.backgroundColor = .clear
+        self.clipsToBounds = true
         
         let gradLayer = CAGradientLayer()
         gradLayer.colors = colors.map { $0.cgColor }
@@ -113,14 +115,26 @@ public extension UIView {
     }
     
     enum GradientPreset {
-        case warmupItems
+        case warmupItems, turquoise, lemonOrange, rose, azure
         
         var colors: [UIColor] {
             switch self {
             case .warmupItems:
                 return [UIColor(red: 0.392, green: 0.161, blue: 0.686, alpha: 1),
                         UIColor(red: 0.387, green: 0.315, blue: 0.921, alpha: 1)]
+            case .turquoise:
+                return [.turquoise, .bluishGreen]
+            case .lemonOrange:
+                return [.lemon, .lightOrange]
+            case .rose:
+                return [.systemPink, .roseRed]
+            case .azure:
+                return [.skyAzure, .citySky]
             }
+        }
+        
+        static var shopItemPresets: [GradientPreset] {
+            return [.turquoise, lemonOrange, .warmupItems, .rose, .azure]
         }
     }
     

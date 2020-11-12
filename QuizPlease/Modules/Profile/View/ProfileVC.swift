@@ -100,8 +100,8 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource {
         
         guard let game = presenter.userInfo?.games?[indexPath.row] else { return cell }
         
-        cell.configure( gameName:       game.name,
-                        gameNumber:     game.title,
+        cell.configure( gameName:       game.title,
+                        gameNumber:     game.name,
                         teamName:       "",
                         place:          game.place,
                         pointsScored:   0)

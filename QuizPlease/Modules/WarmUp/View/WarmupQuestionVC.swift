@@ -8,32 +8,45 @@
 
 import UIKit
 
+//MARK:- Delegate Protocol
 protocol WarmupQuestionVCAnswerDelegate: class {
-    func questionVC(_ vc: WarmupQuestionVC, didPressButtonWith answer: String)
+    func questionVC(_ vc: WarmupQuestionVC, didSelectAnswer answer: String, forQuestion question: WarmupQuestion)
 }
 
 class WarmupQuestionVC: UIViewController {
 
-    @IBOutlet weak var videoView: VideoView!
-    @IBOutlet weak var questionView: UIView!
-    @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var questionLabel: UILabel!
-    @IBOutlet weak var backgroundView: UIView!
-    @IBOutlet weak var answerStack: UIStackView!
+    //MARK:- Outlets
+    @IBOutlet private weak var videoView: VideoView!
+    @IBOutlet private weak var questionView: UIView!
+    @IBOutlet private weak var imageView: UIImageView!
+    @IBOutlet private weak var questionLabel: UILabel!
+    @IBOutlet private weak var backgroundView: UIView!
+    @IBOutlet private weak var answerStack: UIStackView!
+    @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     
-    @IBOutlet weak var imageEdgeInsetConstraint: NSLayoutConstraint!
-    @IBOutlet weak var imageLabelSpacingConstraint: NSLayoutConstraint!
-    @IBOutlet weak var backgrndHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var labelBottomConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var audioView: AudioView!
+
+    @IBOutlet private weak var imageEdgeInsetConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var imageLabelSpacingConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var backgroundHeightConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var labelBottomConstraint: NSLayoutConstraint!
     
+    private weak var selectedButton: WarmupAnswerButton?
+        
+    //MARK:- Public
     var question: WarmupQuestion!
     
     weak var delegate: WarmupQuestionVCAnswerDelegate?
-        
-    @IBAction func answerButtonPressed(_ sender: UIButton) {
-        delegate?.questionVC(self, didPressButtonWith: sender.titleLabel!.text!)
+    
+    func highlightAnswer(isCorrect: Bool) {
+        let color: UIColor = isCorrect ? .lightGreen : .red
+        selectedButton?.backgroundColor = color
+        if !isCorrect {
+            selectedButton?.shakeAnimation()
+        }
     }
     
+    //MARK:- Init
     private override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
@@ -47,61 +60,107 @@ class WarmupQuestionVC: UIViewController {
         self.question = question
     }
     
+    //MARK:- Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViews()
     }
     
-    private func configureViews() {
-        //backgroundView.addGradient(.warmupItems)
+    @objc
+    private func answerButtonPressed(_ sender: WarmupAnswerButton) {
+        view.isUserInteractionEnabled = false
+        selectedButton = sender
         
-        for (index, button) in (answerStack.arrangedSubviews as! [UIButton]).enumerated() {
-            button.backgroundColor = UIColor.white.withAlphaComponent(0.1)
-            button.setTitle(question.answers[index].value, for: .normal)
+        videoView.pause()
+        audioView.pause()
+        
+        delegate?.questionVC(self, didSelectAnswer: sender.title(for: .normal) ?? "", forQuestion: question)
+    }
+    
+    private func configureViews() {
+        answerStack.arrangedSubviews.forEach { self.answerStack.removeArrangedSubview($0); $0.removeFromSuperview() }
+        
+        for answer in question.answers {
+            let button = WarmupAnswerButton(title: answer.value)
+            button.addTarget(self, action: #selector(answerButtonPressed(_:)), for: .touchUpInside)
+            answerStack.addArrangedSubview(button)
         }
         
+        audioView.backgroundColor = UIColor.white.withAlphaComponent(0.1)
         setupQuestionType()
     }
     
+    //MARK:- Setup Question Type
     private func setupQuestionType() {
         switch question.type {
+        
+            //MARK:- • image
         case .image:
-            imageView.loadImage(url: question.imageUrl)
-            imageView.image = UIImage(named: "logoSmall")
+            loadImage()
+            //imageView.image = UIImage(named: "logoSmall")
             questionLabel.isHidden = true
             
             imageEdgeInsetConstraint.constant = 0
             imageLabelSpacingConstraint.isActive = false
-            backgrndHeightConstraint.constant = questionView.frame.height
+            backgroundHeightConstraint.constant = questionView.frame.height
+            
+            //MARK:- • image w/text
         case .imageWithText:
-            imageView.loadImage(url: question.imageUrl)
-            imageView.image = UIImage(named: "logoSmall")
+            loadImage()
+            //imageView.image = UIImage(named: "logoSmall")
             questionLabel.text = question.question
             
+            //MARK:- • video w/text
         case .videoWithText:
             imageView.isHidden = true
             videoView.isHidden = false
             videoView.parent = self
-            videoView.configurePlayer(url: question.imageUrl)
+            videoView.configurePlayer(url: question.videoUrl)
             questionLabel.text = question.question
             
+            //MARK:- • text
         case .text:
             imageView.isHidden = true
             questionLabel.text = question.question
             imageLabelSpacingConstraint.isActive = false
-            backgrndHeightConstraint.constant = questionView.frame.height
+            backgroundHeightConstraint.constant = questionView.frame.height
             questionLabel.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: 20).isActive = true
             
+            //MARK:- • sound
         case .soundWithText:
             questionLabel.text = question.question
-            backgrndHeightConstraint.constant = questionView.frame.height
-            //configure sound view
+            backgroundHeightConstraint.constant = questionView.frame.height
+            activityIndicator.startAnimating()
+            audioView.isHidden = false
+            audioView.configure(with: question.soundUrl)
+            audioView.delegate = self
             break
             
-        default: break
+        //default: break
             
         }
     }
     
+    private func loadImage() {
+        activityIndicator.startAnimating()
+        imageView.loadImage(url: question.imageUrl) { _ in
+            self.activityIndicator.stopAnimating()
+        }
+    }
     
+}
+
+//MARK:- AudioViewDelegate
+extension WarmupQuestionVC: AudioViewDelegate {
+    func didFinishPlayingAudio(in audioView: AudioView) {
+        //
+    }
+    
+    func audioView(_ audioView: AudioView, didUpdateProgress progress: Double) {
+        activityIndicator.stopAnimating()
+    }
+    
+    func audioView(_ audioView: AudioView, didFailToConfigurePlayerWithError error: Error) {
+        print(error)
+    }
 }

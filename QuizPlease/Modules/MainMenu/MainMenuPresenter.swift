@@ -14,12 +14,16 @@ protocol MainMenuPresenterProtocol: class {
     init(view: MainMenuViewProtocol, interactor: MainMenuInteractorProtocol, router: MainMenuRouterProtocol)
     var menuItems: [MenuItemProtocol]? { get set }
     
+    var sampleShopItems: [ShopItem] { get }
+    
     func setupView()
     func didSelectMenuItem(at index: Int)
     func didSelectCityButton()
     func didChangeDefaultCity(_ newCity: City)
     func didPressAddGame()
     func didAddNewGame(with info: String)
+    
+    func handleViewDidAppear()
 }
 
 class MainMenuPresenter: MainMenuPresenterProtocol {
@@ -28,6 +32,8 @@ class MainMenuPresenter: MainMenuPresenterProtocol {
     var router: MainMenuRouterProtocol!
     
     var menuItems: [MenuItemProtocol]?
+    
+    var sampleShopItems: [ShopItem] = []
     
     var userInfo: UserInfo?
     
@@ -41,8 +47,8 @@ class MainMenuPresenter: MainMenuPresenterProtocol {
         view?.configureTableView()
         view?.updateCityName(with: Globals.defaultCity.title)
         
-        //MARK:- Make sure that interactor clouse is being called on main thread
-        interactor.loadMenuItems { result in
+        interactor.loadMenuItems { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case .failure(let error):
                 self.view?.failureLoadingMenuItems(error)
@@ -51,9 +57,15 @@ class MainMenuPresenter: MainMenuPresenterProtocol {
                 self.view?.reloadMenuItems()
             }
         }
-        
+    }
+    
+    func handleViewDidAppear() {
         if Globals.userToken != nil {
             loadUserInfo()
+        }
+        
+        if sampleShopItems.count == 0 || sampleShopItems.first?.title == "SAMPLE" {
+            reloadShopItems()
         }
     }
     
@@ -95,11 +107,26 @@ class MainMenuPresenter: MainMenuPresenterProtocol {
     }
     
     func didPressAddGame() {
-        router.showQRScanner()
+        if Globals.userToken != nil {
+            router.showQRScanner()
+        } else {
+            if let item = menuItems?.first(where: { $0._kind == .profile }) {
+                router.showMenuSection(item, sender: userInfo)
+            }
+        }
+        
     }
     
     func didAddNewGame(with info: String) {
         router.showAddGameScreen(info)
+    }
+    
+    private func reloadShopItems() {
+        interactor.loadShopItems { [weak self] (items) in
+            guard let self = self else { return }
+            self.sampleShopItems = items
+            self.view?.reloadShopItems()
+        }
     }
     
 }

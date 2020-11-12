@@ -167,14 +167,14 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
-                <outlet property="availablePlacesImageView" destination="d2e-vd-VKa" id="Tw6-Mv-l1O"/>
-                <outlet property="availablePlacesLabel" destination="7Qb-9g-r4Z" id="EM1-UA-Wrb"/>
                 <outlet property="availablePlacesStack" destination="YAP-FK-phu" id="Qm4-3I-JDV"/>
                 <outlet property="cellView" destination="NEP-W8-Sc2" id="2E8-QM-8iK"/>
+                <outlet property="gameStatusLabel" destination="7Qb-9g-r4Z" id="EM1-UA-Wrb"/>
                 <outlet property="mapView" destination="2Gj-5f-DFQ" id="u2B-JE-36H"/>
                 <outlet property="placeAddressLabel" destination="wjt-md-0H9" id="cfb-fe-nKj"/>
                 <outlet property="placeNameLabel" destination="NZe-o4-Rza" id="g5f-24-Sw0"/>
                 <outlet property="priceLabel" destination="O8v-6p-edw" id="xsP-fd-v7D"/>
+                <outlet property="statusImageView" destination="d2e-vd-VKa" id="Tw6-Mv-l1O"/>
                 <outlet property="timeLabel" destination="xnC-Hd-Zx3" id="TCR-CB-wni"/>
             </connections>
             <point key="canvasLocation" x="180.43478260869566" y="152.67857142857142"/>

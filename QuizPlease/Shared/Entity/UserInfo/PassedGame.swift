@@ -12,5 +12,5 @@ struct PassedGame: Decodable {
     var id: String
     var name: String
     var title: String
-    var place: String
+    var place: String?
 }

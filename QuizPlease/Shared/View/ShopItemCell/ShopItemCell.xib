@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -25,21 +26,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="197" height="269"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="hz3-GV-k5V">
-                                <rect key="frame" x="8" y="8" width="181" height="253"/>
+                                <rect key="frame" x="8" y="16" width="181" height="245"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cube.box.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="vVg-ZE-zmg">
-                                        <rect key="frame" x="0.0" y="-0.5" width="181" height="174"/>
-                                        <color key="tintColor" red="0.80000000000000004" green="1" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoSmall" translatesAutoresizingMaskIntoConstraints="NO" id="vVg-ZE-zmg">
+                                        <rect key="frame" x="0.0" y="0.0" width="181" height="165"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="10 баллов" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s7k-TI-MID">
-                                        <rect key="frame" x="0.0" y="183.5" width="181" height="19.5"/>
+                                        <rect key="frame" x="0.0" y="175" width="181" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="20" id="Lm0-h9-67d"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="16"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Получить" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MWN-6H-XS9">
-                                        <rect key="frame" x="0.0" y="213" width="181" height="40"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <rect key="frame" x="0.0" y="205" width="181" height="40"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="2zc-Ub-0uZ"/>
                                         </constraints>
@@ -50,12 +54,12 @@
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" systemColor="systemTealColor"/>
                         <constraints>
-                            <constraint firstItem="hz3-GV-k5V" firstAttribute="top" secondItem="8Lw-3K-a6u" secondAttribute="top" constant="8" id="1YS-ii-wx0"/>
+                            <constraint firstItem="hz3-GV-k5V" firstAttribute="top" secondItem="8Lw-3K-a6u" secondAttribute="top" constant="16" id="1YS-ii-wx0"/>
                             <constraint firstItem="hz3-GV-k5V" firstAttribute="leading" secondItem="8Lw-3K-a6u" secondAttribute="leading" constant="8" id="EiC-s2-FFT"/>
                             <constraint firstItem="hz3-GV-k5V" firstAttribute="centerX" secondItem="8Lw-3K-a6u" secondAttribute="centerX" id="Izm-F3-ud7"/>
-                            <constraint firstItem="hz3-GV-k5V" firstAttribute="centerY" secondItem="8Lw-3K-a6u" secondAttribute="centerY" id="TCH-XF-MMM"/>
+                            <constraint firstAttribute="bottom" secondItem="hz3-GV-k5V" secondAttribute="bottom" constant="8" id="qhy-4M-ciz"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -78,6 +82,12 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="cube.box.fill" catalog="system" width="128" height="124"/>
+        <image name="logoSmall" width="60" height="60"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemTealColor">
+            <color red="0.35294117647058826" green="0.78431372549019607" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
     </resources>
 </document>

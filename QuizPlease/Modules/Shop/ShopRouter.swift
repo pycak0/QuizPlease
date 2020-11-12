@@ -29,6 +29,7 @@ class ShopRouter: ShopRouterProtocol {
         case "ShowShopCompletion":
             guard let item = sender as? ShopItem, let vc = segue.destination as? ShopCompletionVC else { return }
             vc.shopItem = item
+            vc.delegate = viewController as? ShopCompletionVCDelegate
         default:
             print("Unknown segue id")
         }

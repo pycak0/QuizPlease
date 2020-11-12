@@ -3,7 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -49,7 +49,7 @@
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="65" id="b9b-Xf-FuI"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="title" value="Название команды"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="title" value="Название команды *"/>
                                     <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Введите название"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
@@ -57,7 +57,7 @@
                                 <rect key="frame" x="0.0" y="92" width="288" height="84"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="title" value="Имя капитана"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="title" value="Имя капитана *"/>
                                     <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Введите имя"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
@@ -65,7 +65,7 @@
                                 <rect key="frame" x="0.0" y="184" width="288" height="84"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="title" value="E-mail"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="title" value="E-mail *"/>
                                     <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Введите почту"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
@@ -73,7 +73,7 @@
                                 <rect key="frame" x="0.0" y="276" width="288" height="84"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="title" value="Телефон капитана"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="title" value="Телефон капитана *"/>
                                     <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="+7"/>
                                     <userDefinedRuntimeAttribute type="string" keyPath="inputMask" value="+7 ([000]) [000]-[00]-[00]"/>
                                 </userDefinedRuntimeAttributes>

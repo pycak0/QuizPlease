@@ -44,10 +44,10 @@ extension UIViewController {
         }
     }
     
-    func setNavBarDefault() {
+    func setNavBarDefault(clearBorder: Bool = true) {
         guard let navBar = navigationController?.navigationBar else { return }
         navBar.setBackgroundImage(nil, for: .default)
-        navBar.shadowImage = nil
+        navBar.shadowImage = clearBorder ? UIImage() : nil
     }
     
     func setupNavBarView(_ customNavBar: NavigationBar) {

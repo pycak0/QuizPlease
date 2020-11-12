@@ -95,13 +95,13 @@ extension ScheduleVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        presenter.games?.count ?? 0
+        presenter.games.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ScheduleGameCell.identifier, for: indexPath) as! ScheduleGameCell
         
-        guard let game = presenter.games?[indexPath.row] else { return cell }
+        let game = presenter.games[indexPath.row]
         cell.delegate = self
         cell.configureCell(model: game)
         

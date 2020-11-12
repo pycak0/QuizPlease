@@ -9,8 +9,7 @@
 import Foundation
 
 enum DeliveryMethod {
-    case game(_ gameId: String)
-    case email(_ emailAddress: String)
+    case game, email
     
     ///An identificator of DeliveryMethod used to perform server request
     var id: Int {
@@ -28,7 +27,7 @@ enum DeliveryMethod {
         case .email:
             return "Заказ был отправлен на указанную почту"
         case .game:
-            return "Вы сможете забрать Ваш заказ на указанной игре"
+            return "Информация о заказе была отправлена на указанную почту"
         }
     }
 }

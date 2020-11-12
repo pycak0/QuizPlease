@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -34,13 +34,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="15. Ваша команда" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SYR-7H-90S">
-                                <rect key="frame" x="16" y="63" width="136.5" height="19.5"/>
-                                <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="16"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Весь рейтинг" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hQ7-rD-ufb">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Смотреть" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hQ7-rD-ufb">
                                 <rect key="frame" x="154" y="128" width="139" height="40"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -60,25 +54,63 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pixelGuyHat" translatesAutoresizingMaskIntoConstraints="NO" id="O5H-P9-ZHI">
                                 <rect key="frame" x="226" y="39" width="73" height="78"/>
                             </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="skull" translatesAutoresizingMaskIntoConstraints="NO" id="PBw-aS-SIN">
+                                <rect key="frame" x="0.0" y="106" width="78" height="78"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" priority="500" constant="80" id="OzP-R3-BSl"/>
+                                    <constraint firstAttribute="width" constant="78" id="VLq-4c-93V"/>
+                                    <constraint firstAttribute="width" secondItem="PBw-aS-SIN" secondAttribute="height" multiplier="1:1" id="p3E-RM-URR"/>
+                                </constraints>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="guy2" translatesAutoresizingMaskIntoConstraints="NO" id="R0x-ye-Td5">
+                                <rect key="frame" x="68" y="66" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="29o-Tc-ODm"/>
+                                    <constraint firstAttribute="height" constant="40" id="P5T-Ho-5uh"/>
+                                </constraints>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="guy1" translatesAutoresizingMaskIntoConstraints="NO" id="1v3-qs-Co0">
+                                <rect key="frame" x="142" y="58" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="GuQ-st-EfC"/>
+                                    <constraint firstAttribute="width" secondItem="1v3-qs-Co0" secondAttribute="height" multiplier="1:1" id="anO-Ep-yIz"/>
+                                </constraints>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="guy3" translatesAutoresizingMaskIntoConstraints="NO" id="iKC-XF-Lyg">
+                                <rect key="frame" x="94" y="128" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="smj-hK-Wla"/>
+                                    <constraint firstAttribute="width" constant="40" id="yoW-jG-Egv"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="hQ7-rD-ufb" firstAttribute="width" secondItem="xeW-lS-Krc" secondAttribute="width" multiplier="0.45" id="1Fe-hI-GMQ"/>
+                            <constraint firstItem="1v3-qs-Co0" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="R0x-ye-Td5" secondAttribute="trailing" constant="20" id="4a9-k5-9ZG"/>
                             <constraint firstAttribute="trailing" secondItem="Rgs-So-MBE" secondAttribute="trailing" id="58y-xV-RYe"/>
                             <constraint firstAttribute="bottom" secondItem="Rgs-So-MBE" secondAttribute="bottom" id="5sW-IK-Noi"/>
+                            <constraint firstItem="R0x-ye-Td5" firstAttribute="leading" secondItem="PBw-aS-SIN" secondAttribute="trailing" constant="-10" id="A2G-Gn-oJm"/>
                             <constraint firstItem="TFu-Sq-g0L" firstAttribute="top" secondItem="xeW-lS-Krc" secondAttribute="top" constant="20" id="CQf-F8-BHm"/>
                             <constraint firstItem="MfU-9L-6ux" firstAttribute="centerY" secondItem="TFu-Sq-g0L" secondAttribute="centerY" id="Ci0-gI-zCD"/>
                             <constraint firstItem="O5H-P9-ZHI" firstAttribute="centerY" secondItem="xeW-lS-Krc" secondAttribute="centerY" constant="-14" id="H8S-bv-C93"/>
                             <constraint firstAttribute="trailing" secondItem="O5H-P9-ZHI" secondAttribute="trailing" constant="10" id="Hrx-Sf-VTY"/>
+                            <constraint firstItem="hQ7-rD-ufb" firstAttribute="leading" secondItem="iKC-XF-Lyg" secondAttribute="trailing" constant="20" id="JQh-XT-V2p"/>
                             <constraint firstItem="Rgs-So-MBE" firstAttribute="top" secondItem="xeW-lS-Krc" secondAttribute="top" id="KtR-Tg-ic8"/>
-                            <constraint firstItem="SYR-7H-90S" firstAttribute="top" secondItem="TFu-Sq-g0L" secondAttribute="bottom" constant="16" id="PS9-6S-kdi"/>
+                            <constraint firstItem="R0x-ye-Td5" firstAttribute="top" relation="greaterThanOrEqual" secondItem="TFu-Sq-g0L" secondAttribute="bottom" constant="15" id="RB4-pR-QIu"/>
                             <constraint firstItem="TFu-Sq-g0L" firstAttribute="leading" secondItem="xeW-lS-Krc" secondAttribute="leading" constant="16" id="TYk-ou-WhL"/>
+                            <constraint firstItem="PBw-aS-SIN" firstAttribute="top" secondItem="R0x-ye-Td5" secondAttribute="bottom" id="TyU-zJ-0tp"/>
+                            <constraint firstItem="iKC-XF-Lyg" firstAttribute="centerY" secondItem="hQ7-rD-ufb" secondAttribute="centerY" id="VNk-Tb-rp2"/>
+                            <constraint firstItem="iKC-XF-Lyg" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="PBw-aS-SIN" secondAttribute="trailing" constant="15" id="Zh3-9l-hG8"/>
+                            <constraint firstAttribute="bottom" secondItem="PBw-aS-SIN" secondAttribute="bottom" id="aIG-Bg-pbv"/>
                             <constraint firstAttribute="trailing" secondItem="hQ7-rD-ufb" secondAttribute="trailing" constant="16" id="buz-qK-nrY"/>
                             <constraint firstItem="Rgs-So-MBE" firstAttribute="leading" secondItem="xeW-lS-Krc" secondAttribute="leading" id="fcS-a8-YHu"/>
                             <constraint firstItem="O5H-P9-ZHI" firstAttribute="leading" secondItem="MfU-9L-6ux" secondAttribute="trailing" constant="-16" id="hKi-py-ilD"/>
                             <constraint firstItem="MfU-9L-6ux" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="TFu-Sq-g0L" secondAttribute="trailing" constant="10" id="l9J-nk-UU1"/>
-                            <constraint firstItem="SYR-7H-90S" firstAttribute="leading" secondItem="xeW-lS-Krc" secondAttribute="leading" constant="16" id="qHF-uN-oGK"/>
+                            <constraint firstItem="hQ7-rD-ufb" firstAttribute="top" secondItem="1v3-qs-Co0" secondAttribute="bottom" constant="20" id="m0y-9S-4C9"/>
+                            <constraint firstItem="MfU-9L-6ux" firstAttribute="leading" secondItem="1v3-qs-Co0" secondAttribute="trailing" id="ndg-xj-5jx"/>
                             <constraint firstAttribute="bottom" secondItem="hQ7-rD-ufb" secondAttribute="bottom" constant="16" id="qme-IK-1jO"/>
+                            <constraint firstItem="PBw-aS-SIN" firstAttribute="leading" secondItem="xeW-lS-Krc" secondAttribute="leading" id="y6d-FL-prb"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -90,10 +122,9 @@
                     <constraint firstItem="xeW-lS-Krc" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="yzn-Br-xXc"/>
                 </constraints>
             </tableViewCellContentView>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
-                <outlet property="accessoryLabel" destination="SYR-7H-90S" id="qbn-Bc-TLN"/>
                 <outlet property="cellView" destination="xeW-lS-Krc" id="d7y-VE-LmR"/>
                 <outlet property="ratingLabel" destination="hQ7-rD-ufb" id="TNz-zL-taa"/>
                 <outlet property="titleLabel" destination="TFu-Sq-g0L" id="FW9-Yt-Y13"/>
@@ -102,8 +133,12 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="guy1" width="59" height="53"/>
+        <image name="guy2" width="40" height="35"/>
+        <image name="guy3" width="41" height="37"/>
         <image name="pixelGuyCap" width="49" height="50"/>
         <image name="pixelGuyHat" width="73" height="78"/>
         <image name="purpleGradientBgImage" width="335" height="180"/>
+        <image name="skull" width="105" height="102"/>
     </resources>
 </document>

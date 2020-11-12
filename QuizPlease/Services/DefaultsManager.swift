@@ -19,16 +19,10 @@ class DefaultsManager {
     private let authInfoKey = "user-auth-info"
     private let defaultCityKey = "default-city"
     private let userInfoKey = "user-saved-info"
+    private let fcmTokenKey = "fcm-token-key"
+    private let answeredQuestionsKey = "answered-questions-key"
     
     //MARK:- Auth Info
-//    func getUserToken() -> String? {
-//        return defaults.string(forKey: userTokenKey)
-//    }
-//    
-//    func saveUserToken(_ token: String) {
-//        defaults.set(token, forKey: userTokenKey)
-//    }
-    
     func getUserAuthInfo() -> SavedAuthInfo? {
         if let data = defaults.data(forKey: authInfoKey),
            let authInfo = try? JSONDecoder().decode(SavedAuthInfo.self, from: data) {
@@ -62,5 +56,25 @@ class DefaultsManager {
         } catch {
             print(error)
         }
+    }
+    
+    //MARK:- FCM Token
+    func getFcmToken() -> String? {
+        defaults.string(forKey: fcmTokenKey)
+    }
+    
+    func saveFcmToken(_ token: String) {
+        defaults.setValue(token, forKey: fcmTokenKey)
+    }
+    
+    //MARK:- Answered Questions
+    func saveAnsweredQuestionId(_ id: String) {
+        var array = getSavedQuestionIds() ?? []
+        array.append(id)
+        defaults.set(array, forKey: answeredQuestionsKey)
+    }
+    
+    func getSavedQuestionIds() -> [String]? {
+        defaults.stringArray(forKey: answeredQuestionsKey)
     }
 }

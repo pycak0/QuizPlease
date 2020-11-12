@@ -17,17 +17,30 @@ protocol GameOnlinePaymentCellDelegate: class {
     
     ///Requires the sum to pay for selected number of people. Delegate (Data source) must update its value with the new `number` value here.
     func sumToPay(in cell: GameOnlinePaymentCell, forNumberOfPeople number: Int) -> Int
+    
+    func shouldDisplayCountPicker(in cell: GameOnlinePaymentCell) -> Bool
 }
 
 class GameOnlinePaymentCell: UITableViewCell, GameOrderCellProtocol {
     static let identifier = "GameOnlinePaymentCell"
     
     @IBOutlet private weak var countPicker: CountPickerView!
+    @IBOutlet private weak var paymentCommentLabel: UILabel!
     @IBOutlet private weak var dashView: UIView!
     @IBOutlet private weak var priceLabel: UILabel!
     
+    //MARK:- Public
     var selectedNumberOfPeopleToPay: Int {
         return countPicker.selectedIndex + countPicker.startCount
+    }
+    
+    var maxNumberOfPeople: Int {
+        return countPicker.maxButtonsCount + countPicker.startCount - 1
+    }
+    
+    func updateMaxNumberOfPeople(_ number: Int) {
+        countPicker.maxButtonsCount = number - countPicker.startCount + 1
+        updatePrice(withNumberOfPeople: number)
     }
     
     weak var delegate: AnyObject? {
@@ -38,14 +51,7 @@ class GameOnlinePaymentCell: UITableViewCell, GameOrderCellProtocol {
         didSet {
             guard let delegate = _delegate else { return }
             updateMaxNumberOfPeople(delegate.maxNumberOfPeopleToPay(in: self))
-            //let number = delegate.selectedNumberOfPeople(in: self)
-            //countPicker.setSelectedButton(at: number - countPicker.startCount)
         }
-    }
-    
-    func updateMaxNumberOfPeople(_ number: Int) {
-        countPicker.maxButtonsCount = number - countPicker.startCount + 1
-        updatePrice(withNumberOfPeople: number)
     }
     
     //MARK:- Awake From Nib
@@ -74,12 +80,23 @@ class GameOnlinePaymentCell: UITableViewCell, GameOrderCellProtocol {
         UIView.drawDottedLine(in: dashView, start: start, end: end, dashLength: 4, gapLength: 2)
     }
     
+    //MARK:- Update Picker
     private func updatePicker() {
         guard let delegate = _delegate else { return }
-        let numberOfPeople = delegate.selectedNumberOfPeople(in: self)
-        let selectedIndex = numberOfPeople - countPicker.startCount
-        countPicker.setSelectedButton(at: selectedIndex, animated: true)
-        updatePrice(withNumberOfPeople: numberOfPeople)
+        guard delegate.shouldDisplayCountPicker(in: self) else {
+            countPicker.isHidden = true
+            paymentCommentLabel.isHidden = true
+            return
+        }
+        let maxNumberOfPeople = delegate.maxNumberOfPeopleToPay(in: self)
+        if maxNumberOfPeople != self.maxNumberOfPeople {
+            updateMaxNumberOfPeople(maxNumberOfPeople)
+        } else {
+            let numberOfPeople = delegate.selectedNumberOfPeople(in: self)
+            let selectedIndex = numberOfPeople - countPicker.startCount
+            countPicker.setSelectedButton(at: selectedIndex, animated: true)
+            updatePrice(withNumberOfPeople: numberOfPeople)
+        }
     }
     
     private func updatePrice(withNumberOfPeople number: Int) {

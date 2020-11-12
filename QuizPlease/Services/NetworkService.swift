@@ -13,8 +13,7 @@ class NetworkService {
     private init() {}
     
     static let shared = NetworkService()
-    
-    
+        
     ///
     //MARK:- GET REQUESTS =======
     ///
@@ -58,13 +57,14 @@ class NetworkService {
     }
     
     //MARK:- Get Rating
-    func getRating(cityId: Int, teamName: String, league: Int, ratingScope: Int, completion: @escaping (Result<[RatingItem], SessionError>) -> Void) {
+    func getRating(cityId: Int, teamName: String, league: Int, ratingScope: Int, page: Int, completion: @escaping (Result<[RatingItem], SessionError>) -> Void) {
         var ratingUrlComponents = Globals.baseUrl
         ratingUrlComponents.path = "/api/rating"
         ratingUrlComponents.queryItems = ([//?.append(contentsOf: [
             URLQueryItem(name: "city_id", value: "\(cityId)"),
             URLQueryItem(name: "league", value: "\(league)"),
-            URLQueryItem(name: "general", value: "\(ratingScope)")
+            URLQueryItem(name: "general", value: "\(ratingScope)"),
+            URLQueryItem(name: "page", value: "\(page)")
         ])
         if teamName.count > 0 {
             ratingUrlComponents.queryItems?.append(URLQueryItem(name: "teamName", value: teamName))
@@ -182,7 +182,10 @@ class NetworkService {
         for (key, value) in headers ?? [:] {
             request.setValue(value, forHTTPHeaderField: key)
         }
-        URLSession.shared.dataTask(with: request) { (data, response, error) in
+        let config = URLSessionConfiguration.default
+        config.timeoutIntervalForRequest = 15
+        let session = URLSession(configuration: config)
+        session.dataTask(with: request) { (data, response, error) in
             if let error = error {
                 DispatchQueue.main.async {
                     completion(.failure(.other(error)))
@@ -221,57 +224,83 @@ class NetworkService {
     ///
     ///
     
+    //MARK:- Push Subscribe
+    ///Completion `nil` value means that some errors occured on server side
+    func subscribePushOnGame(with id: String, completion: @escaping (_ isSubscribe: Bool?) -> Void) {
+        guard let token = Globals.userToken else {
+            completion(nil)
+            return
+        }
+        var urlComps = Globals.baseUrl
+        urlComps.path = "/api/game/subscribe-notification"
+        let params = [
+            "game_id" : id,
+            //"subscribe" : isSubscribe ? "1" : "0"
+        ]
+        let headers = ["Authorization" : "Bearer \(token)"]
+        afPostStandard(with: params, and: headers, to: urlComps, responseType: PushSubscribeResponse.self) { (postResult) in
+            switch postResult {
+            case let .failure(error):
+                print(error)
+                completion(nil)
+            case let .success(response):
+                completion(response.message == .subscribe)
+            }
+        }
+    }
+    
+    
     //MARK:- Purchase Product
-    func purchaseProduct(with id: String, deliveryMethod: DeliveryMethod, completion: @escaping (_ isSuccess: Bool) -> Void) {
+    func purchaseProduct(with id: String, deliveryMethod: DeliveryMethod, email: String, completion: @escaping (_ isSuccess: Bool) -> Void) {
         var urlComps = Globals.baseUrl
         urlComps.path = "/api/order/buy"
         
-        var params: [String : String] = [
+        let params: [String : String] = [
             "product_id": id,
-            "delivery_method": "\(deliveryMethod.id)"
+            "delivery_method": "\(deliveryMethod.id)",
+            "email" : email
         ]
         
-        switch deliveryMethod {
-        case let .email(address):
-            params["email"] = address
-        case let .game(id):
-            params["game_id"] = id
-        }
-        
-        afPost(with: params, to: urlComps, responseType: [String: String].self) { (postResult) in
-            let isSuccess = (try? postResult.get()) != nil
-            completion(isSuccess)
-        }
+        afPostBool(with: params, to: urlComps, completion: completion)
     }
     
     
     //MARK:- Check In On Game
     func checkInOnGame(with qrCode: String, chosenTeamId: Int, completion: @escaping (_ isSuccess: Bool) -> Void) {
+        guard let userToken = Globals.userToken else {
+            completion(false)
+            return
+        }
         var urlComps = Globals.baseUrl
         urlComps.path = "/api/game/check-qr"
         let params = [
             "token": "\(qrCode)",
             "recordId": "\(chosenTeamId)"
         ]
-        afPost(with: params, to: urlComps, responseType: [String: String].self) { (postResult) in
-            let isSuccess = (try? postResult.get()) != nil
-            completion(isSuccess)
-        }
+        let headers = ["Authorization" : "Bearer \(userToken)"]
+        afPostBool(with: params, and: headers, to: urlComps, completion: completion)
     }
     
     //MARK:- Get Teams List From QR
     func getTeamsFromQR(_ qrCode: String, completion: @escaping (Result<[TeamInfo], SessionError>) -> Void) {
+        guard let userToken = Globals.userToken else {
+            completion(.failure(.invalidToken))
+            return
+        }
         var urlComps = Globals.baseUrl
         urlComps.path = "/api/game/check-qr"
-        let params = [ "token": "\(qrCode)" ]
-        afPost(with: params, to: urlComps, responseType: CheckInTeamsInfo.self) { (postResult) in
+        let params = ["token" : "\(qrCode)"]
+        let headers = ["Authorization" : "Bearer \(userToken)"]
+        afPostStandard(with: params, and: headers, to: urlComps, responseType: CheckInTeamsInfo.self) { (postResult) in
             switch postResult {
             case let .failure(error):
                 completion(.failure(error))
+                
             case let .success(response):
-                if let teams = response.records, teams.count > 0 {
-                    completion(.success(teams))
+                if response.records.count > 0 {
+                    completion(.success(response.records))
                 } else {
+                    print(response)
                     completion(.failure(.jsonError))
                 }
             }
@@ -286,7 +315,7 @@ class NetworkService {
             "phone" : user.phone,
             "city_id": user.cityId
         ]
-        afPost(with: parameters, to: registerUrlComps, responseType: RegisterResponse.self, completion: completion)
+        afPostStandard(with: parameters, to: registerUrlComps, responseType: RegisterResponse.self, completion: completion)
     }
     
     //MARK:- Send SMS Code
@@ -296,10 +325,7 @@ class NetworkService {
         let parameters = [
             "phone" : number
         ]
-        afPost(with: parameters, to: codeUrlComps, responseType: [String: String?]?.self) { (postResult) in
-            let isSuccess = (try? postResult.get()) != nil
-            completion(isSuccess)
-        }
+        afPostBool(with: parameters, to: codeUrlComps, completion: completion)
 //        let userData = UserAuthData(phone: number)
 //        post(userData, with: codeUrlComps) { (postResult) in
 //            let isSuccess = (try? postResult.get()) != nil
@@ -328,6 +354,117 @@ class NetworkService {
             "refresh_token": refreshToken
         ]
         afPostAuth(with: params, to: tokenUrlComps, completion: completion)
+    }
+    
+    //MARK:- Send Firebase ID
+    func sendFirebaseId(_ fcmToken: String) {
+        guard let userToken = Globals.userToken else { return }
+        var urlComps = Globals.baseUrl
+        urlComps.path = "/api/device/create"
+        let params = ["device_id" : fcmToken]
+        let headers = ["Authorization" : "Bearer \(userToken)"]
+        afPostStandard(with: params, and: headers, to: urlComps, responseType: [String: String].self) { (postResult) in
+            print("Firebase ID sending result:")
+            print(postResult)
+        }
+    }
+    
+    //MARK:- Register on Game
+    func registerOnGame(registerForm: RegisterForm, completion: @escaping (Result<GameOrderResponse, SessionError>) -> Void) {
+        var registerUrlComps = Globals.baseUrl
+        registerUrlComps.path = "/ajax/save-record"
+        
+        let parameters: [String: String] = [
+            "QpRecord[captainName]"     : registerForm.captainName,
+            "QpRecord[email]"           : registerForm.email,
+            "QpRecord[phone]"           : registerForm.phone,
+            "QpRecord[comment]"         : registerForm.comment ?? "",
+            "QpRecord[game_id]"         : "\(registerForm.gameId)",
+            "QpRecord[first_time]"      : registerForm.isFirstTime ? "1" : "0",
+            "certificates[]"            : registerForm.certificates ?? "",
+            "QpRecord[payment_type]"    : registerForm.paymentType == .online ? "1" : "2",
+            "QpRecord[count]"           : "\(registerForm.count)",
+            "QpRecord[teamName]"        : registerForm.teamName
+        ]
+        
+        afPost(with: parameters, to: registerUrlComps, responseType: GameOrderResponse.self, completion: completion)
+        
+    }
+    
+    //MARK:- AF Post Auth
+    ///Post request with response type of `SavedAuthInfo`
+    func afPostAuth(with parameters: [String: String?], to urlComponents: URLComponents,
+                    completion: @escaping ((Result<SavedAuthInfo, SessionError>) -> Void)) {
+        afPostStandard(with: parameters, to: urlComponents, responseType: AuthInfoResponse.self) { (postResult) in
+            switch postResult {
+            case let .failure(error):
+                completion(.failure(error))
+            case let .success(response):
+                if let message = response.message {
+                    let error = NSError(domain: message, code: response.status ?? -999, userInfo: nil)
+                    completion(.failure(.other(error)))
+                    return
+                }
+                let authInfo = SavedAuthInfo(authInfoResponse: response)
+                completion(.success(authInfo))
+            }
+        }
+    }
+    
+    //MARK:- Post with Bool completion
+    ///Wraps server response to the success or failure. Use this method if you don't mind about data that is passed via response and you only want to know if the request was successul or not
+    func afPostBool(with parameters: [String: String?], and headers: [String : String]? = nil,
+                to urlComponents: URLComponents, completion: @escaping ((_ isSuccess: Bool) -> Void)) {
+        afPostStandard(with: parameters, and: headers, to: urlComponents, responseType: [String : AnyValue?]?.self) { (postResult) in
+            let isSuccess = (try? postResult.get()) != nil
+            completion(isSuccess)
+        }
+    }
+    
+    //MARK:- AF Post Standard
+    /// Makes POST request with afPost method, then wraps server reponse into the `ServerResponse<Response>` struct where `Response` type is passed via `responseType` parameter
+    func afPostStandard<Response: Decodable>(with parameters: [String: String?], and headers: [String : String]? = nil,
+                                             to urlComponents: URLComponents, responseType: Response.Type,
+                                             completion: @escaping ((Result<Response, SessionError>) -> Void)) {
+        
+        afPost(with: parameters, and: headers, to: urlComponents, responseType: ServerResponse<Response>.self) { postResult in
+            switch postResult {
+            case let .failure(error):
+                completion(.failure(error))
+            case let .success(result):
+                completion(.success(result.data))
+            }
+        }
+    }
+    
+    //MARK:- Alamofire POST
+    func afPost<Response: Decodable>(with parameters: [String: String?], and headers: [String : String]? = nil,
+                                     to urlComponents: URLComponents, responseType: Response.Type,
+                                     completion: @escaping ((Result<Response, SessionError>) -> Void)) {
+        
+        let httpHeaders = headers != nil ? HTTPHeaders(headers!) : nil
+        AF.upload(multipartFormData: { (multipartFormData) in
+            for (key, value) in parameters {
+                if let value = value {
+                    multipartFormData.append(Data(value.utf8), withName: key)
+                }
+            }
+        }, to: urlComponents, headers: httpHeaders)
+        .responseData { (afResponse) in
+            switch afResponse.result {
+            case let .failure(error):
+                completion(.failure(.other(error)))
+            case let .success(data):
+                do {
+                    let serverResponse = try JSONDecoder().decode(Response.self, from: data)
+                    completion(.success(serverResponse))
+                } catch {
+                    completion(.failure(.decoding(error)))
+                    
+                    print(">>> Response data:\n\n", String(data: data, encoding: .utf8) ?? "json decoding error")
+                }
+            }
+        }
     }
     
     //MARK:- Post with decoding response
@@ -400,58 +537,6 @@ class NetworkService {
             }
         }.resume()
         
-    }
-    
-    //MARK:- AF Post Auth
-    ///Post request with response type of `SavedAuthInfo`
-    func afPostAuth(with parameters: [String: String?], to urlComponents: URLComponents,
-                    completion: @escaping ((Result<SavedAuthInfo, SessionError>) -> Void)) {
-        afPost(with: parameters, to: urlComponents, responseType: AuthInfoResponse.self) { (postResult) in
-            switch postResult {
-            case let .failure(error):
-                completion(.failure(error))
-            case let .success(response):
-                if let message = response.message {
-                    let error = NSError(domain: message, code: response.status ?? -999, userInfo: nil)
-                    completion(.failure(.other(error)))
-                    return
-                }
-                let authInfo = SavedAuthInfo(authInfoResponse: response)
-                completion(.success(authInfo))
-            }
-        }
-    }
-    
-    //MARK:- Alamofire POST
-    func afPost<Response: Decodable>(with parameters: [String: String?], to urlComponents: URLComponents,
-                                     responseType: Response.Type,
-                                     completion: @escaping ((Result<Response, SessionError>) -> Void)) {
-        
-        AF.upload(multipartFormData: { (multipartFormData) in
-            for (key, value) in parameters {
-                if let value = value {
-                    multipartFormData.append(Data(value.utf8), withName: key)
-                }
-            }
-        }, to: urlComponents)
-        .responseData { (afResponse) in
-            switch afResponse.result {
-            case let .failure(error):
-                completion(.failure(.other(error)))
-            case let .success(data):
-                do {
-                    let serverResponse = try JSONDecoder().decode(ServerResponse<Response>.self, from: data)
-                    completion(.success(serverResponse.data))
-                } catch {
-                    completion(.failure(.decoding(error)))
-                    
-                    guard let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any?] else {
-                        return
-                    }
-                    print(">>> Response data:\n\n", json)
-                }
-            }
-        }
     }
     
 }

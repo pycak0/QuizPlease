@@ -48,11 +48,38 @@ public extension UIColor {
         UIColor(named: "themeGray")!
     }
     
+    class var turquoise: UIColor {
+        UIColor(named: "turquoise")!
+    }
+    
+    class var bluishGreen: UIColor {
+        UIColor(named: "bluishGreen")!
+    }
+    
+    class var roseRed: UIColor {
+        UIColor(named: "roseRed")!
+    }
+    
+    class var citySky: UIColor {
+        UIColor(named: "citySky")!
+    }
+    
+    class var skyAzure: UIColor {
+        UIColor(named: "skyAzure")!
+    }
+    
     class var labelAdapted: UIColor {
         if #available(iOS 13.0, *) {
             return .label
         }
         return .black
+    }
+    
+    class var systemBackgroundAdapted: UIColor {
+        if #available(iOS 13.0, *) {
+            return .systemBackground
+        }
+        return .white
     }
 
 }

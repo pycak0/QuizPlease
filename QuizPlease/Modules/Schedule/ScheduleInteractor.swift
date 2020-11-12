@@ -9,15 +9,17 @@
 import Foundation
 
 protocol ScheduleInteractorProtocol: class {
-    func loadSchedule(filter: ScheduleFilter, completion: @escaping (Result<[GameInfo]?, SessionError>) -> Void)
+    func loadSchedule(filter: ScheduleFilter, completion: @escaping (Result<[GameInfo], SessionError>) -> Void)
     func loadDetailInfo(for gameId: Int, completion: @escaping (GameInfo?) -> Void)
     
     func openInMaps(placeName: String, withLongitutde lon: Double, andLatitude lat: Double)
     func openInMaps(place: Place)
+    
+    func getSubscribeStatus(gameId: String, completion: @escaping (_ isSubscribe: Bool?) -> Void)
 }
 
 class ScheduleInteractor: ScheduleInteractorProtocol {
-    func loadSchedule(filter: ScheduleFilter, completion: @escaping (Result<[GameInfo]?, SessionError>) -> Void) {
+    func loadSchedule(filter: ScheduleFilter, completion: @escaping (Result<[GameInfo], SessionError>) -> Void) {
         NetworkService.shared.getSchedule(with: filter) { (serverResult) in
             switch serverResult {
             case let .failure(error):
@@ -49,6 +51,10 @@ class ScheduleInteractor: ScheduleInteractorProtocol {
     
     func openInMaps(place: Place) {
         MapService.openMap(for: place.title!, withAddress: place.fullAddress)
+    }
+    
+    func getSubscribeStatus(gameId: String, completion: @escaping (Bool?) -> Void) {
+        NetworkService.shared.subscribePushOnGame(with: gameId, completion: completion)
     }
     
 }

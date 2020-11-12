@@ -26,6 +26,7 @@ class AddGameVC: UIViewController {
     
     var chosenTeam: TeamInfo?
     
+    //MARK:- Add Game Button Pressed
     @IBAction func addGameButtonPressed(_ sender: Any) {
         saveGame()
         //navigationController?.popViewController(animated: true)
@@ -76,6 +77,7 @@ class AddGameVC: UIViewController {
                 }
             case let .success(teams):
                 self.teamsInfo = teams
+                self.loadGameInfo(with: teams[0].game_id)
             }
         }
     }
@@ -102,7 +104,13 @@ class AddGameVC: UIViewController {
         gameNumberLabel.text = model?.gameNumber ?? "#"
         placeNameLabel.text = model?.placeInfo.title ?? "-"
         placeAddressLabel.text = model?.placeInfo.shortAddress  ?? "-"
-        timeLabel.text = "в " + (model?.time ?? "-")
+        
+        if let dateStr = model?.blockData, let time = model?.time {
+            timeLabel.text = "\(dateStr) в \(time)"
+        } else {
+            timeLabel.text = "-"
+        }
+        
     }
     
     private func configureViews() {

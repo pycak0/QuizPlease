@@ -77,9 +77,9 @@ class ScheduleGameCell: UITableViewCell {
         priceLabel.text = model.priceDetails
         dateLabel.text = model.blockData
         
-        gameStatusLabel.text = model.status?.comment ?? ""
-        signUpButton.setTitle(model.status?.buttonTitle ?? "Запись недоступна", for: .normal)
-        switch model.status {
+        gameStatusLabel.text = model.gameStatus?.comment ?? ""
+        signUpButton.setTitle(model.gameStatus?.buttonTitle ?? "Запись недоступна", for: .normal)
+        switch model.gameStatus {
         case .placesAvailable:
             statusImageView.image = UIImage(named: "fireIcon")
             let availableColor = UIColor.lightGreen
@@ -95,7 +95,7 @@ class ScheduleGameCell: UITableViewCell {
             cellView.layer.borderColor = UIColor.lightGray.cgColor
             signUpButton.isEnabled = false
             infoButton.isEnabled = false
-            remindButton.isEnabled = false
+           // remindButton.isEnabled = false
         }
  
         setNeedsLayout()

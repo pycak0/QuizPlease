@@ -52,7 +52,7 @@ class ConfirmVC: BottomPopupViewController {
     }
     
     private func setupData() {
-        itemImageView.image = shopItem.image
+        itemImageView.loadImage(path: shopItem.imagePath, placeholderImage: .logoColoredImage)
         descriptionLabel.text = shopItem.description
         titleLabel.text = shopItem.title
         confirmMessageLabel.text = "Потратить \(shopItem.priceNumber) на электронный сертификат?"

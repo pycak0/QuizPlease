@@ -23,7 +23,7 @@ class Globals {
     
     static var userToken: String? {
         didSet {
-            guard let token = userToken else { return }
+            //guard let token = userToken else { return }
             //DefaultsManager.shared.saveUserToken(token)
         }
     }

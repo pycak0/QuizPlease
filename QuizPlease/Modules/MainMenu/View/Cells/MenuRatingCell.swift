@@ -13,7 +13,7 @@ class MenuRatingCell: UITableViewCell, MenuCellItemProtocol {
     
     @IBOutlet weak var cellView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var accessoryLabel: UILabel!
+     weak var accessoryLabel: UILabel!
     
     @IBOutlet weak var ratingLabel: UILabel!
     
@@ -29,7 +29,7 @@ class MenuRatingCell: UITableViewCell, MenuCellItemProtocol {
     
     func configureCell(with model: MenuItemProtocol) {
         titleLabel.text = model.title
-        accessoryLabel.text = model.supplementaryText
+        //accessoryLabel.text = model.supplementaryText
     }
     
 }

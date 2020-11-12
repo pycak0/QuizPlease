@@ -19,6 +19,7 @@ protocol MainMenuViewProtocol: UIViewController {
     
     func updateUserPointsAmount(with points: Int)
     
+    func reloadShopItems()
 }
 
 class MainMenuVC: UIViewController {
@@ -45,7 +46,9 @@ class MainMenuVC: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         navigationController?.navigationBar.tintColor = .labelAdapted
+        navigationController?.navigationBar.barTintColor = .systemBackgroundAdapted
         setNavBarDefault()
+        presenter.handleViewDidAppear()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -96,6 +99,13 @@ extension MainMenuVC: MainMenuViewProtocol {
         tableView.reloadData()
     }
     
+    func reloadShopItems() {
+        let indexPath = IndexPath(row: MenuItemKind.shop.rawValue, section: 0)
+        if let cell = tableView.cellForRow(at: indexPath) as? MenuShopCell {
+            cell.reloadItems()
+        }
+    }
+    
     func updateUserPointsAmount(with points: Int) {
         let indexPath = IndexPath(row: MenuItemKind.profile.rawValue, section: 0)
         if let cell = tableView.cellForRow(at: indexPath) as? MenuProfileCell {
@@ -105,6 +115,7 @@ extension MainMenuVC: MainMenuViewProtocol {
     
 }
 
+//MARK:- PickCityVCDelegate
 extension MainMenuVC: PickCityVCDelegate {
     func didPick(_ city: City) {
         presenter.didChangeDefaultCity(city)
@@ -149,6 +160,9 @@ extension MainMenuVC: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.setNeedsLayout()
+        if let cell = cell as? MenuShopCell {
+            cell.reloadItemsIfNeeded()
+        }
     }
     
     func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {

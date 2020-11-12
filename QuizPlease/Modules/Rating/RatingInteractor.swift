@@ -9,12 +9,12 @@
 import Foundation
 
 protocol RatingInteractorProtocol {
-    func loadRating(with filter: RatingFilter, completion: @escaping (Result<[RatingItem], SessionError>) -> Void)
+    func loadRating(with filter: RatingFilter, page: Int, completion: @escaping (Result<[RatingItem], SessionError>) -> Void)
 }
 
 class RatingInteractor: RatingInteractorProtocol {
-    func loadRating(with filter: RatingFilter, completion: @escaping (Result<[RatingItem], SessionError>) -> Void) {
-        NetworkService.shared.getRating(cityId: filter.city.id, teamName: filter.teamName, league: filter.league.rawValue, ratingScope: filter.scope.rawValue) { (serverResult) in
+    func loadRating(with filter: RatingFilter, page: Int, completion: @escaping (Result<[RatingItem], SessionError>) -> Void) {
+        NetworkService.shared.getRating(cityId: filter.city.id, teamName: filter.teamName, league: filter.league.rawValue, ratingScope: filter.scope.rawValue, page: page) { (serverResult) in
             completion(serverResult)
         }
         

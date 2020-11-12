@@ -17,6 +17,12 @@ protocol GameOrderViewProtocol: UIViewController {
     
     func reloadInfo()
     func configureTableView()
+    
+    func enableLoading()
+    func disableLoading()
+    
+    func editEmail()
+    func editPhone()
 }
 
 class GameOrderVC: UIViewController {
@@ -36,8 +42,10 @@ class GameOrderVC: UIViewController {
     
     var isFirstLoad = true
     
-    @IBOutlet weak var gameImageView: UIImageView!
-    @IBOutlet weak var imageDarkeningView: UIView!
+    private var activityIndicator = UIActivityIndicatorView()
+    
+    @IBOutlet private weak var gameImageView: UIImageView!
+    @IBOutlet private weak var imageDarkeningView: UIView!
     @IBOutlet weak var tableView: UITableView!
         
     //MARK:- Lifecycle
@@ -57,6 +65,22 @@ class GameOrderVC: UIViewController {
     func scrollToSignUp() {
         let indexPath = IndexPath(row: GameInfoItemKind.registration.rawValue, section: 0)
         tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+    }
+    
+    ///Scroll to the top of Register section, after that calls `completion` closure where returns a `GameRegisterCell` object (if no errors occured)
+    func scrollToRegistrationCell(animated: Bool = true, completion: ((GameRegisterCell?) -> Void)?) {
+        let indexPath = IndexPath(row: GameInfoItemKind.registration.rawValue, section: 0)
+        
+        if let cell = tableView.cellForRow(at: indexPath) as? GameRegisterCell {
+            tableView.scrollToRow(at: indexPath, at: .top, animated: animated)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                completion?(cell)
+            }
+        } else {
+            completion?(nil)
+            print("Invalid cell kind at Register indexPath")
+        }
+        
     }
 
 }
@@ -81,6 +105,24 @@ extension GameOrderVC: GameOrderViewProtocol {
             }
         }
     }
+    
+    func enableLoading() {
+        activityIndicator.enableCentered(in: view, color: .systemBlue)
+    }
+    
+    func disableLoading() {
+        activityIndicator.stopAnimating()
+    }
+    
+    func editEmail() {
+        scrollToRegistrationCell { $0?.emailFieldView.textField.becomeFirstResponder() }
+    }
+    
+    func editPhone() {
+        scrollToRegistrationCell { (cell) in
+            cell?.phoneFieldView.textField.becomeFirstResponder()
+        }
+    }
 }
 
 //MARK:- Data Source & Delegate
@@ -103,17 +145,6 @@ extension GameOrderVC: UITableViewDataSource, UITableViewDelegate {
         
         return cell
     }
-    
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-    }
-    
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        guard let kind = GameInfoItemKind(rawValue: indexPath.row) else { return 44 }
-//        if let cell = tableView.cellForRow(at: indexPath) as? GamePayCell {
-//            return cell.height
-//        }
-//        return kind.height
-//    }
     
 }
 

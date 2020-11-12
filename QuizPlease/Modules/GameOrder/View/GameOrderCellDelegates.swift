@@ -8,6 +8,7 @@
 
 import UIKit
 
+//MARK:- Game Annotation
 extension GameOrderVC: GameAnnotationCellDelegate {
     func gameAnnotation(for cell: GameAnnotationCell) -> String {
         presenter.game.description
@@ -19,6 +20,7 @@ extension GameOrderVC: GameAnnotationCellDelegate {
     
 }
 
+//MARK:- Game Info
 extension GameOrderVC: GameInfoCellDelegate {
     func gameInfo(for gameInfoCell: GameInfoCell) -> GameInfo {
         return presenter.game
@@ -26,7 +28,9 @@ extension GameOrderVC: GameInfoCellDelegate {
 }
 
 
+//MARK:- Game Description
 extension GameOrderVC: GameDescriptionDelegate {}
+
 
 
 //MARK:- Register
@@ -72,7 +76,11 @@ extension GameOrderVC: GameRegisterCellDelegate {
 //MARK:- Certificate
 extension GameOrderVC: GameCertificateCellDelegate {
     func certificateCell(_ certificateCell: GameCertificateCell, didChangeCertificateCode newCode: String) {
-        presenter.registerForm.certificates = [newCode]
+        presenter.registerForm.certificates = newCode
+    }
+    
+    func didPressOkButton(in certificateCell: GameCertificateCell) {
+        view.endEditing(true)
     }
 }
 
@@ -80,7 +88,7 @@ extension GameOrderVC: GameCertificateCellDelegate {
 //MARK:- First Play
 extension GameOrderVC: GameFirstPlayCellDelegate {
     func firstPlayCell(_ cell: GameFirstPlayCell, didChangeStateTo isFirstPlay: Bool) {
-        presenter.registerForm.first_time = isFirstPlay
+        presenter.registerForm.isFirstTime = isFirstPlay
     }
 }
 
@@ -91,11 +99,11 @@ extension GameOrderVC: GamePaymentTypeCellDelegate {
     }
     
     func isOnlinePaymentInitially(in cell: GamePaymentTypeCell) -> Bool {
-        presenter.registerForm.payment_type == .online
+        presenter.registerForm.paymentType == .online
     }
     
     func paymentTypeCell(_ cell: GamePaymentTypeCell, didChangePaymentType isOnlinePayment: Bool) {
-        presenter.registerForm.payment_type = isOnlinePayment ? .online : .cash
+        presenter.registerForm.paymentType = isOnlinePayment ? .online : .cash
         let indexPath = IndexPath(row: GameInfoItemKind.onlinePayment.rawValue, section: 0)
         
         let onlinePaymentSection = GameInfoItemKind.onlinePayment
@@ -124,6 +132,10 @@ extension GameOrderVC: GamePaymentTypeCellDelegate {
 
 //MARK:- Online Payment
 extension GameOrderVC: GameOnlinePaymentCellDelegate {
+    func shouldDisplayCountPicker(in cell: GameOnlinePaymentCell) -> Bool {
+        return !presenter.game.isOnlineGame
+    }
+    
     func selectedNumberOfPeople(in cell: GameOnlinePaymentCell) -> Int {
         return presenter.registerForm.countPaidOnline ?? presenter.registerForm.count
     }
@@ -133,8 +145,7 @@ extension GameOrderVC: GameOnlinePaymentCellDelegate {
     }
     
     func sumToPay(in cell: GameOnlinePaymentCell, forNumberOfPeople number: Int) -> Int {
-        presenter.registerForm.countPaidOnline = number
-        return (presenter.game.priceNumber ?? 0) * number
+        return presenter.sumToPay(forPeople: number)
     }
     
 }
@@ -143,7 +154,7 @@ extension GameOrderVC: GameOnlinePaymentCellDelegate {
 //MARK:- Submit Button
 extension GameOrderVC: GameSubmitButtonCellDelegate {
     func titleForButton(in cell: GameSubmitButtonCell) -> String? {
-        let isOnlinePayment = presenter.registerForm.payment_type == .online
+        let isOnlinePayment = presenter.registerForm.paymentType == .online
         let title = isOnlinePayment ? "Оплатить игру" : "Записаться на игру"
         return title
     }

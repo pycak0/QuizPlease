@@ -22,7 +22,7 @@ class MenuShopCell: UITableViewCell, MenuCellItemProtocol {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var accessoryLabel: UILabel!
     @IBOutlet weak var accessoryStack: UIStackView!
-    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet private weak var collectionView: UICollectionView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -46,6 +46,16 @@ class MenuShopCell: UITableViewCell, MenuCellItemProtocol {
         self.collectionView.dataSource = delegate
         self.collectionView.delegate = delegate
         self.delegate = delegate
+    }
+    
+    func reloadItems() {
+        collectionView.reloadData()
+    }
+    
+    func reloadItemsIfNeeded() {
+        if collectionView.visibleCells.count == 0 {
+            collectionView.reloadData()
+        }
     }
     
 }

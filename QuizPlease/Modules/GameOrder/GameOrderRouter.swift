@@ -10,7 +10,7 @@ import UIKit
 
 //MARK:- Router Protocol
 protocol GameOrderRouterProtocol: RouterProtocol {
-    //func showPayScreen()
+    func showPaymentView<Provider: PaymentProvider>(provider: Provider, withSum sum: Double, description: String, delegate: Provider.Delegate)
     
     func showCompletionScreen(with gameInfo: GameInfo, numberOfPeopleInTeam number: Int)
 }
@@ -48,6 +48,12 @@ class GameOrderRouter: GameOrderRouterProtocol {
             "number": number
         ]
         viewController?.performSegue(withIdentifier: "ShowGameOrderCompletionScreen", sender: dict)
+    }
+    
+    func showPaymentView<Provider: PaymentProvider>(provider: Provider, withSum sum: Double, description: String, delegate: Provider.Delegate) {
+        guard let vc = viewController else { return }
+        
+        provider.showPaymentView(for: sum, description: description, from: vc, delegate: delegate)
     }
     
 }

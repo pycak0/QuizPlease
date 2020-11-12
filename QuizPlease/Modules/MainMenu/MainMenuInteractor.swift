@@ -12,6 +12,10 @@ protocol MainMenuInteractorProtocol: class {
     func loadMenuItems(completion: @escaping (Result<[MenuItemProtocol]?, Error>) -> Void)
     
     func loadUserInfo(completion: @escaping ((Result<UserInfo, SessionError>) -> Void))
+    
+    func loadShopItems(completion: @escaping ([ShopItem]) -> Void)
+    
+//    func createSampleItems() -> [ShopItem]
 }
 
 class MainMenuInteractor: MainMenuInteractorProtocol {
@@ -29,4 +33,27 @@ class MainMenuInteractor: MainMenuInteractorProtocol {
         NetworkService.shared.getUserInfo(completion: completion)
     }
     
+    func loadShopItems(completion: @escaping ([ShopItem]) -> Void) {
+        completion(self.createSampleItems())
+        NetworkService.shared.getShopItems { [weak self] (serverResult) in
+            guard let self = self else { return }
+            switch serverResult {
+            case let .failure(error):
+                print(error)
+                completion(self.createSampleItems())
+            case let .success(items):
+                if items.count > 0 {
+                    completion(Array(items.prefix(3)))
+                }
+            }
+        }
+    }
+    
+    private func createSampleItems() -> [ShopItem] {
+        var sampleItems = [ShopItem]()
+        for i in 0..<3 {
+            sampleItems.append(ShopItem(title: "SAMPLE", description: "SAMPLE", price: "\(1000 + 100 * i)"))
+        }
+        return sampleItems
+    }
 }

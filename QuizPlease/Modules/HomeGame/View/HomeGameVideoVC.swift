@@ -10,22 +10,42 @@ import UIKit
 
 class HomeGameVideoVC: UIViewController {
     
-    @IBOutlet weak var descriptionBackground: UIView!
-    @IBOutlet weak var descriptionLabel: UILabel!
-    @IBOutlet weak var rulesButton: ScalingButton!
-    @IBOutlet weak var blanksButton: ScalingButton!
-    @IBOutlet weak var videoView: VideoView!
+    @IBOutlet private weak var backgroundImageView: UIImageView!
+    @IBOutlet private weak var descriptionBackground: UIView!
+    @IBOutlet private weak var descriptionLabel: UILabel!
+    @IBOutlet private weak var rulesButton: ScalingButton!
+    @IBOutlet private weak var blanksButton: ScalingButton!
+    @IBOutlet private weak var videoView: VideoView!
     
     var homeGame: HomeGame!
     
+    //MARK:- Lifecycle 
     override func viewDidLoad() {
         super.viewDidLoad()
-        prepareNavigationBar(title: homeGame.title, tintColor: .white)
+        prepareNavigationBar(title: homeGame.fullTitle, tintColor: .white)
 
         configureViews()
         updateUI()
         loadDetail()
     }
+    
+    @IBAction func rulesButtonPressed(_ sender: Any) {
+        //openUrl(with: homeGame.rulesPath)
+    }
+    
+    @IBAction func blanksButtonPressed(_ sender: Any) {
+        openUrl(with: homeGame.blanksPath)
+    }
+    
+    private func openUrl(with path: String?) {
+        guard let path = path else { return }
+        var rulesUrlComps = Globals.baseUrl
+        rulesUrlComps.path = path
+        if let url = rulesUrlComps.url, UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url)
+        }
+    }
+    
     
     //MARK:- Configure Views
     private func configureViews() {
@@ -44,7 +64,10 @@ class HomeGameVideoVC: UIViewController {
         
         videoView.layer.cornerRadius = videoRadius
         descriptionBackground.layer.cornerRadius = videoRadius
+        backgroundImageView.layer.cornerRadius = videoRadius
         descriptionBackground.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        backgroundImageView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+        
     }
     
     //MARK:- Load Details
@@ -64,7 +87,7 @@ class HomeGameVideoVC: UIViewController {
     //MARK:- Update UI
     private func updateUI() {
         videoView.configurePlayer(url: homeGame.videoUrl)
-        videoView.imageView.loadImage(url: homeGame.frontImageUrl)
+        videoView.imageView.loadImage(path: homeGame.frontImagePath)
         
         descriptionLabel.text = homeGame.description ?? "..."
         

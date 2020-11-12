@@ -19,7 +19,7 @@ struct GameInfo: Decodable {
     var time: String = "-"
     var description: String = "-"
     
-    var status: GameStatus?
+    private var status: Int?
 
     private var price: String = "-"
     ///Describing price e.g. "с человека". Use `priceDetails` instead of this
@@ -29,6 +29,7 @@ struct GameInfo: Decodable {
     private var address: String = "-"
     private var cityName: String = ""
     private var payment_icon: Int = 0
+    private var game_type: Int = 0
     
     init(id: Int) {
         self.id = id
@@ -49,10 +50,15 @@ extension GameInfo {
     }
     
     var gameNumber: String {
-        if numberGame.hasPrefix("#") {
+        if numberGame.trimmingCharacters(in: .whitespaces).hasPrefix("#") {
             return numberGame
         }
         return "#" + numberGame
+    }
+    
+    ///A title of game containing its `nameGame` and `gameNumber` properties separated by a whitespace
+    var fullTitle: String {
+        return "\(nameGame.trimmingCharacters(in: .whitespaces)) \(gameNumber)"
     }
     
     var availablePaymentTypes: [PaymentType] {
@@ -66,5 +72,13 @@ extension GameInfo {
         default:
             return [.cash]
         }
+    }
+    
+    var isOnlineGame: Bool {
+        return game_type == 1
+    }
+    
+    var gameStatus: GameStatus? {
+        return GameStatus(rawValue: status ?? -999)
     }
 }

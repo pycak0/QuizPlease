@@ -13,31 +13,33 @@ struct HomeGame: Decodable {
     var title: String
     var description: String?
     var duration: String
-    private var videos_link: String?
-    private var front_image: String?
-//    var cover: String
     var number: String
     var price: Int
+    
+    private var videos_link: String?
+    private var front_image: String?
+    private var packages_link: String?
+//    var cover: String
 }
 
 extension HomeGame {
     var videoUrl: URL? {
-        var path = videos_link ?? ""
-        if !path.hasPrefix("/") {
-            path = "/" + path
-        }
+        let path = videos_link ?? ""
         var components = URLComponents(string: Globals.mainDomain)!
-        components.path = path
+        components.path = path.pathProof
         return components.url
     }
     
-    var frontImageUrl: URL? {
-        var path = front_image ?? ""
-        if !path.hasPrefix("/") {
-            path = "/" + path
-        }
-        var components = URLComponents(string: Globals.mainDomain)!
-        components.path = path
-        return components.url
+    var frontImagePath: String? {
+        return front_image?.pathProof
+    }
+    
+    var blanksPath: String? {
+        packages_link?.pathProof
+    }
+    
+    ///A title of home game containing its `title` and `number` properties separated by a whitespace
+    var fullTitle: String {
+        return "\(title.trimmingCharacters(in: .whitespaces)) \(number)"
     }
 }

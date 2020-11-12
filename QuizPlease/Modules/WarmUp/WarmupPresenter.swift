@@ -8,6 +8,7 @@
 
 import UIKit
 
+//MARK:- Presenter Protocol
 protocol WarmupPresenterProtocol {
     var router: WarmupRouterProtocol! { get }
     var questions: [WarmupQuestion]! { get set }
@@ -15,11 +16,15 @@ protocol WarmupPresenterProtocol {
     ///In seconds
     var timePassed: Double { get set }
     
+    var correctAnswersCount: Int { get }
+    
     init(view: WarmupViewProtocol, interactor: WarmupInteractorProtocol, router: WarmupRouterProtocol)
     
-    func configureViews()
+    func setupView()
     
     func didPressStartGame()
+    
+    func didAnswer(_ answer: String, for question: WarmupQuestion)
     
     func shareAction()
     
@@ -33,7 +38,18 @@ class WarmupPresenter: WarmupPresenterProtocol {
     
     var questions: [WarmupQuestion]!
     
-    var timePassed: Double = 0
+    var correctAnswersCount: Int = 0
+    
+    var timePassed: Double = 0 {
+        didSet {
+            let timePassed = Int(self.timePassed)
+            let minutes = timePassed / 60
+            let seconds = timePassed % 60
+            view?.updatePassedTime(withMinutes: minutes, seconds: seconds)
+        }
+    }
+    
+    private var timer: Timer?
     
     required init(view: WarmupViewProtocol, interactor: WarmupInteractorProtocol, router: WarmupRouterProtocol) {
         self.view = view
@@ -41,8 +57,9 @@ class WarmupPresenter: WarmupPresenterProtocol {
         self.router = router
     }
     
-    func configureViews() {
-        view?.configureViews()
+    //MARK:- Setup
+    func setupView() {
+        view?.configure()
         
         interactor.loadQuestions { [weak self] (result) in
             guard let self = self else { return }
@@ -57,11 +74,29 @@ class WarmupPresenter: WarmupPresenterProtocol {
         }
     }
     
+    //MARK:- Actions
     func didPressStartGame() {
-        view?.startGame()
+        if questions.count > 0 {
+            view?.startGame()
+            startTimer()
+        } else {
+            view?.showSimpleAlert(title: "Новых вопросов пока нет", message: "Но скоро они появятся, загляните чуть позже")
+        }
+    }
+    
+    func didAnswer(_ answer: String, for question: WarmupQuestion) {
+        //guard questions.contains { $0 == question }
+        if question.isAnswerCorrect(answer) {
+            correctAnswersCount += 1
+        } else {
+            timePassed += 15
+        }
+        let id = "\(question.id)"
+        interactor.saveQuestionId(id)
     }
     
     func gameEnded() {
+        stopTimer()
         view?.showResults()
     }
     
@@ -70,6 +105,19 @@ class WarmupPresenter: WarmupPresenterProtocol {
             interactor.shareResults(image, delegate: viewController)
         }
         
+    }
+    
+    //MARK:- Private
+    private func startTimer() {
+        let interval: Double = 1
+        timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { t in
+            self.timePassed += interval
+        }
+    }
+    
+    private func stopTimer() {
+        timer?.invalidate()
+        timer = nil
     }
     
 }
