@@ -13,7 +13,7 @@ import UserNotificationsUI
 import YandexCheckoutPaymentsApi
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate {
 
     let gcmMessageIDKey = "gcm.message_id"
     
@@ -78,7 +78,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
 }
 
-extension AppDelegate {
+extension AppDelegate: UNUserNotificationCenterDelegate {
     
     //MARK:- Did Receive Remote Notification
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {

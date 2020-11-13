@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct RatingItem: Decodable {
+struct RatingItem: Decodable, Equatable {
     var name: String
     var games: Int
     var pointsTotal: Double

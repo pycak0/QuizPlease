@@ -8,6 +8,7 @@
 
 import Foundation
 
+//MARK:- Presenter Protocol
 protocol RatingPresenterProtocol {
     var router: RatingRouterProtocol! { get set }
     init(view: RatingViewProtocol, interactor: RatingInteractorProtocol, router: RatingRouterProtocol)
@@ -41,7 +42,8 @@ class RatingPresenter: RatingPresenterProtocol {
     let availableGameTypeNames = RatingFilter.RatingLeague.allCases.map { $0.name }
     var filter = RatingFilter(scope: .season)
     
-    private var currentPage = 1
+    private let firstPageNumber = 1
+    private lazy var currentPage = firstPageNumber
     
     required init(view: RatingViewProtocol, interactor: RatingInteractorProtocol, router: RatingRouterProtocol) {
         self.router = router
@@ -49,6 +51,7 @@ class RatingPresenter: RatingPresenterProtocol {
         self.view = view
     }
     
+    //MARK:- Actions
     func didChangeLeague(_ selectedIndex: Int) {
         let league = RatingFilter.RatingLeague.allCases[selectedIndex]
         filter.league = league
@@ -63,9 +66,10 @@ class RatingPresenter: RatingPresenterProtocol {
     
     func didChangeTeamName(_ name: String) {
         filteredTeams = teams.filter { $0.name.lowercased().contains(name.lowercased()) }
-        view?.reloadRatingList()
-        if filteredTeams.count == 0 {
+        if filteredTeams.isEmpty {
             searchByTeamName(name)
+        } else {
+            view?.reloadRatingList()
         }
     }
     
@@ -89,9 +93,13 @@ class RatingPresenter: RatingPresenterProtocol {
         loadRating()
     }
     
-    ///Resets `currentPage` value to `1` and calls `loadRating` method
+    //MARK:- Load
+    ///Resets `currentPage` value to `1`, clears `teams` array and reloads view, then calls `loadRating` method
     private func reloadRating() {
-        currentPage = 1
+        currentPage = firstPageNumber
+        teams.removeAll()
+        filteredTeams.removeAll()
+        view?.reloadRatingList()
         loadRating()
     }
     
@@ -110,9 +118,12 @@ class RatingPresenter: RatingPresenterProtocol {
                 
             case .success(let teams):
                 var indices = 0..<0
-                if self.currentPage > 1 {
+                if self.currentPage > self.firstPageNumber {
+                    let filteredTeams = teams.filter { !self.teams.contains($0) }
+                    guard !filteredTeams.isEmpty else { return }
+                    
                     let startIndex = self.teams.count
-                    self.teams += teams
+                    self.teams += filteredTeams
                     indices = startIndex..<self.teams.count
                 } else {
                     self.teams = teams

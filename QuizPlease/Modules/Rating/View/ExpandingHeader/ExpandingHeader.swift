@@ -10,8 +10,8 @@ import UIKit
 
 //MARK:- Delegate Protocol
 protocol ExpandingHeaderDelegate: class {        
-    ///Delegate must perform updating `selectedGameTypeLabel` with selected type name
-    func didPressGameTypeView(in expandingHeader: ExpandingHeader)
+    ///Delegate should provide a new selected Game Type Name string as an argument for `completion` closure for the `ExpandingHeader` to update its `selectedGameTypeLabel` text
+    func didPressGameTypeView(in expandingHeader: ExpandingHeader, completion: @escaping (_ selectedName: String?) -> Void)
     
     func expandingHeader(_ expandingHeader: ExpandingHeader, didChangeStateTo isExpanded: Bool)
     
@@ -19,7 +19,11 @@ protocol ExpandingHeaderDelegate: class {
     
     func expandingHeader(_ expandingHeader: ExpandingHeader, didChange query: String)
     
+    ///Is called when `ExpandingHeader`'s `searchField` did end editing
     func expandingHeader(_ expandingHeader: ExpandingHeader, didEndSearchingWith query: String)
+    
+    ///Is called when `ExpandingHeader`'s `searchField` did press return button
+    func expandingHeader(_ expandingHeader: ExpandingHeader, didPressReturnButtonWith query: String)
     
 }
 
@@ -40,7 +44,7 @@ class ExpandingHeader: UIView {
     @IBOutlet private weak var searchField: UITextField!
     @IBOutlet private weak var segmentControl: HBSegmentedControl!
     @IBOutlet private weak var gameTypesView: UIView!
-    @IBOutlet weak var selectedGameTypeLabel: UILabel!
+    @IBOutlet private weak var selectedGameTypeLabel: UILabel!
     @IBOutlet private weak var collapseButton: UIButton!
     
     unowned var gradientLayer: CAGradientLayer!
@@ -146,7 +150,9 @@ class ExpandingHeader: UIView {
         gameTypesView.layer.cornerRadius = itemsCornerRadius
         gameTypesView.backgroundColor = color
         gameTypesView.addTapGestureRecognizer {
-            self.delegate?.didPressGameTypeView(in: self)
+            self.delegate?.didPressGameTypeView(in: self) { selectedName in
+                self.selectedGameTypeLabel.text = selectedName
+            }
         }
         
         setupGradient()

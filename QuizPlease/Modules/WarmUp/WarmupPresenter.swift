@@ -11,10 +11,10 @@ import UIKit
 //MARK:- Presenter Protocol
 protocol WarmupPresenterProtocol {
     var router: WarmupRouterProtocol! { get }
-    var questions: [WarmupQuestion]! { get set }
+    var questions: [WarmupQuestion]! { get }
     
     ///In seconds
-    var timePassed: Double { get set }
+    var timePassed: Double { get }
     
     var correctAnswersCount: Int { get }
     

@@ -18,7 +18,7 @@ extension ExpandingHeader: UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        delegate?.expandingHeader(self, didEndSearchingWith: textField.text ?? "")
+        delegate?.expandingHeader(self, didPressReturnButtonWith: textField.text ?? "")
         textField.resignFirstResponder()
         return true
     }
