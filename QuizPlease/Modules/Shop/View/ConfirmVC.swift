@@ -55,7 +55,8 @@ class ConfirmVC: BottomPopupViewController {
         itemImageView.loadImage(path: shopItem.imagePath, placeholderImage: .logoColoredImage)
         descriptionLabel.text = shopItem.description
         titleLabel.text = shopItem.title
-        confirmMessageLabel.text = "Потратить \(shopItem.priceNumber) на электронный сертификат?"
+        let priceFormatted = shopItem.priceNumber.string(withAssociatedMaleWord: "балл")
+        confirmMessageLabel.text = "Потратить \(priceFormatted) на электронный сертификат?"
         
     }
     
