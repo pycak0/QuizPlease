@@ -128,7 +128,9 @@ class RatingPresenter: RatingPresenterProtocol {
                 } else {
                     self.teams = teams
                 }
+                
                 self.filteredTeams = self.teams
+                
                 if !indices.isEmpty {
                     self.view?.appendRaingItems(at: indices)
                 } else {

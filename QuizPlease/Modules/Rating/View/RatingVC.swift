@@ -67,7 +67,9 @@ extension RatingVC: RatingViewProtocol {
     }
     
     func endLoadingAnimation() {
-        tableView.refreshControl?.endRefreshing()
+        if tableView.refreshControl?.isRefreshing ?? false {
+            tableView.refreshControl?.endRefreshing()
+        }
         tableView.tableFooterView?.isHidden = true
     }
     
