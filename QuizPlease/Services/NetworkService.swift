@@ -374,17 +374,21 @@ class NetworkService {
         var registerUrlComps = Globals.baseUrl
         registerUrlComps.path = "/ajax/save-record"
         
-        let parameters: [String: String] = [
+        let countPaidOnline = registerForm.countPaidOnline == nil ? nil : "\(registerForm.countPaidOnline!)"
+        
+        let parameters: [String: String?] = [
             "QpRecord[captainName]"     : registerForm.captainName,
             "QpRecord[email]"           : registerForm.email,
             "QpRecord[phone]"           : registerForm.phone,
             "QpRecord[comment]"         : registerForm.comment ?? "",
             "QpRecord[game_id]"         : "\(registerForm.gameId)",
             "QpRecord[first_time]"      : registerForm.isFirstTime ? "1" : "0",
-            "certificates[]"            : registerForm.certificates ?? "",
+            "certificates[]"            : registerForm.certificates,
             "QpRecord[payment_type]"    : registerForm.paymentType == .online ? "1" : "2",
             "QpRecord[count]"           : "\(registerForm.count)",
-            "QpRecord[teamName]"        : registerForm.teamName
+            "QpRecord[teamName]"        : registerForm.teamName,
+            "QpRecord[payment_token]"   : registerForm.paymentToken,
+            "QpRecord[surcharge]"       : countPaidOnline
         ]
         
         afPost(with: parameters, to: registerUrlComps, responseType: GameOrderResponse.self, completion: completion)

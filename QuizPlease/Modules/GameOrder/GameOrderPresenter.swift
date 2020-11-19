@@ -158,13 +158,16 @@ extension GameOrderPresenter: TokenizationModuleOutput {
         DispatchQueue.main.async {
             self.view?.dismiss(animated: true)
             
-            self.view?.showTwoOptionsAlert(
-                title: "Токен для оплаты сгенерирован",
-                message: token.paymentToken,
-                option1Title: "OK", handler1: nil,
-                option2Title: "Скопировать") { (copyAction) in
-                    UIPasteboard.general.string = token.paymentToken
-            }
+            self.registerForm.paymentToken = token.paymentToken
+            self.register()
+            
+//            self.view?.showTwoOptionsAlert(
+//                title: "Токен для оплаты сгенерирован",
+//                message: token.paymentToken,
+//                option1Title: "OK", handler1: nil,
+//                option2Title: "Скопировать") { (copyAction) in
+//                    UIPasteboard.general.string = token.paymentToken
+//            }
             
 //            interactor.pay(with: token.paymentToken) { [weak self] (error) in
 //                guard let self = self else { return }

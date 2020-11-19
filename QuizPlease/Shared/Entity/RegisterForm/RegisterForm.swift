@@ -21,6 +21,8 @@ struct RegisterForm: Encodable {
     var comment: String?
     var paymentType: PaymentType = .online
     
+    var paymentToken: String?
+    
 }
 
 extension RegisterForm {
