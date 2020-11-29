@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="MXu-d8-TzQ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="MXu-d8-TzQ">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
@@ -1522,7 +1522,7 @@
                         <barButtonItem key="backBarButtonItem" title=" " id="GZx-UZ-Qzs"/>
                         <barButtonItem key="rightBarButtonItem" style="plain" id="Nss-ms-8zo">
                             <view key="customView" contentMode="scaleToFill" id="Dn0-XF-7MI">
-                                <rect key="frame" x="302" y="6" width="92" height="33"/>
+                                <rect key="frame" x="301" y="6" width="92" height="33"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2430 Б" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ozp-8d-wSt">
@@ -2213,6 +2213,7 @@
                     <nil name="viewControllers"/>
                     <connections>
                         <segue destination="Biu-cA-03G" kind="relationship" relationship="rootViewController" id="oLb-wC-Dxf"/>
+                        <segue destination="dey-6N-OBf" kind="presentation" id="hjd-Yf-hne"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6aH-0s-Nnq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -2304,6 +2305,48 @@
             </objects>
             <point key="canvasLocation" x="4169.5652173913049" y="-2229.2410714285711"/>
         </scene>
+        <!--Подтверждение оплаты-->
+        <scene sceneID="TlF-dS-JUy">
+            <objects>
+                <viewController id="hXi-c9-zhU" customClass="PaymentVC" customModule="QuizPlease" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="4n0-3c-uqU">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="alC-Ca-wfM">
+                                <rect key="frame" x="0.0" y="56" width="414" height="752"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration" allowsAirPlayForMediaPlayback="NO" allowsPictureInPictureMediaPlayback="NO">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Fgj-7q-Ucg"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="alC-Ca-wfM" firstAttribute="top" secondItem="Fgj-7q-Ucg" secondAttribute="top" id="3Tq-kF-5vs"/>
+                            <constraint firstItem="Fgj-7q-Ucg" firstAttribute="trailing" secondItem="alC-Ca-wfM" secondAttribute="trailing" id="LFy-r4-6gP"/>
+                            <constraint firstItem="Fgj-7q-Ucg" firstAttribute="bottom" secondItem="alC-Ca-wfM" secondAttribute="bottom" id="OhD-ST-qDn"/>
+                            <constraint firstItem="alC-Ca-wfM" firstAttribute="leading" secondItem="Fgj-7q-Ucg" secondAttribute="leading" id="fHS-Fg-cas"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Подтверждение оплаты" id="w6t-VQ-Auo">
+                        <barButtonItem key="leftBarButtonItem" title="Отмена" id="QwS-jl-j0v">
+                            <color key="tintColor" systemColor="labelColor"/>
+                            <connections>
+                                <action selector="cancelButtonPressed:" destination="hXi-c9-zhU" id="B76-Nl-33j"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="webView" destination="alC-Ca-wfM" id="cWy-SW-fUe"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7jE-dl-lcw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5016" y="-3185"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="Eet-qp-b69">
             <objects>
@@ -2321,6 +2364,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Ln-tN-evR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="994" y="1379"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="HIY-cf-UVL">
+            <objects>
+                <navigationController storyboardIdentifier="Payment-Web" automaticallyAdjustsScrollViewInsets="NO" id="dey-6N-OBf" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="XUc-pM-WwO">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="hXi-c9-zhU" kind="relationship" relationship="rootViewController" id="IaY-rj-Rzd"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xiI-2O-C8Z" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4225" y="-3185"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

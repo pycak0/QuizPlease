@@ -37,6 +37,8 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
             registerForm.paymentType = game.availablePaymentTypes.contains(.online) ? .online : .cash
         }
     }
+    
+    private var tokenizationModule: TokenizationModuleInput?
 
     required init(view: GameOrderViewProtocol, interactor: GameOrderInteractorProtocol, router: GameOrderRouterProtocol) {
         self.view = view
@@ -109,7 +111,28 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
             }
 
             let title = "Запись на игру"
-            var message: String = ""
+            var message: String = "Произошла ошибка при записи на игру"
+            
+            if response.shouldRedirect {
+                if let url = response.link /*, let view = self.view*/ {
+//                    self.interactor.confirmPayment(redirectLink: url, presentationView: view) { (error) in
+//                        if let error = error {
+//                            print(error)
+//                            self.view?.showSimpleAlert(title: title, message: message)
+//                            return
+//                        }
+//                    }
+                    self.tokenizationModule?.start3dsProcess(requestUrl: url.absoluteString)
+                } else {
+                    self.view?.showSimpleAlert(title: title, message: message)
+                    return
+                }
+            }
+            else if response.paymentStatus == .succeeded {
+                self.completeOrder()
+                return
+            }
+            
             if response.isSuccess {
                 message = response.successMsg ?? "Успешно"
             } else {
@@ -117,7 +140,7 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
             }
 
             self.view?.showSimpleAlert(title: title, message: message) { okAction in
-                if response.isSuccess {
+                if response.isSuccessfullyRegistered {
                     self.completeOrder()
                 }
             }
@@ -137,6 +160,27 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
     
 }
 
+//MARK:- Interactor Delegate
+extension GameOrderPresenter: GameOrderInteractorDelegate {
+    func paymentConfirmationController(_ paymentVC: UIViewController, didRedirectToUrl url: URL) {
+        ///Assuming that redirect to "quizplease.ru" is a "return to the shop" button action
+        if url.host?.contains("quizplease.ru") ?? false {
+            paymentVC.dismiss(animated: true) {
+                self.completeOrder()
+            }
+        }
+    }
+    
+    func paymentConfirmationControllerDidFinish(_ paymentVC: UIViewController) {
+        //
+    }
+    
+    func paymentConfirmationControllerWillOpenInBrowser(_ paymentVC: UIViewController) {
+        paymentVC.dismiss(animated: true)
+    }
+}
+
+
 //MARK:- TokenizationModuleOutput
 extension GameOrderPresenter: TokenizationModuleOutput {
     func didFinish(on module: TokenizationModuleInput, with error: YandexCheckoutPaymentsError?) {
@@ -144,19 +188,23 @@ extension GameOrderPresenter: TokenizationModuleOutput {
             self.view?.dismiss(animated: true)
         }
         
+        
         print("Error:", error as Any)
     }
     
     func didSuccessfullyPassedCardSec(on module: TokenizationModuleInput) {
         DispatchQueue.main.async {
-            self.view?.dismiss(animated: true)
+            self.view?.dismiss(animated: true) {
+                self.completeOrder()
+            }
         }
         print("3-D Secure process successfully passed")
     }
     
     func tokenizationModule(_ module: TokenizationModuleInput, didTokenize token: Tokens, paymentMethodType: PaymentMethodType) {
         DispatchQueue.main.async {
-            self.view?.dismiss(animated: true)
+            //self.view?.dismiss(animated: true)
+            self.tokenizationModule = module
             
             self.registerForm.paymentToken = token.paymentToken
             self.register()

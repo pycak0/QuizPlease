@@ -461,6 +461,7 @@ class NetworkService {
             case let .success(data):
                 do {
                     let serverResponse = try JSONDecoder().decode(Response.self, from: data)
+                   // print(">>> Response data:\n\n", String(data: data, encoding: .utf8) ?? "json decoding error")
                     completion(.success(serverResponse))
                 } catch {
                     completion(.failure(.decoding(error)))
