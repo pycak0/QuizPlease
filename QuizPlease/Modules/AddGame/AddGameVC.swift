@@ -8,17 +8,21 @@
 
 import UIKit
 
+protocol AddGameVCDelegate: class {
+    func didAddGameToUserProfile(_ vc: AddGameVC)
+}
+
 class AddGameVC: UIViewController {
     
     //MARK:- Outlets
-    @IBOutlet weak var addGameButton: ScalingButton!
-    @IBOutlet weak var infoView: UIView!
-    @IBOutlet weak var gameNameLabel: UILabel!
-    @IBOutlet weak var gameNumberLabel: UILabel!
-    @IBOutlet weak var placeNameLabel: UILabel!
-    @IBOutlet weak var placeAddressLabel: UILabel!
-    @IBOutlet weak var timeLabel: UILabel!
-    @IBOutlet weak var chooseTeamView: TitledTextFieldView!
+    @IBOutlet private weak var addGameButton: ScalingButton!
+    @IBOutlet private weak var infoView: UIView!
+    @IBOutlet private weak var gameNameLabel: UILabel!
+    @IBOutlet private weak var gameNumberLabel: UILabel!
+    @IBOutlet private weak var placeNameLabel: UILabel!
+    @IBOutlet private weak var placeAddressLabel: UILabel!
+    @IBOutlet private weak var timeLabel: UILabel!
+    @IBOutlet private weak var chooseTeamView: TitledTextFieldView!
     
     var token: String!
     
@@ -26,8 +30,10 @@ class AddGameVC: UIViewController {
     
     var chosenTeam: TeamInfo?
     
+    weak var delegate: AddGameVCDelegate?
+    
     //MARK:- Add Game Button Pressed
-    @IBAction func addGameButtonPressed(_ sender: Any) {
+    @IBAction private func addGameButtonPressed(_ sender: Any) {
         saveGame()
         //navigationController?.popViewController(animated: true)
     }
@@ -56,6 +62,7 @@ class AddGameVC: UIViewController {
         NetworkService.shared.checkInOnGame(with: token, chosenTeamId: id) { [weak self] (isSuccess) in
             guard let self = self else { return }
             if isSuccess {
+                self.delegate?.didAddGameToUserProfile(self)
                 self.navigationController?.popViewController(animated: true)
             } else {
                 self.showErrorConnectingToServerAlert()

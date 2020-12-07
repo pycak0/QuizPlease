@@ -75,9 +75,14 @@ class NetworkService {
     }
     
     //MARK:- Get Shop Items
-    func getShopItems(completion: @escaping (Result<[ShopItem], SessionError>) -> Void) {
+    func getShopItems(cityId: Int? = nil, completion: @escaping (Result<[ShopItem], SessionError>) -> Void) {
         var shopUrlComponents = Globals.baseUrl
         shopUrlComponents.path = "/api/product"
+        
+        let id = cityId ?? Globals.defaultCity.id
+        shopUrlComponents.queryItems = [
+            URLQueryItem(name: "city_id", value: "\(id)")
+        ]
         
         getStandard([ShopItem].self, with: shopUrlComponents, completion: completion)
     }

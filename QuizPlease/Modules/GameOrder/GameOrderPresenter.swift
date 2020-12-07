@@ -129,8 +129,13 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
                 }
             }
             else if response.paymentStatus == .succeeded {
-                self.completeOrder()
+                self.view?.dismiss(animated: true) {
+                    self.completeOrder()
+                }
                 return
+            }
+            else {
+                self.view?.dismiss(animated: true)
             }
             
             if response.isSuccess {

@@ -69,7 +69,6 @@
 		A423AC2424EEC65100071E68 /* ConfirmVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A423AC2324EEC65100071E68 /* ConfirmVC.swift */; };
 		A42527C324F06E9300E3FBD4 /* GameFirstPlayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A42527C124F06E9300E3FBD4 /* GameFirstPlayCell.swift */; };
 		A42527C424F06E9300E3FBD4 /* GameFirstPlayCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A42527C224F06E9300E3FBD4 /* GameFirstPlayCell.xib */; };
-		A43402852571329A008F6599 /* PaymentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43402832571329A008F6599 /* PaymentVC.swift */; };
 		A43DB6AF254770F8006E4569 /* ActivityIndicator+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43DB6AE254770F8006E4569 /* ActivityIndicator+Extensions.swift */; };
 		A441A80B253F2799007146D3 /* CheckInResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A441A80A253F2799007146D3 /* CheckInResponse.swift */; };
 		A441A80E253F2834007146D3 /* AnyValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = A441A80D253F2834007146D3 /* AnyValue.swift */; };
@@ -199,6 +198,10 @@
 		A4E675F2255D76640011A801 /* AudioView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4E675F1255D76640011A801 /* AudioView.xib */; };
 		A4E675F4255D78400011A801 /* AudioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E675F3255D78400011A801 /* AudioView.swift */; };
 		A4E675F7255DB4AB0011A801 /* String+Validating.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E675F6255DB4AB0011A801 /* String+Validating.swift */; };
+		A4F3A792257D898A00D6A9C7 /* CameraChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F3A791257D898A00D6A9C7 /* CameraChecker.swift */; };
+		A4F3A795257E561800D6A9C7 /* SplashScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F3A794257E561800D6A9C7 /* SplashScreenVC.swift */; };
+		A4F3A79A257E7A1700D6A9C7 /* UIImage+Static.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F3A799257E7A1700D6A9C7 /* UIImage+Static.swift */; };
+		A4F3A79C257E82A600D6A9C7 /* ProfileSampleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F3A79B257E82A600D6A9C7 /* ProfileSampleCell.swift */; };
 		A4F567E12533C5B10050B5DF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A4F567E02533C5B10050B5DF /* GoogleService-Info.plist */; };
 		A4FB0485251790CD00054DE4 /* GOCPeopleNumberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FB0483251790CD00054DE4 /* GOCPeopleNumberCell.swift */; };
 		A4FB0486251790CD00054DE4 /* GOCPeopleNumberCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4FB0484251790CD00054DE4 /* GOCPeopleNumberCell.xib */; };
@@ -289,7 +292,6 @@
 		A423AC2324EEC65100071E68 /* ConfirmVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmVC.swift; sourceTree = "<group>"; };
 		A42527C124F06E9300E3FBD4 /* GameFirstPlayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameFirstPlayCell.swift; sourceTree = "<group>"; };
 		A42527C224F06E9300E3FBD4 /* GameFirstPlayCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameFirstPlayCell.xib; sourceTree = "<group>"; };
-		A43402832571329A008F6599 /* PaymentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentVC.swift; sourceTree = "<group>"; };
 		A43DB6AE254770F8006E4569 /* ActivityIndicator+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ActivityIndicator+Extensions.swift"; sourceTree = "<group>"; };
 		A441A80A253F2799007146D3 /* CheckInResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInResponse.swift; sourceTree = "<group>"; };
 		A441A80D253F2834007146D3 /* AnyValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyValue.swift; sourceTree = "<group>"; };
@@ -415,6 +417,10 @@
 		A4E675F1255D76640011A801 /* AudioView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AudioView.xib; sourceTree = "<group>"; };
 		A4E675F3255D78400011A801 /* AudioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioView.swift; sourceTree = "<group>"; };
 		A4E675F6255DB4AB0011A801 /* String+Validating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Validating.swift"; sourceTree = "<group>"; };
+		A4F3A791257D898A00D6A9C7 /* CameraChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraChecker.swift; sourceTree = "<group>"; };
+		A4F3A794257E561800D6A9C7 /* SplashScreenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenVC.swift; sourceTree = "<group>"; };
+		A4F3A799257E7A1700D6A9C7 /* UIImage+Static.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Static.swift"; sourceTree = "<group>"; };
+		A4F3A79B257E82A600D6A9C7 /* ProfileSampleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSampleCell.swift; sourceTree = "<group>"; };
 		A4F567E02533C5B10050B5DF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A4FB0483251790CD00054DE4 /* GOCPeopleNumberCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GOCPeopleNumberCell.swift; sourceTree = "<group>"; };
 		A4FB0484251790CD00054DE4 /* GOCPeopleNumberCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GOCPeopleNumberCell.xib; sourceTree = "<group>"; };
@@ -623,6 +629,7 @@
 				A40C807A252E7E7900CE40D8 /* DefaultsManager.swift */,
 				A48E2FB52530E23800CD6BE6 /* Utilities.swift */,
 				A4C71767254E014E00898CA5 /* PaymentProvider */,
+				A4F3A791257D898A00D6A9C7 /* CameraChecker.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -643,6 +650,7 @@
 				A4E675F5255DB49E0011A801 /* String */,
 				A43DB6AE254770F8006E4569 /* ActivityIndicator+Extensions.swift */,
 				A417FA5225711C210064C467 /* UIViewController+SafariVC.swift */,
+				A4F3A799257E7A1700D6A9C7 /* UIImage+Static.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -652,16 +660,9 @@
 			children = (
 				A40D818124D2CA30006D2CE3 /* ProfileVC.swift */,
 				A423AC1A24EE864000071E68 /* ProfileCell.swift */,
+				A4F3A79B257E82A600D6A9C7 /* ProfileSampleCell.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		A434028225713261008F6599 /* PaymentWebView */ = {
-			isa = PBXGroup;
-			children = (
-				A43402832571329A008F6599 /* PaymentVC.swift */,
-			);
-			path = PaymentWebView;
 			sourceTree = "<group>";
 		};
 		A445E34624DE02A20070B9FC /* View */ = {
@@ -968,7 +969,7 @@
 		A4BA1CF124D83A6900D32ADC /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				A434028225713261008F6599 /* PaymentWebView */,
+				A4F3A793257E55F400D6A9C7 /* Splash */,
 				A40D817224D2C95D006D2CE3 /* MainMenu */,
 				A40D817624D2C97E006D2CE3 /* Schedule */,
 				A4A0659524E4775E0080E0D8 /* GameOrder */,
@@ -1085,6 +1086,14 @@
 				A4E675F6255DB4AB0011A801 /* String+Validating.swift */,
 			);
 			path = String;
+			sourceTree = "<group>";
+		};
+		A4F3A793257E55F400D6A9C7 /* Splash */ = {
+			isa = PBXGroup;
+			children = (
+				A4F3A794257E561800D6A9C7 /* SplashScreenVC.swift */,
+			);
+			path = Splash;
 			sourceTree = "<group>";
 		};
 		A4FB047C25178B3400054DE4 /* GameOrderCompletion */ = {
@@ -1361,6 +1370,7 @@
 				A4DAF73924DD987F00963C15 /* MenuProfileCell.swift in Sources */,
 				A450E39A24E564A900C49AEE /* GameCertificateCell.swift in Sources */,
 				A40F036424D419D200C381F2 /* MenuCellItemProtocol.swift in Sources */,
+				A4F3A79A257E7A1700D6A9C7 /* UIImage+Static.swift in Sources */,
 				A452E3B424D431C5002EE514 /* Int+WordBuilding.swift in Sources */,
 				A48E2FB62530E23800CD6BE6 /* Utilities.swift in Sources */,
 				A48E2FAA2530906200CD6BE6 /* UserInfo.swift in Sources */,
@@ -1377,6 +1387,7 @@
 				A4C71766254DE61600898CA5 /* YooMoneyPaymentProvider.swift in Sources */,
 				A40D818A24D2D24C006D2CE3 /* ScheduleCell.swift in Sources */,
 				A46F303A24F52CAE0062A333 /* GameOnlinePaymentCell.swift in Sources */,
+				A4F3A795257E561800D6A9C7 /* SplashScreenVC.swift in Sources */,
 				A40B759E24D9A86E006DB7D1 /* RatingPresenter.swift in Sources */,
 				A498FCCC24E52ED80069F896 /* GameRegisterCell.swift in Sources */,
 				A4C9D81324EA78BB00523688 /* RatingCell.swift in Sources */,
@@ -1387,8 +1398,8 @@
 				A405C98724F651C900C74787 /* MainMenuShopCollectionView.swift in Sources */,
 				A40D818624D2CA44006D2CE3 /* ShopVC.swift in Sources */,
 				A4FFA4AD24F3AE78006A1150 /* MapExtensions.swift in Sources */,
+				A4F3A79C257E82A600D6A9C7 /* ProfileSampleCell.swift in Sources */,
 				A4FB0485251790CD00054DE4 /* GOCPeopleNumberCell.swift in Sources */,
-				A43402852571329A008F6599 /* PaymentVC.swift in Sources */,
 				A4822F68252CF85A004E05B9 /* GameStatus.swift in Sources */,
 				A40C8086252E872D00CE40D8 /* WarmupAnswer.swift in Sources */,
 				A40D818024D2CA26006D2CE3 /* HomeGamesListVC.swift in Sources */,
@@ -1424,6 +1435,7 @@
 				A40B758A24D9A806006DB7D1 /* WarmupConfigurator.swift in Sources */,
 				A423AC1D24EE971100071E68 /* ShopItem.swift in Sources */,
 				A4D230A624F91F0100524A01 /* QuestionPageVC.swift in Sources */,
+				A4F3A792257D898A00D6A9C7 /* CameraChecker.swift in Sources */,
 				A4CC5FC524DACE230042B41C /* ShopRouter.swift in Sources */,
 				A4BA1CF324D84C4B00D32ADC /* MenuItem.swift in Sources */,
 				A40B759024D9A829006DB7D1 /* HomeGameRouter.swift in Sources */,
@@ -1585,7 +1597,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = QuizPlease/QuizPlease.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = P89V4KBVYT;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1612,7 +1624,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = QuizPlease/QuizPlease.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = P89V4KBVYT;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

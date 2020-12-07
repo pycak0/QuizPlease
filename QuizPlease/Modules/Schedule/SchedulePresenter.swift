@@ -22,6 +22,9 @@ protocol SchedulePresenterProtocol: class {
     func didAskNotification(forGameAt index: Int)
     func didAskLocation(forGameAt index: Int)
     
+    func homeGameAction()
+    func warmupAction()
+    
     func didPressFilterButton()
     func didChangeScheduleFilter(newFilter: ScheduleFilter)
     
@@ -47,7 +50,7 @@ class SchedulePresenter: SchedulePresenterProtocol {
     var scheduleFilter = ScheduleFilter()
     
     func configureViews() {
-        view?.configureTableView()
+        view?.configure()
         
         updateSchedule()
     }
@@ -92,6 +95,14 @@ class SchedulePresenter: SchedulePresenterProtocol {
     func didChangeScheduleFilter(newFilter: ScheduleFilter) {
         scheduleFilter = newFilter
         updateSchedule()
+    }
+    
+    func homeGameAction() {
+        router.showHomeGame(popCurrent: true)
+    }
+    
+    func warmupAction() {
+        router.showWarmup(popCurrent: true)
     }
     
     //MARK:- Handle Refresh Control

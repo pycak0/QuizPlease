@@ -159,7 +159,7 @@ extension MainMenuVC: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        cell.setNeedsLayout()
+        cell.layoutIfNeeded()
         if let cell = cell as? MenuShopCell {
             cell.reloadItemsIfNeeded()
         }

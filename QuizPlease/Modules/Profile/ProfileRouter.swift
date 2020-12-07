@@ -30,11 +30,14 @@ class ProfileRouter: ProfileRouterProtocol {
         case "ShowQRScreenProfile":
             guard let vc = segue.destination as? QRScannerVC else { return }
             vc.delegate = viewController as? QRScannerVCDelegate
+            
         case "AddGameProfile":
             guard let vc = segue.destination as? AddGameVC, let info = sender as? String else {
                 fatalError("Incorrect Data Passed when showing AddGameVC from Profile")
             }
             vc.token = info
+            vc.delegate = viewController as? AddGameVCDelegate
+            
         case "ProfileAuthVC":
             guard let navC = segue.destination as? UINavigationController,
                   let vc = navC.viewControllers.first as? AuthVC

@@ -104,6 +104,7 @@ class MainMenuPresenter: MainMenuPresenterProtocol {
     func didChangeDefaultCity(_ newCity: City) {
         Globals.defaultCity = newCity
         view?.updateCityName(with: newCity.title)
+        reloadShopItems()
     }
     
     func didPressAddGame() {

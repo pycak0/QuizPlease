@@ -9,8 +9,17 @@
 import UIKit
 import AVFoundation
 
-class QRCodeService {
+//MARK:- Delegate Protocol
+protocol QRCodeServiceResultsDelegate: class {
+    ///When the '`result`' is non-`nil`, `QRCodeService` is guaranteed to stop scan session
+    func didFinishCodeScanning(with result: String?)
     
+    func didFailToSetupCaptureSession(with error: QRCodeService.CaptureSessionError)
+}
+
+class QRCodeService: NSObject {
+    
+    //MARK:- Session Error
     enum CaptureSessionError: Error {
         case notSupported, other(Error)
         
@@ -24,55 +33,47 @@ class QRCodeService {
         }
     }
     
-    //MARK:- Check Camera Access
-    /**
-     - Parameters:
-         - vc: View Controller where alerts will be presented;
-         - completion: action to do if access is granted
-    **/
-    static func checkCameraAccess(vc: UIViewController, grantedCompletion: @escaping (() -> Void),
-                                  deniedAlertOkButtonHandler: ((UIAlertAction) -> Void)? = nil) {
-        switch AVCaptureDevice.authorizationStatus(for: .video) {
-        case .authorized:
-            grantedCompletion()
-        case .notDetermined:
-            AVCaptureDevice.requestAccess(for: .video) { (granted) in
-                DispatchQueue.main.async {
-                    if granted {
-                        grantedCompletion()
-                    } else {
-                        //
-                    }
-                }
+    static let shared = QRCodeService()
+    
+    private weak var delegate: QRCodeServiceResultsDelegate?
+    private var captureSession: AVCaptureSession?
+    
+    //MARK:- Setup QR Scanner
+    ///This method is much easier in use than the `setupCaptureSessionConfiguration`
+    func setupQrScanner(in view: UIView, resultsDelegate: QRCodeServiceResultsDelegate) {
+        delegate = resultsDelegate
+        setupCaptureSessionConfiguration(self, previewLayerFrame: view.bounds) { (captureSession, previewLayer, error) in
+            if let error = error {
+                resultsDelegate.didFailToSetupCaptureSession(with: error)
+                return
             }
-        default:
-            let alert = UIAlertController(title: "Нет доступа к камере для сканирования QR", message: "Разрешить доступ к Камере можно в \"Настройках\"", preferredStyle: .alert)
-            let okBtn = UIAlertAction(title: "ОК", style: .default, handler: deniedAlertOkButtonHandler)
-            let settingsBtn = UIAlertAction(title: "Настройки", style: .cancel) { (action) in
-                if let url = URL(string: UIApplication.openSettingsURLString) {
-                    UIApplication.shared.open(url)
-                }
-            }
-            alert.addAction(okBtn)
-            alert.addAction(settingsBtn)
-            //alert.view.tintColor = .labelAdapted
-            vc.present(alert, animated: true)
+            self.captureSession = captureSession
+            view.layer.insertSublayer(previewLayer!, at: 0)
+            captureSession?.startRunning()
         }
     }
     
     
     //MARK:- Capture Session Configuration
-    static func getCaptureSessionConfiguration(_ delegate: AVCaptureMetadataOutputObjectsDelegate?,
-                                                  previewLayerFrame: CGRect,
-                                                  handler: (_ captureSession: AVCaptureSession?, _ previewLayer: AVCaptureVideoPreviewLayer?, _ error: CaptureSessionError?) -> Void) {
+    @available(*, deprecated, message: "use setupQrScanner(in:resultsDelegate:) instead")
+    func setupCaptureSessionConfiguration(_ delegate: AVCaptureMetadataOutputObjectsDelegate?,
+                                          previewLayerFrame: CGRect,
+                                          handler: (_ captureSession: AVCaptureSession?, _ previewLayer: AVCaptureVideoPreviewLayer?, _ error: CaptureSessionError?) -> Void)
+    {
         let captureSession = AVCaptureSession()
 
-        guard let videoCaptureDevice = AVCaptureDevice.default(for: .video) else { return }
+        guard let videoCaptureDevice = AVCaptureDevice.default(for: .video)
+        else {
+            handler(nil, nil, .notSupported)
+            return
+        }
+        
         let videoInput: AVCaptureDeviceInput
 
         do {
             videoInput = try AVCaptureDeviceInput(device: videoCaptureDevice)
         } catch {
+            handler(nil, nil, .notSupported)
             return
         }
 
@@ -100,6 +101,25 @@ class QRCodeService {
         previewLayer.videoGravity = .resizeAspectFill
         
         handler(captureSession, previewLayer, nil)
+        
+    }
+}
+
+//MARK:- AVCaptureMetadataOutputObjectsDelegate
+extension QRCodeService: AVCaptureMetadataOutputObjectsDelegate {
+    func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
+        
+        guard let metadataObject = metadataObjects.first,
+            let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject,
+            let stringValue = readableObject.stringValue
+        else {
+            delegate?.didFinishCodeScanning(with: nil)
+            return
+        }
+        AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
+        
+        captureSession?.stopRunning()
+        delegate?.didFinishCodeScanning(with: stringValue)
         
     }
 }

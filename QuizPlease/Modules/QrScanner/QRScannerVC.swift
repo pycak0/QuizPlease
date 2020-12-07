@@ -45,7 +45,7 @@ class QRScannerVC: UIViewController {
     }
     
     private func checkCamera() {
-        QRCodeService.checkCameraAccess(
+        CameraChecker.checkCameraAccess(
             vc: self,
             grantedCompletion: {
                 self.configure()
@@ -57,7 +57,7 @@ class QRScannerVC: UIViewController {
     
     //MARK:- Configure
     private func configure() {
-        QRCodeService.getCaptureSessionConfiguration(self, previewLayerFrame: view.bounds) { (captureSession, previewLayer, error) in
+        QRCodeService.shared.setupCaptureSessionConfiguration(self, previewLayerFrame: view.bounds) { (captureSession, previewLayer, error) in
             if let error = error {
                 self.showSimpleAlert(title: "Произошла ошибка", message: error.localizedDescription) { action in
                     self.dismiss(animated: true, completion: nil)

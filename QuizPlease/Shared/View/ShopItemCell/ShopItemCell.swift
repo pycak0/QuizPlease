@@ -18,13 +18,18 @@ class ShopItemCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
         configureViews()
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        cellView.layer.sublayers?.removeAll(where: { $0 is CAGradientLayer })
+        imageView.image = nil
     }
     
     func configureCell(imagePath: String?, price: Int) {
         priceLabel.text = price.string(withAssociatedMaleWord: "балл")
-        imageView.loadImage(path: imagePath, placeholderImage: .logoColoredImage)
+        imageView.loadImage(path: imagePath, placeholderImage: .logoTemplateImage)
     }
     
     private func configureViews() {

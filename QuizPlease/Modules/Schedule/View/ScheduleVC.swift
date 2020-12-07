@@ -17,20 +17,25 @@ protocol ScheduleViewProtocol: UIViewController {
     func endLoadingAnimation()
     func showNoGamesScheduled()
     
-    func configureTableView()
+    func configure()
 }
 
 class ScheduleVC: UIViewController {
     let configarator: ScheduleConfiguratorProtocol = ScheduleConfigurator()
     var presenter: SchedulePresenterProtocol!
     
-    @IBOutlet weak var tableView: UITableView!
-
+    @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private weak var noGamesTextView: UITextView!
+    
     //MARK:- Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         configarator.configure(self)
         presenter.configureViews()
+        
+        if #available(iOS 14.0, *) {
+            navigationItem.backBarButtonItem?.menu = nil
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -43,6 +48,57 @@ class ScheduleVC: UIViewController {
     
     @objc private func refreshControlTriggered() {
         presenter.handleRefreshControl()
+    }
+    
+    //MARK:- Configure Text
+    private func configureNoGamesText() {
+        let text = noGamesTextView.text ?? ""
+        let nsString = text as NSString
+        
+        let wholeRange = nsString.range(of: text)
+        let homeGameRange = nsString.range(of: "игры Хоум")
+        let warmupRange = nsString.range(of: "размяться")
+        
+        let attrString = NSMutableAttributedString(string: text)
+        let font = UIFont(name: "Gilroy-SemiBold", size: 22) ?? .systemFont(ofSize: 22, weight: .semibold)
+        attrString.addAttributes([.font : font,
+                                  .foregroundColor : UIColor.lightGray], range: wholeRange)
+        attrString.addAttributes([.foregroundColor : UIColor.themePurple], range: homeGameRange)
+        attrString.addAttributes([.foregroundColor : UIColor.themePurple], range: warmupRange)
+        
+        noGamesTextView.attributedText = attrString
+        noGamesTextView.textAlignment = .center
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTextTap(_:)))
+        noGamesTextView.addGestureRecognizer(tapRecognizer)
+    }
+    
+    //MARK:- Handle Tap on Text
+    @objc private func handleTextTap(_ sender: UITapGestureRecognizer) {
+        guard let textView = sender.view as? UITextView else { return }
+        let layoutManager = textView.layoutManager
+        
+        // location of tap in textView coordinates and taking the inset into account
+        var location = sender.location(in: textView)
+        location.x -= textView.textContainerInset.left;
+        location.y -= textView.textContainerInset.top;
+        
+        // character index at tap location
+        let characterIndex = layoutManager.characterIndex(for: location, in: textView.textContainer, fractionOfDistanceBetweenInsertionPoints: nil)
+        
+        guard characterIndex > 0, characterIndex < textView.textStorage.length else { return }
+        
+        let detectedRange = NSRange(location: characterIndex, length: 1)
+        
+        let nsString = textView.attributedText.string as NSString
+        let homeGameRange = nsString.range(of: "игры Хоум")
+        let warmupRange = nsString.range(of: "размяться")
+        
+        if homeGameRange.intersection(detectedRange) != nil {
+            presenter.homeGameAction()
+        } else if warmupRange.intersection(detectedRange) != nil {
+            presenter.warmupAction()
+        }
+        
     }
     
 }
@@ -63,12 +119,12 @@ extension ScheduleVC: ScheduleViewProtocol {
         tableView.refreshControl?.endRefreshing()
     }
     
-    func configureTableView() {
+    func configure() {
         tableView.delegate = self
         tableView.dataSource = self
         
         configureRefreshControl(tableView, tintColor: .systemBlue, action: #selector(refreshControlTriggered))
-        
+        configureNoGamesText()
     }
     
     func showNoGamesScheduled() {
