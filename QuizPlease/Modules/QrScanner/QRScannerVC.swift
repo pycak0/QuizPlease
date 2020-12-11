@@ -18,7 +18,6 @@ class QRScannerVC: UIViewController {
     
     weak var delegate: QRScannerVCDelegate?
 
-    var captureSession: AVCaptureSession?
     var captureDevice: AVCaptureDevice? = AVCaptureDevice.default(for: .video)
     
     //MARK:- Camera Flash
@@ -41,14 +40,14 @@ class QRScannerVC: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        captureSession?.stopRunning()
+        QRCodeService.shared.stopCaptureSession()
     }
     
     private func checkCamera() {
         CameraChecker.checkCameraAccess(
             vc: self,
             grantedCompletion: {
-                self.configure()
+                self.setupScanner()
         },
             deniedAlertOkButtonHandler: { _ in
                 self.dismiss(animated: true, completion: nil)
@@ -56,19 +55,8 @@ class QRScannerVC: UIViewController {
     }
     
     //MARK:- Configure
-    private func configure() {
-        QRCodeService.shared.setupCaptureSessionConfiguration(self, previewLayerFrame: view.bounds) { (captureSession, previewLayer, error) in
-            if let error = error {
-                self.showSimpleAlert(title: "Произошла ошибка", message: error.localizedDescription) { action in
-                    self.dismiss(animated: true, completion: nil)
-                }
-                return
-            }
-            self.captureSession = captureSession
-            self.view.layer.insertSublayer(previewLayer!, at: 0)
-        }
-        
-        captureSession?.startRunning()
+    private func setupScanner() {
+        QRCodeService.shared.setupQrScanner(in: view, resultsDelegate: self)
     }
     
     //MARK:- Flash Button
@@ -83,29 +71,18 @@ class QRScannerVC: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    func processResult(_ code: String?) {
-        //if ok
-        captureSession?.stopRunning()
-        delegate?.qrScanner(self, didFinishCodeScanningWith: code)
+}
+
+//MARK:- QRCodeService Results Delegate
+extension QRScannerVC: QRCodeServiceResultsDelegate {
+    func didFinishCodeScanning(with result: String?) {
+        delegate?.qrScanner(self, didFinishCodeScanningWith: result)
         dismiss(animated: true, completion: nil)
     }
     
-}
-
-
-//MARK:- AVCaptureMetadataOutputObjectsDelegate
-extension QRScannerVC: AVCaptureMetadataOutputObjectsDelegate {
-    func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
-        
-        guard let metadataObject = metadataObjects.first,
-            let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject,
-            let stringValue = readableObject.stringValue
-        else {
-            self.processResult(nil)
-            return
+    func didFailToSetupCaptureSession(with error: QRCodeService.CaptureSessionError) {
+        self.showSimpleAlert(title: "Произошла ошибка", message: error.localizedDescription) { action in
+            self.dismiss(animated: true, completion: nil)
         }
-        AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
-        
-        processResult(stringValue)
     }
 }

@@ -111,8 +111,12 @@ extension ScheduleVC: ScheduleViewProtocol {
     }
     
     func reloadGame(at index: Int) {
-        tableView.isHidden = false
-        tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .fade)
+//        tableView.isHidden = false
+        if let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? ScheduleGameCell {
+            let game = presenter.games[index]
+            cell.configureCell(model: game)
+        }
+//        tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .none)
     }
     
     func endLoadingAnimation() {
@@ -160,6 +164,7 @@ extension ScheduleVC: UITableViewDelegate, UITableViewDataSource {
         let game = presenter.games[indexPath.row]
         cell.delegate = self
         cell.configureCell(model: game)
+        presenter.updateDetailInfoIfNeeded(at: indexPath.row)
         
         return cell
     }

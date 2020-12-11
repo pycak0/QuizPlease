@@ -9,24 +9,26 @@
 import Foundation
 
 struct GameInfo: Decodable {
+    static let placeholderValue = "-"
+    
     var id: Int!
     private var numberGame: String = "#"
-    var nameGame: String = "-"
+    var nameGame: String = placeholderValue
     
     ///Date of the game
-    var blockData: String = "-"
+    var blockData: String = placeholderValue
     
-    var time: String = "-"
-    var description: String = "-"
+    var time: String = placeholderValue
+    var description: String = placeholderValue
     
     private var status: Int?
 
-    private var price: String = "-"
+    private var price: String = placeholderValue
     ///Describing price e.g. "с человека". Use `priceDetails` instead of this
     private var text: String = ""
     
-    private var place: String = "-"
-    private var address: String = "-"
+    private var place: String = placeholderValue
+    private var address: String = placeholderValue
     private var cityName: String = ""
     private var payment_icon: Int = 0
     private var game_type: Int = 0

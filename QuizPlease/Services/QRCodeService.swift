@@ -38,6 +38,13 @@ class QRCodeService: NSObject {
     private weak var delegate: QRCodeServiceResultsDelegate?
     private var captureSession: AVCaptureSession?
     
+    ///Explicitly stop capture session if needed
+    func stopCaptureSession() {
+        if let session = captureSession, session.isRunning {
+            session.stopRunning()
+        }
+    }
+    
     //MARK:- Setup QR Scanner
     ///This method is much easier in use than the `setupCaptureSessionConfiguration`
     func setupQrScanner(in view: UIView, resultsDelegate: QRCodeServiceResultsDelegate) {
@@ -55,8 +62,7 @@ class QRCodeService: NSObject {
     
     
     //MARK:- Capture Session Configuration
-    @available(*, deprecated, message: "use setupQrScanner(in:resultsDelegate:) instead")
-    func setupCaptureSessionConfiguration(_ delegate: AVCaptureMetadataOutputObjectsDelegate?,
+    private func setupCaptureSessionConfiguration(_ delegate: AVCaptureMetadataOutputObjectsDelegate?,
                                           previewLayerFrame: CGRect,
                                           handler: (_ captureSession: AVCaptureSession?, _ previewLayer: AVCaptureVideoPreviewLayer?, _ error: CaptureSessionError?) -> Void)
     {
