@@ -32,11 +32,15 @@ class ProfileCell: UITableViewCell, TableCellProtocol {
         pointsScoredLabel.layer.cornerRadius = pointsScoredLabel.bounds.height / 2
     }
     
-    func configure(gameName: String, gameNumber: String, teamName: String, place: String?, pointsScored: Int) {
+    func configure(gameName: String, gameNumber: String, teamName: String, place: String?, pointsScored: Int?) {
         gameNameLabel.text = gameName
-        gameNumberLabel.text = "#\(gameNumber)"
+        gameNumberLabel.text = gameNumber
         teamNameLabel.text = teamName
-        pointsScoredLabel.text = "+ \(pointsScored.string(withAssociatedMaleWord: "балл"))"
+        
+        pointsScoredLabel.isHidden = pointsScored == nil
+        if let points = pointsScored {
+            pointsScoredLabel.text = "+ \(points.string(withAssociatedMaleWord: "балл"))"
+        }
         
         if let placeStr = place {
             placeLabel.text = "\(placeStr) место"

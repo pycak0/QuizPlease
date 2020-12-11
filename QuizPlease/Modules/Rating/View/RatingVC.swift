@@ -67,7 +67,9 @@ extension RatingVC: RatingViewProtocol {
     }
     
     func endLoadingAnimation() {
-        tableView.refreshControl?.endRefreshing()
+        if tableView.refreshControl?.isRefreshing ?? false {
+            tableView.refreshControl?.endRefreshing()
+        }
         tableView.tableFooterView?.isHidden = true
     }
     
@@ -89,10 +91,11 @@ extension RatingVC: RatingViewProtocol {
 
 //MARK:- ExpandingHeaderDelegate
 extension RatingVC: ExpandingHeaderDelegate {
-    func didPressGameTypeView(in expandingHeader: ExpandingHeader) {
+    func didPressGameTypeView(in expandingHeader: ExpandingHeader, completion: @escaping (String?) -> Void) {
         showChooseItemActionSheet(itemNames: presenter.availableGameTypeNames) { [unowned self] (selectedName, index) in
-            expandingHeader.selectedGameTypeLabel.text = selectedName
             self.presenter.didChangeLeague(index)
+            
+            completion(selectedName)
         }
     }
     
@@ -111,6 +114,10 @@ extension RatingVC: ExpandingHeaderDelegate {
     func expandingHeader(_ expandingHeader: ExpandingHeader, didChange query: String) {
         presenter.didChangeTeamName(query)
     }
+    
+    func expandingHeader(_ expandingHeader: ExpandingHeader, didPressReturnButtonWith query: String) {
+        presenter.searchByTeamName(query)
+    }
 }
 
 
@@ -126,7 +133,8 @@ extension RatingVC: UITableViewDataSource, UITableViewDelegate {
         let team = presenter.filteredTeams[indexPath.row]
         cell.configure(with: team.name, games: team.games, points: Int(team.pointsTotal), imagePath: team.imagePath)
         
-        if indexPath.row == presenter.filteredTeams.count - 1 {
+        let teamsCount = presenter.filteredTeams.count
+        if indexPath.row == teamsCount - 5 {
             presenter.didAlmostScrollToEnd()
         }
         

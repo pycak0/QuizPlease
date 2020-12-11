@@ -7,11 +7,13 @@
 //
 
 import Foundation
+import SafariServices
 
+//MARK:- Interactor Protocol
 protocol GameOrderInteractorProtocol {
     func register(with form: RegisterForm, completion: @escaping (_ orderResponse: GameOrderResponse?) -> Void)
     
-    func pay(with token: String, completion: @escaping (SessionError?) -> Void)
+    func checkCertificate(forGameId id: Int, certificate: String, completion: @escaping (Result<CertificateResponse, SessionError>) -> Void)
 }
 
 class GameOrderInteractor: GameOrderInteractorProtocol {
@@ -27,7 +29,7 @@ class GameOrderInteractor: GameOrderInteractorProtocol {
         }
     }
     
-    func pay(with token: String, completion: @escaping (SessionError?) -> Void) {
-        completion(.invalidToken)
+    func checkCertificate(forGameId id: Int, certificate: String, completion: @escaping (Result<CertificateResponse, SessionError>) -> Void) {
+        NetworkService.shared.validateCertificate(forGameWithId: id, certificate: certificate, completion: completion)
     }
 }

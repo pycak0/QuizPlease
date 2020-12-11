@@ -75,9 +75,14 @@ class NetworkService {
     }
     
     //MARK:- Get Shop Items
-    func getShopItems(completion: @escaping (Result<[ShopItem], SessionError>) -> Void) {
+    func getShopItems(cityId: Int? = nil, completion: @escaping (Result<[ShopItem], SessionError>) -> Void) {
         var shopUrlComponents = Globals.baseUrl
         shopUrlComponents.path = "/api/product"
+        
+        let id = cityId ?? Globals.defaultCity.id
+        shopUrlComponents.queryItems = [
+            URLQueryItem(name: "city_id", value: "\(id)")
+        ]
         
         getStandard([ShopItem].self, with: shopUrlComponents, completion: completion)
     }
@@ -109,6 +114,16 @@ class NetworkService {
             URLQueryItem(name: "id", value: "\(id)")
         ])
         get(GameInfo.self, with: gameUrlComponents, completion: completion)
+    }
+    
+    func validateCertificate(forGameWithId id: Int, certificate: String, completion: @escaping (Result<CertificateResponse, SessionError>) -> Void) {
+        var urlComps = Globals.baseUrl
+        urlComps.path = "/ajax/check-certificate"
+        urlComps.queryItems = [
+            URLQueryItem(name: "code", value: certificate),
+            URLQueryItem(name: "game_id", value: "\(id)")
+        ]
+        get(CertificateResponse.self, with: urlComps, completion: completion)
     }
     
     //MARK:- Get Schedule
@@ -374,17 +389,21 @@ class NetworkService {
         var registerUrlComps = Globals.baseUrl
         registerUrlComps.path = "/ajax/save-record"
         
-        let parameters: [String: String] = [
+        let countPaidOnline = registerForm.countPaidOnline == nil ? nil : "\(registerForm.countPaidOnline!)"
+        
+        let parameters: [String: String?] = [
             "QpRecord[captainName]"     : registerForm.captainName,
             "QpRecord[email]"           : registerForm.email,
             "QpRecord[phone]"           : registerForm.phone,
             "QpRecord[comment]"         : registerForm.comment ?? "",
             "QpRecord[game_id]"         : "\(registerForm.gameId)",
             "QpRecord[first_time]"      : registerForm.isFirstTime ? "1" : "0",
-            "certificates[]"            : registerForm.certificates ?? "",
+            "certificates[]"            : registerForm.certificates,
             "QpRecord[payment_type]"    : registerForm.paymentType == .online ? "1" : "2",
             "QpRecord[count]"           : "\(registerForm.count)",
-            "QpRecord[teamName]"        : registerForm.teamName
+            "QpRecord[teamName]"        : registerForm.teamName,
+            "QpRecord[payment_token]"   : registerForm.paymentToken,
+            "QpRecord[surcharge]"       : countPaidOnline
         ]
         
         afPost(with: parameters, to: registerUrlComps, responseType: GameOrderResponse.self, completion: completion)
@@ -457,6 +476,7 @@ class NetworkService {
             case let .success(data):
                 do {
                     let serverResponse = try JSONDecoder().decode(Response.self, from: data)
+                    print(">>> Response data:\n\n", String(data: data, encoding: .utf8) ?? "json decoding error")
                     completion(.success(serverResponse))
                 } catch {
                     completion(.failure(.decoding(error)))

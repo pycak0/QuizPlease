@@ -14,7 +14,7 @@ enum GameStatus: Int, Decodable {
     var comment: String {
         switch self {
         case .placesAvailable:
-            return "Осталось мало мест"
+            return "Есть места"
         case .reserveAvailable:
             return "Нет мест! Но можно записаться в резерв"
         case .noPlaces:

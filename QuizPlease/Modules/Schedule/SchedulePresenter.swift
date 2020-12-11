@@ -22,10 +22,15 @@ protocol SchedulePresenterProtocol: class {
     func didAskNotification(forGameAt index: Int)
     func didAskLocation(forGameAt index: Int)
     
+    func homeGameAction()
+    func warmupAction()
+    
     func didPressFilterButton()
     func didChangeScheduleFilter(newFilter: ScheduleFilter)
     
     func handleRefreshControl()
+    
+    func updateDetailInfoIfNeeded(at index: Int)
     
 }
 
@@ -47,7 +52,7 @@ class SchedulePresenter: SchedulePresenterProtocol {
     var scheduleFilter = ScheduleFilter()
     
     func configureViews() {
-        view?.configureTableView()
+        view?.configure()
         
         updateSchedule()
     }
@@ -94,12 +99,39 @@ class SchedulePresenter: SchedulePresenterProtocol {
         updateSchedule()
     }
     
+    func homeGameAction() {
+        router.showHomeGame(popCurrent: true)
+    }
+    
+    func warmupAction() {
+        router.showWarmup(popCurrent: true)
+    }
+    
     //MARK:- Handle Refresh Control
     func handleRefreshControl() {
         updateSchedule()
     }
     
     //MARK:- Loading
+    func updateDetailInfoIfNeeded(at index: Int) {
+        guard index < games.count else { return }
+        let game = games[index]
+        if game.nameGame == GameInfo.placeholderValue {
+            updateDetailInfo(forGameId: game.id, at: index)
+        }
+    }
+    
+    private func updateDetailInfo(forGameId id: Int, at index: Int) {
+        interactor.loadDetailInfo(for: id) { [weak self] (fullInfo) in
+            guard let self = self else { return }
+            if let game = fullInfo {
+                self.games[index] = game
+                //self.view?.reloadScheduleList()
+                self.view?.reloadGame(at: index)
+            }
+        }
+    }
+    
     private func updateSchedule() {
         interactor.loadSchedule(filter: scheduleFilter) { [weak self] (result) in
             guard let self = self else { return }
@@ -118,20 +150,9 @@ class SchedulePresenter: SchedulePresenterProtocol {
             case .success(let schedule):
                 self.games = schedule
                 self.view?.reloadScheduleList()
-                for (index, game) in self.games.enumerated() {
-                    self.updateGameInfo(game: game, at: index)
-                }
-            }
-        }
-    }
-    
-    private func updateGameInfo(game: GameInfo, at index: Int) {
-        interactor.loadDetailInfo(for: game.id) { [weak self] (fullInfo) in
-            guard let self = self else { return }
-            if let game = fullInfo {
-                self.games[index] = game
-                //self.view?.reloadScheduleList()
-                self.view?.reloadGame(at: index)
+//                for (index, game) in self.games.enumerated() {
+//                    self.updateDetailInfo(forGameId: game.id, at: index)
+//                }
             }
         }
     }

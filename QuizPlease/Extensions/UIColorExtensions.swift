@@ -68,6 +68,10 @@ public extension UIColor {
         UIColor(named: "skyAzure")!
     }
     
+    class var themePurple: UIColor {
+        UIColor(named: "themePurple")!
+    }
+    
     class var labelAdapted: UIColor {
         if #available(iOS 13.0, *) {
             return .label

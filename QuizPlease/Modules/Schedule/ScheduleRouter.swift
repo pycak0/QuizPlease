@@ -8,9 +8,16 @@
 
 import UIKit
 
+//MARK:- Router Protocol
 protocol ScheduleRouterProtocol: RouterProtocol {
     func showGameInfo(_ sender: GameInfoPresentAttributes)
     func showScheduleFilters(with filterInfo: ScheduleFilter)
+    
+    ///Pop current screen and push Warmup Screen onto the navigation stack
+    func showWarmup(popCurrent: Bool)
+    
+    ///Pop current screen and push HomeGame Screen onto the navigation stack
+    func showHomeGame(popCurrent: Bool)
 }
 
 struct GameInfoPresentAttributes {
@@ -26,6 +33,7 @@ class ScheduleRouter: ScheduleRouterProtocol {
         self.viewController = viewController
     }
     
+    //MARK:- Prepare for Segue
     func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case "ShowGameInfo":
@@ -43,12 +51,37 @@ class ScheduleRouter: ScheduleRouterProtocol {
         }
     }
     
+    //MARK:- Segues
     func showGameInfo(_ sender: GameInfoPresentAttributes) {
         viewController?.performSegue(withIdentifier: "ShowGameInfo", sender: sender)
     }
     
     func showScheduleFilters(with filterInfo: ScheduleFilter) {
         viewController?.performSegue(withIdentifier: "ShowFilters", sender: filterInfo)
+    }
+    
+    func showWarmup(popCurrent: Bool) {
+        guard let vc = viewController?.storyboard?.instantiateViewController(withIdentifier: "WarmupVC") as? WarmupVC,
+              let navC = viewController?.navigationController
+        else { return }
+        
+        if popCurrent {
+            navC.popViewController(animated: true)
+        }
+        navC.pushViewController(vc, animated: true)
+        
+    }
+    
+    func showHomeGame(popCurrent: Bool) {
+        guard let vc = viewController?.storyboard?.instantiateViewController(withIdentifier: "HomeGamesListVC") as? HomeGamesListVC,
+              let navC = viewController?.navigationController
+        else { return }
+        
+        if popCurrent {
+            navC.popViewController(animated: true)
+        }
+        navC.pushViewController(vc, animated: true)
+        
     }
     
 }

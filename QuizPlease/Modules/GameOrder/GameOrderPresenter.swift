@@ -23,6 +23,8 @@ protocol GameOrderPresenterProtocol {
     func didPressSubmitButton()
     
     func sumToPay(forPeople number: Int) -> Int
+    
+    func checkCertificate()
 }
 
 class GameOrderPresenter: GameOrderPresenterProtocol {
@@ -37,6 +39,8 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
             registerForm.paymentType = game.availablePaymentTypes.contains(.online) ? .online : .cash
         }
     }
+    
+    private var tokenizationModule: TokenizationModuleInput?
 
     required init(view: GameOrderViewProtocol, interactor: GameOrderInteractorProtocol, router: GameOrderRouterProtocol) {
         self.view = view
@@ -55,6 +59,19 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
             return price
         } else {
             return price * number
+        }
+    }
+    
+    func checkCertificate() {
+        guard let cert = registerForm.certificates else { return }
+        interactor.checkCertificate(forGameId: game.id, certificate: cert) { (result) in
+            switch result {
+            case let .failure(error):
+                print(error)
+                self.view?.showErrorConnectingToServerAlert()
+            case let .success(response):
+                self.view?.showSimpleAlert(title: "Проверка сертификата", message: response.message ?? "Не удалось получить статус проверки")
+            }
         }
     }
     
@@ -109,7 +126,33 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
             }
 
             let title = "Запись на игру"
-            var message: String = ""
+            var message: String = "Произошла ошибка при записи на игру"
+            
+            if response.shouldRedirect {
+                if let url = response.link /*, let view = self.view*/ {
+//                    self.interactor.confirmPayment(redirectLink: url, presentationView: view) { (error) in
+//                        if let error = error {
+//                            print(error)
+//                            self.view?.showSimpleAlert(title: title, message: message)
+//                            return
+//                        }
+//                    }
+                    self.tokenizationModule?.start3dsProcess(requestUrl: url.absoluteString)
+                } else {
+                    self.view?.showSimpleAlert(title: title, message: message)
+                    return
+                }
+            }
+            else if response.paymentStatus == .succeeded {
+                self.view?.dismiss(animated: true) {
+                    self.completeOrder()
+                }
+                return
+            }
+            else {
+                self.view?.dismiss(animated: true)
+            }
+            
             if response.isSuccess {
                 message = response.successMsg ?? "Успешно"
             } else {
@@ -117,7 +160,7 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
             }
 
             self.view?.showSimpleAlert(title: title, message: message) { okAction in
-                if response.isSuccess {
+                if response.isSuccessfullyRegistered {
                     self.completeOrder()
                 }
             }
@@ -144,27 +187,34 @@ extension GameOrderPresenter: TokenizationModuleOutput {
             self.view?.dismiss(animated: true)
         }
         
+        
         print("Error:", error as Any)
     }
     
     func didSuccessfullyPassedCardSec(on module: TokenizationModuleInput) {
         DispatchQueue.main.async {
-            self.view?.dismiss(animated: true)
+            self.view?.dismiss(animated: true) {
+                self.completeOrder()
+            }
         }
         print("3-D Secure process successfully passed")
     }
     
     func tokenizationModule(_ module: TokenizationModuleInput, didTokenize token: Tokens, paymentMethodType: PaymentMethodType) {
         DispatchQueue.main.async {
-            self.view?.dismiss(animated: true)
+            //self.view?.dismiss(animated: true)
+            self.tokenizationModule = module
             
-            self.view?.showTwoOptionsAlert(
-                title: "Токен для оплаты сгенерирован",
-                message: token.paymentToken,
-                option1Title: "OK", handler1: nil,
-                option2Title: "Скопировать") { (copyAction) in
-                    UIPasteboard.general.string = token.paymentToken
-            }
+            self.registerForm.paymentToken = token.paymentToken
+            self.register()
+            
+//            self.view?.showTwoOptionsAlert(
+//                title: "Токен для оплаты сгенерирован",
+//                message: token.paymentToken,
+//                option1Title: "OK", handler1: nil,
+//                option2Title: "Скопировать") { (copyAction) in
+//                    UIPasteboard.general.string = token.paymentToken
+//            }
             
 //            interactor.pay(with: token.paymentToken) { [weak self] (error) in
 //                guard let self = self else { return }

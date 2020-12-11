@@ -75,12 +75,38 @@ extension GameOrderVC: GameRegisterCellDelegate {
 
 //MARK:- Certificate
 extension GameOrderVC: GameCertificateCellDelegate {
+    func titleForCell(_ certificateCell: GameCertificateCell) -> String {
+        if certificateCell.associatedItemKind == .certificate {
+            certificateCell.fieldView.title = "Введите номер сертификата"
+            return "У Вас есть сертификат Квиз, плиз! ?"
+        }
+        certificateCell.fieldView.title = "Введите промокод"
+        return "У Вас есть промокод?"
+    }
+    
+    func accessoryText(for certificateCell: GameCertificateCell) -> String {
+        if certificateCell.associatedItemKind == .certificate {
+            return "Для активации сертификатов от наших партнеров свяжитесь с нами"
+        }
+        return ""
+    }
+    
     func certificateCell(_ certificateCell: GameCertificateCell, didChangeCertificateCode newCode: String) {
-        presenter.registerForm.certificates = newCode
+        switch certificateCell.associatedItemKind {
+        case .certificate:
+            presenter.registerForm.certificates = newCode
+        case .promocode:
+            presenter.registerForm.promocode = newCode
+        default:
+            break
+        }
     }
     
     func didPressOkButton(in certificateCell: GameCertificateCell) {
         view.endEditing(true)
+        if certificateCell.associatedItemKind == .certificate {
+            presenter.checkCertificate()
+        }
     }
 }
 
@@ -89,6 +115,17 @@ extension GameOrderVC: GameCertificateCellDelegate {
 extension GameOrderVC: GameFirstPlayCellDelegate {
     func firstPlayCell(_ cell: GameFirstPlayCell, didChangeStateTo isFirstPlay: Bool) {
         presenter.registerForm.isFirstTime = isFirstPlay
+        
+        if isFirstPlay {
+            guard let i = items.firstIndex(of: .firstPlay) else { return }
+            let index = i + 1
+            items.insert(.promocode, at: index)
+            tableView.insertRows(at: [IndexPath(row: index, section: 0)], with: .fade)
+        } else {
+            guard let index = items.firstIndex(of: .promocode) else { return }
+            items.remove(at: index)
+            tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .fade)
+        }
     }
 }
 
@@ -104,9 +141,7 @@ extension GameOrderVC: GamePaymentTypeCellDelegate {
     
     func paymentTypeCell(_ cell: GamePaymentTypeCell, didChangePaymentType isOnlinePayment: Bool) {
         presenter.registerForm.paymentType = isOnlinePayment ? .online : .cash
-        let indexPath = IndexPath(row: GameInfoItemKind.onlinePayment.rawValue, section: 0)
         
-        let onlinePaymentSection = GameInfoItemKind.onlinePayment
         if let index = items.firstIndex(of: .submit), let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? GameSubmitButtonCell {
             let title = isOnlinePayment ? "Оплатить игру" : "Записаться на игру"
             cell.updateTitle(with: title)
@@ -115,17 +150,20 @@ extension GameOrderVC: GamePaymentTypeCellDelegate {
         //guard !isFirstLoad else { isFirstLoad = false; return }
         
         if isOnlinePayment {
-            guard items.count < GameInfoItemKind.allCases.count else { return }
-            items.insert(onlinePaymentSection, at: onlinePaymentSection.rawValue)
-            //tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .automatic)
-            tableView.insertRows(at: [indexPath], with: .fade)
+            guard let i = items.firstIndex(of: .paymentType), i+1 < items.count,
+                  items[i+1] != .onlinePayment
+            else { return }
+            let index = i + 1
+            
+            items.insert(.onlinePayment, at: index)
+            tableView.insertRows(at: [IndexPath(row: index, section: 0)], with: .fade)
+            
         } else {
             presenter.registerForm.countPaidOnline = nil
             
-            guard items.count == GameInfoItemKind.allCases.count else { return }
-            items.remove(at: onlinePaymentSection.rawValue)
-            //tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .automatic)
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            guard let index = items.firstIndex(of: .onlinePayment) else { return }
+            items.remove(at: index)
+            tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .fade)
         }
     }
 }

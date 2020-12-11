@@ -69,6 +69,7 @@ class ScheduleGameCell: UITableViewCell {
     
     //MARK:- Configure Cell Data
     func configureCell(model: GameInfo) {
+        setButtons(enabled: true)
         nameLabel.text = model.nameGame
         numberLabel.text = model.gameNumber
         placeNameLabel.text = model.placeInfo.title
@@ -93,9 +94,7 @@ class ScheduleGameCell: UITableViewCell {
         default:
             statusImageView.image = nil
             cellView.layer.borderColor = UIColor.lightGray.cgColor
-            signUpButton.isEnabled = false
-            infoButton.isEnabled = false
-           // remindButton.isEnabled = false
+            setButtons(enabled: false)
         }
  
         setNeedsLayout()
@@ -103,9 +102,12 @@ class ScheduleGameCell: UITableViewCell {
     
     private func onReuseActions() {
         delegate = nil
-        signUpButton.isEnabled = true
-        infoButton.isEnabled = true
-        remindButton.isEnabled = true
+        setButtons(enabled: true)
+    }
+    
+    private func setButtons(enabled: Bool) {
+        signUpButton.isEnabled = enabled
+        infoButton.isEnabled = enabled
     }
     
     private func configureViews() {

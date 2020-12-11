@@ -46,6 +46,7 @@ class MenuShopCell: UITableViewCell, MenuCellItemProtocol {
         self.collectionView.dataSource = delegate
         self.collectionView.delegate = delegate
         self.delegate = delegate
+        collectionView.reloadData()
     }
     
     func reloadItems() {

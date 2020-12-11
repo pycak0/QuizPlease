@@ -16,12 +16,14 @@ protocol ProfilePresenterProtocol {
     var userInfo: UserInfo? { get set }
     
     func setupView()
+    func handleViewDidAppear()
     
     func didPerformAuth()
     
     func didPressShowShopButton()
     func didPressAddGameButton()
-    func didAddNewGame(with info: String)
+    func didScanQrCode(with info: String)
+    func didAddNewGame()
 }
 
 class ProfilePresenter: ProfilePresenterProtocol {
@@ -30,6 +32,8 @@ class ProfilePresenter: ProfilePresenterProtocol {
     weak var view: ProfileViewProtocol?
     
     var userInfo: UserInfo?
+    
+    private var isFirstAppear = true
     
     required init(view: ProfileViewProtocol, interactor: ProfileInteractorProtocol, router: ProfileRouterProtocol) {
         self.view = view
@@ -52,6 +56,10 @@ class ProfilePresenter: ProfilePresenterProtocol {
         }
     }
     
+    func handleViewDidAppear() {
+        //nothing for now
+    }
+    
     func didPerformAuth() {
         interactor.loadUserInfo()
     }
@@ -65,8 +73,12 @@ class ProfilePresenter: ProfilePresenterProtocol {
         router.showQRScanner()
     }
     
-    func didAddNewGame(with info: String) {
+    func didScanQrCode(with info: String) {
         router.showAddGameScreen(info)
+    }
+    
+    func didAddNewGame() {
+        interactor.loadUserInfo()
     }
     
     private func updateUserInfo() {

@@ -33,10 +33,16 @@ class ProfileVC: UIViewController {
     var lastOffset: CGFloat = 0
     var startOffset: CGFloat?
     
+    //MARK:- Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter.setupView()
 
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        presenter.handleViewDidAppear()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -85,26 +91,39 @@ extension ProfileVC: ProfileViewProtocol {
 extension ProfileVC: QRScannerVCDelegate {
     func qrScanner(_ qrScanner: QRScannerVC, didFinishCodeScanningWith result: String?) {
         guard let code = result else { return }
-        presenter.didAddNewGame(with: code)
+        presenter.didScanQrCode(with: code)
+    }
+}
+
+extension ProfileVC: AddGameVCDelegate {
+    func didAddGameToUserProfile(_ vc: AddGameVC) {
+        presenter.didAddNewGame()
     }
 }
 
 //MARK:- Data Source & Delegate
 extension ProfileVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter.userInfo?.games?.count ?? 0
+        return presenter.userInfo?.games?.count ?? 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let games = presenter.userInfo?.games, !games.isEmpty else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: ProfileSampleCell.identifier, for: indexPath) as! ProfileSampleCell
+            cell.configure(with: "Тут появляются игры, на которых вы зажигали! Чтобы добавить игру, жмите на кнопку Добавить игру и сканируйте qr-код")
+            
+            return cell
+        }
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: ProfileCell.identifier, for: indexPath) as! ProfileCell
         
-        guard let game = presenter.userInfo?.games?[indexPath.row] else { return cell }
+        let game = games[indexPath.row]
         
         cell.configure( gameName:       game.title,
-                        gameNumber:     game.name,
+                        gameNumber:     game.gameNumber,
                         teamName:       "",
                         place:          game.place,
-                        pointsScored:   0)
+                        pointsScored:   game.points)
         
         return cell
     }
