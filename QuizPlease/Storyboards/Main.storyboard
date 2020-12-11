@@ -305,7 +305,7 @@
                                     <constraint firstItem="pxi-Le-rcS" firstAttribute="leading" secondItem="6ly-LF-rJR" secondAttribute="leading" constant="25" id="Q4j-AC-byb"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" delaysContentTouches="NO" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cDB-VW-MNb">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cDB-VW-MNb">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1095,7 +1095,7 @@
                                     <constraint firstItem="FKI-MS-LTd" firstAttribute="top" secondItem="ahH-nd-hl4" secondAttribute="top" id="iJY-jk-71C"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" delaysContentTouches="NO" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zWG-FS-gI7">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zWG-FS-gI7">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1836,7 +1836,7 @@
                                                 </imageView>
                                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pOZ-Rz-FRq">
                                                     <rect key="frame" x="274" y="85" width="120" height="40"/>
-                                                    <color key="backgroundColor" systemColor="systemBlueColor"/>
+                                                    <color key="backgroundColor" name="themePurple"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="120" id="YWj-rr-zNW"/>
                                                         <constraint firstAttribute="height" constant="40" id="f9x-Tr-pwN"/>
@@ -2431,7 +2431,7 @@
     </inferredMetricsTieBreakers>
     <resources>
         <image name="arrowDown" width="20" height="12"/>
-        <image name="backButton" width="33" height="26"/>
+        <image name="backButton" width="32" height="25"/>
         <image name="banknoteIcon" width="17" height="10"/>
         <image name="bell" width="10" height="12"/>
         <image name="carpetImage" width="512" height="274"/>

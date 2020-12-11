@@ -10,28 +10,13 @@ import Foundation
 import SafariServices
 
 //MARK:- Interactor Protocol
-protocol GameOrderInteractorProtocol: NSObject {
-    ///must be `weak`
-    var delegate: GameOrderInteractorDelegate? { get set }
-    
+protocol GameOrderInteractorProtocol {
     func register(with form: RegisterForm, completion: @escaping (_ orderResponse: GameOrderResponse?) -> Void)
     
-    func confirmPayment(redirectLink: URL, presentationView: GameOrderViewProtocol, completion: @escaping (SessionError?) -> Void)
+    func checkCertificate(forGameId id: Int, certificate: String, completion: @escaping (Result<CertificateResponse, SessionError>) -> Void)
 }
 
-//MARK:- Delegate Protocol
-protocol GameOrderInteractorDelegate: class {
-    func paymentConfirmationController(_ paymentVC: UIViewController, didRedirectToUrl url: URL)
-    
-    func paymentConfirmationControllerDidFinish(_ paymentVC: UIViewController)
-    
-    func paymentConfirmationControllerWillOpenInBrowser(_ paymentVC: UIViewController)
-    
-}
-
-class GameOrderInteractor: NSObject, GameOrderInteractorProtocol {
-    weak var delegate: GameOrderInteractorDelegate?
-    
+class GameOrderInteractor: GameOrderInteractorProtocol {
     func register(with form: RegisterForm, completion: @escaping (_ orderResponse: GameOrderResponse?) -> Void) {
         NetworkService.shared.registerOnGame(registerForm: form) { serverResponse in
             switch serverResponse {
@@ -44,22 +29,7 @@ class GameOrderInteractor: NSObject, GameOrderInteractorProtocol {
         }
     }
     
-    func confirmPayment(redirectLink: URL, presentationView: GameOrderViewProtocol, completion: @escaping (SessionError?) -> Void) {
-        presentationView.openSafariVC(self, with: redirectLink)
-    }
-}
-
-//MARK:- SFSafariViewControllerDelegate
-extension GameOrderInteractor: SFSafariViewControllerDelegate {
-    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
-        delegate?.paymentConfirmationControllerDidFinish(controller)
-    }
-    
-    func safariViewControllerWillOpenInBrowser(_ controller: SFSafariViewController) {
-        delegate?.paymentConfirmationControllerWillOpenInBrowser(controller)
-    }
-    
-    func safariViewController(_ controller: SFSafariViewController, initialLoadDidRedirectTo URL: URL) {
-        delegate?.paymentConfirmationController(controller, didRedirectToUrl: URL)
+    func checkCertificate(forGameId id: Int, certificate: String, completion: @escaping (Result<CertificateResponse, SessionError>) -> Void) {
+        NetworkService.shared.validateCertificate(forGameWithId: id, certificate: certificate, completion: completion)
     }
 }

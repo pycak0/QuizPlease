@@ -20,6 +20,7 @@ struct RegisterForm: Encodable {
     var isFirstTime: Bool = false
     var comment: String?
     var paymentType: PaymentType = .online
+    var promocode: String?
     
     var paymentToken: String?
     

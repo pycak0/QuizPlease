@@ -10,7 +10,7 @@ import UIKit
 
 extension GameOrderVC {
     enum GameInfoItemKind: Int, CaseIterable {
-        case annotation, info, description, registration, certificate, firstPlay, paymentType, onlinePayment, submit
+        case annotation, info, description, registration, certificate, firstPlay, promocode, paymentType, onlinePayment, submit
         
         var identifier: String {
             switch self {
@@ -32,6 +32,8 @@ extension GameOrderVC {
                 return GameOnlinePaymentCell.identifier
             case .submit:
                 return GameSubmitButtonCell.identifier
+            case .promocode:
+                return GameCertificateCell.identifier
             }
         }
         

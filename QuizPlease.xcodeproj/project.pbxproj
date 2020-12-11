@@ -79,6 +79,7 @@
 		A44A462C24F8EEC500C81F82 /* UIView+Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44A462B24F8EEC500C81F82 /* UIView+Blur.swift */; };
 		A44A462F24F901ED00C81F82 /* WarmupQuestionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44A462D24F901ED00C81F82 /* WarmupQuestionVC.swift */; };
 		A44A463024F901ED00C81F82 /* WarmupQuestionVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = A44A462E24F901ED00C81F82 /* WarmupQuestionVC.xib */; };
+		A44B2FD525841D9100B5B52C /* CertificateResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44B2FD425841D9100B5B52C /* CertificateResponse.swift */; };
 		A44C697624EFD45300AB3BC9 /* QRCodeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44C697524EFD45300AB3BC9 /* QRCodeService.swift */; };
 		A44C697824EFE06000AB3BC9 /* QRScannerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44C697724EFE06000AB3BC9 /* QRScannerVC.swift */; };
 		A44C697B24EFE70B00AB3BC9 /* RouterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44C697A24EFE70B00AB3BC9 /* RouterProtocol.swift */; };
@@ -301,6 +302,7 @@
 		A44A462B24F8EEC500C81F82 /* UIView+Blur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Blur.swift"; sourceTree = "<group>"; };
 		A44A462D24F901ED00C81F82 /* WarmupQuestionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarmupQuestionVC.swift; sourceTree = "<group>"; };
 		A44A462E24F901ED00C81F82 /* WarmupQuestionVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WarmupQuestionVC.xib; sourceTree = "<group>"; };
+		A44B2FD425841D9100B5B52C /* CertificateResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateResponse.swift; sourceTree = "<group>"; };
 		A44C697524EFD45300AB3BC9 /* QRCodeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeService.swift; sourceTree = "<group>"; };
 		A44C697724EFE06000AB3BC9 /* QRScannerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerVC.swift; sourceTree = "<group>"; };
 		A44C697A24EFE70B00AB3BC9 /* RouterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterProtocol.swift; sourceTree = "<group>"; };
@@ -794,6 +796,7 @@
 			children = (
 				A4FFA4AE24F3BD73006A1150 /* RegisterForm.swift */,
 				A4FFA4B024F3BE2A006A1150 /* PaymentType.swift */,
+				A44B2FD425841D9100B5B52C /* CertificateResponse.swift */,
 			);
 			path = RegisterForm;
 			sourceTree = "<group>";
@@ -821,6 +824,7 @@
 			isa = PBXGroup;
 			children = (
 				A4A0659624E477720080E0D8 /* View */,
+				A450E3A424E57A8C00C49AEE /* GameInfoItemKind.swift */,
 				A450E3A024E5732200C49AEE /* GameOrderInteractor.swift */,
 				A450E39C24E571C900C49AEE /* GameOrderPresenter.swift */,
 				A450E3A224E5735400C49AEE /* GameOrderRouter.swift */,
@@ -834,7 +838,6 @@
 			children = (
 				A4A0659724E477860080E0D8 /* GameOrderVC.swift */,
 				A4FFA4AA24F3AB1A006A1150 /* GameOrderCellDelegates.swift */,
-				A450E3A424E57A8C00C49AEE /* GameInfoItemKind.swift */,
 				A4A0659F24E477E70080E0D8 /* Cells */,
 			);
 			path = View;
@@ -1362,6 +1365,7 @@
 				A44A462C24F8EEC500C81F82 /* UIView+Blur.swift in Sources */,
 				A40D818224D2CA30006D2CE3 /* ProfileVC.swift in Sources */,
 				A423AC2424EEC65100071E68 /* ConfirmVC.swift in Sources */,
+				A44B2FD525841D9100B5B52C /* CertificateResponse.swift in Sources */,
 				A4FFA4B124F3BE2A006A1150 /* PaymentType.swift in Sources */,
 				A4A5370424EC7691004A10D4 /* UIColorExtensions.swift in Sources */,
 				A4E675F4255D78400011A801 /* AudioView.swift in Sources */,

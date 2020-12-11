@@ -35,8 +35,12 @@ class GameOrderVC: UIViewController {
         let types = presenter.game.availablePaymentTypes
         var _items = GameInfoItemKind.allCases
         if types.count == 1 && types.first! == .cash {
-            _items.remove(at: GameInfoItemKind.onlinePayment.rawValue)
+            _items.removeAll { $0 == .onlinePayment }
         }
+        if !presenter.registerForm.isFirstTime {
+            _items.removeAll { $0 == .promocode }
+        }
+        //if presenter.game.
         return _items
     }()
     
@@ -138,9 +142,11 @@ extension GameOrderVC: UITableViewDataSource, UITableViewDelegate {
         //guard let kind = GameInfoItemKind(rawValue: index) else { fatalError("Invalid Game Item Kind") }
         let cell = tableView.dequeueReusableCell(withIdentifier: kind.identifier, for: indexPath) as! TableCellProtocol
         
+        (cell as? GameCertificateCell)?.associatedItemKind = kind
         if let cell = cell as? GameOrderCellProtocol, (cell.delegate as? GameOrderVC) == nil {
             cell.delegate = self
         }
+        
         //(cell as? GameOrderCellProtocol)?.delegate = self
         
         return cell

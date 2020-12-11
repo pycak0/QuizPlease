@@ -23,6 +23,8 @@ protocol GameOrderPresenterProtocol {
     func didPressSubmitButton()
     
     func sumToPay(forPeople number: Int) -> Int
+    
+    func checkCertificate()
 }
 
 class GameOrderPresenter: GameOrderPresenterProtocol {
@@ -57,6 +59,19 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
             return price
         } else {
             return price * number
+        }
+    }
+    
+    func checkCertificate() {
+        guard let cert = registerForm.certificates else { return }
+        interactor.checkCertificate(forGameId: game.id, certificate: cert) { (result) in
+            switch result {
+            case let .failure(error):
+                print(error)
+                self.view?.showErrorConnectingToServerAlert()
+            case let .success(response):
+                self.view?.showSimpleAlert(title: "Проверка сертификата", message: response.message ?? "Не удалось получить статус проверки")
+            }
         }
     }
     
@@ -164,27 +179,6 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
     }
     
 }
-
-//MARK:- Interactor Delegate
-extension GameOrderPresenter: GameOrderInteractorDelegate {
-    func paymentConfirmationController(_ paymentVC: UIViewController, didRedirectToUrl url: URL) {
-        ///Assuming that redirect to "quizplease.ru" is a "return to the shop" button action
-        if url.host?.contains("quizplease.ru") ?? false {
-            paymentVC.dismiss(animated: true) {
-                self.completeOrder()
-            }
-        }
-    }
-    
-    func paymentConfirmationControllerDidFinish(_ paymentVC: UIViewController) {
-        //
-    }
-    
-    func paymentConfirmationControllerWillOpenInBrowser(_ paymentVC: UIViewController) {
-        paymentVC.dismiss(animated: true)
-    }
-}
-
 
 //MARK:- TokenizationModuleOutput
 extension GameOrderPresenter: TokenizationModuleOutput {

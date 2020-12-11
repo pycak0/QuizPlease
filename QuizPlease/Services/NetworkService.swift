@@ -116,6 +116,16 @@ class NetworkService {
         get(GameInfo.self, with: gameUrlComponents, completion: completion)
     }
     
+    func validateCertificate(forGameWithId id: Int, certificate: String, completion: @escaping (Result<CertificateResponse, SessionError>) -> Void) {
+        var urlComps = Globals.baseUrl
+        urlComps.path = "/ajax/check-certificate"
+        urlComps.queryItems = [
+            URLQueryItem(name: "code", value: certificate),
+            URLQueryItem(name: "game_id", value: "\(id)")
+        ]
+        get(CertificateResponse.self, with: urlComps, completion: completion)
+    }
+    
     //MARK:- Get Schedule
     func getSchedule(with filter: ScheduleFilter, completion: @escaping (Result<[GameShortInfo], SessionError>) -> Void) {
         var scheduleUrlComponents = Globals.baseUrl
