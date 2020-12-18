@@ -76,7 +76,7 @@ class ScheduleGameCell: UITableViewCell {
         placeAddressLabel.text = model.placeInfo.shortAddress
         timeLabel.text = "в \(model.time)"
         priceLabel.text = model.priceDetails
-        dateLabel.text = model.blockData
+        dateLabel.text = model.formattedDate
         
         gameStatusLabel.text = model.gameStatus?.comment ?? ""
         signUpButton.setTitle(model.gameStatus?.buttonTitle ?? "Запись недоступна", for: .normal)
@@ -86,11 +86,13 @@ class ScheduleGameCell: UITableViewCell {
             let availableColor = UIColor.lightGreen
             cellView.layer.borderColor = availableColor.cgColor
             signUpButton.backgroundColor = availableColor
+            
         case .reserveAvailable, .noPlaces:
             statusImageView.image = UIImage(named: "soldOut")
             let soldOutColor = UIColor.lemon
             cellView.layer.borderColor = soldOutColor.cgColor
             signUpButton.backgroundColor = soldOutColor
+            
         default:
             statusImageView.image = nil
             cellView.layer.borderColor = UIColor.lightGray.cgColor

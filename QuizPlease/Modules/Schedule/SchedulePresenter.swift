@@ -131,12 +131,12 @@ class SchedulePresenter: SchedulePresenterProtocol {
         guard index < games.count else { return }
         let game = games[index]
         if game.nameGame == GameInfo.placeholderValue {
-            updateDetailInfo(forGameId: game.id, at: index)
+            updateDetailInfo(forGame: game, at: index)
         }
     }
     
-    private func updateDetailInfo(forGameId id: Int, at index: Int) {
-        interactor.loadDetailInfo(for: id) { [weak self] (fullInfo) in
+    private func updateDetailInfo(forGame game: GameInfo, at index: Int) {
+        interactor.loadDetailInfo(for: game) { [weak self] (fullInfo) in
             guard let self = self else { return }
             if let game = fullInfo {
                 self.games[index] = game

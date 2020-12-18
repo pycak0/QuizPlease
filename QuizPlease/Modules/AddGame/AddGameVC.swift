@@ -112,7 +112,7 @@ class AddGameVC: UIViewController {
         placeNameLabel.text = model?.placeInfo.title ?? "-"
         placeAddressLabel.text = model?.placeInfo.shortAddress  ?? "-"
         
-        if let dateStr = model?.blockData, let time = model?.time {
+        if let dateStr = model?.formattedDate, let time = model?.time {
             timeLabel.text = "\(dateStr) в \(time)"
         } else {
             timeLabel.text = "-"
