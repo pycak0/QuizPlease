@@ -68,7 +68,7 @@ class ScheduleGameCell: UITableViewCell {
     }
     
     //MARK:- Configure Cell Data
-    func configureCell(model: GameInfo) {
+    func configureCell(model: GameInfo, isSubscribed: Bool) {
         setButtons(enabled: true)
         nameLabel.text = model.nameGame
         numberLabel.text = model.gameNumber
@@ -96,6 +96,12 @@ class ScheduleGameCell: UITableViewCell {
             cellView.layer.borderColor = UIColor.lightGray.cgColor
             setButtons(enabled: false)
         }
+        
+        let accentColor: UIColor = isSubscribed ? .black : .white
+        remindButton.tintColor = accentColor
+        remindButton.setTitleColor(accentColor, for: .normal)
+        remindButton.backgroundColor = isSubscribed ? .lemon : .themePurple
+        remindButton.setTitle(isSubscribed ? "Напомним" : "Напомнить", for: .normal)
  
         setNeedsLayout()
     }

@@ -186,6 +186,10 @@ extension GameOrderVC: GameOnlinePaymentCellDelegate {
         return presenter.sumToPay(forPeople: number)
     }
     
+    func priceTextColor(in cell: GameOnlinePaymentCell) -> UIColor? {
+        presenter.priceTextColor()
+    }
+    
 }
 
 

@@ -791,14 +791,15 @@
 			path = PickCity;
 			sourceTree = "<group>";
 		};
-		A48E2FAF2530DBFA00CD6BE6 /* RegisterForm */ = {
+		A48E2FAF2530DBFA00CD6BE6 /* GameOrder */ = {
 			isa = PBXGroup;
 			children = (
 				A4FFA4AE24F3BD73006A1150 /* RegisterForm.swift */,
 				A4FFA4B024F3BE2A006A1150 /* PaymentType.swift */,
 				A44B2FD425841D9100B5B52C /* CertificateResponse.swift */,
+				A47003CA253A53C1002E8EA2 /* GameOrderResponse.swift */,
 			);
-			path = RegisterForm;
+			path = GameOrder;
 			sourceTree = "<group>";
 		};
 		A48E2FB12530DC2F00CD6BE6 /* UserInfo */ = {
@@ -950,7 +951,7 @@
 				A4B2C3E125013DC3008D5175 /* ScheduleFilters */,
 				A4B2C3E225013DD5008D5175 /* City */,
 				A472D29125288D4400AA9906 /* Auth */,
-				A48E2FAF2530DBFA00CD6BE6 /* RegisterForm */,
+				A48E2FAF2530DBFA00CD6BE6 /* GameOrder */,
 				A40C8083252E872200CE40D8 /* Warmup */,
 				A472D2A4252897BA00AA9906 /* CheckIn */,
 				A48E2FB12530DC2F00CD6BE6 /* UserInfo */,
@@ -963,7 +964,6 @@
 				A468E12324FD37390083ADB2 /* RatingFilter.swift */,
 				A472D29D2528962A00AA9906 /* TeamInfo.swift */,
 				A47003C7253A4CD0002E8EA2 /* PushSubscribeResponse.swift */,
-				A47003CA253A53C1002E8EA2 /* GameOrderResponse.swift */,
 				A441A80D253F2834007146D3 /* AnyValue.swift */,
 			);
 			path = Entity;

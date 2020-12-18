@@ -16,6 +16,7 @@ protocol ScheduleInteractorProtocol: class {
     func openInMaps(place: Place)
     
     func getSubscribeStatus(gameId: String, completion: @escaping (_ isSubscribe: Bool?) -> Void)
+    func getSubscribedGameIds(completion: @escaping ((Array<Int>) -> Void))
 }
 
 class ScheduleInteractor: ScheduleInteractorProtocol {
@@ -55,6 +56,18 @@ class ScheduleInteractor: ScheduleInteractorProtocol {
     
     func getSubscribeStatus(gameId: String, completion: @escaping (Bool?) -> Void) {
         NetworkService.shared.subscribePushOnGame(with: gameId, completion: completion)
+    }
+    
+    func getSubscribedGameIds(completion: @escaping ((Array<Int>) -> Void)) {
+        NetworkService.shared.getUserInfo { (result) in
+            switch result {
+            case let .failure(error):
+                print(error)
+                completion([])
+            case let .success(userInfo):
+                completion(userInfo.subscribedGames)
+            }
+        }
     }
     
 }

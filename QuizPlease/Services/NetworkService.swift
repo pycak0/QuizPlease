@@ -222,6 +222,8 @@ class NetworkService {
                 DispatchQueue.main.async {
                     completion(.success(object))
                 }
+//                guard let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) else { return }
+//                print(">>> Received data:\n\n\n", json)
             } catch {
                 DispatchQueue.main.async {
                     completion(.failure(.decoding(error)))
