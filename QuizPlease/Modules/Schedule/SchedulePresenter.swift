@@ -27,6 +27,7 @@ protocol SchedulePresenterProtocol: class {
     
     func didPressFilterButton()
     func didChangeScheduleFilter(newFilter: ScheduleFilter)
+    func didPressScheduleRemindButton()
     
     func handleRefreshControl()
     
@@ -111,6 +112,10 @@ class SchedulePresenter: SchedulePresenterProtocol {
     func didChangeScheduleFilter(newFilter: ScheduleFilter) {
         scheduleFilter = newFilter
         updateSchedule()
+    }
+    
+    func didPressScheduleRemindButton() {
+        //
     }
     
     func homeGameAction() {

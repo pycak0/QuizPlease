@@ -48,6 +48,10 @@ class ScheduleVC: UIViewController {
         presenter.didPressFilterButton()
     }
     
+    @IBAction func remindButtonPressed(_ sender: Any) {
+        presenter.didPressScheduleRemindButton()
+    }
+    
     @objc private func refreshControlTriggered() {
         presenter.handleRefreshControl()
     }

@@ -34,17 +34,18 @@ class MainMenuInteractor: MainMenuInteractorProtocol {
     }
     
     func loadShopItems(completion: @escaping ([ShopItem]) -> Void) {
-        completion(self.createSampleItems())
+        //completion(self.createSampleItems())
         NetworkService.shared.getShopItems { [weak self] (serverResult) in
             guard let self = self else { return }
             switch serverResult {
             case let .failure(error):
                 print(error)
-                completion(self.createSampleItems())
+                completion([])
+//                completion(self.createSampleItems())
             case let .success(items):
-                if items.count > 0 {
+//                if items.count > 0 {
                     completion(Array(items.prefix(3)))
-                }
+//                }
             }
         }
     }

@@ -290,19 +290,48 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6ly-LF-rJR">
                                 <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="empty" translatesAutoresizingMaskIntoConstraints="NO" id="552-gI-g13">
+                                        <rect key="frame" x="30" y="208.5" width="354" height="115"/>
+                                    </imageView>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Упс! Кажется, сейчас нет игр, на которые открыта регистрация, поэтому пока вы можете размяться или сыграть в наши игры Хоум" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pxi-Le-rcS">
-                                        <rect key="frame" x="25" y="291.5" width="364" height="147.5"/>
+                                        <rect key="frame" x="25" y="353.5" width="364" height="111.5"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="22"/>
+                                        <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="20"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ooJ-ih-UFn">
+                                        <rect key="frame" x="50" y="485" width="314" height="40"/>
+                                        <color key="backgroundColor" name="themePurple"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="SEF-Vv-iDx"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="16"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <inset key="imageEdgeInsets" minX="25" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <state key="normal" title="Оповестить о появлении" image="bell"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusView">
+                                                <real key="value" value="20"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="remindButtonPressed:" destination="UZG-kg-EzM" eventType="touchUpInside" id="lFl-4t-4gD"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
+                                    <constraint firstItem="552-gI-g13" firstAttribute="top" relation="greaterThanOrEqual" secondItem="6ly-LF-rJR" secondAttribute="top" constant="40" id="2Ue-IE-boB"/>
                                     <constraint firstItem="pxi-Le-rcS" firstAttribute="centerX" secondItem="6ly-LF-rJR" secondAttribute="centerX" id="7Ay-sc-Z8F"/>
-                                    <constraint firstItem="pxi-Le-rcS" firstAttribute="centerY" secondItem="6ly-LF-rJR" secondAttribute="centerY" constant="-22" id="Jje-sk-Qes"/>
+                                    <constraint firstItem="ooJ-ih-UFn" firstAttribute="top" secondItem="pxi-Le-rcS" secondAttribute="bottom" constant="20" id="DIy-h9-l7J"/>
+                                    <constraint firstItem="pxi-Le-rcS" firstAttribute="centerY" secondItem="6ly-LF-rJR" secondAttribute="centerY" constant="22" id="Jje-sk-Qes"/>
                                     <constraint firstItem="pxi-Le-rcS" firstAttribute="leading" secondItem="6ly-LF-rJR" secondAttribute="leading" constant="25" id="Q4j-AC-byb"/>
+                                    <constraint firstItem="ooJ-ih-UFn" firstAttribute="centerX" secondItem="6ly-LF-rJR" secondAttribute="centerX" id="V5a-fj-NFa"/>
+                                    <constraint firstItem="552-gI-g13" firstAttribute="leading" secondItem="6ly-LF-rJR" secondAttribute="leading" constant="30" id="eZL-1x-DKh"/>
+                                    <constraint firstItem="552-gI-g13" firstAttribute="centerX" secondItem="6ly-LF-rJR" secondAttribute="centerX" id="nIE-gU-jeA"/>
+                                    <constraint firstItem="ooJ-ih-UFn" firstAttribute="leading" secondItem="6ly-LF-rJR" secondAttribute="leading" constant="50" id="oNr-bV-rRu"/>
+                                    <constraint firstItem="pxi-Le-rcS" firstAttribute="top" secondItem="552-gI-g13" secondAttribute="bottom" constant="30" id="tLA-uX-Kw3"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cDB-VW-MNb">
@@ -1478,21 +1507,51 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="04c-Oc-wki">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="66t-IR-fdS">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Сейчас тут пусто, загляните попозже" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="16" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vuH-PS-6wX">
-                                        <rect key="frame" x="25" y="385" width="364" height="52.5"/>
-                                        <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="22"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="empty" translatesAutoresizingMaskIntoConstraints="NO" id="sTQ-Bo-12p">
+                                        <rect key="frame" x="30" y="276" width="354" height="115"/>
+                                    </imageView>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Сейчас в магазине нет доступных товаров" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gC7-Su-ngT">
+                                        <rect key="frame" x="25" y="421" width="364" height="64"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                        <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="20"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XRR-c2-q0z">
+                                        <rect key="frame" x="50" y="505" width="314" height="40"/>
+                                        <color key="backgroundColor" name="themePurple"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="yff-2n-LSJ"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="16"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <inset key="imageEdgeInsets" minX="25" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <state key="normal" title="Оповестить о появлении" image="bell"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusView">
+                                                <real key="value" value="20"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="remindButtonPressed:" destination="H5s-MK-eJ0" eventType="touchUpInside" id="v3B-bH-8W9"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstItem="vuH-PS-6wX" firstAttribute="centerY" secondItem="04c-Oc-wki" secondAttribute="centerY" constant="-20" id="2rN-EE-l99"/>
-                                    <constraint firstItem="vuH-PS-6wX" firstAttribute="centerX" secondItem="04c-Oc-wki" secondAttribute="centerX" id="Qkd-3Y-F2n"/>
-                                    <constraint firstItem="vuH-PS-6wX" firstAttribute="leading" secondItem="04c-Oc-wki" secondAttribute="leading" constant="25" id="e1V-1S-hJI"/>
+                                    <constraint firstItem="XRR-c2-q0z" firstAttribute="top" secondItem="gC7-Su-ngT" secondAttribute="bottom" constant="20" id="7yA-yh-1eM"/>
+                                    <constraint firstItem="gC7-Su-ngT" firstAttribute="centerX" secondItem="66t-IR-fdS" secondAttribute="centerX" id="811-Wt-gI0"/>
+                                    <constraint firstItem="sTQ-Bo-12p" firstAttribute="leading" secondItem="66t-IR-fdS" secondAttribute="leading" constant="30" id="Ads-ID-Zng"/>
+                                    <constraint firstItem="XRR-c2-q0z" firstAttribute="leading" secondItem="66t-IR-fdS" secondAttribute="leading" constant="50" id="Lve-CF-4Fs"/>
+                                    <constraint firstItem="gC7-Su-ngT" firstAttribute="leading" secondItem="66t-IR-fdS" secondAttribute="leading" constant="25" id="NuW-oc-wBM"/>
+                                    <constraint firstItem="sTQ-Bo-12p" firstAttribute="top" relation="greaterThanOrEqual" secondItem="66t-IR-fdS" secondAttribute="top" constant="40" id="VGW-3j-rDU"/>
+                                    <constraint firstItem="XRR-c2-q0z" firstAttribute="centerX" secondItem="66t-IR-fdS" secondAttribute="centerX" id="Vff-P4-lc3"/>
+                                    <constraint firstItem="gC7-Su-ngT" firstAttribute="top" secondItem="sTQ-Bo-12p" secondAttribute="bottom" constant="30" id="evH-f1-5oa"/>
+                                    <constraint firstItem="sTQ-Bo-12p" firstAttribute="centerX" secondItem="66t-IR-fdS" secondAttribute="centerX" id="hHc-Ua-b1P"/>
+                                    <constraint firstItem="gC7-Su-ngT" firstAttribute="centerY" secondItem="66t-IR-fdS" secondAttribute="centerY" constant="22" id="xlz-Df-fE0"/>
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" delaysContentTouches="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="8i9-Kw-lHF">
@@ -1512,12 +1571,12 @@
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="8i9-Kw-lHF" secondAttribute="bottom" id="Ddf-rs-7Yl"/>
                             <constraint firstItem="8i9-Kw-lHF" firstAttribute="leading" secondItem="J3q-4e-HIV" secondAttribute="leading" id="E7o-x8-su0"/>
-                            <constraint firstItem="04c-Oc-wki" firstAttribute="leading" secondItem="J3q-4e-HIV" secondAttribute="leading" id="IeH-zX-0yS"/>
+                            <constraint firstItem="66t-IR-fdS" firstAttribute="trailing" secondItem="J3q-4e-HIV" secondAttribute="trailing" id="MSw-C5-Dvu"/>
                             <constraint firstItem="J3q-4e-HIV" firstAttribute="trailing" secondItem="8i9-Kw-lHF" secondAttribute="trailing" id="N8b-yO-aAa"/>
-                            <constraint firstItem="04c-Oc-wki" firstAttribute="top" secondItem="io5-Vl-k0z" secondAttribute="top" id="UJs-pW-xJk"/>
-                            <constraint firstItem="J3q-4e-HIV" firstAttribute="bottom" secondItem="04c-Oc-wki" secondAttribute="bottom" id="a5P-Hu-Cv3"/>
+                            <constraint firstItem="66t-IR-fdS" firstAttribute="leading" secondItem="J3q-4e-HIV" secondAttribute="leading" id="OHb-rv-HPh"/>
+                            <constraint firstItem="66t-IR-fdS" firstAttribute="top" secondItem="io5-Vl-k0z" secondAttribute="top" id="OrA-hH-6sY"/>
                             <constraint firstItem="8i9-Kw-lHF" firstAttribute="top" secondItem="io5-Vl-k0z" secondAttribute="top" id="c6w-UE-2f4"/>
-                            <constraint firstItem="04c-Oc-wki" firstAttribute="trailing" secondItem="J3q-4e-HIV" secondAttribute="trailing" id="jV3-72-kgL"/>
+                            <constraint firstItem="J3q-4e-HIV" firstAttribute="bottom" secondItem="66t-IR-fdS" secondAttribute="bottom" id="xYb-Jt-BJ2"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Магазин" id="RXx-vy-xBF">
@@ -2425,9 +2484,9 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="cFD-tO-9oB"/>
-        <segue reference="pVV-GK-MaB"/>
-        <segue reference="mmH-hO-g5X"/>
-        <segue reference="kQf-Xc-fDF"/>
+        <segue reference="C1a-qd-8Vm"/>
+        <segue reference="smb-dh-maI"/>
+        <segue reference="HCF-Ox-xP4"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="arrowDown" width="20" height="12"/>
@@ -2440,6 +2499,7 @@
         <image name="clockIcon" width="14" height="14"/>
         <image name="cross" width="20" height="20"/>
         <image name="cup" width="28" height="28"/>
+        <image name="empty" width="106" height="115"/>
         <image name="filter" width="42" height="42"/>
         <image name="fireIcon" width="15" height="18"/>
         <image name="flash" width="12" height="21"/>

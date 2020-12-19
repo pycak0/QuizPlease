@@ -40,6 +40,10 @@ class ShopVC: UIViewController {
         presenter.router.prepare(for: segue, sender: sender)
     }
     
+    @IBAction func remindButtonPressed(_ sender: Any) {
+        presenter.didPressRemindButton()
+    }
+    
     @objc
     private func refreshControlTriggered() {
         presenter.handleRefreshControl()
