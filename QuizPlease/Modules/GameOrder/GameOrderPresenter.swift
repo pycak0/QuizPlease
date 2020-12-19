@@ -85,6 +85,7 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
         }
     }
     
+    //MARK:- Check Certificate
     func checkCertificate() {
         guard let cert = registerForm.certificates else { return }
         view?.enableLoading()
@@ -96,7 +97,7 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
                 print(error)
                 self.view?.showErrorConnectingToServerAlert()
             case let .success(response):
-                self.discountType = .allTeamFree//response.discountType
+                self.discountType = response.discountType
                 self.view?.showSimpleAlert(title: "Проверка сертификата", message: response.message ?? "Не удалось получить статус проверки")
                 if let number = self.registerForm.countPaidOnline {
                     self.view?.setPrice(self.sumToPay(forPeople: number))
