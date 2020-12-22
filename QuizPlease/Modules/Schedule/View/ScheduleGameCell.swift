@@ -105,7 +105,7 @@ class ScheduleGameCell: UITableViewCell {
         remindButton.backgroundColor = isSubscribed ? .lemon : .themePurple
         remindButton.setTitle(isSubscribed ? "Напомним" : "Напомнить", for: .normal)
  
-        setNeedsLayout()
+        //setNeedsLayout()
     }
     
     private func onReuseActions() {
