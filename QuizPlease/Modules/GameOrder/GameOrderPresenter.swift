@@ -7,8 +7,8 @@
 //
 
 import Foundation
-import YandexCheckoutPayments
-import YandexCheckoutPaymentsApi
+import YooKassaPayments
+import YooKassaPaymentsApi
 
 //MARK:- Presenter Protocol
 protocol GameOrderPresenterProtocol {
@@ -53,6 +53,9 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
     
     func configureViews() {
         view?.configureTableView()
+        if let path = game.imageData?.pathProof {
+            view?.setBackgroundImage(with: path)
+        }
     }
     
     func sumToPay(forPeople number: Int) -> Int {
@@ -214,7 +217,7 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
 
 //MARK:- TokenizationModuleOutput
 extension GameOrderPresenter: TokenizationModuleOutput {
-    func didFinish(on module: TokenizationModuleInput, with error: YandexCheckoutPaymentsError?) {
+    func didFinish(on module: TokenizationModuleInput, with error: YooKassaPaymentsError?) {
         DispatchQueue.main.async {
             self.view?.dismiss(animated: true)
         }

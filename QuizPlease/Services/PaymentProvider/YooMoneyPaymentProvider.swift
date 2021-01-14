@@ -7,8 +7,8 @@
 //
 
 import UIKit
-import YandexCheckoutPayments
-import YandexCheckoutPaymentsApi
+import YooKassaPayments
+import YooKassaPaymentsApi
 
 final class YooMoneyPaymentProvider: PaymentProvider {
     typealias Delegate = TokenizationModuleOutput

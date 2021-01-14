@@ -20,6 +20,9 @@ struct GameInfo: Decodable {
     ///Date of the game
     var blockData: String = placeholderValue
     
+    ///Background Image path on server
+    var imageData: String?
+    
     var time: String = placeholderValue
     var description: String = placeholderValue
     

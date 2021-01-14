@@ -25,6 +25,7 @@ protocol GameOrderViewProtocol: UIViewController {
     func editPhone()
     
     func setPrice(_ price: Int)
+    func setBackgroundImage(with path: String)
 }
 
 class GameOrderVC: UIViewController {
@@ -134,6 +135,19 @@ extension GameOrderVC: GameOrderViewProtocol {
         guard let index = items.firstIndex(of: .onlinePayment) else { return }
         if let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? GameOnlinePaymentCell {
             cell.setPrice(price)
+        }
+    }
+    
+    func setBackgroundImage(with path: String) {
+        let placeholder = gameImageView.image
+        gameImageView.loadImage(
+            path: path,
+            placeholderImage: placeholder)
+        { [weak self] image in
+            guard let self = self else { return }
+            if image == nil {
+                self.gameImageView.loadImageFromMainDomain(path: path, placeholderImage: placeholder)
+            }
         }
     }
 }

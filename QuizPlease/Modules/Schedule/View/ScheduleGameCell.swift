@@ -82,7 +82,7 @@ class ScheduleGameCell: UITableViewCell {
         signUpButton.setTitle(model.gameStatus?.buttonTitle ?? "Запись недоступна", for: .normal)
         switch model.gameStatus {
         case .placesAvailable:
-            statusImageView.image = UIImage(named: "fireIcon")
+            statusImageView.image = UIImage(named: "tick")
             let availableColor = UIColor.lightGreen
             cellView.layer.borderColor = availableColor.cgColor
             signUpButton.backgroundColor = availableColor
