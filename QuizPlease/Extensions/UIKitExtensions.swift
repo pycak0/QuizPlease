@@ -175,7 +175,8 @@ public extension UIView {
     
     //MARK:- Add Blur to View
     ///Clears view's background color by default but you can specify blur background color
-    func addBlur(color: UIColor = .clear, style: UIBlurEffect.Style = .regular, alpha: CGFloat = 1) {
+    @discardableResult
+    func addBlur(color: UIColor = .clear, style: UIBlurEffect.Style = .regular, alpha: CGFloat = 1) -> UIVisualEffectView {
         let blur = UIVisualEffectView(effect: UIBlurEffect(style: style))
         blur.frame = self.bounds
         blur.alpha = alpha
@@ -187,6 +188,7 @@ public extension UIView {
 
         //self.addSubview(blur)
         self.insertSubview(blur, at: 0)
+        return blur
     }
     
     //MARK:- Draw Dotted Line

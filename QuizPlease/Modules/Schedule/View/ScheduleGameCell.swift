@@ -23,6 +23,8 @@ class ScheduleGameCell: UITableViewCell {
 
     //MARK:- Outlets
     @IBOutlet weak var cellView: UIView!
+    @IBOutlet weak var backgroundImageView: UIImageView!
+    
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var numberLabel: UILabel!
     @IBOutlet weak var placeNameLabel: UILabel!
@@ -105,11 +107,16 @@ class ScheduleGameCell: UITableViewCell {
         remindButton.backgroundColor = isSubscribed ? .lemon : .themePurple
         remindButton.setTitle(isSubscribed ? "Напомним" : "Напомнить", for: .normal)
  
+        if let path = model.imageData?.pathProof {
+            backgroundImageView.loadImage(path: path)
+        }
+        
         //setNeedsLayout()
     }
     
     private func onReuseActions() {
         delegate = nil
+        backgroundImageView.image = nil
         setButtons(enabled: true)
     }
     

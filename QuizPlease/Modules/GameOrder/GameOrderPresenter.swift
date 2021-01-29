@@ -53,9 +53,9 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
     
     func configureViews() {
         view?.configureTableView()
-        if let path = game.imageData?.pathProof {
-            view?.setBackgroundImage(with: path)
-        }
+//        if let path = game.imageData?.pathProof {
+//            view?.setBackgroundImage(with: path)
+//        }
     }
     
     func sumToPay(forPeople number: Int) -> Int {

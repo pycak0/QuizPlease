@@ -57,7 +57,7 @@ extension HomeGamesListVC: HomeGameViewProtocol {
         
         collectionView.register(UINib(nibName: HomeGameCell.identifier, bundle: nil), forCellWithReuseIdentifier: HomeGameCell.identifier)
         
-        headerView.layer.cornerRadius = 20
+        headerView.layer.cornerRadius = 25
         headerView.clipsToBounds = true
         headerView.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
     }

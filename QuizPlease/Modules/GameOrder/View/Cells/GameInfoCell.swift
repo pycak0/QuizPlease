@@ -30,6 +30,7 @@ class GameInfoCell: UITableViewCell, GameOrderCellProtocol {
 
     @IBOutlet weak var cellView: UIView!
     @IBOutlet weak var priceLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var placeNameLabel: UILabel!
     @IBOutlet weak var placeAddressLabel: UILabel!
@@ -53,6 +54,7 @@ class GameInfoCell: UITableViewCell, GameOrderCellProtocol {
     func configure(with info: GameInfo) {
         priceLabel.text = info.priceDetails
         timeLabel.text = "в \(info.time)"
+        dateLabel.text = info.blockData
         placeNameLabel.text = info.placeInfo.title
         placeAddressLabel.text = info.placeInfo.shortAddress
         
@@ -61,7 +63,7 @@ class GameInfoCell: UITableViewCell, GameOrderCellProtocol {
         gameStatusLabel.text = info.gameStatus?.comment ?? ""
         switch info.gameStatus {
         case .placesAvailable:
-            statusImageView.image = UIImage(named: "fireIcon")
+            statusImageView.image = UIImage(named: "tick")
         case .reserveAvailable, .noPlaces:
             statusImageView.image = UIImage(named: "soldOut")
         default:
