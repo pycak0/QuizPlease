@@ -61,14 +61,7 @@ class GameInfoCell: UITableViewCell, GameOrderCellProtocol {
         configureMapView(with: info.placeInfo)
         
         gameStatusLabel.text = info.gameStatus?.comment ?? ""
-        switch info.gameStatus {
-        case .placesAvailable:
-            statusImageView.image = UIImage(named: "tick")
-        case .reserveAvailable, .noPlaces:
-            statusImageView.image = UIImage(named: "soldOut")
-        default:
-            statusImageView.image = nil
-        }
+        statusImageView.image = info.gameStatus?.image
                 
         //mapView.centerToAddress(info.placeInfo.address, addAnnotation: info.placeInfo, regionRadius: 300, animated: false)
     }

@@ -384,7 +384,7 @@
                                                                     <subviews>
                                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mapPointIcon" translatesAutoresizingMaskIntoConstraints="NO" id="E4E-ZK-GYW">
                                                                             <rect key="frame" x="0.0" y="0.0" width="20" height="30"/>
-                                                                            <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                            <color key="tintColor" systemColor="systemGray5Color"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="20" id="Xpj-jc-8Xt"/>
                                                                             </constraints>
@@ -439,7 +439,7 @@
                                                                     <subviews>
                                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="clockIcon" translatesAutoresizingMaskIntoConstraints="NO" id="dbq-mp-Z90">
                                                                             <rect key="frame" x="0.0" y="0.0" width="20" height="30"/>
-                                                                            <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                            <color key="tintColor" systemColor="systemGray5Color"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="20" id="El5-9r-fFY"/>
                                                                             </constraints>
@@ -471,7 +471,7 @@
                                                                     <subviews>
                                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="banknoteIcon" translatesAutoresizingMaskIntoConstraints="NO" id="0Ka-Ty-keu">
                                                                             <rect key="frame" x="0.0" y="0.0" width="20" height="30"/>
-                                                                            <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                            <color key="tintColor" systemColor="systemGray5Color"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="20" id="GHC-Ei-xG7"/>
                                                                             </constraints>
@@ -487,9 +487,9 @@
                                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="pDG-3F-rMI">
                                                                     <rect key="frame" x="0.0" y="114" width="350" height="30"/>
                                                                     <subviews>
-                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fireIcon" translatesAutoresizingMaskIntoConstraints="NO" id="P9G-GH-3wL">
+                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lock" translatesAutoresizingMaskIntoConstraints="NO" id="P9G-GH-3wL">
                                                                             <rect key="frame" x="0.0" y="0.0" width="20" height="30"/>
-                                                                            <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                            <color key="tintColor" systemColor="systemGray5Color"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="20" id="eaR-DZ-vFQ"/>
                                                                             </constraints>
@@ -2517,12 +2517,12 @@
         <image name="cup" width="28" height="28"/>
         <image name="empty" width="106" height="115"/>
         <image name="filter" width="42" height="42"/>
-        <image name="fireIcon" width="15" height="18"/>
         <image name="flash" width="12" height="21"/>
         <image name="frames" width="204" height="210"/>
         <image name="gameInfoTemplate" width="374" height="270"/>
         <image name="homeGameBackground" width="375" height="650"/>
         <image name="launchScreenBackground" width="375" height="812"/>
+        <image name="lock" width="12" height="16"/>
         <image name="logoSmall" width="60" height="60"/>
         <image name="mapIcon" width="13" height="10"/>
         <image name="mapPointIcon" width="14" height="16"/>
@@ -2571,6 +2571,9 @@
         </systemColor>
         <systemColor name="systemGray4Color">
             <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGray5Color">
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray6Color">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

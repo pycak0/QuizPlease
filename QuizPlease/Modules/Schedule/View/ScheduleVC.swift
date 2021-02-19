@@ -120,7 +120,7 @@ extension ScheduleVC: ScheduleViewProtocol {
 //        tableView.isHidden = false
         if let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? ScheduleGameCell {
             let game = presenter.games[index]
-            cell.configureCell(model: game, isSubscribed: presenter.isSubscribedOnGame(with: game.id))
+            cell.fill(model: game, isSubscribed: presenter.isSubscribedOnGame(with: game.id))
         }
 //        tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .none)
     }
@@ -174,7 +174,7 @@ extension ScheduleVC: UITableViewDelegate, UITableViewDataSource {
         
         let game = presenter.games[indexPath.row]
         cell.delegate = self
-        cell.configureCell(model: game, isSubscribed: presenter.isSubscribedOnGame(with: game.id))
+        cell.fill(model: game, isSubscribed: presenter.isSubscribedOnGame(with: game.id))
         presenter.updateDetailInfoIfNeeded(at: indexPath.row)
         
         return cell

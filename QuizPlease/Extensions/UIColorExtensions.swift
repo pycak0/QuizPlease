@@ -72,6 +72,10 @@ public extension UIColor {
         UIColor(named: "themePurple")!
     }
     
+    class var themePink: UIColor {
+        UIColor(named: "themePink")!
+    }
+    
     class var labelAdapted: UIColor {
         if #available(iOS 13.0, *) {
             return .label

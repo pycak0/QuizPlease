@@ -21,6 +21,9 @@ struct GameInfo: Decodable {
     var blockData: String = placeholderValue
     
     ///Background Image path on server
+    var mobile_banner: String?
+    
+    ///background image for cell in Schedule
     var imageData: String?
     
     var time: String = placeholderValue

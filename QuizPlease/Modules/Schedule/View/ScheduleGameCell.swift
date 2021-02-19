@@ -17,45 +17,45 @@ protocol ScheduleGameCellDelegate: class {
 }
 
 class ScheduleGameCell: UITableViewCell {
-    static let identifier = "ScheduleGameCell"
+    static let identifier = "\(ScheduleGameCell.self)"
     
     weak var delegate: ScheduleGameCellDelegate?
 
     //MARK:- Outlets
-    @IBOutlet weak var cellView: UIView!
-    @IBOutlet weak var backgroundImageView: UIImageView!
+    @IBOutlet private weak var cellView: UIView!
+    @IBOutlet private weak var backgroundImageView: UIImageView!
     
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var numberLabel: UILabel!
-    @IBOutlet weak var placeNameLabel: UILabel!
-    @IBOutlet weak var placeAddressLabel: UILabel!
-    @IBOutlet weak var timeLabel: UILabel!
-    @IBOutlet weak var priceLabel: UILabel!
+    @IBOutlet private weak var nameLabel: UILabel!
+    @IBOutlet private weak var numberLabel: UILabel!
+    @IBOutlet private weak var placeNameLabel: UILabel!
+    @IBOutlet private weak var placeAddressLabel: UILabel!
+    @IBOutlet private weak var timeLabel: UILabel!
+    @IBOutlet private weak var priceLabel: UILabel!
     
-    @IBOutlet weak var locationButton: UIButton!
-    @IBOutlet weak var remindButton: UIButton!
-    @IBOutlet weak var infoButton: UIButton!
+    @IBOutlet private weak var locationButton: UIButton!
+    @IBOutlet private weak var remindButton: UIButton!
+    @IBOutlet private weak var infoButton: UIButton!
     
-    @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var gameStatusLabel: UILabel!
-    @IBOutlet weak var statusImageView: UIImageView!
+    @IBOutlet private weak var dateLabel: UILabel!
+    @IBOutlet private weak var gameStatusLabel: UILabel!
+    @IBOutlet private weak var statusImageView: UIImageView!
     
-    @IBOutlet weak var signUpButton: UIButton!
+    @IBOutlet private weak var signUpButton: UIButton!
     
     //MARK:- Actions
-    @IBAction func signUpButtonPressed(_ sender: Any) {
+    @IBAction private func signUpButtonPressed(_ sender: Any) {
         delegate?.signUpButtonPressed(in: self)
     }
     
-    @IBAction func infoButtonPressed(_ sender: Any) {
+    @IBAction private func infoButtonPressed(_ sender: Any) {
         delegate?.infoButtonPressed(in: self)
     }
     
-    @IBAction func locationButtonPressed(_ sender: Any) {
+    @IBAction private func locationButtonPressed(_ sender: Any) {
         delegate?.locationButtonPressed(in: self)
     }
     
-    @IBAction func remindButtonPressed(_ sender: Any) {
+    @IBAction private func remindButtonPressed(_ sender: Any) {
         delegate?.remindButtonPressed(in: self)
     }
     
@@ -70,8 +70,7 @@ class ScheduleGameCell: UITableViewCell {
     }
     
     //MARK:- Configure Cell Data
-    func configureCell(model: GameInfo, isSubscribed: Bool) {
-        setButtons(enabled: true)
+    func fill(model: GameInfo, isSubscribed: Bool) {
         nameLabel.text = model.nameGame
         numberLabel.text = model.gameNumber
         placeNameLabel.text = model.placeInfo.title
@@ -82,28 +81,23 @@ class ScheduleGameCell: UITableViewCell {
         
         gameStatusLabel.text = model.gameStatus?.comment ?? ""
         signUpButton.setTitle(model.gameStatus?.buttonTitle ?? "Запись недоступна", for: .normal)
+        
+        let cellAccentColor = model.gameStatus?.accentColor ?? .lightGray
+        cellView.layer.borderColor = cellAccentColor.cgColor
+        signUpButton.backgroundColor = cellAccentColor
+        
+        statusImageView.image = model.gameStatus?.image
+        
         switch model.gameStatus {
-        case .placesAvailable:
-            statusImageView.image = UIImage(named: "tick")
-            let availableColor = UIColor.lightGreen
-            cellView.layer.borderColor = availableColor.cgColor
-            signUpButton.backgroundColor = availableColor
-            
-        case .reserveAvailable, .noPlaces:
-            statusImageView.image = UIImage(named: "soldOut")
-            let soldOutColor = UIColor.lemon
-            cellView.layer.borderColor = soldOutColor.cgColor
-            signUpButton.backgroundColor = soldOutColor
-            
+        case .placesAvailable, .reserveAvailable:
+            setButtons(enabled: true)
         default:
-            statusImageView.image = nil
-            cellView.layer.borderColor = UIColor.lightGray.cgColor
             setButtons(enabled: false)
         }
         
-        let accentColor: UIColor = isSubscribed ? .black : .white
-        remindButton.tintColor = accentColor
-        remindButton.setTitleColor(accentColor, for: .normal)
+        let remindTintColor: UIColor = isSubscribed ? .black : .white
+        remindButton.tintColor = remindTintColor
+        remindButton.setTitleColor(remindTintColor, for: .normal)
         remindButton.backgroundColor = isSubscribed ? .lemon : .themePurple
         remindButton.setTitle(isSubscribed ? "Напомним" : "Напомнить", for: .normal)
  
