@@ -15,7 +15,7 @@ protocol ProfilePresenterProtocol {
     
     var userInfo: UserInfo? { get set }
     
-    func setupView()
+    func viewDidLoad(_ view: ProfileViewProtocol)
     func handleViewDidAppear()
     
     func didPerformAuth()
@@ -41,9 +41,9 @@ class ProfilePresenter: ProfilePresenterProtocol {
         self.interactor = interactor
     }
     
-    //MARK:- Setup View
-    func setupView() {
-        view?.configureViews()
+    //MARK:- View Did Load
+    func viewDidLoad(_ view: ProfileViewProtocol) {
+        view.configureViews()
         
         if Globals.userToken == nil {
             router.showAuthScreen()
