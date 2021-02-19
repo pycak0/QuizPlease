@@ -23,6 +23,8 @@ protocol ShopPresenterProtocol {
     func didAgreeToPurchase(_ item: ShopItem)
     func didPurchase(_ item: ShopItem)
     func handleRefreshControl()
+    
+    func didPressRemindButton()
 }
 
 class ShopPresenter: ShopPresenterProtocol {
@@ -96,6 +98,10 @@ class ShopPresenter: ShopPresenterProtocol {
     func didSelectItem(at index: Int) {
         let item = items[index]
         router.showConfirmScreen(for: item)
+    }
+    
+    func didPressRemindButton() {
+        //
     }
     
     func didAgreeToPurchase(_ item: ShopItem) {

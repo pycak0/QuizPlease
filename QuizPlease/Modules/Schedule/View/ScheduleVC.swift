@@ -18,6 +18,8 @@ protocol ScheduleViewProtocol: UIViewController {
     func showNoGamesScheduled()
     
     func configure()
+    
+    func changeSubscribeStatus(forGameAt index: Int)
 }
 
 class ScheduleVC: UIViewController {
@@ -44,6 +46,10 @@ class ScheduleVC: UIViewController {
     
     @IBAction func filtersButtonPressed(_ sender: Any) {
         presenter.didPressFilterButton()
+    }
+    
+    @IBAction func remindButtonPressed(_ sender: Any) {
+        presenter.didPressScheduleRemindButton()
     }
     
     @objc private func refreshControlTriggered() {
@@ -114,7 +120,7 @@ extension ScheduleVC: ScheduleViewProtocol {
 //        tableView.isHidden = false
         if let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? ScheduleGameCell {
             let game = presenter.games[index]
-            cell.configureCell(model: game)
+            cell.fill(model: game, isSubscribed: presenter.isSubscribedOnGame(with: game.id))
         }
 //        tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .none)
     }
@@ -135,8 +141,13 @@ extension ScheduleVC: ScheduleViewProtocol {
         tableView.isHidden = true
     }
     
+    func changeSubscribeStatus(forGameAt index: Int) {
+        tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+    }
+    
 }
 
+//MARK:- FiltersVCDelegate
 extension ScheduleVC: FiltersVCDelegate {
     func didChangeFilter(_ newFilter: ScheduleFilter) {
         presenter.didChangeScheduleFilter(newFilter: newFilter)
@@ -163,7 +174,7 @@ extension ScheduleVC: UITableViewDelegate, UITableViewDataSource {
         
         let game = presenter.games[indexPath.row]
         cell.delegate = self
-        cell.configureCell(model: game)
+        cell.fill(model: game, isSubscribed: presenter.isSubscribedOnGame(with: game.id))
         presenter.updateDetailInfoIfNeeded(at: indexPath.row)
         
         return cell

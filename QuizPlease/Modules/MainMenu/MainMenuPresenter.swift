@@ -22,6 +22,7 @@ protocol MainMenuPresenterProtocol: class {
     func didChangeDefaultCity(_ newCity: City)
     func didPressAddGame()
     func didAddNewGame(with info: String)
+    func didPressMenuRemindButton()
     
     func handleViewDidAppear()
 }
@@ -120,6 +121,10 @@ class MainMenuPresenter: MainMenuPresenterProtocol {
     
     func didAddNewGame(with info: String) {
         router.showAddGameScreen(info)
+    }
+    
+    func didPressMenuRemindButton() {
+        //
     }
     
     private func reloadShopItems() {

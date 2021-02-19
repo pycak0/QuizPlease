@@ -11,7 +11,9 @@ import UIKit
 //MARK:- Shop Cell Collection View
 extension MainMenuVC: UICollectionViewDelegate, UICollectionViewDataSource, MenuShopCellDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return presenter.sampleShopItems.count
+        let count = presenter.sampleShopItems.count
+        collectionView.isHidden = !(count > 0)
+        return count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -44,5 +46,9 @@ extension MainMenuVC: UICollectionViewDelegate, UICollectionViewDataSource, Menu
     
     func didPressMoreButton(in cell: MenuShopCell) {
         presenter.didSelectMenuItem(at: MenuItemKind.shop.rawValue)
+    }
+    
+    func didPressRemindButton(in cell: MenuShopCell) {
+        presenter.didPressMenuRemindButton()
     }
 }

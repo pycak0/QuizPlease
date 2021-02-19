@@ -10,6 +10,8 @@ import UIKit
 
 protocol MenuShopCellDelegate: class {
     func didPressMoreButton(in cell: MenuShopCell)
+    
+    func didPressRemindButton(in cell: MenuShopCell)
 }
 
 class MenuShopCell: UITableViewCell, MenuCellItemProtocol {
@@ -23,7 +25,9 @@ class MenuShopCell: UITableViewCell, MenuCellItemProtocol {
     @IBOutlet weak var accessoryLabel: UILabel!
     @IBOutlet weak var accessoryStack: UIStackView!
     @IBOutlet private weak var collectionView: UICollectionView!
-
+    @IBOutlet private weak var emptyItemsView: UIView!
+    @IBOutlet private weak var remindButton: UIButton!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         configureViews()
@@ -31,13 +35,18 @@ class MenuShopCell: UITableViewCell, MenuCellItemProtocol {
     
     func configureViews() {
         collectionView.register(UINib(nibName: ShopItemCell.identifier, bundle: nil), forCellWithReuseIdentifier: ShopItemCell.identifier)
+        accessoryStack.addTapGestureRecognizer {
+            self.delegate?.didPressMoreButton(in: self)
+        }
+        remindButton.addTarget(self, action: #selector(remindButtonPressed), for: .touchUpInside)
+    }
+    
+    @objc private func remindButtonPressed() {
+        delegate?.didPressRemindButton(in: self)
     }
     
     func configureCell(with model: MenuItemProtocol) {
         titleLabel.text = model.title
-        accessoryStack.addTapGestureRecognizer {
-            self.delegate?.didPressMoreButton(in: self)
-        }
     }
     
     typealias Delegate = UICollectionViewDataSource & UICollectionViewDelegate & MenuShopCellDelegate

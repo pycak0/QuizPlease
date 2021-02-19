@@ -17,7 +17,7 @@ class HomeGameVideoVC: UIViewController {
     @IBOutlet private weak var blanksButton: ScalingButton!
     @IBOutlet private weak var videoView: VideoView!
     
-    var homeGame: HomeGame!
+    var homeGame: HomeGame! = HomeGame()
     
     //MARK:- Lifecycle 
     override func viewDidLoad() {
@@ -57,14 +57,14 @@ class HomeGameVideoVC: UIViewController {
         rulesButton.backgroundColor = UIColor.systemRed.withAlphaComponent(0.2)
         blanksButton.backgroundColor = UIColor.systemBlue.withAlphaComponent(0.2)
         
-        let buttonRadius: CGFloat = 20
-        let videoRadius: CGFloat = 30
-        blanksButton.layer.cornerRadius = buttonRadius
-        rulesButton.layer.cornerRadius = buttonRadius
+        let buttonCornerRadius: CGFloat = 20
+        let videoCornerRadius: CGFloat = 30
+        blanksButton.layer.cornerRadius = buttonCornerRadius
+        rulesButton.layer.cornerRadius = buttonCornerRadius
         
-        videoView.layer.cornerRadius = videoRadius
-        descriptionBackground.layer.cornerRadius = videoRadius
-        backgroundImageView.layer.cornerRadius = videoRadius
+        videoView.layer.cornerRadius = videoCornerRadius
+        descriptionBackground.layer.cornerRadius = videoCornerRadius
+        backgroundImageView.layer.cornerRadius = videoCornerRadius
         descriptionBackground.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         backgroundImageView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         

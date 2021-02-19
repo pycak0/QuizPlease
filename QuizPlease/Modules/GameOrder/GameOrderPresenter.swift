@@ -7,8 +7,8 @@
 //
 
 import Foundation
-import YandexCheckoutPayments
-import YandexCheckoutPaymentsApi
+import YooKassaPayments
+import YooKassaPaymentsApi
 
 //MARK:- Presenter Protocol
 protocol GameOrderPresenterProtocol {
@@ -23,6 +23,8 @@ protocol GameOrderPresenterProtocol {
     func didPressSubmitButton()
     
     func sumToPay(forPeople number: Int) -> Int
+    
+    func priceTextColor() -> UIColor?
     
     func checkCertificate()
 }
@@ -40,6 +42,7 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
         }
     }
     
+    private var discountType: DiscountType = .none
     private var tokenizationModule: TokenizationModuleInput?
 
     required init(view: GameOrderViewProtocol, interactor: GameOrderInteractorProtocol, router: GameOrderRouterProtocol) {
@@ -50,31 +53,62 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
     
     func configureViews() {
         view?.configureTableView()
+        if let path = game.mobile_banner?.pathProof {
+            view?.setBackgroundImage(with: path)
+        }
     }
     
     func sumToPay(forPeople number: Int) -> Int {
         registerForm.countPaidOnline = number
-        let price = game.priceNumber ?? 0
-        if game.isOnlineGame {
-            return price
-        } else {
-            return price * number
+        var price = game.priceNumber ?? 0
+        var payNumber = number
+        
+        switch discountType {
+        case .allTeamFree:
+            return 0
+        case let .numberOfPeopleForFree(num):
+            payNumber = num
+        case .none:
+            break
+        }
+        
+        if !game.isOnlineGame {
+            price *= payNumber
+        }
+        
+        return price
+    }
+    
+    func priceTextColor() -> UIColor? {
+        switch discountType {
+        case .allTeamFree, .numberOfPeopleForFree(_):
+            return .lightGreen
+        case .none:
+            return nil
         }
     }
     
+    //MARK:- Check Certificate
     func checkCertificate() {
         guard let cert = registerForm.certificates else { return }
-        interactor.checkCertificate(forGameId: game.id, certificate: cert) { (result) in
+        view?.enableLoading()
+        interactor.checkCertificate(forGameId: game.id, certificate: cert) { [weak self] (result) in
+            guard let self = self else { return }
+            self.view?.disableLoading()
             switch result {
             case let .failure(error):
                 print(error)
                 self.view?.showErrorConnectingToServerAlert()
             case let .success(response):
+                self.discountType = response.discountType
                 self.view?.showSimpleAlert(title: "Проверка сертификата", message: response.message ?? "Не удалось получить статус проверки")
+                if let number = self.registerForm.countPaidOnline {
+                    self.view?.setPrice(self.sumToPay(forPeople: number))
+                }
             }
         }
     }
-    
+        
     //MARK:- Submit Button Action
     func didPressSubmitButton() {
         view?.view.endEditing(true)
@@ -100,11 +134,12 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
             return
         }
         
-        if registerForm.paymentType == .online {
-            let count = registerForm.countPaidOnline ?? 0
+        let count = registerForm.countPaidOnline ?? 0
+        let paymentSum = Double(sumToPay(forPeople: count))
+        if registerForm.paymentType == .online && paymentSum > 0 {
             router.showPaymentView(
                 provider: YooMoneyPaymentProvider(),
-                withSum: Double(sumToPay(forPeople: count)),
+                withSum: paymentSum,
                 description: createPaymentDescription(),
                 delegate: self)
             
@@ -182,7 +217,7 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
 
 //MARK:- TokenizationModuleOutput
 extension GameOrderPresenter: TokenizationModuleOutput {
-    func didFinish(on module: TokenizationModuleInput, with error: YandexCheckoutPaymentsError?) {
+    func didFinish(on module: TokenizationModuleInput, with error: YooKassaPaymentsError?) {
         DispatchQueue.main.async {
             self.view?.dismiss(animated: true)
         }

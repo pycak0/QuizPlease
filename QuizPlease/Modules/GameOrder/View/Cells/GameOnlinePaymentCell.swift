@@ -18,6 +18,9 @@ protocol GameOnlinePaymentCellDelegate: class {
     ///Requires the sum to pay for selected number of people. Delegate (Data source) must update its value with the new `number` value here.
     func sumToPay(in cell: GameOnlinePaymentCell, forNumberOfPeople number: Int) -> Int
     
+    ///If `nil`, the default color is `UIColor.label`
+    func priceTextColor(in cell: GameOnlinePaymentCell) -> UIColor?
+    
     func shouldDisplayCountPicker(in cell: GameOnlinePaymentCell) -> Bool
 }
 
@@ -43,6 +46,12 @@ class GameOnlinePaymentCell: UITableViewCell, GameOrderCellProtocol {
         updatePrice(withNumberOfPeople: number)
     }
     
+    func setPrice(_ price: Int) {
+        let priceColor = _delegate?.priceTextColor(in: self) ?? .labelAdapted
+        priceLabel.text = "\(price)"
+        priceLabel.textColor = priceColor
+    }
+        
     weak var delegate: AnyObject? {
         get { _delegate }
         set { _delegate = newValue as? GameOnlinePaymentCellDelegate }
@@ -103,7 +112,7 @@ class GameOnlinePaymentCell: UITableViewCell, GameOrderCellProtocol {
     private func updatePrice(withNumberOfPeople number: Int) {
         let newPrice = _delegate?.sumToPay(in: self, forNumberOfPeople: number) ?? 0
         //print("\(newPrice)")
-        priceLabel.text = "\(newPrice)"
+       setPrice(newPrice)
     }
 
 }

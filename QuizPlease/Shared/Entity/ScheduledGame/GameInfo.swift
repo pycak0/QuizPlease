@@ -12,11 +12,19 @@ struct GameInfo: Decodable {
     static let placeholderValue = "-"
     
     var id: Int!
+    var date: Date?
+    
     private var numberGame: String = "#"
     var nameGame: String = placeholderValue
     
     ///Date of the game
     var blockData: String = placeholderValue
+    
+    ///Background Image path on server
+    var mobile_banner: String?
+    
+    ///background image for cell in Schedule
+    var imageData: String?
     
     var time: String = placeholderValue
     var description: String = placeholderValue
@@ -33,8 +41,9 @@ struct GameInfo: Decodable {
     private var payment_icon: Int = 0
     private var game_type: Int = 0
     
-    init(id: Int) {
+    init(id: Int, date: Date?) {
         self.id = id
+        self.date = date
     }
 }
 
@@ -82,5 +91,20 @@ extension GameInfo {
     
     var gameStatus: GameStatus? {
         return GameStatus(rawValue: status ?? -999)
+    }
+    
+    ///Calculates the day of week from game's Date and appends it to the `blockData`
+    var formattedDate: String {
+        guard let date = date else { return blockData }
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd MMMM"
+        formatter.locale = Locale(identifier: "ru")
+        
+        let weekDay = Calendar.current.component(.weekday, from: date)
+        let week = formatter.weekdaySymbols[weekDay-1]
+        
+        let dateString = "\(formatter.string(from: date)), \(week)"
+        return dateString
     }
 }

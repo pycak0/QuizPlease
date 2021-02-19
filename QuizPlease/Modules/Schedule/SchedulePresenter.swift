@@ -27,10 +27,13 @@ protocol SchedulePresenterProtocol: class {
     
     func didPressFilterButton()
     func didChangeScheduleFilter(newFilter: ScheduleFilter)
+    func didPressScheduleRemindButton()
     
     func handleRefreshControl()
     
     func updateDetailInfoIfNeeded(at index: Int)
+    
+    func isSubscribedOnGame(with id: Int) -> Bool
     
 }
 
@@ -40,6 +43,11 @@ class SchedulePresenter: SchedulePresenterProtocol {
     weak var view: ScheduleViewProtocol?
     var interactor: ScheduleInteractorProtocol!
     
+    var games: [GameInfo] = []
+    
+    var scheduleFilter = ScheduleFilter()
+    
+    private var subscribedGameIds = [Int]()
     
     required init(view: ScheduleViewProtocol, interactor: ScheduleInteractorProtocol, router: ScheduleRouterProtocol) {
         self.view = view
@@ -47,14 +55,14 @@ class SchedulePresenter: SchedulePresenterProtocol {
         self.interactor = interactor
     }
     
-    var games: [GameInfo] = []
-    
-    var scheduleFilter = ScheduleFilter()
-    
     func configureViews() {
         view?.configure()
         
         updateSchedule()
+    }
+    
+    func isSubscribedOnGame(with id: Int) -> Bool {
+        return subscribedGameIds.contains(id)
     }
     
     //MARK:- Actions
@@ -76,7 +84,8 @@ class SchedulePresenter: SchedulePresenterProtocol {
     }
     
     func didAskNotification(forGameAt index: Int) {
-        let gameId = "\(games[index].id ?? -1)"
+        let id = games[index].id ?? -1
+        let gameId = "\(id)"
         interactor.getSubscribeStatus(gameId: gameId) { [weak self] (subscibeStatus) in
             guard let self = self else { return }
             if let isSubscribe = subscibeStatus {
@@ -84,6 +93,12 @@ class SchedulePresenter: SchedulePresenterProtocol {
                 let title = isSubscribe ? "Подписка на уведомления" : "Отписка от уведомлений"
                 self.view?.showSimpleAlert(title: title,
                                            message: "Вы были успешно \(subscirbeMessage) об игре. Если хотите изменить статус подписки, нажмите на кнопку ещё раз")
+                if isSubscribe {
+                    self.subscribedGameIds.append(id)
+                } else {
+                    self.subscribedGameIds.removeAll { $0 == id }
+                }
+                self.view?.changeSubscribeStatus(forGameAt: index)
             } else {
                 self.view?.showErrorConnectingToServerAlert()
             }
@@ -97,6 +112,10 @@ class SchedulePresenter: SchedulePresenterProtocol {
     func didChangeScheduleFilter(newFilter: ScheduleFilter) {
         scheduleFilter = newFilter
         updateSchedule()
+    }
+    
+    func didPressScheduleRemindButton() {
+        //
     }
     
     func homeGameAction() {
@@ -117,12 +136,12 @@ class SchedulePresenter: SchedulePresenterProtocol {
         guard index < games.count else { return }
         let game = games[index]
         if game.nameGame == GameInfo.placeholderValue {
-            updateDetailInfo(forGameId: game.id, at: index)
+            updateDetailInfo(forGame: game, at: index)
         }
     }
     
-    private func updateDetailInfo(forGameId id: Int, at index: Int) {
-        interactor.loadDetailInfo(for: id) { [weak self] (fullInfo) in
+    private func updateDetailInfo(forGame game: GameInfo, at index: Int) {
+        interactor.loadDetailInfo(for: game) { [weak self] (fullInfo) in
             guard let self = self else { return }
             if let game = fullInfo {
                 self.games[index] = game
@@ -132,7 +151,14 @@ class SchedulePresenter: SchedulePresenterProtocol {
         }
     }
     
+    
+    //MARK:- Load
     private func updateSchedule() {
+        loadSchedule()
+        updateSubscribedGames()
+    }
+    
+    private func loadSchedule() {
         interactor.loadSchedule(filter: scheduleFilter) { [weak self] (result) in
             guard let self = self else { return }
             self.view?.endLoadingAnimation()
@@ -154,6 +180,13 @@ class SchedulePresenter: SchedulePresenterProtocol {
 //                    self.updateDetailInfo(forGameId: game.id, at: index)
 //                }
             }
+        }
+    }
+    
+    private func updateSubscribedGames() {
+        interactor.getSubscribedGameIds { [weak self] (gameIds) in
+            guard let self = self else { return }
+            self.subscribedGameIds = gameIds
         }
     }
     

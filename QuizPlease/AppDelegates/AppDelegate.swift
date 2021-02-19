@@ -10,7 +10,7 @@ import UIKit
 import IQKeyboardManagerSwift
 import Firebase
 import UserNotificationsUI
-import YandexCheckoutPaymentsApi
+import YooKassaPaymentsApi
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate {

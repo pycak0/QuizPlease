@@ -20,6 +20,16 @@ struct HomeGame: Decodable {
     private var front_image: String?
     private var packages_link: String?
 //    var cover: String
+    
+    init() {
+        id = 0
+        title = ""
+        description = "hello world"
+        duration = ""
+        number = ""
+        price = 0
+    }
+    
 }
 
 extension HomeGame {

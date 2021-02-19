@@ -77,13 +77,14 @@ class PickCityVC: UITableViewController {
         definesPresentationContext = true
     }
     
-    private func filterCities(with query: String) {
-        guard query != "" else {
+    //MARK:- Filter
+    private func filterCities(with query: String?) {
+        guard let query = query?.lowercased(), !query.isEmpty else {
             filteredCities = cities
             reloadDataAndSelect()
             return
         }
-        filteredCities = cities.filter { $0.title.contains(query) }
+        filteredCities = cities.filter { $0.title.lowercased().contains(query) }
         tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .automatic)
     }
     
@@ -130,7 +131,6 @@ extension PickCityVC {
 //MARK:- UISearchResultsUpdating
 extension PickCityVC: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        guard let query = searchController.searchBar.text else { return }
-        filterCities(with: query)
+        filterCities(with: searchController.searchBar.text)
     }
 }

@@ -8,14 +8,16 @@
 
 import Foundation
 
+//MARK:- Interactor Protocol
 protocol ScheduleInteractorProtocol: class {
     func loadSchedule(filter: ScheduleFilter, completion: @escaping (Result<[GameInfo], SessionError>) -> Void)
-    func loadDetailInfo(for gameId: Int, completion: @escaping (GameInfo?) -> Void)
+    func loadDetailInfo(for game: GameInfo, completion: @escaping (GameInfo?) -> Void)
     
     func openInMaps(placeName: String, withLongitutde lon: Double, andLatitude lat: Double)
     func openInMaps(place: Place)
     
     func getSubscribeStatus(gameId: String, completion: @escaping (_ isSubscribe: Bool?) -> Void)
+    func getSubscribedGameIds(completion: @escaping ((Array<Int>) -> Void))
 }
 
 class ScheduleInteractor: ScheduleInteractorProtocol {
@@ -25,21 +27,22 @@ class ScheduleInteractor: ScheduleInteractorProtocol {
             case let .failure(error):
                 completion(.failure(error))
             case let .success(gamesList):
-                let gamesInfo: [GameInfo] = gamesList.map { GameInfo(id: $0.id) }
+                let gamesInfo: [GameInfo] = gamesList.map { GameInfo(id: $0.id, date: $0.date) }
                 completion(.success(gamesInfo))
             }
         }
     }
     
-    func loadDetailInfo(for gameId: Int, completion: @escaping (GameInfo?) -> Void) {
-        NetworkService.shared.getGameInfo(by: gameId) { (result) in
+    func loadDetailInfo(for game: GameInfo, completion: @escaping (GameInfo?) -> Void) {
+        NetworkService.shared.getGameInfo(by: game.id) { (result) in
             switch result {
             case let .failure(error):
                 print(error)
                 completion(nil)
             case let .success(gameInfo):
                 var fullInfo = gameInfo
-                fullInfo.id = gameId
+                fullInfo.id = game.id
+                fullInfo.date = game.date
                 completion(fullInfo)
             }
         }
@@ -55,6 +58,18 @@ class ScheduleInteractor: ScheduleInteractorProtocol {
     
     func getSubscribeStatus(gameId: String, completion: @escaping (Bool?) -> Void) {
         NetworkService.shared.subscribePushOnGame(with: gameId, completion: completion)
+    }
+    
+    func getSubscribedGameIds(completion: @escaping ((Array<Int>) -> Void)) {
+        NetworkService.shared.getUserInfo { (result) in
+            switch result {
+            case let .failure(error):
+                print(error)
+                completion([])
+            case let .success(userInfo):
+                completion(userInfo.subscribedGames)
+            }
+        }
     }
     
 }
