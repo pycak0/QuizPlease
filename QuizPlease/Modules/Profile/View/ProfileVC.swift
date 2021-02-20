@@ -62,6 +62,7 @@ class ProfileVC: UIViewController {
     }
 
     @IBAction private func exitButtonPressed(_ sender: Any) {
+        presenter.didPressExitButton()
     }
     
 }

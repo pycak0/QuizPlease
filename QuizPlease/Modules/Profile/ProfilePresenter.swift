@@ -19,6 +19,7 @@ protocol ProfilePresenterProtocol {
     func handleViewDidAppear()
     
     func didPerformAuth()
+    func didPressExitButton()
     
     func didPressShowShopButton()
     func didPressAddGameButton()
@@ -62,6 +63,9 @@ class ProfilePresenter: ProfilePresenterProtocol {
     
     func didPerformAuth() {
         interactor.loadUserInfo()
+    }
+    
+    func didPressExitButton() {
     }
     
     //MARK:- Actions
