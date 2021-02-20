@@ -33,7 +33,7 @@ enum GameStatus: Int, Decodable {
         case .reserveAvailable:
             return "Записаться в резерв"
         default:
-            return "Запись недоступна"
+            return "Запись закрыта"
         }
     }
     
@@ -43,10 +43,8 @@ enum GameStatus: Int, Decodable {
             return .lightGreen
         case .reserveAvailable:
             return .lemon
-        case .noPlaces:
-            return .themePink
-        case .invite, .ended:
-            return .lightGray
+        case .invite, .ended, .noPlaces:
+            return .themeGray
         }
     }
     

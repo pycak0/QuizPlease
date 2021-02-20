@@ -82,7 +82,7 @@ class ScheduleGameCell: UITableViewCell {
         gameStatusLabel.text = model.gameStatus?.comment ?? ""
         signUpButton.setTitle(model.gameStatus?.buttonTitle ?? "Запись недоступна", for: .normal)
         
-        let cellAccentColor = model.gameStatus?.accentColor ?? .lightGray
+        let cellAccentColor = model.gameStatus?.accentColor ?? .themeGray
         cellView.layer.borderColor = cellAccentColor.cgColor
         signUpButton.backgroundColor = cellAccentColor
         
@@ -103,6 +103,10 @@ class ScheduleGameCell: UITableViewCell {
  
         if let path = model.imageData?.pathProof {
             backgroundImageView.loadImage(path: path)
+        }
+        
+        if model.gameStatus != nil {
+        //    animateDataFilling()
         }
         
         //setNeedsLayout()
@@ -127,6 +131,13 @@ class ScheduleGameCell: UITableViewCell {
         signUpButton.layer.cornerRadius = signUpButton.frame.height / 2
         locationButton.layer.cornerRadius = locationButton.frame.height / 2
         remindButton.layer.cornerRadius = remindButton.frame.height / 2
+    }
+    
+    private func animateDataFilling() {
+        alpha = 0
+        UIView.animate(withDuration: CATransaction.animationDuration()) {
+            self.alpha = 1
+        }
     }
     
 }

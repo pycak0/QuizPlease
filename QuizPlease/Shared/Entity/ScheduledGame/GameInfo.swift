@@ -21,7 +21,7 @@ struct GameInfo: Decodable {
     var blockData: String = placeholderValue
     
     ///Background Image path on server
-    var mobile_banner: String?
+    private var special_mobile_banner: String?
     
     ///background image for cell in Schedule
     var imageData: String?
@@ -41,9 +41,10 @@ struct GameInfo: Decodable {
     private var payment_icon: Int = 0
     private var game_type: Int = 0
     
-    init(id: Int, date: Date?) {
-        self.id = id
-        self.date = date
+    init(shortInfo: GameShortInfo) {
+        id = shortInfo.id
+        date = shortInfo.date
+        special_mobile_banner = shortInfo.special_mobile_banner
     }
 }
 
@@ -91,6 +92,11 @@ extension GameInfo {
     
     var gameStatus: GameStatus? {
         return GameStatus(rawValue: status ?? -999)
+    }
+    
+    var backgroundImagePath: String? {
+        get { special_mobile_banner }
+        set { special_mobile_banner = newValue }
     }
     
     ///Calculates the day of week from game's Date and appends it to the `blockData`

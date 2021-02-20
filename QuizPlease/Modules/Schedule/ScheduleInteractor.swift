@@ -27,7 +27,7 @@ class ScheduleInteractor: ScheduleInteractorProtocol {
             case let .failure(error):
                 completion(.failure(error))
             case let .success(gamesList):
-                let gamesInfo: [GameInfo] = gamesList.map { GameInfo(id: $0.id, date: $0.date) }
+                let gamesInfo: [GameInfo] = gamesList.map { GameInfo(shortInfo: $0) }
                 completion(.success(gamesInfo))
             }
         }
@@ -43,6 +43,7 @@ class ScheduleInteractor: ScheduleInteractorProtocol {
                 var fullInfo = gameInfo
                 fullInfo.id = game.id
                 fullInfo.date = game.date
+                fullInfo.backgroundImagePath = game.backgroundImagePath
                 completion(fullInfo)
             }
         }
