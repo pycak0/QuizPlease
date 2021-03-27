@@ -89,7 +89,7 @@ class ScheduleGameCell: UITableViewCell {
         statusImageView.image = model.gameStatus?.image
         
         switch model.gameStatus {
-        case .placesAvailable, .reserveAvailable:
+        case .placesAvailable, .reserveAvailable, .fewPlaces:
             setButtons(enabled: true)
         default:
             setButtons(enabled: false)

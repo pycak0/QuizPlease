@@ -39,10 +39,10 @@ protocol SchedulePresenterProtocol: class {
 
 //MARK:- Presenter Implementation
 class SchedulePresenter: SchedulePresenterProtocol {
-    var router: ScheduleRouterProtocol!
     weak var view: ScheduleViewProtocol?
     var interactor: ScheduleInteractorProtocol!
-    
+    var router: ScheduleRouterProtocol!
+
     var games: [GameInfo] = []
     
     var scheduleFilter = ScheduleFilter()
@@ -79,7 +79,6 @@ class SchedulePresenter: SchedulePresenterProtocol {
         let game = games[index]
         let place = game.placeInfo
         interactor.openInMaps(place: place)
-        //interactor.openInMaps(placeName: place.name, withLongitutde: place.longitude, andLatitude: place.latitude)
     }
     
     func didAskNotification(forGameAt index: Int) {
@@ -128,7 +127,6 @@ class SchedulePresenter: SchedulePresenterProtocol {
             guard let self = self else { return }
             if let game = fullInfo {
                 self.games[index] = game
-                //self.view?.reloadScheduleList()
                 self.view?.reloadGame(at: index)
             }
         }
@@ -159,9 +157,6 @@ class SchedulePresenter: SchedulePresenterProtocol {
             case .success(let schedule):
                 self.games = schedule
                 self.view?.reloadScheduleList()
-//                for (index, game) in self.games.enumerated() {
-//                    self.updateDetailInfo(forGameId: game.id, at: index)
-//                }
             }
         }
     }

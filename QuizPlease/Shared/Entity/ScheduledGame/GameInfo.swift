@@ -107,10 +107,12 @@ extension GameInfo {
     }
     
     var gameStatus: GameStatus? {
-        if isFewPlaces ?? false {
-            return .fewPlaces
-        }
-        return GameStatus(rawValue: status ?? -999)
+        let realStatus = GameStatus(rawValue: self.status ?? -999)
+        let isFewPlacesFlagEnabled = self.isFewPlaces ?? false
+        let displayStatus = (isFewPlacesFlagEnabled && realStatus == .placesAvailable)
+            ? .fewPlaces
+            : realStatus
+        return displayStatus
     }
     
     var backgroundImagePath: String? {
