@@ -37,9 +37,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate {
         
         Utilities.main.updateDefaultCity()
         
-        ///updated in `applicationWillEnterForeground` and `sceneWillEnterForeground`
-       // Utilities.main.updateToken()
-        
         return true
     }
     
