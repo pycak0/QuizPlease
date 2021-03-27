@@ -769,9 +769,8 @@
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7qy-R2-uOg">
                                 <rect key="frame" x="20" y="133" width="374" height="328.5"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TeC-f4-I5Q">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TeC-f4-I5Q">
                                         <rect key="frame" x="20" y="20" width="329" height="268.5"/>
-                                        <string key="text">Специальный выпуск Квиз, плиз! Хоум вместе с Кухней на районе. Поговорим о еде и напитках — не забудьте заказать доставку чего-нибудь вкусного перед игрой. Аппетит разыгрывается зверский!</string>
                                         <fontDescription key="fontDescription" name="Gilroy-Medium" family="Gilroy" pointSize="18"/>
                                         <color key="textColor" name="themeGray"/>
                                         <nil key="highlightedColor"/>
