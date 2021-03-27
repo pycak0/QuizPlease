@@ -10,6 +10,9 @@ import Foundation
 
 //MARK:- Interactor Protocol
 protocol ScheduleInteractorProtocol: class {
+    ///must be weak
+    var output: ScheduleInteractorOutput? { get set }
+    
     func loadSchedule(filter: ScheduleFilter, completion: @escaping (Result<[GameInfo], SessionError>) -> Void)
     func loadDetailInfo(for game: GameInfo, completion: @escaping (GameInfo?) -> Void)
     
@@ -20,7 +23,13 @@ protocol ScheduleInteractorProtocol: class {
     func getSubscribedGameIds(completion: @escaping ((Array<Int>) -> Void))
 }
 
+protocol ScheduleInteractorOutput: class {
+    func interactor(_ interactor: ScheduleInteractorProtocol?, failedToOpenMapsWithError error: Error)
+}
+
 class ScheduleInteractor: ScheduleInteractorProtocol {
+    weak var output: ScheduleInteractorOutput?
+    
     func loadSchedule(filter: ScheduleFilter, completion: @escaping (Result<[GameInfo], SessionError>) -> Void) {
         NetworkService.shared.getSchedule(with: filter) { (serverResult) in
             switch serverResult {
@@ -52,7 +61,12 @@ class ScheduleInteractor: ScheduleInteractorProtocol {
     }
     
     func openInMaps(place: Place) {
-        MapService.openMap(for: place.title!, withAddress: place.fullAddress)
+        MapService.openMap(for: place.title!, withAddress: place.fullAddress) { [weak self] error in
+            guard let self = self else { return }
+            if let error = error {
+                self.output?.interactor(self, failedToOpenMapsWithError: error)
+            }
+        }
     }
     
     func getSubscribeStatus(gameId: String, completion: @escaping (Bool?) -> Void) {

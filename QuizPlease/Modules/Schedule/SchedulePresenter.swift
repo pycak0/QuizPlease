@@ -191,3 +191,10 @@ class SchedulePresenter: SchedulePresenterProtocol {
     }
     
 }
+
+//MARK:- ScheduleInteractorOutput
+extension SchedulePresenter: ScheduleInteractorOutput {
+    func interactor(_ interactor: ScheduleInteractorProtocol?, failedToOpenMapsWithError error: Error) {
+        //view?.showSimpleAlert(title: "Не удалось определить адрес для этого места")
+    }
+}

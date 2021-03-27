@@ -20,6 +20,7 @@ class ScheduleConfigurator: ScheduleConfiguratorProtocol {
         
         viewController.prepareNavigationBar()
         viewController.presenter = presenter
+        interactor.output = presenter
     }
     
 }
