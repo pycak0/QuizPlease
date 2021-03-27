@@ -430,7 +430,7 @@ class NetworkService {
             "QpRecord[game_id]"         : "\(registerForm.gameId)",
             "QpRecord[first_time]"      : registerForm.isFirstTime ? "1" : "0",
             "certificates[]"            : registerForm.certificates,
-            "QpRecord[payment_type]"    : registerForm.paymentType == .online ? "1" : "2",
+            "QpRecord[payment_type]"    : "\(registerForm.paymentType.rawValue)",
             "QpRecord[count]"           : "\(registerForm.count)",
             "QpRecord[teamName]"        : registerForm.teamName,
             "QpRecord[payment_token]"   : registerForm.paymentToken,

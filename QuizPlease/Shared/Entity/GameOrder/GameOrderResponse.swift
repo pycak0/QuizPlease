@@ -32,14 +32,12 @@ struct GameOrderResponse: Decodable {
     
     var isSuccess: Bool {
         if let number = success?.value() as? Int {
-            return number == 1 ? true : false
+            return number == 1
         }
-        else if let isSuccess = success?.value() as? Bool {
+        if let isSuccess = success?.value() as? Bool {
             return isSuccess
         }
-        else {
-            return false
-        }
+        return false
     }
     
     var paymentStatus: GameOrderStatus {
@@ -59,7 +57,7 @@ struct GameOrderResponse: Decodable {
             }
             return statusString == "1"
         }
-        return false
+        return isSuccess
     }
     
     var shouldRedirect: Bool {
