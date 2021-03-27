@@ -158,6 +158,38 @@ class NetworkService {
         }
     }
     
+    //MARK:- Get Full Schedule
+    ///Gets schedule and loads every game's detail info. Returns final full result with completion
+    func getFullSchedule(with filter: ScheduleFilter, completion: @escaping (Result<[GameInfo], SessionError>) -> Void) {
+        getSchedule(with: filter) { (result) in
+            switch result {
+            case let .failure(error):
+                completion(.failure(error))
+            case let .success(games):
+                let group = DispatchGroup()
+                var fullGames = [Int: GameInfo]()
+                for game in games {
+                    group.enter()
+                    self.getGameInfo(by: game.id) { (result) in
+                        switch result {
+                        case let .failure(error):
+                            completion(.failure(error))
+                        case let .success(gameFullInfo):
+                            var gameInfo = gameFullInfo
+                            gameInfo.setShortInfo(game)
+                            fullGames[game.id] = gameInfo
+                        }
+                        group.leave()
+                    }
+                }
+                group.notify(queue: .main) {
+                    let finalResult = games.map { fullGames[$0.id]! }
+                    completion(.success(finalResult))
+                }
+            }
+        }
+    }
+    
     //MARK:- Get Filter Options
     ///Used for filtering schedule
     ///- parameter cityId: Optionally request scoping the results for given city id
@@ -405,7 +437,8 @@ class NetworkService {
             "QpRecord[count]"           : "\(registerForm.count)",
             "QpRecord[teamName]"        : registerForm.teamName,
             "QpRecord[payment_token]"   : registerForm.paymentToken,
-            "QpRecord[surcharge]"       : countPaidOnline
+            "QpRecord[surcharge]"       : countPaidOnline,
+            "promo_code"                : registerForm.promocode
         ]
         
         afPost(with: parameters, to: registerUrlComps, responseType: GameOrderResponse.self, completion: completion)

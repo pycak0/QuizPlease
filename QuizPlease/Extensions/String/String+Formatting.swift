@@ -17,4 +17,13 @@ extension String {
         }
         return res.removingPercentEncoding ?? res
     }
+    
+    ///Deletes angle brackets and all content inside them
+    func deletingAngleBrackets() -> String {
+        return self
+            .replacingOccurrences(of: "\\<[^\\>]+\\>",
+                                  with: "",
+                                  options: .regularExpression)
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+    }
 }

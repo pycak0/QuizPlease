@@ -41,9 +41,7 @@ class ScheduleInteractor: ScheduleInteractorProtocol {
                 completion(nil)
             case let .success(gameInfo):
                 var fullInfo = gameInfo
-                fullInfo.id = game.id
-                fullInfo.date = game.date
-                fullInfo.backgroundImagePath = game.backgroundImagePath
+                fullInfo.setShortInfo(game)
                 completion(fullInfo)
             }
         }

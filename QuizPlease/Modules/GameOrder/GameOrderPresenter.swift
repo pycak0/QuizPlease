@@ -83,7 +83,7 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
     
     func priceTextColor() -> UIColor? {
         switch discountType {
-        case .allTeamFree, .numberOfPeopleForFree(_):
+        case .allTeamFree, .numberOfPeopleForFree:
             return .lightGreen
         case .none:
             return nil
@@ -113,7 +113,7 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
         
     //MARK:- Submit Button Action
     func didPressSubmitButton() {
-        view?.view.endEditing(true)
+        view?.endEditing()
         guard registerForm.isValid else {
             if registerForm.email.isEmpty {
                 view?.showSimpleAlert(title: "Заполнены не все необходимые поля",
@@ -166,14 +166,7 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
             var message: String = "Произошла ошибка при записи на игру"
             
             if response.shouldRedirect {
-                if let url = response.link /*, let view = self.view*/ {
-//                    self.interactor.confirmPayment(redirectLink: url, presentationView: view) { (error) in
-//                        if let error = error {
-//                            print(error)
-//                            self.view?.showSimpleAlert(title: title, message: message)
-//                            return
-//                        }
-//                    }
+                if let url = response.link {
                     self.tokenizationModule?.start3dsProcess(requestUrl: url.absoluteString)
                 } else {
                     self.view?.showSimpleAlert(title: title, message: message)
@@ -191,9 +184,9 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
             }
             
             if response.isSuccess {
-                message = response.successMsg ?? "Успешно"
+                message = response.successMessage ?? "Успешно"
             } else {
-                message = response.successMsg ?? response.errorMsg ?? "Произошла ошибка при записи на игру"
+                message = response.successMessage ?? response.errorMessage ?? "Произошла ошибка при записи на игру"
             }
 
             self.view?.showSimpleAlert(title: title, message: message) { okAction in
@@ -244,26 +237,6 @@ extension GameOrderPresenter: TokenizationModuleOutput {
             
             self.registerForm.paymentToken = token.paymentToken
             self.register()
-            
-//            self.view?.showTwoOptionsAlert(
-//                title: "Токен для оплаты сгенерирован",
-//                message: token.paymentToken,
-//                option1Title: "OK", handler1: nil,
-//                option2Title: "Скопировать") { (copyAction) in
-//                    UIPasteboard.general.string = token.paymentToken
-//            }
-            
-//            interactor.pay(with: token.paymentToken) { [weak self] (error) in
-//                guard let self = self else { return }
-//                self.view?.dismiss(animated: true)
-//                if let error = error {
-//                    print(error)
-//                    self.view?.showErrorConnectingToServerAlert()
-//
-//                } else {
-//                    self.completeOrder()
-//                }
-//            }
         }
     }
     

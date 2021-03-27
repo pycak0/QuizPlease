@@ -26,6 +26,7 @@ protocol GameOrderViewProtocol: UIViewController {
     
     func setPrice(_ price: Int)
     func setBackgroundImage(with path: String)
+    func endEditing()
 }
 
 class GameOrderVC: UIViewController {
@@ -94,6 +95,10 @@ class GameOrderVC: UIViewController {
 
 //MARK:- Protocol Implementation
 extension GameOrderVC: GameOrderViewProtocol {
+    func endEditing() {
+        view.endEditing(true)
+    }
+    
     func reloadInfo() {
         tableView.reloadData()
     }

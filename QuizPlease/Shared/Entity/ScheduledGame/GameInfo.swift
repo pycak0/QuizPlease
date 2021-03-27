@@ -30,6 +30,7 @@ struct GameInfo: Decodable {
     var description: String = placeholderValue
     
     private var status: Int?
+    private var isFewPlaces: Bool?
 
     private var price: String = placeholderValue
     ///Describing price e.g. "с человека". Use `priceDetails` instead of this
@@ -45,6 +46,21 @@ struct GameInfo: Decodable {
         id = shortInfo.id
         date = shortInfo.date
         special_mobile_banner = shortInfo.special_mobile_banner
+        isFewPlaces = (shortInfo.is_little_place ?? 0) == 1
+    }
+    
+    mutating func setShortInfo(_ shortInfo: GameShortInfo) {
+        id = shortInfo.id
+        date = shortInfo.date
+        special_mobile_banner = shortInfo.special_mobile_banner
+        isFewPlaces = (shortInfo.is_little_place ?? 0) == 1
+    }
+    
+    mutating func setShortInfo(_ shortInfo: GameInfo) {
+        id = shortInfo.id
+        date = shortInfo.date
+        special_mobile_banner = shortInfo.special_mobile_banner
+        isFewPlaces = shortInfo.isFewPlaces
     }
 }
 
@@ -91,6 +107,9 @@ extension GameInfo {
     }
     
     var gameStatus: GameStatus? {
+        if isFewPlaces ?? false {
+            return .fewPlaces
+        }
         return GameStatus(rawValue: status ?? -999)
     }
     

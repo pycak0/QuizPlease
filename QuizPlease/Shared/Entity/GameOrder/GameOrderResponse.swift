@@ -19,8 +19,16 @@ struct GameOrderResponse: Decodable {
     var link: URL?
     private var status: AnyValue?
     
-    var successMsg: String?
-    var errorMsg: String?
+    private var successMsg: String?
+    private var errorMsg: String?
+    
+    var successMessage: String? {
+        successMsg?.deletingAngleBrackets()
+    }
+    
+    var errorMessage: String? {
+        errorMsg?.deletingAngleBrackets()
+    }
     
     var isSuccess: Bool {
         if let number = success?.value() as? Int {

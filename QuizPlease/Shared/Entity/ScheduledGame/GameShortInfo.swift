@@ -13,6 +13,7 @@ struct GameShortInfo: Decodable {
     private var datetime: String
     var id: Int
     var special_mobile_banner: String?
+    var is_little_place: Int?
 
     var date: Date? {
         let formatter = DateFormatter()
