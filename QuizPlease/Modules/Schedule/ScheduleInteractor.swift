@@ -19,12 +19,14 @@ protocol ScheduleInteractorProtocol: class {
     func openInMaps(placeName: String, withLongitutde lon: Double, andLatitude lat: Double)
     func openInMaps(place: Place)
     
-    func getSubscribeStatus(gameId: String, completion: @escaping (_ isSubscribe: Bool?) -> Void)
+    func getSubscribeStatus(gameId: String)
     func getSubscribedGameIds(completion: @escaping ((Array<Int>) -> Void))
 }
 
 protocol ScheduleInteractorOutput: class {
     func interactor(_ interactor: ScheduleInteractorProtocol?, failedToOpenMapsWithError error: Error)
+    func interactor(_ interactor: ScheduleInteractorProtocol?, didGetSubscribeStatus isSubscribed: Bool, forGameWithId id: String)
+    func interactor(_ interactor: ScheduleInteractorProtocol?, failedToSubscribeForGameWith gameId: String, error: SessionError)
 }
 
 class ScheduleInteractor: ScheduleInteractorProtocol {
@@ -69,8 +71,16 @@ class ScheduleInteractor: ScheduleInteractorProtocol {
         }
     }
     
-    func getSubscribeStatus(gameId: String, completion: @escaping (Bool?) -> Void) {
-        NetworkService.shared.subscribePushOnGame(with: gameId, completion: completion)
+    func getSubscribeStatus(gameId: String) {
+        NetworkService.shared.subscribePushOnGame(with: gameId) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case let .failure(error):
+                self.output?.interactor(self, failedToSubscribeForGameWith: gameId, error: error)
+            case let .success(isSubscribed):
+                self.output?.interactor(self, didGetSubscribeStatus: isSubscribed, forGameWithId: gameId)
+            }
+        }
     }
     
     func getSubscribedGameIds(completion: @escaping ((Array<Int>) -> Void)) {

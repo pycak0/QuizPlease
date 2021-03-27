@@ -274,26 +274,23 @@ class NetworkService {
     ///
     
     //MARK:- Push Subscribe
-    ///Completion `nil` value means that some errors occured on server side
-    func subscribePushOnGame(with id: String, completion: @escaping (_ isSubscribe: Bool?) -> Void) {
+    func subscribePushOnGame(with id: String, completion: @escaping (Result<Bool, SessionError>) -> Void) {
         guard let token = Globals.userToken else {
-            completion(nil)
+            completion(.failure(.invalidToken))
             return
         }
         var urlComps = Globals.baseUrl
         urlComps.path = "/api/game/subscribe-notification"
         let params = [
             "game_id" : id,
-            //"subscribe" : isSubscribe ? "1" : "0"
         ]
         let headers = ["Authorization" : "Bearer \(token)"]
         afPostStandard(with: params, and: headers, to: urlComps, responseType: PushSubscribeResponse.self) { (postResult) in
             switch postResult {
             case let .failure(error):
-                print(error)
-                completion(nil)
+                completion(.failure(error))
             case let .success(response):
-                completion(response.message == .subscribe)
+                completion(.success(response.message == .subscribe))
             }
         }
     }
