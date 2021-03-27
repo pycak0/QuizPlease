@@ -38,7 +38,7 @@ class GameOrderVC: UIViewController {
     lazy var items: [GameInfoItemKind] = {
         let types = presenter.game.availablePaymentTypes
         var _items = GameInfoItemKind.allCases
-        if types.count == 1 && types.first! == .cash {
+        if presenter.isOnlyCashAvailable || !presenter.isOnlinePaymentDefault {
             _items.removeAll { $0 == .onlinePayment }
         }
         if !presenter.registerForm.isFirstTime {

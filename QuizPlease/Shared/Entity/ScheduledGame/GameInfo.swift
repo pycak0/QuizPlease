@@ -8,6 +8,15 @@
 
 import Foundation
 
+fileprivate let translationDict: [String: String] = [
+    "оплата на сайте и в баре": "оплата онлайн или в баре",
+    "оплата онлайн (через Яндекс кассу)": "оплата онлайн",
+    "наличные (оплата на месте)": "наличные",
+    "наличные или карта (оплата на месте)": "наличные или карта",
+    "карта (оплата на месте)" : "карта",
+    "онлайн через смс" : "онлайн"
+]
+
 struct GameInfo: Decodable {
     static let placeholderValue = "-"
     
@@ -28,6 +37,8 @@ struct GameInfo: Decodable {
     
     var time: String = placeholderValue
     var description: String = placeholderValue
+    
+    private var text_block: String?
     
     private var status: Int?
     private var isFewPlaces: Bool?
@@ -74,7 +85,14 @@ extension GameInfo {
     }
     
     var priceDetails: String {
-        "\(price) \(text)"
+        let components = text.components(separatedBy: ", ")
+        var details = components.first.map { "\($0), " } ?? ""
+        var text = ""
+        if components.count >= 2 {
+            text = components[1]
+        }
+        details += translationDict[text] ?? text
+        return "\(price) \(details)"
     }
     
     var gameNumber: String {
@@ -108,7 +126,7 @@ extension GameInfo {
     
     var gameStatus: GameStatus? {
         let realStatus = GameStatus(rawValue: self.status ?? -999)
-        let isFewPlacesFlagEnabled = self.isFewPlaces ?? false
+        let isFewPlacesFlagEnabled = isFewPlaces ?? false
         let displayStatus = (isFewPlacesFlagEnabled && realStatus == .placesAvailable)
             ? .fewPlaces
             : realStatus
@@ -133,5 +151,9 @@ extension GameInfo {
         
         let dateString = "\(formatter.string(from: date)), \(week)"
         return dateString
+    }
+    
+    var optionalDescription: String? {
+        text_block?.removingAngleBrackets(replaceWith: " ")
     }
 }

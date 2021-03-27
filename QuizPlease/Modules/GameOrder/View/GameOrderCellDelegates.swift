@@ -29,8 +29,11 @@ extension GameOrderVC: GameInfoCellDelegate {
 
 
 //MARK:- Game Description
-extension GameOrderVC: GameDescriptionDelegate {}
-
+extension GameOrderVC: GameDescriptionDelegate {
+    func optionalDescription(for descriptionCell: GameGeneralDescriptionCell) -> String? {
+        return presenter.game.optionalDescription
+    }
+}
 
 
 //MARK:- Register
@@ -136,7 +139,7 @@ extension GameOrderVC: GamePaymentTypeCellDelegate {
     }
     
     func isOnlinePaymentInitially(in cell: GamePaymentTypeCell) -> Bool {
-        presenter.registerForm.paymentType == .online
+        return presenter.isOnlinePaymentDefault
     }
     
     func paymentTypeCell(_ cell: GamePaymentTypeCell, didChangePaymentType isOnlinePayment: Bool) {

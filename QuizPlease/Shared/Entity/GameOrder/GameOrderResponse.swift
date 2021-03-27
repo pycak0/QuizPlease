@@ -23,11 +23,11 @@ struct GameOrderResponse: Decodable {
     private var errorMsg: String?
     
     var successMessage: String? {
-        successMsg?.deletingAngleBrackets()
+        successMsg?.removingAngleBrackets()
     }
     
     var errorMessage: String? {
-        errorMsg?.deletingAngleBrackets()
+        errorMsg?.removingAngleBrackets()
     }
     
     var isSuccess: Bool {

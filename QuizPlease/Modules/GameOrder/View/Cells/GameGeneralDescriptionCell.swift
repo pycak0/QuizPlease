@@ -30,7 +30,15 @@ class GameGeneralDescriptionCell: UITableViewCell, GameOrderCellProtocol {
     private weak var _delegate: GameDescriptionDelegate? {
         didSet {
             if let text = _delegate?.optionalDescription(for: self) {
-                descriptionLabel.text = text
+                DispatchQueue.global().async {
+                    if let attrString = text.htmlFormatted() {
+                        let range = (attrString.string as NSString).range(of: attrString.string)
+                        attrString.addAttribute(.font, value: UIFont(name: "Gilroy-Medium", size: 14)!, range: range)
+                        DispatchQueue.main.async {
+                            self.descriptionLabel.attributedText = attrString
+                        }
+                    }
+                }
             }
         }
     }

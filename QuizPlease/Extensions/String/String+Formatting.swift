@@ -19,11 +19,21 @@ extension String {
     }
     
     ///Deletes angle brackets and all content inside them
-    func deletingAngleBrackets() -> String {
+    func removingAngleBrackets(replaceWith replaceString: String = "") -> String {
         return self
             .replacingOccurrences(of: "\\<[^\\>]+\\>",
-                                  with: "",
+                                  with: replaceString,
                                   options: .regularExpression)
             .trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+    
+    func htmlFormatted() -> NSMutableAttributedString? {
+        guard let htmlData = self
+                .trimmingCharacters(in: .whitespacesAndNewlines)
+                .data(using: .unicode) else { return nil }
+        
+        return try? NSMutableAttributedString(data: htmlData,
+                                              options: [.documentType : NSAttributedString.DocumentType.html],
+                                              documentAttributes: nil)
     }
 }

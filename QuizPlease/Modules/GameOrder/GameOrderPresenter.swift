@@ -14,18 +14,16 @@ import YooKassaPaymentsApi
 protocol GameOrderPresenterProtocol {
     var game: GameInfo! { get set }
     var registerForm: RegisterForm { get set }
-    
     var router: GameOrderRouterProtocol! { get }
+    var isOnlinePaymentDefault: Bool { get }
+    var isOnlyCashAvailable: Bool { get }
+    
     init(view: GameOrderViewProtocol, interactor: GameOrderInteractorProtocol, router: GameOrderRouterProtocol)
     
     func configureViews()
-    
     func didPressSubmitButton()
-    
     func sumToPay(forPeople number: Int) -> Int
-    
     func priceTextColor() -> UIColor?
-    
     func checkCertificate()
 }
 
@@ -44,11 +42,21 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
     
     private var discountType: DiscountType = .none
     private var tokenizationModule: TokenizationModuleInput?
-
+    
     required init(view: GameOrderViewProtocol, interactor: GameOrderInteractorProtocol, router: GameOrderRouterProtocol) {
         self.view = view
         self.interactor = interactor
         self.router = router
+    }
+    
+    var isOnlinePaymentDefault: Bool {
+        //return registerForm.paymentType == .online
+        return false
+    }
+    
+    var isOnlyCashAvailable: Bool {
+        let types = game.availablePaymentTypes
+        return types.count == 1 && types.first! == .cash
     }
     
     func configureViews() {
