@@ -15,6 +15,7 @@ protocol ProfileRouterProtocol: RouterProtocol {
     func showAddGameScreen(_ info: String)
     
     func showAuthScreen()
+    func closeProfile()
 }
 
 class ProfileRouter: ProfileRouterProtocol {
@@ -75,6 +76,9 @@ class ProfileRouter: ProfileRouterProtocol {
         viewController?.performSegue(withIdentifier: "ProfileAuthVC", sender: nil)
     }
     
+    func closeProfile() {
+        viewController?.navigationController?.popViewController(animated: true)
+    }
 }
 
 //MARK:- Auth VC Delegate

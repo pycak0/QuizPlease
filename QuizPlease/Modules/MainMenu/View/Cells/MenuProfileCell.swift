@@ -49,6 +49,11 @@ class MenuProfileCell: UITableViewCell, MenuCellItemProtocol {
         accessoryLabel.isHidden = false
     }
     
+    func hideUserPoints() {
+        accessoryLabel.isHidden = true
+        accessoryLabel.text = ""
+    }
+    
     func configureCell(with model: MenuItemProtocol) {
         titleLabel.text = model.title
         //accessoryLabel.text = model.supplementaryText

@@ -65,10 +65,14 @@ class ProfilePresenter: ProfilePresenterProtocol {
         interactor.loadUserInfo()
     }
     
+    //MARK:- Actions
     func didPressExitButton() {
+        view?.showTwoOptionsAlert(title: "Вы уверены, что хотите выйти из личного кабинета?", message: "", option1Title: "Да", handler1: { _ in
+            self.interactor.deleteUserInfo()
+            self.router.closeProfile()
+        }, option2Title: "Отмена", handler2: nil)
     }
     
-    //MARK:- Actions
     func didPressShowShopButton() {
         router.showShop(with: userInfo)
     }

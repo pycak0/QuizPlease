@@ -16,7 +16,7 @@ protocol SchedulePresenterProtocol: class {
     var games: [GameInfo] { get set }
     var scheduleFilter: ScheduleFilter { get set }
     
-    func configureViews()
+    func viewDidLoad(_ view: ScheduleViewProtocol)
     func didSignUp(forGameAt index: Int)
     func didPressInfoButton(forGameAt index: Int)
     func didAskNotification(forGameAt index: Int)
@@ -55,8 +55,9 @@ class SchedulePresenter: SchedulePresenterProtocol {
         self.interactor = interactor
     }
     
-    func configureViews() {
-        view?.configure()
+    func viewDidLoad(_ view: ScheduleViewProtocol) {
+        view.configure()
+        view.startLoadingAnimation()
         updateSchedule()
     }
     

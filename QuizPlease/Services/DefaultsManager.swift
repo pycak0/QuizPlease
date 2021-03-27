@@ -40,6 +40,10 @@ class DefaultsManager {
         }
     }
     
+    func removeAuthInfo() {
+        defaults.removeObject(forKey: authInfoKey)
+    }
+    
     //MARK:- Default City 
     func getDefaultCity() -> City? {
         if let data = defaults.data(forKey: defaultCityKey),

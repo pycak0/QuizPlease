@@ -61,9 +61,7 @@ class MainMenuPresenter: MainMenuPresenterProtocol {
     }
     
     func handleViewDidAppear() {
-        if Globals.userToken != nil {
-            loadUserInfo()
-        }
+        loadUserInfo()
         
         if sampleShopItems.count == 0 || sampleShopItems.first?.title == "SAMPLE" {
             reloadShopItems()
@@ -77,10 +75,15 @@ class MainMenuPresenter: MainMenuPresenterProtocol {
             switch serverResult {
             case let .failure(error):
                 print(error)
+                switch error {
+                case .invalidToken:
+                    self.view?.updateUserPointsAmount(with: nil)
+                default:
+                    break
+                }
             case let .success(userInfo):
                 self.userInfo = userInfo
                 self.view?.updateUserPointsAmount(with: userInfo.pointsAmount)
-                
             }
         }
     }

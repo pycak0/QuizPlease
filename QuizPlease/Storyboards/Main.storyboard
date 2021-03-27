@@ -1602,7 +1602,7 @@
                         <barButtonItem key="backBarButtonItem" title=" " id="GZx-UZ-Qzs"/>
                         <barButtonItem key="rightBarButtonItem" style="plain" id="Nss-ms-8zo">
                             <view key="customView" contentMode="scaleToFill" id="Dn0-XF-7MI">
-                                <rect key="frame" x="302" y="6" width="92" height="33"/>
+                                <rect key="frame" x="301" y="6" width="92" height="33"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2430 Б" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ozp-8d-wSt">
@@ -2510,9 +2510,9 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="cFD-tO-9oB"/>
-        <segue reference="C1a-qd-8Vm"/>
-        <segue reference="smb-dh-maI"/>
-        <segue reference="HCF-Ox-xP4"/>
+        <segue reference="pVV-GK-MaB"/>
+        <segue reference="mmH-hO-g5X"/>
+        <segue reference="kQf-Xc-fDF"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="arrowDown" width="20" height="12"/>

@@ -14,6 +14,7 @@ protocol ScheduleViewProtocol: UIViewController {
     
     func reloadScheduleList()
     func reloadGame(at index: Int)
+    func startLoadingAnimation()
     func endLoadingAnimation()
     func showNoGamesScheduled()
     
@@ -33,7 +34,7 @@ class ScheduleVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configarator.configure(self)
-        presenter.configureViews()
+        presenter.viewDidLoad(self)
         
         if #available(iOS 14.0, *) {
             navigationItem.backBarButtonItem?.menu = nil
@@ -127,6 +128,10 @@ extension ScheduleVC: ScheduleViewProtocol {
     
     func endLoadingAnimation() {
         tableView.refreshControl?.endRefreshing()
+    }
+    
+    func startLoadingAnimation() {
+        tableView.refreshControl?.beginRefreshing()
     }
     
     func configure() {
