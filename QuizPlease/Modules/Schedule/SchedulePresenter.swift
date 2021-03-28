@@ -16,7 +16,7 @@ protocol SchedulePresenterProtocol: class {
     var games: [GameInfo] { get set }
     var scheduleFilter: ScheduleFilter { get set }
     
-    func configureViews()
+    func viewDidLoad(_ view: ScheduleViewProtocol)
     func didSignUp(forGameAt index: Int)
     func didPressInfoButton(forGameAt index: Int)
     func didAskNotification(forGameAt index: Int)
@@ -39,10 +39,10 @@ protocol SchedulePresenterProtocol: class {
 
 //MARK:- Presenter Implementation
 class SchedulePresenter: SchedulePresenterProtocol {
-    var router: ScheduleRouterProtocol!
     weak var view: ScheduleViewProtocol?
     var interactor: ScheduleInteractorProtocol!
-    
+    var router: ScheduleRouterProtocol!
+
     var games: [GameInfo] = []
     
     var scheduleFilter = ScheduleFilter()
@@ -55,9 +55,9 @@ class SchedulePresenter: SchedulePresenterProtocol {
         self.interactor = interactor
     }
     
-    func configureViews() {
-        view?.configure()
-        
+    func viewDidLoad(_ view: ScheduleViewProtocol) {
+        view.configure()
+        view.startLoadingAnimation()
         updateSchedule()
     }
     
@@ -80,29 +80,12 @@ class SchedulePresenter: SchedulePresenterProtocol {
         let game = games[index]
         let place = game.placeInfo
         interactor.openInMaps(place: place)
-        //interactor.openInMaps(placeName: place.name, withLongitutde: place.longitude, andLatitude: place.latitude)
     }
     
     func didAskNotification(forGameAt index: Int) {
         let id = games[index].id ?? -1
         let gameId = "\(id)"
-        interactor.getSubscribeStatus(gameId: gameId) { [weak self] (subscibeStatus) in
-            guard let self = self else { return }
-            if let isSubscribe = subscibeStatus {
-                let subscirbeMessage = isSubscribe ? "подписаны на уведомления" : "отписаны от уведомлений"
-                let title = isSubscribe ? "Подписка на уведомления" : "Отписка от уведомлений"
-                self.view?.showSimpleAlert(title: title,
-                                           message: "Вы были успешно \(subscirbeMessage) об игре. Если хотите изменить статус подписки, нажмите на кнопку ещё раз")
-                if isSubscribe {
-                    self.subscribedGameIds.append(id)
-                } else {
-                    self.subscribedGameIds.removeAll { $0 == id }
-                }
-                self.view?.changeSubscribeStatus(forGameAt: index)
-            } else {
-                self.view?.showErrorConnectingToServerAlert()
-            }
-        }
+        interactor.getSubscribeStatus(gameId: gameId)
     }
     
     func didPressFilterButton() {
@@ -145,7 +128,6 @@ class SchedulePresenter: SchedulePresenterProtocol {
             guard let self = self else { return }
             if let game = fullInfo {
                 self.games[index] = game
-                //self.view?.reloadScheduleList()
                 self.view?.reloadGame(at: index)
             }
         }
@@ -166,7 +148,7 @@ class SchedulePresenter: SchedulePresenterProtocol {
             case.failure(let error):
                 print(error)
                 switch error {
-                case .other(_), .serverError(_), .invalidUrl:
+                case .other, .serverError, .invalidUrl:
                     self.view?.showErrorConnectingToServerAlert()
                 default:
                     self.games.removeAll()
@@ -176,9 +158,6 @@ class SchedulePresenter: SchedulePresenterProtocol {
             case .success(let schedule):
                 self.games = schedule
                 self.view?.reloadScheduleList()
-//                for (index, game) in self.games.enumerated() {
-//                    self.updateDetailInfo(forGameId: game.id, at: index)
-//                }
             }
         }
     }
@@ -190,4 +169,37 @@ class SchedulePresenter: SchedulePresenterProtocol {
         }
     }
     
+}
+
+//MARK:- ScheduleInteractorOutput
+extension SchedulePresenter: ScheduleInteractorOutput {
+    func interactor(_ interactor: ScheduleInteractorProtocol?, didGetSubscribeStatus isSubscribed: Bool, forGameWithId id: String) {
+        let subscirbeMessage = isSubscribed ? "подписаны на уведомления" : "отписаны от уведомлений"
+        let title = isSubscribed ? "Подписка на уведомления" : "Отписка от уведомлений"
+        self.view?.showSimpleAlert(
+            title: title,
+            message: "Вы были успешно \(subscirbeMessage) об игре. Если хотите изменить статус подписки, нажмите на кнопку ещё раз"
+        )
+        guard let id = Int(id), let index = games.firstIndex(where: { $0.id == id }) else { return }
+        if isSubscribed {
+            self.subscribedGameIds.append(id)
+        } else {
+            self.subscribedGameIds.removeAll { $0 == id }
+        }
+        self.view?.changeSubscribeStatus(forGameAt: index)
+    }
+    
+    func interactor(_ interactor: ScheduleInteractorProtocol?, failedToSubscribeForGameWith gameId: String, error: SessionError) {
+        print(error)
+        switch error {
+        case .invalidToken:
+            view?.showSimpleAlert(title: "Не удалось подписаться на уведомления", message: "Для получения напоминаний об играх Вам необходимо авторизоваться в личном кабинете")
+        default:
+            view?.showErrorConnectingToServerAlert()
+        }
+    }
+    
+    func interactor(_ interactor: ScheduleInteractorProtocol?, failedToOpenMapsWithError error: Error) {
+        //view?.showSimpleAlert(title: "Не удалось определить адрес для этого места")
+    }
 }

@@ -11,6 +11,8 @@ import UIKit
 enum GameStatus: Int, Decodable {
     case placesAvailable = 1, reserveAvailable = 2, noPlaces = 3, invite = 4, ended = 6
     
+    case fewPlaces = 100
+    
     var comment: String {
         switch self {
         case .placesAvailable:
@@ -23,30 +25,30 @@ enum GameStatus: Int, Decodable {
             return "Только по приглашениям"
         case .ended:
             return "Закончилась"
+        case .fewPlaces:
+            return "Осталось мало мест"
         }
     }
     
     var buttonTitle: String {
         switch self {
-        case .placesAvailable:
+        case .placesAvailable, .fewPlaces:
             return "Записаться на игру"
         case .reserveAvailable:
             return "Записаться в резерв"
         default:
-            return "Запись недоступна"
+            return "Запись закрыта"
         }
     }
     
     var accentColor: UIColor {
         switch self {
-        case .placesAvailable:
+        case .placesAvailable, .fewPlaces:
             return .lightGreen
         case .reserveAvailable:
             return .lemon
-        case .noPlaces:
-            return .themePink
-        case .invite, .ended:
-            return .lightGray
+        case .invite, .ended, .noPlaces:
+            return .themeGray
         }
     }
     
@@ -56,6 +58,8 @@ enum GameStatus: Int, Decodable {
             return UIImage(named: "tick")
         case .reserveAvailable:
             return UIImage(named: "soldOut")
+        case .fewPlaces:
+            return UIImage(named: "fire")
         default:
             return UIImage(named: "lock")
         }

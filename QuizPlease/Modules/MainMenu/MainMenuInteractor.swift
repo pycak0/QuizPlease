@@ -53,7 +53,7 @@ class MainMenuInteractor: MainMenuInteractorProtocol {
     private func createSampleItems() -> [ShopItem] {
         var sampleItems = [ShopItem]()
         for i in 0..<3 {
-            sampleItems.append(ShopItem(title: "SAMPLE", description: "SAMPLE", price: "\(1000 + 100 * i)"))
+            sampleItems.append(ShopItem(title: "SAMPLE", description: "SAMPLE", price: Double(1000 + 100 * i)))
         }
         return sampleItems
     }

@@ -12,10 +12,10 @@ struct ShopItem: Decodable {
     var id: Int?
     var title: String
     var description: String
-    private var price: String
+    private var price: Double
     private var images: [ShopItemImage]?
     
-    init(title: String, description: String, price: String) {
+    init(title: String, description: String, price: Double) {
         self.title = title
         self.description = description
         self.price = price
@@ -28,6 +28,7 @@ extension ShopItem {
     }
     
     var priceNumber: Int {
-        Int(Double(price) ?? 99999)
+        Int(price)
+        //Int(Double(price) ?? 99999)
     }
 }

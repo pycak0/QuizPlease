@@ -102,7 +102,7 @@ class WarmupQuestionVC: UIViewController {
             
             imageEdgeInsetConstraint.constant = 0
             imageLabelSpacingConstraint.isActive = false
-            backgroundHeightConstraint.constant = questionView.frame.height
+            setBackgroundViewHeight()
             
             //MARK:- • image w/text
         case .imageWithText:
@@ -115,25 +115,27 @@ class WarmupQuestionVC: UIViewController {
             imageView.isHidden = true
             videoView.isHidden = false
             videoView.parent = self
+            videoView.configureVideoView()
             videoView.configurePlayer(url: question.videoUrl)
             questionLabel.text = question.question
             
             //MARK:- • text
         case .text:
             imageView.isHidden = true
-            questionLabel.text = question.question
             imageLabelSpacingConstraint.isActive = false
-            backgroundHeightConstraint.constant = questionView.frame.height
+            setBackgroundViewHeight()
             questionLabel.topAnchor.constraint(equalTo: backgroundView.topAnchor, constant: 20).isActive = true
+            questionLabel.text = question.question
             
             //MARK:- • sound
         case .soundWithText:
             questionLabel.text = question.question
-            backgroundHeightConstraint.constant = questionView.frame.height
+            setBackgroundViewHeight()
             activityIndicator.startAnimating()
             audioView.isHidden = false
             audioView.configure(with: question.soundUrl)
             audioView.delegate = self
+            audioView.play()
             break
             
         //default: break
@@ -146,6 +148,11 @@ class WarmupQuestionVC: UIViewController {
         imageView.loadImage(url: question.imageUrl) { _ in
             self.activityIndicator.stopAnimating()
         }
+    }
+    
+    private func setBackgroundViewHeight() {
+        backgroundHeightConstraint.isActive = false
+        backgroundView.heightAnchor.constraint(equalTo: questionView.heightAnchor).isActive = true
     }
     
 }

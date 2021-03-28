@@ -49,6 +49,8 @@ class AudioView: UIView {
     @IBInspectable
     var pauseImage: UIImage? = UIImage(named: "pause")
     
+    private var shouldBePlaying = false
+    
     var isPlaying: Bool {
         player?.isPlaying ?? false
     }
@@ -57,15 +59,17 @@ class AudioView: UIView {
         player?.play()
         playPauseButton.setImage(pauseImage, for: .normal)
         setupTracking()
+        shouldBePlaying = true
     }
     
     func pause() {
         player?.pause()
         playPauseButton.setImage(playImage, for: .normal)
         updater?.invalidate()
+        shouldBePlaying = false
     }
         
-    func configure(with url: URL?, shouldStartPlaying: Bool = true) {
+    func configure(with url: URL?) {
         guard let url = url else {
             let error = NSError(domain: "Invalid or nil URL passed to AudioView's player", code: -999)
             delegate?.audioView(self, didFailToConfigurePlayerWithError: error)
@@ -75,11 +79,11 @@ class AudioView: UIView {
         DispatchQueue.global().async {
             let data = try? Data(contentsOf: url)
             
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
                 if data != nil {
                     self.configurePlayer(with: data!)
-                    
-                    if shouldStartPlaying {
+                    if self.shouldBePlaying {
                         self.play()
                     }
                 } else {

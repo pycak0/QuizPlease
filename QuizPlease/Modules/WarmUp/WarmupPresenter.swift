@@ -11,7 +11,7 @@ import UIKit
 //MARK:- Presenter Protocol
 protocol WarmupPresenterProtocol {
     var router: WarmupRouterProtocol! { get }
-    var questions: [WarmupQuestion]! { get }
+    var questions: [WarmupQuestion] { get }
     
     ///In seconds
     var timePassed: Double { get }
@@ -36,7 +36,7 @@ class WarmupPresenter: WarmupPresenterProtocol {
     var interactor: WarmupInteractorProtocol
     weak var view: WarmupViewProtocol?
     
-    var questions: [WarmupQuestion]!
+    var questions: [WarmupQuestion] = []
     
     var correctAnswersCount: Int = 0
     

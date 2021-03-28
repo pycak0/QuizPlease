@@ -30,10 +30,12 @@ class VideoView: UIView {
         playerVC.player?.pause()
     }
     
-    func configurePlayer(url: URL?, andPlay: Bool = true) {
+    func configurePlayer(url: URL?, shouldAutoPlay: Bool = true) {
         guard let url = url else { return }
         playerVC.player = AVPlayer(url: url)
-        play()
+        if shouldAutoPlay {
+            play()
+        }
     }
     
     func configureVideoView() {

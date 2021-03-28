@@ -14,19 +14,18 @@ import YooKassaPaymentsApi
 protocol GameOrderPresenterProtocol {
     var game: GameInfo! { get set }
     var registerForm: RegisterForm { get set }
-    
     var router: GameOrderRouterProtocol! { get }
+    var isOnlinePaymentDefault: Bool { get }
+    var isOnlyCashAvailable: Bool { get }
+    
     init(view: GameOrderViewProtocol, interactor: GameOrderInteractorProtocol, router: GameOrderRouterProtocol)
     
     func configureViews()
-    
     func didPressSubmitButton()
-    
     func sumToPay(forPeople number: Int) -> Int
-    
     func priceTextColor() -> UIColor?
-    
     func checkCertificate()
+    func checkPromocode()
 }
 
 class GameOrderPresenter: GameOrderPresenterProtocol {
@@ -44,17 +43,29 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
     
     private var discountType: DiscountType = .none
     private var tokenizationModule: TokenizationModuleInput?
-
+    
     required init(view: GameOrderViewProtocol, interactor: GameOrderInteractorProtocol, router: GameOrderRouterProtocol) {
         self.view = view
         self.interactor = interactor
         self.router = router
     }
     
+    var isOnlinePaymentDefault: Bool {
+        //return registerForm.paymentType == .online
+        return false
+    }
+    
+    var isOnlyCashAvailable: Bool {
+        let types = game.availablePaymentTypes
+        return types.count == 1 && types.first! == .cash
+    }
+    
     func configureViews() {
         view?.configureTableView()
-        if let path = game.mobile_banner?.pathProof {
+        if let path = game.backgroundImagePath?.pathProof {
             view?.setBackgroundImage(with: path)
+        } else {
+            print(">>>\n>>> No background image path for game with id \(game.id)\n>>>")
         }
     }
     
@@ -81,7 +92,7 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
     
     func priceTextColor() -> UIColor? {
         switch discountType {
-        case .allTeamFree, .numberOfPeopleForFree(_):
+        case .allTeamFree, .numberOfPeopleForFree:
             return .lightGreen
         case .none:
             return nil
@@ -108,25 +119,35 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
             }
         }
     }
+    
+    func checkPromocode() {
+        guard let promocode = registerForm.promocode else { return }
+        view?.enableLoading()
+        interactor.checkPromocode(promocode, forGameWithId: game.id)
+    }
         
     //MARK:- Submit Button Action
     func didPressSubmitButton() {
-        view?.view.endEditing(true)
+        view?.endEditing()
         guard registerForm.isValid else {
             if registerForm.email.isEmpty {
-                view?.showSimpleAlert(title: "Заполнены не все необходимые поля",
-                                      message: "Пожалуйста, заполните все поля, отмеченные звездочкой, и проверьте их корректность")
+                view?.showSimpleAlert(
+                    title: "Заполнены не все необходимые поля",
+                    message: "Пожалуйста, заполните все поля, отмеченные звездочкой, и проверьте их корректность"
+                )
             } else if !registerForm.email.isValidEmail {
-                view?.showSimpleAlert(title: "Некорректный e-mail",
-                                      message: "Пожалуйста, введите корректный адрес и попробуйте еще раз")
-                { (okAction) in
+                view?.showSimpleAlert(
+                    title: "Некорректный e-mail",
+                    message: "Пожалуйста, введите корректный адрес и попробуйте еще раз"
+                ) { (okAction) in
                     self.view?.editEmail()
                 }
                 
             } else if !registerForm.phone.isValidMobilePhone {
-                view?.showSimpleAlert(title: "Некорректный номер телефона",
-                                      message: "Пожалуйста, введите корректный номер и попробуйте еще раз")
-                { (okAction) in
+                view?.showSimpleAlert(
+                    title: "Некорректный номер телефона",
+                    message: "Пожалуйста, введите корректный номер и попробуйте еще раз"
+                ) { (okAction) in
                     self.view?.editPhone()
                 }
             }
@@ -146,7 +167,6 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
         } else {
             register()
         }
-
     }
     
     //MARK:- Register
@@ -164,14 +184,7 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
             var message: String = "Произошла ошибка при записи на игру"
             
             if response.shouldRedirect {
-                if let url = response.link /*, let view = self.view*/ {
-//                    self.interactor.confirmPayment(redirectLink: url, presentationView: view) { (error) in
-//                        if let error = error {
-//                            print(error)
-//                            self.view?.showSimpleAlert(title: title, message: message)
-//                            return
-//                        }
-//                    }
+                if let url = response.link {
                     self.tokenizationModule?.start3dsProcess(requestUrl: url.absoluteString)
                 } else {
                     self.view?.showSimpleAlert(title: title, message: message)
@@ -189,9 +202,9 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
             }
             
             if response.isSuccess {
-                message = response.successMsg ?? "Успешно"
+                message = response.successMessage ?? "Успешно"
             } else {
-                message = response.successMsg ?? response.errorMsg ?? "Произошла ошибка при записи на игру"
+                message = response.successMessage ?? response.errorMessage ?? "Произошла ошибка при записи на игру"
             }
 
             self.view?.showSimpleAlert(title: title, message: message) { okAction in
@@ -199,7 +212,6 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
                     self.completeOrder()
                 }
             }
-
         }
     }
     
@@ -207,12 +219,24 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
         router.showCompletionScreen(with: game, numberOfPeopleInTeam: registerForm.count)
     }
     
-    //MARK:- Create Payment Description
     private func createPaymentDescription() -> String {
         let name = game.fullTitle.trimmingCharacters(in: .whitespaces)
         return "Игра \"\(name)\": \(game.blockData), \(game.priceDetails)"
     }
+}
+
+//MARK:- GameOrderInteractorOutput
+extension GameOrderPresenter: GameOrderInteractorOutput {
+    func interactor(_ interactor: GameOrderInteractorProtocol?, didCheckPromocodeWith response: PromocodeResponse) {
+        view?.disableLoading()
+        let title = response.isSuccess ? "Успешно" : "Ошибка"
+        view?.showSimpleAlert(title: title, message: response.message)
+    }
     
+    func interactor(_ interactor: GameOrderInteractorProtocol?, errorOccured error: SessionError) {
+        view?.disableLoading()
+        view?.showErrorConnectingToServerAlert()
+    }
 }
 
 //MARK:- TokenizationModuleOutput
@@ -221,8 +245,6 @@ extension GameOrderPresenter: TokenizationModuleOutput {
         DispatchQueue.main.async {
             self.view?.dismiss(animated: true)
         }
-        
-        
         print("Error:", error as Any)
     }
     
@@ -239,30 +261,8 @@ extension GameOrderPresenter: TokenizationModuleOutput {
         DispatchQueue.main.async {
             //self.view?.dismiss(animated: true)
             self.tokenizationModule = module
-            
             self.registerForm.paymentToken = token.paymentToken
             self.register()
-            
-//            self.view?.showTwoOptionsAlert(
-//                title: "Токен для оплаты сгенерирован",
-//                message: token.paymentToken,
-//                option1Title: "OK", handler1: nil,
-//                option2Title: "Скопировать") { (copyAction) in
-//                    UIPasteboard.general.string = token.paymentToken
-//            }
-            
-//            interactor.pay(with: token.paymentToken) { [weak self] (error) in
-//                guard let self = self else { return }
-//                self.view?.dismiss(animated: true)
-//                if let error = error {
-//                    print(error)
-//                    self.view?.showErrorConnectingToServerAlert()
-//
-//                } else {
-//                    self.completeOrder()
-//                }
-//            }
         }
     }
-    
 }

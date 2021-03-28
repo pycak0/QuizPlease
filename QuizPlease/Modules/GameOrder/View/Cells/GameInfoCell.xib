@@ -120,7 +120,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="YAP-FK-phu">
                                         <rect key="frame" x="0.0" y="114" width="315" height="30"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fireIcon" translatesAutoresizingMaskIntoConstraints="NO" id="d2e-vd-VKa">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fire" translatesAutoresizingMaskIntoConstraints="NO" id="d2e-vd-VKa">
                                                 <rect key="frame" x="0.0" y="0.0" width="20" height="30"/>
                                                 <color key="tintColor" systemColor="systemGray5Color"/>
                                                 <constraints>
@@ -195,7 +195,7 @@
     <resources>
         <image name="banknoteIcon" width="17" height="10"/>
         <image name="clockIcon" width="14" height="14"/>
-        <image name="fireIcon" width="15" height="18"/>
+        <image name="fire" width="15" height="18"/>
         <image name="mapPointIcon" width="14" height="16"/>
         <systemColor name="placeholderTextColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>

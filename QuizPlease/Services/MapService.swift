@@ -36,10 +36,14 @@ class MapService {
     }
     
     //MARK:- Open with Address string
-    static func openMap(for placeName: String, withAddress address: String, radius: Double = 1000) {
+    static func openMap(for placeName: String, withAddress address: String, radius: Double = 1000, completion: ((Error?) -> Void)?) {
         getCoordinates(from: address) { (location) in
-            guard let location = location else { return }
+            guard let location = location else {
+                completion?(NSError(domain: "Map wasn't open because geocoder failed to load the location from given address: '\(address)'", code: 8))
+                return
+            }
             openMap(for: placeName, withLongitude: location.longitude, andLatitude: location.latitude, radius: radius)
+            completion?(nil)
         }
     }
     
@@ -54,8 +58,8 @@ class MapService {
         let geocoder = CLGeocoder()
         geocoder.geocodeAddressString(address) {
             (placemarks, error) in
-            guard error == nil else {
-                print("Geocoding error: \(error!)")
+            if let error = error {
+                print("[\(Self.self) error]. Tried to geocode address: '\(address)', but got error: \(error)")
                 completion(nil)
                 return
             }

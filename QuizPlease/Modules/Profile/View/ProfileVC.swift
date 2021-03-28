@@ -11,33 +11,30 @@ import UIKit
 //MARK:- View Protocol
 protocol ProfileViewProtocol: UIViewController {
     var presenter: ProfilePresenterProtocol! { get set }
-    
     func configureViews()
-    
     func reloadGames()
-    
     func updateUserInfo(with pointsScored: Int)
 }
 
 class ProfileVC: UIViewController {
     var presenter: ProfilePresenterProtocol!
 
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var infoHeader: UIView!
-    @IBOutlet weak var gamesCountLabel: UILabel!
-    @IBOutlet weak var totalPointsScoredLabel: UILabel!
-    @IBOutlet weak var showShopButton: UIButton!
-    @IBOutlet weak var addGameButton: ScalingButton!
+    @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private weak var infoHeader: UIView!
+    @IBOutlet private weak var gamesCountLabel: UILabel!
+    @IBOutlet private weak var totalPointsScoredLabel: UILabel!
+    @IBOutlet private weak var showShopButton: UIButton!
+    @IBOutlet private weak var addGameButton: ScalingButton!
+    @IBOutlet private weak var exitButton: UIBarButtonItem!
     
     //`addGameButton` fading helpers
-    var lastOffset: CGFloat = 0
-    var startOffset: CGFloat?
+    private var lastOffset: CGFloat = 0
+    private var startOffset: CGFloat?
     
     //MARK:- Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        presenter.setupView()
-
+        presenter.viewDidLoad(self)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -49,16 +46,20 @@ class ProfileVC: UIViewController {
         presenter.router.prepare(for: segue, sender: sender)
     }
 
-    @IBAction func shopButtonPressed(_ sender: UIButton) {
+    @IBAction private func shopButtonPressed(_ sender: UIButton) {
         //sender.scaleOut()
         presenter.didPressShowShopButton()
     }
     
-    @IBAction func addGameButtonPressed(_ sender: UIButton) {
+    @IBAction private func addGameButtonPressed(_ sender: UIButton) {
         sender.scaleOut()
         presenter.didPressAddGameButton()
     }
 
+    @IBAction private func exitButtonPressed(_ sender: Any) {
+        presenter.didPressExitButton()
+    }
+    
 }
 
 //MARK:- View Protocol Implementation

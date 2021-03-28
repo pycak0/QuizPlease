@@ -26,6 +26,7 @@ protocol GameOrderViewProtocol: UIViewController {
     
     func setPrice(_ price: Int)
     func setBackgroundImage(with path: String)
+    func endEditing()
 }
 
 class GameOrderVC: UIViewController {
@@ -37,7 +38,7 @@ class GameOrderVC: UIViewController {
     lazy var items: [GameInfoItemKind] = {
         let types = presenter.game.availablePaymentTypes
         var _items = GameInfoItemKind.allCases
-        if types.count == 1 && types.first! == .cash {
+        if presenter.isOnlyCashAvailable || !presenter.isOnlinePaymentDefault {
             _items.removeAll { $0 == .onlinePayment }
         }
         if !presenter.registerForm.isFirstTime {
@@ -94,6 +95,10 @@ class GameOrderVC: UIViewController {
 
 //MARK:- Protocol Implementation
 extension GameOrderVC: GameOrderViewProtocol {
+    func endEditing() {
+        view.endEditing(true)
+    }
+    
     func reloadInfo() {
         tableView.reloadData()
     }

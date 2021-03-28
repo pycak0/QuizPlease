@@ -164,7 +164,7 @@ class AuthVC: UIViewController {
         authButton.setTitle("Отправить код", for: .normal)
         textFieldView.title = "Код"
         textFieldView.textField.text = ""
-        textFieldView.textField.placeholder = "XXXX"
+        textFieldView.textField.placeholder = String(repeating: "X", count: 6)
         textFieldView.textField.textContentType = .oneTimeCode
         textFieldView.inputMask = TitledTextFieldView.noMask
     }

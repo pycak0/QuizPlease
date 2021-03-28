@@ -15,10 +15,11 @@ protocol ProfilePresenterProtocol {
     
     var userInfo: UserInfo? { get set }
     
-    func setupView()
+    func viewDidLoad(_ view: ProfileViewProtocol)
     func handleViewDidAppear()
     
     func didPerformAuth()
+    func didPressExitButton()
     
     func didPressShowShopButton()
     func didPressAddGameButton()
@@ -41,9 +42,9 @@ class ProfilePresenter: ProfilePresenterProtocol {
         self.interactor = interactor
     }
     
-    //MARK:- Setup View
-    func setupView() {
-        view?.configureViews()
+    //MARK:- View Did Load
+    func viewDidLoad(_ view: ProfileViewProtocol) {
+        view.configureViews()
         
         if Globals.userToken == nil {
             router.showAuthScreen()
@@ -65,6 +66,13 @@ class ProfilePresenter: ProfilePresenterProtocol {
     }
     
     //MARK:- Actions
+    func didPressExitButton() {
+        view?.showTwoOptionsAlert(title: "Вы уверены, что хотите выйти из личного кабинета?", message: "", option1Title: "Да", handler1: { _ in
+            self.interactor.deleteUserInfo()
+            self.router.closeProfile()
+        }, option2Title: "Отмена", handler2: nil)
+    }
+    
     func didPressShowShopButton() {
         router.showShop(with: userInfo)
     }

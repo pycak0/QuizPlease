@@ -25,7 +25,6 @@ class HomeGameVideoVC: UIViewController {
         prepareNavigationBar(title: homeGame.fullTitle, tintColor: .white)
 
         configureViews()
-        updateUI()
         loadDetail()
     }
     
@@ -86,11 +85,8 @@ class HomeGameVideoVC: UIViewController {
     
     //MARK:- Update UI
     private func updateUI() {
-        videoView.configurePlayer(url: homeGame.videoUrl)
+        videoView.configurePlayer(url: homeGame.videoUrl, shouldAutoPlay: false)
         videoView.imageView.loadImage(path: homeGame.frontImagePath)
-        
         descriptionLabel.text = homeGame.description ?? "..."
-        
     }
-
 }

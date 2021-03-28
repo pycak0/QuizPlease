@@ -19,19 +19,25 @@ struct GameOrderResponse: Decodable {
     var link: URL?
     private var status: AnyValue?
     
-    var successMsg: String?
-    var errorMsg: String?
+    private var successMsg: String?
+    private var errorMsg: String?
+    
+    var successMessage: String? {
+        successMsg?.removingAngleBrackets()
+    }
+    
+    var errorMessage: String? {
+        errorMsg?.removingAngleBrackets()
+    }
     
     var isSuccess: Bool {
         if let number = success?.value() as? Int {
-            return number == 1 ? true : false
+            return number == 1
         }
-        else if let isSuccess = success?.value() as? Bool {
+        if let isSuccess = success?.value() as? Bool {
             return isSuccess
         }
-        else {
-            return false
-        }
+        return false
     }
     
     var paymentStatus: GameOrderStatus {
@@ -51,7 +57,7 @@ struct GameOrderResponse: Decodable {
             }
             return statusString == "1"
         }
-        return false
+        return isSuccess
     }
     
     var shouldRedirect: Bool {

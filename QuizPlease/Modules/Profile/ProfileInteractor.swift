@@ -14,6 +14,7 @@ protocol ProfileInteractorProtocol {
     var delegate: ProfileInteractorDelegate? { get set }
     
     func loadUserInfo()
+    func deleteUserInfo()
 }
 
 //MARK:- Delegate Protocol
@@ -37,6 +38,11 @@ class ProfileInteractor: ProfileInteractorProtocol {
                 self.delegate?.didSuccessfullyLoadUserInfo(userInfo)
             }
         }
+    }
+    
+    func deleteUserInfo() {
+        Globals.userToken = nil
+        DefaultsManager.shared.removeAuthInfo()
     }
     
 }

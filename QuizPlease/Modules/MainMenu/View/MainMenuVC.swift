@@ -17,7 +17,8 @@ protocol MainMenuViewProtocol: UIViewController {
     func reloadMenuItems()
     func failureLoadingMenuItems(_ error: Error)
     
-    func updateUserPointsAmount(with points: Int)
+    ///if `points` is `nil`, the label will be hidden
+    func updateUserPointsAmount(with points: Int?)
     
     func reloadShopItems()
 }
@@ -106,10 +107,14 @@ extension MainMenuVC: MainMenuViewProtocol {
         }
     }
     
-    func updateUserPointsAmount(with points: Int) {
+    func updateUserPointsAmount(with points: Int?) {
         let indexPath = IndexPath(row: MenuItemKind.profile.rawValue, section: 0)
         if let cell = tableView.cellForRow(at: indexPath) as? MenuProfileCell {
-            cell.setUserPoints(points)
+            if let points = points {
+                cell.setUserPoints(points)
+            } else {
+                cell.hideUserPoints()
+            }
         }
     }
     

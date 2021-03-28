@@ -40,6 +40,10 @@ class DefaultsManager {
         }
     }
     
+    func removeAuthInfo() {
+        defaults.removeObject(forKey: authInfoKey)
+    }
+    
     //MARK:- Default City 
     func getDefaultCity() -> City? {
         if let data = defaults.data(forKey: defaultCityKey),
@@ -76,5 +80,15 @@ class DefaultsManager {
     
     func getSavedQuestionIds() -> [String]? {
         defaults.stringArray(forKey: answeredQuestionsKey)
+    }
+    
+    func removeSavedWarmupQuestion(with id: String) {
+        defaults.removeObject(forKey: answeredQuestionsKey)
+    }
+    
+    func removeAllSavedWarmupQuestions() {
+        for id in getSavedQuestionIds() ?? [] {
+            removeSavedWarmupQuestion(with: id)
+        }
     }
 }

@@ -71,7 +71,6 @@ class NetworkService {
         }
         
         getStandard([RatingItem].self, with: ratingUrlComponents, completion: completion)
-        
     }
     
     //MARK:- Get Shop Items
@@ -116,6 +115,7 @@ class NetworkService {
         get(GameInfo.self, with: gameUrlComponents, completion: completion)
     }
     
+    //MARK:- Check Certificate
     func validateCertificate(forGameWithId id: Int, certificate: String, completion: @escaping (Result<CertificateResponse, SessionError>) -> Void) {
         var urlComps = Globals.baseUrl
         urlComps.path = "/ajax/check-certificate"
@@ -158,6 +158,38 @@ class NetworkService {
         }
     }
     
+    //MARK:- Get Full Schedule
+    ///Gets schedule and loads every game's detail info. Returns final full result with completion
+    func getFullSchedule(with filter: ScheduleFilter, completion: @escaping (Result<[GameInfo], SessionError>) -> Void) {
+        getSchedule(with: filter) { (result) in
+            switch result {
+            case let .failure(error):
+                completion(.failure(error))
+            case let .success(games):
+                let group = DispatchGroup()
+                var fullGames = [Int: GameInfo]()
+                for game in games {
+                    group.enter()
+                    self.getGameInfo(by: game.id) { (result) in
+                        switch result {
+                        case let .failure(error):
+                            completion(.failure(error))
+                        case let .success(gameFullInfo):
+                            var gameInfo = gameFullInfo
+                            gameInfo.setShortInfo(game)
+                            fullGames[game.id] = gameInfo
+                        }
+                        group.leave()
+                    }
+                }
+                group.notify(queue: .main) {
+                    let finalResult = games.map { fullGames[$0.id]! }
+                    completion(.success(finalResult))
+                }
+            }
+        }
+    }
+    
     //MARK:- Get Filter Options
     ///Used for filtering schedule
     ///- parameter cityId: Optionally request scoping the results for given city id
@@ -184,6 +216,13 @@ class NetworkService {
                 completion(.success(response.data))
             }
         }
+    }
+    
+    func get<T: Decodable>(_ type: T.Type, apiPath: String, parameters: [String: String?], headers: [String: String]? = nil, completion: @escaping ((Result<T, SessionError>) -> Void)) {
+        var urlComponents = Globals.baseUrl
+        urlComponents.path = apiPath
+        urlComponents.queryItems = parameters.map { URLQueryItem(name: $0, value: $1) }
+        get(type, with: urlComponents, headers: headers, completion: completion)
     }
     
     //MARK:- Get Request
@@ -242,26 +281,23 @@ class NetworkService {
     ///
     
     //MARK:- Push Subscribe
-    ///Completion `nil` value means that some errors occured on server side
-    func subscribePushOnGame(with id: String, completion: @escaping (_ isSubscribe: Bool?) -> Void) {
+    func subscribePushOnGame(with id: String, completion: @escaping (Result<Bool, SessionError>) -> Void) {
         guard let token = Globals.userToken else {
-            completion(nil)
+            completion(.failure(.invalidToken))
             return
         }
         var urlComps = Globals.baseUrl
         urlComps.path = "/api/game/subscribe-notification"
         let params = [
             "game_id" : id,
-            //"subscribe" : isSubscribe ? "1" : "0"
         ]
         let headers = ["Authorization" : "Bearer \(token)"]
         afPostStandard(with: params, and: headers, to: urlComps, responseType: PushSubscribeResponse.self) { (postResult) in
             switch postResult {
             case let .failure(error):
-                print(error)
-                completion(nil)
+                completion(.failure(error))
             case let .success(response):
-                completion(response.message == .subscribe)
+                completion(.success(response.message == .subscribe))
             }
         }
     }
@@ -401,11 +437,12 @@ class NetworkService {
             "QpRecord[game_id]"         : "\(registerForm.gameId)",
             "QpRecord[first_time]"      : registerForm.isFirstTime ? "1" : "0",
             "certificates[]"            : registerForm.certificates,
-            "QpRecord[payment_type]"    : registerForm.paymentType == .online ? "1" : "2",
+            "QpRecord[payment_type]"    : "\(registerForm.paymentType.rawValue)",
             "QpRecord[count]"           : "\(registerForm.count)",
             "QpRecord[teamName]"        : registerForm.teamName,
             "QpRecord[payment_token]"   : registerForm.paymentToken,
-            "QpRecord[surcharge]"       : countPaidOnline
+            "QpRecord[surcharge]"       : countPaidOnline,
+            "promo_code"                : registerForm.promocode
         ]
         
         afPost(with: parameters, to: registerUrlComps, responseType: GameOrderResponse.self, completion: completion)

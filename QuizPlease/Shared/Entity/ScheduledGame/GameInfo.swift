@@ -8,6 +8,15 @@
 
 import Foundation
 
+fileprivate let translationDict: [String: String] = [
+    "оплата на сайте и в баре": "оплата онлайн или в баре",
+    "оплата онлайн (через Яндекс кассу)": "оплата онлайн",
+    "наличные (оплата на месте)": "наличные",
+    "наличные или карта (оплата на месте)": "наличные или карта",
+    "карта (оплата на месте)" : "карта",
+    "онлайн через смс" : "онлайн"
+]
+
 struct GameInfo: Decodable {
     static let placeholderValue = "-"
     
@@ -21,7 +30,7 @@ struct GameInfo: Decodable {
     var blockData: String = placeholderValue
     
     ///Background Image path on server
-    var mobile_banner: String?
+    private var special_mobile_banner: String?
     
     ///background image for cell in Schedule
     var imageData: String?
@@ -29,7 +38,10 @@ struct GameInfo: Decodable {
     var time: String = placeholderValue
     var description: String = placeholderValue
     
+    private var text_block: String?
+    
     private var status: Int?
+    private var isFewPlaces: Bool?
 
     private var price: String = placeholderValue
     ///Describing price e.g. "с человека". Use `priceDetails` instead of this
@@ -41,9 +53,25 @@ struct GameInfo: Decodable {
     private var payment_icon: Int = 0
     private var game_type: Int = 0
     
-    init(id: Int, date: Date?) {
-        self.id = id
-        self.date = date
+    init(shortInfo: GameShortInfo) {
+        id = shortInfo.id
+        date = shortInfo.date
+        special_mobile_banner = shortInfo.special_mobile_banner
+        isFewPlaces = (shortInfo.is_little_place ?? 0) == 1
+    }
+    
+    mutating func setShortInfo(_ shortInfo: GameShortInfo) {
+        id = shortInfo.id
+        date = shortInfo.date
+        special_mobile_banner = shortInfo.special_mobile_banner
+        isFewPlaces = (shortInfo.is_little_place ?? 0) == 1
+    }
+    
+    mutating func setShortInfo(_ shortInfo: GameInfo) {
+        id = shortInfo.id
+        date = shortInfo.date
+        special_mobile_banner = shortInfo.special_mobile_banner
+        isFewPlaces = shortInfo.isFewPlaces
     }
 }
 
@@ -57,7 +85,14 @@ extension GameInfo {
     }
     
     var priceDetails: String {
-        "\(price) \(text)"
+        let components = text.components(separatedBy: ", ")
+        var details = components.first.map { "\($0), " } ?? ""
+        var text = ""
+        if components.count >= 2 {
+            text = components[1]
+        }
+        details += translationDict[text] ?? text
+        return "\(price) \(details)"
     }
     
     var gameNumber: String {
@@ -90,7 +125,17 @@ extension GameInfo {
     }
     
     var gameStatus: GameStatus? {
-        return GameStatus(rawValue: status ?? -999)
+        let realStatus = GameStatus(rawValue: self.status ?? -999)
+        let isFewPlacesFlagEnabled = isFewPlaces ?? false
+        let displayStatus = (isFewPlacesFlagEnabled && realStatus == .placesAvailable)
+            ? .fewPlaces
+            : realStatus
+        return displayStatus
+    }
+    
+    var backgroundImagePath: String? {
+        get { special_mobile_banner }
+        set { special_mobile_banner = newValue }
     }
     
     ///Calculates the day of week from game's Date and appends it to the `blockData`
@@ -106,5 +151,9 @@ extension GameInfo {
         
         let dateString = "\(formatter.string(from: date)), \(week)"
         return dateString
+    }
+    
+    var optionalDescription: String? {
+        text_block?.removingAngleBrackets(replaceWith: " ")
     }
 }
