@@ -88,10 +88,12 @@ extension GameOrderVC: GameCertificateCellDelegate {
     }
     
     func accessoryText(for certificateCell: GameCertificateCell) -> String {
-        if certificateCell.associatedItemKind == .certificate {
+        switch certificateCell.associatedItemKind {
+        case .certificate:
             return "Для активации сертификатов от наших партнеров свяжитесь с нами"
+        default:
+            return ""
         }
-        return ""
     }
     
     func certificateCell(_ certificateCell: GameCertificateCell, didChangeCertificateCode newCode: String) {
@@ -107,8 +109,13 @@ extension GameOrderVC: GameCertificateCellDelegate {
     
     func didPressOkButton(in certificateCell: GameCertificateCell) {
         view.endEditing(true)
-        if certificateCell.associatedItemKind == .certificate {
+        switch certificateCell.associatedItemKind {
+        case .certificate:
             presenter.checkCertificate()
+        case .promocode:
+            presenter.checkPromocode()
+        default:
+            break
         }
     }
 }
@@ -118,7 +125,6 @@ extension GameOrderVC: GameCertificateCellDelegate {
 extension GameOrderVC: GameFirstPlayCellDelegate {
     func firstPlayCell(_ cell: GameFirstPlayCell, didChangeStateTo isFirstPlay: Bool) {
         presenter.registerForm.isFirstTime = isFirstPlay
-        
         if isFirstPlay {
             guard let i = items.firstIndex(of: .firstPlay) else { return }
             let index = i + 1
@@ -127,7 +133,12 @@ extension GameOrderVC: GameFirstPlayCellDelegate {
         } else {
             guard let index = items.firstIndex(of: .promocode) else { return }
             items.remove(at: index)
-            tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .fade)
+            let indexPath = IndexPath(row: index, section: 0)
+            if let cell = tableView.cellForRow(at: indexPath) as? GameCertificateCell {
+                cell.fieldView.textField.text = nil
+            }
+            presenter.registerForm.promocode = nil
+            tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
 }

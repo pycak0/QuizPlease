@@ -71,7 +71,6 @@ class NetworkService {
         }
         
         getStandard([RatingItem].self, with: ratingUrlComponents, completion: completion)
-        
     }
     
     //MARK:- Get Shop Items
@@ -116,6 +115,7 @@ class NetworkService {
         get(GameInfo.self, with: gameUrlComponents, completion: completion)
     }
     
+    //MARK:- Check Certificate
     func validateCertificate(forGameWithId id: Int, certificate: String, completion: @escaping (Result<CertificateResponse, SessionError>) -> Void) {
         var urlComps = Globals.baseUrl
         urlComps.path = "/ajax/check-certificate"
@@ -216,6 +216,13 @@ class NetworkService {
                 completion(.success(response.data))
             }
         }
+    }
+    
+    func get<T: Decodable>(_ type: T.Type, apiPath: String, parameters: [String: String?], headers: [String: String]? = nil, completion: @escaping ((Result<T, SessionError>) -> Void)) {
+        var urlComponents = Globals.baseUrl
+        urlComponents.path = apiPath
+        urlComponents.queryItems = parameters.map { URLQueryItem(name: $0, value: $1) }
+        get(type, with: urlComponents, headers: headers, completion: completion)
     }
     
     //MARK:- Get Request

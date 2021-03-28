@@ -18,7 +18,7 @@ class GameOrderConfigurator: GameOrderConfiguratorProtocol {
         let router = GameOrderRouter(viewController: viewController)
         let presenter = GameOrderPresenter(view: viewController, interactor: interactor, router: router)
         presenter.game = gameInfo.game
-        
+        interactor.output = presenter
         viewController.presenter = presenter
         viewController.shouldScrollToSignUp = gameInfo.shouldScrollToSignUp
         viewController.prepareNavigationBar(title: gameInfo.game.fullTitle)

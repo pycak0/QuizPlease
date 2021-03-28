@@ -25,6 +25,7 @@ protocol GameOrderPresenterProtocol {
     func sumToPay(forPeople number: Int) -> Int
     func priceTextColor() -> UIColor?
     func checkCertificate()
+    func checkPromocode()
 }
 
 class GameOrderPresenter: GameOrderPresenterProtocol {
@@ -118,25 +119,35 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
             }
         }
     }
+    
+    func checkPromocode() {
+        guard let promocode = registerForm.promocode else { return }
+        view?.enableLoading()
+        interactor.checkPromocode(promocode, forGameWithId: game.id)
+    }
         
     //MARK:- Submit Button Action
     func didPressSubmitButton() {
         view?.endEditing()
         guard registerForm.isValid else {
             if registerForm.email.isEmpty {
-                view?.showSimpleAlert(title: "Заполнены не все необходимые поля",
-                                      message: "Пожалуйста, заполните все поля, отмеченные звездочкой, и проверьте их корректность")
+                view?.showSimpleAlert(
+                    title: "Заполнены не все необходимые поля",
+                    message: "Пожалуйста, заполните все поля, отмеченные звездочкой, и проверьте их корректность"
+                )
             } else if !registerForm.email.isValidEmail {
-                view?.showSimpleAlert(title: "Некорректный e-mail",
-                                      message: "Пожалуйста, введите корректный адрес и попробуйте еще раз")
-                { (okAction) in
+                view?.showSimpleAlert(
+                    title: "Некорректный e-mail",
+                    message: "Пожалуйста, введите корректный адрес и попробуйте еще раз"
+                ) { (okAction) in
                     self.view?.editEmail()
                 }
                 
             } else if !registerForm.phone.isValidMobilePhone {
-                view?.showSimpleAlert(title: "Некорректный номер телефона",
-                                      message: "Пожалуйста, введите корректный номер и попробуйте еще раз")
-                { (okAction) in
+                view?.showSimpleAlert(
+                    title: "Некорректный номер телефона",
+                    message: "Пожалуйста, введите корректный номер и попробуйте еще раз"
+                ) { (okAction) in
                     self.view?.editPhone()
                 }
             }
@@ -156,7 +167,6 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
         } else {
             register()
         }
-
     }
     
     //MARK:- Register
@@ -202,7 +212,6 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
                     self.completeOrder()
                 }
             }
-
         }
     }
     
@@ -210,12 +219,24 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
         router.showCompletionScreen(with: game, numberOfPeopleInTeam: registerForm.count)
     }
     
-    //MARK:- Create Payment Description
     private func createPaymentDescription() -> String {
         let name = game.fullTitle.trimmingCharacters(in: .whitespaces)
         return "Игра \"\(name)\": \(game.blockData), \(game.priceDetails)"
     }
+}
+
+//MARK:- GameOrderInteractorOutput
+extension GameOrderPresenter: GameOrderInteractorOutput {
+    func interactor(_ interactor: GameOrderInteractorProtocol?, didCheckPromocodeWith response: PromocodeResponse) {
+        view?.disableLoading()
+        let title = response.isSuccess ? "Успешно" : "Ошибка"
+        view?.showSimpleAlert(title: title, message: response.message)
+    }
     
+    func interactor(_ interactor: GameOrderInteractorProtocol?, errorOccured error: SessionError) {
+        view?.disableLoading()
+        view?.showErrorConnectingToServerAlert()
+    }
 }
 
 //MARK:- TokenizationModuleOutput
@@ -224,8 +245,6 @@ extension GameOrderPresenter: TokenizationModuleOutput {
         DispatchQueue.main.async {
             self.view?.dismiss(animated: true)
         }
-        
-        
         print("Error:", error as Any)
     }
     
@@ -242,10 +261,8 @@ extension GameOrderPresenter: TokenizationModuleOutput {
         DispatchQueue.main.async {
             //self.view?.dismiss(animated: true)
             self.tokenizationModule = module
-            
             self.registerForm.paymentToken = token.paymentToken
             self.register()
         }
     }
-    
 }
