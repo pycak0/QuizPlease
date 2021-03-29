@@ -32,4 +32,8 @@ class Place: NSObject, MKAnnotation, Decodable {
     var fullAddress: String {
         "\(cityName), \(shortAddress)"
     }
+    
+    var cityNameLatin: String {
+        return cityName.applyingTransform(.toLatin, reverse: false) ?? cityName
+    }
 }
