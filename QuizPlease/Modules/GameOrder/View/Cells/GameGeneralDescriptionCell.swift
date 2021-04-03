@@ -19,9 +19,9 @@ extension GameDescriptionDelegate {
 }
 
 class GameGeneralDescriptionCell: UITableViewCell, GameOrderCellProtocol {
-    static let identifier = "GameGeneralDescriptionCell"
+    static let identifier = "\(GameGeneralDescriptionCell.self)"
     
-    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet private weak var descriptionLabel: UILabel!
     
     weak var delegate: AnyObject? {
         get { _delegate }
@@ -33,7 +33,10 @@ class GameGeneralDescriptionCell: UITableViewCell, GameOrderCellProtocol {
                 DispatchQueue.global().async {
                     if let attrString = text.htmlFormatted() {
                         let range = (attrString.string as NSString).range(of: attrString.string)
-                        attrString.addAttribute(.font, value: UIFont(name: "Gilroy-Medium", size: 14)!, range: range)
+                        attrString.addAttributes([
+                            .font: UIFont(name: "Gilroy-Medium", size: 14)!,
+                            .foregroundColor: UIColor.labelAdapted
+                        ], range: range)
                         DispatchQueue.main.async {
                             self.descriptionLabel.attributedText = attrString
                         }
@@ -42,5 +45,4 @@ class GameGeneralDescriptionCell: UITableViewCell, GameOrderCellProtocol {
             }
         }
     }
-    
 }

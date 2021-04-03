@@ -15,6 +15,7 @@ enum GameOrderStatus: String, Decodable {
 struct GameOrderResponse: Decodable {
     private var redirect: Bool?
     private var success: AnyValue?
+    private var sameTeam: Bool?
     
     var link: URL?
     private var status: AnyValue?
@@ -48,6 +49,9 @@ struct GameOrderResponse: Decodable {
     }
     
     var isSuccessfullyRegistered: Bool {
+        if let isSameTeam = sameTeam, isSameTeam {
+            return false
+        }
         if let statusNumber = status?.value() as? Int {
             return statusNumber == 1
         }
