@@ -21,7 +21,7 @@ class SplashScreenVC: UIViewController {
     }
     
     private func setRootVc() {
-        let vc = storyboard?.instantiateViewController(withIdentifier: "MainMenuNavC")
+        let vc = storyboard?.instantiateViewController(withIdentifier: "MainMenuNavigationController")
         let window = UIApplication.shared.windows.first!
         window.rootViewController = vc
         window.makeKeyAndVisible()

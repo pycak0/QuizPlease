@@ -108,15 +108,13 @@ extension GameInfo {
     }
     
     var availablePaymentTypes: [PaymentType] {
-        switch payment_icon {
-        case 0:
+        switch PaymentOption(rawValue: payment_icon) {
+        case .none, .cashOnly, .creditCardOffline, .cashOrCreditOffline, .onlineCustom:
             return [.cash]
-        case 1, 3:
+        case .onlineInApp:
             return [.online]
-        case 2, 5:
+        case .cashOrOnlineInApp:
             return [.cash, .online]
-        default:
-            return [.cash]
         }
     }
     
