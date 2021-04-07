@@ -17,11 +17,13 @@ protocol RatingPresenterProtocol {
     var availableGameTypeNames: [String] { get }
     //var teams: [RatingItem] { get set }
     
+    var availableFilters: [RatingFilter.RatingScope] { get }
+    
     var filteredTeams: [RatingItem] { get }
     
     func handleRefreshControl()
     
-    func configureViews()
+    func viewDidLoad(_ view: RatingViewProtocol)
     
     func didChangeLeague(_ selectedIndex: Int)
     func didChangeRatingScope(_ rawValue: Int)
@@ -42,6 +44,10 @@ class RatingPresenter: RatingPresenterProtocol {
     let availableGameTypeNames = RatingFilter.RatingLeague.allCases.map { $0.name }
     var filter = RatingFilter(scope: .season)
     
+    var availableFilters: [RatingFilter.RatingScope] {
+        return RatingFilter.RatingScope.allCases
+    }
+    
     private let firstPageNumber = 1
     private lazy var currentPage = firstPageNumber
     
@@ -56,12 +62,14 @@ class RatingPresenter: RatingPresenterProtocol {
         let league = RatingFilter.RatingLeague.allCases[selectedIndex]
         filter.league = league
         reloadRating()
+        updateHeaderContent()
     }
     
     func didChangeRatingScope(_ rawValue: Int) {
         guard let scope = RatingFilter.RatingScope(rawValue: rawValue) else { return }
         filter.scope = scope
         reloadRating()
+        updateHeaderContent()
     }
     
     func didChangeTeamName(_ name: String) {
@@ -79,8 +87,9 @@ class RatingPresenter: RatingPresenterProtocol {
         reloadRating()
     }
     
-    func configureViews() {
-        view?.configureTableView()
+    func viewDidLoad(_ view: RatingViewProtocol) {
+        view.configureTableView()
+        updateHeaderContent()
         loadRating()
     }
     
@@ -91,6 +100,14 @@ class RatingPresenter: RatingPresenterProtocol {
     func didAlmostScrollToEnd() {
         currentPage += 1
         loadRating()
+    }
+    
+    private func updateHeaderContent() {
+        view?.setHeaderLabelContent(
+            city: filter.city.title,
+            league: filter.league.name,
+            ratingScopeComment: filter.scope.comment
+        )
     }
     
     //MARK:- Load

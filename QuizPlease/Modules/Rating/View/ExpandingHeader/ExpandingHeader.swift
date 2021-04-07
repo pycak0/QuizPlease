@@ -9,7 +9,7 @@
 import UIKit
 
 //MARK:- Delegate Protocol
-protocol ExpandingHeaderDelegate: class {        
+public protocol ExpandingHeaderDelegate: class {        
     ///Delegate should provide a new selected Game Type Name string as an argument for `completion` closure for the `ExpandingHeader` to update its `selectedGameTypeLabel` text
     func didPressGameTypeView(in expandingHeader: ExpandingHeader, completion: @escaping (_ selectedName: String?) -> Void)
     
@@ -24,16 +24,39 @@ protocol ExpandingHeaderDelegate: class {
     
     ///Is called when `ExpandingHeader`'s `searchField` did press return button
     func expandingHeader(_ expandingHeader: ExpandingHeader, didPressReturnButtonWith query: String)
-    
 }
 
-class ExpandingHeader: UIView {
-    static let nibName = "ExpandingHeader"
+public protocol ExpandingHeaderDataSource: class {
+    func numberOfSegmentControlItems(in expandingHeader: ExpandingHeader) -> Int
+    
+    func expandingHeaderSelectedSegmentIndex(_ expandingHeader: ExpandingHeader) -> Int
+    
+    func expandingHeader(_ expandingHeader: ExpandingHeader, titleForSegmentAtIndex segmentIndex: Int) -> String
+    
+    func expandingHeaderInitialSelectedGameType(_ expandingHeader: ExpandingHeader) -> String
+}
+
+public class ExpandingHeader: UIView {
+    static let nibName = "\(ExpandingHeader.self)"
     let collapsedHeight: CGFloat = 140
     let expandedHeight: CGFloat = 320
     lazy var gradientExpandedHeight: CGFloat = expandedHeight - 65
     
-    weak var delegate: ExpandingHeaderDelegate?
+    public weak var delegate: ExpandingHeaderDelegate?
+    
+    public weak var dataSource: ExpandingHeaderDataSource? {
+        didSet {
+            guard let dataSource = dataSource else { return }
+            var items = [String]()
+            for i in 0..<dataSource.numberOfSegmentControlItems(in: self) {
+                let name = dataSource.expandingHeader(self, titleForSegmentAtIndex: i)
+                items.append(name)
+            }
+            segmentControl.items = items
+            segmentControl.selectedIndex = dataSource.expandingHeaderSelectedSegmentIndex(self)
+            selectedGameTypeLabel.text = dataSource.expandingHeaderInitialSelectedGameType(self)
+        }
+    }
     
     @IBOutlet private var contentView: UIView!
     @IBOutlet private weak var containerView: UIView!
@@ -49,25 +72,12 @@ class ExpandingHeader: UIView {
     
     unowned var gradientLayer: CAGradientLayer!
     
-    public func configure(_ delegate: ExpandingHeaderDelegate?, selectedScope: Int, selectedGameType: String) {
-        self.delegate = delegate
-        segmentControl.selectedIndex = selectedScope
-        selectedGameTypeLabel.text = selectedGameType
-    }
-    
-    //MARK:- is Expanded
     public var isExpanded = false {
         didSet { setExpanded(isExpanded) }
     }
-    
-    @IBAction func collapseButtonPressed(_ sender: Any) {
-        isExpanded = false
-    }
-    
-    @objc
-    func toggleExpanded() {
-        isExpanded.toggle()
-        //setExpanded(isExpanded)
+
+    public func setFooterContent(city: String, gameType: String, season: String) {
+        footLabel.text = "Рейтинг '\(gameType)' \(season) в городе: \(city)"
     }
     
     //MARK:- Set Expanded
@@ -96,6 +106,16 @@ class ExpandingHeader: UIView {
         }, completion: nil)
     }
     
+    @IBAction private func collapseButtonPressed(_ sender: Any) {
+        isExpanded = false
+    }
+    
+    @objc
+    private func toggleExpanded() {
+        isExpanded.toggle()
+        //setExpanded(isExpanded)
+    }
+    
     private func setItemsHidden(_ isHidden: Bool) {
         let number = stackView.arrangedSubviews.count - 1
         for i in 1...number {
@@ -121,7 +141,7 @@ class ExpandingHeader: UIView {
         xibSetup()
     }
     
-    func xibSetup() {
+    private func xibSetup() {
         Bundle.main.loadNibNamed(ExpandingHeader.nibName, owner: self, options: nil)
         self.addSubview(contentView)
         contentView.frame = self.bounds
@@ -129,7 +149,7 @@ class ExpandingHeader: UIView {
     }
     
     //MARK:- Awake from Nib
-    override func awakeFromNib() {
+    public override func awakeFromNib() {
         super.awakeFromNib()
         configureViews()
         setExpanded(isExpanded)
@@ -191,5 +211,4 @@ class ExpandingHeader: UIView {
         segmentControl.backgroundColor = color
         segmentControl.addTarget(self, action: #selector(segmentChanged), for: .valueChanged)
     }
-    
 }

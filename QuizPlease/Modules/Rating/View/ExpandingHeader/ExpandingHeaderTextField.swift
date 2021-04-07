@@ -9,15 +9,15 @@
 import UIKit
 
 extension ExpandingHeader: UITextFieldDelegate {
-    func textFieldDidBeginEditing(_ textField: UITextField) {
+    public func textFieldDidBeginEditing(_ textField: UITextField) {
         //
     }
     
-    func textFieldDidEndEditing(_ textField: UITextField) {
+    public func textFieldDidEndEditing(_ textField: UITextField) {
         delegate?.expandingHeader(self, didEndSearchingWith: textField.text ?? "")
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         delegate?.expandingHeader(self, didPressReturnButtonWith: textField.text ?? "")
         textField.resignFirstResponder()
         return true
