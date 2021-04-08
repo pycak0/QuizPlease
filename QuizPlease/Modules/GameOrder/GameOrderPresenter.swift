@@ -51,8 +51,8 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
     }
     
     var isOnlinePaymentDefault: Bool {
-        //return registerForm.paymentType == .online
-        return false
+        let types = game.availablePaymentTypes
+        return types.count == 1 && types.first! == .online
     }
     
     var isOnlyCashAvailable: Bool {
