@@ -443,19 +443,21 @@ class NetworkService {
         let countPaidOnline = registerForm.countPaidOnline == nil ? nil : "\(registerForm.countPaidOnline!)"
         
         let parameters: [String: String?] = [
-            "QpRecord[captainName]"     : registerForm.captainName,
-            "QpRecord[email]"           : registerForm.email,
-            "QpRecord[phone]"           : registerForm.phone,
-            "QpRecord[comment]"         : registerForm.comment ?? "",
-            "QpRecord[game_id]"         : "\(registerForm.gameId)",
-            "QpRecord[first_time]"      : registerForm.isFirstTime ? "1" : "0",
-            "certificates[]"            : registerForm.certificates,
-            "QpRecord[payment_type]"    : "\(registerForm.paymentType.rawValue)",
-            "QpRecord[count]"           : "\(registerForm.count)",
-            "QpRecord[teamName]"        : registerForm.teamName,
-            "QpRecord[payment_token]"   : registerForm.paymentToken,
-            "QpRecord[surcharge]"       : countPaidOnline,
-            "promo_code"                : registerForm.promocode
+            //2 - регистрация через мобильное приложение
+            "QpRecord[registration_type]"   : "2",
+            "QpRecord[captainName]"         : registerForm.captainName,
+            "QpRecord[email]"               : registerForm.email,
+            "QpRecord[phone]"               : registerForm.phone,
+            "QpRecord[comment]"             : registerForm.comment ?? "",
+            "QpRecord[game_id]"             : "\(registerForm.gameId)",
+            "QpRecord[first_time]"          : registerForm.isFirstTime ? "1" : "0",
+            "certificates[]"                : registerForm.certificates,
+            "QpRecord[payment_type]"        : "\(registerForm.paymentType.rawValue)",
+            "QpRecord[count]"               : "\(registerForm.count)",
+            "QpRecord[teamName]"            : registerForm.teamName,
+            "QpRecord[payment_token]"       : registerForm.paymentToken,
+            "QpRecord[surcharge]"           : countPaidOnline,
+            "promo_code"                    : registerForm.promocode
         ]
         
         afPost(with: parameters, to: registerUrlComps, responseType: GameOrderResponse.self, completion: completion)
