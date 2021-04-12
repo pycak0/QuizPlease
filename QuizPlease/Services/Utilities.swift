@@ -41,6 +41,7 @@ class Utilities {
             
         } else {
             print("no info found")
+            completion?()
         }
     }
     

@@ -21,6 +21,8 @@ class SplashScreenPresenter: SplashScreenPresenterProtocol {
     var interactor: SplashScreenInteractorProtocol
     var router: SplashScreenRouterProtocol
     
+    private let dispatchGroup = DispatchGroup()
+
     private let timeout = 0.5
     
     required init(view: SplashScreenViewProtocol, interactor: SplashScreenInteractorProtocol, router: SplashScreenRouterProtocol) {
@@ -30,22 +32,38 @@ class SplashScreenPresenter: SplashScreenPresenterProtocol {
     }
     
     func viewDidLoad(_ view: SplashScreenViewProtocol) {
-        interactor.updateDefaultCity()
-        interactor.updateClientSettings()
-        
-//        DispatchQueue.main.asyncAfter(deadline: .now() + timeout) {
-//            self.router.showMainMenu()
-//        }
+        updateUserToken()
+        setTimer()
+        dispatchGroup.notify(queue: .main) {
+            self.router.showMainMenu()
+        }
+    }
+    
+    private func updateUserToken() {
+        dispatchGroup.enter()
+        interactor.updateToken()
+    }
+    
+    private func setTimer() {
+        dispatchGroup.enter()
+        Timer.scheduledTimer(withTimeInterval: timeout, repeats: false) { [self] timer in
+            dispatchGroup.leave()
+        }
     }
 }
 
 //MARK:- SplashScreenInteractorOutput
 extension SplashScreenPresenter: SplashScreenInteractorOutput {
-    func interactor(_ interactor: SplashScreenInteractorProtocol?, errorOccured error: SessionError) {
+    func interactorDidUpdateUserToken(_ interactor: SplashScreenInteractorProtocol) {
+        interactor.updateDefaultCity()
+        interactor.updateClientSettings()
+    }
+    
+    func interactor(_ interactor: SplashScreenInteractorProtocol, errorOccured error: SessionError) {
         print(error)
     }
     
-    func interactor(_ interactor: SplashScreenInteractorProtocol?, didLoadClientSettings settings: ClientSettings) {
-        router.showMainMenu()
+    func interactor(_ interactor: SplashScreenInteractorProtocol, didLoadClientSettings settings: ClientSettings) {
+        dispatchGroup.leave()
     }
 }

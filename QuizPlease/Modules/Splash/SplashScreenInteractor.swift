@@ -16,11 +16,14 @@ protocol SplashScreenInteractorProtocol {
     func updateClientSettings()
     
     func updateDefaultCity()
+    
+    func updateToken()
 }
 
 protocol SplashScreenInteractorOutput: class {
-    func interactor(_ interactor: SplashScreenInteractorProtocol?, errorOccured error: SessionError)
-    func interactor(_ interactor: SplashScreenInteractorProtocol?, didLoadClientSettings settings: ClientSettings)
+    func interactor(_ interactor: SplashScreenInteractorProtocol, errorOccured error: SessionError)
+    func interactor(_ interactor: SplashScreenInteractorProtocol, didLoadClientSettings settings: ClientSettings)
+    func interactorDidUpdateUserToken(_ interactor: SplashScreenInteractorProtocol)
 }
 
 class SplashScreenInteractor: SplashScreenInteractorProtocol {
@@ -28,6 +31,12 @@ class SplashScreenInteractor: SplashScreenInteractorProtocol {
     
     func updateDefaultCity() {
         Utilities.main.setDefaultCityFromCache()
+    }
+    
+    func updateToken() {
+        Utilities.main.updateToken {
+            self.interactorOutput?.interactorDidUpdateUserToken(self)
+        }
     }
     
     func updateClientSettings() {
