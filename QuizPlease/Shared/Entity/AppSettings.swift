@@ -16,10 +16,10 @@ enum AppSettings {
         }
     }
     
-    static var defaultCity: City = City(id: 9, title: "Москва") {
+    static var defaultCity: City = .moscow {
         didSet {
             DefaultsManager.shared.saveDefaultCity(defaultCity)
-            Utilities.main.updateClientSettings()
+            //Utilities.main.fetchClientSettings()
         }
     }
     

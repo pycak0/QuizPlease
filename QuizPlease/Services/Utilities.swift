@@ -44,21 +44,30 @@ class Utilities {
         }
     }
     
-    func updateDefaultCity() {
+    func setDefaultCityFromCache() {
         if let city = DefaultsManager.shared.getDefaultCity() {
             AppSettings.defaultCity = city
         }
     }
     
-    func updateClientSettings() {
+    func setClientSettingsFromCache() {
+        if let settings = DefaultsManager.shared.getClientSettings() {
+            AppSettings.isShopEnabled = settings.isShopEnabled
+            AppSettings.isProfileEnabled = settings.isProfileEnabled
+        }
+    }
+    
+    func fetchClientSettings(completion: ((ClientSettings?, SessionError?) -> Void)? = nil) {
         NetworkService.shared.getSettings(cityId: AppSettings.defaultCity.id) { (result) in
             switch result {
             case let .failure(error):
                 print(error)
+                completion?(nil, error)
             case let .success(settings):
                 AppSettings.isShopEnabled = settings.isShopEnabled
                 AppSettings.isProfileEnabled = settings.isProfileEnabled
                 DefaultsManager.shared.saveClientSettings(settings)
+                completion?(settings, nil)
             }
         }
     }

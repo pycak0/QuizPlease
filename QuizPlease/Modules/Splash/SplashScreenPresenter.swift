@@ -8,6 +8,7 @@
 
 import Foundation
 
+//MARK:- Presenter Protocol
 protocol SplashScreenPresenterProtocol {
     var router: SplashScreenRouterProtocol { get }
     init(view: SplashScreenViewProtocol, interactor: SplashScreenInteractorProtocol, router: SplashScreenRouterProtocol)
@@ -29,8 +30,22 @@ class SplashScreenPresenter: SplashScreenPresenterProtocol {
     }
     
     func viewDidLoad(_ view: SplashScreenViewProtocol) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + timeout) {
-            self.router.showMainMenu()
-        }
+        interactor.updateDefaultCity()
+        interactor.updateClientSettings()
+        
+//        DispatchQueue.main.asyncAfter(deadline: .now() + timeout) {
+//            self.router.showMainMenu()
+//        }
+    }
+}
+
+//MARK:- SplashScreenInteractorOutput
+extension SplashScreenPresenter: SplashScreenInteractorOutput {
+    func interactor(_ interactor: SplashScreenInteractorProtocol?, errorOccured error: SessionError) {
+        print(error)
+    }
+    
+    func interactor(_ interactor: SplashScreenInteractorProtocol?, didLoadClientSettings settings: ClientSettings) {
+        router.showMainMenu()
     }
 }

@@ -17,6 +17,7 @@ class SplashScreenBuilder: SplashScreenBuilderProtocol {
         let interactor = SplashScreenInteractor()
         let router = SplashScreenRouter(viewController: view)
         let presenter = SplashScreenPresenter(view: view, interactor: interactor, router: router)
+        interactor.interactorOutput = presenter
         view.presenter = presenter
     }
 }
