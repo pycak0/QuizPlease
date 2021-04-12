@@ -38,7 +38,7 @@ class HomeGameVideoVC: UIViewController {
     
     private func openUrl(with path: String?) {
         guard let path = path else { return }
-        var rulesUrlComps = Globals.baseUrl
+        var rulesUrlComps = NetworkService.shared.baseUrlComponents
         rulesUrlComps.path = path
         if let url = rulesUrlComps.url, UIApplication.shared.canOpenURL(url) {
             UIApplication.shared.open(url)

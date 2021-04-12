@@ -46,7 +46,7 @@ class MainMenuPresenter: MainMenuPresenterProtocol {
     
     func setupView() {
         view?.configureTableView()
-        view?.updateCityName(with: Globals.defaultCity.title)
+        view?.updateCityName(with: AppSettings.defaultCity.title)
         
         interactor.loadMenuItems { [weak self] result in
             guard let self = self else { return }
@@ -102,17 +102,17 @@ class MainMenuPresenter: MainMenuPresenterProtocol {
     }
     
     func didSelectCityButton() {
-        router.showChooseCityScreen(Globals.defaultCity)
+        router.showChooseCityScreen(AppSettings.defaultCity)
     }
     
     func didChangeDefaultCity(_ newCity: City) {
-        Globals.defaultCity = newCity
+        AppSettings.defaultCity = newCity
         view?.updateCityName(with: newCity.title)
         reloadShopItems()
     }
     
     func didPressAddGame() {
-        if Globals.userToken != nil {
+        if AppSettings.userToken != nil {
             router.showQRScanner()
         } else {
             if let item = menuItems?.first(where: { $0._kind == .profile }) {

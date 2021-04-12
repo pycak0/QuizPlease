@@ -26,7 +26,7 @@ extension UIImageView {
     func loadImage(path: String?, placeholderImage: UIImage? = nil, handler: ((UIImage?) -> Void)? = nil) {
         var url: URL?
         if let path = path {
-            var urlComponents = Globals.baseUrl
+            var urlComponents = NetworkService.shared.baseUrlComponents
             urlComponents.path = path
             url = urlComponents.url
         }
@@ -37,7 +37,7 @@ extension UIImageView {
     func loadImageFromMainDomain(path: String?, placeholderImage: UIImage? = nil, handler: ((UIImage?) -> Void)? = nil) {
         var url: URL?
         if let path = path {
-            var urlComponents = URLComponents(string: Globals.mainDomain)!
+            var urlComponents = URLComponents(string: Configuration.prod.host)!
             urlComponents.path = path
             url = urlComponents.url
         }

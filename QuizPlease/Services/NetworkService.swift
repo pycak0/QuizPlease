@@ -14,6 +14,12 @@ class NetworkService {
     
     static let shared = NetworkService()
         
+    var baseUrlComponents: URLComponents {
+        var urlComps = URLComponents(string: Configuration.dev.host)!
+        urlComps.queryItems = nil
+        return urlComps
+    }
+        
     ///
     //MARK:- GET REQUESTS =======
     ///
@@ -21,21 +27,27 @@ class NetworkService {
     
     //MARK:- User Info
     func getUserInfo(completion: @escaping ((Result<UserInfo, SessionError>) -> Void)) {
-        guard let token = Globals.userToken else {
+        guard let token = AppSettings.userToken else {
             completion(.failure(.invalidToken))
             return
         }
-        var userUrlComps = Globals.baseUrl
+        var userUrlComps = baseUrlComponents
         userUrlComps.path = "/api/users/current"
         let headers: [String: String] = [
             "Authorization" : "Bearer \(token)"
         ]
         getStandard(UserInfo.self, with: userUrlComps, headers: headers, completion: completion)
     }
+    
+    //MARK:- Settings
+    func getSettings(cityId: String, completion: @escaping (Result<[ClientSettingsDTO], SessionError>) -> Void) {
+        var settingsUrlComps = baseUrlComponents
+        
+    }
         
     //MARK:- Get Cities
     func getCities(completion: @escaping (Result<[City], SessionError>) -> Void) {
-        var cityUrlComponents = Globals.baseUrl
+        var cityUrlComponents = baseUrlComponents
         cityUrlComponents.path = "/api/city"
         
         getStandard(CityResponse.self, with: cityUrlComponents) { (getResult) in
@@ -50,7 +62,7 @@ class NetworkService {
     
     //MARK:- Get Warmup Questions
     func getWarmupQuestions(completion: @escaping (Result<[WarmupQuestion], SessionError>) -> Void) {
-        var warmupUrlComps = Globals.baseUrl
+        var warmupUrlComps = baseUrlComponents
         warmupUrlComps.path = "/api/warmup-question"
         
         getStandard([WarmupQuestion].self, with: warmupUrlComps, completion: completion)
@@ -58,7 +70,7 @@ class NetworkService {
     
     //MARK:- Get Rating
     func getRating(cityId: Int, teamName: String, league: Int, ratingScope: Int, page: Int, completion: @escaping (Result<[RatingItem], SessionError>) -> Void) {
-        var ratingUrlComponents = Globals.baseUrl
+        var ratingUrlComponents = baseUrlComponents
         ratingUrlComponents.path = "/api/rating"
         ratingUrlComponents.queryItems = ([//?.append(contentsOf: [
             URLQueryItem(name: "city_id", value: "\(cityId)"),
@@ -75,10 +87,10 @@ class NetworkService {
     
     //MARK:- Get Shop Items
     func getShopItems(cityId: Int? = nil, completion: @escaping (Result<[ShopItem], SessionError>) -> Void) {
-        var shopUrlComponents = Globals.baseUrl
+        var shopUrlComponents = baseUrlComponents
         shopUrlComponents.path = "/api/product"
         
-        let id = cityId ?? Globals.defaultCity.id
+        let id = cityId ?? AppSettings.defaultCity.id
         shopUrlComponents.queryItems = [
             URLQueryItem(name: "city_id", value: "\(id)")
         ]
@@ -89,8 +101,8 @@ class NetworkService {
     //MARK:- Home Games List
     ///- parameter cityId: Optional city parameter. If `nil`, user's `defaultCity` is used.
     func getHomeGames(cityId: Int? = nil, completion: @escaping (Result<[HomeGame], SessionError>) -> Void) {
-        let id = cityId ?? Globals.defaultCity.id
-        var homeUrlComponents = Globals.baseUrl
+        let id = cityId ?? AppSettings.defaultCity.id
+        var homeUrlComponents = baseUrlComponents
         homeUrlComponents.path = "/api/home-game"
         homeUrlComponents.queryItems = ([//?.append(
             URLQueryItem(name: "city_id", value: "\(id)")
@@ -100,14 +112,14 @@ class NetworkService {
     
     //MARK:- Home Game by ID
     func getHomeGame(by id: Int, completion: @escaping (Result<HomeGame, SessionError>) -> Void) {
-        var homeComps = Globals.baseUrl
+        var homeComps = baseUrlComponents
         homeComps.path = "/api/home-game/\(id)"
         getStandard(HomeGame.self, with: homeComps, completion: completion)
     }
     
     //MARK:- Get Game Info
     func getGameInfo(by id: Int, completion: @escaping (Result<GameInfo, SessionError>) -> Void) {
-        var gameUrlComponents = Globals.baseUrl
+        var gameUrlComponents = baseUrlComponents
         gameUrlComponents.path = "/ajax/scope-game"
         gameUrlComponents.queryItems = ([//?.append(
             URLQueryItem(name: "id", value: "\(id)")
@@ -117,7 +129,7 @@ class NetworkService {
     
     //MARK:- Check Certificate
     func validateCertificate(forGameWithId id: Int, certificate: String, completion: @escaping (Result<CertificateResponse, SessionError>) -> Void) {
-        var urlComps = Globals.baseUrl
+        var urlComps = baseUrlComponents
         urlComps.path = "/ajax/check-certificate"
         urlComps.queryItems = [
             URLQueryItem(name: "code", value: certificate),
@@ -128,7 +140,7 @@ class NetworkService {
     
     //MARK:- Get Schedule
     func getSchedule(with filter: ScheduleFilter, completion: @escaping (Result<[GameShortInfo], SessionError>) -> Void) {
-        var scheduleUrlComponents = Globals.baseUrl
+        var scheduleUrlComponents = baseUrlComponents
         scheduleUrlComponents.path = "/api/game"
         var queryItems = [URLQueryItem(name: "city_id", value: "\(filter.city.id)")]
         if let id = filter.date?.id {
@@ -194,7 +206,7 @@ class NetworkService {
     ///Used for filtering schedule
     ///- parameter cityId: Optionally request scoping the results for given city id
     func getFilterOptions(_ type: ScheduleFilterType, scopeFor cityId: Int? = nil, completion: @escaping (Result<[ScheduleFilterOption], SessionError>) -> Void) {
-        var filterUrlComponents = Globals.baseUrl
+        var filterUrlComponents = baseUrlComponents
         filterUrlComponents.path = "/api/game/\(type.rawValue)"
         if let id = cityId {
             filterUrlComponents.queryItems = ([//?.append(
@@ -219,7 +231,7 @@ class NetworkService {
     }
     
     func get<T: Decodable>(_ type: T.Type, apiPath: String, parameters: [String: String?], headers: [String: String]? = nil, completion: @escaping ((Result<T, SessionError>) -> Void)) {
-        var urlComponents = Globals.baseUrl
+        var urlComponents = baseUrlComponents
         urlComponents.path = apiPath
         urlComponents.queryItems = parameters.map { URLQueryItem(name: $0, value: $1) }
         get(type, with: urlComponents, headers: headers, completion: completion)
@@ -282,11 +294,11 @@ class NetworkService {
     
     //MARK:- Push Subscribe
     func subscribePushOnGame(with id: String, completion: @escaping (Result<Bool, SessionError>) -> Void) {
-        guard let token = Globals.userToken else {
+        guard let token = AppSettings.userToken else {
             completion(.failure(.invalidToken))
             return
         }
-        var urlComps = Globals.baseUrl
+        var urlComps = baseUrlComponents
         urlComps.path = "/api/game/subscribe-notification"
         let params = [
             "game_id" : id,
@@ -305,7 +317,7 @@ class NetworkService {
     
     //MARK:- Purchase Product
     func purchaseProduct(with id: String, deliveryMethod: DeliveryMethod, email: String, completion: @escaping (_ isSuccess: Bool) -> Void) {
-        var urlComps = Globals.baseUrl
+        var urlComps = baseUrlComponents
         urlComps.path = "/api/order/buy"
         
         let params: [String : String] = [
@@ -320,11 +332,11 @@ class NetworkService {
     
     //MARK:- Check In On Game
     func checkInOnGame(with qrCode: String, chosenTeamId: Int, completion: @escaping (_ isSuccess: Bool) -> Void) {
-        guard let userToken = Globals.userToken else {
+        guard let userToken = AppSettings.userToken else {
             completion(false)
             return
         }
-        var urlComps = Globals.baseUrl
+        var urlComps = baseUrlComponents
         urlComps.path = "/api/game/check-qr"
         let params = [
             "token": "\(qrCode)",
@@ -336,11 +348,11 @@ class NetworkService {
     
     //MARK:- Get Teams List From QR
     func getTeamsFromQR(_ qrCode: String, completion: @escaping (Result<[TeamInfo], SessionError>) -> Void) {
-        guard let userToken = Globals.userToken else {
+        guard let userToken = AppSettings.userToken else {
             completion(.failure(.invalidToken))
             return
         }
-        var urlComps = Globals.baseUrl
+        var urlComps = baseUrlComponents
         urlComps.path = "/api/game/check-qr"
         let params = ["token" : "\(qrCode)"]
         let headers = ["Authorization" : "Bearer \(userToken)"]
@@ -362,7 +374,7 @@ class NetworkService {
     
     //MARK:- Register
     func register(_ user: UserRegisterData, completion: @escaping (Result<RegisterResponse, SessionError>) -> Void) {
-        var registerUrlComps = Globals.baseUrl
+        var registerUrlComps = baseUrlComponents
         registerUrlComps.path = "/api/auth/register"
         let parameters = [
             "phone" : user.phone,
@@ -373,7 +385,7 @@ class NetworkService {
     
     //MARK:- Send SMS Code
     func sendCode(to number: String, completion: @escaping (_ isSuccess: Bool) -> Void) {
-        var codeUrlComps = Globals.baseUrl
+        var codeUrlComps = baseUrlComponents
         codeUrlComps.path = "/api/auth/token"
         let parameters = [
             "phone" : number
@@ -389,7 +401,7 @@ class NetworkService {
     //MARK:- Authenticate
     func authenticate(phoneNumber: String, smsCode: String, firebaseId: String,
                       completion: @escaping (Result<SavedAuthInfo, SessionError>) -> Void) {
-        var authUrlComps = Globals.baseUrl
+        var authUrlComps = baseUrlComponents
         authUrlComps.path = "/api/auth/token"
         let parameters = [
             "phone" : phoneNumber,
@@ -401,7 +413,7 @@ class NetworkService {
     
     //MARK:- Update User Token
     func updateToken(with refreshToken: String, completion: @escaping (Result<SavedAuthInfo, SessionError>) -> Void) {
-        var tokenUrlComps = Globals.baseUrl
+        var tokenUrlComps = baseUrlComponents
         tokenUrlComps.path = "/api/auth/token"
         let params = [
             "refresh_token": refreshToken
@@ -411,8 +423,8 @@ class NetworkService {
     
     //MARK:- Send Firebase ID
     func sendFirebaseId(_ fcmToken: String) {
-        guard let userToken = Globals.userToken else { return }
-        var urlComps = Globals.baseUrl
+        guard let userToken = AppSettings.userToken else { return }
+        var urlComps = baseUrlComponents
         urlComps.path = "/api/device/create"
         let params = ["device_id" : fcmToken]
         let headers = ["Authorization" : "Bearer \(userToken)"]
@@ -424,7 +436,7 @@ class NetworkService {
     
     //MARK:- Register on Game
     func registerOnGame(registerForm: RegisterForm, completion: @escaping (Result<GameOrderResponse, SessionError>) -> Void) {
-        var registerUrlComps = Globals.baseUrl
+        var registerUrlComps = baseUrlComponents
         registerUrlComps.path = "/ajax/save-record"
         
         let countPaidOnline = registerForm.countPaidOnline == nil ? nil : "\(registerForm.countPaidOnline!)"

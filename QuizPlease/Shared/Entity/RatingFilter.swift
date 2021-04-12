@@ -50,7 +50,7 @@ struct RatingFilter {
         }
     }
     
-    var city: City = Globals.defaultCity
+    var city: City = AppSettings.defaultCity
     var teamName: String = ""
     var league: RatingLeague = .classic
     var scope: RatingScope = .allTime

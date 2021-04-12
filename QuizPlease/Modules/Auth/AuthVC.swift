@@ -76,7 +76,7 @@ class AuthVC: UIViewController {
     
     //MARK:- Register
     private func register(phone: String) {
-        let userData = UserRegisterData(phone: phone, cityId: "\(Globals.defaultCity.id)")
+        let userData = UserRegisterData(phone: phone, cityId: "\(AppSettings.defaultCity.id)")
         NetworkService.shared.register(userData) { [weak self] (serverResult) in
             guard let self = self else { return }
             
@@ -126,7 +126,7 @@ class AuthVC: UIViewController {
                 self.showErrorConnectingToServerAlert()
             case let .success(authInfo):
                 if let token = authInfo.accessToken {
-                    Globals.userToken = token
+                    AppSettings.userToken = token
                     DefaultsManager.shared.saveAuthInfo(authInfo)
                     self.delegate?.didSuccessfullyAuthenticate(in: self)
                 } else {

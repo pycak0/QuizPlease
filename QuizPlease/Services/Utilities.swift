@@ -13,7 +13,7 @@ class Utilities {
     
     static let main = Utilities()
     
-    ///Gets saved user auth info from UserDefaults, checks token expire date. If needed, updates token and assignes a new token value in Globals
+    ///Gets saved user auth info from UserDefaults, checks token expire date. If needed, updates token and assignes a new token value in AppSettings
     func updateToken(completion: (() -> Void)? = nil) {
         if let info = DefaultsManager.shared.getUserAuthInfo(),
            let expireDate = info.expireDate,
@@ -24,17 +24,17 @@ class Utilities {
                     switch serverResult {
                     case let .failure(error):
                         print("Error updating user token: \n\(error).\nAssigning nil to the 'Globals' token variable.")
-                        Globals.userToken = nil
+                        AppSettings.userToken = nil
                         
                     case let .success(newAuthInfo):
-                        Globals.userToken = newAuthInfo.accessToken
+                        AppSettings.userToken = newAuthInfo.accessToken
                         DefaultsManager.shared.saveAuthInfo(newAuthInfo)
                         print("\n\n>>>> Updated user token. New user info:\n \(newAuthInfo)\n\n")
                     }
                     completion?()
                 }
             } else {
-                Globals.userToken = info.accessToken
+                AppSettings.userToken = info.accessToken
                 print(">>>> Token is still valid. Saved User Info:\n \(info)\n\n")
                 completion?()
             }
@@ -46,7 +46,7 @@ class Utilities {
     
     func updateDefaultCity() {
         if let city = DefaultsManager.shared.getDefaultCity() {
-            Globals.defaultCity = city
+            AppSettings.defaultCity = city
         }
     }
 }

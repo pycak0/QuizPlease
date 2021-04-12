@@ -64,7 +64,7 @@ struct WarmupQuestion {
     
     private func buildUrl(from path: String?) -> URL? {
         guard let path = path else { return nil }
-        var urlComps = Globals.baseUrl // URLComponents(string: Globals.mainDomain)
+        var urlComps = NetworkService.shared.baseUrlComponents // URLComponents(string: Configuration.prod.host)
         urlComps.path = path
         return urlComps.url
     }
