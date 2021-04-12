@@ -206,6 +206,10 @@
 		A4E675F7255DB4AB0011A801 /* String+Validating.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E675F6255DB4AB0011A801 /* String+Validating.swift */; };
 		A4F0B9D2262469B000E4E2A5 /* ClientSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F0B9D1262469B000E4E2A5 /* ClientSettings.swift */; };
 		A4F0B9D426246EB100E4E2A5 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F0B9D326246EB100E4E2A5 /* Configuration.swift */; };
+		A4F0B9DC26248B5A00E4E2A5 /* SplashScreenPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F0B9DB26248B5A00E4E2A5 /* SplashScreenPresenter.swift */; };
+		A4F0B9DE26248B6900E4E2A5 /* SplashScreenInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F0B9DD26248B6900E4E2A5 /* SplashScreenInteractor.swift */; };
+		A4F0B9E026248B6E00E4E2A5 /* SplashScreenRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F0B9DF26248B6E00E4E2A5 /* SplashScreenRouter.swift */; };
+		A4F0B9E226248BD600E4E2A5 /* SplashScreenBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F0B9E126248BD600E4E2A5 /* SplashScreenBuilder.swift */; };
 		A4F3A792257D898A00D6A9C7 /* CameraChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F3A791257D898A00D6A9C7 /* CameraChecker.swift */; };
 		A4F3A795257E561800D6A9C7 /* SplashScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F3A794257E561800D6A9C7 /* SplashScreenVC.swift */; };
 		A4F3A79A257E7A1700D6A9C7 /* UIImage+Static.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F3A799257E7A1700D6A9C7 /* UIImage+Static.swift */; };
@@ -435,6 +439,10 @@
 		A4E675F6255DB4AB0011A801 /* String+Validating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Validating.swift"; sourceTree = "<group>"; };
 		A4F0B9D1262469B000E4E2A5 /* ClientSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientSettings.swift; sourceTree = "<group>"; };
 		A4F0B9D326246EB100E4E2A5 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
+		A4F0B9DB26248B5A00E4E2A5 /* SplashScreenPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenPresenter.swift; sourceTree = "<group>"; };
+		A4F0B9DD26248B6900E4E2A5 /* SplashScreenInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenInteractor.swift; sourceTree = "<group>"; };
+		A4F0B9DF26248B6E00E4E2A5 /* SplashScreenRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenRouter.swift; sourceTree = "<group>"; };
+		A4F0B9E126248BD600E4E2A5 /* SplashScreenBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenBuilder.swift; sourceTree = "<group>"; };
 		A4F3A791257D898A00D6A9C7 /* CameraChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraChecker.swift; sourceTree = "<group>"; };
 		A4F3A794257E561800D6A9C7 /* SplashScreenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenVC.swift; sourceTree = "<group>"; };
 		A4F3A799257E7A1700D6A9C7 /* UIImage+Static.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Static.swift"; sourceTree = "<group>"; };
@@ -1121,6 +1129,10 @@
 			isa = PBXGroup;
 			children = (
 				A4F3A794257E561800D6A9C7 /* SplashScreenVC.swift */,
+				A4F0B9E126248BD600E4E2A5 /* SplashScreenBuilder.swift */,
+				A4F0B9DB26248B5A00E4E2A5 /* SplashScreenPresenter.swift */,
+				A4F0B9DD26248B6900E4E2A5 /* SplashScreenInteractor.swift */,
+				A4F0B9DF26248B6E00E4E2A5 /* SplashScreenRouter.swift */,
 			);
 			path = Splash;
 			sourceTree = "<group>";
@@ -1439,6 +1451,7 @@
 				A450E39724E559CD00C49AEE /* TitledTextFieldView.swift in Sources */,
 				A4A5DE9825019DA800EBC408 /* ScheduleFilter.swift in Sources */,
 				A441A80B253F2799007146D3 /* CheckInResponse.swift in Sources */,
+				A4F0B9DC26248B5A00E4E2A5 /* SplashScreenPresenter.swift in Sources */,
 				A445E34824DE02BC0070B9FC /* TitleLabel.swift in Sources */,
 				A40B758C24D9A81A006DB7D1 /* HomeGameInteractor.swift in Sources */,
 				A4F0B9D426246EB100E4E2A5 /* Configuration.swift in Sources */,
@@ -1446,6 +1459,7 @@
 				A40689F924F7D11A001273B2 /* City.swift in Sources */,
 				A472D29825288F0800AA9906 /* AuthInfoResponse.swift in Sources */,
 				A464370424EB37DB0033F23A /* ExpandingHeader.swift in Sources */,
+				A4F0B9E026248B6E00E4E2A5 /* SplashScreenRouter.swift in Sources */,
 				A40F035D24D412D700C381F2 /* ShopItemCell.swift in Sources */,
 				A4A5370824EC7AA6004A10D4 /* HomeGameCell.swift in Sources */,
 				A4A065AA24E4812F0080E0D8 /* GameGeneralDescriptionCell.swift in Sources */,
@@ -1461,6 +1475,7 @@
 				A4CC5FF224DAFECF0042B41C /* VCExtensions.swift in Sources */,
 				A40D818424D2CA39006D2CE3 /* RatingVC.swift in Sources */,
 				A40689FF24F7D94B001273B2 /* AppSettings.swift in Sources */,
+				A4F0B9E226248BD600E4E2A5 /* SplashScreenBuilder.swift in Sources */,
 				A44C697B24EFE70B00AB3BC9 /* RouterProtocol.swift in Sources */,
 				A45A072124FFED6D00137637 /* PickCityVC.swift in Sources */,
 				A40B758E24D9A820006DB7D1 /* HomeGamePresenter.swift in Sources */,
@@ -1478,6 +1493,7 @@
 				A48A11F124F56D6900F91B9C /* MenuShopCell.swift in Sources */,
 				A4147AD724E5B92D007C131F /* Place.swift in Sources */,
 				A417FA5325711C210064C467 /* UIViewController+SafariVC.swift in Sources */,
+				A4F0B9DE26248B6900E4E2A5 /* SplashScreenInteractor.swift in Sources */,
 				A464370524EB37DB0033F23A /* ExpandingHeaderTextField.swift in Sources */,
 				A423AC2224EEBCD600071E68 /* FiltersVC.swift in Sources */,
 				A48E2FBC253330D900CD6BE6 /* DeliveryMethod.swift in Sources */,
