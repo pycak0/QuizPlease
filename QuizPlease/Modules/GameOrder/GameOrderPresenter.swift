@@ -37,7 +37,7 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
     var game: GameInfo! {
         didSet {
             registerForm.gameId = game.id
-            registerForm.paymentType = game.availablePaymentTypes.contains(.online) ? .online : .cash
+            registerForm.paymentType = isOnlinePaymentDefault ? .online : .cash
         }
     }
     
