@@ -17,7 +17,7 @@ class MainMenuConfigurator: MainMenuConfiguratorProtocol {
         let interactor = MainMenuInteractor()
         let router = MainMenuRouter(viewController: mainMenuVC)
         let presenter = MainMenuPresenter(view: mainMenuVC, interactor: interactor, router: router)
-        
+        interactor.output = presenter
         mainMenuVC.prepareNavigationBar()
         mainMenuVC.presenter = presenter
     }

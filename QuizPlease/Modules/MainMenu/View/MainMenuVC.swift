@@ -10,8 +10,7 @@ import UIKit
 
 //MARK:- View Protocol
 protocol MainMenuViewProtocol: UIViewController {
-    var configurator: MainMenuConfiguratorProtocol { get }
-    var presenter: MainMenuPresenterProtocol! { get set }    
+    var presenter: MainMenuPresenterProtocol! { get set }
     func configureTableView()
     func updateCityName(with name: String)
     func reloadMenuItems()
@@ -24,7 +23,6 @@ protocol MainMenuViewProtocol: UIViewController {
 }
 
 class MainMenuVC: UIViewController {
-    let configurator: MainMenuConfiguratorProtocol = MainMenuConfigurator()
     var presenter: MainMenuPresenterProtocol!
 
     @IBOutlet weak var tableView: UITableView!
@@ -35,8 +33,8 @@ class MainMenuVC: UIViewController {
     //MARK:- Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        configurator.configure(self)
-        presenter.setupView()
+        MainMenuConfigurator().configure(self)
+        presenter.viewDidLoad(self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -49,7 +47,7 @@ class MainMenuVC: UIViewController {
         navigationController?.navigationBar.tintColor = .labelAdapted
         navigationController?.navigationBar.barTintColor = .systemBackgroundAdapted
         setNavBarDefault()
-        presenter.handleViewDidAppear()
+        presenter.viewDidAppear(self)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
