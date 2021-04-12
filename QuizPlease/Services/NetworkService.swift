@@ -40,9 +40,13 @@ class NetworkService {
     }
     
     //MARK:- Settings
-    func getSettings(cityId: String, completion: @escaping (Result<[ClientSettingsDTO], SessionError>) -> Void) {
+    func getSettings(cityId: String, completion: @escaping (Result<ClientSettingsDTO, SessionError>) -> Void) {
         var settingsUrlComps = baseUrlComponents
-        
+        settingsUrlComps.path = "/api/settings"
+        settingsUrlComps.queryItems = [
+            URLQueryItem(name: "city_id", value: cityId)
+        ]
+        getStandard(ClientSettingsDTO.self, with: settingsUrlComps, completion: completion)
     }
         
     //MARK:- Get Cities
@@ -64,7 +68,6 @@ class NetworkService {
     func getWarmupQuestions(completion: @escaping (Result<[WarmupQuestion], SessionError>) -> Void) {
         var warmupUrlComps = baseUrlComponents
         warmupUrlComps.path = "/api/warmup-question"
-        
         getStandard([WarmupQuestion].self, with: warmupUrlComps, completion: completion)
     }
     
@@ -81,7 +84,6 @@ class NetworkService {
         if teamName.count > 0 {
             ratingUrlComponents.queryItems?.append(URLQueryItem(name: "teamName", value: teamName))
         }
-        
         getStandard([RatingItem].self, with: ratingUrlComponents, completion: completion)
     }
     
@@ -94,8 +96,7 @@ class NetworkService {
         shopUrlComponents.queryItems = [
             URLQueryItem(name: "city_id", value: "\(id)")
         ]
-        
-        getStandard([ShopItem].self, with: shopUrlComponents, completion: completion)
+                getStandard([ShopItem].self, with: shopUrlComponents, completion: completion)
     }
     
     //MARK:- Home Games List
