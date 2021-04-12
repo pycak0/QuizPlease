@@ -49,4 +49,17 @@ class Utilities {
             AppSettings.defaultCity = city
         }
     }
+    
+    func updateClientSettings() {
+        NetworkService.shared.getSettings(cityId: AppSettings.defaultCity.id) { (result) in
+            switch result {
+            case let .failure(error):
+                print(error)
+            case let .success(settings):
+                AppSettings.isShopEnabled = settings.isShopEnabled
+                AppSettings.isProfileEnabled = settings.isProfileEnabled
+                DefaultsManager.shared.saveClientSettings(settings)
+            }
+        }
+    }
 }

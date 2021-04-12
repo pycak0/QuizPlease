@@ -40,13 +40,13 @@ class NetworkService {
     }
     
     //MARK:- Settings
-    func getSettings(cityId: String, completion: @escaping (Result<ClientSettingsDTO, SessionError>) -> Void) {
+    func getSettings(cityId: Int, completion: @escaping (Result<ClientSettings, SessionError>) -> Void) {
         var settingsUrlComps = baseUrlComponents
         settingsUrlComps.path = "/api/settings"
         settingsUrlComps.queryItems = [
-            URLQueryItem(name: "city_id", value: cityId)
+            URLQueryItem(name: "city_id", value: "\(cityId)")
         ]
-        getStandard(ClientSettingsDTO.self, with: settingsUrlComps, completion: completion)
+        getStandard(ClientSettings.self, with: settingsUrlComps, completion: completion)
     }
         
     //MARK:- Get Cities

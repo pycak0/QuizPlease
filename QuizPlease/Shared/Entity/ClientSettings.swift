@@ -1,5 +1,5 @@
 //
-//  ClientSettingsDTO.swift
+//  ClientSettings.swift
 //  QuizPlease
 //
 //  Created by Владислав on 12.04.2021.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct ClientSettingsDTO: Decodable {
+struct ClientSettings: Codable {
     private let show_account: Int
     private let show_shop: Int
     

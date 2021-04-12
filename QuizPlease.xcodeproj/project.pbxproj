@@ -204,8 +204,9 @@
 		A4E675F2255D76640011A801 /* AudioView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4E675F1255D76640011A801 /* AudioView.xib */; };
 		A4E675F4255D78400011A801 /* AudioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E675F3255D78400011A801 /* AudioView.swift */; };
 		A4E675F7255DB4AB0011A801 /* String+Validating.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E675F6255DB4AB0011A801 /* String+Validating.swift */; };
-		A4F0B9D2262469B000E4E2A5 /* ClientSettingsDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F0B9D1262469B000E4E2A5 /* ClientSettingsDTO.swift */; };
+		A4F0B9D2262469B000E4E2A5 /* ClientSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F0B9D1262469B000E4E2A5 /* ClientSettings.swift */; };
 		A4F0B9D426246EB100E4E2A5 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F0B9D326246EB100E4E2A5 /* Configuration.swift */; };
+		A4F0B9D72624795800E4E2A5 /* DefaultsSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F0B9D62624795800E4E2A5 /* DefaultsSetting.swift */; };
 		A4F3A792257D898A00D6A9C7 /* CameraChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F3A791257D898A00D6A9C7 /* CameraChecker.swift */; };
 		A4F3A795257E561800D6A9C7 /* SplashScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F3A794257E561800D6A9C7 /* SplashScreenVC.swift */; };
 		A4F3A79A257E7A1700D6A9C7 /* UIImage+Static.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F3A799257E7A1700D6A9C7 /* UIImage+Static.swift */; };
@@ -433,8 +434,9 @@
 		A4E675F1255D76640011A801 /* AudioView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AudioView.xib; sourceTree = "<group>"; };
 		A4E675F3255D78400011A801 /* AudioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioView.swift; sourceTree = "<group>"; };
 		A4E675F6255DB4AB0011A801 /* String+Validating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Validating.swift"; sourceTree = "<group>"; };
-		A4F0B9D1262469B000E4E2A5 /* ClientSettingsDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientSettingsDTO.swift; sourceTree = "<group>"; };
+		A4F0B9D1262469B000E4E2A5 /* ClientSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientSettings.swift; sourceTree = "<group>"; };
 		A4F0B9D326246EB100E4E2A5 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
+		A4F0B9D62624795800E4E2A5 /* DefaultsSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultsSetting.swift; sourceTree = "<group>"; };
 		A4F3A791257D898A00D6A9C7 /* CameraChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraChecker.swift; sourceTree = "<group>"; };
 		A4F3A794257E561800D6A9C7 /* SplashScreenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenVC.swift; sourceTree = "<group>"; };
 		A4F3A799257E7A1700D6A9C7 /* UIImage+Static.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Static.swift"; sourceTree = "<group>"; };
@@ -645,6 +647,7 @@
 		A40D818C24D2E3DB006D2CE3 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				A4F0B9D52624793C00E4E2A5 /* DefaultsService */,
 				A4147AD824E5BAF9007C131F /* MapService.swift */,
 				A44C697524EFD45300AB3BC9 /* QRCodeService.swift */,
 				A40689FA24F7D86F001273B2 /* NetworkService.swift */,
@@ -971,7 +974,7 @@
 			children = (
 				A40689FE24F7D94B001273B2 /* AppSettings.swift */,
 				A4F0B9D326246EB100E4E2A5 /* Configuration.swift */,
-				A4F0B9D1262469B000E4E2A5 /* ClientSettingsDTO.swift */,
+				A4F0B9D1262469B000E4E2A5 /* ClientSettings.swift */,
 				A4D498CA2502648D00CB70EE /* ScheduledGame */,
 				A4B2C3E125013DC3008D5175 /* ScheduleFilters */,
 				A4B2C3E225013DD5008D5175 /* City */,
@@ -1115,6 +1118,14 @@
 				A4E675F6255DB4AB0011A801 /* String+Validating.swift */,
 			);
 			path = String;
+			sourceTree = "<group>";
+		};
+		A4F0B9D52624793C00E4E2A5 /* DefaultsService */ = {
+			isa = PBXGroup;
+			children = (
+				A4F0B9D62624795800E4E2A5 /* DefaultsSetting.swift */,
+			);
+			path = DefaultsService;
 			sourceTree = "<group>";
 		};
 		A4F3A793257E55F400D6A9C7 /* Splash */ = {
@@ -1349,7 +1360,7 @@
 				A4A5DE95250197C300EBC408 /* FilterView.swift in Sources */,
 				A4D498CC250264AC00CB70EE /* GameShortInfo.swift in Sources */,
 				A46F303E24F5302B0062A333 /* GameSubmitButtonCell.swift in Sources */,
-				A4F0B9D2262469B000E4E2A5 /* ClientSettingsDTO.swift in Sources */,
+				A4F0B9D2262469B000E4E2A5 /* ClientSettings.swift in Sources */,
 				A4CC5FF024DAF7300042B41C /* NavigationBar.swift in Sources */,
 				A472D29E2528962A00AA9906 /* TeamInfo.swift in Sources */,
 				A48DFF7B24F4070200E47095 /* HomeGame.swift in Sources */,
@@ -1396,6 +1407,7 @@
 				A423AC2424EEC65100071E68 /* ConfirmVC.swift in Sources */,
 				A44B2FD525841D9100B5B52C /* CertificateResponse.swift in Sources */,
 				A4FFA4B124F3BE2A006A1150 /* PaymentType.swift in Sources */,
+				A4F0B9D72624795800E4E2A5 /* DefaultsSetting.swift in Sources */,
 				A4A5370424EC7691004A10D4 /* UIColorExtensions.swift in Sources */,
 				A4E675F4255D78400011A801 /* AudioView.swift in Sources */,
 				A40B759224D9A836006DB7D1 /* HomeGameConfigurator.swift in Sources */,
