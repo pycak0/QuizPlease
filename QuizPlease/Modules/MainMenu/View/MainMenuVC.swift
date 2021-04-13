@@ -95,7 +95,7 @@ extension MainMenuVC: MainMenuViewProtocol {
     }
     
     func reloadMenuItems() {
-        tableView.reloadData()
+        tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .automatic)
     }
     
     func reloadShopItems() {
