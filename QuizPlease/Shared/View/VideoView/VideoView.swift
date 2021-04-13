@@ -33,6 +33,7 @@ class VideoView: UIView {
     func configurePlayer(url: URL?, shouldAutoPlay: Bool = true) {
         guard let url = url else { return }
         playerVC.player = AVPlayer(url: url)
+        setCategoryPlayback()
         if shouldAutoPlay {
             play()
         }
