@@ -48,8 +48,7 @@ class HomeGameVideoVC: UIViewController {
     
     //MARK:- Configure Views
     private func configureViews() {
-        videoView.parent = self
-        videoView.configureVideoView()
+        videoView.configureVideoView(parent: self)
         descriptionBackground.blurView.setup(style: .regular, alpha: 0.8).enable()
         //descriptionBackground.addBlur(color: .systemPurple, style: blurStyle, alpha: 0.7)
         

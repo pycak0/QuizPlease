@@ -16,7 +16,7 @@ class VideoView: UIView {
     @IBOutlet private weak var playerView: UIView!
     @IBOutlet weak var imageView: UIImageView!
     
-    weak var parent: UIViewController!
+    private unowned var parent: UIViewController!
     private var playerVC = AVPlayerViewController()
     var url: URL?
     
@@ -39,8 +39,9 @@ class VideoView: UIView {
         }
     }
     
-    func configureVideoView() {
-        guard parent != nil else { fatalError("VideoView must have `parent` property set") }
+    ///- parameter parent: a view controller to add AVPlayerViewController as child on it
+    func configureVideoView(parent: UIViewController) {
+//        guard parent != nil else { fatalError("VideoView must have `parent` property set") }
         
         playerVC.view.frame = playerView.bounds
         playerVC.videoGravity = .resizeAspectFill
@@ -50,7 +51,7 @@ class VideoView: UIView {
         playerVC.showsPlaybackControls = true
         
         //MARK:- insert player into videoView
-        parent?.addChild(playerVC)
+        parent.addChild(playerVC)
         playerVC.didMove(toParent: parent)
         playerView.addSubview(playerVC.view)
         playerView.backgroundColor = .clear
@@ -80,7 +81,7 @@ class VideoView: UIView {
         self.init()
         self.parent = parent
         self.url = url
-        configureVideoView()
+        configureVideoView(parent: parent)
         configurePlayer(url: url)
     }
     
