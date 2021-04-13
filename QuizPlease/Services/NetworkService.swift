@@ -324,7 +324,8 @@ class NetworkService {
         let params: [String : String] = [
             "product_id": id,
             "delivery_method": "\(deliveryMethod.id)",
-            "email" : email
+            "email" : email,
+            "city_id" : "\(AppSettings.defaultCity.id)"
         ]
         
         afPostBool(with: params, to: urlComps, completion: completion)
@@ -461,7 +462,6 @@ class NetworkService {
         ]
         
         afPost(with: parameters, to: registerUrlComps, responseType: GameOrderResponse.self, completion: completion)
-        
     }
     
     //MARK:- AF Post Auth

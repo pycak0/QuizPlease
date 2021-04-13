@@ -15,9 +15,9 @@ enum DeliveryMethod {
     var id: Int {
         switch self {
         case .email:
-            return 1
-        case .game:
             return 2
+        case .game:
+            return 1
         }
     }
     
