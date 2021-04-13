@@ -96,7 +96,7 @@ class NetworkService {
         shopUrlComponents.queryItems = [
             URLQueryItem(name: "city_id", value: "\(id)")
         ]
-                getStandard([ShopItem].self, with: shopUrlComponents, completion: completion)
+        getStandard([ShopItem].self, with: shopUrlComponents, completion: completion)
     }
     
     //MARK:- Home Games List
@@ -122,9 +122,9 @@ class NetworkService {
     func getGameInfo(by id: Int, completion: @escaping (Result<GameInfo, SessionError>) -> Void) {
         var gameUrlComponents = baseUrlComponents
         gameUrlComponents.path = "/ajax/scope-game"
-        gameUrlComponents.queryItems = ([//?.append(
+        gameUrlComponents.queryItems = [
             URLQueryItem(name: "id", value: "\(id)")
-        ])
+        ]
         get(GameInfo.self, with: gameUrlComponents, completion: completion)
     }
     
@@ -159,7 +159,7 @@ class NetworkService {
         if let id = filter.type?.id {
             queryItems.append(URLQueryItem(name: "type", value: "\(id)"))
         }
-        scheduleUrlComponents.queryItems = queryItems //?.append(contentsOf: queryItems)
+        scheduleUrlComponents.queryItems = queryItems
         
         getStandard(ScheduledGamesResponse.self, with: scheduleUrlComponents) { (getResult) in
             switch getResult {
