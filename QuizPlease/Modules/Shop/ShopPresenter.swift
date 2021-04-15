@@ -105,24 +105,29 @@ class ShopPresenter: ShopPresenterProtocol {
     }
     
     func didAgreeToPurchase(_ item: ShopItem) {
-        if let info = userInfo {
-            if info.pointsAmount >= item.priceNumber {
-                router.showCompletionScreen(for: item)
-            } else {
-                let diff = (item.priceNumber - info.pointsAmount).string(withAssociatedMaleWord: "балл")
-                view?.showSimpleAlert(
-                    title: "Недостаточно баллов",
-                    message: "Для приобретения этого продукта Вам не хватает \(diff)")
-            }
-        } else {
-            view?.showSimpleAlert(title: "Для совершения покупок необходимо авторизоваться",
-                                  message: "Вы можете авторизоваться или зарегистрироваться в Личном кабинете")
+        guard let user = userInfo else {
+            view?.showSimpleAlert(
+                title: "Для совершения покупок необходимо авторизоваться",
+                message: "Вы можете авторизоваться или зарегистрироваться в Личном кабинете"
+            )
+            return
         }
-        //router.showCompletionScreen(for: item)
+        guard canUser(user, buyItem: item) else {
+            let diff = (item.priceNumber - user.pointsAmount).string(withAssociatedMaleWord: "балл")
+            view?.showSimpleAlert(
+                title: "Недостаточно баллов",
+                message: "Для приобретения этого продукта Вам не хватает \(diff)"
+            )
+            return
+        }
+        router.showCompletionScreen(for: item)
     }
     
     func didPurchase(_ item: ShopItem) {
         loadUserInfo()
     }
-    
+
+    private func canUser(_ user: UserInfo, buyItem item: ShopItem) -> Bool {
+        return user.pointsAmount >= item.priceNumber
+    }
 }

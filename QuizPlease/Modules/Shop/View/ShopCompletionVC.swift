@@ -15,10 +15,10 @@ protocol ShopCompletionVCDelegate: class {
 class ShopCompletionVC: UIViewController {
     
     //MARK:- Outlets
-    @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var textFieldView: TitledTextFieldView!
-    @IBOutlet weak var arrowImageView: UIImageView!
-    @IBOutlet weak var segmentControl: HBSegmentedControl!
+    @IBOutlet private weak var imageView: UIImageView!
+    @IBOutlet private weak var textFieldView: TitledTextFieldView!
+    @IBOutlet private weak var arrowImageView: UIImageView!
+    @IBOutlet private weak var segmentControl: HBSegmentedControl!
     
     weak var delegate: ShopCompletionVCDelegate?
     
