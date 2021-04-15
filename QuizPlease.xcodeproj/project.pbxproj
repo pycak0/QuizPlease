@@ -581,6 +581,7 @@
 		A40D817324D2C963006D2CE3 /* Shop */ = {
 			isa = PBXGroup;
 			children = (
+				A48E2FB9253330CC00CD6BE6 /* Entity */,
 				A4B828E124D831F500D77E67 /* View */,
 				A4CC5FC024DACE0E0042B41C /* ShopInteractor.swift */,
 				A4CC5FC224DACE1A0042B41C /* ShopPresenter.swift */,
@@ -842,14 +843,14 @@
 			path = UserInfo;
 			sourceTree = "<group>";
 		};
-		A48E2FB9253330CC00CD6BE6 /* Shop */ = {
+		A48E2FB9253330CC00CD6BE6 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
 				A423AC1C24EE971100071E68 /* ShopItem.swift */,
 				A48E2FBB253330D900CD6BE6 /* DeliveryMethod.swift */,
 				A445C88C25436497003B68E8 /* ShopItemImage.swift */,
 			);
-			path = Shop;
+			path = Entity;
 			sourceTree = "<group>";
 		};
 		A4A0659524E4775E0080E0D8 /* GameOrder */ = {
@@ -988,7 +989,6 @@
 				A40C8083252E872200CE40D8 /* Warmup */,
 				A472D2A4252897BA00AA9906 /* CheckIn */,
 				A48E2FB12530DC2F00CD6BE6 /* UserInfo */,
-				A48E2FB9253330CC00CD6BE6 /* Shop */,
 				A4068A0024F7DAE2001273B2 /* ServerResponse.swift */,
 				A40689FC24F7D913001273B2 /* SessionError.swift */,
 				A4147AD624E5B92D007C131F /* Place.swift */,

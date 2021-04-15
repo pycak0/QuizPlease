@@ -11,6 +11,17 @@ import Foundation
 enum DeliveryMethod {
     case game, online
     
+    init?(title: String) {
+        switch title {
+        case DeliveryMethod.game.title:
+            self = .game
+        case DeliveryMethod.online.title:
+            self = .online
+        default:
+            return nil
+        }
+    }
+    
     ///An identificator of DeliveryMethod used to perform server request
     var id: Int {
         switch self {
@@ -18,6 +29,15 @@ enum DeliveryMethod {
             return 2
         case .game:
             return 1
+        }
+    }
+    
+    var title: String {
+        switch self {
+        case .online:
+            return "Получить на e-mail"
+        case .game:
+            return "Забрать на игре"
         }
     }
     

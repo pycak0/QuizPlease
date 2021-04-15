@@ -14,6 +14,8 @@ struct ShopItem: Decodable {
     var description: String
     private var price: Double
     private var images: [ShopItemImage]?
+    private var offline_delivery: Int = 1
+    private var online_delivery: Int = 1
     
     init(title: String, description: String, price: Double) {
         self.title = title
@@ -30,5 +32,16 @@ extension ShopItem {
     var priceNumber: Int {
         Int(price)
         //Int(Double(price) ?? 99999)
+    }
+    
+    var availableDeliveryMethods: [DeliveryMethod] {
+        var methods = [DeliveryMethod]()
+        if offline_delivery == 1 {
+            methods.append(.game)
+        }
+        if online_delivery == 1 {
+            methods.append(.online)
+        }
+        return methods
     }
 }
