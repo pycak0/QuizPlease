@@ -82,7 +82,7 @@ class ShopCompletionVC: UIViewController {
             textFieldView.shakeAnimation()
             return
         }
-        let deliveryMethod: DeliveryMethod = selectedSegmentKind == .email ? .email : .game
+        let deliveryMethod: DeliveryMethod = selectedSegmentKind == .email ? .online : .game
         purchase(withDelivryMethod: deliveryMethod, email: text)
     }
     
