@@ -36,11 +36,11 @@ extension ShopItem {
     
     var availableDeliveryMethods: [DeliveryMethod] {
         var methods = [DeliveryMethod]()
-        if offline_delivery == 1 {
-            methods.append(.game)
-        }
         if online_delivery == 1 {
-            methods.append(.online)
+            methods = [.online, .game]
+        }
+        if offline_delivery == 1 {
+            methods =  [.game]
         }
         return methods
     }
