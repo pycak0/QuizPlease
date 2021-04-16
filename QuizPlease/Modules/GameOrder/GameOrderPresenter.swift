@@ -8,7 +8,6 @@
 
 import Foundation
 import YooKassaPayments
-import YooKassaPaymentsApi
 
 //MARK:- Presenter Protocol
 protocol GameOrderPresenterProtocol {
