@@ -37,10 +37,10 @@ extension ShopItem {
     var availableDeliveryMethods: [DeliveryMethod] {
         var methods = [DeliveryMethod]()
         if online_delivery == 1 {
-            methods = [.online, .game]
+            methods.append(.online)
         }
         if offline_delivery == 1 {
-            methods =  [.game]
+            methods.append(.game)
         }
         return methods
     }
