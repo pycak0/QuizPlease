@@ -78,14 +78,11 @@ extension WarmupQuestion: Decodable {
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        
         question = try container.decode(String.self, forKey: .question)
         
         let answerString = try container.decode(String.self, forKey: .answers)
         answers = try JSONDecoder().decode([WarmupAnswer].self, from: Data(answerString.utf8))
-        
         file = try container.decode(String.self, forKey: .file)
-        
         id = try container.decode(Double.self, forKey: .id)
     }
 }
