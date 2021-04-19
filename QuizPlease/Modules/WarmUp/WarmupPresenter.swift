@@ -20,14 +20,10 @@ protocol WarmupPresenterProtocol {
     
     init(view: WarmupViewProtocol, interactor: WarmupInteractorProtocol, router: WarmupRouterProtocol)
     
-    func setupView()
-    
+    func viewDidLoad(_ view: WarmupViewProtocol)
     func didPressStartGame()
-    
     func didAnswer(_ answer: String, for question: WarmupQuestion)
-    
     func shareAction()
-    
     func gameEnded()
 }
 
@@ -58,8 +54,8 @@ class WarmupPresenter: WarmupPresenterProtocol {
     }
     
     //MARK:- Setup
-    func setupView() {
-        view?.configure()
+    func viewDidLoad(_ view: WarmupViewProtocol) {
+        view.configure()
         
         interactor.loadQuestions { [weak self] (result) in
             guard let self = self else { return }
