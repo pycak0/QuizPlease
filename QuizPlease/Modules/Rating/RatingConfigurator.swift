@@ -8,11 +8,7 @@
 
 import Foundation
 
-protocol RatingConfiguratorProtocol {
-    func configure(_ view: RatingViewProtocol)
-}
-
-class RatingConfigurator: RatingConfiguratorProtocol {
+class RatingConfigurator: Configurator {
     func configure(_ view: RatingViewProtocol) {
         let interactor = RatingInteractor()
         let router = RatingRouter(viewController: view)

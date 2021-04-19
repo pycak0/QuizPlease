@@ -23,5 +23,4 @@ class GameOrderConfigurator: GameOrderConfiguratorProtocol {
         viewController.shouldScrollToSignUp = gameInfo.shouldScrollToSignUp
         viewController.prepareNavigationBar(title: gameInfo.game.fullTitle)
     }
-    
 }

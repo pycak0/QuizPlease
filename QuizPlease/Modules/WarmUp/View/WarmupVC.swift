@@ -11,7 +11,6 @@ import UICircularProgressRing
 
 //MARK:- View Protocol
 protocol WarmupViewProtocol: UIViewController {
-    var configurator: WarmupConfiguratorProtocol { get }
     var presenter: WarmupPresenterProtocol! { get set }
     
     func configure()
@@ -25,7 +24,6 @@ protocol WarmupViewProtocol: UIViewController {
 }
 
 class WarmupVC: UIViewController {
-    let configurator: WarmupConfiguratorProtocol = WarmupConfigurator()
     var presenter: WarmupPresenterProtocol!
     
     //MARK:- Outlets
@@ -47,9 +45,8 @@ class WarmupVC: UIViewController {
     //MARK:- Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        configurator.configure(self)
+        WarmupConfigurator().configure(self)
         presenter.setupView()
-
     }
     
     //MARK:- Prepare for Segue
@@ -63,11 +60,11 @@ class WarmupVC: UIViewController {
     }
     
     
-    @IBAction func startButtonPressed(_ sender: UIButton) {
+    @IBAction private func startButtonPressed(_ sender: UIButton) {
         presenter.didPressStartGame()
     }
     
-    @IBAction func shareButtonPressed(_ sender: Any) {
+    @IBAction private func shareButtonPressed(_ sender: Any) {
         presenter.shareAction()
     }
     

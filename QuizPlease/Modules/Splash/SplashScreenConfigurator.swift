@@ -1,5 +1,5 @@
 //
-//  SplashScreenBuilder.swift
+//  SplashScreenConfigurator.swift
 //  QuizPlease
 //
 //  Created by Владислав on 12.04.2021.
@@ -8,11 +8,7 @@
 
 import Foundation
 
-protocol SplashScreenBuilderProtocol {
-    func configure(_ view: SplashScreenViewProtocol)
-}
-
-class SplashScreenBuilder: SplashScreenBuilderProtocol {
+class SplashScreenConfigurator: Configurator {
     func configure(_ view: SplashScreenViewProtocol) {
         let interactor = SplashScreenInteractor()
         let router = SplashScreenRouter(viewController: view)

@@ -8,11 +8,7 @@
 
 import Foundation
 
-protocol WarmupConfiguratorProtocol {
-    func configure(_ view: WarmupViewProtocol)
-}
-
-class WarmupConfigurator: WarmupConfiguratorProtocol {
+class WarmupConfigurator: Configurator {
     func configure(_ view: WarmupViewProtocol) {
         let interactor = WarmupInteractor()
         let router = WarmupRouter(viewController: view)
@@ -21,5 +17,4 @@ class WarmupConfigurator: WarmupConfiguratorProtocol {
         view.presenter = presenter
         view.prepareNavigationBar(tintColor: .white)
     }
-    
 }

@@ -8,19 +8,13 @@
 
 import Foundation
 
-protocol ScheduleConfiguratorProtocol {
-    func configure(_ viewController: ScheduleViewProtocol)
-}
-
-class ScheduleConfigurator: ScheduleConfiguratorProtocol {
-    func configure(_ viewController: ScheduleViewProtocol) {
-        let router = ScheduleRouter(viewController: viewController)
+class ScheduleConfigurator: Configurator {
+    func configure(_ view: ScheduleViewProtocol) {
+        let router = ScheduleRouter(viewController: view)
         let interactor = ScheduleInteractor()
-        let presenter = SchedulePresenter(view: viewController, interactor: interactor, router: router)
-        
-        viewController.prepareNavigationBar()
-        viewController.presenter = presenter
+        let presenter = SchedulePresenter(view: view, interactor: interactor, router: router)
+        view.prepareNavigationBar()
+        view.presenter = presenter
         interactor.output = presenter
     }
-    
 }

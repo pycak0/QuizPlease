@@ -88,7 +88,7 @@
 		A44B2FD525841D9100B5B52C /* CertificateResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44B2FD425841D9100B5B52C /* CertificateResponse.swift */; };
 		A44C697624EFD45300AB3BC9 /* QRCodeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44C697524EFD45300AB3BC9 /* QRCodeService.swift */; };
 		A44C697824EFE06000AB3BC9 /* QRScannerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44C697724EFE06000AB3BC9 /* QRScannerVC.swift */; };
-		A44C697B24EFE70B00AB3BC9 /* RouterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44C697A24EFE70B00AB3BC9 /* RouterProtocol.swift */; };
+		A44C697B24EFE70B00AB3BC9 /* ViperProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44C697A24EFE70B00AB3BC9 /* ViperProtocols.swift */; };
 		A450E39624E559CD00C49AEE /* TitledTextFieldView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A450E39424E559CD00C49AEE /* TitledTextFieldView.xib */; };
 		A450E39724E559CD00C49AEE /* TitledTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A450E39524E559CD00C49AEE /* TitledTextFieldView.swift */; };
 		A450E39A24E564A900C49AEE /* GameCertificateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A450E39824E564A900C49AEE /* GameCertificateCell.swift */; };
@@ -208,7 +208,7 @@
 		A4F0B9DC26248B5A00E4E2A5 /* SplashScreenPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F0B9DB26248B5A00E4E2A5 /* SplashScreenPresenter.swift */; };
 		A4F0B9DE26248B6900E4E2A5 /* SplashScreenInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F0B9DD26248B6900E4E2A5 /* SplashScreenInteractor.swift */; };
 		A4F0B9E026248B6E00E4E2A5 /* SplashScreenRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F0B9DF26248B6E00E4E2A5 /* SplashScreenRouter.swift */; };
-		A4F0B9E226248BD600E4E2A5 /* SplashScreenBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F0B9E126248BD600E4E2A5 /* SplashScreenBuilder.swift */; };
+		A4F0B9E226248BD600E4E2A5 /* SplashScreenConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F0B9E126248BD600E4E2A5 /* SplashScreenConfigurator.swift */; };
 		A4F3A792257D898A00D6A9C7 /* CameraChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F3A791257D898A00D6A9C7 /* CameraChecker.swift */; };
 		A4F3A795257E561800D6A9C7 /* SplashScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F3A794257E561800D6A9C7 /* SplashScreenVC.swift */; };
 		A4F3A79A257E7A1700D6A9C7 /* UIImage+Static.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F3A799257E7A1700D6A9C7 /* UIImage+Static.swift */; };
@@ -321,7 +321,7 @@
 		A44B2FD425841D9100B5B52C /* CertificateResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateResponse.swift; sourceTree = "<group>"; };
 		A44C697524EFD45300AB3BC9 /* QRCodeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeService.swift; sourceTree = "<group>"; };
 		A44C697724EFE06000AB3BC9 /* QRScannerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerVC.swift; sourceTree = "<group>"; };
-		A44C697A24EFE70B00AB3BC9 /* RouterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterProtocol.swift; sourceTree = "<group>"; };
+		A44C697A24EFE70B00AB3BC9 /* ViperProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViperProtocols.swift; sourceTree = "<group>"; };
 		A450E39424E559CD00C49AEE /* TitledTextFieldView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TitledTextFieldView.xib; sourceTree = "<group>"; };
 		A450E39524E559CD00C49AEE /* TitledTextFieldView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitledTextFieldView.swift; sourceTree = "<group>"; };
 		A450E39824E564A900C49AEE /* GameCertificateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCertificateCell.swift; sourceTree = "<group>"; };
@@ -441,7 +441,7 @@
 		A4F0B9DB26248B5A00E4E2A5 /* SplashScreenPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenPresenter.swift; sourceTree = "<group>"; };
 		A4F0B9DD26248B6900E4E2A5 /* SplashScreenInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenInteractor.swift; sourceTree = "<group>"; };
 		A4F0B9DF26248B6E00E4E2A5 /* SplashScreenRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenRouter.swift; sourceTree = "<group>"; };
-		A4F0B9E126248BD600E4E2A5 /* SplashScreenBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenBuilder.swift; sourceTree = "<group>"; };
+		A4F0B9E126248BD600E4E2A5 /* SplashScreenConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenConfigurator.swift; sourceTree = "<group>"; };
 		A4F3A791257D898A00D6A9C7 /* CameraChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraChecker.swift; sourceTree = "<group>"; };
 		A4F3A794257E561800D6A9C7 /* SplashScreenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenVC.swift; sourceTree = "<group>"; };
 		A4F3A799257E7A1700D6A9C7 /* UIImage+Static.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Static.swift"; sourceTree = "<group>"; };
@@ -725,7 +725,7 @@
 			isa = PBXGroup;
 			children = (
 				A4A065A424E47D460080E0D8 /* TableCellProtocol.swift */,
-				A44C697A24EFE70B00AB3BC9 /* RouterProtocol.swift */,
+				A44C697A24EFE70B00AB3BC9 /* ViperProtocols.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -1127,7 +1127,7 @@
 			isa = PBXGroup;
 			children = (
 				A4F3A794257E561800D6A9C7 /* SplashScreenVC.swift */,
-				A4F0B9E126248BD600E4E2A5 /* SplashScreenBuilder.swift */,
+				A4F0B9E126248BD600E4E2A5 /* SplashScreenConfigurator.swift */,
 				A4F0B9DB26248B5A00E4E2A5 /* SplashScreenPresenter.swift */,
 				A4F0B9DD26248B6900E4E2A5 /* SplashScreenInteractor.swift */,
 				A4F0B9DF26248B6E00E4E2A5 /* SplashScreenRouter.swift */,
@@ -1455,8 +1455,8 @@
 				A4CC5FF224DAFECF0042B41C /* VCExtensions.swift in Sources */,
 				A40D818424D2CA39006D2CE3 /* RatingVC.swift in Sources */,
 				A40689FF24F7D94B001273B2 /* AppSettings.swift in Sources */,
-				A4F0B9E226248BD600E4E2A5 /* SplashScreenBuilder.swift in Sources */,
-				A44C697B24EFE70B00AB3BC9 /* RouterProtocol.swift in Sources */,
+				A4F0B9E226248BD600E4E2A5 /* SplashScreenConfigurator.swift in Sources */,
+				A44C697B24EFE70B00AB3BC9 /* ViperProtocols.swift in Sources */,
 				A45A072124FFED6D00137637 /* PickCityVC.swift in Sources */,
 				A40B758E24D9A820006DB7D1 /* HomeGamePresenter.swift in Sources */,
 				A40B75A224D9A880006DB7D1 /* RatingConfigurator.swift in Sources */,

@@ -17,7 +17,7 @@ class SplashScreenVC: UIViewController, SplashScreenViewProtocol {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        SplashScreenBuilder().configure(self)
+        SplashScreenConfigurator().configure(self)
         presenter.viewDidLoad(self)
     }
     

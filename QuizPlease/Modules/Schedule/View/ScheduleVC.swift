@@ -9,7 +9,6 @@
 import UIKit
 
 protocol ScheduleViewProtocol: UIViewController {
-    var configarator: ScheduleConfiguratorProtocol { get }
     var presenter: SchedulePresenterProtocol! { get set }
     
     func reloadScheduleList()
@@ -24,7 +23,6 @@ protocol ScheduleViewProtocol: UIViewController {
 }
 
 class ScheduleVC: UIViewController {
-    let configarator: ScheduleConfiguratorProtocol = ScheduleConfigurator()
     var presenter: SchedulePresenterProtocol!
     
     @IBOutlet private weak var tableView: UITableView!
@@ -33,7 +31,7 @@ class ScheduleVC: UIViewController {
     //MARK:- Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        configarator.configure(self)
+        ScheduleConfigurator().configure(self)
         presenter.viewDidLoad(self)
         
         if #available(iOS 14.0, *) {
