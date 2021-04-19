@@ -17,9 +17,8 @@ class RatingConfigurator: RatingConfiguratorProtocol {
         let interactor = RatingInteractor()
         let router = RatingRouter(viewController: view)
         let presenter = RatingPresenter(view: view, interactor: interactor, router: router)
-        
+        interactor.output = presenter
         view.presenter = presenter
         view.prepareNavigationBar(tintColor: .white)
     }
-    
 }

@@ -111,7 +111,7 @@ extension RatingVC: ExpandingHeaderDelegate {
     }
     
     func expandingHeader(_ expandingHeader: ExpandingHeader, didEndSearchingWith query: String) {
-        presenter.searchByTeamName(query)
+        presenter.didHideKeyboard(with: query)
     }
     
     func expandingHeader(_ expandingHeader: ExpandingHeader, didChange query: String) {
@@ -119,7 +119,7 @@ extension RatingVC: ExpandingHeaderDelegate {
     }
     
     func expandingHeader(_ expandingHeader: ExpandingHeader, didPressReturnButtonWith query: String) {
-        presenter.searchByTeamName(query)
+        presenter.didPressSearchButton(with: query)
     }
 }
 
@@ -166,5 +166,4 @@ extension RatingVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    
 }

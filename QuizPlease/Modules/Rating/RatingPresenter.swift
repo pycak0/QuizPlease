@@ -28,6 +28,8 @@ protocol RatingPresenterProtocol {
     func didChangeLeague(_ selectedIndex: Int)
     func didChangeRatingScope(_ rawValue: Int)
     func didChangeTeamName(_ name: String)
+    func didPressSearchButton(with query: String)
+    func didHideKeyboard(with query: String)
     func searchByTeamName(_ name: String)
     
     func didAlmostScrollToEnd()
@@ -81,6 +83,14 @@ class RatingPresenter: RatingPresenterProtocol {
         }
     }
     
+    func didPressSearchButton(with query: String) {
+        searchByTeamName(query)
+    }
+    
+    func didHideKeyboard(with query: String) {
+        //nothing
+    }
+    
     func searchByTeamName(_ name: String) {
         filter.teamName = name
         //view?.startLoadingAnimation()
@@ -123,38 +133,39 @@ class RatingPresenter: RatingPresenterProtocol {
     ///Calls interactor's `loadRating` method using value of the `currentPage` without changing it
     private func loadRating() {
         view?.startLoadingAnimation()
-        interactor.loadRating(with: filter, page: currentPage) { [weak self] (result) in
-            guard let self = self else { return }
-            self.view?.endLoadingAnimation()
+        interactor.loadRating(with: filter, page: currentPage)
+    }
+}
+
+//MARK:- RatingInteractorOutput
+extension RatingPresenter: RatingInteractorOutput {
+    func interactor(_ interactor: RatingInteractorProtocol, errorOccured error: SessionError) {
+        print(error)
+        view?.endLoadingAnimation()
+        view?.showErrorConnectingToServerAlert()
+        //view?.showSimpleAlert(title: "Произошла ошибка", message: error.localizedDescription)
+    }
+    
+    func interactor(_ interactor: RatingInteractorProtocol, didLoadRatingItems ratingItems: [RatingItem]) {
+        view?.endLoadingAnimation()
+        var indices = 0..<0
+        if self.currentPage > self.firstPageNumber {
+            let filteredTeams = ratingItems.filter { !self.teams.contains($0) }
+            guard !filteredTeams.isEmpty else { return }
             
-            switch result {
-            case .failure(let error):
-                print(error)
-                self.view?.showErrorConnectingToServerAlert()
-                //self.view?.showSimpleAlert(title: "Произошла ошибка", message: error.localizedDescription)
-                
-            case .success(let teams):
-                var indices = 0..<0
-                if self.currentPage > self.firstPageNumber {
-                    let filteredTeams = teams.filter { !self.teams.contains($0) }
-                    guard !filteredTeams.isEmpty else { return }
-                    
-                    let startIndex = self.teams.count
-                    self.teams += filteredTeams
-                    indices = startIndex..<self.teams.count
-                } else {
-                    self.teams = teams
-                }
-                
-                self.filteredTeams = self.teams
-                
-                if !indices.isEmpty {
-                    self.view?.appendRaingItems(at: indices)
-                } else {
-                    self.view?.reloadRatingList()
-                }
-            }
+            let startIndex = self.teams.count
+            self.teams += filteredTeams
+            indices = startIndex..<self.teams.count
+        } else {
+            self.teams = ratingItems
+        }
+        
+        self.filteredTeams = self.teams
+        
+        if !indices.isEmpty {
+            self.view?.appendRaingItems(at: indices)
+        } else {
+            self.view?.reloadRatingList()
         }
     }
-        
 }
