@@ -8,6 +8,10 @@
 
 import MapKit
 
+enum PlaceConstants {
+    static let deviationLimit: Double = 100
+}
+
 class Place: NSObject, MKAnnotation, Decodable {
     var title: String?
     ///Place address with street only
@@ -28,6 +32,10 @@ class Place: NSObject, MKAnnotation, Decodable {
         CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
     }()
     
+    private var location: CLLocation {
+        CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+    }
+    
     ///Place address with city and street
     var fullAddress: String {
         "\(cityName), \(shortAddress)"
@@ -40,5 +48,12 @@ class Place: NSObject, MKAnnotation, Decodable {
     ///Use this property instead of comparing '`coordinate.latitude == 0 && coordinate.longitude == 0`'
     var isZeroCoordinate: Bool {
         return coordinate.latitude == 0 && coordinate.longitude == 0
+    }
+    
+    ///Returns `true` if given `location` does not exceed the limit of deviation from `self` coordinate.
+    ///
+    ///The deviation limit is specified in '`PlaceConstants`'
+    func isCloseToLocation(_ location: CLLocation) -> Bool {
+        return location.distance(from: self.location) <= PlaceConstants.deviationLimit
     }
 }

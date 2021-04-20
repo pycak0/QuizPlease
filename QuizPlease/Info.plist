@@ -71,5 +71,7 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Чтобы Вы могли добавлять игры в свой Личный кабинет, нам необходимо проверить, что Вы действительно находитесь в месте проведения игры.</string>
 </dict>
 </plist>

@@ -97,5 +97,4 @@ class ScheduleInteractor: ScheduleInteractorProtocol {
             }
         }
     }
-    
 }
