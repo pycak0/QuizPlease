@@ -63,7 +63,7 @@ class AddGameVC: UIViewController {
                 return
             }
             if isClose {
-                self.checkIn(gameId: id)
+                self.checkIn(teamId: id)
             } else {
                 self.showSimpleAlert(
                     title: "Вы находитесь слишком далеко",
@@ -73,7 +73,7 @@ class AddGameVC: UIViewController {
         }
     }
     
-    private func checkIn(gameId id: Int) {
+    private func checkIn(teamId id: Int) {
         NetworkService.shared.checkInOnGame(with: token, chosenTeamId: id) { [weak self] (isSuccess) in
             guard let self = self else { return }
             if isSuccess {
@@ -119,6 +119,7 @@ class AddGameVC: UIViewController {
         }
     }
     
+    //MARK:- Check User Location
     ///- parameter isSatisfactory: `true` - user location is close to the place location, `false` - user location is too far from the place location, `nil` - unavailable to get user loaction
     private func checkUserLocation(completion: @escaping (_ isSatisfactory: Bool?) -> Void) {
         UserLocationService.shared.askUserLocation { (location) in
