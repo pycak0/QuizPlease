@@ -59,11 +59,14 @@ class ScheduleInteractor: ScheduleInteractorProtocol {
     }
     
     func openInMaps(placeName: String, withLongitutde lon: Double, andLatitude lat: Double) {
-        MapService.openMap(for: placeName, withLongitude: lon, andLatitude: lat)
+        MapService.openAppleMaps(for: placeName, withLongitude: lon, andLatitude: lat)
     }
     
     func openInMaps(place: Place) {
-        MapService.openMap(for: place.title!, withAddress: place.fullAddress) { [weak self] error in
+        if !place.isZeroCoordinate {
+            MapService.openAppleMaps(for: place.title ?? "", withCoordinate: place.coordinate)
+        }
+        MapService.getCoordinatesAndOpenMap(for: place.title ?? "", withAddress: place.fullAddress) { [weak self] error in
             guard let self = self else { return }
             if let error = error {
                 self.output?.interactor(self, failedToOpenMapsWithError: error)

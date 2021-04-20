@@ -14,9 +14,14 @@ class MapService {
     private init() {}
     
     //MARK:- Open with coordinates
+    ///Wrapper for method `openAppleMaps(for:withLongitude:andLatitude:radius:)`
+    static func openAppleMaps(for placeName: String, withCoordinate coord: CLLocationCoordinate2D, regionRadius: Double = 1000) {
+        openAppleMaps(for: placeName, withLongitude: coord.longitude, andLatitude: coord.latitude, radius: regionRadius)
+    }
+    
+    ///Opens Apple Maps with given parameters
     ///- parameter radius: Part of map to be shown around the target point (in meters)
-    static func openMap(for placeName: String, withLongitude lon: Double, andLatitude lat: Double, radius: Double = 1000) {
-
+    static func openAppleMaps(for placeName: String, withLongitude lon: Double, andLatitude lat: Double, radius: Double = 1000) {
         let latitude: CLLocationDegrees = lat
         let longitude: CLLocationDegrees = lon
 
@@ -36,13 +41,13 @@ class MapService {
     }
     
     //MARK:- Open with Address string
-    static func openMap(for placeName: String, withAddress address: String, radius: Double = 1000, completion: ((Error?) -> Void)?) {
+    static func getCoordinatesAndOpenMap(for placeName: String, withAddress address: String, radius: Double = 1000, completion: ((Error?) -> Void)?) {
         getCoordinates(from: address) { (location) in
             guard let location = location else {
                 completion?(NSError(domain: "Map wasn't open because geocoder failed to load the location from given address: '\(address)'", code: 8))
                 return
             }
-            openMap(for: placeName, withLongitude: location.longitude, andLatitude: location.latitude, radius: radius)
+            openAppleMaps(for: placeName, withLongitude: location.longitude, andLatitude: location.latitude, radius: radius)
             completion?(nil)
         }
     }
@@ -66,5 +71,4 @@ class MapService {
             completion(placemarks?.first?.location)
         }
     }
-    
 }

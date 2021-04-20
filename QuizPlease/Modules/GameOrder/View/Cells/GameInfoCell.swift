@@ -37,15 +37,15 @@ class GameInfoCell: UITableViewCell, GameOrderCellProtocol {
     private var attemptsUsed = 0
 
     @IBOutlet weak var cellView: UIView!
-    @IBOutlet weak var priceLabel: UILabel!
-    @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var timeLabel: UILabel!
-    @IBOutlet weak var placeNameLabel: UILabel!
-    @IBOutlet weak var placeAddressLabel: UILabel!
+    @IBOutlet private weak var priceLabel: UILabel!
+    @IBOutlet private weak var dateLabel: UILabel!
+    @IBOutlet private weak var timeLabel: UILabel!
+    @IBOutlet private weak var placeNameLabel: UILabel!
+    @IBOutlet private weak var placeAddressLabel: UILabel!
     
     @IBOutlet weak var availablePlacesStack: UIStackView!
-    @IBOutlet weak var statusImageView: UIImageView!
-    @IBOutlet weak var gameStatusLabel: UILabel!
+    @IBOutlet private weak var statusImageView: UIImageView!
+    @IBOutlet private weak var gameStatusLabel: UILabel!
     
     @IBOutlet weak var mapView: MKMapView!
     
@@ -73,6 +73,10 @@ class GameInfoCell: UITableViewCell, GameOrderCellProtocol {
     }
     
     func configureMapView(with place: Place) {
+        if !place.isZeroCoordinate {
+            setLocation(of: place)
+            return
+        }
         searchAttempts = [
             SearchAttempt(place: place, query: place.fullAddress),
             SearchAttempt(place: place, query: place.cityName),
@@ -90,8 +94,9 @@ class GameInfoCell: UITableViewCell, GameOrderCellProtocol {
                 guard let self = self else { return }
                 if let location = location {
                     print("[\(Self.self)] Successfully geocoded location for place \(attempt.place) from attempt #\(self.attemptsUsed)")
+                    attempt.place.coordinate = location.coordinate
                     let radius: CLLocationDistance = self.attemptsUsed == 1 ? 1_000 : 10_000
-                    self.setLocation(location, of: attempt.place, radius: radius)
+                    self.setLocation(of: attempt.place, radius: radius)
                 } else {
                     self.evaluateAttempts()
                 }
@@ -99,9 +104,8 @@ class GameInfoCell: UITableViewCell, GameOrderCellProtocol {
         }
     }
     
-    private func setLocation(_ location: CLLocation, of place: Place, radius: CLLocationDistance = 1000) {
-        self.mapView.centerToLocation(location, regionRadius: radius, animated: false)
-        place.coordinate = location.coordinate
+    private func setLocation(of place: Place, radius: CLLocationDistance = 1000) {
+        self.mapView.centerToLocation(with: place.coordinate, regionRadius: radius, animated: false)
         self.mapView.addAnnotation(place)
     }
 }
