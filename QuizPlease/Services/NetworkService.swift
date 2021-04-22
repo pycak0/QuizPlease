@@ -239,18 +239,25 @@ class NetworkService {
     }
     
     //MARK:- Get Request
-    func get<T: Decodable>(_ type: T.Type, with urlComponents: URLComponents, headers: [String: String]? = nil, completion: @escaping ((Result<T, SessionError>) -> Void)) {
+    func get<Object: Decodable>(_ type: Object.Type, with urlComponents: URLComponents, headers: [String: String]? = nil, completion: @escaping ((Result<Object, SessionError>) -> Void)) {
         guard let url = urlComponents.url else {
             completion(.failure(.invalidUrl))
             return
         }
-        print(url)
         var request = URLRequest(url: url)
         for (key, value) in headers ?? [:] {
             request.setValue(value, forHTTPHeaderField: key)
         }
         let config = URLSessionConfiguration.default
         config.timeoutIntervalForRequest = 15
+        print("""
+        \n=====
+        [\(Self.self).swift]
+        Request: \(url)
+        HTTP Method: \(request.httpMethod!)
+        Headers: \(request.allHTTPHeaderFields ?? [:])
+        =====\n\n
+        """)
         let session = URLSession(configuration: config)
         session.dataTask(with: request) { (data, response, error) in
             if let error = error {
@@ -267,23 +274,26 @@ class NetworkService {
                 }
                 return
             }
-            
+            print("""
+            \n=====
+            [\(Self.self).swift]
+            Response: \(url)
+            Status Code: \(response.statusCode)
+            Body:
+            \(String(data: data, encoding: .utf8) ?? "JSON error.")
+            =====\n\n
+            """)
             do {
-                let object = try JSONDecoder().decode(T.self, from: data)
+                let object = try JSONDecoder().decode(Object.self, from: data)
                 
                 DispatchQueue.main.async {
                     completion(.success(object))
                 }
-//                guard let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) else { return }
-//                print(">>> Received data:\n\n\n", json)
             } catch {
                 DispatchQueue.main.async {
                     completion(.failure(.decoding(error)))
                 }
-                guard let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) else { return }
-                print(">>> Received data:\n\n\n", json)
             }
-            
         }.resume()
     }
     
@@ -320,14 +330,12 @@ class NetworkService {
     func purchaseProduct(with id: String, deliveryMethod: DeliveryMethod, email: String, completion: @escaping (_ isSuccess: Bool) -> Void) {
         var urlComps = baseUrlComponents
         urlComps.path = "/api/order/buy"
-        
         let params: [String : String] = [
             "product_id": id,
             "delivery_method": "\(deliveryMethod.id)",
             "email" : email,
             "city_id" : "\(AppSettings.defaultCity.id)"
         ]
-        
         afPostBool(with: params, to: urlComps, completion: completion)
     }
     
@@ -524,21 +532,36 @@ class NetworkService {
             }
         }, to: urlComponents, headers: httpHeaders)
         .responseData { (afResponse) in
+            print("""
+            \n=====
+            [\(Self.self).swift]
+            afPost Response: \(afResponse.response?.url as Any)
+            Status Code: \(afResponse.response?.statusCode as Any)
+            """)
             switch afResponse.result {
             case let .failure(error):
+                print("Error: \(error)")
                 completion(.failure(.other(error)))
             case let .success(data):
+                print("Body:")
+                print(String(data: data, encoding: .utf8) ?? "json decoding error")
                 do {
                     let serverResponse = try JSONDecoder().decode(Response.self, from: data)
-                    print(">>> Response data:\n\n", String(data: data, encoding: .utf8) ?? "json decoding error")
                     completion(.success(serverResponse))
                 } catch {
                     completion(.failure(.decoding(error)))
-                    
-                    print(">>> Response data:\n\n", String(data: data, encoding: .utf8) ?? "json decoding error")
                 }
             }
+            print("=====\n\n")
         }
+        print("""
+        \n=====
+        [\(Self.self).swift]
+        afPost request: \(urlComponents.url as Any)
+        Headers: \(headers ?? [:])
+        Body parameters: \(parameters)
+        =====\n\n
+        """)
     }
     
     //MARK:- Post with decoding response
@@ -579,13 +602,18 @@ class NetworkService {
             completion(.failure(.invalidUrl))
             return
         }
-        print(url)
-        
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("multipart/form-data", forHTTPHeaderField: "Content-Type")
         request.httpBody = data
-        
+        print("""
+        \n=====
+        [\(Self.self).swift]
+        Request: \(url)
+        HTTP Method: \(request.httpMethod!)
+        Headers: \(request.allHTTPHeaderFields ?? [:])
+        =====\n\n
+        """)
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             if let error = error {
                 DispatchQueue.main.async {
@@ -595,22 +623,28 @@ class NetworkService {
             }
             
             let response = response as! HTTPURLResponse
-            guard let data = data,
-                  let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
-            else {
+            print("""
+            \n=====
+            [\(Self.self).swift]
+            Response: \(url)
+            Status Code: \(response.statusCode)
+            """)
+            guard let data = data else {
+                print("Error. HTTP Response: \(response)")
+                print("=====\n\n")
                 DispatchQueue.main.async {
                     completion(.failure(.serverError(response.statusCode)))
                 }
                 return
             }
-            
-            print(json)
-            
+            print("""
+            Body:
+            \(String(data: data, encoding: .utf8) ?? "JSON error.")
+            =====\n\n
+            """)
             DispatchQueue.main.async {
                 completion(.success(data))
             }
         }.resume()
-        
     }
-    
 }
