@@ -8,24 +8,20 @@
 
 import UIKit
 
-class SplashScreenVC: UIViewController {
-    
-    private let timeout = 0.5
+protocol SplashScreenViewProtocol: UIViewController {
+    var presenter: SplashScreenPresenterProtocol! { get set }
+}
+
+class SplashScreenVC: UIViewController, SplashScreenViewProtocol {
+    var presenter: SplashScreenPresenterProtocol!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + timeout) {
-            self.setRootVc()
-        }
+        SplashScreenConfigurator().configure(self)
+        presenter.viewDidLoad(self)
     }
     
-    private func setRootVc() {
-        let vc = storyboard?.instantiateViewController(withIdentifier: "MainMenuNavC")
-        let window = UIApplication.shared.windows.first!
-        window.rootViewController = vc
-        window.makeKeyAndVisible()
-        UIView.transition(with: window, duration: 0.3, options: .transitionCrossDissolve, animations: nil, completion: nil)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        presenter.router.prepare(for: segue, sender: sender)
     }
-
 }

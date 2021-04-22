@@ -27,6 +27,7 @@ extension String {
             .trimmingCharacters(in: .whitespacesAndNewlines)
     }
     
+    ///Be careful when using this method because some HTML attributes may be parsed slowly
     func htmlFormatted() -> NSMutableAttributedString? {
         guard let htmlData = self
                 .trimmingCharacters(in: .whitespacesAndNewlines)

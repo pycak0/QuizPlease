@@ -35,8 +35,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate {
         
         IQKeyboardManager.shared.enable = true
         
-        Utilities.main.updateDefaultCity()
-        
         return true
     }
     

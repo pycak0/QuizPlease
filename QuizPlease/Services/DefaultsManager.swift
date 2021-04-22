@@ -21,6 +21,7 @@ class DefaultsManager {
     private let userInfoKey = "user-saved-info"
     private let fcmTokenKey = "fcm-token-key"
     private let answeredQuestionsKey = "answered-questions-key"
+    private let clientSettingsKey = "client-settings"
     
     //MARK:- Auth Info
     func getUserAuthInfo() -> SavedAuthInfo? {
@@ -83,12 +84,34 @@ class DefaultsManager {
     }
     
     func removeSavedWarmupQuestion(with id: String) {
-        defaults.removeObject(forKey: answeredQuestionsKey)
+        var array = getSavedQuestionIds() ?? []
+        array.removeAll(where: { $0 == id })
+        defaults.set(array, forKey: answeredQuestionsKey)
     }
     
     func removeAllSavedWarmupQuestions() {
-        for id in getSavedQuestionIds() ?? [] {
-            removeSavedWarmupQuestion(with: id)
+        defaults.removeObject(forKey: answeredQuestionsKey)
+    }
+    
+    //MARK:- Client Settings
+    func saveClientSettings(_ settings: ClientSettings) {
+        do {
+            let data = try JSONEncoder().encode(settings)
+            defaults.set(data, forKey: clientSettingsKey)
+        } catch {
+            print(error)
         }
+    }
+    
+    func getClientSettings() -> ClientSettings? {
+        if let data = defaults.data(forKey: clientSettingsKey),
+           let settings = try? JSONDecoder().decode(ClientSettings.self, from: data) {
+            return settings
+        }
+        return nil
+    }
+    
+    func removeClientSettings() {
+        defaults.removeObject(forKey: clientSettingsKey)
     }
 }

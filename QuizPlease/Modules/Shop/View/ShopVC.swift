@@ -59,7 +59,7 @@ extension ShopVC: ShopViewProtocol {
         shopCollectionView.dataSource = self
         
         shopCollectionView.register(UINib(nibName: ShopItemCell.identifier, bundle: nil), forCellWithReuseIdentifier: ShopItemCell.identifier)
-        configureRefreshControl(shopCollectionView, action: #selector(refreshControlTriggered))
+        shopCollectionView.refreshControl = UIRefreshControl(target: self, action: #selector(refreshControlTriggered))
         
         userPointsLabel.isHidden = true
         userPointsLabel.layer.cornerRadius = 15

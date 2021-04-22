@@ -46,14 +46,10 @@ class ProfilePresenter: ProfilePresenterProtocol {
     func viewDidLoad(_ view: ProfileViewProtocol) {
         view.configureViews()
         
-        if Globals.userToken == nil {
+        if AppSettings.userToken == nil {
             router.showAuthScreen()
         } else {
-            if userInfo != nil {
-                updateUserInfo()
-            } else {
-                interactor.loadUserInfo()
-            }
+            interactor.loadUserInfo()
         }
     }
     

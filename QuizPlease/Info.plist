@@ -24,6 +24,8 @@
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>Камера используется для сканирования QR-кодов</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Чтобы Вы могли добавлять игры в свой Личный кабинет, нам необходимо проверить, что Вы действительно находитесь в месте проведения игры.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Разрешите доступ к Фото, чтобы сохранять результаты Ваших разминок</string>
 	<key>UIAppFonts</key>

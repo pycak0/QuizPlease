@@ -9,8 +9,26 @@
 import Foundation
 
 struct RatingFilter {
-    enum RatingScope: Int, Codable {
+    enum RatingScope: Int, Codable, CaseIterable {
         case season, allTime
+        
+        var title: String {
+            switch self {
+            case .allTime:
+                return "За все время"
+            case .season:
+                return "За сезон"
+            }
+        }
+        
+        var comment: String {
+            switch self {
+            case .allTime:
+                return "за все время"
+            case .season:
+                return "этого сезона"
+            }
+        }
     }
     
     enum RatingLeague: Int, Codable, CaseIterable {
@@ -30,9 +48,24 @@ struct RatingFilter {
                 return "Стримы"
             }
         }
+        
+        var comment: String {
+            switch self {
+            case .classic:
+                return "классических игр"
+            case .movieAndMusic:
+                return "кино-музыкальных"
+            case .teens:
+                return "игр Teens"
+            case .englishPlease:
+                return "игр English, please!"
+            case .streams:
+                return "онлайн игр"
+            }
+        }
     }
     
-    var city: City = Globals.defaultCity
+    var city: City = AppSettings.defaultCity
     var teamName: String = ""
     var league: RatingLeague = .classic
     var scope: RatingScope = .allTime

@@ -64,7 +64,7 @@ struct WarmupQuestion {
     
     private func buildUrl(from path: String?) -> URL? {
         guard let path = path else { return nil }
-        var urlComps = Globals.baseUrl // URLComponents(string: Globals.mainDomain)
+        var urlComps = NetworkService.shared.baseUrlComponents // URLComponents(string: Configuration.prod.host)
         urlComps.path = path
         return urlComps.url
     }
@@ -78,14 +78,11 @@ extension WarmupQuestion: Decodable {
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        
         question = try container.decode(String.self, forKey: .question)
         
         let answerString = try container.decode(String.self, forKey: .answers)
         answers = try JSONDecoder().decode([WarmupAnswer].self, from: Data(answerString.utf8))
-        
         file = try container.decode(String.self, forKey: .file)
-        
         id = try container.decode(Double.self, forKey: .id)
     }
 }

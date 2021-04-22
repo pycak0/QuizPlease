@@ -8,28 +8,52 @@
 
 import MapKit
 
+enum PlaceConstants {
+    static let deviationLimit: Double = 100
+}
+
 class Place: NSObject, MKAnnotation, Decodable {
     var title: String?
     ///Place address with street only
     var shortAddress: String
     var cityName: String
-    var longitude: Double = 0
-    var latitude: Double = 0
+    private var longitude: Double
+    private var latitude: Double
     
-    init(name: String, cityName: String, address: String) {
+    init(name: String, cityName: String, address: String, latitude: Double = 0, longitude: Double = 0) {
         self.title = name
         self.cityName = cityName
         self.shortAddress = address
-//        self.longitude = longitude
-//        self.latitude = latitude
+        self.longitude = longitude
+        self.latitude = latitude
     }
     
     lazy var coordinate: CLLocationCoordinate2D = {
         CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
     }()
     
+    private var location: CLLocation {
+        CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+    }
+    
     ///Place address with city and street
     var fullAddress: String {
         "\(cityName), \(shortAddress)"
+    }
+    
+    var cityNameLatin: String {
+        return cityName.applyingTransform(.toLatin, reverse: false) ?? cityName
+    }
+    
+    ///Use this property instead of comparing '`coordinate.latitude == 0 && coordinate.longitude == 0`'
+    var isZeroCoordinate: Bool {
+        return coordinate.latitude == 0 && coordinate.longitude == 0
+    }
+    
+    ///Returns `true` if given `location` does not exceed the limit of deviation from `self` coordinate.
+    ///
+    ///The deviation limit is specified in '`PlaceConstants`'
+    func isCloseToLocation(_ location: CLLocation) -> Bool {
+        return location.distance(from: self.location) <= PlaceConstants.deviationLimit
     }
 }

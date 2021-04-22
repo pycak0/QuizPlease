@@ -8,33 +8,12 @@
 
 import UIKit
 
-//MARK:- Delegate Protocol
-protocol ExpandingHeaderDelegate: class {        
-    ///Delegate should provide a new selected Game Type Name string as an argument for `completion` closure for the `ExpandingHeader` to update its `selectedGameTypeLabel` text
-    func didPressGameTypeView(in expandingHeader: ExpandingHeader, completion: @escaping (_ selectedName: String?) -> Void)
-    
-    func expandingHeader(_ expandingHeader: ExpandingHeader, didChangeStateTo isExpanded: Bool)
-    
-    func expandingHeader(_ expandingHeader: ExpandingHeader, didChange selectedSegment: Int)
-    
-    func expandingHeader(_ expandingHeader: ExpandingHeader, didChange query: String)
-    
-    ///Is called when `ExpandingHeader`'s `searchField` did end editing
-    func expandingHeader(_ expandingHeader: ExpandingHeader, didEndSearchingWith query: String)
-    
-    ///Is called when `ExpandingHeader`'s `searchField` did press return button
-    func expandingHeader(_ expandingHeader: ExpandingHeader, didPressReturnButtonWith query: String)
-    
-}
+public class ExpandingHeader: UIView {
+    static let nibName = "\(ExpandingHeader.self)"
+    static let collapsedHeight: CGFloat = 140
+    static let expandedHeight: CGFloat = 320
+    static let gradientExpandedHeight: CGFloat = ExpandingHeader.expandedHeight - 65
 
-class ExpandingHeader: UIView {
-    static let nibName = "ExpandingHeader"
-    let collapsedHeight: CGFloat = 140
-    let expandedHeight: CGFloat = 320
-    lazy var gradientExpandedHeight: CGFloat = expandedHeight - 65
-    
-    weak var delegate: ExpandingHeaderDelegate?
-    
     @IBOutlet private var contentView: UIView!
     @IBOutlet private weak var containerView: UIView!
     @IBOutlet private weak var expandView: UIView!
@@ -47,35 +26,38 @@ class ExpandingHeader: UIView {
     @IBOutlet private weak var selectedGameTypeLabel: UILabel!
     @IBOutlet private weak var collapseButton: UIButton!
     
-    unowned var gradientLayer: CAGradientLayer!
+    private unowned var gradientLayer: CAGradientLayer!
     
-    public func configure(_ delegate: ExpandingHeaderDelegate?, selectedScope: Int, selectedGameType: String) {
-        self.delegate = delegate
-        segmentControl.selectedIndex = selectedScope
-        selectedGameTypeLabel.text = selectedGameType
+    public weak var delegate: ExpandingHeaderDelegate?
+    
+    public weak var dataSource: ExpandingHeaderDataSource? {
+        didSet {
+            guard let dataSource = dataSource else { return }
+            var items = [String]()
+            for i in 0..<dataSource.numberOfSegmentControlItems(in: self) {
+                let name = dataSource.expandingHeader(self, titleForSegmentAtIndex: i)
+                items.append(name)
+            }
+            segmentControl.items = items
+            segmentControl.selectedIndex = dataSource.expandingHeaderSelectedSegmentIndex(self)
+            selectedGameTypeLabel.text = dataSource.expandingHeaderInitialSelectedGameType(self)
+        }
     }
-    
-    //MARK:- is Expanded
+
     public var isExpanded = false {
         didSet { setExpanded(isExpanded) }
     }
-    
-    @IBAction func collapseButtonPressed(_ sender: Any) {
-        isExpanded = false
-    }
-    
-    @objc
-    func toggleExpanded() {
-        isExpanded.toggle()
-        //setExpanded(isExpanded)
+
+    public func setFooterContent(city: String, gameType: String, season: String) {
+        footLabel.text = "Рейтинг \(gameType) \(season) в городе: \(city)"
     }
     
     //MARK:- Set Expanded
-    func setExpanded(_ isExpanded: Bool) {
+    private func setExpanded(_ isExpanded: Bool) {
         if !isExpanded { endEditing(true) }
         
-        let height: CGFloat = isExpanded ? expandedHeight : collapsedHeight
-        let grHeight: CGFloat = isExpanded ? gradientExpandedHeight : collapsedHeight
+        let height: CGFloat = isExpanded ? ExpandingHeader.expandedHeight : ExpandingHeader.collapsedHeight
+        let grHeight: CGFloat = isExpanded ? ExpandingHeader.gradientExpandedHeight : ExpandingHeader.collapsedHeight
 
         let alpha: CGFloat = isExpanded ? 0 : 1
         let opacity: Float = isExpanded ? 1 : 0
@@ -96,6 +78,16 @@ class ExpandingHeader: UIView {
         }, completion: nil)
     }
     
+    @IBAction private func collapseButtonPressed(_ sender: Any) {
+        isExpanded = false
+    }
+    
+    @objc
+    private func toggleExpanded() {
+        isExpanded.toggle()
+        //setExpanded(isExpanded)
+    }
+    
     private func setItemsHidden(_ isHidden: Bool) {
         let number = stackView.arrangedSubviews.count - 1
         for i in 1...number {
@@ -111,17 +103,17 @@ class ExpandingHeader: UIView {
     }
     
     //MARK:- Init
-    override init(frame: CGRect) {
+    override public init(frame: CGRect) {
         super.init(frame: frame)
         xibSetup()
     }
     
-    required init?(coder: NSCoder) {
+    required public init?(coder: NSCoder) {
         super.init(coder: coder)
         xibSetup()
     }
     
-    func xibSetup() {
+    private func xibSetup() {
         Bundle.main.loadNibNamed(ExpandingHeader.nibName, owner: self, options: nil)
         self.addSubview(contentView)
         contentView.frame = self.bounds
@@ -129,7 +121,7 @@ class ExpandingHeader: UIView {
     }
     
     //MARK:- Awake from Nib
-    override func awakeFromNib() {
+    public override func awakeFromNib() {
         super.awakeFromNib()
         configureViews()
         setExpanded(isExpanded)
@@ -154,16 +146,17 @@ class ExpandingHeader: UIView {
                 self.selectedGameTypeLabel.text = selectedName
             }
         }
-        
         setupGradient()
     }
     
     private func setupGradient() {
         let origin = self.frame.origin
-        let size = CGSize(width: UIScreen.main.bounds.width, height: gradientExpandedHeight)
-        self.addGradient(colors: [.systemBlue, .systemPurple],
-                         frame: CGRect(origin: origin, size: size),
-                         insertAt: 0)
+        let size = CGSize(width: UIScreen.main.bounds.width, height: ExpandingHeader.gradientExpandedHeight)
+        self.addGradient(
+            colors: [.systemBlue, .systemPurple],
+            frame: CGRect(origin: origin, size: size),
+            insertAt: 0
+        )
         gradientLayer = self.layer.sublayers?.first as? CAGradientLayer
     }
     
@@ -179,17 +172,39 @@ class ExpandingHeader: UIView {
             attributes: [
                 NSAttributedString.Key.font : UIFont(name: "Gilroy-Bold", size: 16)!,
                 NSAttributedString.Key.foregroundColor : UIColor.white
-        ])
+            ]
+        )
     }
     
     //MARK:- Configure Segment Control
     private func configureSegmentControl(color: UIColor) {
-        segmentControl.items = ["За все время", "За сезон"]
-        segmentControl.selectedIndex = 1
         segmentControl.dampingRatio = 0.7
         segmentControl.font = UIFont(name: "Gilroy-Bold", size: 16)
         segmentControl.backgroundColor = color
         segmentControl.addTarget(self, action: #selector(segmentChanged), for: .valueChanged)
     }
+}
+
+//MARK: - UITextFieldDelegate
+extension ExpandingHeader: UITextFieldDelegate {
+    public func textFieldDidBeginEditing(_ textField: UITextField) {
+        //
+    }
     
+    public func textFieldDidEndEditing(_ textField: UITextField) {
+        delegate?.expandingHeader(self, didEndSearchingWith: textField.text ?? "")
+    }
+    
+    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        delegate?.expandingHeader(self, didPressReturnButtonWith: textField.text ?? "")
+        textField.resignFirstResponder()
+        return true
+    }
+}
+
+extension ExpandingHeader {
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        guard let query = textField.text else { return }
+        delegate?.expandingHeader(self, didChange: query)
+    }
 }

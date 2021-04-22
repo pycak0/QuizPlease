@@ -9,44 +9,73 @@
 import Foundation
 
 protocol MainMenuInteractorProtocol: class {
-    func loadMenuItems(completion: @escaping (Result<[MenuItemProtocol]?, Error>) -> Void)
+    ///must be weak
+    var output: MainMenuInteractorOutput? { get }
     
-    func loadUserInfo(completion: @escaping ((Result<UserInfo, SessionError>) -> Void))
+    func loadMenuItems()
+    func loadUserInfo()
+    func loadShopItems()
     
-    func loadShopItems(completion: @escaping ([ShopItem]) -> Void)
-    
-//    func createSampleItems() -> [ShopItem]
+    ///Loads new client settings, then calls `loadMenuItems`, `loadShopItems` and `loadUserInfo`
+    func updateAllData()
+}
+
+protocol MainMenuInteractorOutput: class {
+    func interactor(_ interactor: MainMenuInteractorProtocol, didLoadMenuItems: [MenuItemProtocol])
+    func interactor(_ interactor: MainMenuInteractorProtocol, didLoadUserInfo userInfo: UserInfo)
+    func interactor(_ interactor: MainMenuInteractorProtocol, didLoadShopItems: [ShopItem])
+    func interactor(_ interactor: MainMenuInteractorProtocol, failedToLoadShopItemsWithError error: SessionError)
+    func interactor(_ interactor: MainMenuInteractorProtocol, failedToLoadMenuItemsWithError error: SessionError)
+    func interactor(_ interactor: MainMenuInteractorProtocol, failedToLoadUserInfoWithError error: SessionError)
 }
 
 class MainMenuInteractor: MainMenuInteractorProtocol {
-    func loadMenuItems(completion: @escaping (Result<[MenuItemProtocol]?, Error>) -> Void) {
-        var items: [MenuItemProtocol] = []
-        for i in 0..<MenuItemKind.allCases.count {
-            let kind = MenuItemKind(rawValue: i)!
-            items.append(MenuItem(kind))
+    weak var output: MainMenuInteractorOutput?
+    
+    func loadMenuItems() {
+        var items = MenuItemKind.allCases
+    
+        if !AppSettings.isProfileEnabled {
+            items.removeAll(where: { $0._kind == .profile })
         }
-        
-        completion(.success(items))
+        if !AppSettings.isShopEnabled {
+            items.removeAll(where: { $0._kind == .shop })
+        }
+        output?.interactor(self, didLoadMenuItems: items)
+        //completion(.success(items))
     }
     
-    func loadUserInfo(completion: @escaping ((Result<UserInfo, SessionError>) -> Void)) {
-        NetworkService.shared.getUserInfo(completion: completion)
+    func loadUserInfo() {
+        NetworkService.shared.getUserInfo() { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case let .failure(error):
+                self.output?.interactor(self, failedToLoadUserInfoWithError: error)
+            case let .success(userInfo):
+                self.output?.interactor(self, didLoadUserInfo: userInfo)
+            }
+        }
     }
     
-    func loadShopItems(completion: @escaping ([ShopItem]) -> Void) {
+    func loadShopItems() {
         //completion(self.createSampleItems())
         NetworkService.shared.getShopItems { [weak self] (serverResult) in
             guard let self = self else { return }
             switch serverResult {
             case let .failure(error):
-                print(error)
-                completion([])
-//                completion(self.createSampleItems())
+                self.output?.interactor(self, failedToLoadShopItemsWithError: error)
             case let .success(items):
-//                if items.count > 0 {
-                    completion(Array(items.prefix(3)))
-//                }
+                let shopItems = Array(items.prefix(3))
+                self.output?.interactor(self, didLoadShopItems: shopItems)
             }
+        }
+    }
+    
+    func updateAllData() {
+        Utilities.main.fetchClientSettings { settings, error in
+            self.loadMenuItems()
+            self.loadShopItems()
+            self.loadUserInfo()
         }
     }
     

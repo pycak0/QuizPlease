@@ -17,15 +17,19 @@ protocol RatingPresenterProtocol {
     var availableGameTypeNames: [String] { get }
     //var teams: [RatingItem] { get set }
     
+    var availableFilters: [RatingFilter.RatingScope] { get }
+    
     var filteredTeams: [RatingItem] { get }
     
     func handleRefreshControl()
     
-    func configureViews()
+    func viewDidLoad(_ view: RatingViewProtocol)
     
     func didChangeLeague(_ selectedIndex: Int)
     func didChangeRatingScope(_ rawValue: Int)
     func didChangeTeamName(_ name: String)
+    func didPressSearchButton(with query: String)
+    func didHideKeyboard(with query: String)
     func searchByTeamName(_ name: String)
     
     func didAlmostScrollToEnd()
@@ -42,6 +46,10 @@ class RatingPresenter: RatingPresenterProtocol {
     let availableGameTypeNames = RatingFilter.RatingLeague.allCases.map { $0.name }
     var filter = RatingFilter(scope: .season)
     
+    var availableFilters: [RatingFilter.RatingScope] {
+        return RatingFilter.RatingScope.allCases
+    }
+    
     private let firstPageNumber = 1
     private lazy var currentPage = firstPageNumber
     
@@ -56,12 +64,14 @@ class RatingPresenter: RatingPresenterProtocol {
         let league = RatingFilter.RatingLeague.allCases[selectedIndex]
         filter.league = league
         reloadRating()
+        updateHeaderContent()
     }
     
     func didChangeRatingScope(_ rawValue: Int) {
         guard let scope = RatingFilter.RatingScope(rawValue: rawValue) else { return }
         filter.scope = scope
         reloadRating()
+        updateHeaderContent()
     }
     
     func didChangeTeamName(_ name: String) {
@@ -73,14 +83,23 @@ class RatingPresenter: RatingPresenterProtocol {
         }
     }
     
+    func didPressSearchButton(with query: String) {
+        searchByTeamName(query)
+    }
+    
+    func didHideKeyboard(with query: String) {
+        //nothing
+    }
+    
     func searchByTeamName(_ name: String) {
         filter.teamName = name
         //view?.startLoadingAnimation()
-        reloadRating()
+        reloadRating(delay: 0.5)
     }
     
-    func configureViews() {
-        view?.configureTableView()
+    func viewDidLoad(_ view: RatingViewProtocol) {
+        view.configure()
+        updateHeaderContent()
         loadRating()
     }
     
@@ -93,51 +112,64 @@ class RatingPresenter: RatingPresenterProtocol {
         loadRating()
     }
     
-    //MARK:- Load
-    ///Resets `currentPage` value to `1`, clears `teams` array and reloads view, then calls `loadRating` method
-    private func reloadRating() {
+    private func updateHeaderContent() {
+        view?.setHeaderLabelContent(
+            city: filter.city.title,
+            leagueComment: filter.league.comment,
+            ratingScopeComment: filter.scope.comment
+        )
+    }
+    
+    private func resetData() {
         currentPage = firstPageNumber
         teams.removeAll()
         filteredTeams.removeAll()
         view?.reloadRatingList()
-        loadRating()
+    }
+    
+    //MARK:- Load
+    ///Resets `currentPage` value to `1`, clears `teams` array and reloads view, then calls `loadRating` method
+    private func reloadRating(delay: Double = 0) {
+        resetData()
+        loadRating(delay: delay)
     }
     
     ///Calls interactor's `loadRating` method using value of the `currentPage` without changing it
-    private func loadRating() {
+    private func loadRating(delay: Double = 0) {
         view?.startLoadingAnimation()
-        interactor.loadRating(with: filter, page: currentPage) { [weak self] (result) in
-            guard let self = self else { return }
-            self.view?.endLoadingAnimation()
+        interactor.loadRating(with: filter, page: currentPage, delay: delay)
+    }
+}
+
+//MARK:- RatingInteractorOutput
+extension RatingPresenter: RatingInteractorOutput {
+    func interactor(_ interactor: RatingInteractorProtocol, errorOccured error: SessionError) {
+        print(error)
+        view?.endLoadingAnimation()
+        view?.showErrorConnectingToServerAlert()
+        //view?.showSimpleAlert(title: "Произошла ошибка", message: error.localizedDescription)
+    }
+    
+    func interactor(_ interactor: RatingInteractorProtocol, didLoadRatingItems ratingItems: [RatingItem]) {
+        view?.endLoadingAnimation()
+        var indices = 0..<0
+        if self.currentPage > self.firstPageNumber {
+            let filteredTeams = ratingItems.filter { !self.teams.contains($0) }
+            guard !filteredTeams.isEmpty else { return }
             
-            switch result {
-            case .failure(let error):
-                print(error)
-                self.view?.showErrorConnectingToServerAlert()
-                //self.view?.showSimpleAlert(title: "Произошла ошибка", message: error.localizedDescription)
-                
-            case .success(let teams):
-                var indices = 0..<0
-                if self.currentPage > self.firstPageNumber {
-                    let filteredTeams = teams.filter { !self.teams.contains($0) }
-                    guard !filteredTeams.isEmpty else { return }
-                    
-                    let startIndex = self.teams.count
-                    self.teams += filteredTeams
-                    indices = startIndex..<self.teams.count
-                } else {
-                    self.teams = teams
-                }
-                
-                self.filteredTeams = self.teams
-                
-                if !indices.isEmpty {
-                    self.view?.appendRaingItems(at: indices)
-                } else {
-                    self.view?.reloadRatingList()
-                }
-            }
+            let startIndex = self.teams.count
+            self.teams += filteredTeams
+            indices = startIndex..<self.teams.count
+        } else {
+            self.teams = ratingItems
+        }
+        
+        self.filteredTeams = self.teams
+        
+        if !indices.isEmpty {
+            self.view?.appendRaingItems(at: indices)
+        } else {
+            self.view?.reloadRatingList()
         }
     }
-        
 }

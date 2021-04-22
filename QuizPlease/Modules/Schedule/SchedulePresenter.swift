@@ -30,11 +30,8 @@ protocol SchedulePresenterProtocol: class {
     func didPressScheduleRemindButton()
     
     func handleRefreshControl()
-    
     func updateDetailInfoIfNeeded(at index: Int)
-    
     func isSubscribedOnGame(with id: Int) -> Bool
-    
 }
 
 //MARK:- Presenter Implementation
@@ -168,7 +165,6 @@ class SchedulePresenter: SchedulePresenterProtocol {
             self.subscribedGameIds = gameIds
         }
     }
-    
 }
 
 //MARK:- ScheduleInteractorOutput

@@ -41,7 +41,7 @@ class ProfileInteractor: ProfileInteractorProtocol {
     }
     
     func deleteUserInfo() {
-        Globals.userToken = nil
+        AppSettings.userToken = nil
         DefaultsManager.shared.removeAuthInfo()
     }
     

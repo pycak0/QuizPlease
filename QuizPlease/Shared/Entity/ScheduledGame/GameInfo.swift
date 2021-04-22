@@ -53,6 +53,9 @@ struct GameInfo: Decodable {
     private var payment_icon: Int = 0
     private var game_type: Int = 0
     
+    private var latitude: String?
+    private var longitude: String?
+    
     init(shortInfo: GameShortInfo) {
         id = shortInfo.id
         date = shortInfo.date
@@ -81,7 +84,15 @@ extension GameInfo {
     }
     
     var placeInfo: Place {
-        return Place(name: place, cityName: cityName, address: address)
+        let latitude = Double(self.latitude ?? "") ?? 0
+        let longitude = Double(self.longitude ?? "") ?? 0
+        return Place(
+            name: place,
+            cityName: cityName,
+            address: address,
+            latitude: latitude,
+            longitude: longitude
+        )
     }
     
     var priceDetails: String {
@@ -108,15 +119,13 @@ extension GameInfo {
     }
     
     var availablePaymentTypes: [PaymentType] {
-        switch payment_icon {
-        case 0:
+        switch PaymentOption(rawValue: payment_icon) {
+        case .none, .cashOnly, .creditCardOffline, .cashOrCreditOffline, .onlineCustom:
             return [.cash]
-        case 1, 3:
+        case .onlineInApp:
             return [.online]
-        case 2, 5:
+        case .cashOrOnlineInApp:
             return [.cash, .online]
-        default:
-            return [.cash]
         }
     }
     

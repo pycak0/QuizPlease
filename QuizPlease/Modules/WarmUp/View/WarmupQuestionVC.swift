@@ -114,8 +114,7 @@ class WarmupQuestionVC: UIViewController {
         case .videoWithText:
             imageView.isHidden = true
             videoView.isHidden = false
-            videoView.parent = self
-            videoView.configureVideoView()
+            videoView.configureVideoView(parent: self)
             videoView.configurePlayer(url: question.videoUrl)
             questionLabel.text = question.question
             

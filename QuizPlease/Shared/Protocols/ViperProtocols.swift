@@ -1,5 +1,5 @@
 //
-//  RouterProtocol.swift
+//  ViperProtocols.swift
 //  QuizPlease
 //
 //  Created by Владислав on 21.08.2020.
@@ -13,4 +13,9 @@ protocol RouterProtocol: class {
     var viewController: UIViewController? { get set }
     init(viewController: UIViewController)
     func prepare(for segue: UIStoryboardSegue, sender: Any?)
+}
+
+protocol Configurator {
+    associatedtype ConfigurableView
+    func configure(_ view: ConfigurableView)
 }

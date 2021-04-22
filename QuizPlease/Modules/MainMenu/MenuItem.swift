@@ -80,8 +80,8 @@ enum MenuItemKind: Int, CaseIterable, MenuItemProtocol {
     
     var height: CGFloat {
         switch self {
-        case .homeGame:     return 245
-        case .shop:         return 220
+        case .homeGame:     return 225
+        case .shop:         return 228
         default:            return 200
         }
     }

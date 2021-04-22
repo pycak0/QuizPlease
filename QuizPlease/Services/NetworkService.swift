@@ -12,7 +12,35 @@ import Alamofire
 class NetworkService {
     private init() {}
     
+    enum AuthorizationKind: Equatable {
+        case none, bearer, bearerCustom(_ token: String)
+        
+        var header: (key: String, value: String)? {
+            switch self {
+            case .none:
+                return nil
+            case .bearer:
+                return NetworkService.shared.createBearerAuthHeader()
+            case let .bearerCustom(token):
+                return NetworkService.shared.createBearerAuthHeader(with: token)
+            }
+        }
+    }
+    
     static let shared = NetworkService()
+        
+    var baseUrlComponents: URLComponents {
+        var urlComps = URLComponents(string: Configuration.dev.host)!
+        urlComps.queryItems = nil
+        return urlComps
+    }
+    
+    private func createBearerAuthHeader(with token: String? = AppSettings.userToken) -> (key: String, value: String)? {
+        guard let userToken = token else {
+            return nil
+        }
+        return ("Authorization", "Bearer \(userToken)")
+    }
         
     ///
     //MARK:- GET REQUESTS =======
@@ -21,21 +49,29 @@ class NetworkService {
     
     //MARK:- User Info
     func getUserInfo(completion: @escaping ((Result<UserInfo, SessionError>) -> Void)) {
-        guard let token = Globals.userToken else {
+        guard let auth = createBearerAuthHeader() else {
             completion(.failure(.invalidToken))
             return
         }
-        var userUrlComps = Globals.baseUrl
+        let headers = [auth.key : auth.value]
+        var userUrlComps = baseUrlComponents
         userUrlComps.path = "/api/users/current"
-        let headers: [String: String] = [
-            "Authorization" : "Bearer \(token)"
-        ]
         getStandard(UserInfo.self, with: userUrlComps, headers: headers, completion: completion)
+    }
+    
+    //MARK:- Settings
+    func getSettings(cityId: Int, completion: @escaping (Result<ClientSettings, SessionError>) -> Void) {
+        var settingsUrlComps = baseUrlComponents
+        settingsUrlComps.path = "/api/settings"
+        settingsUrlComps.queryItems = [
+            URLQueryItem(name: "city_id", value: "\(cityId)")
+        ]
+        getStandard(ClientSettings.self, with: settingsUrlComps, completion: completion)
     }
         
     //MARK:- Get Cities
     func getCities(completion: @escaping (Result<[City], SessionError>) -> Void) {
-        var cityUrlComponents = Globals.baseUrl
+        var cityUrlComponents = baseUrlComponents
         cityUrlComponents.path = "/api/city"
         
         getStandard(CityResponse.self, with: cityUrlComponents) { (getResult) in
@@ -50,47 +86,49 @@ class NetworkService {
     
     //MARK:- Get Warmup Questions
     func getWarmupQuestions(completion: @escaping (Result<[WarmupQuestion], SessionError>) -> Void) {
-        var warmupUrlComps = Globals.baseUrl
+        guard let auth = createBearerAuthHeader() else {
+            completion(.failure(.invalidToken))
+            return
+        }
+        let headers = [auth.key : auth.value]
+        var warmupUrlComps = baseUrlComponents
         warmupUrlComps.path = "/api/warmup-question"
-        
-        getStandard([WarmupQuestion].self, with: warmupUrlComps, completion: completion)
+        getStandard([WarmupQuestion].self, with: warmupUrlComps, headers: headers, completion: completion)
     }
     
     //MARK:- Get Rating
     func getRating(cityId: Int, teamName: String, league: Int, ratingScope: Int, page: Int, completion: @escaping (Result<[RatingItem], SessionError>) -> Void) {
-        var ratingUrlComponents = Globals.baseUrl
+        var ratingUrlComponents = baseUrlComponents
         ratingUrlComponents.path = "/api/rating"
-        ratingUrlComponents.queryItems = ([//?.append(contentsOf: [
+        ratingUrlComponents.queryItems = [
             URLQueryItem(name: "city_id", value: "\(cityId)"),
             URLQueryItem(name: "league", value: "\(league)"),
             URLQueryItem(name: "general", value: "\(ratingScope)"),
             URLQueryItem(name: "page", value: "\(page)")
-        ])
+        ]
         if teamName.count > 0 {
             ratingUrlComponents.queryItems?.append(URLQueryItem(name: "teamName", value: teamName))
         }
-        
         getStandard([RatingItem].self, with: ratingUrlComponents, completion: completion)
     }
     
     //MARK:- Get Shop Items
     func getShopItems(cityId: Int? = nil, completion: @escaping (Result<[ShopItem], SessionError>) -> Void) {
-        var shopUrlComponents = Globals.baseUrl
+        var shopUrlComponents = baseUrlComponents
         shopUrlComponents.path = "/api/product"
         
-        let id = cityId ?? Globals.defaultCity.id
+        let id = cityId ?? AppSettings.defaultCity.id
         shopUrlComponents.queryItems = [
             URLQueryItem(name: "city_id", value: "\(id)")
         ]
-        
         getStandard([ShopItem].self, with: shopUrlComponents, completion: completion)
     }
     
     //MARK:- Home Games List
     ///- parameter cityId: Optional city parameter. If `nil`, user's `defaultCity` is used.
     func getHomeGames(cityId: Int? = nil, completion: @escaping (Result<[HomeGame], SessionError>) -> Void) {
-        let id = cityId ?? Globals.defaultCity.id
-        var homeUrlComponents = Globals.baseUrl
+        let id = cityId ?? AppSettings.defaultCity.id
+        var homeUrlComponents = baseUrlComponents
         homeUrlComponents.path = "/api/home-game"
         homeUrlComponents.queryItems = ([//?.append(
             URLQueryItem(name: "city_id", value: "\(id)")
@@ -100,24 +138,24 @@ class NetworkService {
     
     //MARK:- Home Game by ID
     func getHomeGame(by id: Int, completion: @escaping (Result<HomeGame, SessionError>) -> Void) {
-        var homeComps = Globals.baseUrl
+        var homeComps = baseUrlComponents
         homeComps.path = "/api/home-game/\(id)"
         getStandard(HomeGame.self, with: homeComps, completion: completion)
     }
     
     //MARK:- Get Game Info
     func getGameInfo(by id: Int, completion: @escaping (Result<GameInfo, SessionError>) -> Void) {
-        var gameUrlComponents = Globals.baseUrl
+        var gameUrlComponents = baseUrlComponents
         gameUrlComponents.path = "/ajax/scope-game"
-        gameUrlComponents.queryItems = ([//?.append(
+        gameUrlComponents.queryItems = [
             URLQueryItem(name: "id", value: "\(id)")
-        ])
+        ]
         get(GameInfo.self, with: gameUrlComponents, completion: completion)
     }
     
     //MARK:- Check Certificate
     func validateCertificate(forGameWithId id: Int, certificate: String, completion: @escaping (Result<CertificateResponse, SessionError>) -> Void) {
-        var urlComps = Globals.baseUrl
+        var urlComps = baseUrlComponents
         urlComps.path = "/ajax/check-certificate"
         urlComps.queryItems = [
             URLQueryItem(name: "code", value: certificate),
@@ -128,7 +166,7 @@ class NetworkService {
     
     //MARK:- Get Schedule
     func getSchedule(with filter: ScheduleFilter, completion: @escaping (Result<[GameShortInfo], SessionError>) -> Void) {
-        var scheduleUrlComponents = Globals.baseUrl
+        var scheduleUrlComponents = baseUrlComponents
         scheduleUrlComponents.path = "/api/game"
         var queryItems = [URLQueryItem(name: "city_id", value: "\(filter.city.id)")]
         if let id = filter.date?.id {
@@ -146,7 +184,7 @@ class NetworkService {
         if let id = filter.type?.id {
             queryItems.append(URLQueryItem(name: "type", value: "\(id)"))
         }
-        scheduleUrlComponents.queryItems = queryItems //?.append(contentsOf: queryItems)
+        scheduleUrlComponents.queryItems = queryItems
         
         getStandard(ScheduledGamesResponse.self, with: scheduleUrlComponents) { (getResult) in
             switch getResult {
@@ -194,21 +232,20 @@ class NetworkService {
     ///Used for filtering schedule
     ///- parameter cityId: Optionally request scoping the results for given city id
     func getFilterOptions(_ type: ScheduleFilterType, scopeFor cityId: Int? = nil, completion: @escaping (Result<[ScheduleFilterOption], SessionError>) -> Void) {
-        var filterUrlComponents = Globals.baseUrl
+        var filterUrlComponents = baseUrlComponents
         filterUrlComponents.path = "/api/game/\(type.rawValue)"
         if let id = cityId {
-            filterUrlComponents.queryItems = ([//?.append(
+            filterUrlComponents.queryItems = [
                 URLQueryItem(name: "city_id", value: "\(id)")
-            ])
+            ]
         }
         getStandard([ScheduleFilterOption].self, with: filterUrlComponents, completion: completion)
-        
     }
     
     //MARK:- Get Standard Server Request
     ///A get request for standard server response containing requested object in `data` field. You should mostly use this method rather than simple `get(:urlComponents:completion:)`.
-    func getStandard<T: Decodable>(_ type: T.Type, with urlComponents: URLComponents, headers: [String: String]? = nil, completion: @escaping ((Result<T, SessionError>) -> Void)) {
-        get(ServerResponse<T>.self, with: urlComponents, headers: headers) { getResult in
+    func getStandard<T: Decodable>(_ type: T.Type, with urlComponents: URLComponents, headers: [String: String]? = nil, authorizationKind: AuthorizationKind = .none, completion: @escaping ((Result<T, SessionError>) -> Void)) {
+        get(ServerResponse<T>.self, with: urlComponents, headers: headers, authorizationKind: authorizationKind) { getResult in
             switch getResult {
             case let .failure(error):
                 completion(.failure(error))
@@ -218,26 +255,40 @@ class NetworkService {
         }
     }
     
-    func get<T: Decodable>(_ type: T.Type, apiPath: String, parameters: [String: String?], headers: [String: String]? = nil, completion: @escaping ((Result<T, SessionError>) -> Void)) {
-        var urlComponents = Globals.baseUrl
+    func get<T: Decodable>(_ type: T.Type, apiPath: String, parameters: [String: String?], headers: [String: String]? = nil, authorizationKind: AuthorizationKind = .none, completion: @escaping ((Result<T, SessionError>) -> Void)) {
+        var urlComponents = baseUrlComponents
         urlComponents.path = apiPath
         urlComponents.queryItems = parameters.map { URLQueryItem(name: $0, value: $1) }
-        get(type, with: urlComponents, headers: headers, completion: completion)
+        get(type, with: urlComponents, headers: headers, authorizationKind: authorizationKind, completion: completion)
     }
     
     //MARK:- Get Request
-    func get<T: Decodable>(_ type: T.Type, with urlComponents: URLComponents, headers: [String: String]? = nil, completion: @escaping ((Result<T, SessionError>) -> Void)) {
+    ///- parameter authorizationKind: Use this parameter to choose authoriztion kind for the request. Auth info from this parameter will be used for 'Authoriztion' HTTP Header Field, so, if you provide `headers` with authoriztion header, it may be rewritten
+    func get<Object: Decodable>(_ type: Object.Type, with urlComponents: URLComponents, headers: [String: String]? = nil, authorizationKind: AuthorizationKind = .none, completion: @escaping ((Result<Object, SessionError>) -> Void)) {
         guard let url = urlComponents.url else {
             completion(.failure(.invalidUrl))
             return
         }
-        print(url)
         var request = URLRequest(url: url)
         for (key, value) in headers ?? [:] {
             request.setValue(value, forHTTPHeaderField: key)
         }
+        if let auth = authorizationKind.header {
+            request.setValue(auth.value, forHTTPHeaderField: auth.key)
+        } else if authorizationKind != .none {
+            completion(.failure(.invalidToken))
+            return
+        }
         let config = URLSessionConfiguration.default
         config.timeoutIntervalForRequest = 15
+        print("""
+        \n=====
+        [\(Self.self).swift]
+        Request: \(url)
+        HTTP Method: \(request.httpMethod!)
+        Headers: \(request.allHTTPHeaderFields ?? [:])
+        =====\n\n
+        """)
         let session = URLSession(configuration: config)
         session.dataTask(with: request) { (data, response, error) in
             if let error = error {
@@ -248,29 +299,37 @@ class NetworkService {
             }
             
             let response = response as! HTTPURLResponse
+            print("""
+            \n=====
+            [\(Self.self).swift]
+            Response: \(url)
+            Status Code: \(response.statusCode)
+            """)
             guard response.statusCode == 200, let data = data else {
+                print("""
+                Error: either status code != 200, or data is nil
+                =====\n\n
+                """)
                 DispatchQueue.main.async {
                     completion(.failure(.serverError(response.statusCode)))
                 }
                 return
             }
-            
+            print("""
+            Body:
+            \(String(data: data, encoding: .utf8) ?? "JSON error.")
+            =====\n\n
+            """)
             do {
-                let object = try JSONDecoder().decode(T.self, from: data)
-                
+                let object = try JSONDecoder().decode(Object.self, from: data)
                 DispatchQueue.main.async {
                     completion(.success(object))
                 }
-//                guard let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) else { return }
-//                print(">>> Received data:\n\n\n", json)
             } catch {
                 DispatchQueue.main.async {
                     completion(.failure(.decoding(error)))
                 }
-                guard let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) else { return }
-                print(">>> Received data:\n\n\n", json)
             }
-            
         }.resume()
     }
     
@@ -282,16 +341,14 @@ class NetworkService {
     
     //MARK:- Push Subscribe
     func subscribePushOnGame(with id: String, completion: @escaping (Result<Bool, SessionError>) -> Void) {
-        guard let token = Globals.userToken else {
+        guard let auth = createBearerAuthHeader() else {
             completion(.failure(.invalidToken))
             return
         }
-        var urlComps = Globals.baseUrl
+        let headers = [auth.key : auth.value]
+        let params = ["game_id" : id]
+        var urlComps = baseUrlComponents
         urlComps.path = "/api/game/subscribe-notification"
-        let params = [
-            "game_id" : id,
-        ]
-        let headers = ["Authorization" : "Bearer \(token)"]
         afPostStandard(with: params, and: headers, to: urlComps, responseType: PushSubscribeResponse.self) { (postResult) in
             switch postResult {
             case let .failure(error):
@@ -305,45 +362,44 @@ class NetworkService {
     
     //MARK:- Purchase Product
     func purchaseProduct(with id: String, deliveryMethod: DeliveryMethod, email: String, completion: @escaping (_ isSuccess: Bool) -> Void) {
-        var urlComps = Globals.baseUrl
+        var urlComps = baseUrlComponents
         urlComps.path = "/api/order/buy"
-        
         let params: [String : String] = [
             "product_id": id,
             "delivery_method": "\(deliveryMethod.id)",
-            "email" : email
+            "email" : email,
+            "city_id" : "\(AppSettings.defaultCity.id)"
         ]
-        
         afPostBool(with: params, to: urlComps, completion: completion)
     }
     
     
     //MARK:- Check In On Game
     func checkInOnGame(with qrCode: String, chosenTeamId: Int, completion: @escaping (_ isSuccess: Bool) -> Void) {
-        guard let userToken = Globals.userToken else {
+        guard let auth = createBearerAuthHeader() else {
             completion(false)
             return
         }
-        var urlComps = Globals.baseUrl
-        urlComps.path = "/api/game/check-qr"
+        let headers = [auth.key : auth.value]
         let params = [
             "token": "\(qrCode)",
             "recordId": "\(chosenTeamId)"
         ]
-        let headers = ["Authorization" : "Bearer \(userToken)"]
+        var urlComps = baseUrlComponents
+        urlComps.path = "/api/game/check-qr"
         afPostBool(with: params, and: headers, to: urlComps, completion: completion)
     }
     
     //MARK:- Get Teams List From QR
     func getTeamsFromQR(_ qrCode: String, completion: @escaping (Result<[TeamInfo], SessionError>) -> Void) {
-        guard let userToken = Globals.userToken else {
+        guard let auth = createBearerAuthHeader() else {
             completion(.failure(.invalidToken))
             return
         }
-        var urlComps = Globals.baseUrl
-        urlComps.path = "/api/game/check-qr"
+        let headers = [auth.key : auth.value]
         let params = ["token" : "\(qrCode)"]
-        let headers = ["Authorization" : "Bearer \(userToken)"]
+        var urlComps = baseUrlComponents
+        urlComps.path = "/api/game/check-qr"
         afPostStandard(with: params, and: headers, to: urlComps, responseType: CheckInTeamsInfo.self) { (postResult) in
             switch postResult {
             case let .failure(error):
@@ -362,7 +418,7 @@ class NetworkService {
     
     //MARK:- Register
     func register(_ user: UserRegisterData, completion: @escaping (Result<RegisterResponse, SessionError>) -> Void) {
-        var registerUrlComps = Globals.baseUrl
+        var registerUrlComps = baseUrlComponents
         registerUrlComps.path = "/api/auth/register"
         let parameters = [
             "phone" : user.phone,
@@ -373,7 +429,7 @@ class NetworkService {
     
     //MARK:- Send SMS Code
     func sendCode(to number: String, completion: @escaping (_ isSuccess: Bool) -> Void) {
-        var codeUrlComps = Globals.baseUrl
+        var codeUrlComps = baseUrlComponents
         codeUrlComps.path = "/api/auth/token"
         let parameters = [
             "phone" : number
@@ -389,7 +445,7 @@ class NetworkService {
     //MARK:- Authenticate
     func authenticate(phoneNumber: String, smsCode: String, firebaseId: String,
                       completion: @escaping (Result<SavedAuthInfo, SessionError>) -> Void) {
-        var authUrlComps = Globals.baseUrl
+        var authUrlComps = baseUrlComponents
         authUrlComps.path = "/api/auth/token"
         let parameters = [
             "phone" : phoneNumber,
@@ -401,7 +457,7 @@ class NetworkService {
     
     //MARK:- Update User Token
     func updateToken(with refreshToken: String, completion: @escaping (Result<SavedAuthInfo, SessionError>) -> Void) {
-        var tokenUrlComps = Globals.baseUrl
+        var tokenUrlComps = baseUrlComponents
         tokenUrlComps.path = "/api/auth/token"
         let params = [
             "refresh_token": refreshToken
@@ -411,11 +467,11 @@ class NetworkService {
     
     //MARK:- Send Firebase ID
     func sendFirebaseId(_ fcmToken: String) {
-        guard let userToken = Globals.userToken else { return }
-        var urlComps = Globals.baseUrl
-        urlComps.path = "/api/device/create"
+        guard let auth = createBearerAuthHeader() else { return }
+        let headers = [auth.key : auth.value]
         let params = ["device_id" : fcmToken]
-        let headers = ["Authorization" : "Bearer \(userToken)"]
+        var urlComps = baseUrlComponents
+        urlComps.path = "/api/device/create"
         afPostStandard(with: params, and: headers, to: urlComps, responseType: [String: String].self) { (postResult) in
             print("Firebase ID sending result:")
             print(postResult)
@@ -424,29 +480,30 @@ class NetworkService {
     
     //MARK:- Register on Game
     func registerOnGame(registerForm: RegisterForm, completion: @escaping (Result<GameOrderResponse, SessionError>) -> Void) {
-        var registerUrlComps = Globals.baseUrl
+        var registerUrlComps = baseUrlComponents
         registerUrlComps.path = "/ajax/save-record"
         
         let countPaidOnline = registerForm.countPaidOnline == nil ? nil : "\(registerForm.countPaidOnline!)"
         
         let parameters: [String: String?] = [
-            "QpRecord[captainName]"     : registerForm.captainName,
-            "QpRecord[email]"           : registerForm.email,
-            "QpRecord[phone]"           : registerForm.phone,
-            "QpRecord[comment]"         : registerForm.comment ?? "",
-            "QpRecord[game_id]"         : "\(registerForm.gameId)",
-            "QpRecord[first_time]"      : registerForm.isFirstTime ? "1" : "0",
-            "certificates[]"            : registerForm.certificates,
-            "QpRecord[payment_type]"    : "\(registerForm.paymentType.rawValue)",
-            "QpRecord[count]"           : "\(registerForm.count)",
-            "QpRecord[teamName]"        : registerForm.teamName,
-            "QpRecord[payment_token]"   : registerForm.paymentToken,
-            "QpRecord[surcharge]"       : countPaidOnline,
-            "promo_code"                : registerForm.promocode
+            //2 - регистрация через мобильное приложение
+            "QpRecord[registration_type]"   : "2",
+            "QpRecord[captainName]"         : registerForm.captainName,
+            "QpRecord[email]"               : registerForm.email,
+            "QpRecord[phone]"               : registerForm.phone,
+            "QpRecord[comment]"             : registerForm.comment ?? "",
+            "QpRecord[game_id]"             : "\(registerForm.gameId)",
+            "QpRecord[first_time]"          : registerForm.isFirstTime ? "1" : "0",
+            "certificates[]"                : registerForm.certificates,
+            "QpRecord[payment_type]"        : "\(registerForm.paymentType.rawValue)",
+            "QpRecord[count]"               : "\(registerForm.count)",
+            "QpRecord[teamName]"            : registerForm.teamName,
+            "QpRecord[payment_token]"       : registerForm.paymentToken,
+            "QpRecord[surcharge]"           : countPaidOnline,
+            "promo_code"                    : registerForm.promocode
         ]
         
         afPost(with: parameters, to: registerUrlComps, responseType: GameOrderResponse.self, completion: completion)
-        
     }
     
     //MARK:- AF Post Auth
@@ -498,9 +555,17 @@ class NetworkService {
     //MARK:- Alamofire POST
     func afPost<Response: Decodable>(with parameters: [String: String?], and headers: [String : String]? = nil,
                                      to urlComponents: URLComponents, responseType: Response.Type,
+                                     authorizationKind: AuthorizationKind = .none,
                                      completion: @escaping ((Result<Response, SessionError>) -> Void)) {
         
-        let httpHeaders = headers != nil ? HTTPHeaders(headers!) : nil
+        var headers = headers ?? [:]
+        if let auth = authorizationKind.header {
+            headers[auth.key] = auth.value
+        } else if authorizationKind != .none {
+            completion(.failure(.invalidToken))
+            return
+        }
+        let httpHeaders = headers.isEmpty ? nil : HTTPHeaders(headers)
         AF.upload(multipartFormData: { (multipartFormData) in
             for (key, value) in parameters {
                 if let value = value {
@@ -509,21 +574,36 @@ class NetworkService {
             }
         }, to: urlComponents, headers: httpHeaders)
         .responseData { (afResponse) in
+            print("""
+            \n=====
+            [\(Self.self).swift]
+            afPost Response: \(afResponse.response?.url as Any)
+            Status Code: \(afResponse.response?.statusCode as Any)
+            """)
             switch afResponse.result {
             case let .failure(error):
+                print("Error: \(error)")
                 completion(.failure(.other(error)))
             case let .success(data):
+                print("Body:")
+                print(String(data: data, encoding: .utf8) ?? "json decoding error")
                 do {
                     let serverResponse = try JSONDecoder().decode(Response.self, from: data)
-                    print(">>> Response data:\n\n", String(data: data, encoding: .utf8) ?? "json decoding error")
                     completion(.success(serverResponse))
                 } catch {
                     completion(.failure(.decoding(error)))
-                    
-                    print(">>> Response data:\n\n", String(data: data, encoding: .utf8) ?? "json decoding error")
                 }
             }
+            print("=====\n\n")
         }
+        print("""
+        \n=====
+        [\(Self.self).swift]
+        afPost request: \(urlComponents.url as Any)
+        Headers: \(headers)
+        Body parameters: \(parameters)
+        =====\n\n
+        """)
     }
     
     //MARK:- Post with decoding response
@@ -559,18 +639,23 @@ class NetworkService {
     
     //MARK:- POST Request
     ///Completion is performed on the main queue
-    func post(_ data: Data, with urlComponents: URLComponents, completion: @escaping ((Result<Data, SessionError>) -> Void)) {
+    func post(_ data: Data, with urlComponents: URLComponents, authorizationKind: AuthorizationKind, completion: @escaping ((Result<Data, SessionError>) -> Void)) {
         guard let url = urlComponents.url else {
             completion(.failure(.invalidUrl))
             return
         }
-        print(url)
-        
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("multipart/form-data", forHTTPHeaderField: "Content-Type")
         request.httpBody = data
-        
+        print("""
+        \n=====
+        [\(Self.self).swift]
+        Request: \(url)
+        HTTP Method: \(request.httpMethod!)
+        Headers: \(request.allHTTPHeaderFields ?? [:])
+        =====\n\n
+        """)
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             if let error = error {
                 DispatchQueue.main.async {
@@ -580,22 +665,28 @@ class NetworkService {
             }
             
             let response = response as! HTTPURLResponse
-            guard let data = data,
-                  let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
-            else {
+            print("""
+            \n=====
+            [\(Self.self).swift]
+            Response: \(url)
+            Status Code: \(response.statusCode)
+            """)
+            guard let data = data else {
+                print("Error. HTTP Response: \(response)")
+                print("=====\n\n")
                 DispatchQueue.main.async {
                     completion(.failure(.serverError(response.statusCode)))
                 }
                 return
             }
-            
-            print(json)
-            
+            print("""
+            Body:
+            \(String(data: data, encoding: .utf8) ?? "JSON error.")
+            =====\n\n
+            """)
             DispatchQueue.main.async {
                 completion(.success(data))
             }
         }.resume()
-        
     }
-    
 }

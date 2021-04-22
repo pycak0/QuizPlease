@@ -14,25 +14,11 @@ protocol ShopCompletionVCDelegate: class {
 
 class ShopCompletionVC: UIViewController {
     
-    //MARK:- Segment Kind
-    enum SegmentKind: Int, CaseIterable, Encodable {
-        case email, game
-        
-        var title: String {
-            switch self {
-            case .email:
-                return "Получить на e-mail"
-            case .game:
-                return "Забрать на игре"
-            }
-        }
-    }
-    
     //MARK:- Outlets
-    @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var textFieldView: TitledTextFieldView!
-    @IBOutlet weak var arrowImageView: UIImageView!
-    @IBOutlet weak var segmentControl: HBSegmentedControl!
+    @IBOutlet private weak var imageView: UIImageView!
+    @IBOutlet private weak var textFieldView: TitledTextFieldView!
+    @IBOutlet private weak var arrowImageView: UIImageView!
+    @IBOutlet private weak var segmentControl: HBSegmentedControl!
     
     weak var delegate: ShopCompletionVCDelegate?
     
@@ -50,18 +36,6 @@ class ShopCompletionVC: UIViewController {
     @objc
     private func segmentChanged() {
         view.endEditing(true)
-//        guard let deliveryType = SegmentKind(rawValue: segmentControl.selectedIndex) else { return }
-//        var title = "Электронная почта"
-//        var placeholder = "Введите адрес почты"
-//        if deliveryType == .game {
-//            title = "Забрать на игре"
-//            placeholder = "Выберите игру"
-//        }
-//        textFieldView.title = title
-//        textFieldView.placeholder = placeholder
-//        textFieldView.textField.isEnabled = segmentControl.selectedIndex == 0
-//        arrowImageView.isHidden = segmentControl.selectedIndex == 0
-//        textFieldView.textField.text = ""
     }
     
     //MARK:- Did Press Field View
@@ -77,12 +51,12 @@ class ShopCompletionVC: UIViewController {
     
     //MARK:- Confirm Button Pressed
     @IBAction func confirmButtonPressed(_ sender: Any) {
-        guard let selectedSegmentKind = SegmentKind(rawValue: segmentControl.selectedIndex) else { return }
+        let index = segmentControl.selectedIndex
+        guard let deliveryMethod = DeliveryMethod(title: segmentControl.items[index]) else { return }
         guard let text = textFieldView.textField.text, text.isValidEmail else {
             textFieldView.shakeAnimation()
             return
         }
-        let deliveryMethod: DeliveryMethod = selectedSegmentKind == .email ? .email : .game
         purchase(withDelivryMethod: deliveryMethod, email: text)
     }
     
@@ -113,7 +87,7 @@ class ShopCompletionVC: UIViewController {
     }
     
     private func configureSegmentControl() {
-        segmentControl.items = SegmentKind.allCases.map { $0.title }
+        segmentControl.items = shopItem.availableDeliveryMethods.map { $0.title }
         segmentControl.dampingRatio = 0.9
         segmentControl.font = UIFont(name: "Gilroy-Bold", size: 16)
         segmentControl.addTarget(self, action: #selector(segmentChanged), for: .valueChanged)

@@ -25,10 +25,9 @@ class AddGameVC: UIViewController {
     @IBOutlet private weak var chooseTeamView: TitledTextFieldView!
     
     var token: String!
-    
     var teamsInfo = [TeamInfo]()
-    
     var chosenTeam: TeamInfo?
+    var gameInfo: GameInfo?
     
     weak var delegate: AddGameVCDelegate?
     
@@ -46,9 +45,8 @@ class AddGameVC: UIViewController {
         setupData()
     }
     
-    
     private func setupData() {
-        setGameData(nil)
+        setGameData()
         gameNameLabel.text = "Загрузка…"
         loadDataFromQR()
     }
@@ -59,6 +57,23 @@ class AddGameVC: UIViewController {
             showSimpleAlert(title: "Команда не выбрана", message: "Пожалуйста, выберите команду, за которую Вы играли")
             return
         }
+        checkUserLocation { isSatisfactory in
+            guard let isClose = isSatisfactory else {
+                self.showSimpleAlert(title: "Не удалось проверить геолокацию")
+                return
+            }
+            if isClose {
+                self.checkIn(teamId: id)
+            } else {
+                self.showSimpleAlert(
+                    title: "Вы находитесь слишком далеко",
+                    message: "Чтобы добавить игру в Личный кабинет и получить за неё баллы, Вам необходимо быть в месте проведения игры"
+                )
+            }
+        }
+    }
+    
+    private func checkIn(teamId id: Int) {
         NetworkService.shared.checkInOnGame(with: token, chosenTeamId: id) { [weak self] (isSuccess) in
             guard let self = self else { return }
             if isSuccess {
@@ -93,31 +108,43 @@ class AddGameVC: UIViewController {
     private func loadGameInfo(with id: Int) {
         NetworkService.shared.getGameInfo(by: id) { [weak self] (serverResult) in
             guard let self = self else { return }
-            var gameData: GameInfo?
             switch serverResult {
             case let .failure(error):
                 print(error)
                 self.showErrorConnectingToServerAlert()
             case let.success(gameInfo):
-                gameData = gameInfo
+                self.gameInfo = gameInfo
             }
-            self.setGameData(gameData)
+            self.setGameData()
+        }
+    }
+    
+    //MARK:- Check User Location
+    ///- parameter isSatisfactory: `true` - user location is close to the place location, `false` - user location is too far from the place location, `nil` - unavailable to get user loaction
+    private func checkUserLocation(completion: @escaping (_ isSatisfactory: Bool?) -> Void) {
+        UserLocationService.shared.askUserLocation { (location) in
+            guard let gameInfo = self.gameInfo else { return }
+            guard let location = location else {
+                completion(nil)
+                return
+            }
+            let isCloseToPlace = gameInfo.placeInfo.isCloseToLocation(location)
+            completion(isCloseToPlace)
         }
     }
     
     //MARK:- Set Game Fata
-    private func setGameData(_ model: GameInfo?) {
-        gameNameLabel.text = model?.nameGame ?? "-"
-        gameNumberLabel.text = model?.gameNumber ?? "#"
-        placeNameLabel.text = model?.placeInfo.title ?? "-"
-        placeAddressLabel.text = model?.placeInfo.shortAddress  ?? "-"
+    private func setGameData() {
+        gameNameLabel.text = gameInfo?.nameGame ?? "-"
+        gameNumberLabel.text = gameInfo?.gameNumber ?? "#"
+        placeNameLabel.text = gameInfo?.placeInfo.title ?? "-"
+        placeAddressLabel.text = gameInfo?.placeInfo.shortAddress  ?? "-"
         
-        if let dateStr = model?.formattedDate, let time = model?.time {
+        if let dateStr = gameInfo?.formattedDate, let time = gameInfo?.time {
             timeLabel.text = "\(dateStr) в \(time)"
         } else {
             timeLabel.text = "-"
         }
-        
     }
     
     private func configureViews() {
@@ -142,5 +169,4 @@ class AddGameVC: UIViewController {
             self.chosenTeam = self.teamsInfo[index]
         }
     }
-
 }

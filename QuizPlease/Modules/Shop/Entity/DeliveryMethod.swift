@@ -9,22 +9,42 @@
 import Foundation
 
 enum DeliveryMethod {
-    case game, email
+    case game, online
+    
+    init?(title: String) {
+        switch title {
+        case DeliveryMethod.game.title:
+            self = .game
+        case DeliveryMethod.online.title:
+            self = .online
+        default:
+            return nil
+        }
+    }
     
     ///An identificator of DeliveryMethod used to perform server request
     var id: Int {
         switch self {
-        case .email:
-            return 1
-        case .game:
+        case .online:
             return 2
+        case .game:
+            return 1
+        }
+    }
+    
+    var title: String {
+        switch self {
+        case .online:
+            return "Получить на e-mail"
+        case .game:
+            return "Забрать на игре"
         }
     }
     
     ///A message to show to user after successful purchase request
     var message: String {
         switch self {
-        case .email:
+        case .online:
             return "Заказ был отправлен на указанную почту"
         case .game:
             return "Информация о заказе была отправлена на указанную почту"

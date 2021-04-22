@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SafariServices
 
 class HomeGameVideoVC: UIViewController {
     
@@ -23,33 +24,29 @@ class HomeGameVideoVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareNavigationBar(title: homeGame.fullTitle, tintColor: .white)
-
         configureViews()
         loadDetail()
     }
     
-    @IBAction func rulesButtonPressed(_ sender: Any) {
-        //openUrl(with: homeGame.rulesPath)
+    @IBAction private func rulesButtonPressed(_ sender: UIButton) {
+        openUrl(with: homeGame.rulesPath, accentColor: sender.backgroundColor)
     }
     
-    @IBAction func blanksButtonPressed(_ sender: Any) {
-        openUrl(with: homeGame.blanksPath)
+    @IBAction private func blanksButtonPressed(_ sender: UIButton) {
+        openUrl(with: homeGame.blanksPath, accentColor: sender.backgroundColor)
     }
     
-    private func openUrl(with path: String?) {
+    private func openUrl(with path: String?, accentColor: UIColor!) {
         guard let path = path else { return }
-        var rulesUrlComps = Globals.baseUrl
+        var rulesUrlComps = NetworkService.shared.baseUrlComponents
         rulesUrlComps.path = path
-        if let url = rulesUrlComps.url, UIApplication.shared.canOpenURL(url) {
-            UIApplication.shared.open(url)
-        }
+        guard let url = rulesUrlComps.url else { return }
+        openSafariVC(with: url, delegate: self)
     }
-    
     
     //MARK:- Configure Views
     private func configureViews() {
-        videoView.parent = self
-        videoView.configureVideoView()
+        videoView.configureVideoView(parent: self)
         descriptionBackground.blurView.setup(style: .regular, alpha: 0.8).enable()
         //descriptionBackground.addBlur(color: .systemPurple, style: blurStyle, alpha: 0.7)
         
@@ -66,7 +63,6 @@ class HomeGameVideoVC: UIViewController {
         backgroundImageView.layer.cornerRadius = videoCornerRadius
         descriptionBackground.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         backgroundImageView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
-        
     }
     
     //MARK:- Load Details
@@ -90,3 +86,6 @@ class HomeGameVideoVC: UIViewController {
         descriptionLabel.text = homeGame.description ?? "..."
     }
 }
+
+//MARK:- Safari VC Delegate
+extension HomeGameVideoVC: SFSafariViewControllerDelegate {}

@@ -11,12 +11,14 @@ import Foundation
 //MARK:- Presenter Protocol
 protocol MainMenuPresenterProtocol: class {
     var router: MainMenuRouterProtocol! { get }
-    init(view: MainMenuViewProtocol, interactor: MainMenuInteractorProtocol, router: MainMenuRouterProtocol)
     var menuItems: [MenuItemProtocol]? { get set }
-    
     var sampleShopItems: [ShopItem] { get }
     
-    func setupView()
+    init(view: MainMenuViewProtocol, interactor: MainMenuInteractorProtocol, router: MainMenuRouterProtocol)
+
+    func viewDidLoad(_ view: MainMenuViewProtocol)
+    func viewDidAppear(_ view: MainMenuViewProtocol)
+
     func didSelectMenuItem(at index: Int)
     func didSelectCityButton()
     func didChangeDefaultCity(_ newCity: City)
@@ -24,7 +26,8 @@ protocol MainMenuPresenterProtocol: class {
     func didAddNewGame(with info: String)
     func didPressMenuRemindButton()
     
-    func handleViewDidAppear()
+    func userPointsAmount() -> Int?
+    func indexPath(for menuItemKind: MenuItemKind) -> IndexPath?
 }
 
 class MainMenuPresenter: MainMenuPresenterProtocol {
@@ -33,9 +36,7 @@ class MainMenuPresenter: MainMenuPresenterProtocol {
     var router: MainMenuRouterProtocol!
     
     var menuItems: [MenuItemProtocol]?
-    
     var sampleShopItems: [ShopItem] = []
-    
     var userInfo: UserInfo?
     
     required init(view: MainMenuViewProtocol, interactor: MainMenuInteractorProtocol, router: MainMenuRouterProtocol) {
@@ -44,47 +45,16 @@ class MainMenuPresenter: MainMenuPresenterProtocol {
         self.interactor = interactor
     }
     
-    func setupView() {
-        view?.configureTableView()
-        view?.updateCityName(with: Globals.defaultCity.title)
-        
-        interactor.loadMenuItems { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .failure(let error):
-                self.view?.failureLoadingMenuItems(error)
-            case .success(let items):
-                self.menuItems = items
-                self.view?.reloadMenuItems()
-            }
-        }
+    func viewDidLoad(_ view: MainMenuViewProtocol) {
+        view.configureTableView()
+        view.updateCityName(with: AppSettings.defaultCity.title)
+        interactor.loadMenuItems()
     }
     
-    func handleViewDidAppear() {
-        loadUserInfo()
-        
+    func viewDidAppear(_ view: MainMenuViewProtocol) {
+        interactor.loadUserInfo()
         if sampleShopItems.count == 0 || sampleShopItems.first?.title == "SAMPLE" {
-            reloadShopItems()
-        }
-    }
-    
-    //MARK:- Load User Info
-    func loadUserInfo() {
-        interactor.loadUserInfo { [weak self] (serverResult) in
-            guard let self = self else { return }
-            switch serverResult {
-            case let .failure(error):
-                print(error)
-                switch error {
-                case .invalidToken:
-                    self.view?.updateUserPointsAmount(with: nil)
-                default:
-                    break
-                }
-            case let .success(userInfo):
-                self.userInfo = userInfo
-                self.view?.updateUserPointsAmount(with: userInfo.pointsAmount)
-            }
+            interactor.loadShopItems()
         }
     }
     
@@ -102,24 +72,23 @@ class MainMenuPresenter: MainMenuPresenterProtocol {
     }
     
     func didSelectCityButton() {
-        router.showChooseCityScreen(Globals.defaultCity)
+        router.showChooseCityScreen(AppSettings.defaultCity)
     }
     
     func didChangeDefaultCity(_ newCity: City) {
-        Globals.defaultCity = newCity
+        AppSettings.defaultCity = newCity
         view?.updateCityName(with: newCity.title)
-        reloadShopItems()
+        interactor.updateAllData()
     }
     
     func didPressAddGame() {
-        if Globals.userToken != nil {
+        if AppSettings.userToken != nil {
             router.showQRScanner()
         } else {
             if let item = menuItems?.first(where: { $0._kind == .profile }) {
                 router.showMenuSection(item, sender: userInfo)
             }
         }
-        
     }
     
     func didAddNewGame(with info: String) {
@@ -130,12 +99,51 @@ class MainMenuPresenter: MainMenuPresenterProtocol {
         //
     }
     
-    private func reloadShopItems() {
-        interactor.loadShopItems { [weak self] (items) in
-            guard let self = self else { return }
-            self.sampleShopItems = items
-            self.view?.reloadShopItems()
-        }
+    func userPointsAmount() -> Int? {
+        userInfo?.pointsAmount
     }
     
+    func indexPath(for menuItemKind: MenuItemKind) -> IndexPath? {
+        if let index = menuItems?.firstIndex(where: { $0._kind == menuItemKind }) {
+            return IndexPath(row: index, section: 0)
+        }
+        return nil
+    }
+}
+
+//MARK:- MainMenuInteractorOutput
+extension MainMenuPresenter: MainMenuInteractorOutput {
+    func interactor(_ interactor: MainMenuInteractorProtocol, didLoadMenuItems items: [MenuItemProtocol]) {
+        menuItems = items
+        view?.reloadMenuItems()
+    }
+    
+    func interactor(_ interactor: MainMenuInteractorProtocol, didLoadUserInfo userInfo: UserInfo) {
+        self.userInfo = userInfo
+        view?.reloadUserPointsAmount()
+    }
+    
+    func interactor(_ interactor: MainMenuInteractorProtocol, didLoadShopItems shopItems: [ShopItem]) {
+        sampleShopItems = shopItems
+        view?.reloadShopItems()
+    }
+    
+    func interactor(_ interactor: MainMenuInteractorProtocol, failedToLoadShopItemsWithError error: SessionError) {
+        print(error)
+    }
+    
+    func interactor(_ interactor: MainMenuInteractorProtocol, failedToLoadMenuItemsWithError error: SessionError) {
+        view?.failureLoadingMenuItems(error)
+    }
+    
+    func interactor(_ interactor: MainMenuInteractorProtocol, failedToLoadUserInfoWithError error: SessionError) {
+        print(error)
+        switch error {
+        case .invalidToken:
+            userInfo = nil
+            view?.reloadUserPointsAmount()
+        default:
+            break
+        }
+    }
 }

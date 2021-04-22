@@ -8,7 +8,6 @@
 
 import Foundation
 import YooKassaPayments
-import YooKassaPaymentsApi
 
 //MARK:- Presenter Protocol
 protocol GameOrderPresenterProtocol {
@@ -37,7 +36,7 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
     var game: GameInfo! {
         didSet {
             registerForm.gameId = game.id
-            registerForm.paymentType = game.availablePaymentTypes.contains(.online) ? .online : .cash
+            registerForm.paymentType = isOnlinePaymentDefault ? .online : .cash
         }
     }
     
@@ -51,8 +50,8 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
     }
     
     var isOnlinePaymentDefault: Bool {
-        //return registerForm.paymentType == .online
-        return false
+        let types = game.availablePaymentTypes
+        return types.count == 1 && types.first! == .online
     }
     
     var isOnlyCashAvailable: Bool {

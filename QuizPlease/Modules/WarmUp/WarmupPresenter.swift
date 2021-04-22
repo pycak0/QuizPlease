@@ -20,14 +20,10 @@ protocol WarmupPresenterProtocol {
     
     init(view: WarmupViewProtocol, interactor: WarmupInteractorProtocol, router: WarmupRouterProtocol)
     
-    func setupView()
-    
+    func viewDidLoad(_ view: WarmupViewProtocol)
     func didPressStartGame()
-    
     func didAnswer(_ answer: String, for question: WarmupQuestion)
-    
     func shareAction()
-    
     func gameEnded()
 }
 
@@ -49,6 +45,8 @@ class WarmupPresenter: WarmupPresenterProtocol {
         }
     }
     
+    var timestamp: Date = Date()
+    
     private var timer: Timer?
     
     required init(view: WarmupViewProtocol, interactor: WarmupInteractorProtocol, router: WarmupRouterProtocol) {
@@ -58,8 +56,8 @@ class WarmupPresenter: WarmupPresenterProtocol {
     }
     
     //MARK:- Setup
-    func setupView() {
-        view?.configure()
+    func viewDidLoad(_ view: WarmupViewProtocol) {
+        view.configure()
         
         interactor.loadQuestions { [weak self] (result) in
             guard let self = self else { return }
@@ -104,11 +102,11 @@ class WarmupPresenter: WarmupPresenterProtocol {
         if let viewController = view, let image = UIApplication.shared.makeSnapshot() {
             interactor.shareResults(image, delegate: viewController)
         }
-        
     }
     
     //MARK:- Private
     private func startTimer() {
+        timestamp = Date()
         let interval: Double = 1
         timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { t in
             self.timePassed += interval
@@ -118,6 +116,10 @@ class WarmupPresenter: WarmupPresenterProtocol {
     private func stopTimer() {
         timer?.invalidate()
         timer = nil
+        
+        let timeElapsed: Double = Date().timeIntervalSince(timestamp)
+        print(timeElapsed)
+        print(timePassed)
     }
     
 }

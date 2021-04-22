@@ -11,21 +11,16 @@ import UICircularProgressRing
 
 //MARK:- View Protocol
 protocol WarmupViewProtocol: UIViewController {
-    var configurator: WarmupConfiguratorProtocol { get }
     var presenter: WarmupPresenterProtocol! { get set }
     
     func configure()
-    
     func startGame()
     func setQuestions()
-    
     func showResults()
-    
     func updatePassedTime(withMinutes minutes: Int, seconds: Int)
 }
 
 class WarmupVC: UIViewController {
-    let configurator: WarmupConfiguratorProtocol = WarmupConfigurator()
     var presenter: WarmupPresenterProtocol!
     
     //MARK:- Outlets
@@ -47,9 +42,8 @@ class WarmupVC: UIViewController {
     //MARK:- Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        configurator.configure(self)
-        presenter.setupView()
-
+        WarmupConfigurator().configure(self)
+        presenter.viewDidLoad(self)
     }
     
     //MARK:- Prepare for Segue
@@ -63,11 +57,11 @@ class WarmupVC: UIViewController {
     }
     
     
-    @IBAction func startButtonPressed(_ sender: UIButton) {
+    @IBAction private func startButtonPressed(_ sender: UIButton) {
         presenter.didPressStartGame()
     }
     
-    @IBAction func shareButtonPressed(_ sender: Any) {
+    @IBAction private func shareButtonPressed(_ sender: Any) {
         presenter.shareAction()
     }
     
@@ -119,8 +113,6 @@ class WarmupVC: UIViewController {
         let parts = Int(100 * (passedTime - passedTime.rounded(.down)))
         secondPartsLabel.text = String(format: "%02d", parts)
     }
-    
-    
 }
 
 //MARK:- View Protocol Implemenation
@@ -154,7 +146,6 @@ extension WarmupVC: WarmupViewProtocol {
         minutesPassedItem?.title = text
         progressRing?.startProgress(to: CGFloat(seconds), duration: 0.2)
     }
-    
 }
 
 //MARK:- Answer Delegate
@@ -166,7 +157,6 @@ extension WarmupVC: WarmupQuestionVCAnswerDelegate {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
             self?.pageVC.next()
         }
-        
     }
 }
 

@@ -10,7 +10,6 @@ import UIKit
 
 //MARK:- View Protocol
 protocol RatingViewProtocol: UIViewController {
-    var configurator: RatingConfiguratorProtocol! { get }
     var presenter: RatingPresenterProtocol! { get set }
     
     func reloadRatingList()
@@ -18,22 +17,28 @@ protocol RatingViewProtocol: UIViewController {
     func endLoadingAnimation()
     func startLoadingAnimation()
     
-    func configureTableView()
+    func configure()
+    func setHeaderLabelContent(city: String, leagueComment: String, ratingScopeComment: String)
 }
 
 class RatingVC: UIViewController {
-    let configurator: RatingConfiguratorProtocol! = RatingConfigurator()
     var presenter: RatingPresenterProtocol!
     
-    @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var expandingHeader: ExpandingHeader!
+    @IBOutlet private weak var tableView: UITableView! {
+        didSet {
+            tableView.delegate = self
+            tableView.dataSource = self
+            tableView.allowsSelection = false
+            tableView.refreshControl = UIRefreshControl(tintColor: .lemon, target: self, action: #selector(refreshControlTriggered))
+        }
+    }
     
     //MARK:- Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        configurator.configure(self)
-        presenter.configureViews()
-
+        RatingConfigurator().configure(self)
+        presenter.viewDidLoad(self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -50,7 +55,6 @@ class RatingVC: UIViewController {
     private func refreshControlTriggered() {
         presenter.handleRefreshControl()
     }
-
 }
 
 //MARK:- Protocol Implementation
@@ -61,9 +65,11 @@ extension RatingVC: RatingViewProtocol {
     
     func appendRaingItems(at indices: Range<Int>) {
         let indexPaths = indices.map { IndexPath(row: $0, section: 0) }
+        UIView.setAnimationsEnabled(false)
         tableView.beginUpdates()
-        tableView.insertRows(at: indexPaths, with: .automatic)
+        tableView.insertRows(at: indexPaths, with: .none)
         tableView.endUpdates()
+        UIView.setAnimationsEnabled(true)
     }
     
     func endLoadingAnimation() {
@@ -77,16 +83,18 @@ extension RatingVC: RatingViewProtocol {
         tableView.tableFooterView?.isHidden = false
     }
     
-    func configureTableView() {
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.allowsSelection = false
-        
-        configureRefreshControl(tableView, tintColor: .lemon, action: #selector(refreshControlTriggered))
-        
-        expandingHeader.configure(self, selectedScope: presenter.filter.scope.rawValue, selectedGameType: presenter.availableGameTypeNames.first!)
+    func configure() {
+        expandingHeader.delegate = self
+        expandingHeader.dataSource = self
     }
     
+    func setHeaderLabelContent(city: String, leagueComment: String, ratingScopeComment: String) {
+        expandingHeader.setFooterContent(
+            city: city,
+            gameType: leagueComment,
+            season: ratingScopeComment
+        )
+    }
 }
 
 //MARK:- ExpandingHeaderDelegate
@@ -94,7 +102,6 @@ extension RatingVC: ExpandingHeaderDelegate {
     func didPressGameTypeView(in expandingHeader: ExpandingHeader, completion: @escaping (String?) -> Void) {
         showChooseItemActionSheet(itemNames: presenter.availableGameTypeNames) { [unowned self] (selectedName, index) in
             self.presenter.didChangeLeague(index)
-            
             completion(selectedName)
         }
     }
@@ -108,7 +115,7 @@ extension RatingVC: ExpandingHeaderDelegate {
     }
     
     func expandingHeader(_ expandingHeader: ExpandingHeader, didEndSearchingWith query: String) {
-        presenter.searchByTeamName(query)
+        presenter.didHideKeyboard(with: query)
     }
     
     func expandingHeader(_ expandingHeader: ExpandingHeader, didChange query: String) {
@@ -116,7 +123,26 @@ extension RatingVC: ExpandingHeaderDelegate {
     }
     
     func expandingHeader(_ expandingHeader: ExpandingHeader, didPressReturnButtonWith query: String) {
-        presenter.searchByTeamName(query)
+        presenter.didPressSearchButton(with: query)
+    }
+}
+
+//MARK:- ExpandingHeaderDataSource
+extension RatingVC: ExpandingHeaderDataSource {
+    func numberOfSegmentControlItems(in expandingHeader: ExpandingHeader) -> Int {
+        return presenter.availableFilters.count
+    }
+    
+    func expandingHeaderSelectedSegmentIndex(_ expandingHeader: ExpandingHeader) -> Int {
+        presenter.filter.scope.rawValue
+    }
+    
+    func expandingHeader(_ expandingHeader: ExpandingHeader, titleForSegmentAtIndex segmentIndex: Int) -> String {
+        presenter.availableFilters[segmentIndex].title
+    }
+    
+    func expandingHeaderInitialSelectedGameType(_ expandingHeader: ExpandingHeader) -> String {
+        presenter.availableGameTypeNames.first ?? ""
     }
 }
 
@@ -144,5 +170,4 @@ extension RatingVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    
 }

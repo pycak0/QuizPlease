@@ -10,7 +10,6 @@ import UIKit
 
 //MARK:- View Protocol
 protocol HomeGameViewProtocol: UIViewController {
-    var configurator: HomeGameConfiguratorProtocol { get }
     var presenter: HomeGamePresenterProtocol! { get set }
     
     func congigureCollectionView()
@@ -19,7 +18,6 @@ protocol HomeGameViewProtocol: UIViewController {
 }
 
 class HomeGamesListVC: UIViewController {
-    let configurator: HomeGameConfiguratorProtocol = HomeGameConfigurator()
     var presenter: HomeGamePresenterProtocol!
 
     @IBOutlet weak var headerView: UIView!
@@ -28,7 +26,7 @@ class HomeGamesListVC: UIViewController {
     //MARK:- Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        configurator.configure(view: self)
+        HomeGameConfigurator().configure(self)
         presenter.configureViews()
 
     }

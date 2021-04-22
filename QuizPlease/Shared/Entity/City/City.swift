@@ -12,3 +12,7 @@ struct City: Codable {
     var id: Int
     var title: String
 }
+
+extension City {
+    static let moscow = City(id: 9, title: "Москва")
+}
