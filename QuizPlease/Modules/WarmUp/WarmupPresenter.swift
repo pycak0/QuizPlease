@@ -45,6 +45,8 @@ class WarmupPresenter: WarmupPresenterProtocol {
         }
     }
     
+    var timestamp: Date = Date()
+    
     private var timer: Timer?
     
     required init(view: WarmupViewProtocol, interactor: WarmupInteractorProtocol, router: WarmupRouterProtocol) {
@@ -104,6 +106,7 @@ class WarmupPresenter: WarmupPresenterProtocol {
     
     //MARK:- Private
     private func startTimer() {
+        timestamp = Date()
         let interval: Double = 1
         timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { t in
             self.timePassed += interval
@@ -113,6 +116,10 @@ class WarmupPresenter: WarmupPresenterProtocol {
     private func stopTimer() {
         timer?.invalidate()
         timer = nil
+        
+        let timeElapsed: Double = Date().timeIntervalSince(timestamp)
+        print(timeElapsed)
+        print(timePassed)
     }
     
 }
