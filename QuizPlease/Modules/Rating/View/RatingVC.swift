@@ -78,8 +78,7 @@ extension RatingVC: RatingViewProtocol {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.allowsSelection = false
-        
-        configureRefreshControl(tableView, tintColor: .lemon, action: #selector(refreshControlTriggered))
+        tableView.refreshControl = UIRefreshControl(tintColor: .lemon, target: self, action: #selector(refreshControlTriggered))
         expandingHeader.delegate = self
         expandingHeader.dataSource = self
     }

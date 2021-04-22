@@ -135,8 +135,7 @@ extension ScheduleVC: ScheduleViewProtocol {
     func configure() {
         tableView.delegate = self
         tableView.dataSource = self
-        
-        configureRefreshControl(tableView, tintColor: .systemBlue, action: #selector(refreshControlTriggered))
+        tableView.refreshControl = UIRefreshControl(tintColor: .systemBlue, target: self, action: #selector(refreshControlTriggered))
         configureNoGamesText()
     }
     
