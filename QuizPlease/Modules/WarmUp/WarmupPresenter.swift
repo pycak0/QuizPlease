@@ -100,7 +100,6 @@ class WarmupPresenter: WarmupPresenterProtocol {
         if let viewController = view, let image = UIApplication.shared.makeSnapshot() {
             interactor.shareResults(image, delegate: viewController)
         }
-        
     }
     
     //MARK:- Private
