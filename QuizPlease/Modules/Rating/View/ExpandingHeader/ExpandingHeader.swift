@@ -49,7 +49,7 @@ public class ExpandingHeader: UIView {
     }
 
     public func setFooterContent(city: String, gameType: String, season: String) {
-        footLabel.text = "Рейтинг '\(gameType)' \(season) в городе: \(city)"
+        footLabel.text = "Рейтинг \(gameType) \(season) в городе: \(city)"
     }
     
     //MARK:- Set Expanded

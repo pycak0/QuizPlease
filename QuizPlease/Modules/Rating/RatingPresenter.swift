@@ -115,7 +115,7 @@ class RatingPresenter: RatingPresenterProtocol {
     private func updateHeaderContent() {
         view?.setHeaderLabelContent(
             city: filter.city.title,
-            league: filter.league.name,
+            leagueComment: filter.league.comment,
             ratingScopeComment: filter.scope.comment
         )
     }

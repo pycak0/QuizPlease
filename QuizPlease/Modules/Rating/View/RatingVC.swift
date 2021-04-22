@@ -18,7 +18,7 @@ protocol RatingViewProtocol: UIViewController {
     func startLoadingAnimation()
     
     func configure()
-    func setHeaderLabelContent(city: String, league: String, ratingScopeComment: String)
+    func setHeaderLabelContent(city: String, leagueComment: String, ratingScopeComment: String)
 }
 
 class RatingVC: UIViewController {
@@ -88,10 +88,10 @@ extension RatingVC: RatingViewProtocol {
         expandingHeader.dataSource = self
     }
     
-    func setHeaderLabelContent(city: String, league: String, ratingScopeComment: String) {
+    func setHeaderLabelContent(city: String, leagueComment: String, ratingScopeComment: String) {
         expandingHeader.setFooterContent(
             city: city,
-            gameType: league,
+            gameType: leagueComment,
             season: ratingScopeComment
         )
     }

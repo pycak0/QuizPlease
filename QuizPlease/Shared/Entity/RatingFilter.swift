@@ -48,6 +48,21 @@ struct RatingFilter {
                 return "Стримы"
             }
         }
+        
+        var comment: String {
+            switch self {
+            case .classic:
+                return "классических игр"
+            case .movieAndMusic:
+                return "кино-музыкальных"
+            case .teens:
+                return "игр Teens"
+            case .englishPlease:
+                return "игр English, please!"
+            case .streams:
+                return "онлайн игр"
+            }
+        }
     }
     
     var city: City = AppSettings.defaultCity
