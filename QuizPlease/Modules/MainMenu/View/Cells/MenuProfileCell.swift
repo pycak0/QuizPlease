@@ -10,6 +10,8 @@ import UIKit
 
 protocol MenuProfileCellDelegate: class {
     func addGameButtonPressed(in cell: MenuProfileCell)
+    
+    func userPoints(in cell: MenuProfileCell) -> Int?
 }
 
 class MenuProfileCell: UITableViewCell, MenuCellItemProtocol {
@@ -44,6 +46,14 @@ class MenuProfileCell: UITableViewCell, MenuCellItemProtocol {
         cellView.layer.cornerRadius = cellViewCornerRadius
     }
     
+    func reloadUserPoints() {
+        if let points = delegate?.userPoints(in: self) {
+            setUserPoints(points)
+        } else {
+            hideUserPoints()
+        }
+    }
+    
     func setUserPoints(_ points: Int) {
         accessoryLabel.text = points.string(withAssociatedMaleWord: "балл")
         accessoryLabel.isHidden = false
@@ -69,5 +79,4 @@ class MenuProfileCell: UITableViewCell, MenuCellItemProtocol {
                                                         height: contentView.bounds.height)), insertAt: 0)
         //gradientView.addGradient(colors: [.yellow, .lightOrange], frame: contentView.bounds)
     }
-    
 }

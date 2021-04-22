@@ -49,11 +49,7 @@ class ProfilePresenter: ProfilePresenterProtocol {
         if AppSettings.userToken == nil {
             router.showAuthScreen()
         } else {
-            if userInfo != nil {
-                updateUserInfo()
-            } else {
-                interactor.loadUserInfo()
-            }
+            interactor.loadUserInfo()
         }
     }
     

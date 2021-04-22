@@ -17,7 +17,7 @@ protocol MainMenuViewProtocol: UIViewController {
     func failureLoadingMenuItems(_ error: Error)
     
     ///if `points` is `nil`, the label will be hidden
-    func updateUserPointsAmount(with points: Int?)
+    func reloadUserPointsAmount()
     
     func reloadShopItems()
 }
@@ -63,7 +63,6 @@ class MainMenuVC: UIViewController {
     @IBAction func cityButtonPressed(_ sender: UIButton) {
         presenter.didSelectCityButton()
     }
-    
 }
 
 //MARK:- View Protocol Implementation
@@ -99,23 +98,18 @@ extension MainMenuVC: MainMenuViewProtocol {
     }
     
     func reloadShopItems() {
-        let indexPath = IndexPath(row: MenuItemKind.shop.rawValue, section: 0)
+        guard let indexPath = presenter.indexPath(for: .shop) else { return }
         if let cell = tableView.cellForRow(at: indexPath) as? MenuShopCell {
             cell.reloadItems()
         }
     }
     
-    func updateUserPointsAmount(with points: Int?) {
-        let indexPath = IndexPath(row: MenuItemKind.profile.rawValue, section: 0)
+    func reloadUserPointsAmount() {
+        guard let indexPath = presenter.indexPath(for: .profile) else { return }
         if let cell = tableView.cellForRow(at: indexPath) as? MenuProfileCell {
-            if let points = points {
-                cell.setUserPoints(points)
-            } else {
-                cell.hideUserPoints()
-            }
+            cell.reloadUserPoints()
         }
     }
-    
 }
 
 //MARK:- PickCityVCDelegate
@@ -127,10 +121,13 @@ extension MainMenuVC: PickCityVCDelegate {
 
 //MARK:- MenuProfileCellDelegate
 extension MainMenuVC: MenuProfileCellDelegate {
+    func userPoints(in cell: MenuProfileCell) -> Int? {
+        presenter.userPointsAmount()
+    }
+    
     func addGameButtonPressed(in cell: MenuProfileCell) {
         presenter.didPressAddGame()
     }
-
 }
 
 
@@ -147,12 +144,15 @@ extension MainMenuVC: UITableViewDataSource {
         let menuItem = items[indexPath.row]
         
         cell.configureCell(with: menuItem)
-        (cell as? MenuProfileCell)?.delegate = self
         (cell as? MenuShopCell)?.registerCollectoinView(self)
+        
+        if let profileCell = cell as? MenuProfileCell {
+            profileCell.delegate = self
+            profileCell.reloadUserPoints()
+        }
         
         return cell
     }
-    
 }
 
 //MARK:- Delegate
@@ -188,5 +188,4 @@ extension MainMenuVC: UITableViewDelegate {
             cell.scaleOut()
         }
     }
-    
 }

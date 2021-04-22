@@ -16,8 +16,8 @@ protocol MainMenuInteractorProtocol: class {
     func loadUserInfo()
     func loadShopItems()
     
-    ///Loads new client settings, then calls `loadMenuItems` and `loadShopItems`
-    func updateClientSettingsAndMenu()
+    ///Loads new client settings, then calls `loadMenuItems`, `loadShopItems` and `loadUserInfo`
+    func updateAllData()
 }
 
 protocol MainMenuInteractorOutput: class {
@@ -71,10 +71,11 @@ class MainMenuInteractor: MainMenuInteractorProtocol {
         }
     }
     
-    func updateClientSettingsAndMenu() {
+    func updateAllData() {
         Utilities.main.fetchClientSettings { settings, error in
             self.loadMenuItems()
             self.loadShopItems()
+            self.loadUserInfo()
         }
     }
     

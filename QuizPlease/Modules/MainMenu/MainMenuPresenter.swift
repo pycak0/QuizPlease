@@ -25,6 +25,9 @@ protocol MainMenuPresenterProtocol: class {
     func didPressAddGame()
     func didAddNewGame(with info: String)
     func didPressMenuRemindButton()
+    
+    func userPointsAmount() -> Int?
+    func indexPath(for menuItemKind: MenuItemKind) -> IndexPath?
 }
 
 class MainMenuPresenter: MainMenuPresenterProtocol {
@@ -75,7 +78,7 @@ class MainMenuPresenter: MainMenuPresenterProtocol {
     func didChangeDefaultCity(_ newCity: City) {
         AppSettings.defaultCity = newCity
         view?.updateCityName(with: newCity.title)
-        interactor.updateClientSettingsAndMenu()
+        interactor.updateAllData()
     }
     
     func didPressAddGame() {
@@ -86,7 +89,6 @@ class MainMenuPresenter: MainMenuPresenterProtocol {
                 router.showMenuSection(item, sender: userInfo)
             }
         }
-        
     }
     
     func didAddNewGame(with info: String) {
@@ -95,6 +97,17 @@ class MainMenuPresenter: MainMenuPresenterProtocol {
     
     func didPressMenuRemindButton() {
         //
+    }
+    
+    func userPointsAmount() -> Int? {
+        userInfo?.pointsAmount
+    }
+    
+    func indexPath(for menuItemKind: MenuItemKind) -> IndexPath? {
+        if let index = menuItems?.firstIndex(where: { $0._kind == menuItemKind }) {
+            return IndexPath(row: index, section: 0)
+        }
+        return nil
     }
 }
 
@@ -107,7 +120,7 @@ extension MainMenuPresenter: MainMenuInteractorOutput {
     
     func interactor(_ interactor: MainMenuInteractorProtocol, didLoadUserInfo userInfo: UserInfo) {
         self.userInfo = userInfo
-        view?.updateUserPointsAmount(with: userInfo.pointsAmount)
+        view?.reloadUserPointsAmount()
     }
     
     func interactor(_ interactor: MainMenuInteractorProtocol, didLoadShopItems shopItems: [ShopItem]) {
@@ -127,7 +140,8 @@ extension MainMenuPresenter: MainMenuInteractorOutput {
         print(error)
         switch error {
         case .invalidToken:
-            view?.updateUserPointsAmount(with: nil)
+            userInfo = nil
+            view?.reloadUserPointsAmount()
         default:
             break
         }
