@@ -19,6 +19,13 @@ class NetworkService {
         urlComps.queryItems = nil
         return urlComps
     }
+    
+    private func createBearerAuthHeader() -> (key: String, value: String)? {
+        guard let userToken = AppSettings.userToken else {
+            return nil
+        }
+        return ("Authorization", "Bearer \(userToken)")
+    }
         
     ///
     //MARK:- GET REQUESTS =======
@@ -27,15 +34,13 @@ class NetworkService {
     
     //MARK:- User Info
     func getUserInfo(completion: @escaping ((Result<UserInfo, SessionError>) -> Void)) {
-        guard let token = AppSettings.userToken else {
+        guard let auth = createBearerAuthHeader() else {
             completion(.failure(.invalidToken))
             return
         }
+        let headers = [auth.key : auth.value]
         var userUrlComps = baseUrlComponents
         userUrlComps.path = "/api/users/current"
-        let headers: [String: String] = [
-            "Authorization" : "Bearer \(token)"
-        ]
         getStandard(UserInfo.self, with: userUrlComps, headers: headers, completion: completion)
     }
     
@@ -66,21 +71,26 @@ class NetworkService {
     
     //MARK:- Get Warmup Questions
     func getWarmupQuestions(completion: @escaping (Result<[WarmupQuestion], SessionError>) -> Void) {
+        guard let auth = createBearerAuthHeader() else {
+            completion(.failure(.invalidToken))
+            return
+        }
+        let headers = [auth.key : auth.value]
         var warmupUrlComps = baseUrlComponents
         warmupUrlComps.path = "/api/warmup-question"
-        getStandard([WarmupQuestion].self, with: warmupUrlComps, completion: completion)
+        getStandard([WarmupQuestion].self, with: warmupUrlComps, headers: headers, completion: completion)
     }
     
     //MARK:- Get Rating
     func getRating(cityId: Int, teamName: String, league: Int, ratingScope: Int, page: Int, completion: @escaping (Result<[RatingItem], SessionError>) -> Void) {
         var ratingUrlComponents = baseUrlComponents
         ratingUrlComponents.path = "/api/rating"
-        ratingUrlComponents.queryItems = ([//?.append(contentsOf: [
+        ratingUrlComponents.queryItems = [
             URLQueryItem(name: "city_id", value: "\(cityId)"),
             URLQueryItem(name: "league", value: "\(league)"),
             URLQueryItem(name: "general", value: "\(ratingScope)"),
             URLQueryItem(name: "page", value: "\(page)")
-        ])
+        ]
         if teamName.count > 0 {
             ratingUrlComponents.queryItems?.append(URLQueryItem(name: "teamName", value: teamName))
         }
@@ -268,24 +278,29 @@ class NetworkService {
             }
             
             let response = response as! HTTPURLResponse
+            print("""
+            \n=====
+            [\(Self.self).swift]
+            Response: \(url)
+            Status Code: \(response.statusCode)
+            """)
             guard response.statusCode == 200, let data = data else {
+                print("""
+                Error: either status code != 200, or data is nil
+                =====\n\n
+                """)
                 DispatchQueue.main.async {
                     completion(.failure(.serverError(response.statusCode)))
                 }
                 return
             }
             print("""
-            \n=====
-            [\(Self.self).swift]
-            Response: \(url)
-            Status Code: \(response.statusCode)
             Body:
             \(String(data: data, encoding: .utf8) ?? "JSON error.")
             =====\n\n
             """)
             do {
                 let object = try JSONDecoder().decode(Object.self, from: data)
-                
                 DispatchQueue.main.async {
                     completion(.success(object))
                 }
@@ -305,16 +320,14 @@ class NetworkService {
     
     //MARK:- Push Subscribe
     func subscribePushOnGame(with id: String, completion: @escaping (Result<Bool, SessionError>) -> Void) {
-        guard let token = AppSettings.userToken else {
+        guard let auth = createBearerAuthHeader() else {
             completion(.failure(.invalidToken))
             return
         }
+        let headers = [auth.key : auth.value]
+        let params = ["game_id" : id]
         var urlComps = baseUrlComponents
         urlComps.path = "/api/game/subscribe-notification"
-        let params = [
-            "game_id" : id,
-        ]
-        let headers = ["Authorization" : "Bearer \(token)"]
         afPostStandard(with: params, and: headers, to: urlComps, responseType: PushSubscribeResponse.self) { (postResult) in
             switch postResult {
             case let .failure(error):
@@ -342,30 +355,30 @@ class NetworkService {
     
     //MARK:- Check In On Game
     func checkInOnGame(with qrCode: String, chosenTeamId: Int, completion: @escaping (_ isSuccess: Bool) -> Void) {
-        guard let userToken = AppSettings.userToken else {
+        guard let auth = createBearerAuthHeader() else {
             completion(false)
             return
         }
-        var urlComps = baseUrlComponents
-        urlComps.path = "/api/game/check-qr"
+        let headers = [auth.key : auth.value]
         let params = [
             "token": "\(qrCode)",
             "recordId": "\(chosenTeamId)"
         ]
-        let headers = ["Authorization" : "Bearer \(userToken)"]
+        var urlComps = baseUrlComponents
+        urlComps.path = "/api/game/check-qr"
         afPostBool(with: params, and: headers, to: urlComps, completion: completion)
     }
     
     //MARK:- Get Teams List From QR
     func getTeamsFromQR(_ qrCode: String, completion: @escaping (Result<[TeamInfo], SessionError>) -> Void) {
-        guard let userToken = AppSettings.userToken else {
+        guard let auth = createBearerAuthHeader() else {
             completion(.failure(.invalidToken))
             return
         }
+        let headers = [auth.key : auth.value]
+        let params = ["token" : "\(qrCode)"]
         var urlComps = baseUrlComponents
         urlComps.path = "/api/game/check-qr"
-        let params = ["token" : "\(qrCode)"]
-        let headers = ["Authorization" : "Bearer \(userToken)"]
         afPostStandard(with: params, and: headers, to: urlComps, responseType: CheckInTeamsInfo.self) { (postResult) in
             switch postResult {
             case let .failure(error):
@@ -433,11 +446,11 @@ class NetworkService {
     
     //MARK:- Send Firebase ID
     func sendFirebaseId(_ fcmToken: String) {
-        guard let userToken = AppSettings.userToken else { return }
+        guard let auth = createBearerAuthHeader() else { return }
+        let headers = [auth.key : auth.value]
+        let params = ["device_id" : fcmToken]
         var urlComps = baseUrlComponents
         urlComps.path = "/api/device/create"
-        let params = ["device_id" : fcmToken]
-        let headers = ["Authorization" : "Bearer \(userToken)"]
         afPostStandard(with: params, and: headers, to: urlComps, responseType: [String: String].self) { (postResult) in
             print("Firebase ID sending result:")
             print(postResult)
