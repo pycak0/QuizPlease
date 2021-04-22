@@ -12,17 +12,23 @@ import SafariServices
 extension UIViewController {
     //MARK:- Open Safari VC with link
     ///Opens Safari screen with chosen preset link or any other given
-    func openSafariVC(_ delegate: SFSafariViewControllerDelegate, with url: URL, autoReaderView: Bool = true, barsColor: UIColor? = nil, controlsTintColor: UIColor? = nil, presentationStyle: UIModalPresentationStyle = .overFullScreen) {
+    ///- parameter url: if `nil`, will not open anything
+    func openSafariVC(with url: URL?, delegate: SFSafariViewControllerDelegate?, autoReaderView: Bool = false, barsColor: UIColor! = .purple, controlsColor: UIColor = .white) {
+        guard let url = url else { return }
         
         let config = SFSafariViewController.Configuration()
         config.entersReaderIfAvailable = autoReaderView
         
         let vc = SFSafariViewController(url: url, configuration: config)
         vc.delegate = delegate
-        vc.preferredControlTintColor = controlsTintColor
+        vc.preferredControlTintColor = controlsColor
         vc.preferredBarTintColor = barsColor
-        vc.modalPresentationStyle = presentationStyle
-            
+        if #available(iOS 13.0, *) {
+            vc.modalPresentationStyle = .automatic
+            vc.isModalInPresentation = true
+        } else {
+            vc.modalPresentationStyle = .pageSheet
+        }
         present(vc, animated: true, completion: nil)
     }
 }
