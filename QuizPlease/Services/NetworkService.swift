@@ -12,6 +12,21 @@ import Alamofire
 class NetworkService {
     private init() {}
     
+    enum AuthorizationKind: Equatable {
+        case none, bearer, bearerCustom(_ token: String)
+        
+        var header: (key: String, value: String)? {
+            switch self {
+            case .none:
+                return nil
+            case .bearer:
+                return NetworkService.shared.createBearerAuthHeader()
+            case let .bearerCustom(token):
+                return NetworkService.shared.createBearerAuthHeader(with: token)
+            }
+        }
+    }
+    
     static let shared = NetworkService()
         
     var baseUrlComponents: URLComponents {
@@ -20,8 +35,8 @@ class NetworkService {
         return urlComps
     }
     
-    private func createBearerAuthHeader() -> (key: String, value: String)? {
-        guard let userToken = AppSettings.userToken else {
+    private func createBearerAuthHeader(with token: String? = AppSettings.userToken) -> (key: String, value: String)? {
+        guard let userToken = token else {
             return nil
         }
         return ("Authorization", "Bearer \(userToken)")
@@ -220,18 +235,17 @@ class NetworkService {
         var filterUrlComponents = baseUrlComponents
         filterUrlComponents.path = "/api/game/\(type.rawValue)"
         if let id = cityId {
-            filterUrlComponents.queryItems = ([//?.append(
+            filterUrlComponents.queryItems = [
                 URLQueryItem(name: "city_id", value: "\(id)")
-            ])
+            ]
         }
         getStandard([ScheduleFilterOption].self, with: filterUrlComponents, completion: completion)
-        
     }
     
     //MARK:- Get Standard Server Request
     ///A get request for standard server response containing requested object in `data` field. You should mostly use this method rather than simple `get(:urlComponents:completion:)`.
-    func getStandard<T: Decodable>(_ type: T.Type, with urlComponents: URLComponents, headers: [String: String]? = nil, completion: @escaping ((Result<T, SessionError>) -> Void)) {
-        get(ServerResponse<T>.self, with: urlComponents, headers: headers) { getResult in
+    func getStandard<T: Decodable>(_ type: T.Type, with urlComponents: URLComponents, headers: [String: String]? = nil, authorizationKind: AuthorizationKind = .none, completion: @escaping ((Result<T, SessionError>) -> Void)) {
+        get(ServerResponse<T>.self, with: urlComponents, headers: headers, authorizationKind: authorizationKind) { getResult in
             switch getResult {
             case let .failure(error):
                 completion(.failure(error))
@@ -241,15 +255,16 @@ class NetworkService {
         }
     }
     
-    func get<T: Decodable>(_ type: T.Type, apiPath: String, parameters: [String: String?], headers: [String: String]? = nil, completion: @escaping ((Result<T, SessionError>) -> Void)) {
+    func get<T: Decodable>(_ type: T.Type, apiPath: String, parameters: [String: String?], headers: [String: String]? = nil, authorizationKind: AuthorizationKind = .none, completion: @escaping ((Result<T, SessionError>) -> Void)) {
         var urlComponents = baseUrlComponents
         urlComponents.path = apiPath
         urlComponents.queryItems = parameters.map { URLQueryItem(name: $0, value: $1) }
-        get(type, with: urlComponents, headers: headers, completion: completion)
+        get(type, with: urlComponents, headers: headers, authorizationKind: authorizationKind, completion: completion)
     }
     
     //MARK:- Get Request
-    func get<Object: Decodable>(_ type: Object.Type, with urlComponents: URLComponents, headers: [String: String]? = nil, completion: @escaping ((Result<Object, SessionError>) -> Void)) {
+    ///- parameter authorizationKind: Use this parameter to choose authoriztion kind for the request. Auth info from this parameter will be used for 'Authoriztion' HTTP Header Field, so, if you provide `headers` with authoriztion header, it may be rewritten
+    func get<Object: Decodable>(_ type: Object.Type, with urlComponents: URLComponents, headers: [String: String]? = nil, authorizationKind: AuthorizationKind = .none, completion: @escaping ((Result<Object, SessionError>) -> Void)) {
         guard let url = urlComponents.url else {
             completion(.failure(.invalidUrl))
             return
@@ -257,6 +272,12 @@ class NetworkService {
         var request = URLRequest(url: url)
         for (key, value) in headers ?? [:] {
             request.setValue(value, forHTTPHeaderField: key)
+        }
+        if let auth = authorizationKind.header {
+            request.setValue(auth.value, forHTTPHeaderField: auth.key)
+        } else if authorizationKind != .none {
+            completion(.failure(.invalidToken))
+            return
         }
         let config = URLSessionConfiguration.default
         config.timeoutIntervalForRequest = 15
@@ -534,9 +555,17 @@ class NetworkService {
     //MARK:- Alamofire POST
     func afPost<Response: Decodable>(with parameters: [String: String?], and headers: [String : String]? = nil,
                                      to urlComponents: URLComponents, responseType: Response.Type,
+                                     authorizationKind: AuthorizationKind = .none,
                                      completion: @escaping ((Result<Response, SessionError>) -> Void)) {
         
-        let httpHeaders = headers != nil ? HTTPHeaders(headers!) : nil
+        var headers = headers ?? [:]
+        if let auth = authorizationKind.header {
+            headers[auth.key] = auth.value
+        } else if authorizationKind != .none {
+            completion(.failure(.invalidToken))
+            return
+        }
+        let httpHeaders = headers.isEmpty ? nil : HTTPHeaders(headers)
         AF.upload(multipartFormData: { (multipartFormData) in
             for (key, value) in parameters {
                 if let value = value {
@@ -571,7 +600,7 @@ class NetworkService {
         \n=====
         [\(Self.self).swift]
         afPost request: \(urlComponents.url as Any)
-        Headers: \(headers ?? [:])
+        Headers: \(headers)
         Body parameters: \(parameters)
         =====\n\n
         """)
@@ -610,7 +639,7 @@ class NetworkService {
     
     //MARK:- POST Request
     ///Completion is performed on the main queue
-    func post(_ data: Data, with urlComponents: URLComponents, completion: @escaping ((Result<Data, SessionError>) -> Void)) {
+    func post(_ data: Data, with urlComponents: URLComponents, authorizationKind: AuthorizationKind, completion: @escaping ((Result<Data, SessionError>) -> Void)) {
         guard let url = urlComponents.url else {
             completion(.failure(.invalidUrl))
             return
