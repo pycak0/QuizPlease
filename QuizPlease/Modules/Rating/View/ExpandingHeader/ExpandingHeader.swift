@@ -178,8 +178,6 @@ public class ExpandingHeader: UIView {
     
     //MARK:- Configure Segment Control
     private func configureSegmentControl(color: UIColor) {
-        segmentControl.items = ["За все время", "За сезон"]
-        segmentControl.selectedIndex = 1
         segmentControl.dampingRatio = 0.7
         segmentControl.font = UIFont(name: "Gilroy-Bold", size: 16)
         segmentControl.backgroundColor = color
