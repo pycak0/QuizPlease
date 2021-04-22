@@ -11,7 +11,7 @@ import Foundation
 protocol RatingInteractorProtocol {
     ///must be weak
     var output: RatingInteractorOutput? { get set }
-    func loadRating(with filter: RatingFilter, page: Int)
+    func loadRating(with filter: RatingFilter, page: Int, delay: Double)
     func cancelLoading()
 }
 
@@ -28,9 +28,9 @@ class RatingInteractor: RatingInteractorProtocol {
         timer?.invalidate()
     }
     
-    func loadRating(with filter: RatingFilter, page: Int) {
+    func loadRating(with filter: RatingFilter, page: Int, delay: Double) {
         timer?.invalidate()
-        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { _ in
+        timer = Timer.scheduledTimer(withTimeInterval: delay, repeats: false) { _ in
             self._loadRating(with: filter, page: page)
         }
     }

@@ -94,11 +94,11 @@ class RatingPresenter: RatingPresenterProtocol {
     func searchByTeamName(_ name: String) {
         filter.teamName = name
         //view?.startLoadingAnimation()
-        reloadRating()
+        reloadRating(delay: 0.5)
     }
     
     func viewDidLoad(_ view: RatingViewProtocol) {
-        view.configureTableView()
+        view.configure()
         updateHeaderContent()
         loadRating()
     }
@@ -120,20 +120,24 @@ class RatingPresenter: RatingPresenterProtocol {
         )
     }
     
-    //MARK:- Load
-    ///Resets `currentPage` value to `1`, clears `teams` array and reloads view, then calls `loadRating` method
-    private func reloadRating() {
+    private func resetData() {
         currentPage = firstPageNumber
         teams.removeAll()
         filteredTeams.removeAll()
         view?.reloadRatingList()
-        loadRating()
+    }
+    
+    //MARK:- Load
+    ///Resets `currentPage` value to `1`, clears `teams` array and reloads view, then calls `loadRating` method
+    private func reloadRating(delay: Double = 0) {
+        resetData()
+        loadRating(delay: delay)
     }
     
     ///Calls interactor's `loadRating` method using value of the `currentPage` without changing it
-    private func loadRating() {
+    private func loadRating(delay: Double = 0) {
         view?.startLoadingAnimation()
-        interactor.loadRating(with: filter, page: currentPage)
+        interactor.loadRating(with: filter, page: currentPage, delay: delay)
     }
 }
 

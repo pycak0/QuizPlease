@@ -17,15 +17,22 @@ protocol RatingViewProtocol: UIViewController {
     func endLoadingAnimation()
     func startLoadingAnimation()
     
-    func configureTableView()
+    func configure()
     func setHeaderLabelContent(city: String, league: String, ratingScopeComment: String)
 }
 
 class RatingVC: UIViewController {
     var presenter: RatingPresenterProtocol!
     
-    @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var expandingHeader: ExpandingHeader!
+    @IBOutlet private weak var tableView: UITableView! {
+        didSet {
+            tableView.delegate = self
+            tableView.dataSource = self
+            tableView.allowsSelection = false
+            tableView.refreshControl = UIRefreshControl(tintColor: .lemon, target: self, action: #selector(refreshControlTriggered))
+        }
+    }
     
     //MARK:- Lifecycle
     override func viewDidLoad() {
@@ -58,9 +65,11 @@ extension RatingVC: RatingViewProtocol {
     
     func appendRaingItems(at indices: Range<Int>) {
         let indexPaths = indices.map { IndexPath(row: $0, section: 0) }
+        UIView.setAnimationsEnabled(false)
         tableView.beginUpdates()
-        tableView.insertRows(at: indexPaths, with: .automatic)
+        tableView.insertRows(at: indexPaths, with: .none)
         tableView.endUpdates()
+        UIView.setAnimationsEnabled(true)
     }
     
     func endLoadingAnimation() {
@@ -74,11 +83,7 @@ extension RatingVC: RatingViewProtocol {
         tableView.tableFooterView?.isHidden = false
     }
     
-    func configureTableView() {
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.allowsSelection = false
-        tableView.refreshControl = UIRefreshControl(tintColor: .lemon, target: self, action: #selector(refreshControlTriggered))
+    func configure() {
         expandingHeader.delegate = self
         expandingHeader.dataSource = self
     }
