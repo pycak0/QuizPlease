@@ -15,9 +15,14 @@ protocol WarmupViewProtocol: UIViewController {
     
     func configure()
     func startGame()
+    func showNextQuestion()
+    func highlightCurrentAnswer(isCorrect: Bool)
     func setQuestions()
     func showResults()
     func updatePassedTime(withMinutes minutes: Int, seconds: Int)
+    
+    func enableLoading()
+    func disableLoading()
 }
 
 class WarmupVC: UIViewController {
@@ -36,6 +41,7 @@ class WarmupVC: UIViewController {
     @IBOutlet private weak var minutesLabel: UILabel!
     @IBOutlet private weak var secondsLabel: UILabel!
     @IBOutlet private weak var secondPartsLabel: UILabel!
+    private var activityIndicator = UIActivityIndicatorView()
     
     private weak var pageVC: QuestionPageVC!
             
@@ -131,6 +137,14 @@ extension WarmupVC: WarmupViewProtocol {
         progressRing.isHidden = false
     }
     
+    func highlightCurrentAnswer(isCorrect: Bool) {
+        pageVC.currentViewController?.highlightAnswer(isCorrect: isCorrect)
+    }
+    
+    func showNextQuestion() {
+        pageVC.next()
+    }
+    
     func setQuestions() {
         pageVC.configure(with: presenter.questions, delegate: self)
     }
@@ -146,13 +160,20 @@ extension WarmupVC: WarmupViewProtocol {
         minutesPassedItem?.title = text
         progressRing?.startProgress(to: CGFloat(seconds), duration: 0.2)
     }
+    
+    func enableLoading() {
+        activityIndicator.enableCentered(in: view, color: .systemBlue)
+    }
+    
+    func disableLoading() {
+        activityIndicator.stopAnimating()
+    }
 }
 
 //MARK:- Answer Delegate
 extension WarmupVC: WarmupQuestionVCAnswerDelegate {
     func questionVC(_ vc: WarmupQuestionVC, didSelectAnswer answer: String, forQuestion question: WarmupQuestion) {
         presenter.didAnswer(answer, for: question)
-        vc.highlightAnswer(isCorrect: question.isAnswerCorrect(answer))
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
             self?.pageVC.next()

@@ -50,13 +50,13 @@
 		A40D818624D2CA44006D2CE3 /* ShopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40D818524D2CA44006D2CE3 /* ShopVC.swift */; };
 		A40D818A24D2D24C006D2CE3 /* ScheduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40D818824D2D24C006D2CE3 /* ScheduleCell.swift */; };
 		A40D818B24D2D24C006D2CE3 /* ScheduleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A40D818924D2D24C006D2CE3 /* ScheduleCell.xib */; };
-		A40E2A6A25294B4D00986CCA /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = A40E2A6925294B4D00986CCA /* SwiftPackageProductDependency */; };
+		A40E2A6A25294B4D00986CCA /* UICircularProgressRing in Frameworks */ = {isa = PBXBuildFile; productRef = A40E2A6925294B4D00986CCA /* UICircularProgressRing */; };
 		A40E2A6D25295B4400986CCA /* Snapshotting.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40E2A6C25295B4400986CCA /* Snapshotting.swift */; };
 		A40E2A7025295B7400986CCA /* ShareManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40E2A6F25295B7400986CCA /* ShareManager.swift */; };
 		A40F035D24D412D700C381F2 /* ShopItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40F035B24D412D700C381F2 /* ShopItemCell.swift */; };
 		A40F036224D4187800C381F2 /* UIKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40F036124D4187800C381F2 /* UIKitExtensions.swift */; };
 		A40F036424D419D200C381F2 /* MenuCellItemProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40F036324D419D200C381F2 /* MenuCellItemProtocol.swift */; };
-		A4147AD524E596FC007C131F /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = A4147AD424E596FC007C131F /* SwiftPackageProductDependency */; };
+		A4147AD524E596FC007C131F /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = A4147AD424E596FC007C131F /* IQKeyboardManagerSwift */; };
 		A4147AD724E5B92D007C131F /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4147AD624E5B92D007C131F /* Place.swift */; };
 		A4147AD924E5BAF9007C131F /* MapService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4147AD824E5BAF9007C131F /* MapService.swift */; };
 		A417FA5325711C210064C467 /* UIViewController+SafariVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A417FA5225711C210064C467 /* UIViewController+SafariVC.swift */; };
@@ -64,7 +64,7 @@
 		A41A506E253783DF00EBFA69 /* String+Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = A41A506D253783DF00EBFA69 /* String+Formatting.swift */; };
 		A423AC1B24EE864000071E68 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A423AC1A24EE864000071E68 /* ProfileCell.swift */; };
 		A423AC1D24EE971100071E68 /* ShopItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A423AC1C24EE971100071E68 /* ShopItem.swift */; };
-		A423AC2024EEBA0600071E68 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = A423AC1F24EEBA0600071E68 /* SwiftPackageProductDependency */; };
+		A423AC2024EEBA0600071E68 /* BottomPopup in Frameworks */ = {isa = PBXBuildFile; productRef = A423AC1F24EEBA0600071E68 /* BottomPopup */; };
 		A423AC2224EEBCD600071E68 /* FiltersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A423AC2124EEBCD600071E68 /* FiltersVC.swift */; };
 		A423AC2424EEC65100071E68 /* ConfirmVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A423AC2324EEC65100071E68 /* ConfirmVC.swift */; };
 		A42527C324F06E9300E3FBD4 /* GameFirstPlayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A42527C124F06E9300E3FBD4 /* GameFirstPlayCell.swift */; };
@@ -79,7 +79,7 @@
 		A441A80E253F2834007146D3 /* AnyValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = A441A80D253F2834007146D3 /* AnyValue.swift */; };
 		A4448ED2250EA16C0020686D /* ScheduleFilterOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4448ED1250EA16C0020686D /* ScheduleFilterOption.swift */; };
 		A445C88D25436497003B68E8 /* ShopItemImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A445C88C25436497003B68E8 /* ShopItemImage.swift */; };
-		A445C89125436C9D003B68E8 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = A445C89025436C9D003B68E8 /* SwiftPackageProductDependency */; };
+		A445C89125436C9D003B68E8 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = A445C89025436C9D003B68E8 /* Kingfisher */; };
 		A445E34824DE02BC0070B9FC /* TitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A445E34724DE02BC0070B9FC /* TitleLabel.swift */; };
 		A449B6E125C448BE00382962 /* UIView+Blurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A449B6E025C448BE00382962 /* UIView+Blurable.swift */; };
 		A44A462C24F8EEC500C81F82 /* UIView+Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44A462B24F8EEC500C81F82 /* UIView+Blur.swift */; };
@@ -109,7 +109,7 @@
 		A46436ED24EAD24F0033F23A /* HBSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46436EC24EAD24F0033F23A /* HBSegmentedControl.swift */; };
 		A464370324EB37DB0033F23A /* ExpandingHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = A464370024EB37DB0033F23A /* ExpandingHeader.xib */; };
 		A464370424EB37DB0033F23A /* ExpandingHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A464370124EB37DB0033F23A /* ExpandingHeader.swift */; };
-		A468E12224FD0BE40083ADB2 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = A468E12124FD0BE40083ADB2 /* SwiftPackageProductDependency */; };
+		A468E12224FD0BE40083ADB2 /* InputMask in Frameworks */ = {isa = PBXBuildFile; productRef = A468E12124FD0BE40083ADB2 /* InputMask */; };
 		A468E12424FD37390083ADB2 /* RatingFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A468E12324FD37390083ADB2 /* RatingFilter.swift */; };
 		A469F75924E3084D007FB332 /* ScheduleGameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A469F75824E3084D007FB332 /* ScheduleGameCell.swift */; };
 		A46F303624F5284E0062A333 /* GamePaymentTypeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46F303424F5284E0062A333 /* GamePaymentTypeCell.swift */; };
@@ -131,6 +131,8 @@
 		A4779C7F251618C90064F863 /* GameOrderCompletionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4779C7E251618C90064F863 /* GameOrderCompletionVC.swift */; };
 		A47E06DA261095EC008EBACE /* PromocodeResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47E06D9261095EC008EBACE /* PromocodeResponse.swift */; };
 		A4822F68252CF85A004E05B9 /* GameStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4822F67252CF85A004E05B9 /* GameStatus.swift */; };
+		A4837BCF2636065F00517EC6 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = A4837BCE2636065F00517EC6 /* Keys.plist */; };
+		A4837BD12636086D00517EC6 /* SecurityHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4837BD02636086D00517EC6 /* SecurityHelper.swift */; };
 		A48A11EE24F55F9500F91B9C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A48A11ED24F55F9500F91B9C /* Main.storyboard */; };
 		A48A11F124F56D6900F91B9C /* MenuShopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48A11EF24F56D6900F91B9C /* MenuShopCell.swift */; };
 		A48A11F224F56D6900F91B9C /* MenuShopCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A48A11F024F56D6900F91B9C /* MenuShopCell.xib */; };
@@ -159,7 +161,7 @@
 		A4A065A724E47E510080E0D8 /* Gilroy-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A4A065A624E47E500080E0D8 /* Gilroy-Medium.ttf */; };
 		A4A065AA24E4812F0080E0D8 /* GameGeneralDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A065A824E4812F0080E0D8 /* GameGeneralDescriptionCell.swift */; };
 		A4A065AB24E4812F0080E0D8 /* GameGeneralDescriptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4A065A924E4812F0080E0D8 /* GameGeneralDescriptionCell.xib */; };
-		A4A2647C252BC9D2005C0894 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = A4A2647B252BC9D2005C0894 /* SwiftPackageProductDependency */; };
+		A4A2647C252BC9D2005C0894 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = A4A2647B252BC9D2005C0894 /* Alamofire */; };
 		A4A296C224F6DC2800347EB2 /* AddGameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A296C124F6DC2800347EB2 /* AddGameVC.swift */; };
 		A4A296C424F6E1A700347EB2 /* MainMenuQRDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A296C324F6E1A700347EB2 /* MainMenuQRDelegate.swift */; };
 		A4A5370424EC7691004A10D4 /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A5370324EC7691004A10D4 /* UIColorExtensions.swift */; };
@@ -191,6 +193,7 @@
 		A4D230AA24F9219D00524A01 /* UIImageView+LoadImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D230A924F9219D00524A01 /* UIImageView+LoadImage.swift */; };
 		A4D498CC250264AC00CB70EE /* GameShortInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D498CB250264AC00CB70EE /* GameShortInfo.swift */; };
 		A4D498CE25026AA100CB70EE /* ScheduledGamesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D498CD25026AA100CB70EE /* ScheduledGamesResponse.swift */; };
+		A4D5A395263C72340075ECF3 /* WarmupAnswerResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D5A394263C72340075ECF3 /* WarmupAnswerResponse.swift */; };
 		A4DAF73624DD862500963C15 /* Gilroy-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A4DAF73524DD862500963C15 /* Gilroy-Bold.ttf */; };
 		A4DAF73924DD987F00963C15 /* MenuProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DAF73724DD987F00963C15 /* MenuProfileCell.swift */; };
 		A4DAF73A24DD987F00963C15 /* MenuProfileCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4DAF73824DD987F00963C15 /* MenuProfileCell.xib */; };
@@ -366,6 +369,8 @@
 		A4779C7E251618C90064F863 /* GameOrderCompletionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOrderCompletionVC.swift; sourceTree = "<group>"; };
 		A47E06D9261095EC008EBACE /* PromocodeResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromocodeResponse.swift; sourceTree = "<group>"; };
 		A4822F67252CF85A004E05B9 /* GameStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStatus.swift; sourceTree = "<group>"; };
+		A4837BCE2636065F00517EC6 /* Keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
+		A4837BD02636086D00517EC6 /* SecurityHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityHelper.swift; sourceTree = "<group>"; };
 		A48A11ED24F55F9500F91B9C /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		A48A11EF24F56D6900F91B9C /* MenuShopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuShopCell.swift; sourceTree = "<group>"; };
 		A48A11F024F56D6900F91B9C /* MenuShopCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuShopCell.xib; sourceTree = "<group>"; };
@@ -426,6 +431,7 @@
 		A4D230A924F9219D00524A01 /* UIImageView+LoadImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+LoadImage.swift"; sourceTree = "<group>"; };
 		A4D498CB250264AC00CB70EE /* GameShortInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameShortInfo.swift; sourceTree = "<group>"; };
 		A4D498CD25026AA100CB70EE /* ScheduledGamesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduledGamesResponse.swift; sourceTree = "<group>"; };
+		A4D5A394263C72340075ECF3 /* WarmupAnswerResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarmupAnswerResponse.swift; sourceTree = "<group>"; };
 		A4D9180E261A72F900C4D51E /* Pods_QuizPlease.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_QuizPlease.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4DAF73524DD862500963C15 /* Gilroy-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-Bold.ttf"; sourceTree = "<group>"; };
 		A4DAF73724DD987F00963C15 /* MenuProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuProfileCell.swift; sourceTree = "<group>"; };
@@ -469,13 +475,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				A4361BD8262A0D87002A7B55 /* TMXProfilingConnections.xcframework in Frameworks */,
-				A4A2647C252BC9D2005C0894 /* BuildFile in Frameworks */,
-				A468E12224FD0BE40083ADB2 /* BuildFile in Frameworks */,
+				A4A2647C252BC9D2005C0894 /* Alamofire in Frameworks */,
+				A468E12224FD0BE40083ADB2 /* InputMask in Frameworks */,
 				A4361BD6262A0D85002A7B55 /* TMXProfiling.xcframework in Frameworks */,
-				A445C89125436C9D003B68E8 /* BuildFile in Frameworks */,
-				A423AC2024EEBA0600071E68 /* BuildFile in Frameworks */,
-				A40E2A6A25294B4D00986CCA /* BuildFile in Frameworks */,
-				A4147AD524E596FC007C131F /* BuildFile in Frameworks */,
+				A445C89125436C9D003B68E8 /* Kingfisher in Frameworks */,
+				A423AC2024EEBA0600071E68 /* BottomPopup in Frameworks */,
+				A40E2A6A25294B4D00986CCA /* UICircularProgressRing in Frameworks */,
+				A4147AD524E596FC007C131F /* IQKeyboardManagerSwift in Frameworks */,
 				FF12F985D9FD6405E16CEC39 /* Pods_QuizPlease.framework in Frameworks */,
 				BC35081BEA3D2B8C4E2C71C2 /* Pods_QuizPlease.framework in Frameworks */,
 			);
@@ -506,13 +512,14 @@
 			path = UIView;
 			sourceTree = "<group>";
 		};
-		A40C8083252E872200CE40D8 /* Warmup */ = {
+		A40C8083252E872200CE40D8 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
 				A4D230A724F9203500524A01 /* WarmupQuestion.swift */,
 				A40C8085252E872D00CE40D8 /* WarmupAnswer.swift */,
+				A4D5A394263C72340075ECF3 /* WarmupAnswerResponse.swift */,
 			);
-			path = Warmup;
+			path = Entity;
 			sourceTree = "<group>";
 		};
 		A40D814D24D2C6C1006D2CE3 = {
@@ -539,6 +546,7 @@
 				A4A7E6AB2533C82A00F86947 /* QuizPlease.entitlements */,
 				A40D816724D2C6C2006D2CE3 /* Info.plist */,
 				A4F567E02533C5B10050B5DF /* GoogleService-Info.plist */,
+				A4837BCE2636065F00517EC6 /* Keys.plist */,
 				A40D816D24D2C73D006D2CE3 /* AppDelegates */,
 				A40D816F24D2C767006D2CE3 /* Storyboards */,
 				A40D818C24D2E3DB006D2CE3 /* Services */,
@@ -646,6 +654,7 @@
 		A40D817824D2C99D006D2CE3 /* WarmUp */ = {
 			isa = PBXGroup;
 			children = (
+				A40C8083252E872200CE40D8 /* Entity */,
 				A4E1CFF424F14CF5000F0B22 /* View */,
 				A40B758324D9A7CD006DB7D1 /* WarmupInteractor.swift */,
 				A40B758524D9A7F6006DB7D1 /* WarmupPresenter.swift */,
@@ -667,6 +676,7 @@
 				A48E2FB52530E23800CD6BE6 /* Utilities.swift */,
 				A4C71767254E014E00898CA5 /* PaymentProvider */,
 				A4F3A791257D898A00D6A9C7 /* CameraChecker.swift */,
+				A4837BD02636086D00517EC6 /* SecurityHelper.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -992,7 +1002,6 @@
 				A4B2C3E225013DD5008D5175 /* City */,
 				A472D29125288D4400AA9906 /* Auth */,
 				A48E2FAF2530DBFA00CD6BE6 /* GameOrder */,
-				A40C8083252E872200CE40D8 /* Warmup */,
 				A472D2A4252897BA00AA9906 /* CheckIn */,
 				A48E2FB12530DC2F00CD6BE6 /* UserInfo */,
 				A4068A0024F7DAE2001273B2 /* ServerResponse.swift */,
@@ -1184,12 +1193,12 @@
 			);
 			name = QuizPlease;
 			packageProductDependencies = (
-				A4147AD424E596FC007C131F /* SwiftPackageProductDependency */,
-				A423AC1F24EEBA0600071E68 /* SwiftPackageProductDependency */,
-				A468E12124FD0BE40083ADB2 /* SwiftPackageProductDependency */,
-				A40E2A6925294B4D00986CCA /* SwiftPackageProductDependency */,
-				A4A2647B252BC9D2005C0894 /* SwiftPackageProductDependency */,
-				A445C89025436C9D003B68E8 /* SwiftPackageProductDependency */,
+				A4147AD424E596FC007C131F /* IQKeyboardManagerSwift */,
+				A423AC1F24EEBA0600071E68 /* BottomPopup */,
+				A468E12124FD0BE40083ADB2 /* InputMask */,
+				A40E2A6925294B4D00986CCA /* UICircularProgressRing */,
+				A4A2647B252BC9D2005C0894 /* Alamofire */,
+				A445C89025436C9D003B68E8 /* Kingfisher */,
 			);
 			productName = QuizPlease;
 			productReference = A40D815624D2C6C1006D2CE3 /* QuizPlease.app */;
@@ -1220,12 +1229,12 @@
 			);
 			mainGroup = A40D814D24D2C6C1006D2CE3;
 			packageReferences = (
-				A4147AD324E596FC007C131F /* RemoteSwiftPackageReference */,
-				A423AC1E24EEBA0600071E68 /* RemoteSwiftPackageReference */,
-				A468E12024FD0BE40083ADB2 /* RemoteSwiftPackageReference */,
-				A40E2A6825294B4D00986CCA /* RemoteSwiftPackageReference */,
-				A4A2647A252BC9D2005C0894 /* RemoteSwiftPackageReference */,
-				A445C88F25436C9D003B68E8 /* RemoteSwiftPackageReference */,
+				A4147AD324E596FC007C131F /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
+				A423AC1E24EEBA0600071E68 /* XCRemoteSwiftPackageReference "BottomPopup" */,
+				A468E12024FD0BE40083ADB2 /* XCRemoteSwiftPackageReference "input-mask-ios" */,
+				A40E2A6825294B4D00986CCA /* XCRemoteSwiftPackageReference "UICircularProgressRing" */,
+				A4A2647A252BC9D2005C0894 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				A445C88F25436C9D003B68E8 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = A40D815724D2C6C1006D2CE3 /* Products */;
 			projectDirPath = "";
@@ -1253,6 +1262,7 @@
 				A4DAF73A24DD987F00963C15 /* MenuProfileCell.xib in Resources */,
 				A40D816324D2C6C2006D2CE3 /* Assets.xcassets in Resources */,
 				A4A5DE932501975A00EBC408 /* FilterView.xib in Resources */,
+				A4837BCF2636065F00517EC6 /* Keys.plist in Resources */,
 				A4DAF74824DDCCAD00963C15 /* MenuRatingCell.xib in Resources */,
 				A4FB0486251790CD00054DE4 /* GOCPeopleNumberCell.xib in Resources */,
 				A452E3B224D428DA002EE514 /* ShopItemCell.xib in Resources */,
@@ -1377,6 +1387,7 @@
 				A40B759C24D9A868006DB7D1 /* RatingInteractor.swift in Sources */,
 				A40F036224D4187800C381F2 /* UIKitExtensions.swift in Sources */,
 				A450E39F24E5729200C49AEE /* GameOrderConfigurator.swift in Sources */,
+				A4D5A395263C72340075ECF3 /* WarmupAnswerResponse.swift in Sources */,
 				A40B758224D9A76F006DB7D1 /* ScheduleConfigurator.swift in Sources */,
 				A4BA1CEC24D8338B00D32ADC /* MainMenuPresenter.swift in Sources */,
 				A477164F261B3D580037A69A /* PaymentOption.swift in Sources */,
@@ -1489,6 +1500,7 @@
 				A48E2FBC253330D900CD6BE6 /* DeliveryMethod.swift in Sources */,
 				A4CC5FC724DACE2D0042B41C /* ShopConfigurator.swift in Sources */,
 				A472D2AD2528A89100AA9906 /* AuthVC.swift in Sources */,
+				A4837BD12636086D00517EC6 /* SecurityHelper.swift in Sources */,
 				A40C807B252E7E7900CE40D8 /* DefaultsManager.swift in Sources */,
 				A450E3A524E57A8C00C49AEE /* GameInfoItemKind.swift in Sources */,
 				A4E675F7255DB4AB0011A801 /* String+Validating.swift in Sources */,
@@ -1715,7 +1727,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		A40E2A6825294B4D00986CCA /* RemoteSwiftPackageReference */ = {
+		A40E2A6825294B4D00986CCA /* XCRemoteSwiftPackageReference "UICircularProgressRing" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/luispadron/UICircularProgressRing";
 			requirement = {
@@ -1723,7 +1735,7 @@
 				minimumVersion = 6.0.0;
 			};
 		};
-		A4147AD324E596FC007C131F /* RemoteSwiftPackageReference */ = {
+		A4147AD324E596FC007C131F /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager";
 			requirement = {
@@ -1731,7 +1743,7 @@
 				minimumVersion = 6.5.6;
 			};
 		};
-		A423AC1E24EEBA0600071E68 /* RemoteSwiftPackageReference */ = {
+		A423AC1E24EEBA0600071E68 /* XCRemoteSwiftPackageReference "BottomPopup" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ergunemr/BottomPopup";
 			requirement = {
@@ -1739,7 +1751,7 @@
 				minimumVersion = 0.6.0;
 			};
 		};
-		A445C88F25436C9D003B68E8 /* RemoteSwiftPackageReference */ = {
+		A445C88F25436C9D003B68E8 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher";
 			requirement = {
@@ -1747,7 +1759,7 @@
 				minimumVersion = 5.15.6;
 			};
 		};
-		A468E12024FD0BE40083ADB2 /* RemoteSwiftPackageReference */ = {
+		A468E12024FD0BE40083ADB2 /* XCRemoteSwiftPackageReference "input-mask-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/RedMadRobot/input-mask-ios";
 			requirement = {
@@ -1755,7 +1767,7 @@
 				minimumVersion = 6.0.0;
 			};
 		};
-		A4A2647A252BC9D2005C0894 /* RemoteSwiftPackageReference */ = {
+		A4A2647A252BC9D2005C0894 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire";
 			requirement = {
@@ -1766,34 +1778,34 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		A40E2A6925294B4D00986CCA /* SwiftPackageProductDependency */ = {
+		A40E2A6925294B4D00986CCA /* UICircularProgressRing */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = A40E2A6825294B4D00986CCA /* RemoteSwiftPackageReference */;
+			package = A40E2A6825294B4D00986CCA /* XCRemoteSwiftPackageReference "UICircularProgressRing" */;
 			productName = UICircularProgressRing;
 		};
-		A4147AD424E596FC007C131F /* SwiftPackageProductDependency */ = {
+		A4147AD424E596FC007C131F /* IQKeyboardManagerSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = A4147AD324E596FC007C131F /* RemoteSwiftPackageReference */;
+			package = A4147AD324E596FC007C131F /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
 			productName = IQKeyboardManagerSwift;
 		};
-		A423AC1F24EEBA0600071E68 /* SwiftPackageProductDependency */ = {
+		A423AC1F24EEBA0600071E68 /* BottomPopup */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = A423AC1E24EEBA0600071E68 /* RemoteSwiftPackageReference */;
+			package = A423AC1E24EEBA0600071E68 /* XCRemoteSwiftPackageReference "BottomPopup" */;
 			productName = BottomPopup;
 		};
-		A445C89025436C9D003B68E8 /* SwiftPackageProductDependency */ = {
+		A445C89025436C9D003B68E8 /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = A445C88F25436C9D003B68E8 /* RemoteSwiftPackageReference */;
+			package = A445C88F25436C9D003B68E8 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
 		};
-		A468E12124FD0BE40083ADB2 /* SwiftPackageProductDependency */ = {
+		A468E12124FD0BE40083ADB2 /* InputMask */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = A468E12024FD0BE40083ADB2 /* RemoteSwiftPackageReference */;
+			package = A468E12024FD0BE40083ADB2 /* XCRemoteSwiftPackageReference "input-mask-ios" */;
 			productName = InputMask;
 		};
-		A4A2647B252BC9D2005C0894 /* SwiftPackageProductDependency */ = {
+		A4A2647B252BC9D2005C0894 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = A4A2647A252BC9D2005C0894 /* RemoteSwiftPackageReference */;
+			package = A4A2647A252BC9D2005C0894 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
 		};
 /* End XCSwiftPackageProductDependency section */

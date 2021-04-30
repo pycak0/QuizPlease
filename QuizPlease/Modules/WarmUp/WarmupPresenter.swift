@@ -84,13 +84,9 @@ class WarmupPresenter: WarmupPresenterProtocol {
     
     func didAnswer(_ answer: String, for question: WarmupQuestion) {
         //guard questions.contains { $0 == question }
-        if question.isAnswerCorrect(answer) {
-            correctAnswersCount += 1
-        } else {
-            timePassed += 15
-        }
-        let id = "\(question.id)"
-        interactor.saveQuestionId(id)
+        guard let answer = question.answers.first(where: { $0.value == answer }) else { return }
+        view?.enableLoading()
+        interactor.checkAnswerWithId(answer.id, forQuestionWithId: question.id)
     }
     
     func gameEnded() {
@@ -122,4 +118,26 @@ class WarmupPresenter: WarmupPresenterProtocol {
         print(timePassed)
     }
     
+}
+
+//MARK:- WarmupInteractorOutput
+extension WarmupPresenter: WarmupInteractorOutput {
+    func interactor(_ interactor: WarmupInteractorProtocol, isAnswerCorrect: Bool, answerId: Int, questionId: String) {
+        view?.disableLoading()
+        view?.highlightCurrentAnswer(isCorrect: isAnswerCorrect)
+        if isAnswerCorrect {
+            correctAnswersCount += 1
+        } else {
+            timePassed += 15
+        }
+        interactor.saveQuestionId("\(questionId)")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            self.view?.showNextQuestion()
+        }
+    }
+    
+    func interactor(_ interactor: WarmupInteractorProtocol, failedToCheckAnswer answerId: Int, questionId: String, error: SessionError) {
+        view?.disableLoading()
+        view?.showErrorConnectingToServerAlert()
+    }
 }

@@ -72,7 +72,7 @@ class MainMenuInteractor: MainMenuInteractorProtocol {
     }
     
     func updateAllData() {
-        Utilities.main.fetchClientSettings { settings, error in
+        Utilities.main.fetchClientSettings { _ in
             self.loadMenuItems()
             self.loadShopItems()
             self.loadUserInfo()

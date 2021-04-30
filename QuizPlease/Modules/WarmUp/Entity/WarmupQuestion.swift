@@ -13,7 +13,7 @@ enum WarmupQuestionType: Int, CaseIterable, Decodable {
 }
 
 struct WarmupQuestion {
-    var id: Double
+    var id: String
     var question: String?
     var answers: [WarmupAnswer]
     
@@ -57,11 +57,6 @@ struct WarmupQuestion {
         return nil
     }
     
-    ///Returns `true` if the given answer was correct
-    func isAnswerCorrect(_ answer: String) -> Bool {
-        return answers.contains(where: { $0.value == answer && $0.correct })
-    }
-    
     private func buildUrl(from path: String?) -> URL? {
         guard let path = path else { return nil }
         var urlComps = NetworkService.shared.baseUrlComponents // URLComponents(string: Configuration.prod.host)
@@ -81,8 +76,12 @@ extension WarmupQuestion: Decodable {
         question = try container.decode(String.self, forKey: .question)
         
         let answerString = try container.decode(String.self, forKey: .answers)
-        answers = try JSONDecoder().decode([WarmupAnswer].self, from: Data(answerString.utf8))
+        let answerArray = try JSONDecoder().decode([String].self, from: Data(answerString.utf8))
+        answers = []
+        for (index, answer) in answerArray.enumerated() {
+            answers.append(WarmupAnswer(value: answer, id: index))
+        }
         file = try container.decode(String.self, forKey: .file)
-        id = try container.decode(Double.self, forKey: .id)
+        id = try container.decode(String.self, forKey: .id)
     }
 }

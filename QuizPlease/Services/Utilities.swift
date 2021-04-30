@@ -40,7 +40,7 @@ class Utilities {
             }
             
         } else {
-            print("no info found")
+            print("Error updating user token: no info found")
             completion?()
         }
     }
@@ -58,17 +58,17 @@ class Utilities {
         }
     }
     
-    func fetchClientSettings(completion: ((ClientSettings?, SessionError?) -> Void)? = nil) {
+    func fetchClientSettings(completion: ((Result<ClientSettings, SessionError>) -> Void)? = nil) {
         NetworkService.shared.getSettings(cityId: AppSettings.defaultCity.id) { (result) in
             switch result {
             case let .failure(error):
                 print(error)
-                completion?(nil, error)
+                completion?(.failure(error))
             case let .success(settings):
                 AppSettings.isShopEnabled = settings.isShopEnabled
                 AppSettings.isProfileEnabled = settings.isProfileEnabled
                 DefaultsManager.shared.saveClientSettings(settings)
-                completion?(settings, nil)
+                completion?(.success(settings))
             }
         }
     }

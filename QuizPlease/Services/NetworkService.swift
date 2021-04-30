@@ -359,6 +359,23 @@ class NetworkService {
         }
     }
     
+    //MARK:- Send Warmup Answer
+    func sendWarmupAnswer(questionId: String, answerId: Int, completion: @escaping (Result<WarmupAnswerResponse, SessionError>) -> Void) {
+        guard let auth = createBearerAuthHeader() else {
+            completion(.failure(.invalidToken))
+            return
+        }
+        let headers = [auth.key : auth.value]
+        var warmupUrlComps = baseUrlComponents
+        warmupUrlComps.path = "/api/warmup-question/send-answer"
+        warmupUrlComps.queryItems = [
+            URLQueryItem(name: "question_id", value: questionId)
+        ]
+        let parameters = [
+            "answer" : "\(answerId)"
+        ]
+        afPostStandard(with: parameters, and: headers, to: warmupUrlComps, responseType: WarmupAnswerResponse.self, completion: completion)
+    }
     
     //MARK:- Purchase Product
     func purchaseProduct(with id: String, deliveryMethod: DeliveryMethod, email: String, completion: @escaping (_ isSuccess: Bool) -> Void) {
