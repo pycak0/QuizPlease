@@ -57,6 +57,13 @@ class AddGameVC: UIViewController {
             showSimpleAlert(title: "Команда не выбрана", message: "Пожалуйста, выберите команду, за которую Вы играли")
             return
         }
+        guard gameInfo?.placeInfo.cityName == AppSettings.defaultCity.title else {
+            showSimpleAlert(
+                title: "Город игры не совпадает",
+                message: "Город, в котором проводилась игра, должен совпадать с городом, который указан на главном экране приложения"
+            )
+            return
+        }
         checkUserLocation { isSatisfactory in
             guard let isClose = isSatisfactory else {
                 self.showSimpleAlert(title: "Не удалось проверить геолокацию")
@@ -138,7 +145,7 @@ class AddGameVC: UIViewController {
         gameNameLabel.text = gameInfo?.nameGame ?? "-"
         gameNumberLabel.text = gameInfo?.gameNumber ?? "#"
         placeNameLabel.text = gameInfo?.placeInfo.title ?? "-"
-        placeAddressLabel.text = gameInfo?.placeInfo.shortAddress  ?? "-"
+        placeAddressLabel.text = gameInfo?.placeInfo.fullAddress  ?? "-"
         
         if let dateStr = gameInfo?.formattedDate, let time = gameInfo?.time {
             timeLabel.text = "\(dateStr) в \(time)"

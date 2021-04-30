@@ -59,6 +59,7 @@ class AuthVC: UIViewController {
         activityIndicator.startAnimating()
         if isCodeSent {
             if let code = smsCode {
+                view.endEditing(true)
                 setViews(hidden: true)
                 auth(with: phoneNumber, smsCode: code)
             } else {
@@ -70,8 +71,6 @@ class AuthVC: UIViewController {
             setViews(hidden: true)
             register(phone: phoneNumber)
         }
-        
-        
     }
     
     //MARK:- Register
@@ -171,7 +170,6 @@ class AuthVC: UIViewController {
     
     private func showIncorrectInputNotification() {
         textFieldView.shakeAnimation()
-
     }
 }
 
@@ -181,6 +179,9 @@ extension AuthVC: TitledTextFieldViewDelegate {
     func textFieldView(_ textFieldView: TitledTextFieldView, didChangeTextField text: String, didCompleteMask isComplete: Bool) {
         if isCodeSent {
             smsCode = text
+            if text.count == 6 {
+                handleInput()
+            }
         } else {
             phoneNumber = isComplete ? text : nil
         }
