@@ -54,7 +54,7 @@ struct RatingFilter {
             case .classic:
                 return "классических игр"
             case .movieAndMusic:
-                return "кино-музыкальных"
+                return "кино-музыкальных игр"
             case .teens:
                 return "игр Teens"
             case .englishPlease:

@@ -60,7 +60,8 @@ class ConfirmVC: BottomPopupViewController {
         descriptionLabel.text = shopItem.description
         titleLabel.text = shopItem.title
         let priceFormatted = shopItem.priceNumber.string(withAssociatedMaleWord: "балл")
-        confirmMessageLabel.text = "Потратить \(priceFormatted) на электронный сертификат?"
+        let title = shopItem.title.trimmingCharacters(in: .whitespacesAndNewlines)
+        confirmMessageLabel.text = "Потратить \(priceFormatted) на «\(title)»?"
         
     }
     

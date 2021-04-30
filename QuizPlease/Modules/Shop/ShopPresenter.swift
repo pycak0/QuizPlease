@@ -106,10 +106,7 @@ class ShopPresenter: ShopPresenterProtocol {
     
     func didAgreeToPurchase(_ item: ShopItem) {
         guard let user = userInfo else {
-            view?.showSimpleAlert(
-                title: "Для совершения покупок необходимо авторизоваться",
-                message: "Вы можете авторизоваться или зарегистрироваться в Личном кабинете"
-            )
+            view?.showNeedsAuthAlert(title: "Для совершения покупок необходимо авторизоваться")
             return
         }
         guard canUser(user, buyItem: item) else {

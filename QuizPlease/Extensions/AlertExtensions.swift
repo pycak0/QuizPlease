@@ -15,10 +15,10 @@ extension UIViewController {
      Use it for displaying supplementary messages e.g. successful url request.
      Default button title is 'OK', also any action can be assigned to the button with the closure.
      */
-    func showSimpleAlert(title: String = "Успешно!", message: String = "", okButtonTitle: String = "OK", okHandler: ((UIAlertAction) -> Void)? = nil) {
+    func showSimpleAlert(title: String = "Успешно!", message: String = "", okButtonTitle: String = "OK", okButtonStyle: UIAlertAction.Style = .default, okHandler: ((UIAlertAction) -> Void)? = nil) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
        // alert.view.tintColor = tintColor
-        let okBtn = UIAlertAction(title: okButtonTitle, style: .default, handler: okHandler)
+        let okBtn = UIAlertAction(title: okButtonTitle, style: okButtonStyle, handler: okHandler)
         alert.addAction(okBtn)
         
         present(alert, animated: true, completion: nil)
@@ -55,11 +55,18 @@ extension UIViewController {
     }
     
     //MARK:- Text Field Alert
-    func showAlertWithTextField(title: String, message: String,
-                                textFieldText: String? = nil, placeholder: String? = nil,
-                                contentType: UITextContentType = .nickname, textAlignment: NSTextAlignment = .left,
-                                cancelTitle: String = "Отмена", cancelHandler: ((UIAlertAction) -> Void)? = nil,
-                                okTitle: String = "OK", okHandler: ((_ textFieldText: String) -> Void)?) {
+    func showAlertWithTextField(
+        title: String,
+        message: String,
+        textFieldText: String? = nil,
+        placeholder: String? = nil,
+        contentType: UITextContentType = .nickname,
+        textAlignment: NSTextAlignment = .left,
+        cancelTitle: String = "Отмена",
+        cancelHandler: ((UIAlertAction) -> Void)? = nil,
+        okTitle: String = "OK",
+        okHandler: ((_ textFieldText: String) -> Void)?
+    ) {
         
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         //alert.view.tintColor = tintColor
@@ -91,6 +98,10 @@ extension UIViewController {
         let okBtn = UIAlertAction(title: "OK", style: .cancel, handler: nil)
         alert.addAction(okBtn)
         present(alert, animated: true, completion: nil)
+    }
+    
+    func showNeedsAuthAlert(title: String = "Ошибка авторизации", message: String = "Вы можете авторизоваться или зарегистрироваться в Личном кабинете") {
+        showSimpleAlert(title: title, message: message, okButtonTitle: "OK", okHandler: nil)
     }
     
     func showChooseItemActionSheet(itemNames: [String], tintColor: UIColor? = .labelAdapted, completion: ((_ selectedName: String, _ index: Int) -> Void)?) {

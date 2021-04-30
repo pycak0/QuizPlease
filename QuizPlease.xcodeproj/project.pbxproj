@@ -221,6 +221,7 @@
 		A4F567E12533C5B10050B5DF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A4F567E02533C5B10050B5DF /* GoogleService-Info.plist */; };
 		A4FB0485251790CD00054DE4 /* GOCPeopleNumberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FB0483251790CD00054DE4 /* GOCPeopleNumberCell.swift */; };
 		A4FB0486251790CD00054DE4 /* GOCPeopleNumberCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4FB0484251790CD00054DE4 /* GOCPeopleNumberCell.xib */; };
+		A4FCBC28263C8F1A0048D382 /* ShopPurchaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FCBC27263C8F1A0048D382 /* ShopPurchaseResponse.swift */; };
 		A4FFA4A924F39F26006A1150 /* GameOrderCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FFA4A824F39F26006A1150 /* GameOrderCellProtocol.swift */; };
 		A4FFA4AB24F3AB1A006A1150 /* GameOrderCellDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FFA4AA24F3AB1A006A1150 /* GameOrderCellDelegates.swift */; };
 		A4FFA4AD24F3AE78006A1150 /* MapExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FFA4AC24F3AE78006A1150 /* MapExtensions.swift */; };
@@ -460,6 +461,7 @@
 		A4F567E02533C5B10050B5DF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A4FB0483251790CD00054DE4 /* GOCPeopleNumberCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GOCPeopleNumberCell.swift; sourceTree = "<group>"; };
 		A4FB0484251790CD00054DE4 /* GOCPeopleNumberCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GOCPeopleNumberCell.xib; sourceTree = "<group>"; };
+		A4FCBC27263C8F1A0048D382 /* ShopPurchaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopPurchaseResponse.swift; sourceTree = "<group>"; };
 		A4FFA4A824F39F26006A1150 /* GameOrderCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOrderCellProtocol.swift; sourceTree = "<group>"; };
 		A4FFA4AA24F3AB1A006A1150 /* GameOrderCellDelegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOrderCellDelegates.swift; sourceTree = "<group>"; };
 		A4FFA4AC24F3AE78006A1150 /* MapExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapExtensions.swift; sourceTree = "<group>"; };
@@ -865,6 +867,7 @@
 				A423AC1C24EE971100071E68 /* ShopItem.swift */,
 				A48E2FBB253330D900CD6BE6 /* DeliveryMethod.swift */,
 				A445C88C25436497003B68E8 /* ShopItemImage.swift */,
+				A4FCBC27263C8F1A0048D382 /* ShopPurchaseResponse.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -1425,6 +1428,7 @@
 				A4A5DE912501907300EBC408 /* GameFormat.swift in Sources */,
 				A4DAF73F24DDABFF00963C15 /* WarmupCell.swift in Sources */,
 				A44A462F24F901ED00C81F82 /* WarmupQuestionVC.swift in Sources */,
+				A4FCBC28263C8F1A0048D382 /* ShopPurchaseResponse.swift in Sources */,
 				A43DB6AF254770F8006E4569 /* ActivityIndicator+Extensions.swift in Sources */,
 				A40689FD24F7D913001273B2 /* SessionError.swift in Sources */,
 				A40D815C24D2C6C1006D2CE3 /* SceneDelegate.swift in Sources */,

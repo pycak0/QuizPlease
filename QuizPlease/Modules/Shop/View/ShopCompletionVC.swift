@@ -67,16 +67,35 @@ class ShopCompletionVC: UIViewController {
             return
         }
         //let isSuccess = false
-        NetworkService.shared.purchaseProduct(with: "\(itemId)", deliveryMethod: method, email: email) {  (isSuccess) in
-            if isSuccess {
-                self.showSimpleAlert(title: "Покупка прошла успешно",
-                                     message: method.message, okButtonTitle: "Завершить") { okAction in
-                    self.delegate?.shopCompletionVC(self, didCompletePurchaseForItem: self.shopItem)
-                    self.navigationController?.popViewController(animated: true)
+        NetworkService.shared.purchaseProduct(with: "\(itemId)", deliveryMethod: method, email: email) { [weak self] (result) in
+            guard let self = self else { return }
+            switch result {
+            case let .failure(error):
+                self.handleError(error)
+            case let .success(response):
+                if response.message == "ok" {
+                    self.showSimpleAlert(
+                        title: "Покупка прошла успешно",
+                        message: method.message,
+                        okButtonTitle: "Завершить"
+                    ) { okAction in
+                        self.delegate?.shopCompletionVC(self, didCompletePurchaseForItem: self.shopItem)
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                } else {
+                    self.showSimpleAlert(title: "Не удалось завершить покупку", message: "Произошла ошибка, но не волнуйтесь, Ваши бонусные баллы не были списаны. Можете попробовать подтвердить заказ ещё раз")
                 }
-            } else {
-                self.showSimpleAlert(title: "Не удалось завершить покупку", message: "Произошла ошибка, но не волнуйтесь, Ваши бонусные баллы не были списаны. Можете попробовать подтвердить заказ ещё раз")
             }
+        }
+    }
+    
+    private func handleError(_ error: SessionError) {
+        print(error)
+        switch error {
+        case .invalidToken:
+            showNeedsAuthAlert(title: "Для совершения покупок необходимо авторизоваться")
+        default:
+            showErrorConnectingToServerAlert()
         }
     }
     

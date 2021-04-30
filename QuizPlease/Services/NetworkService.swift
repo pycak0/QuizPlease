@@ -378,7 +378,12 @@ class NetworkService {
     }
     
     //MARK:- Purchase Product
-    func purchaseProduct(with id: String, deliveryMethod: DeliveryMethod, email: String, completion: @escaping (_ isSuccess: Bool) -> Void) {
+    func purchaseProduct(with id: String, deliveryMethod: DeliveryMethod, email: String, completion: @escaping (Result<ShopPurchaseResponse, SessionError>) -> Void) {
+        guard let auth = createBearerAuthHeader() else {
+            completion(.failure(.invalidToken))
+            return
+        }
+        let headers = [auth.key : auth.value]
         var urlComps = baseUrlComponents
         urlComps.path = "/api/order/buy"
         let params: [String : String] = [
@@ -387,7 +392,7 @@ class NetworkService {
             "email" : email,
             "city_id" : "\(AppSettings.defaultCity.id)"
         ]
-        afPostBool(with: params, to: urlComps, completion: completion)
+        afPostStandard(with: params, and: headers, to: urlComps, responseType: ShopPurchaseResponse.self, completion: completion)
     }
     
     
