@@ -161,8 +161,8 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
                 provider: YooMoneyPaymentProvider(),
                 withSum: paymentSum,
                 description: createPaymentDescription(),
-                delegate: self)
-            
+                delegate: self
+            )
         } else {
             register()
         }
@@ -186,7 +186,9 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
                 if let url = response.link {
                     self.tokenizationModule?.start3dsProcess(requestUrl: url.absoluteString)
                 } else {
-                    self.view?.showSimpleAlert(title: title, message: message)
+                    self.view?.dismiss(animated: true) {
+                        self.view?.showSimpleAlert(title: title, message: message)
+                    }
                     return
                 }
             }
