@@ -9,7 +9,7 @@
 import UIKit
 
 //MARK:- Delegate Protocol
-protocol GameOnlinePaymentCellDelegate: class {
+protocol GameOnlinePaymentCellDelegate: AnyObject {
     ///Initial number of people to set in the cell
     func selectedNumberOfPeople(in cell: GameOnlinePaymentCell) -> Int
     
@@ -25,7 +25,7 @@ protocol GameOnlinePaymentCellDelegate: class {
 }
 
 class GameOnlinePaymentCell: UITableViewCell, GameOrderCellProtocol {
-    static let identifier = "GameOnlinePaymentCell"
+    static let identifier = "\(GameOnlinePaymentCell.self)"
     
     @IBOutlet private weak var countPicker: CountPickerView!
     @IBOutlet private weak var paymentCommentLabel: UILabel!
@@ -67,18 +67,23 @@ class GameOnlinePaymentCell: UITableViewCell, GameOrderCellProtocol {
     override func awakeFromNib() {
         super.awakeFromNib()
         configureCell()
+        updatePicker()
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        updatePicker()
     }
     
     //MARK:- Layout Subviews
     override func layoutSubviews() {
         super.layoutSubviews()
         configureViews()
-        updatePicker()
     }
     
     private func configureCell() {
         countPicker.delegate = self
-        countPicker.buttonsTitleFont = UIFont(name: "Gilroy-SemiBold", size: 16)
+        countPicker.buttonsTitleFont = .gilroySemibold(size: 16)
         countPicker.startCount = 1
     }
     
@@ -111,10 +116,8 @@ class GameOnlinePaymentCell: UITableViewCell, GameOrderCellProtocol {
     
     private func updatePrice(withNumberOfPeople number: Int) {
         let newPrice = _delegate?.sumToPay(in: self, forNumberOfPeople: number) ?? 0
-        //print("\(newPrice)")
        setPrice(newPrice)
     }
-
 }
 
 //MARK:- CountPickViewDelegate

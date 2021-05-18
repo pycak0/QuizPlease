@@ -102,6 +102,7 @@
 		A45241E026547A060058285C /* UITextField+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45241DF26547A060058285C /* UITextField+Extensions.swift */; };
 		A45241E226547A990058285C /* UIView+TapGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45241E126547A990058285C /* UIView+TapGestureRecognizer.swift */; };
 		A45241E426547B660058285C /* UIView+Gradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45241E326547B660058285C /* UIView+Gradient.swift */; };
+		A45241E6265489A70058285C /* UIFont+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45241E5265489A70058285C /* UIFont+Extensions.swift */; };
 		A452E3B224D428DA002EE514 /* ShopItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A452E3B024D428DA002EE514 /* ShopItemCell.xib */; };
 		A452E3B424D431C5002EE514 /* Int+WordBuilding.swift in Sources */ = {isa = PBXBuildFile; fileRef = A452E3B324D431C5002EE514 /* Int+WordBuilding.swift */; };
 		A45488C52513719800992261 /* UIPageViewController+PagingToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45488C42513719700992261 /* UIPageViewController+PagingToggle.swift */; };
@@ -347,6 +348,7 @@
 		A45241DF26547A060058285C /* UITextField+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extensions.swift"; sourceTree = "<group>"; };
 		A45241E126547A990058285C /* UIView+TapGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+TapGestureRecognizer.swift"; sourceTree = "<group>"; };
 		A45241E326547B660058285C /* UIView+Gradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Gradient.swift"; sourceTree = "<group>"; };
+		A45241E5265489A70058285C /* UIFont+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extensions.swift"; sourceTree = "<group>"; };
 		A452E3B024D428DA002EE514 /* ShopItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShopItemCell.xib; sourceTree = "<group>"; };
 		A452E3B324D431C5002EE514 /* Int+WordBuilding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+WordBuilding.swift"; sourceTree = "<group>"; };
 		A45488C42513719700992261 /* UIPageViewController+PagingToggle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIPageViewController+PagingToggle.swift"; sourceTree = "<group>"; };
@@ -702,6 +704,7 @@
 				A40C8080252E857500CE40D8 /* UIView */,
 				A4E675F5255DB49E0011A801 /* String */,
 				A4A5370324EC7691004A10D4 /* UIColorExtensions.swift */,
+				A45241E5265489A70058285C /* UIFont+Extensions.swift */,
 				A40F036124D4187800C381F2 /* UIKitExtensions.swift */,
 				A452E3B324D431C5002EE514 /* Int+WordBuilding.swift */,
 				A4BA1CF424D8874C00D32ADC /* AlertExtensions.swift */,
@@ -1491,6 +1494,7 @@
 				A450E3A324E5735400C49AEE /* GameOrderRouter.swift in Sources */,
 				A423AC1B24EE864000071E68 /* ProfileCell.swift in Sources */,
 				A4BA1CEE24D8347300D32ADC /* MainMenuInteractor.swift in Sources */,
+				A45241E6265489A70058285C /* UIFont+Extensions.swift in Sources */,
 				A47003C8253A4CD0002E8EA2 /* PushSubscribeResponse.swift in Sources */,
 				A46F303624F5284E0062A333 /* GamePaymentTypeCell.swift in Sources */,
 				A40D817E24D2CA1A006D2CE3 /* WarmupVC.swift in Sources */,

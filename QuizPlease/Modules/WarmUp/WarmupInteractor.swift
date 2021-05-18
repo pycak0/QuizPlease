@@ -30,7 +30,7 @@ class WarmupInteractor: WarmupInteractorProtocol {
     weak var output: WarmupInteractorOutput?
     
     func loadQuestions() {
-        NetworkService.shared.getWarmupQuestions { [weak self] serverResult in
+        MockNetworkService.shared.getWarmupQuestions { [weak self] serverResult in
             guard let self = self else { return }
             switch serverResult {
             case let .failure(error):
@@ -76,26 +76,27 @@ class WarmupInteractor: WarmupInteractorProtocol {
     
     func checkAnswerWithId(_ answerId: Int, forQuestionWithId questionId: String) {
         self.output?.interactor(self, isAnswerCorrect: Int.random(in: 0...1) == 1, answerId: answerId, questionId: questionId)
-            
-        NetworkService.shared.sendWarmupAnswer(questionId: questionId, answerId: answerId) { (result) in
-            switch result {
-            case let .failure(error):
-                self.output?.interactor(self, failedToCheckAnswer: answerId, questionId: questionId, error: error)
-            case let .success(answerResponse):
-                self.output?.interactor(self, isAnswerCorrect: answerResponse.message, answerId: answerId, questionId: questionId)
-            }
-        }
+        
+        
+//        NetworkService.shared.sendWarmupAnswer(questionId: questionId, answerId: answerId) { (result) in
+//            switch result {
+//            case let .failure(error):
+//                self.output?.interactor(self, failedToCheckAnswer: answerId, questionId: questionId, error: error)
+//            case let .success(answerResponse):
+//                self.output?.interactor(self, isAnswerCorrect: answerResponse.message, answerId: answerId, questionId: questionId)
+//            }
+//        }
     }
 }
 
-//class MockNetworkService {
-//    private init() {}
-//    static let shared = MockNetworkService()
-//
-//    func getWarmupQuestions(completion: @escaping (Result<[WarmupQuestion], SessionError>) -> Void) {
-//        let path = Bundle.main.path(forResource: "MockWarmupQuestionsData", ofType: "json")!
-//        let data = FileManager.default.contents(atPath: path)!
-//        let response = try! JSONDecoder().decode(ServerResponse<[WarmupQuestion]>.self, from: data)
-//        completion(.success(response.data))
-//    }
-//}
+class MockNetworkService {
+    private init() {}
+    static let shared = MockNetworkService()
+
+    func getWarmupQuestions(completion: @escaping (Result<[WarmupQuestion], SessionError>) -> Void) {
+        let path = Bundle.main.path(forResource: "MockWarmupQuestionsData", ofType: "json")!
+        let data = FileManager.default.contents(atPath: path)!
+        let response = try! JSONDecoder().decode(ServerResponse<[WarmupQuestion]>.self, from: data)
+        completion(.success(response.data))
+    }
+}

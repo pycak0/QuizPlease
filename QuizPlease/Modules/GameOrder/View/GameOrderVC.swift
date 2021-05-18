@@ -179,7 +179,6 @@ extension GameOrderVC: UITableViewDataSource, UITableViewDelegate {
         
         return cell
     }
-    
 }
 
 //MARK:- UIScrollViewDelegate
