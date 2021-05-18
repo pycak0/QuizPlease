@@ -64,7 +64,7 @@ class MenuProfileCell: UITableViewCell, MenuCellItemProtocol {
         accessoryLabel.text = ""
     }
     
-    func configureCell(with model: MenuItemProtocol) {
+    func configureCell(with model: MainMenuItemProtocol) {
         titleLabel.text = model.title
         //accessoryLabel.text = model.supplementaryText
     }

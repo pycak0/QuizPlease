@@ -11,21 +11,28 @@ import UIKit
 //MARK:- View Protocol
 protocol ProfileViewProtocol: UIViewController {
     var presenter: ProfilePresenterProtocol! { get set }
-    func configureViews()
+    func configure()
     func reloadGames()
     func updateUserInfo(with pointsScored: Int)
+    func setCity(_ city: String)
 }
 
 class ProfileVC: UIViewController {
     var presenter: ProfilePresenterProtocol!
 
-    @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var infoHeader: UIView!
     @IBOutlet private weak var gamesCountLabel: UILabel!
     @IBOutlet private weak var totalPointsScoredLabel: UILabel!
     @IBOutlet private weak var showShopButton: UIButton!
     @IBOutlet private weak var addGameButton: ScalingButton!
     @IBOutlet private weak var exitButton: UIBarButtonItem!
+    @IBOutlet private weak var cityLabel: UILabel!
+    @IBOutlet private weak var tableView: UITableView! {
+        didSet {
+            tableView.delegate = self
+            tableView.dataSource = self
+        }
+    }
     
     //`addGameButton` fading helpers
     private var lastOffset: CGFloat = 0
@@ -40,6 +47,11 @@ class ProfileVC: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         presenter.handleViewDidAppear()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        addGradientIfNeeded()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -60,20 +72,26 @@ class ProfileVC: UIViewController {
         presenter.didPressExitButton()
     }
     
+    private func addGradientIfNeeded() {
+        guard infoHeader.layer.sublayers?.first(where: { $0 is CAGradientLayer }) == nil,
+              infoHeader.layer.sublayers?.first(where: { $0 is CAGradientLayer }) == nil
+        else { return }
+        let infoGradFrame = CGRect(
+            x: 0, y: 0,
+            width: view.bounds.width,
+            height: infoHeader.bounds.height
+        )
+        infoHeader.addGradient(colors: [.lemon, .lightOrange], frame: infoGradFrame, insertAt: 0)
+        addGameButton.addGradient(colors: [.lemon, .lightOrange], insertAt: 0)
+    }
 }
 
 //MARK:- View Protocol Implementation
 extension ProfileVC: ProfileViewProtocol {
-    func configureViews() {
-        tableView.delegate = self
-        tableView.dataSource = self
-        
-        infoHeader.addGradient(colors: [.lemon, .lightOrange], insertAt: 0)
+    func configure() {
         totalPointsScoredLabel.layer.cornerRadius = totalPointsScoredLabel.bounds.height / 2
         showShopButton.layer.cornerRadius = showShopButton.bounds.height / 2
-        
         addGameButton.layer.cornerRadius = 20
-        addGameButton.addGradient(colors: [.lemon, .lightOrange], insertAt: 0)
     }
     
     func reloadGames() {
@@ -85,6 +103,10 @@ extension ProfileVC: ProfileViewProtocol {
         totalPointsScoredLabel.text = pointsScored.string(withAssociatedMaleWord: "балл")
         let gamesFormattedCount = gamesCount.string(withAssociatedFirstCaseWord: "игра")
         gamesCountLabel.text = "Вы сходили на \(gamesFormattedCount) и накопили"
+    }
+    
+    func setCity(_ city: String) {
+        cityLabel.text = "Игры, на кототрых Вы зажигали в городе: \(city)"
     }
 }
 
@@ -119,25 +141,22 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: ProfileCell.identifier, for: indexPath) as! ProfileCell
         
         let game = games[indexPath.row]
-        
-        cell.configure( gameName:       game.title,
-                        gameNumber:     game.gameNumber,
-                        teamName:       "",
-                        place:          game.place,
-                        pointsScored:   game.points)
-        
+        cell.configure(
+            gameName:     game.title,
+            gameNumber:   game.gameNumber,
+            teamName:     "",
+            place:        game.place,
+            pointsScored: game.points
+        )
         return cell
     }
-    
 }
-
 
 //MARK:- UIScrollViewDelegate
 extension ProfileVC: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let currentOffset = scrollView.contentOffset.y + scrollView.safeAreaInsets.top
         let isScrollingDown = currentOffset > lastOffset
-        //print(currentOffset)
         
         if isScrollingDown && currentOffset > 10 {
             if startOffset == nil {
@@ -158,7 +177,6 @@ extension ProfileVC: UIScrollViewDelegate {
         }
         
         lastOffset = currentOffset
-
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
@@ -172,6 +190,5 @@ extension ProfileVC: UIScrollViewDelegate {
             self.addGameButton.transform = transform
             self.addGameButton.alpha = alpha
         }
-        
     }
 }

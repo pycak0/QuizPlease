@@ -17,11 +17,11 @@ protocol GameOrderInteractorProtocol {
     func register(with form: RegisterForm, completion: @escaping (_ orderResponse: GameOrderResponse?) -> Void)
     
     func checkCertificate(forGameId id: Int, certificate: String, completion: @escaping (Result<CertificateResponse, SessionError>) -> Void)
-    func checkPromocode(_ promocode: String, forGameWithId id: Int)
+    func checkPromocode(_ promocode: String, teamName: String, forGameWithId id: Int)
 }
 
 //MARK:- Output Protocol
-protocol GameOrderInteractorOutput: class {
+protocol GameOrderInteractorOutput: AnyObject {
     func interactor(_ interactor: GameOrderInteractorProtocol?, didCheckPromocodeWith response: PromocodeResponse)
     func interactor(_ interactor: GameOrderInteractorProtocol?, errorOccured error: SessionError)
 }
@@ -46,11 +46,12 @@ class GameOrderInteractor: GameOrderInteractorProtocol {
         NetworkService.shared.validateCertificate(forGameWithId: id, certificate: certificate, completion: completion)
     }
     
-    func checkPromocode(_ promocode: String, forGameWithId id: Int) {
+    func checkPromocode(_ promocode: String, teamName: String, forGameWithId id: Int) {
         let path = "/ajax/check-promo"
         let params = [
             "game_id": "\(id)",
-            "code": promocode
+            "code": promocode,
+            "name": teamName
         ]
         NetworkService.shared.get(PromocodeResponse.self, apiPath: path, parameters: params) { [weak self] result in
             guard let self = self else { return }

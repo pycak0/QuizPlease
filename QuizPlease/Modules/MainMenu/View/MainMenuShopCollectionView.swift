@@ -41,11 +41,11 @@ extension MainMenuVC: UICollectionViewDelegate, UICollectionViewDataSource, Menu
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        presenter.didSelectMenuItem(at: MenuItemKind.shop.rawValue)
+        presenter.didSelectMenuItem(at: MainMenuItemKind.shop.rawValue)
     }
     
     func didPressMoreButton(in cell: MenuShopCell) {
-        presenter.didSelectMenuItem(at: MenuItemKind.shop.rawValue)
+        presenter.didSelectMenuItem(at: MainMenuItemKind.shop.rawValue)
     }
     
     func didPressRemindButton(in cell: MenuShopCell) {

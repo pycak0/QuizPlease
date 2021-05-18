@@ -122,7 +122,11 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
     func checkPromocode() {
         guard let promocode = registerForm.promocode else { return }
         view?.enableLoading()
-        interactor.checkPromocode(promocode, forGameWithId: game.id)
+        interactor.checkPromocode(
+            promocode,
+            teamName: registerForm.teamName,
+            forGameWithId: game.id
+        )
     }
         
     //MARK:- Submit Button Action

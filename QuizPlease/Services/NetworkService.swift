@@ -41,7 +41,7 @@ class NetworkService {
         }
         return ("Authorization", "Bearer \(userToken)")
     }
-        
+    
     ///
     //MARK:- GET REQUESTS =======
     ///
@@ -56,6 +56,9 @@ class NetworkService {
         let headers = [auth.key : auth.value]
         var userUrlComps = baseUrlComponents
         userUrlComps.path = "/api/users/current"
+        userUrlComps.queryItems = [
+            URLQueryItem(name: "city_id", value: "\(AppSettings.defaultCity.id)")
+        ]
         getStandard(UserInfo.self, with: userUrlComps, headers: headers, completion: completion)
     }
     

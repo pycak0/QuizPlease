@@ -19,7 +19,7 @@ protocol MenuCellItemProtocol: TableCellProtocol {
     func configureViews()
     
     ///Should be called inside `tableView(_:cellForRowAt)` method
-    func configureCell(with model: MenuItemProtocol)
+    func configureCell(with model: MainMenuItemProtocol)
     
 }
 

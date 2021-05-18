@@ -1,5 +1,5 @@
 //
-//  MenuItem.swift
+//  MainMenuItem.swift
 //  QuizPlease
 //
 //  Created by Владислав on 03.08.2020.
@@ -10,8 +10,8 @@ import Foundation
 import CoreGraphics
 
 //MARK:- Protocol
-protocol MenuItemProtocol {
-    var _kind: MenuItemKind { get }
+protocol MainMenuItemProtocol {
+    var _kind: MainMenuItemKind { get }
     var identifier: String { get }
     var segueID: String { get }
     var title: String { get }
@@ -20,8 +20,8 @@ protocol MenuItemProtocol {
 }
 
 //MARK:- Menu Item Struct
-struct MenuItem: MenuItemProtocol {
-    var _kind: MenuItemKind
+struct MainMenuItem: MainMenuItemProtocol {
+    var _kind: MainMenuItemKind
     var identifier: String
     var segueID: String
 
@@ -29,7 +29,7 @@ struct MenuItem: MenuItemProtocol {
     var supplementaryText: String
     var height: CGFloat
     
-    init(_ kind: MenuItemKind) {
+    init(_ kind: MainMenuItemKind) {
         _kind = kind
         identifier = kind.identifier
         segueID = kind.segueID
@@ -39,9 +39,9 @@ struct MenuItem: MenuItemProtocol {
     }
 }
 
-//MARK:- MenuItem Kinds
-enum MenuItemKind: Int, CaseIterable, MenuItemProtocol {
-    var _kind: MenuItemKind { self }
+//MARK:- MainMenuItem Kinds
+enum MainMenuItemKind: Int, CaseIterable, MainMenuItemProtocol {
+    var _kind: MainMenuItemKind { self }
     
     case schedule, profile, warmup, homeGame, shop, rating
     
@@ -61,7 +61,7 @@ enum MenuItemKind: Int, CaseIterable, MenuItemProtocol {
         case .schedule:     return "Расписание"
         case .profile:      return "Личный кабинет"
         case .homeGame:     return "20 хоум игр ждут вас"
-        case .warmup:       return "Ежедневная разминка"
+        case .warmup:       return "Разминка"
         case .shop:         return "Магазин"
         case .rating:       return "Рейтинг команд"
         }
@@ -72,7 +72,7 @@ enum MenuItemKind: Int, CaseIterable, MenuItemProtocol {
         case .schedule:     return "Игры в барах"
         case .profile:      return "100 баллов"
         case .homeGame:     return "Есть новые"
-        case .warmup:       return "Перейти"
+        case .warmup:       return "Размяться"
         case .shop:         return "больше"
         case .rating:       return "15. Ваша команда"
         }

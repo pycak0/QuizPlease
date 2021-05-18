@@ -44,7 +44,8 @@ class ProfilePresenter: ProfilePresenterProtocol {
     
     //MARK:- View Did Load
     func viewDidLoad(_ view: ProfileViewProtocol) {
-        view.configureViews()
+        view.configure()
+        view.setCity(AppSettings.defaultCity.title)
         
         if AppSettings.userToken == nil {
             router.showAuthScreen()

@@ -14,11 +14,12 @@ protocol WarmupViewProtocol: UIViewController {
     var presenter: WarmupPresenterProtocol! { get set }
     
     func configure()
+    func setPenaltyTimeInfo(penaltySeconds: Int)
     func startGame()
     func showNextQuestion()
     func highlightCurrentAnswer(isCorrect: Bool)
     func setQuestions()
-    func showResults()
+    func showResults(with totalTimePassed: Double)
     func updatePassedTime(withMinutes minutes: Int, seconds: Int)
     
     func enableLoading()
@@ -41,6 +42,7 @@ class WarmupVC: UIViewController {
     @IBOutlet private weak var minutesLabel: UILabel!
     @IBOutlet private weak var secondsLabel: UILabel!
     @IBOutlet private weak var secondPartsLabel: UILabel!
+    @IBOutlet private weak var infoLabel: UILabel!
     private var activityIndicator = UIActivityIndicatorView()
     
     private weak var pageVC: QuestionPageVC!
@@ -108,12 +110,12 @@ class WarmupVC: UIViewController {
     }
     
     //MARK:- Set Results
-    private func setResults() {
+    private func setResults(with totalTimePassed: Double) {
         let count = presenter.questions.count
         let correct = presenter.correctAnswersCount
         let correctQuestionsPrompt = correct.string(withAssociatedMaleWord: "вопрос")
         resultTextLabel.text = "Я прошел разминку Квиз, плиз! и ответил правильно на \(correctQuestionsPrompt) из \(count)"
-        let passedTime = presenter.timePassed
+        let passedTime = totalTimePassed
         minutesLabel.text = String(format: "%02d", Int(passedTime) / 60)
         secondsLabel.text = String(format: "%02d", Int(passedTime) % 60)
         let parts = Int(100 * (passedTime - passedTime.rounded(.down)))
@@ -127,6 +129,11 @@ extension WarmupVC: WarmupViewProtocol {
         configureTimerRing()
         configureResultLabels()
         resultsView.addGradient(.warmupItems)
+    }
+    
+    func setPenaltyTimeInfo(penaltySeconds: Int) {
+        let secondsFormatted = penaltySeconds.string(withAssociatedFirstCaseWord: "секунда")
+        infoLabel.text = "Тут будут появляться новые вопросы разминки. Ваша задача — ответить правильно и максимально быстро. В случае неправильного ответа к таймеру добавится \(secondsFormatted)."
     }
     
     func startGame() {
@@ -149,10 +156,10 @@ extension WarmupVC: WarmupViewProtocol {
         pageVC.configure(with: presenter.questions, delegate: self)
     }
     
-    func showResults() {
+    func showResults(with totalTimePassed: Double) {
         navigationItem.setRightBarButtonItems(nil, animated: true)
         completionView.isHidden = false
-        setResults()
+        setResults(with: totalTimePassed)
     }
     
     func updatePassedTime(withMinutes minutes: Int, seconds: Int) {
@@ -162,11 +169,11 @@ extension WarmupVC: WarmupViewProtocol {
     }
     
     func enableLoading() {
-        activityIndicator.enableCentered(in: view, color: .systemBlue)
+        //activityIndicator.enableCentered(in: view, color: .systemBlue)
     }
     
     func disableLoading() {
-        activityIndicator.stopAnimating()
+        //activityIndicator.stopAnimating()
     }
 }
 
@@ -174,10 +181,6 @@ extension WarmupVC: WarmupViewProtocol {
 extension WarmupVC: WarmupQuestionVCAnswerDelegate {
     func questionVC(_ vc: WarmupQuestionVC, didSelectAnswer answer: String, forQuestion question: WarmupQuestion) {
         presenter.didAnswer(answer, for: question)
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
-            self?.pageVC.next()
-        }
     }
 }
 

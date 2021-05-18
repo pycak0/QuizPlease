@@ -169,7 +169,7 @@ extension MainMenuVC: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
-        return indexPath.row != MenuItemKind.shop.rawValue
+        return indexPath.row != MainMenuItemKind.shop.rawValue
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
