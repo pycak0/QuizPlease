@@ -93,7 +93,7 @@ class RatingPresenter: RatingPresenterProtocol {
     
     func searchByTeamName(_ name: String) {
         filter.teamName = name
-        //view?.startLoadingAnimation()
+        //view?.startLoading()
         reloadRating(delay: 0.5)
     }
     
@@ -136,7 +136,7 @@ class RatingPresenter: RatingPresenterProtocol {
     
     ///Calls interactor's `loadRating` method using value of the `currentPage` without changing it
     private func loadRating(delay: Double = 0) {
-        view?.startLoadingAnimation()
+        view?.startLoading()
         interactor.loadRating(with: filter, page: currentPage, delay: delay)
     }
 }
@@ -145,13 +145,13 @@ class RatingPresenter: RatingPresenterProtocol {
 extension RatingPresenter: RatingInteractorOutput {
     func interactor(_ interactor: RatingInteractorProtocol, errorOccured error: SessionError) {
         print(error)
-        view?.endLoadingAnimation()
+        view?.stopLoading()
         view?.showErrorConnectingToServerAlert()
         //view?.showSimpleAlert(title: "Произошла ошибка", message: error.localizedDescription)
     }
     
     func interactor(_ interactor: RatingInteractorProtocol, didLoadRatingItems ratingItems: [RatingItem]) {
-        view?.endLoadingAnimation()
+        view?.stopLoading()
         var indices = 0..<0
         if self.currentPage > self.firstPageNumber {
             let filteredTeams = ratingItems.filter { !self.teams.contains($0) }

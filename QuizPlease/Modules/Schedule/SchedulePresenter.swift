@@ -54,7 +54,7 @@ class SchedulePresenter: SchedulePresenterProtocol {
     
     func viewDidLoad(_ view: ScheduleViewProtocol) {
         view.configure()
-        view.startLoadingAnimation()
+        view.startLoading()
         updateSchedule()
     }
     
@@ -140,7 +140,7 @@ class SchedulePresenter: SchedulePresenterProtocol {
     private func loadSchedule() {
         interactor.loadSchedule(filter: scheduleFilter) { [weak self] (result) in
             guard let self = self else { return }
-            self.view?.endLoadingAnimation()
+            self.view?.stopLoading()
             switch result {
             case.failure(let error):
                 print(error)

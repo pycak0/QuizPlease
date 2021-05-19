@@ -8,13 +8,11 @@
 
 import UIKit
 
-protocol ScheduleViewProtocol: UIViewController {
+protocol ScheduleViewProtocol: UIViewController, LoadingIndicator {
     var presenter: SchedulePresenterProtocol! { get set }
     
     func reloadScheduleList()
     func reloadGame(at index: Int)
-    func startLoadingAnimation()
-    func endLoadingAnimation()
     func showNoGamesScheduled()
     
     func configure()
@@ -128,11 +126,13 @@ extension ScheduleVC: ScheduleViewProtocol {
 //        tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .none)
     }
     
-    func endLoadingAnimation() {
-        tableView.refreshControl?.endRefreshing()
+    func stopLoading() {
+        if tableView.refreshControl?.isRefreshing ?? false {
+            tableView.refreshControl?.endRefreshing()
+        }
     }
     
-    func startLoadingAnimation() {
+    func startLoading() {
         tableView.refreshControl?.beginRefreshing()
     }
     

@@ -67,7 +67,7 @@ class WarmupPresenter: WarmupPresenterProtocol {
     
     func didAnswer(_ answer: String, for question: WarmupQuestion) {
         guard let answer = question.answers.first(where: { $0.value == answer }) else { return }
-        view?.enableLoading()
+        view?.startLoading()
         interactor.checkAnswerWithId(answer.id, forQuestionWithId: question.id)
     }
     
@@ -125,7 +125,7 @@ extension WarmupPresenter: WarmupInteractorOutput {
     }
     
     func interactor(_ interactor: WarmupInteractorProtocol, isAnswerCorrect: Bool, answerId: Int, questionId: String) {
-        view?.disableLoading()
+        view?.stopLoading()
         view?.highlightCurrentAnswer(isCorrect: isAnswerCorrect)
         if isAnswerCorrect {
             correctAnswersCount += 1
@@ -140,7 +140,7 @@ extension WarmupPresenter: WarmupInteractorOutput {
     }
     
     func interactor(_ interactor: WarmupInteractorProtocol, failedToCheckAnswer answerId: Int, questionId: String, error: SessionError) {
-        view?.disableLoading()
+        view?.stopLoading()
         view?.showErrorConnectingToServerAlert()
     }
 }

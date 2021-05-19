@@ -101,10 +101,10 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
     //MARK:- Check Certificate
     func checkCertificate() {
         guard let cert = registerForm.certificates else { return }
-        view?.enableLoading()
+        view?.startLoading()
         interactor.checkCertificate(forGameId: game.id, certificate: cert) { [weak self] (result) in
             guard let self = self else { return }
-            self.view?.disableLoading()
+            self.view?.stopLoading()
             switch result {
             case let .failure(error):
                 print(error)
@@ -121,7 +121,7 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
     
     func checkPromocode() {
         guard let promocode = registerForm.promocode else { return }
-        view?.enableLoading()
+        view?.startLoading()
         interactor.checkPromocode(
             promocode,
             teamName: registerForm.teamName,
@@ -174,10 +174,10 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
     
     //MARK:- Register
     private func register() {
-        view?.enableLoading()
+        view?.startLoading()
         interactor.register(with: registerForm) { [weak self] (registerResponse) in
             guard let self = self else { return }
-            self.view?.disableLoading()
+            self.view?.stopLoading()
             guard let response = registerResponse else {
                 self.view?.showErrorConnectingToServerAlert()
                 return
@@ -233,13 +233,13 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
 //MARK:- GameOrderInteractorOutput
 extension GameOrderPresenter: GameOrderInteractorOutput {
     func interactor(_ interactor: GameOrderInteractorProtocol?, didCheckPromocodeWith response: PromocodeResponse) {
-        view?.disableLoading()
+        view?.stopLoading()
         let title = response.isSuccess ? "Успешно" : "Ошибка"
         view?.showSimpleAlert(title: title, message: response.message)
     }
     
     func interactor(_ interactor: GameOrderInteractorProtocol?, errorOccured error: SessionError) {
-        view?.disableLoading()
+        view?.stopLoading()
         view?.showErrorConnectingToServerAlert()
     }
 }

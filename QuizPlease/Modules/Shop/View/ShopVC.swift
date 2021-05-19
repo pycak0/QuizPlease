@@ -9,16 +9,14 @@
 import UIKit
 
 //MARK:- View Protocol
-protocol ShopViewProtocol: UIViewController {
+protocol ShopViewProtocol: UIViewController, LoadingIndicator {
     var presenter: ShopPresenterProtocol! { get set }
     
-    func configureCollectionView()
+    func configure()
     func reloadCollectionView()
-    func endLoadingAnimation()
     func showItemsEmpty()
 
     func showUserPoints(_ points: Int)
-    
 }
 
 class ShopVC: UIViewController {
@@ -50,7 +48,7 @@ class ShopVC: UIViewController {
 
 //MARK:- Protocol Implementation
 extension ShopVC: ShopViewProtocol {
-    func configureCollectionView() {
+    func configure() {
         shopCollectionView.delegate = self
         shopCollectionView.dataSource = self
         
@@ -59,12 +57,16 @@ extension ShopVC: ShopViewProtocol {
         
         userPointsLabel.isHidden = true
         userPointsLabel.layer.cornerRadius = 15
-
+    }
+    
+    func startLoading() {
         shopCollectionView.refreshControl?.beginRefreshing()
     }
     
-    func endLoadingAnimation() {
-        shopCollectionView.refreshControl?.endRefreshing()
+    func stopLoading() {
+        if shopCollectionView.refreshControl?.isRefreshing ?? false {
+            shopCollectionView.refreshControl?.endRefreshing()
+        }
     }
     
     func reloadCollectionView() {

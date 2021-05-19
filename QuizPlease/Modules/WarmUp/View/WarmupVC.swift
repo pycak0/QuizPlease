@@ -10,7 +10,7 @@ import UIKit
 import UICircularProgressRing
 
 //MARK:- View Protocol
-protocol WarmupViewProtocol: UIViewController {
+protocol WarmupViewProtocol: UIViewController, LoadingIndicator {
     var presenter: WarmupPresenterProtocol! { get set }
     
     func configure()
@@ -21,9 +21,6 @@ protocol WarmupViewProtocol: UIViewController {
     func setQuestions()
     func showResults(with totalTimePassed: Double)
     func updatePassedTime(withMinutes minutes: Int, seconds: Int)
-    
-    func enableLoading()
-    func disableLoading()
 }
 
 class WarmupVC: UIViewController {
@@ -166,11 +163,11 @@ extension WarmupVC: WarmupViewProtocol {
         progressRing?.startProgress(to: CGFloat(seconds), duration: 0.2)
     }
     
-    func enableLoading() {
+    func startLoading() {
         //activityIndicator.enableCentered(in: view, color: .systemBlue)
     }
     
-    func disableLoading() {
+    func stopLoading() {
         //activityIndicator.stopAnimating()
     }
 }
