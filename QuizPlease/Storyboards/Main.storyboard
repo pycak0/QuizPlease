@@ -1758,6 +1758,7 @@
                     <connections>
                         <outlet property="arrowImageView" destination="zQj-kq-Ibc" id="rgA-bd-PUH"/>
                         <outlet property="imageView" destination="jhS-3r-YyX" id="JN5-4m-hia"/>
+                        <outlet property="questionLabel" destination="gu5-yq-NPT" id="PGT-RA-h8p"/>
                         <outlet property="segmentControl" destination="KBr-n6-ewD" id="zIG-Zy-OSc"/>
                         <outlet property="textFieldView" destination="vk2-4w-q3h" id="4bE-Cq-seh"/>
                     </connections>

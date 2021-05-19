@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol ShopCompletionVCDelegate: class {
+protocol ShopCompletionVCDelegate: AnyObject {
     func shopCompletionVC(_ vc: ShopCompletionVC, didCompletePurchaseForItem shopItem: ShopItem)
 }
 
@@ -19,6 +19,7 @@ class ShopCompletionVC: UIViewController {
     @IBOutlet private weak var textFieldView: TitledTextFieldView!
     @IBOutlet private weak var arrowImageView: UIImageView!
     @IBOutlet private weak var segmentControl: HBSegmentedControl!
+    @IBOutlet private weak var questionLabel: UILabel!
     
     weak var delegate: ShopCompletionVCDelegate?
     
@@ -101,7 +102,13 @@ class ShopCompletionVC: UIViewController {
     
     private func configureViews() {
         imageView.loadImage(path: shopItem.imagePath, placeholderImage: .logoColoredImage)
-        configureSegmentControl()
+        if shopItem.availableDeliveryMethods.count == 1 && shopItem.availableDeliveryMethods.first == .game {
+            questionLabel.numberOfLines = 0
+            questionLabel.text = "Мы доставим этот ништяк на вашу следующую игру! Наш менеджер свяжется с вами после подтверждения заказа."
+            segmentControl.isHidden = true
+        } else {
+            configureSegmentControl()
+        }
         configureTextField()
     }
     
@@ -119,5 +126,4 @@ class ShopCompletionVC: UIViewController {
         textFieldView.textField.keyboardType = .emailAddress
         textFieldView.textField.textContentType = .emailAddress
     }
-     
 }
