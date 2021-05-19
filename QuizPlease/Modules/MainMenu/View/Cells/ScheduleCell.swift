@@ -23,7 +23,7 @@ class ScheduleCell: UITableViewCell, MenuCellItemProtocol {
         configureViews()
     }
 
-    func configureCell(with model: MenuItemProtocol) {
+    func configureCell(with model: MainMenuItemProtocol) {
         titleLabel.text = model.title
         accessoryLabel.text = model.supplementaryText
     }

@@ -9,7 +9,7 @@
 import UIKit
 
 //MARK:- View Protocol
-protocol GameOrderViewProtocol: UIViewController {
+protocol GameOrderViewProtocol: UIViewController, LoadingIndicator {
     var presenter: GameOrderPresenterProtocol! { get set }
     //var configurator: GameOrderConfiguratorProtocol! { get }
     
@@ -17,9 +17,6 @@ protocol GameOrderViewProtocol: UIViewController {
     
     func reloadInfo()
     func configureTableView()
-    
-    func enableLoading()
-    func disableLoading()
     
     func editEmail()
     func editPhone()
@@ -118,11 +115,11 @@ extension GameOrderVC: GameOrderViewProtocol {
         }
     }
     
-    func enableLoading() {
+    func startLoading() {
         activityIndicator.enableCentered(in: view, color: .systemBlue)
     }
     
-    func disableLoading() {
+    func stopLoading() {
         activityIndicator.stopAnimating()
     }
     
@@ -179,7 +176,6 @@ extension GameOrderVC: UITableViewDataSource, UITableViewDelegate {
         
         return cell
     }
-    
 }
 
 //MARK:- UIScrollViewDelegate

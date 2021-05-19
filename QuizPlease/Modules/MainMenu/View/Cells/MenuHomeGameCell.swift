@@ -28,7 +28,7 @@ class MenuHomeGameCell: UITableViewCell, MenuCellItemProtocol {
         playLabel.layer.cornerRadius = playLabel.frame.height / 2
     }
     
-    func configureCell(with model: MenuItemProtocol) {
+    func configureCell(with model: MainMenuItemProtocol) {
         titleLabel.text = model.title
         accessoryLabel.text = model.supplementaryText
     }

@@ -10,13 +10,16 @@ import UIKit
 import UICircularProgressRing
 
 //MARK:- View Protocol
-protocol WarmupViewProtocol: UIViewController {
+protocol WarmupViewProtocol: UIViewController, LoadingIndicator {
     var presenter: WarmupPresenterProtocol! { get set }
     
     func configure()
+    func setPenaltyTimeInfo(penaltySeconds: Int)
     func startGame()
+    func showNextQuestion()
+    func highlightCurrentAnswer(isCorrect: Bool)
     func setQuestions()
-    func showResults()
+    func showResults(with totalTimePassed: Double)
     func updatePassedTime(withMinutes minutes: Int, seconds: Int)
 }
 
@@ -36,6 +39,8 @@ class WarmupVC: UIViewController {
     @IBOutlet private weak var minutesLabel: UILabel!
     @IBOutlet private weak var secondsLabel: UILabel!
     @IBOutlet private weak var secondPartsLabel: UILabel!
+    @IBOutlet private weak var infoLabel: UILabel!
+    private var activityIndicator = UIActivityIndicatorView()
     
     private weak var pageVC: QuestionPageVC!
             
@@ -78,9 +83,7 @@ class WarmupVC: UIViewController {
         progressRing.minValue = 0
         progressRing.maxValue = 60
         
-        if let font = UIFont(name: "Gilroy-SemiBold", size: 15) {
-            progressRing.font = font
-        }
+        progressRing.font = .gilroy(.semibold, size: 15)
         progressRing.fontColor = .white
         let formatter = UICircularProgressRingFormatter(valueIndicator: "", rightToLeft: true, showFloatingPoint: false, decimalPlaces: 0)
         progressRing.valueFormatter = formatter
@@ -102,12 +105,12 @@ class WarmupVC: UIViewController {
     }
     
     //MARK:- Set Results
-    private func setResults() {
+    private func setResults(with totalTimePassed: Double) {
         let count = presenter.questions.count
         let correct = presenter.correctAnswersCount
         let correctQuestionsPrompt = correct.string(withAssociatedMaleWord: "вопрос")
         resultTextLabel.text = "Я прошел разминку Квиз, плиз! и ответил правильно на \(correctQuestionsPrompt) из \(count)"
-        let passedTime = presenter.timePassed
+        let passedTime = totalTimePassed
         minutesLabel.text = String(format: "%02d", Int(passedTime) / 60)
         secondsLabel.text = String(format: "%02d", Int(passedTime) % 60)
         let parts = Int(100 * (passedTime - passedTime.rounded(.down)))
@@ -123,6 +126,11 @@ extension WarmupVC: WarmupViewProtocol {
         resultsView.addGradient(.warmupItems)
     }
     
+    func setPenaltyTimeInfo(penaltySeconds: Int) {
+        let secondsFormatted = penaltySeconds.string(withAssociatedFirstCaseWord: "секунда")
+        infoLabel.text = "Тут будут появляться новые вопросы разминки. Ваша задача — ответить правильно и максимально быстро. В случае неправильного ответа к таймеру добавится \(secondsFormatted)."
+    }
+    
     func startGame() {
         previewStack.isHidden = true
         container.isHidden = false
@@ -131,14 +139,22 @@ extension WarmupVC: WarmupViewProtocol {
         progressRing.isHidden = false
     }
     
+    func highlightCurrentAnswer(isCorrect: Bool) {
+        pageVC.currentViewController?.highlightAnswer(isCorrect: isCorrect)
+    }
+    
+    func showNextQuestion() {
+        pageVC.next()
+    }
+    
     func setQuestions() {
         pageVC.configure(with: presenter.questions, delegate: self)
     }
     
-    func showResults() {
+    func showResults(with totalTimePassed: Double) {
         navigationItem.setRightBarButtonItems(nil, animated: true)
         completionView.isHidden = false
-        setResults()
+        setResults(with: totalTimePassed)
     }
     
     func updatePassedTime(withMinutes minutes: Int, seconds: Int) {
@@ -146,17 +162,20 @@ extension WarmupVC: WarmupViewProtocol {
         minutesPassedItem?.title = text
         progressRing?.startProgress(to: CGFloat(seconds), duration: 0.2)
     }
+    
+    func startLoading() {
+        //activityIndicator.enableCentered(in: view, color: .systemBlue)
+    }
+    
+    func stopLoading() {
+        //activityIndicator.stopAnimating()
+    }
 }
 
 //MARK:- Answer Delegate
 extension WarmupVC: WarmupQuestionVCAnswerDelegate {
     func questionVC(_ vc: WarmupQuestionVC, didSelectAnswer answer: String, forQuestion question: WarmupQuestion) {
         presenter.didAnswer(answer, for: question)
-        vc.highlightAnswer(isCorrect: question.isAnswerCorrect(answer))
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
-            self?.pageVC.next()
-        }
     }
 }
 

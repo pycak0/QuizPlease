@@ -8,13 +8,11 @@
 
 import UIKit
 
-protocol ScheduleViewProtocol: UIViewController {
+protocol ScheduleViewProtocol: UIViewController, LoadingIndicator {
     var presenter: SchedulePresenterProtocol! { get set }
     
     func reloadScheduleList()
     func reloadGame(at index: Int)
-    func startLoadingAnimation()
-    func endLoadingAnimation()
     func showNoGamesScheduled()
     
     func configure()
@@ -65,9 +63,13 @@ class ScheduleVC: UIViewController {
         let warmupRange = nsString.range(of: "размяться")
         
         let attrString = NSMutableAttributedString(string: text)
-        let font = UIFont(name: "Gilroy-SemiBold", size: 22) ?? .systemFont(ofSize: 22, weight: .semibold)
-        attrString.addAttributes([.font : font,
-                                  .foregroundColor : UIColor.lightGray], range: wholeRange)
+        let font: UIFont = .gilroy(.semibold, size: 22)
+        attrString.addAttributes([
+                .font : font,
+                .foregroundColor : UIColor.lightGray
+            ],
+            range: wholeRange
+        )
         attrString.addAttributes([.foregroundColor : UIColor.themePurple], range: homeGameRange)
         attrString.addAttributes([.foregroundColor : UIColor.themePurple], range: warmupRange)
         
@@ -124,11 +126,13 @@ extension ScheduleVC: ScheduleViewProtocol {
 //        tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .none)
     }
     
-    func endLoadingAnimation() {
-        tableView.refreshControl?.endRefreshing()
+    func stopLoading() {
+        if tableView.refreshControl?.isRefreshing ?? false {
+            tableView.refreshControl?.endRefreshing()
+        }
     }
     
-    func startLoadingAnimation() {
+    func startLoading() {
         tableView.refreshControl?.beginRefreshing()
     }
     

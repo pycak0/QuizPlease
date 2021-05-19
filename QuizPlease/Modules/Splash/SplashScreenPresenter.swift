@@ -41,13 +41,14 @@ class SplashScreenPresenter: SplashScreenPresenterProtocol {
     
     private func updateUserToken() {
         dispatchGroup.enter()
-        interactor.updateToken()
+        interactor.updateUserToken()
     }
     
     private func setTimer() {
         dispatchGroup.enter()
         Timer.scheduledTimer(withTimeInterval: timeout, repeats: false) { [self] timer in
             dispatchGroup.leave()
+            view?.startLoading()
         }
     }
 }
@@ -60,6 +61,7 @@ extension SplashScreenPresenter: SplashScreenInteractorOutput {
     }
     
     func interactor(_ interactor: SplashScreenInteractorProtocol, errorOccured error: SessionError) {
+        dispatchGroup.leave()
         print(error)
     }
     

@@ -9,9 +9,9 @@
 import Foundation
 
 //MARK:- Presenter Protocol
-protocol MainMenuPresenterProtocol: class {
+protocol MainMenuPresenterProtocol: AnyObject {
     var router: MainMenuRouterProtocol! { get }
-    var menuItems: [MenuItemProtocol]? { get set }
+    var menuItems: [MainMenuItemProtocol]? { get set }
     var sampleShopItems: [ShopItem] { get }
     
     init(view: MainMenuViewProtocol, interactor: MainMenuInteractorProtocol, router: MainMenuRouterProtocol)
@@ -27,7 +27,7 @@ protocol MainMenuPresenterProtocol: class {
     func didPressMenuRemindButton()
     
     func userPointsAmount() -> Int?
-    func indexPath(for menuItemKind: MenuItemKind) -> IndexPath?
+    func indexPath(for menuItemKind: MainMenuItemKind) -> IndexPath?
 }
 
 class MainMenuPresenter: MainMenuPresenterProtocol {
@@ -35,7 +35,7 @@ class MainMenuPresenter: MainMenuPresenterProtocol {
     var interactor: MainMenuInteractorProtocol!
     var router: MainMenuRouterProtocol!
     
-    var menuItems: [MenuItemProtocol]?
+    var menuItems: [MainMenuItemProtocol]?
     var sampleShopItems: [ShopItem] = []
     var userInfo: UserInfo?
     
@@ -103,7 +103,7 @@ class MainMenuPresenter: MainMenuPresenterProtocol {
         userInfo?.pointsAmount
     }
     
-    func indexPath(for menuItemKind: MenuItemKind) -> IndexPath? {
+    func indexPath(for menuItemKind: MainMenuItemKind) -> IndexPath? {
         if let index = menuItems?.firstIndex(where: { $0._kind == menuItemKind }) {
             return IndexPath(row: index, section: 0)
         }
@@ -113,7 +113,7 @@ class MainMenuPresenter: MainMenuPresenterProtocol {
 
 //MARK:- MainMenuInteractorOutput
 extension MainMenuPresenter: MainMenuInteractorOutput {
-    func interactor(_ interactor: MainMenuInteractorProtocol, didLoadMenuItems items: [MenuItemProtocol]) {
+    func interactor(_ interactor: MainMenuInteractorProtocol, didLoadMenuItems items: [MainMenuItemProtocol]) {
         menuItems = items
         view?.reloadMenuItems()
     }

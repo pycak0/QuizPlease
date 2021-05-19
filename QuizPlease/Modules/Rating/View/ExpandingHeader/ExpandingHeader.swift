@@ -170,7 +170,7 @@ public class ExpandingHeader: UIView {
         searchField.attributedPlaceholder = NSAttributedString(
             string: "Поиск",
             attributes: [
-                NSAttributedString.Key.font : UIFont(name: "Gilroy-Bold", size: 16)!,
+                NSAttributedString.Key.font : UIFont.gilroy(.bold, size: 16),
                 NSAttributedString.Key.foregroundColor : UIColor.white
             ]
         )
@@ -179,7 +179,7 @@ public class ExpandingHeader: UIView {
     //MARK:- Configure Segment Control
     private func configureSegmentControl(color: UIColor) {
         segmentControl.dampingRatio = 0.7
-        segmentControl.font = UIFont(name: "Gilroy-Bold", size: 16)
+        segmentControl.font = .gilroy(.bold, size: 16)
         segmentControl.backgroundColor = color
         segmentControl.addTarget(self, action: #selector(segmentChanged), for: .valueChanged)
     }

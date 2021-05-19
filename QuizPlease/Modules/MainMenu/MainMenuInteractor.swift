@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol MainMenuInteractorProtocol: class {
+protocol MainMenuInteractorProtocol: AnyObject {
     ///must be weak
     var output: MainMenuInteractorOutput? { get }
     
@@ -20,8 +20,8 @@ protocol MainMenuInteractorProtocol: class {
     func updateAllData()
 }
 
-protocol MainMenuInteractorOutput: class {
-    func interactor(_ interactor: MainMenuInteractorProtocol, didLoadMenuItems: [MenuItemProtocol])
+protocol MainMenuInteractorOutput: AnyObject {
+    func interactor(_ interactor: MainMenuInteractorProtocol, didLoadMenuItems: [MainMenuItemProtocol])
     func interactor(_ interactor: MainMenuInteractorProtocol, didLoadUserInfo userInfo: UserInfo)
     func interactor(_ interactor: MainMenuInteractorProtocol, didLoadShopItems: [ShopItem])
     func interactor(_ interactor: MainMenuInteractorProtocol, failedToLoadShopItemsWithError error: SessionError)
@@ -33,7 +33,7 @@ class MainMenuInteractor: MainMenuInteractorProtocol {
     weak var output: MainMenuInteractorOutput?
     
     func loadMenuItems() {
-        var items = MenuItemKind.allCases
+        var items = MainMenuItemKind.allCases
     
         if !AppSettings.isProfileEnabled {
             items.removeAll(where: { $0._kind == .profile })
@@ -72,7 +72,7 @@ class MainMenuInteractor: MainMenuInteractorProtocol {
     }
     
     func updateAllData() {
-        Utilities.main.fetchClientSettings { settings, error in
+        Utilities.main.fetchClientSettings { _ in
             self.loadMenuItems()
             self.loadShopItems()
             self.loadUserInfo()

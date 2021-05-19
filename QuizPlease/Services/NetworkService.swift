@@ -41,7 +41,7 @@ class NetworkService {
         }
         return ("Authorization", "Bearer \(userToken)")
     }
-        
+    
     ///
     //MARK:- GET REQUESTS =======
     ///
@@ -56,6 +56,9 @@ class NetworkService {
         let headers = [auth.key : auth.value]
         var userUrlComps = baseUrlComponents
         userUrlComps.path = "/api/users/current"
+        userUrlComps.queryItems = [
+            URLQueryItem(name: "city_id", value: "\(AppSettings.defaultCity.id)")
+        ]
         getStandard(UserInfo.self, with: userUrlComps, headers: headers, completion: completion)
     }
     
@@ -359,9 +362,31 @@ class NetworkService {
         }
     }
     
+    //MARK:- Send Warmup Answer
+    func sendWarmupAnswer(questionId: String, answerId: Int, completion: @escaping (Result<WarmupAnswerResponse, SessionError>) -> Void) {
+        guard let auth = createBearerAuthHeader() else {
+            completion(.failure(.invalidToken))
+            return
+        }
+        let headers = [auth.key : auth.value]
+        var warmupUrlComps = baseUrlComponents
+        warmupUrlComps.path = "/api/warmup-question/send-answer"
+        warmupUrlComps.queryItems = [
+            URLQueryItem(name: "question_id", value: questionId)
+        ]
+        let parameters = [
+            "answer" : "\(answerId)"
+        ]
+        afPostStandard(with: parameters, and: headers, to: warmupUrlComps, responseType: WarmupAnswerResponse.self, completion: completion)
+    }
     
     //MARK:- Purchase Product
-    func purchaseProduct(with id: String, deliveryMethod: DeliveryMethod, email: String, completion: @escaping (_ isSuccess: Bool) -> Void) {
+    func purchaseProduct(with id: String, deliveryMethod: DeliveryMethod, email: String, completion: @escaping (Result<ShopPurchaseResponse, SessionError>) -> Void) {
+        guard let auth = createBearerAuthHeader() else {
+            completion(.failure(.invalidToken))
+            return
+        }
+        let headers = [auth.key : auth.value]
         var urlComps = baseUrlComponents
         urlComps.path = "/api/order/buy"
         let params: [String : String] = [
@@ -370,14 +395,14 @@ class NetworkService {
             "email" : email,
             "city_id" : "\(AppSettings.defaultCity.id)"
         ]
-        afPostBool(with: params, to: urlComps, completion: completion)
+        afPostStandard(with: params, and: headers, to: urlComps, responseType: ShopPurchaseResponse.self, completion: completion)
     }
     
     
     //MARK:- Check In On Game
-    func checkInOnGame(with qrCode: String, chosenTeamId: Int, completion: @escaping (_ isSuccess: Bool) -> Void) {
+    func checkInOnGame(with qrCode: String, chosenTeamId: Int, completion: @escaping (Result<AddGameResponse, SessionError>) -> Void) {
         guard let auth = createBearerAuthHeader() else {
-            completion(false)
+            completion(.failure(.invalidToken))
             return
         }
         let headers = [auth.key : auth.value]
@@ -387,7 +412,7 @@ class NetworkService {
         ]
         var urlComps = baseUrlComponents
         urlComps.path = "/api/game/check-qr"
-        afPostBool(with: params, and: headers, to: urlComps, completion: completion)
+        afPostStandard(with: params, and: headers, to: urlComps, responseType: AddGameResponse.self, completion: completion)
     }
     
     //MARK:- Get Teams List From QR

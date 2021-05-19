@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol GameDescriptionDelegate: class {
+protocol GameDescriptionDelegate: AnyObject {
     func optionalDescription(for descriptionCell: GameGeneralDescriptionCell) -> String?
 }
 
@@ -34,7 +34,7 @@ class GameGeneralDescriptionCell: UITableViewCell, GameOrderCellProtocol {
                     if let attrString = text.htmlFormatted() {
                         let range = (attrString.string as NSString).range(of: attrString.string)
                         attrString.addAttributes([
-                            .font: UIFont(name: "Gilroy-Medium", size: 14)!,
+                            .font: UIFont.gilroy(.medium, size: 14),
                             .foregroundColor: UIColor.labelAdapted
                         ], range: range)
                         DispatchQueue.main.async {

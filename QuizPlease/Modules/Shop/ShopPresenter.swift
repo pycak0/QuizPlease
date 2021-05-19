@@ -44,8 +44,9 @@ class ShopPresenter: ShopPresenterProtocol {
     
     //MARK:- Setup View
     func setupView() {
-        view?.configureCollectionView()
+        view?.configure()
         reloadItems()
+        view?.startLoading()
 
         if let info = userInfo {
             view?.showUserPoints(info.pointsAmount)
@@ -64,7 +65,7 @@ class ShopPresenter: ShopPresenterProtocol {
     private func reloadItems() {
         interactor.loadItems { [weak self] (result) in
             guard let self = self else { return }
-            self.view?.endLoadingAnimation()
+            self.view?.stopLoading()
             switch result {
             case .failure(let error):
                 print(error)
@@ -106,10 +107,7 @@ class ShopPresenter: ShopPresenterProtocol {
     
     func didAgreeToPurchase(_ item: ShopItem) {
         guard let user = userInfo else {
-            view?.showSimpleAlert(
-                title: "Для совершения покупок необходимо авторизоваться",
-                message: "Вы можете авторизоваться или зарегистрироваться в Личном кабинете"
-            )
+            view?.showNeedsAuthAlert(title: "Для совершения покупок необходимо авторизоваться")
             return
         }
         guard canUser(user, buyItem: item) else {

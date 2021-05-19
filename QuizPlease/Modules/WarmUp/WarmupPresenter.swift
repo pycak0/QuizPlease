@@ -12,10 +12,6 @@ import UIKit
 protocol WarmupPresenterProtocol {
     var router: WarmupRouterProtocol! { get }
     var questions: [WarmupQuestion] { get }
-    
-    ///In seconds
-    var timePassed: Double { get }
-    
     var correctAnswersCount: Int { get }
     
     init(view: WarmupViewProtocol, interactor: WarmupInteractorProtocol, router: WarmupRouterProtocol)
@@ -28,15 +24,22 @@ protocol WarmupPresenterProtocol {
 }
 
 class WarmupPresenter: WarmupPresenterProtocol {
+    private let penaltyTime: Double = 5
+    
     var router: WarmupRouterProtocol!
     var interactor: WarmupInteractorProtocol
     weak var view: WarmupViewProtocol?
     
     var questions: [WarmupQuestion] = []
-    
     var correctAnswersCount: Int = 0
     
-    var timePassed: Double = 0 {
+    private var isGameStarted = false
+    
+    private var timestamp: Date = Date()
+    private var totalPenaltyTime: Double = 0
+    private var timer: Timer?
+    
+    private var timePassed: Double = 0 {
         didSet {
             let timePassed = Int(self.timePassed)
             let minutes = timePassed / 60
@@ -44,10 +47,6 @@ class WarmupPresenter: WarmupPresenterProtocol {
             view?.updatePassedTime(withMinutes: minutes, seconds: seconds)
         }
     }
-    
-    var timestamp: Date = Date()
-    
-    private var timer: Timer?
     
     required init(view: WarmupViewProtocol, interactor: WarmupInteractorProtocol, router: WarmupRouterProtocol) {
         self.view = view
@@ -58,22 +57,36 @@ class WarmupPresenter: WarmupPresenterProtocol {
     //MARK:- Setup
     func viewDidLoad(_ view: WarmupViewProtocol) {
         view.configure()
-        
-        interactor.loadQuestions { [weak self] (result) in
-            guard let self = self else { return }
-            switch result {
-            case .failure(let error):
-                print(error)
-                self.view?.showErrorConnectingToServerAlert()
-            case .success(let questions):
-                self.questions = questions
-                self.view?.setQuestions()
-            }
-        }
+        view.setPenaltyTimeInfo(penaltySeconds: Int(penaltyTime))
     }
     
     //MARK:- Actions
     func didPressStartGame() {
+        interactor.loadQuestions()
+    }
+    
+    func didAnswer(_ answer: String, for question: WarmupQuestion) {
+        guard let answer = question.answers.first(where: { $0.value == answer }) else { return }
+        view?.startLoading()
+        interactor.checkAnswerWithId(answer.id, forQuestionWithId: question.id)
+    }
+    
+    func gameEnded() {
+        stopTimer()
+        view?.showResults(with: timePassed)
+        isGameStarted = false
+    }
+    
+    func shareAction() {
+        if let viewController = view,
+           let image = UIApplication.shared.makeSnapshot() {
+            interactor.shareResults(image, delegate: viewController)
+        }
+    }
+    
+    //MARK:- Private
+    private func startGame() {
+        isGameStarted = true
         if questions.count > 0 {
             view?.startGame()
             startTimer()
@@ -82,33 +95,10 @@ class WarmupPresenter: WarmupPresenterProtocol {
         }
     }
     
-    func didAnswer(_ answer: String, for question: WarmupQuestion) {
-        //guard questions.contains { $0 == question }
-        if question.isAnswerCorrect(answer) {
-            correctAnswersCount += 1
-        } else {
-            timePassed += 15
-        }
-        let id = "\(question.id)"
-        interactor.saveQuestionId(id)
-    }
-    
-    func gameEnded() {
-        stopTimer()
-        view?.showResults()
-    }
-    
-    func shareAction() {
-        if let viewController = view, let image = UIApplication.shared.makeSnapshot() {
-            interactor.shareResults(image, delegate: viewController)
-        }
-    }
-    
-    //MARK:- Private
     private func startTimer() {
         timestamp = Date()
         let interval: Double = 1
-        timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { t in
+        timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { _ in
             self.timePassed += interval
         }
     }
@@ -116,10 +106,41 @@ class WarmupPresenter: WarmupPresenterProtocol {
     private func stopTimer() {
         timer?.invalidate()
         timer = nil
-        
-        let timeElapsed: Double = Date().timeIntervalSince(timestamp)
-        print(timeElapsed)
-        print(timePassed)
+        let timeElapsed: Double = Date().timeIntervalSince(timestamp) + totalPenaltyTime
+        timePassed = timeElapsed
+    }
+}
+
+//MARK:- WarmupInteractorOutput
+extension WarmupPresenter: WarmupInteractorOutput {
+    func interactor(_ interactor: WarmupInteractorProtocol, didLoadQuestions questions: [WarmupQuestion]) {
+        self.questions = questions
+        view?.setQuestions()
+        startGame()
     }
     
+    func interactor(_ interactor: WarmupInteractorProtocol, failedToLoadQuestionsWithError error: SessionError) {
+        print(error)
+        view?.showErrorConnectingToServerAlert()
+    }
+    
+    func interactor(_ interactor: WarmupInteractorProtocol, isAnswerCorrect: Bool, answerId: Int, questionId: String) {
+        view?.stopLoading()
+        view?.highlightCurrentAnswer(isCorrect: isAnswerCorrect)
+        if isAnswerCorrect {
+            correctAnswersCount += 1
+        } else {
+            totalPenaltyTime += penaltyTime
+            timePassed += penaltyTime
+        }
+        interactor.saveQuestionId("\(questionId)")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            self.view?.showNextQuestion()
+        }
+    }
+    
+    func interactor(_ interactor: WarmupInteractorProtocol, failedToCheckAnswer answerId: Int, questionId: String, error: SessionError) {
+        view?.stopLoading()
+        view?.showErrorConnectingToServerAlert()
+    }
 }

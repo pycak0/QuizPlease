@@ -27,7 +27,7 @@ class MenuRatingCell: UITableViewCell, MenuCellItemProtocol {
         ratingLabel.layer.cornerRadius = ratingLabel.frame.height / 2
     }
     
-    func configureCell(with model: MenuItemProtocol) {
+    func configureCell(with model: MainMenuItemProtocol) {
         titleLabel.text = model.title
         //accessoryLabel.text = model.supplementaryText
     }

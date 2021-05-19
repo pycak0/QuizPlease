@@ -9,13 +9,11 @@
 import UIKit
 
 //MARK:- View Protocol
-protocol RatingViewProtocol: UIViewController {
+protocol RatingViewProtocol: UIViewController, LoadingIndicator {
     var presenter: RatingPresenterProtocol! { get set }
     
     func reloadRatingList()
     func appendRaingItems(at indices: Range<Int>)
-    func endLoadingAnimation()
-    func startLoadingAnimation()
     
     func configure()
     func setHeaderLabelContent(city: String, leagueComment: String, ratingScopeComment: String)
@@ -72,14 +70,14 @@ extension RatingVC: RatingViewProtocol {
         UIView.setAnimationsEnabled(true)
     }
     
-    func endLoadingAnimation() {
+    func stopLoading() {
         if tableView.refreshControl?.isRefreshing ?? false {
             tableView.refreshControl?.endRefreshing()
         }
         tableView.tableFooterView?.isHidden = true
     }
     
-    func startLoadingAnimation() {
+    func startLoading() {
         tableView.tableFooterView?.isHidden = false
     }
     

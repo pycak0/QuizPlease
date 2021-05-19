@@ -13,7 +13,7 @@ class WarmupConfigurator: Configurator {
         let interactor = WarmupInteractor()
         let router = WarmupRouter(viewController: view)
         let presenter = WarmupPresenter(view: view, interactor: interactor, router: router)
-        
+        interactor.output = presenter
         view.presenter = presenter
         view.prepareNavigationBar(tintColor: .white)
     }

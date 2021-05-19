@@ -44,9 +44,13 @@ extension GameOrderVC: GameRegisterCellDelegate {
     
     func registerCell(_ registerCell: GameRegisterCell, didChangeNumberOfPeopleInTeam number: Int) {
         presenter.registerForm.count = number
-        if let cell = tableView.cellForRow(at: IndexPath(row: GameInfoItemKind.onlinePayment.rawValue, section: 0)) as? GameOnlinePaymentCell {
-            cell.updateMaxNumberOfPeople(number)
+        guard
+            let index = items.firstIndex(where: { $0 == .onlinePayment }),
+            let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? GameOnlinePaymentCell
+        else {
+            return
         }
+        cell.updateMaxNumberOfPeople(number)
     }
     
     func registerCell(_ registerCell: GameRegisterCell, didChangeTeamName newName: String) {

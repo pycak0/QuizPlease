@@ -45,7 +45,7 @@ class MenuShopCell: UITableViewCell, MenuCellItemProtocol {
         delegate?.didPressRemindButton(in: self)
     }
     
-    func configureCell(with model: MenuItemProtocol) {
+    func configureCell(with model: MainMenuItemProtocol) {
         titleLabel.text = model.title
     }
     

@@ -17,10 +17,10 @@ protocol SplashScreenInteractorProtocol {
     
     func updateDefaultCity()
     
-    func updateToken()
+    func updateUserToken()
 }
 
-protocol SplashScreenInteractorOutput: class {
+protocol SplashScreenInteractorOutput: AnyObject {
     func interactor(_ interactor: SplashScreenInteractorProtocol, errorOccured error: SessionError)
     func interactor(_ interactor: SplashScreenInteractorProtocol, didLoadClientSettings settings: ClientSettings)
     func interactorDidUpdateUserToken(_ interactor: SplashScreenInteractorProtocol)
@@ -33,7 +33,7 @@ class SplashScreenInteractor: SplashScreenInteractorProtocol {
         Utilities.main.setDefaultCityFromCache()
     }
     
-    func updateToken() {
+    func updateUserToken() {
         Utilities.main.updateToken {
             self.interactorOutput?.interactorDidUpdateUserToken(self)
         }
@@ -41,18 +41,15 @@ class SplashScreenInteractor: SplashScreenInteractorProtocol {
     
     func updateClientSettings() {
         Utilities.main.setClientSettingsFromCache()
-        Utilities.main.fetchClientSettings { [weak self] (newSettings, error) in
+        Utilities.main.fetchClientSettings { [weak self] fetchResult in
             guard let self = self else { return }
-            if let error = error {
+            switch fetchResult {
+            case let .failure(error):
                 self.interactorOutput?.interactor(self, errorOccured: error)
                 return
+            case let .success(settings):
+                self.interactorOutput?.interactor(self, didLoadClientSettings: settings)
             }
-            guard let settings = newSettings else {
-                let error = SessionError.other(NSError(domain: "Unknown", code: -1))
-                self.interactorOutput?.interactor(self, errorOccured: error)
-                return
-            }
-            self.interactorOutput?.interactor(self, didLoadClientSettings: settings)
         }
     }
 }

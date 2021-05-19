@@ -27,7 +27,7 @@ class WarmupAnswerButton: UIButton {
     private func configure() {
         layer.cornerRadius = 20
         titleLabel?.textColor = .white
-        titleLabel?.font = UIFont(name: "Gilroy-Bold", size: 22)
+        titleLabel?.font = .gilroy(.bold, size: 22)
         titleLabel?.adjustsFontSizeToFitWidth = true
         backgroundColor = UIColor.white.withAlphaComponent(0.1)
     }

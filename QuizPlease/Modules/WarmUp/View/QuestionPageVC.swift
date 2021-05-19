@@ -15,8 +15,11 @@ protocol QuestionPageVCDelegate: class {
 class QuestionPageVC: UIPageViewController {
     
     private var _viewControllers = [UIViewController]()
-    
     private weak var questionsDelegate: QuestionPageVCDelegate?
+    
+    var currentViewController: WarmupQuestionVC? {
+        viewControllers?.first as? WarmupQuestionVC
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()

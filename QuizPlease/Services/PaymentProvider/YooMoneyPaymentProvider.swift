@@ -10,15 +10,18 @@ import UIKit
 import YooKassaPayments
 import YooKassaPaymentsApi
 
-final class YooMoneyPaymentProvider: PaymentProvider {
-    typealias Delegate = TokenizationModuleOutput
-        
-    private let devKey = "test_Njg0NDMx448Lmmlqf-gSAxW6E5sj-WpKuwztgFRr-c0"
-    private let productionKey = "live_NzU1NTU07gLSO5hNG4ORAWfm2xDZmiS3lLBoXLpF3JQ"
+final class YooMoneyPaymentProvider: PaymentProvider {        
+    private let devKey: String
+    private let productionKey: String
     
     private var apiKey: String { devKey }
     
-    func showPaymentView(for amount: Double, description: String, from presentationController: UIViewController, delegate: Delegate) {
+    init() {
+        devKey = SecurityHelper.shared.value(for: .paymentKey(.dev)) ?? "dev-key"
+        productionKey = SecurityHelper.shared.value(for: .paymentKey(.prod)) ?? "prod-key"
+    }
+    
+    func showPaymentView(for amount: Double, description: String, from presentationController: UIViewController, delegate: TokenizationModuleOutput) {
         
         let paymentAmount = Amount(value: Decimal(amount), currency: .rub)
         
@@ -38,5 +41,4 @@ final class YooMoneyPaymentProvider: PaymentProvider {
         
         presentationController.present(paymentVC, animated: true)
     }
-    
 }
