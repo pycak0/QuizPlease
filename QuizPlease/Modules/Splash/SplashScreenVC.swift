@@ -8,12 +8,20 @@
 
 import UIKit
 
-protocol SplashScreenViewProtocol: UIViewController {
+protocol SplashScreenViewProtocol: UIViewController, LoadingIndicator {
     var presenter: SplashScreenPresenterProtocol! { get set }
 }
 
 class SplashScreenVC: UIViewController, SplashScreenViewProtocol {
     var presenter: SplashScreenPresenterProtocol!
+    
+    @IBOutlet private weak var activityIndicator: UIActivityIndicatorView! {
+        didSet {
+            activityIndicator.hidesWhenStopped = false
+            activityIndicator.isHidden = false
+            activityIndicator.alpha = 0
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,5 +31,20 @@ class SplashScreenVC: UIViewController, SplashScreenViewProtocol {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         presenter.router.prepare(for: segue, sender: sender)
+    }
+    
+    func startLoading() {
+        activityIndicator.startAnimating()
+        UIView.animate(withDuration: 0.5) {
+            self.activityIndicator.alpha = 1
+        }
+    }
+    
+    func stopLoading() {
+        UIView.animate(withDuration: 0.5) {
+            self.activityIndicator.alpha = 0
+        } completion: { _ in
+            self.activityIndicator.stopAnimating()
+        }
     }
 }
