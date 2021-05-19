@@ -64,8 +64,11 @@ extension UIViewController {
         if let color = tintColor {
             navigationController?.navigationBar.tintColor = color
         }
-        navigationItem.titleView = TitleLabel(title: title ?? navigationItem.title ?? "",
-                                              textColor: tintColor, textAlignment: titleAlignment)
+        navigationItem.titleView = TitleLabel(
+            title: title ?? navigationItem.title ?? "",
+            textColor: tintColor,
+            textAlignment: titleAlignment
+        )
     }
     
     var navBarHeight: CGFloat {

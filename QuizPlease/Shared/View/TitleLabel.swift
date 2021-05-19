@@ -21,7 +21,7 @@ class TitleLabel: UILabel {
     convenience init(title: String, textColor: UIColor? = nil, textAlignment: NSTextAlignment = .left) {
         self.init()
         frame = CGRect(x: 0, y: 0, width: 1000, height: 22)
-        font = .gilroy(.semibold, size: 24)
+        font = .gilroy(.bold, size: 24)
         self.textAlignment = textAlignment
         text = title
         if let color = textColor {

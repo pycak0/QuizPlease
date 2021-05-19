@@ -170,7 +170,7 @@ public class ExpandingHeader: UIView {
         searchField.attributedPlaceholder = NSAttributedString(
             string: "Поиск",
             attributes: [
-                NSAttributedString.Key.font : UIFont.gilroy(.semibold, size: 16),
+                NSAttributedString.Key.font : UIFont.gilroy(.bold, size: 16),
                 NSAttributedString.Key.foregroundColor : UIColor.white
             ]
         )

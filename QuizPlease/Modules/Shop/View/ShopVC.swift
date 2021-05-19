@@ -25,7 +25,6 @@ class ShopVC: UIViewController {
     var presenter: ShopPresenterProtocol!
 
     @IBOutlet private weak var userPointsLabel: UILabel!
-    
     @IBOutlet private weak var shopCollectionView: UICollectionView!
     
     private var gradients = UIView.GradientPreset.shopItemPresets
@@ -33,7 +32,6 @@ class ShopVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter.setupView()
-
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -48,8 +46,6 @@ class ShopVC: UIViewController {
     private func refreshControlTriggered() {
         presenter.handleRefreshControl()
     }
-    
-
 }
 
 //MARK:- Protocol Implementation
