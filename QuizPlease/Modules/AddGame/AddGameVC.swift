@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol AddGameVCDelegate: class {
+protocol AddGameVCDelegate: AnyObject {
     func didAddGameToUserProfile(_ vc: AddGameVC)
 }
 
@@ -64,7 +64,8 @@ class AddGameVC: UIViewController {
             )
             return
         }
-        checkUserLocation { isSatisfactory in
+        checkUserLocation { [weak self] isSatisfactory in
+            guard let self = self else { return }
             guard let isClose = isSatisfactory else {
                 self.showSimpleAlert(title: "Не удалось проверить геолокацию")
                 return
@@ -80,14 +81,26 @@ class AddGameVC: UIViewController {
         }
     }
     
+    //MARK:- Check In
     private func checkIn(teamId id: Int) {
-        NetworkService.shared.checkInOnGame(with: token, chosenTeamId: id) { [weak self] (isSuccess) in
+        NetworkService.shared.checkInOnGame(with: token, chosenTeamId: id) { [weak self] (result) in
             guard let self = self else { return }
-            if isSuccess {
-                self.delegate?.didAddGameToUserProfile(self)
-                self.navigationController?.popViewController(animated: true)
-            } else {
+            switch result {
+            case let .failure(error):
+                print(error)
                 self.showErrorConnectingToServerAlert()
+            case let .success(response):
+                if response.message == "ok" {
+                    self.delegate?.didAddGameToUserProfile(self)
+                    self.navigationController?.popViewController(animated: true)
+                } else if response.status == 400 {
+                    self.showSimpleAlert(
+                        title: "Ошибка",
+                        message: response.message ?? "Неизвестная ошибка сервера"
+                    )
+                } else {
+                    self.showErrorConnectingToServerAlert()
+                }
             }
         }
     }
@@ -100,8 +113,10 @@ class AddGameVC: UIViewController {
             case let .failure(error):
                 print(error)
                 self.gameNameLabel.text = "-"
-                self.showSimpleAlert(title: "Не удалось найти игру",
-                                     message: "Попробуйте отсканировать код ещё раз") { _ in
+                self.showSimpleAlert(
+                    title: "Не удалось найти игру",
+                    message: "Попробуйте отсканировать код ещё раз"
+                ) { _ in
                     self.navigationController?.popViewController(animated: true)
                 }
             case let .success(teams):

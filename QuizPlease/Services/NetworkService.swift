@@ -400,9 +400,9 @@ class NetworkService {
     
     
     //MARK:- Check In On Game
-    func checkInOnGame(with qrCode: String, chosenTeamId: Int, completion: @escaping (_ isSuccess: Bool) -> Void) {
+    func checkInOnGame(with qrCode: String, chosenTeamId: Int, completion: @escaping (Result<AddGameResponse, SessionError>) -> Void) {
         guard let auth = createBearerAuthHeader() else {
-            completion(false)
+            completion(.failure(.invalidToken))
             return
         }
         let headers = [auth.key : auth.value]
@@ -412,7 +412,7 @@ class NetworkService {
         ]
         var urlComps = baseUrlComponents
         urlComps.path = "/api/game/check-qr"
-        afPostBool(with: params, and: headers, to: urlComps, completion: completion)
+        afPostStandard(with: params, and: headers, to: urlComps, responseType: AddGameResponse.self, completion: completion)
     }
     
     //MARK:- Get Teams List From QR
