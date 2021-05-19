@@ -86,9 +86,7 @@ class WarmupVC: UIViewController {
         progressRing.minValue = 0
         progressRing.maxValue = 60
         
-        if let font = UIFont(name: "Gilroy-SemiBold", size: 15) {
-            progressRing.font = font
-        }
+        progressRing.font = .gilroy(.semibold, size: 15)
         progressRing.fontColor = .white
         let formatter = UICircularProgressRingFormatter(valueIndicator: "", rightToLeft: true, showFloatingPoint: false, decimalPlaces: 0)
         progressRing.valueFormatter = formatter

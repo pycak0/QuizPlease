@@ -108,7 +108,7 @@ class ShopCompletionVC: UIViewController {
     private func configureSegmentControl() {
         segmentControl.items = shopItem.availableDeliveryMethods.map { $0.title }
         segmentControl.dampingRatio = 0.9
-        segmentControl.font = UIFont(name: "Gilroy-Bold", size: 16)
+        segmentControl.font = .gilroy(.bold, size: 16)
         segmentControl.addTarget(self, action: #selector(segmentChanged), for: .valueChanged)
     }
     

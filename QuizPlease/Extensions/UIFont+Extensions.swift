@@ -8,8 +8,17 @@
 
 import UIKit
 
+public enum GilroyFontStyle: String {
+    case semibold = "SemiBold"
+    case medium = "Medium"
+    case bold = "Bold"
+    case heavy = "Heavy"
+    
+    fileprivate var fileName: String { "Gilroy-\(rawValue)" }
+}
+
 public extension UIFont {
-    class func gilroySemibold(size: CGFloat) -> UIFont? {
-        UIFont(name: "Gilroy-SemiBold", size: size)
+    class func gilroy(_ style: GilroyFontStyle, size: CGFloat) -> UIFont {
+        UIFont(name: style.fileName, size: size)!
     }
 }

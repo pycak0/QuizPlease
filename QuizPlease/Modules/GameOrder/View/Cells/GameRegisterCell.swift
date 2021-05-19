@@ -66,7 +66,7 @@ class GameRegisterCell: UITableViewCell, GameOrderCellProtocol {
     
     private func configurePicker() {
         countPicker.delegate = self
-        let font = UIFont(name: "Gilroy-SemiBold", size: 16)!
+        let font: UIFont = .gilroy(.semibold, size: 16)
         countPicker.titleLabel.font = font
         countPicker.buttonsTitleFont = font
     }

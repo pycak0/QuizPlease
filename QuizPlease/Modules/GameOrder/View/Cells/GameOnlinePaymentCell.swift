@@ -83,7 +83,7 @@ class GameOnlinePaymentCell: UITableViewCell, GameOrderCellProtocol {
     
     private func configureCell() {
         countPicker.delegate = self
-        countPicker.buttonsTitleFont = .gilroySemibold(size: 16)
+        countPicker.buttonsTitleFont = .gilroy(.semibold, size: 16)
         countPicker.startCount = 1
     }
     

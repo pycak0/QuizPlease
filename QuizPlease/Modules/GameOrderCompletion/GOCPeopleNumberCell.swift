@@ -19,7 +19,7 @@ class GOCPeopleNumberCell: UITableViewCell {
     }
     
     private func configureCell() {
-        let font = UIFont(name: "Gilroy-SemiBold", size: 16)
+        let font: UIFont = .gilroy(.semibold, size: 16)
         countPicker.isUserInteractionEnabled = false
         countPicker.titleLabel.font = font
         countPicker.buttonsTitleFont = font

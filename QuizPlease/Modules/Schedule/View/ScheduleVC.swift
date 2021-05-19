@@ -65,9 +65,13 @@ class ScheduleVC: UIViewController {
         let warmupRange = nsString.range(of: "размяться")
         
         let attrString = NSMutableAttributedString(string: text)
-        let font = UIFont(name: "Gilroy-SemiBold", size: 22) ?? .systemFont(ofSize: 22, weight: .semibold)
-        attrString.addAttributes([.font : font,
-                                  .foregroundColor : UIColor.lightGray], range: wholeRange)
+        let font: UIFont = .gilroy(.semibold, size: 22)
+        attrString.addAttributes([
+                .font : font,
+                .foregroundColor : UIColor.lightGray
+            ],
+            range: wholeRange
+        )
         attrString.addAttributes([.foregroundColor : UIColor.themePurple], range: homeGameRange)
         attrString.addAttributes([.foregroundColor : UIColor.themePurple], range: warmupRange)
         
