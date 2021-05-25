@@ -76,12 +76,13 @@ class RatingPresenter: RatingPresenterProtocol {
     }
     
     func didChangeTeamName(_ name: String) {
-        filteredTeams = teams.filter { $0.name.lowercased().contains(name.lowercased()) }
-        if filteredTeams.isEmpty {
-            searchByTeamName(name)
-        } else {
-            view?.reloadRatingList()
-        }
+        searchByTeamName(name)
+//        filteredTeams = teams.filter { $0.name.lowercased().contains(name.lowercased()) }
+//        if filteredTeams.isEmpty {
+//            searchByTeamName(name)
+//        } else {
+//            view?.reloadRatingList()
+//        }
     }
     
     func didPressSearchButton(with query: String) {
@@ -150,9 +151,19 @@ class RatingPresenter: RatingPresenterProtocol {
 extension RatingPresenter: RatingInteractorOutput {
     func interactor(_ interactor: RatingInteractorProtocol, errorOccured error: SessionError) {
         print(error)
+        switch error {
+        case let .other(otherError):
+            let nsError = otherError as NSError
+            print(nsError.code)
+            if nsError.code == NSURLErrorCancelled || nsError.code == -999 {
+                view?.stopLoading()
+                return
+            }
+        default:
+            break
+        }
         view?.stopLoading()
         view?.showErrorConnectingToServerAlert()
-        //view?.showSimpleAlert(title: "Произошла ошибка", message: error.localizedDescription)
     }
     
     func interactor(_ interactor: RatingInteractorProtocol, didLoadRatingItems ratingItems: [RatingItem]) {

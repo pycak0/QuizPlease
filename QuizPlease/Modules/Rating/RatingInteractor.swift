@@ -33,8 +33,8 @@ class RatingInteractor: RatingInteractorProtocol {
     
     func loadRating(with filter: RatingFilter, page: Int, delay: Double) {
         cancelLoading()
-        timer = Timer.scheduledTimer(withTimeInterval: delay, repeats: false) { _ in
-            self._loadRating(with: filter, page: page)
+        timer = Timer.scheduledTimer(withTimeInterval: delay, repeats: false) { [weak self] _ in
+            self?._loadRating(with: filter, page: page)
         }
     }
     
@@ -45,7 +45,8 @@ class RatingInteractor: RatingInteractorProtocol {
             league: filter.league.rawValue,
             ratingScope: filter.scope.rawValue,
             page: page
-        ) { (serverResult) in
+        ) { [weak self] (serverResult) in
+            guard let self = self else { return }
             switch serverResult {
             case let .failure(error):
                 self.output?.interactor(self, errorOccured: error)

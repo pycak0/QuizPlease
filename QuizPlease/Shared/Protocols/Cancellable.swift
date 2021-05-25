@@ -9,7 +9,10 @@
 import Foundation
 
 public protocol Cancellable {
+    var isCancelled: Bool { get }
     func cancel()
 }
 
-extension URLSessionTask: Cancellable {}
+extension URLSessionTask: Cancellable {
+    public var isCancelled: Bool { progress.isCancelled }
+}
