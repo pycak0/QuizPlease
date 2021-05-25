@@ -53,7 +53,14 @@ class ShopCompletionVC: UIViewController {
     //MARK:- Confirm Button Pressed
     @IBAction func confirmButtonPressed(_ sender: Any) {
         let index = segmentControl.selectedIndex
-        guard let deliveryMethod = DeliveryMethod(title: segmentControl.items[index]) else { return }
+        let chosenDelivery: DeliveryMethod? = shopItem.isOfflineDeliveryOnly ? .game : DeliveryMethod(title: segmentControl.items[index])
+        guard let deliveryMethod = chosenDelivery else {
+            showSimpleAlert(
+                title: "Произошла ошибка",
+                message: "Выбранная опция получения товара недоступна в данный момент"
+            )
+            return
+        }
         guard let text = textFieldView.textField.text, text.isValidEmail else {
             textFieldView.shakeAnimation()
             return
@@ -84,7 +91,10 @@ class ShopCompletionVC: UIViewController {
                         self.navigationController?.popViewController(animated: true)
                     }
                 } else {
-                    self.showSimpleAlert(title: "Не удалось завершить покупку", message: "Произошла ошибка, но не волнуйтесь, Ваши бонусные баллы не были списаны. Можете попробовать подтвердить заказ ещё раз")
+                    self.showSimpleAlert(
+                        title: "Не удалось завершить покупку",
+                        message: "Произошла ошибка, но не волнуйтесь, Ваши бонусные баллы не были списаны. Можете попробовать подтвердить заказ ещё раз"
+                    )
                 }
             }
         }
@@ -102,7 +112,7 @@ class ShopCompletionVC: UIViewController {
     
     private func configureViews() {
         imageView.loadImage(path: shopItem.imagePath, placeholderImage: .logoColoredImage)
-        if shopItem.availableDeliveryMethods.count == 1 && shopItem.availableDeliveryMethods.first == .game {
+        if shopItem.isOfflineDeliveryOnly {
             questionLabel.numberOfLines = 0
             questionLabel.text = "Мы доставим этот ништяк на вашу следующую игру! Наш менеджер свяжется с вами после подтверждения заказа."
             segmentControl.isHidden = true
