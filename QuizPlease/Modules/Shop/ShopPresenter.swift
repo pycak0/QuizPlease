@@ -17,7 +17,7 @@ protocol ShopPresenterProtocol {
     
     var userInfo: UserInfo? { get set }
     
-    func setupView()
+    func viewDidLoad(_ view: ShopViewProtocol)
     
     func didSelectItem(at index: Int)
     func didAgreeToPurchase(_ item: ShopItem)
@@ -43,16 +43,15 @@ class ShopPresenter: ShopPresenterProtocol {
     }
     
     //MARK:- Setup View
-    func setupView() {
-        view?.configure()
+    func viewDidLoad(_ view: ShopViewProtocol) {
+        view.configure()
         reloadItems()
-        view?.startLoading()
+        view.startLoading()
 
         if let info = userInfo {
-            view?.showUserPoints(info.pointsAmount)
-        } else {
-            loadUserInfo()
+            view.showUserPoints(info.pointsAmount)
         }
+        loadUserInfo()
     }
     
     //MARK:- Refresh Control

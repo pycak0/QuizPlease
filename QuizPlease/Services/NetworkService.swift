@@ -100,7 +100,7 @@ class NetworkService {
     }
     
     //MARK:- Get Rating
-    func getRating(cityId: Int, teamName: String, league: Int, ratingScope: Int, page: Int, completion: @escaping (Result<[RatingItem], SessionError>) -> Void) {
+    func getRating(cityId: Int, teamName: String, league: Int, ratingScope: Int, page: Int, completion: @escaping (Result<[RatingItem], SessionError>) -> Void) -> Cancellable? {
         var ratingUrlComponents = baseUrlComponents
         ratingUrlComponents.path = "/api/rating"
         ratingUrlComponents.queryItems = [
@@ -112,7 +112,7 @@ class NetworkService {
         if teamName.count > 0 {
             ratingUrlComponents.queryItems?.append(URLQueryItem(name: "teamName", value: teamName))
         }
-        getStandard([RatingItem].self, with: ratingUrlComponents, completion: completion)
+        return getStandard([RatingItem].self, with: ratingUrlComponents, completion: completion)
     }
     
     //MARK:- Get Shop Items
@@ -247,7 +247,8 @@ class NetworkService {
     
     //MARK:- Get Standard Server Request
     ///A get request for standard server response containing requested object in `data` field. You should mostly use this method rather than simple `get(:urlComponents:completion:)`.
-    func getStandard<T: Decodable>(_ type: T.Type, with urlComponents: URLComponents, headers: [String: String]? = nil, authorizationKind: AuthorizationKind = .none, completion: @escaping ((Result<T, SessionError>) -> Void)) {
+    @discardableResult
+    func getStandard<T: Decodable>(_ type: T.Type, with urlComponents: URLComponents, headers: [String: String]? = nil, authorizationKind: AuthorizationKind = .none, completion: @escaping ((Result<T, SessionError>) -> Void)) -> Cancellable? {
         get(ServerResponse<T>.self, with: urlComponents, headers: headers, authorizationKind: authorizationKind) { getResult in
             switch getResult {
             case let .failure(error):
@@ -267,10 +268,11 @@ class NetworkService {
     
     //MARK:- Get Request
     ///- parameter authorizationKind: Use this parameter to choose authoriztion kind for the request. Auth info from this parameter will be used for 'Authoriztion' HTTP Header Field, so, if you provide `headers` with authoriztion header, it may be rewritten
-    func get<Object: Decodable>(_ type: Object.Type, with urlComponents: URLComponents, headers: [String: String]? = nil, authorizationKind: AuthorizationKind = .none, completion: @escaping ((Result<Object, SessionError>) -> Void)) {
+    @discardableResult
+    func get<Object: Decodable>(_ type: Object.Type, with urlComponents: URLComponents, headers: [String: String]? = nil, authorizationKind: AuthorizationKind = .none, completion: @escaping ((Result<Object, SessionError>) -> Void)) -> Cancellable? {
         guard let url = urlComponents.url else {
             completion(.failure(.invalidUrl))
-            return
+            return nil
         }
         var request = URLRequest(url: url)
         for (key, value) in headers ?? [:] {
@@ -280,7 +282,7 @@ class NetworkService {
             request.setValue(auth.value, forHTTPHeaderField: auth.key)
         } else if authorizationKind != .none {
             completion(.failure(.invalidToken))
-            return
+            return nil
         }
         let config = URLSessionConfiguration.default
         config.timeoutIntervalForRequest = 15
@@ -293,7 +295,7 @@ class NetworkService {
         =====\n\n
         """)
         let session = URLSession(configuration: config)
-        session.dataTask(with: request) { (data, response, error) in
+        let task = session.dataTask(with: request) { (data, response, error) in
             if let error = error {
                 DispatchQueue.main.async {
                     completion(.failure(.other(error)))
@@ -333,7 +335,10 @@ class NetworkService {
                     completion(.failure(.decoding(error)))
                 }
             }
-        }.resume()
+        }
+        task.resume()
+        
+        return task
     }
     
     

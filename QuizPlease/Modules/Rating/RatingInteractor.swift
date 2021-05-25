@@ -15,28 +15,31 @@ protocol RatingInteractorProtocol {
     func cancelLoading()
 }
 
-protocol RatingInteractorOutput: class {
+protocol RatingInteractorOutput: AnyObject {
     func interactor(_ interactor: RatingInteractorProtocol, errorOccured error: SessionError)
     func interactor(_ interactor: RatingInteractorProtocol, didLoadRatingItems ratingItems: [RatingItem])
 }
 
 class RatingInteractor: RatingInteractorProtocol {
     private var timer: Timer?
+    private var runningTasks = [Cancellable?]()
     weak var output: RatingInteractorOutput?
     
     func cancelLoading() {
         timer?.invalidate()
+        runningTasks.forEach { $0?.cancel() }
+        runningTasks.removeAll()
     }
     
     func loadRating(with filter: RatingFilter, page: Int, delay: Double) {
-        timer?.invalidate()
+        cancelLoading()
         timer = Timer.scheduledTimer(withTimeInterval: delay, repeats: false) { _ in
             self._loadRating(with: filter, page: page)
         }
     }
     
     private func _loadRating(with filter: RatingFilter, page: Int) {
-        NetworkService.shared.getRating(
+        let token = NetworkService.shared.getRating(
             cityId: filter.city.id,
             teamName: filter.teamName,
             league: filter.league.rawValue,
@@ -50,5 +53,6 @@ class RatingInteractor: RatingInteractorProtocol {
                 self.output?.interactor(self, didLoadRatingItems: items)
             }
         }
+        runningTasks.append(token)
     }
 }

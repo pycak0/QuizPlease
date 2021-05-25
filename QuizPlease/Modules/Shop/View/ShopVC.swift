@@ -29,7 +29,7 @@ class ShopVC: UIViewController {
         
     override func viewDidLoad() {
         super.viewDidLoad()
-        presenter.setupView()
+        presenter.viewDidLoad(self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
