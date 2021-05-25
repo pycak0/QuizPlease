@@ -10,7 +10,7 @@ import UIKit
 import AVKit
 
 //MARK:- Delegate Protocol
-protocol AudioViewDelegate: class {
+protocol AudioViewDelegate: AnyObject {
     
     ///- parameter progress: the value is in [0, 1] bounds
     func audioView(_ audioView: AudioView, didUpdateProgress progress: Double)
@@ -65,13 +65,13 @@ class AudioView: UIView {
     func pause() {
         player?.pause()
         playPauseButton.setImage(playImage, for: .normal)
-        updater?.invalidate()
+        stopTracking()
         shouldBePlaying = false
     }
         
     func configure(with url: URL?) {
         guard let url = url else {
-            let error = NSError(domain: "Invalid or nil URL passed to AudioView's player", code: -999)
+            let error = NSError(domain: "Invalid or nil URL passed to AudioView's player", code: -99999)
             delegate?.audioView(self, didFailToConfigurePlayerWithError: error)
             return
         }
@@ -87,8 +87,8 @@ class AudioView: UIView {
                         self.play()
                     }
                 } else {
-                    self.updater?.invalidate()
-                    let error = NSError(domain: "Error downloading sound data", code: -999)
+                    self.stopTracking()
+                    let error = NSError(domain: "Error downloading sound data", code: -99999)
                     self.delegate?.audioView(self, didFailToConfigurePlayerWithError: error)
                 }
             }
@@ -113,15 +113,19 @@ class AudioView: UIView {
             delegate?.audioView(self, didUpdateProgress: 0)
             
         } catch {
-            updater?.invalidate()
+            stopTracking()
             delegate?.audioView(self, didFailToConfigurePlayerWithError: error)
         }
     }
     
     private func setupTracking() {
         updater = CADisplayLink(target: self, selector: #selector(updateProgress))
-        //updater?.preferredFramesPerSecond = 10
-        updater?.add(to: RunLoop.current, forMode: .common)
+        updater?.add(to: RunLoop.main, forMode: .common)
+    }
+    
+    private func stopTracking() {
+        updater?.invalidate()
+        updater = nil
     }
     
     @objc
@@ -158,7 +162,7 @@ class AudioView: UIView {
     }
     
     deinit {
-        updater?.invalidate()
+        stopTracking()
     }
     
 }

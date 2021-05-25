@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol QuestionPageVCDelegate: class {
+protocol QuestionPageVCDelegate: AnyObject {
     func questionsDidEnd()
 }
 
@@ -37,22 +37,20 @@ class QuestionPageVC: UIPageViewController {
     }
     
     func start() {
-        guard let vc = _viewControllers.first else { return }
+        let vc = _viewControllers.removeFirst()
         setViewControllers([vc], direction: .forward, animated: true, completion: nil)
     }
     
     func next() {
-        guard _viewControllers.count > 1 else {
+        guard !_viewControllers.isEmpty else {
             questionsDelegate?.questionsDidEnd()
             return
         }
         isPagingEnabled = false
-        setViewControllers([_viewControllers[1]], direction: .forward, animated: true) { _ in
+        setViewControllers([_viewControllers.removeFirst()], direction: .forward, animated: true) { _ in
             self.isPagingEnabled = true
         }
-        _viewControllers.removeFirst()
     }
-
 }
 
 extension QuestionPageVC: UIPageViewControllerDataSource {
@@ -63,5 +61,4 @@ extension QuestionPageVC: UIPageViewControllerDataSource {
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         return nil
     }
-    
 }

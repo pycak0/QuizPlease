@@ -13,7 +13,7 @@ protocol RatingViewProtocol: UIViewController, LoadingIndicator {
     var presenter: RatingPresenterProtocol! { get set }
     
     func reloadRatingList()
-    func appendRaingItems(at indices: Range<Int>)
+    func appendRatingItems(at indices: Range<Int>)
     
     func configure()
     func setHeaderLabelContent(city: String, leagueComment: String, ratingScopeComment: String)
@@ -61,7 +61,7 @@ extension RatingVC: RatingViewProtocol {
         tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .fade)
     }
     
-    func appendRaingItems(at indices: Range<Int>) {
+    func appendRatingItems(at indices: Range<Int>) {
         let indexPaths = indices.map { IndexPath(row: $0, section: 0) }
         UIView.setAnimationsEnabled(false)
         tableView.beginUpdates()
@@ -158,8 +158,8 @@ extension RatingVC: UITableViewDataSource, UITableViewDelegate {
         cell.configure(with: team.name, games: team.games, points: Int(team.pointsTotal), imagePath: team.imagePath)
         
         let teamsCount = presenter.filteredTeams.count
-        if indexPath.row == teamsCount - 5 {
-            presenter.didAlmostScrollToEnd()
+        if indexPath.row == teamsCount - 1 {
+            presenter.needsLoadingMoreItems()
         }
         
         return cell

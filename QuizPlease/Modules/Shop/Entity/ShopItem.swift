@@ -44,4 +44,8 @@ extension ShopItem {
         }
         return methods
     }
+    
+    var isOfflineDeliveryOnly: Bool {
+        availableDeliveryMethods.count == 1 && availableDeliveryMethods.first == .game
+    }
 }

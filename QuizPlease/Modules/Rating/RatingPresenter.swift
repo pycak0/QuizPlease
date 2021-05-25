@@ -32,7 +32,8 @@ protocol RatingPresenterProtocol {
     func didHideKeyboard(with query: String)
     func searchByTeamName(_ name: String)
     
-    func didAlmostScrollToEnd()
+    func needsLoadingMoreItems()
+    func cancelPrefetching()
 }
 
 class RatingPresenter: RatingPresenterProtocol {
@@ -75,12 +76,13 @@ class RatingPresenter: RatingPresenterProtocol {
     }
     
     func didChangeTeamName(_ name: String) {
-        filteredTeams = teams.filter { $0.name.lowercased().contains(name.lowercased()) }
-        if filteredTeams.isEmpty {
-            searchByTeamName(name)
-        } else {
-            view?.reloadRatingList()
-        }
+        searchByTeamName(name)
+//        filteredTeams = teams.filter { $0.name.lowercased().contains(name.lowercased()) }
+//        if filteredTeams.isEmpty {
+//            searchByTeamName(name)
+//        } else {
+//            view?.reloadRatingList()
+//        }
     }
     
     func didPressSearchButton(with query: String) {
@@ -94,7 +96,7 @@ class RatingPresenter: RatingPresenterProtocol {
     func searchByTeamName(_ name: String) {
         filter.teamName = name
         //view?.startLoading()
-        reloadRating(delay: 0.5)
+        reloadRating(afterDelay: 0.5)
     }
     
     func viewDidLoad(_ view: RatingViewProtocol) {
@@ -107,9 +109,13 @@ class RatingPresenter: RatingPresenterProtocol {
         reloadRating()
     }
     
-    func didAlmostScrollToEnd() {
+    func needsLoadingMoreItems() {
         currentPage += 1
         loadRating()
+    }
+    
+    func cancelPrefetching() {
+        interactor.cancelLoading()
     }
     
     private func updateHeaderContent() {
@@ -129,13 +135,13 @@ class RatingPresenter: RatingPresenterProtocol {
     
     //MARK:- Load
     ///Resets `currentPage` value to `1`, clears `teams` array and reloads view, then calls `loadRating` method
-    private func reloadRating(delay: Double = 0) {
+    private func reloadRating(afterDelay delay: Double = 0) {
         resetData()
-        loadRating(delay: delay)
+        loadRating(afterDelay: delay)
     }
     
     ///Calls interactor's `loadRating` method using value of the `currentPage` without changing it
-    private func loadRating(delay: Double = 0) {
+    private func loadRating(afterDelay delay: Double = 0) {
         view?.startLoading()
         interactor.loadRating(with: filter, page: currentPage, delay: delay)
     }
@@ -145,31 +151,41 @@ class RatingPresenter: RatingPresenterProtocol {
 extension RatingPresenter: RatingInteractorOutput {
     func interactor(_ interactor: RatingInteractorProtocol, errorOccured error: SessionError) {
         print(error)
+        switch error {
+        case let .other(otherError):
+            let nsError = otherError as NSError
+            print(nsError.code)
+            if nsError.code == NSURLErrorCancelled || nsError.code == -999 {
+                view?.stopLoading()
+                return
+            }
+        default:
+            break
+        }
         view?.stopLoading()
         view?.showErrorConnectingToServerAlert()
-        //view?.showSimpleAlert(title: "Произошла ошибка", message: error.localizedDescription)
     }
     
     func interactor(_ interactor: RatingInteractorProtocol, didLoadRatingItems ratingItems: [RatingItem]) {
         view?.stopLoading()
         var indices = 0..<0
-        if self.currentPage > self.firstPageNumber {
-            let filteredTeams = ratingItems.filter { !self.teams.contains($0) }
+        if currentPage > firstPageNumber {
+            let filteredTeams = ratingItems.filter { !teams.contains($0) }
             guard !filteredTeams.isEmpty else { return }
             
-            let startIndex = self.teams.count
-            self.teams += filteredTeams
-            indices = startIndex..<self.teams.count
+            let startIndex = teams.count
+            teams += filteredTeams
+            indices = startIndex..<teams.count
         } else {
-            self.teams = ratingItems
+            teams = ratingItems
         }
         
-        self.filteredTeams = self.teams
+        filteredTeams = teams
         
         if !indices.isEmpty {
-            self.view?.appendRaingItems(at: indices)
+            view?.appendRatingItems(at: indices)
         } else {
-            self.view?.reloadRatingList()
+            view?.reloadRatingList()
         }
     }
 }
