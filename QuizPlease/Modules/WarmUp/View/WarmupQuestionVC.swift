@@ -9,7 +9,7 @@
 import UIKit
 
 //MARK:- Delegate Protocol
-protocol WarmupQuestionVCAnswerDelegate: class {
+protocol WarmupQuestionVCAnswerDelegate: AnyObject {
     func questionVC(_ vc: WarmupQuestionVC, didSelectAnswer answer: String, forQuestion question: WarmupQuestion)
 }
 
@@ -46,6 +46,11 @@ class WarmupQuestionVC: UIViewController {
         }
     }
     
+    func stopMedia() {
+        audioView?.pause()
+        videoView?.pause()
+    }
+    
     //MARK:- Init
     private override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -71,8 +76,7 @@ class WarmupQuestionVC: UIViewController {
         view.isUserInteractionEnabled = false
         selectedButton = sender
         
-        videoView.pause()
-        audioView.pause()
+        stopMedia()
         
         delegate?.questionVC(self, didSelectAnswer: sender.title(for: .normal) ?? "", forQuestion: question)
     }

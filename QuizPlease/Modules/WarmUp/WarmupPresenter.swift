@@ -98,8 +98,8 @@ class WarmupPresenter: WarmupPresenterProtocol {
     private func startTimer() {
         timestamp = Date()
         let interval: Double = 1
-        timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { _ in
-            self.timePassed += interval
+        timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { [weak self] _ in
+            self?.timePassed += interval
         }
     }
     

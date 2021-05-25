@@ -25,6 +25,7 @@ protocol WarmupViewProtocol: UIViewController, LoadingIndicator {
 
 class WarmupVC: UIViewController {
     var presenter: WarmupPresenterProtocol!
+    private weak var pageVC: QuestionPageVC!
     
     //MARK:- Outlets
     @IBOutlet private weak var previewStack: UIStackView!
@@ -42,13 +43,17 @@ class WarmupVC: UIViewController {
     @IBOutlet private weak var infoLabel: UILabel!
     private var activityIndicator = UIActivityIndicatorView()
     
-    private weak var pageVC: QuestionPageVC!
             
     //MARK:- Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         WarmupConfigurator().configure(self)
         presenter.viewDidLoad(self)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        pageVC.currentViewController?.stopMedia()
     }
     
     //MARK:- Prepare for Segue

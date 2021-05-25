@@ -30,7 +30,7 @@ class WarmupInteractor: WarmupInteractorProtocol {
     weak var output: WarmupInteractorOutput?
     
     func loadQuestions() {
-        NetworkService.shared.getWarmupQuestions { [weak self] serverResult in
+        MockNetworkService.shared.getWarmupQuestions { [weak self] serverResult in
             guard let self = self else { return }
             switch serverResult {
             case let .failure(error):
@@ -75,17 +75,17 @@ class WarmupInteractor: WarmupInteractorProtocol {
     }
     
     func checkAnswerWithId(_ answerId: Int, forQuestionWithId questionId: String) {
-//        self.output?.interactor(self, isAnswerCorrect: Int.random(in: 0...1) == 1, answerId: answerId, questionId: questionId)
+        self.output?.interactor(self, isAnswerCorrect: Int.random(in: 0...1) == 1, answerId: answerId, questionId: questionId)
         
         
-        NetworkService.shared.sendWarmupAnswer(questionId: questionId, answerId: answerId) { (result) in
-            switch result {
-            case let .failure(error):
-                self.output?.interactor(self, failedToCheckAnswer: answerId, questionId: questionId, error: error)
-            case let .success(answerResponse):
-                self.output?.interactor(self, isAnswerCorrect: answerResponse.message, answerId: answerId, questionId: questionId)
-            }
-        }
+//        NetworkService.shared.sendWarmupAnswer(questionId: questionId, answerId: answerId) { (result) in
+//            switch result {
+//            case let .failure(error):
+//                self.output?.interactor(self, failedToCheckAnswer: answerId, questionId: questionId, error: error)
+//            case let .success(answerResponse):
+//                self.output?.interactor(self, isAnswerCorrect: answerResponse.message, answerId: answerId, questionId: questionId)
+//            }
+//        }
     }
 }
 
