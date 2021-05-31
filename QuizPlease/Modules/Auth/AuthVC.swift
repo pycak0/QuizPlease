@@ -130,9 +130,7 @@ class AuthVC: UIViewController {
                     self.delegate?.didSuccessfullyAuthenticate(in: self)
                 } else {
                     self.showSimpleAlert(title: "Произошла ошибка", message: "Пожалуйста, попробуйте повторить еще раз")
-                    
                 }
-                
             }
         }
     }

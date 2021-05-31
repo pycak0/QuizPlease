@@ -44,5 +44,4 @@ class ProfileInteractor: ProfileInteractorProtocol {
         AppSettings.userToken = nil
         DefaultsManager.shared.removeAuthInfo()
     }
-    
 }
