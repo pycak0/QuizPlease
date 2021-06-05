@@ -740,9 +740,6 @@
                                         <real key="value" value="20"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="blanksButtonPressed:" destination="91j-IJ-Xql" eventType="touchUpInside" id="lOt-ZY-oEF"/>
-                                </connections>
                             </button>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mEJ-qY-QPc" customClass="ScalingButton" customModule="QuizPlease" customModuleProvider="target">
                                 <rect key="frame" x="20" y="645" width="350" height="60"/>
@@ -759,9 +756,6 @@
                                         <real key="value" value="20"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="rulesButtonPressed:" destination="91j-IJ-Xql" eventType="touchUpInside" id="UPO-Ve-wNi"/>
-                                </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="carpetVertical" translatesAutoresizingMaskIntoConstraints="NO" id="FzP-Sr-chM">
                                 <rect key="frame" x="0.0" y="0.0" width="390" height="615"/>

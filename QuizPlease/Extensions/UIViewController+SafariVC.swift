@@ -13,7 +13,13 @@ extension UIViewController {
     //MARK:- Open Safari VC with link
     ///Opens Safari screen with chosen preset link or any other given
     ///- parameter url: if `nil`, will not open anything
-    func openSafariVC(with url: URL?, delegate: SFSafariViewControllerDelegate?, autoReaderView: Bool = false, barsColor: UIColor! = .purple, controlsColor: UIColor = .white) {
+    func openSafariVC(
+        with url: URL?,
+        delegate: SFSafariViewControllerDelegate?,
+        autoReaderView: Bool = false,
+        barsColor: UIColor! = .purple,
+        controlsColor: UIColor = .white
+    ) {
         guard let url = url else { return }
         
         let config = SFSafariViewController.Configuration()

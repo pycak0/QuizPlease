@@ -48,10 +48,6 @@ extension HomeGame {
         packages_link?.pathProof
     }
     
-    var rulesPath: String? {
-        packages_link?.pathProof
-    }
-    
     ///A title of home game containing its `title` and `number` properties separated by a whitespace
     var fullTitle: String {
         return "\(title.trimmingCharacters(in: .whitespaces)) \(number)"

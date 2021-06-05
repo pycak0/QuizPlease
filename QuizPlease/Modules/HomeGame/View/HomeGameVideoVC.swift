@@ -7,32 +7,68 @@
 //
 
 import UIKit
-import SafariServices
+
+fileprivate enum Constants {
+    static let buttonCornerRadius: CGFloat = 20
+    static let videoCornerRadius: CGFloat = 30
+    static let gameRulesPath = "/files/quizplease_home_rules.pdf"
+}
 
 class HomeGameVideoVC: UIViewController {
-    
-    @IBOutlet private weak var backgroundImageView: UIImageView!
-    @IBOutlet private weak var descriptionBackground: UIView!
-    @IBOutlet private weak var descriptionLabel: UILabel!
-    @IBOutlet private weak var rulesButton: ScalingButton!
-    @IBOutlet private weak var blanksButton: ScalingButton!
-    @IBOutlet private weak var videoView: VideoView!
-    
     var homeGame: HomeGame! = HomeGame()
     
+    @IBOutlet private weak var descriptionLabel: UILabel!
+
+    @IBOutlet private weak var backgroundImageView: UIImageView! {
+        didSet {
+            backgroundImageView.layer.cornerRadius = Constants.videoCornerRadius
+            backgroundImageView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+        }
+    }
+    
+    @IBOutlet private weak var descriptionBackground: UIView! {
+        didSet {
+            descriptionBackground.layer.cornerRadius = Constants.videoCornerRadius
+            descriptionBackground.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+            descriptionBackground.blurView.setup(style: .regular, alpha: 0.8).enable()
+        }
+    }
+    
+    @IBOutlet private weak var rulesButton: ScalingButton! {
+        didSet{
+            rulesButton.backgroundColor = UIColor.systemRed.withAlphaComponent(0.2)
+            rulesButton.layer.cornerRadius = Constants.buttonCornerRadius
+            rulesButton.addTarget(self, action: #selector(rulesButtonPressed(_:)), for: .touchUpInside)
+        }
+    }
+    
+    @IBOutlet private weak var blanksButton: ScalingButton! {
+        didSet {
+            blanksButton.backgroundColor = UIColor.systemBlue.withAlphaComponent(0.2)
+            blanksButton.layer.cornerRadius = Constants.buttonCornerRadius
+            blanksButton.addTarget(self, action: #selector(blanksButtonPressed(_:)), for: .touchUpInside)
+        }
+    }
+    
+    @IBOutlet private weak var videoView: VideoView! {
+        didSet {
+            videoView.configureVideoView(parent: self)
+            videoView.layer.cornerRadius = Constants.videoCornerRadius
+        }
+    }
+        
     //MARK:- Lifecycle 
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareNavigationBar(title: homeGame.fullTitle, tintColor: .white)
-        configureViews()
         loadDetail()
     }
     
-    @IBAction private func rulesButtonPressed(_ sender: UIButton) {
-        openUrl(with: homeGame.rulesPath, accentColor: sender.backgroundColor)
+    @objc private func rulesButtonPressed(_ sender: UIButton) {
+        openUrl(with: Constants.gameRulesPath, accentColor: sender.backgroundColor)
     }
     
-    @IBAction private func blanksButtonPressed(_ sender: UIButton) {
+    @objc private func blanksButtonPressed(_ sender: UIButton) {
         openUrl(with: homeGame.blanksPath, accentColor: sender.backgroundColor)
     }
     
@@ -41,28 +77,7 @@ class HomeGameVideoVC: UIViewController {
         var rulesUrlComps = NetworkService.shared.baseUrlComponents
         rulesUrlComps.path = path
         guard let url = rulesUrlComps.url else { return }
-        openSafariVC(with: url, delegate: self)
-    }
-    
-    //MARK:- Configure Views
-    private func configureViews() {
-        videoView.configureVideoView(parent: self)
-        descriptionBackground.blurView.setup(style: .regular, alpha: 0.8).enable()
-        //descriptionBackground.addBlur(color: .systemPurple, style: blurStyle, alpha: 0.7)
-        
-        rulesButton.backgroundColor = UIColor.systemRed.withAlphaComponent(0.2)
-        blanksButton.backgroundColor = UIColor.systemBlue.withAlphaComponent(0.2)
-        
-        let buttonCornerRadius: CGFloat = 20
-        let videoCornerRadius: CGFloat = 30
-        blanksButton.layer.cornerRadius = buttonCornerRadius
-        rulesButton.layer.cornerRadius = buttonCornerRadius
-        
-        videoView.layer.cornerRadius = videoCornerRadius
-        descriptionBackground.layer.cornerRadius = videoCornerRadius
-        backgroundImageView.layer.cornerRadius = videoCornerRadius
-        descriptionBackground.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        backgroundImageView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+        openSafariVC(with: url, delegate: nil)
     }
     
     //MARK:- Load Details
@@ -86,6 +101,3 @@ class HomeGameVideoVC: UIViewController {
         descriptionLabel.text = homeGame.description ?? "..."
     }
 }
-
-//MARK:- Safari VC Delegate
-extension HomeGameVideoVC: SFSafariViewControllerDelegate {}
