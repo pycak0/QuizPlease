@@ -84,14 +84,21 @@ extension GameOrderVC: GameRegisterCellDelegate {
 extension GameOrderVC: GameCertificateCellDelegate {
     func titleForCell(_ certificateCell: GameCertificateCell) -> String {
         if certificateCell.associatedItemKind == .certificate {
-            certificateCell.fieldView.title = "Введите номер сертификата"
-            return "У Вас есть сертификат Квиз, плиз! ?"
+            certificateCell.fieldView.title = "Введите номер сертификата/промокода"
+            return "У Вас есть промокод / сертификат Квиз, плиз! ?"
         }
         certificateCell.fieldView.title = "Введите промокод"
         return "У Вас есть промокод?"
     }
     
     func accessoryText(for certificateCell: GameCertificateCell) -> String {
+        if items.filter({ $0 == .certificate }).count > 1,
+           let indexOfFirstCertificate = indexOfFirstCertificate,
+           let cell = tableView.cellForRow(at: IndexPath(row: indexOfFirstCertificate, section: 0)),
+           cell != certificateCell {
+            return ""
+        }
+        
         switch certificateCell.associatedItemKind {
         case .certificate:
             return "Для активации сертификатов от наших партнеров свяжитесь с нами"
@@ -101,9 +108,31 @@ extension GameOrderVC: GameCertificateCellDelegate {
     }
     
     func certificateCell(_ certificateCell: GameCertificateCell, didChangeCertificateCode newCode: String) {
+        guard
+            let indexPath = tableView.indexPath(for: certificateCell),
+            let indexOfFirstCertificate = indexOfFirstCertificate
+        else { return }
+        let index = indexPath.row - indexOfFirstCertificate
+        presenter.didChangeSpecialCondition(newValue: newCode, at: index)
+        
         switch certificateCell.associatedItemKind {
         case .certificate:
             presenter.registerForm.certificates = newCode
+            let certificatesCount = items
+                .filter { $0 == .certificate }
+                .count
+            if newCode.isEmpty,
+               certificatesCount == 1,
+               let index = items.firstIndex(of: .addExtraCertificate) {
+                items.remove(at: index)
+                tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .fade)
+            } else if !newCode.isEmpty,
+                      items.firstIndex(of: .addExtraCertificate) == nil,
+                      let i = items.lastIndex(of: .certificate) {
+                let index = i + 1
+                items.insert(.addExtraCertificate, at: index)
+                tableView.insertRows(at: [IndexPath(row: index, section: 0)], with: .fade)
+            }
         case .promocode:
             presenter.registerForm.promocode = newCode
         default:
@@ -124,6 +153,12 @@ extension GameOrderVC: GameCertificateCellDelegate {
     }
 }
 
+//MARK:- Add Extra Certificate
+extension GameOrderVC: GameAddExtraCertificateCellDelegate {
+    func cellDidPressAddButton(_ cell: GameAddExtraCertificateCell) {
+        presenter.didPressAddSpecialCondition()
+    }
+}
 
 //MARK:- First Play
 extension GameOrderVC: GameFirstPlayCellDelegate {

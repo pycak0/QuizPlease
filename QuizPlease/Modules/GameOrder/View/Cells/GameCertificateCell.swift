@@ -9,7 +9,7 @@
 import UIKit
 
 ///If cell delegate is not provided, it uses the default `title` and `accessoryText` values
-protocol GameCertificateCellDelegate: class {
+protocol GameCertificateCellDelegate: AnyObject {
     func titleForCell(_ certificateCell: GameCertificateCell) -> String
         
     ///If the provided string is an empty string, the accessoryTitleLabel will be hidden

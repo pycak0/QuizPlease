@@ -35,7 +35,7 @@ class HomeGameVideoVC: UIViewController {
     }
     
     @IBOutlet private weak var rulesButton: ScalingButton! {
-        didSet{
+        didSet {
             rulesButton.backgroundColor = UIColor.systemRed.withAlphaComponent(0.2)
             rulesButton.layer.cornerRadius = Constants.buttonCornerRadius
             rulesButton.addTarget(self, action: #selector(rulesButtonPressed(_:)), for: .touchUpInside)

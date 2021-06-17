@@ -89,6 +89,18 @@ public extension UIColor {
         }
         return .white
     }
-
+    
+    class var systemGray6Adapted: UIColor {
+        if #available(iOS 13.0, *) {
+            return .systemGray6
+        }
+        return .themeGray
+    }
+    
+    class var systemGray5Adapted: UIColor {
+        if #available(iOS 13.0, *) {
+            return .systemGray5
+        }
+        return .lightGray
+    }
 }
-

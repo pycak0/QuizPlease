@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum DiscountType {
+enum CertificateDiscountType {
     case allTeamFree
     case numberOfPeopleForFree(_ number: Int)
     case none
@@ -21,7 +21,7 @@ struct CertificateResponse: Decodable {
 }
 
 extension CertificateResponse {
-    var discountType : DiscountType {
+    var discountType: CertificateDiscountType {
         guard let type = type else {
             return .none
         }

@@ -16,6 +16,7 @@ protocol GameOrderPresenterProtocol {
     var router: GameOrderRouterProtocol! { get }
     var isOnlinePaymentDefault: Bool { get }
     var isOnlyCashAvailable: Bool { get }
+    var specialConditions: [SpecialCondition] { get set }
     
     init(view: GameOrderViewProtocol, interactor: GameOrderInteractorProtocol, router: GameOrderRouterProtocol)
     
@@ -25,6 +26,11 @@ protocol GameOrderPresenterProtocol {
     func priceTextColor() -> UIColor?
     func checkCertificate()
     func checkPromocode()
+    
+    func didPressAddSpecialCondition()
+    func didChangeSpecialCondition(newValue: String, at index: Int)
+    func didPressCheckSpecialCondition(at index: Int)
+    func didEndEditingSpecialCondition(at index: Int)
 }
 
 class GameOrderPresenter: GameOrderPresenterProtocol {
@@ -40,7 +46,9 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
         }
     }
     
-    private var discountType: DiscountType = .none
+    var specialConditions: [SpecialCondition] = [SpecialCondition()]
+    
+    private var discountType: CertificateDiscountType = .none
     private var tokenizationModule: TokenizationModuleInput?
     
     required init(view: GameOrderViewProtocol, interactor: GameOrderInteractorProtocol, router: GameOrderRouterProtocol) {
@@ -96,6 +104,28 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
         case .none:
             return nil
         }
+    }
+    
+    //MARK:- Special Conditions
+    func didPressAddSpecialCondition() {
+        specialConditions.append(SpecialCondition())
+        view?.addCertificateCell()
+    }
+    
+    func didChangeSpecialCondition(newValue: String, at index: Int) {
+        specialConditions[index].value = newValue
+    }
+    
+    func didEndEditingSpecialCondition(at index: Int) {
+        guard index > 0 else { return }
+        let value = specialConditions[index].value ?? ""
+        if value.isEmpty {
+            view?.removeCertificateCell(at: index)
+        }
+    }
+    
+    func didPressCheckSpecialCondition(at index: Int) {
+        //check
     }
     
     //MARK:- Check Certificate

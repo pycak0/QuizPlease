@@ -11,12 +11,15 @@ import UIKit
 //MARK:- View Protocol
 protocol GameOrderViewProtocol: UIViewController, LoadingIndicator {
     var presenter: GameOrderPresenterProtocol! { get set }
-    //var configurator: GameOrderConfiguratorProtocol! { get }
     
     var shouldScrollToSignUp: Bool! { get set }
     
     func reloadInfo()
     func configureTableView()
+    
+    ///Works only if view already contains at least one certificate cell
+    func addCertificateCell()
+    func removeCertificateCell(at index: Int)
     
     func editEmail()
     func editPhone()
@@ -27,14 +30,23 @@ protocol GameOrderViewProtocol: UIViewController, LoadingIndicator {
 }
 
 class GameOrderVC: UIViewController {
-    //let configurator: GameOrderConfiguratorProtocol! = GameOrderConfigurator()
     var presenter: GameOrderPresenterProtocol!
     
     var shouldScrollToSignUp: Bool!
-    
+        
     lazy var items: [GameInfoItemKind] = {
         let types = presenter.game.availablePaymentTypes
         var _items = GameInfoItemKind.allCases
+        let specialConditionsAmount = presenter.specialConditions.count
+        if specialConditionsAmount > 1 {
+            let specialConditions = Array(repeating: GameInfoItemKind.certificate, count: specialConditionsAmount)
+            _items.insert(contentsOf: specialConditions, at: _items.firstIndex(of: .certificate)!)
+        } else {
+            if specialConditionsAmount != 1 {
+                _items.removeAll(where: { $0 == .certificate })
+            }
+            _items.removeAll { $0 == .addExtraCertificate }
+        }
         if presenter.isOnlyCashAvailable || !presenter.isOnlinePaymentDefault {
             _items.removeAll { $0 == .onlinePayment }
         }
@@ -45,13 +57,27 @@ class GameOrderVC: UIViewController {
         return _items
     }()
     
+    private(set) lazy var indexOfFirstCertificate: Int? = {
+        items.firstIndex(of: .certificate)
+    }()
+    
     var isFirstLoad = true
     
-    private var activityIndicator = UIActivityIndicatorView()
+    private let activityIndicator = UIActivityIndicatorView()
     
     @IBOutlet private weak var gameImageView: UIImageView!
     @IBOutlet private weak var imageDarkeningView: UIView!
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var tableView: UITableView! {
+        didSet {
+            tableView.delegate = self
+            tableView.dataSource = self
+            
+            for cellKind in GameInfoItemKind.allCases where cellKind != .addExtraCertificate {
+                tableView.register(UINib(nibName: cellKind.identifier, bundle: nil), forCellReuseIdentifier: cellKind.identifier)
+            }
+            tableView.register(GameAddExtraCertificateCell.self, forCellReuseIdentifier: GameAddExtraCertificateCell.identifier)
+        }
+    }
         
     //MARK:- Lifecycle
     override func viewDidLoad() {
@@ -85,9 +111,7 @@ class GameOrderVC: UIViewController {
             completion?(nil)
             print("Invalid cell kind at Register indexPath")
         }
-        
     }
-
 }
 
 //MARK:- Protocol Implementation
@@ -101,13 +125,6 @@ extension GameOrderVC: GameOrderViewProtocol {
     }
     
     func configureTableView() {
-        tableView.delegate = self
-        tableView.dataSource = self
-        
-        for cellKind in GameInfoItemKind.allCases {
-            tableView.register(UINib(nibName: cellKind.identifier, bundle: nil), forCellReuseIdentifier: cellKind.identifier)
-        }
-        
         if shouldScrollToSignUp {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 self.scrollToSignUp()
@@ -144,13 +161,26 @@ extension GameOrderVC: GameOrderViewProtocol {
         let placeholder = gameImageView.image
         gameImageView.loadImage(
             path: path,
-            placeholderImage: placeholder)
-        { [weak self] image in
+            placeholderImage: placeholder
+        ) { [weak self] image in
             guard let self = self else { return }
             if image == nil {
                 self.gameImageView.loadImageFromMainDomain(path: path, placeholderImage: placeholder)
             }
         }
+    }
+    
+    func addCertificateCell() {
+        guard let index = items.lastIndex(of: .certificate) else { return }
+        let newIndex = index + 1
+        items.insert(.certificate, at: newIndex)
+        tableView.insertRows(at: [IndexPath(row: newIndex, section: 0)], with: .fade)
+    }
+    
+    func removeCertificateCell(at index: Int) {
+        guard let indexOfFirstCertificate = indexOfFirstCertificate else { return }
+        let newIndex = indexOfFirstCertificate + index
+        tableView.deleteRows(at: [IndexPath(row: newIndex, section: 0)], with: .fade)
     }
 }
 
@@ -175,6 +205,28 @@ extension GameOrderVC: UITableViewDataSource, UITableViewDelegate {
         //(cell as? GameOrderCellProtocol)?.delegate = self
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        indexPath.row != indexOfFirstCertificate && items[indexPath.row] == .certificate
+    }
+
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(
+            style: .destructive,
+            title: nil,
+            handler: { action, view, completion in
+                completion(true)
+            }
+        )
+        deleteAction.backgroundColor = .systemGray5Adapted
+        if #available(iOS 13.0, *) {
+            deleteAction.image = UIImage(systemName: "trash.circle.fill")
+        } else {
+            deleteAction.title = "Удалить"
+        }
+        
+        return UISwipeActionsConfiguration(actions: [deleteAction])
     }
 }
 
