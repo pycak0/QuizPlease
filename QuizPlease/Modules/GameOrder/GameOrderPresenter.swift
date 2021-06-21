@@ -31,6 +31,7 @@ protocol GameOrderPresenterProtocol {
     func didChangeSpecialCondition(newValue: String, at index: Int)
     func didPressCheckSpecialCondition(at index: Int)
     func didEndEditingSpecialCondition(at index: Int)
+    func didPressDeleteSpecialCondition(at index: Int)
 }
 
 class GameOrderPresenter: GameOrderPresenterProtocol {
@@ -152,6 +153,7 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
     }
     
     func didEndEditingSpecialCondition(at index: Int) {
+        ///Should not remove the first certificate cell
         guard index > 0 else { return }
         let value = specialConditions[index].value ?? ""
         if value.isEmpty {
@@ -161,6 +163,12 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
     
     func didPressCheckSpecialCondition(at index: Int) {
         //check
+    }
+    
+    func didPressDeleteSpecialCondition(at index: Int) {
+        ///Should not remove the first certificate cell
+        guard index > 0 else { return }
+        view?.removeCertificateCell(at: index)
     }
     
     //MARK:- Check Certificate

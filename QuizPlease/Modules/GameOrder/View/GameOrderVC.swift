@@ -177,10 +177,21 @@ extension GameOrderVC: GameOrderViewProtocol {
         tableView.insertRows(at: [IndexPath(row: newIndex, section: 0)], with: .fade)
     }
     
-    func removeCertificateCell(at index: Int) {
+    func removeCertificateCell(at indexForPresenter: Int) {
         guard let indexOfFirstCertificate = indexOfFirstCertificate else { return }
-        let newIndex = indexOfFirstCertificate + index
-        tableView.deleteRows(at: [IndexPath(row: newIndex, section: 0)], with: .fade)
+        let newIndex = indexOfFirstCertificate + indexForPresenter
+        let indexPath = IndexPath(row: newIndex, section: 0)
+        removeCertificateCell(at: indexPath)
+    }
+    
+    private func removeCertificateCell(at indexPath: IndexPath) {
+        items.remove(at: indexPath.row)
+        tableView.deleteRows(at: [indexPath], with: .fade)
+        if items.filter({ $0 == .certificate}).count < 2,
+           let index = items.firstIndex(of: .addExtraCertificate) {
+            items.remove(at: index)
+            tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .fade)
+        }
     }
 }
 
@@ -215,7 +226,12 @@ extension GameOrderVC: UITableViewDataSource, UITableViewDelegate {
         let deleteAction = UIContextualAction(
             style: .destructive,
             title: nil,
-            handler: { action, view, completion in
+            handler: { [weak self] action, view, completion in
+                guard let self = self else { return }
+                if let firstIndex = self.indexOfFirstCertificate {
+                    let cellIndexForPresenter = indexPath.row - firstIndex
+                    self.presenter.didPressDeleteSpecialCondition(at: cellIndexForPresenter)
+                }
                 completion(true)
             }
         )
