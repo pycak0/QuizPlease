@@ -1,5 +1,5 @@
 //
-//  Configuration.swift
+//  NetworkConfiguration.swift
 //  QuizPlease
 //
 //  Created by Владислав on 12.04.2021.
@@ -8,8 +8,10 @@
 
 import Foundation
 
-enum Configuration {
+public enum NetworkConfiguration {
     case dev, prod
+    
+    public static let standard: NetworkConfiguration = .dev
     
     var host: String {
         switch self {

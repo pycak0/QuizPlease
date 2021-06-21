@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Kingfisher
 
 public protocol Cancellable {
     var isCancelled: Bool { get }
@@ -15,4 +16,8 @@ public protocol Cancellable {
 
 extension URLSessionTask: Cancellable {
     public var isCancelled: Bool { progress.isCancelled }
+}
+
+extension DownloadTask: Cancellable {
+    public var isCancelled: Bool { sessionTask.task.progress.isCancelled }
 }

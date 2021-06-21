@@ -14,6 +14,8 @@
 		A40689FF24F7D94B001273B2 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40689FE24F7D94B001273B2 /* AppSettings.swift */; };
 		A4068A0124F7DAE2001273B2 /* ServerResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4068A0024F7DAE2001273B2 /* ServerResponse.swift */; };
 		A4068A0324F7DB3C001273B2 /* CityResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4068A0224F7DB3C001273B2 /* CityResponse.swift */; };
+		A4088895267CC798005D0ED1 /* SpecialConditionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4088894267CC798005D0ED1 /* SpecialConditionResponse.swift */; };
+		A4088897267CF5D6005D0ED1 /* NumberFormatter+DecimalStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4088896267CF5D6005D0ED1 /* NumberFormatter+DecimalStyle.swift */; };
 		A40B757C24D9A744006DB7D1 /* ScheduleInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40B757B24D9A744006DB7D1 /* ScheduleInteractor.swift */; };
 		A40B757E24D9A750006DB7D1 /* SchedulePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40B757D24D9A750006DB7D1 /* SchedulePresenter.swift */; };
 		A40B758024D9A75A006DB7D1 /* ScheduleRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40B757F24D9A75A006DB7D1 /* ScheduleRouter.swift */; };
@@ -220,7 +222,7 @@
 		A4E675F4255D78400011A801 /* AudioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E675F3255D78400011A801 /* AudioView.swift */; };
 		A4E675F7255DB4AB0011A801 /* String+Validating.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E675F6255DB4AB0011A801 /* String+Validating.swift */; };
 		A4F0B9D2262469B000E4E2A5 /* ClientSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F0B9D1262469B000E4E2A5 /* ClientSettings.swift */; };
-		A4F0B9D426246EB100E4E2A5 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F0B9D326246EB100E4E2A5 /* Configuration.swift */; };
+		A4F0B9D426246EB100E4E2A5 /* NetworkConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F0B9D326246EB100E4E2A5 /* NetworkConfiguration.swift */; };
 		A4F0B9DC26248B5A00E4E2A5 /* SplashScreenPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F0B9DB26248B5A00E4E2A5 /* SplashScreenPresenter.swift */; };
 		A4F0B9DE26248B6900E4E2A5 /* SplashScreenInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F0B9DD26248B6900E4E2A5 /* SplashScreenInteractor.swift */; };
 		A4F0B9E026248B6E00E4E2A5 /* SplashScreenRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F0B9DF26248B6E00E4E2A5 /* SplashScreenRouter.swift */; };
@@ -269,6 +271,8 @@
 		A40689FE24F7D94B001273B2 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		A4068A0024F7DAE2001273B2 /* ServerResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerResponse.swift; sourceTree = "<group>"; };
 		A4068A0224F7DB3C001273B2 /* CityResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityResponse.swift; sourceTree = "<group>"; };
+		A4088894267CC798005D0ED1 /* SpecialConditionResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialConditionResponse.swift; sourceTree = "<group>"; };
+		A4088896267CF5D6005D0ED1 /* NumberFormatter+DecimalStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NumberFormatter+DecimalStyle.swift"; sourceTree = "<group>"; };
 		A40B757B24D9A744006DB7D1 /* ScheduleInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleInteractor.swift; sourceTree = "<group>"; };
 		A40B757D24D9A750006DB7D1 /* SchedulePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulePresenter.swift; sourceTree = "<group>"; };
 		A40B757F24D9A75A006DB7D1 /* ScheduleRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleRouter.swift; sourceTree = "<group>"; };
@@ -471,7 +475,7 @@
 		A4E675F3255D78400011A801 /* AudioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioView.swift; sourceTree = "<group>"; };
 		A4E675F6255DB4AB0011A801 /* String+Validating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Validating.swift"; sourceTree = "<group>"; };
 		A4F0B9D1262469B000E4E2A5 /* ClientSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientSettings.swift; sourceTree = "<group>"; };
-		A4F0B9D326246EB100E4E2A5 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
+		A4F0B9D326246EB100E4E2A5 /* NetworkConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConfiguration.swift; sourceTree = "<group>"; };
 		A4F0B9DB26248B5A00E4E2A5 /* SplashScreenPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenPresenter.swift; sourceTree = "<group>"; };
 		A4F0B9DD26248B6900E4E2A5 /* SplashScreenInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenInteractor.swift; sourceTree = "<group>"; };
 		A4F0B9DF26248B6E00E4E2A5 /* SplashScreenRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenRouter.swift; sourceTree = "<group>"; };
@@ -730,6 +734,7 @@
 				A492B8742631AE6100AEC388 /* UIRefreshControl+Init.swift */,
 				A45241DD265479A70058285C /* CGRect+setHeight.swift */,
 				A45241DF26547A060058285C /* UITextField+Extensions.swift */,
+				A4088896267CF5D6005D0ED1 /* NumberFormatter+DecimalStyle.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -748,6 +753,7 @@
 			isa = PBXGroup;
 			children = (
 				A4317730267BEEEE0062E0E0 /* SpecialCondition.swift */,
+				A4088894267CC798005D0ED1 /* SpecialConditionResponse.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -1039,7 +1045,7 @@
 			isa = PBXGroup;
 			children = (
 				A40689FE24F7D94B001273B2 /* AppSettings.swift */,
-				A4F0B9D326246EB100E4E2A5 /* Configuration.swift */,
+				A4F0B9D326246EB100E4E2A5 /* NetworkConfiguration.swift */,
 				A4F0B9D1262469B000E4E2A5 /* ClientSettings.swift */,
 				A4D498CA2502648D00CB70EE /* ScheduledGame */,
 				A4B2C3E125013DC3008D5175 /* ScheduleFilters */,
@@ -1509,7 +1515,7 @@
 				A4F0B9DC26248B5A00E4E2A5 /* SplashScreenPresenter.swift in Sources */,
 				A445E34824DE02BC0070B9FC /* TitleLabel.swift in Sources */,
 				A40B758C24D9A81A006DB7D1 /* HomeGameInteractor.swift in Sources */,
-				A4F0B9D426246EB100E4E2A5 /* Configuration.swift in Sources */,
+				A4F0B9D426246EB100E4E2A5 /* NetworkConfiguration.swift in Sources */,
 				A48E2FC425335A9500CD6BE6 /* SavedAuthInfo.swift in Sources */,
 				A40689F924F7D11A001273B2 /* City.swift in Sources */,
 				A472D29825288F0800AA9906 /* AuthInfoResponse.swift in Sources */,
@@ -1538,12 +1544,14 @@
 				A40B758E24D9A820006DB7D1 /* HomeGamePresenter.swift in Sources */,
 				A40B75A224D9A880006DB7D1 /* RatingConfigurator.swift in Sources */,
 				A46436E924EA7E590033F23A /* RatingItem.swift in Sources */,
+				A4088897267CF5D6005D0ED1 /* NumberFormatter+DecimalStyle.swift in Sources */,
 				A40B758A24D9A806006DB7D1 /* WarmupConfigurator.swift in Sources */,
 				A423AC1D24EE971100071E68 /* ShopItem.swift in Sources */,
 				A4D230A624F91F0100524A01 /* QuestionPageVC.swift in Sources */,
 				A4F3A792257D898A00D6A9C7 /* CameraChecker.swift in Sources */,
 				A4CC5FC524DACE230042B41C /* ShopRouter.swift in Sources */,
 				A4BA1CF324D84C4B00D32ADC /* MainMenuItem.swift in Sources */,
+				A4088895267CC798005D0ED1 /* SpecialConditionResponse.swift in Sources */,
 				A40B759024D9A829006DB7D1 /* HomeGameRouter.swift in Sources */,
 				A4A0659D24E477E20080E0D8 /* GameInfoCell.swift in Sources */,
 				A43E0AD9258E2F3400207616 /* UIEdgeInsets+Init.swift in Sources */,

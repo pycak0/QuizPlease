@@ -24,6 +24,8 @@ protocol GameOrderInteractorProtocol {
 protocol GameOrderInteractorOutput: AnyObject {
     func interactor(_ interactor: GameOrderInteractorProtocol?, didCheckPromocodeWith response: PromocodeResponse)
     func interactor(_ interactor: GameOrderInteractorProtocol?, errorOccured error: SessionError)
+    
+    func interactor(_ interactor: GameOrderInteractorProtocol?, didCheckSpecialCondition value: String, with response: SpecialConditionResponse)
 }
 
 //MARK:- Implementation
@@ -60,6 +62,26 @@ class GameOrderInteractor: GameOrderInteractorProtocol {
                 self.output?.interactor(self, errorOccured: error)
             case let .success(response):
                 self.output?.interactor(self, didCheckPromocodeWith: response)
+            }
+        }
+    }
+    
+    func checkSpecialCondition(_ value: String, forGameWithId id: Int, selectedTeamName name: String) {
+        NetworkService.shared.get(
+            SpecialConditionResponse.self,
+            apiPath: "/ajax/check-code",
+            parameters: [
+                "game_id": "\(id)",
+                "code": value,
+                "name": name
+            ]
+        ) { [weak self] serverResult in
+            guard let self = self else { return }
+            switch serverResult {
+            case let .failure(error):
+                self.output?.interactor(self, errorOccured: error)
+            case let .success(response):
+                self.output?.interactor(self, didCheckSpecialCondition: value, with: response)
             }
         }
     }

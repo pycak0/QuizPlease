@@ -30,7 +30,7 @@ class NetworkService {
     static let shared = NetworkService()
         
     var baseUrlComponents: URLComponents {
-        var urlComps = URLComponents(string: Configuration.dev.host)!
+        var urlComps = URLComponents(string: NetworkConfiguration.standard.host)!
         urlComps.queryItems = nil
         return urlComps
     }

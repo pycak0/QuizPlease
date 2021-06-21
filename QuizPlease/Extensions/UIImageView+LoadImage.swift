@@ -20,28 +20,19 @@ extension UIImageView {
                 handler?(imageResult.image)
             }
         })
-        
     }
     
-    func loadImage(path: String?, placeholderImage: UIImage? = nil, handler: ((UIImage?) -> Void)? = nil) {
+    func loadImage(
+        using configuration: NetworkConfiguration = .standard,
+        path: String?,
+        placeholderImage: UIImage? = nil,
+        handler: ((UIImage?) -> Void)? = nil
+    ) {
         var url: URL?
-        if let path = path {
-            var urlComponents = NetworkService.shared.baseUrlComponents
+        if let path = path, var urlComponents = URLComponents(string: configuration.host) {
             urlComponents.path = path
             url = urlComponents.url
         }
-        
-        loadImage(url: url, placeholderImage: placeholderImage, handler: handler)
-    }
-    
-    func loadImageFromMainDomain(path: String?, placeholderImage: UIImage? = nil, handler: ((UIImage?) -> Void)? = nil) {
-        var url: URL?
-        if let path = path {
-            var urlComponents = URLComponents(string: Configuration.prod.host)!
-            urlComponents.path = path
-            url = urlComponents.url
-        }
-        
         loadImage(url: url, placeholderImage: placeholderImage, handler: handler)
     }
 }

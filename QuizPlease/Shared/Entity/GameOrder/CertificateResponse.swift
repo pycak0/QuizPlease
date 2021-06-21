@@ -12,6 +12,19 @@ enum CertificateDiscountType {
     case allTeamFree
     case numberOfPeopleForFree(_ number: Int)
     case none
+    
+    init(rawValue: Int) {
+        switch rawValue {
+        case 0:
+            self = .allTeamFree
+        case 1...9:
+            self = .numberOfPeopleForFree(rawValue)
+        case 11...15:
+            self = .numberOfPeopleForFree(1)
+        default:
+            self = .none
+        }
+    }
 }
 
 struct CertificateResponse: Decodable {
@@ -25,15 +38,6 @@ extension CertificateResponse {
         guard let type = type else {
             return .none
         }
-        switch type {
-        case 0:
-            return .allTeamFree
-        case 1...9:
-            return .numberOfPeopleForFree(type)
-        case 11...15:
-            return .numberOfPeopleForFree(1)
-        default:
-            return .none
-        }
+        return CertificateDiscountType(rawValue: type)
     }
 }

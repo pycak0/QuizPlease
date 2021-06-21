@@ -235,14 +235,13 @@ extension GameOrderVC: GameOnlinePaymentCellDelegate {
         return presenter.registerForm.count
     }
     
-    func sumToPay(in cell: GameOnlinePaymentCell, forNumberOfPeople number: Int) -> Int {
-        return presenter.sumToPay(forPeople: number)
+    func sumToPay(in cell: GameOnlinePaymentCell, forNumberOfPeople number: Int) -> Double {
+        return presenter.countSumToPay(forPeople: number)
     }
     
     func priceTextColor(in cell: GameOnlinePaymentCell) -> UIColor? {
         presenter.priceTextColor()
     }
-    
 }
 
 

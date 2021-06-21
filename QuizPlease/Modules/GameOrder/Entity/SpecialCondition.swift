@@ -8,16 +8,17 @@
 
 struct SpecialCondition {
     var value: String?
-//    var kind: SpecialConditionKind?
-    var discountKind: DiscountKind?
+    var discountInfo: SpecialConditionDiscountInfo?
 }
 
-//enum SpecialConditionKind {
-//    case promocode, certificate
-//}
+struct SpecialConditionDiscountInfo {
+    let kind: SpecialConditionKind?
+    let discount: DiscountKind
+}
 
 enum DiscountKind {
     case percent(fraction: Double)
     case somePeopleForFree(amount: Int)
     case certificateDiscount(type: CertificateDiscountType)
+    case none
 }

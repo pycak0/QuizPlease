@@ -22,7 +22,7 @@ protocol GameOrderPresenterProtocol {
     
     func configureViews()
     func didPressSubmitButton()
-    func sumToPay(forPeople number: Int) -> Int
+    func countSumToPay(forPeople number: Int) -> Double
     func priceTextColor() -> UIColor?
     func checkCertificate()
     func checkPromocode()
@@ -76,25 +76,60 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
         }
     }
     
-    func sumToPay(forPeople number: Int) -> Int {
+    func countSumToPay(forPeople number: Int) -> Double {
         registerForm.countPaidOnline = number
-        var price = game.priceNumber ?? 0
-        var payNumber = number
+        var price = Double(game.priceNumber ?? 0)
+        var peopleToPay = Double(number)
         
-        switch discountType {
-        case .allTeamFree:
+        let (peopleFree, percentFraction) = countAllDiscounts()
+        let peopleForFree = Double(peopleFree)
+        
+        if peopleForFree >= peopleToPay {
             return 0
-        case let .numberOfPeopleForFree(num):
-            payNumber = num
-        case .none:
-            break
         }
+        peopleToPay -= peopleForFree
         
-        if !game.isOnlineGame {
-            price *= payNumber
+        let percentDiscountSum = price * Double(number) * percentFraction
+        
+        if game.isOnlineGame {
+            ///Процентный промокод работает только на онлайн-играх
+            price = min(price - percentDiscountSum, 0)
+        } else {
+            ///Разделение оплаты по количеству человек есть только на оффлайн-играх
+            price *= peopleToPay
         }
         
         return price
+    }
+    
+    private func countAllDiscounts() -> (totalPeopleForFree: Int, totalPercentFraction: Double) {
+        let discounts = specialConditions.compactMap(\.discountInfo?.discount)
+        var percentFraction = 0.0
+        var peopleForFree = 0
+        for discount in discounts {
+            switch discount {
+            case let .percent(fraction):
+                percentFraction += fraction
+            case let .somePeopleForFree(amount):
+                if peopleForFree != Int.max {
+                    peopleForFree += amount
+                }
+            case let .certificateDiscount(type):
+                switch type {
+                case .allTeamFree:
+                    peopleForFree = Int.max
+                case let .numberOfPeopleForFree(amount):
+                    if peopleForFree != Int.max {
+                        peopleForFree += amount
+                    }
+                case .none:
+                    continue
+                }
+            case .none:
+                continue
+            }
+        }
+        return (peopleForFree, percentFraction)
     }
     
     func priceTextColor() -> UIColor? {
@@ -143,7 +178,7 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
                 self.discountType = response.discountType
                 self.view?.showSimpleAlert(title: "Проверка сертификата", message: response.message ?? "Не удалось получить статус проверки")
                 if let number = self.registerForm.countPaidOnline {
-                    self.view?.setPrice(self.sumToPay(forPeople: number))
+                    self.view?.setPrice(self.countSumToPay(forPeople: number))
                 }
             }
         }
@@ -189,7 +224,7 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
         }
         
         let count = registerForm.countPaidOnline ?? 0
-        let paymentSum = Double(sumToPay(forPeople: count))
+        let paymentSum = Double(countSumToPay(forPeople: count))
         if registerForm.paymentType == .online && paymentSum > 0 {
             router.showPaymentView(
                 provider: YooMoneyPaymentProvider(),
@@ -271,6 +306,27 @@ extension GameOrderPresenter: GameOrderInteractorOutput {
     func interactor(_ interactor: GameOrderInteractorProtocol?, errorOccured error: SessionError) {
         view?.stopLoading()
         view?.showErrorConnectingToServerAlert()
+    }
+    
+    func interactor(_ interactor: GameOrderInteractorProtocol?, didCheckSpecialCondition value: String, with response: SpecialConditionResponse) {
+        view?.stopLoading()
+        switch response.discountInfo.kind {
+        case .promocode:
+            if specialConditions.filter({ $0.discountInfo?.kind == .promocode }).count > 0 {
+                view?.showSimpleAlert(
+                    title: "Ошибка",
+                    message: "На одну игру возможно использовать только один промокод"
+                )
+                return
+            }
+        default:
+            break
+        }
+        if response.success, let index = specialConditions.firstIndex(where: { $0.value == value }) {
+            specialConditions[index].discountInfo = response.discountInfo
+        }
+        let title = response.success ? "Успешно" : "Ошибка"
+        view?.showSimpleAlert(title: title, message: response.message)
     }
 }
 

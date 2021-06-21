@@ -36,7 +36,7 @@ struct WarmupQuestion {
     }
     
     var imageUrl: URL? {
-        if let url = buildUrl(from: file?.pathProof),
+        if let url = makeUrl(from: file?.pathProof),
            url.pathExtension == "jpg" || url.pathExtension == "png" {
             return url
         }
@@ -44,22 +44,22 @@ struct WarmupQuestion {
     }
     
     var videoUrl: URL? {
-        if let url = buildUrl(from: file?.pathProof), url.pathExtension == "mp4" {
+        if let url = makeUrl(from: file?.pathProof), url.pathExtension == "mp4" {
             return url
         }
         return nil
     }
     
     var soundUrl: URL? {
-        if let url = buildUrl(from: file?.pathProof), url.pathExtension == "mp3" {
+        if let url = makeUrl(from: file?.pathProof), url.pathExtension == "mp3" {
             return url
         }
         return nil
     }
     
-    private func buildUrl(from path: String?) -> URL? {
+    private func makeUrl(from path: String?) -> URL? {
         guard let path = path else { return nil }
-        var urlComps = NetworkService.shared.baseUrlComponents // URLComponents(string: Configuration.prod.host)
+        var urlComps = NetworkService.shared.baseUrlComponents // URLComponents(string: NetworkConfiguration.prod.host)
         urlComps.path = path
         return urlComps.url
     }

@@ -24,7 +24,7 @@ protocol GameOrderViewProtocol: UIViewController, LoadingIndicator {
     func editEmail()
     func editPhone()
     
-    func setPrice(_ price: Int)
+    func setPrice(_ price: Double)
     func setBackgroundImage(with path: String)
     func endEditing()
 }
@@ -150,7 +150,7 @@ extension GameOrderVC: GameOrderViewProtocol {
         }
     }
     
-    func setPrice(_ price: Int) {
+    func setPrice(_ price: Double) {
         guard let index = items.firstIndex(of: .onlinePayment) else { return }
         if let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? GameOnlinePaymentCell {
             cell.setPrice(price)
@@ -165,7 +165,7 @@ extension GameOrderVC: GameOrderViewProtocol {
         ) { [weak self] image in
             guard let self = self else { return }
             if image == nil {
-                self.gameImageView.loadImageFromMainDomain(path: path, placeholderImage: placeholder)
+                self.gameImageView.loadImage(using: .prod, path: path, placeholderImage: placeholder)
             }
         }
     }
