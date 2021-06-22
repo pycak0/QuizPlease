@@ -191,6 +191,9 @@
 		A4BA1CF024D835DE00D32ADC /* MainMenuRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BA1CEF24D835DE00D32ADC /* MainMenuRouter.swift */; };
 		A4BA1CF324D84C4B00D32ADC /* MainMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BA1CF224D84C4B00D32ADC /* MainMenuItem.swift */; };
 		A4BA1CF524D8874C00D32ADC /* AlertExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BA1CF424D8874C00D32ADC /* AlertExtensions.swift */; };
+		A4BB034A2681FF72005FE6D7 /* NumberDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BB03492681FF72005FE6D7 /* NumberDecorator.swift */; };
+		A4BB034C26820006005FE6D7 /* BigNumberDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BB034B26820006005FE6D7 /* BigNumberDecorator.swift */; };
+		A4BB034E26820611005FE6D7 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BB034D26820611005FE6D7 /* PaddingLabel.swift */; };
 		A4C71766254DE61600898CA5 /* YooMoneyPaymentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C71765254DE61600898CA5 /* YooMoneyPaymentProvider.swift */; };
 		A4C71769254E016400898CA5 /* PaymentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C71768254E016400898CA5 /* PaymentProvider.swift */; };
 		A4C9D81324EA78BB00523688 /* RatingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C9D81224EA78BB00523688 /* RatingCell.swift */; };
@@ -443,6 +446,9 @@
 		A4BA1CEF24D835DE00D32ADC /* MainMenuRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuRouter.swift; sourceTree = "<group>"; };
 		A4BA1CF224D84C4B00D32ADC /* MainMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuItem.swift; sourceTree = "<group>"; };
 		A4BA1CF424D8874C00D32ADC /* AlertExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertExtensions.swift; sourceTree = "<group>"; };
+		A4BB03492681FF72005FE6D7 /* NumberDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberDecorator.swift; sourceTree = "<group>"; };
+		A4BB034B26820006005FE6D7 /* BigNumberDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigNumberDecorator.swift; sourceTree = "<group>"; };
+		A4BB034D26820611005FE6D7 /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
 		A4C71765254DE61600898CA5 /* YooMoneyPaymentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YooMoneyPaymentProvider.swift; sourceTree = "<group>"; };
 		A4C71768254E016400898CA5 /* PaymentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentProvider.swift; sourceTree = "<group>"; };
 		A4C9D81224EA78BB00523688 /* RatingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingCell.swift; sourceTree = "<group>"; };
@@ -717,6 +723,7 @@
 			children = (
 				A40C8080252E857500CE40D8 /* UIView */,
 				A4E675F5255DB49E0011A801 /* String */,
+				A4BB03482681FF5A005FE6D7 /* NumberFormatter */,
 				A4A5370324EC7691004A10D4 /* UIColorExtensions.swift */,
 				A45241E5265489A70058285C /* UIFont+Extensions.swift */,
 				A40F036124D4187800C381F2 /* UIKitExtensions.swift */,
@@ -734,7 +741,6 @@
 				A492B8742631AE6100AEC388 /* UIRefreshControl+Init.swift */,
 				A45241DD265479A70058285C /* CGRect+setHeight.swift */,
 				A45241DF26547A060058285C /* UITextField+Extensions.swift */,
-				A4088896267CF5D6005D0ED1 /* NumberFormatter+DecimalStyle.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -770,6 +776,7 @@
 				A46436EC24EAD24F0033F23A /* HBSegmentedControl.swift */,
 				A419F2F124F003C9004A7997 /* ScalingButton.swift */,
 				A4617343251763AA00B002D1 /* CountPickerView.swift */,
+				A4BB034D26820611005FE6D7 /* PaddingLabel.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1086,6 +1093,16 @@
 				A40D817824D2C99D006D2CE3 /* WarmUp */,
 			);
 			path = Modules;
+			sourceTree = "<group>";
+		};
+		A4BB03482681FF5A005FE6D7 /* NumberFormatter */ = {
+			isa = PBXGroup;
+			children = (
+				A4088896267CF5D6005D0ED1 /* NumberFormatter+DecimalStyle.swift */,
+				A4BB03492681FF72005FE6D7 /* NumberDecorator.swift */,
+				A4BB034B26820006005FE6D7 /* BigNumberDecorator.swift */,
+			);
+			path = NumberFormatter;
 			sourceTree = "<group>";
 		};
 		A4C71767254E014E00898CA5 /* PaymentProvider */ = {
@@ -1426,6 +1443,7 @@
 				A41A506E253783DF00EBFA69 /* String+Formatting.swift in Sources */,
 				A42527C324F06E9300E3FBD4 /* GameFirstPlayCell.swift in Sources */,
 				A4B3F8A0266BF46F001A35A1 /* GameAddExtraCertificateCell.swift in Sources */,
+				A4BB034A2681FF72005FE6D7 /* NumberDecorator.swift in Sources */,
 				A48DFF7524F3EB5000E47095 /* HomeGameVideoVC.swift in Sources */,
 				A40B75A024D9A875006DB7D1 /* RatingRouter.swift in Sources */,
 				A419F2F224F003C9004A7997 /* ScalingButton.swift in Sources */,
@@ -1444,6 +1462,7 @@
 				A4BA1CEC24D8338B00D32ADC /* MainMenuPresenter.swift in Sources */,
 				A477164F261B3D580037A69A /* PaymentOption.swift in Sources */,
 				A4068A0324F7DB3C001273B2 /* CityResponse.swift in Sources */,
+				A4BB034E26820611005FE6D7 /* PaddingLabel.swift in Sources */,
 				A4FFA4A924F39F26006A1150 /* GameOrderCellProtocol.swift in Sources */,
 				A48DFF7D24F419AC00E47095 /* ShopCompletionVC.swift in Sources */,
 				A4CC5FC124DACE0E0042B41C /* ShopInteractor.swift in Sources */,
@@ -1485,6 +1504,7 @@
 				A43DB6AF254770F8006E4569 /* ActivityIndicator+Extensions.swift in Sources */,
 				A40689FD24F7D913001273B2 /* SessionError.swift in Sources */,
 				A45241E8265497370058285C /* AddGameResponse.swift in Sources */,
+				A4BB034C26820006005FE6D7 /* BigNumberDecorator.swift in Sources */,
 				A40D815C24D2C6C1006D2CE3 /* SceneDelegate.swift in Sources */,
 				A40B757C24D9A744006DB7D1 /* ScheduleInteractor.swift in Sources */,
 				A4C71766254DE61600898CA5 /* YooMoneyPaymentProvider.swift in Sources */,

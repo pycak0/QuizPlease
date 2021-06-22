@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol MenuProfileCellDelegate: class {
+protocol MenuProfileCellDelegate: AnyObject {
     func addGameButtonPressed(in cell: MenuProfileCell)
     
     func userPoints(in cell: MenuProfileCell) -> Int?
@@ -55,7 +55,11 @@ class MenuProfileCell: UITableViewCell, MenuCellItemProtocol {
     }
     
     func setUserPoints(_ points: Int) {
+//        if points >= 100_000, let pointsFormatted = BigNumberDecorator().string(from: points as NSNumber) {
+//            accessoryLabel.text = "\(pointsFormatted) баллов"
+//        } else {
         accessoryLabel.text = points.string(withAssociatedMaleWord: "балл")
+//        }
         accessoryLabel.isHidden = false
     }
     
