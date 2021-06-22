@@ -112,6 +112,16 @@ class GameOrderVC: UIViewController {
             print("Invalid cell kind at Register indexPath")
         }
     }
+    
+    func indexForPresenter(of cell: GameCertificateCell) -> Int? {
+        guard let indexPath = tableView.indexPath(for: cell) else { return nil }
+        return indexOfCertificateForPresenter(from: indexPath)
+    }
+    
+    func indexOfCertificateForPresenter(from indexPath: IndexPath) -> Int? {
+        guard let indexOfFirstCertificate = indexOfFirstCertificate else { return nil }
+        return indexPath.row - indexOfFirstCertificate
+    }
 }
 
 //MARK:- Protocol Implementation
@@ -187,7 +197,11 @@ extension GameOrderVC: GameOrderViewProtocol {
     private func removeCertificateCell(at indexPath: IndexPath) {
         items.remove(at: indexPath.row)
         tableView.deleteRows(at: [indexPath], with: .fade)
-        if items.filter({ $0 == .certificate}).count < 2,
+        //Also remove 'add' button if the only one certificate cell is left
+        let prevIndex = indexPath.row - 1
+        if let firstIndex = indexOfFirstCertificate,
+           prevIndex == firstIndex,
+           presenter.specialConditions[prevIndex - firstIndex].value?.isEmpty ?? true,
            let index = items.firstIndex(of: .addExtraCertificate) {
             items.remove(at: index)
             tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .fade)
@@ -208,7 +222,13 @@ extension GameOrderVC: UITableViewDataSource, UITableViewDelegate {
         //guard let kind = GameInfoItemKind(rawValue: index) else { fatalError("Invalid Game Item Kind") }
         let cell = tableView.dequeueReusableCell(withIdentifier: kind.identifier, for: indexPath) as! TableCellProtocol
         
-        (cell as? GameCertificateCell)?.associatedItemKind = kind
+        if let cell = cell as? GameCertificateCell {
+            cell.associatedItemKind = kind
+            if let index = indexOfCertificateForPresenter(from: indexPath) {
+                cell.fieldView.textField.text = presenter.specialConditions[index].value
+            }
+        }
+        
         if let cell = cell as? GameOrderCellProtocol, (cell.delegate as? GameOrderVC) == nil {
             cell.delegate = self
         }

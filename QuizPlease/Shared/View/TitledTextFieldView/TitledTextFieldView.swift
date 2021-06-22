@@ -9,7 +9,7 @@
 import UIKit
 import InputMask
 
-protocol TitledTextFieldViewDelegate: class {
+protocol TitledTextFieldViewDelegate: AnyObject {
     func textFieldView(_ textFieldView: TitledTextFieldView, didChangeTextField text: String, didCompleteMask isComplete: Bool)
 }
 

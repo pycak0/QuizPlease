@@ -45,6 +45,12 @@ class GameCertificateCell: UITableViewCell, GameOrderCellProtocol {
         configureTextField()
         configureViews()
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        delegate = nil
+        fieldView.textField.text = nil
+    }
         
     @IBAction private func okButtonPressed(_ sender: UIButton) {
         _delegate?.didPressOkButton(in: self)
@@ -57,7 +63,7 @@ class GameCertificateCell: UITableViewCell, GameOrderCellProtocol {
     }
     
     private func configureTextField() {
-        fieldView.textField.autocapitalizationType = .allCharacters
+        fieldView.textField.autocapitalizationType = .none
         fieldView.textField.returnKeyType = .done
         fieldView.delegate = self
     }

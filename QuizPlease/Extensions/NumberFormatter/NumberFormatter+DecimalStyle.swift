@@ -15,6 +15,7 @@ extension NumberFormatter {
         formatter.minimumFractionDigits = 0
         formatter.numberStyle = .decimal
         formatter.decimalSeparator = ","
+        formatter.usesGroupingSeparator = false
         return formatter
     }()
 }

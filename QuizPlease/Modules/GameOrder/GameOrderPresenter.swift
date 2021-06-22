@@ -23,7 +23,7 @@ protocol GameOrderPresenterProtocol {
     func configureViews()
     func didPressSubmitButton()
     func countSumToPay(forPeople number: Int) -> Double
-    func priceTextColor() -> UIColor?
+    func getPriceTextColor() -> UIColor?
     func checkCertificate()
     func checkPromocode()
     
@@ -49,8 +49,9 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
     
     var specialConditions: [SpecialCondition] = [SpecialCondition()]
     
-    private var discountType: CertificateDiscountType = .none
+//    private var discountType: CertificateDiscountType = .none
     private var tokenizationModule: TokenizationModuleInput?
+    private var priceTextColor: UIColor?
     
     required init(view: GameOrderViewProtocol, interactor: GameOrderInteractorProtocol, router: GameOrderRouterProtocol) {
         self.view = view
@@ -130,16 +131,13 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
                 continue
             }
         }
+        
+        priceTextColor = (peopleForFree > 0 || percentFraction > 0) ? .lightGreen : nil
         return (peopleForFree, percentFraction)
     }
     
-    func priceTextColor() -> UIColor? {
-        switch discountType {
-        case .allTeamFree, .numberOfPeopleForFree:
-            return .lightGreen
-        case .none:
-            return nil
-        }
+    func getPriceTextColor() -> UIColor? {
+        return priceTextColor
     }
     
     //MARK:- Special Conditions
@@ -150,6 +148,8 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
     
     func didChangeSpecialCondition(newValue: String, at index: Int) {
         specialConditions[index].value = newValue
+        ///If the value was chagned, we can't guarantee that the new condition is still valid
+        specialConditions[index].discountInfo = nil
     }
     
     func didEndEditingSpecialCondition(at index: Int) {
@@ -157,39 +157,43 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
         guard index > 0 else { return }
         let value = specialConditions[index].value ?? ""
         if value.isEmpty {
+            specialConditions.remove(at: index)
             view?.removeCertificateCell(at: index)
         }
     }
     
     func didPressCheckSpecialCondition(at index: Int) {
-        //check
+        guard let value = specialConditions[index].value else { return }
+        view?.startLoading()
+        interactor.checkSpecialCondition(value, forGameWithId: game.id, selectedTeamName: registerForm.teamName)
     }
     
     func didPressDeleteSpecialCondition(at index: Int) {
         ///Should not remove the first certificate cell
         guard index > 0 else { return }
+        specialConditions.remove(at: index)
         view?.removeCertificateCell(at: index)
     }
     
     //MARK:- Check Certificate
     func checkCertificate() {
-        guard let cert = registerForm.certificates else { return }
-        view?.startLoading()
-        interactor.checkCertificate(forGameId: game.id, certificate: cert) { [weak self] (result) in
-            guard let self = self else { return }
-            self.view?.stopLoading()
-            switch result {
-            case let .failure(error):
-                print(error)
-                self.view?.showErrorConnectingToServerAlert()
-            case let .success(response):
-                self.discountType = response.discountType
-                self.view?.showSimpleAlert(title: "Проверка сертификата", message: response.message ?? "Не удалось получить статус проверки")
-                if let number = self.registerForm.countPaidOnline {
-                    self.view?.setPrice(self.countSumToPay(forPeople: number))
-                }
-            }
-        }
+//        guard let cert = registerForm.certificates else { return }
+//        view?.startLoading()
+//        interactor.checkCertificate(forGameId: game.id, certificate: cert) { [weak self] (result) in
+//            guard let self = self else { return }
+//            self.view?.stopLoading()
+//            switch result {
+//            case let .failure(error):
+//                print(error)
+//                self.view?.showErrorConnectingToServerAlert()
+//            case let .success(response):
+//                self.discountType = response.discountType
+//                self.view?.showSimpleAlert(title: "Проверка сертификата", message: response.message ?? "Не удалось получить статус проверки")
+//                if let number = self.registerForm.countPaidOnline {
+//                    self.view?.setPrice(self.countSumToPay(forPeople: number))
+//                }
+//            }
+//        }
     }
     
     func checkPromocode() {
@@ -332,6 +336,9 @@ extension GameOrderPresenter: GameOrderInteractorOutput {
         }
         if response.success, let index = specialConditions.firstIndex(where: { $0.value == value }) {
             specialConditions[index].discountInfo = response.discountInfo
+        }
+        if response.success, let number = registerForm.countPaidOnline {
+            self.view?.setPrice(self.countSumToPay(forPeople: number))
         }
         let title = response.success ? "Успешно" : "Ошибка"
         view?.showSimpleAlert(title: title, message: response.message)

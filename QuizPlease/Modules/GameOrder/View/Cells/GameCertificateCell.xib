@@ -91,12 +91,22 @@
                             </label>
                         </subviews>
                     </stackView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Slv-5r-cMe">
+                        <rect key="frame" x="0.0" y="209" width="320" height="1"/>
+                        <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="iVy-HF-V6U"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="Slv-5r-cMe" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="5rB-Vm-b0R"/>
                     <constraint firstItem="A79-8R-Jwd" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="Msc-Hn-cJB"/>
                     <constraint firstItem="A79-8R-Jwd" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="Rgk-03-FXd"/>
                     <constraint firstAttribute="bottom" secondItem="A79-8R-Jwd" secondAttribute="bottom" constant="16" id="UP7-6Q-vRX"/>
                     <constraint firstAttribute="trailing" secondItem="A79-8R-Jwd" secondAttribute="trailing" constant="16" id="oUf-va-M3S"/>
+                    <constraint firstAttribute="trailing" secondItem="Slv-5r-cMe" secondAttribute="trailing" id="x8i-Bd-Zxx"/>
+                    <constraint firstAttribute="bottom" secondItem="Slv-5r-cMe" secondAttribute="bottom" id="xOY-BL-OBM"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
@@ -113,6 +123,9 @@
         <namedColor name="lightGreen">
             <color red="0.14900000393390656" green="0.87099999189376831" blue="0.60000002384185791" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="opaqueSeparatorColor">
+            <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

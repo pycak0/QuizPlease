@@ -18,6 +18,7 @@ protocol GameOrderInteractorProtocol {
     
     func checkCertificate(forGameId id: Int, certificate: String, completion: @escaping (Result<CertificateResponse, SessionError>) -> Void)
     func checkPromocode(_ promocode: String, teamName: String, forGameWithId id: Int)
+    func checkSpecialCondition(_ value: String, forGameWithId id: Int, selectedTeamName name: String)
 }
 
 //MARK:- Output Protocol

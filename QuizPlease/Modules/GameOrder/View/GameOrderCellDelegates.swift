@@ -17,7 +17,6 @@ extension GameOrderVC: GameAnnotationCellDelegate {
     func signUpButtonPressed(in cell: GameAnnotationCell) {
         scrollToSignUp()
     }
-    
 }
 
 //MARK:- Game Info
@@ -92,13 +91,13 @@ extension GameOrderVC: GameCertificateCellDelegate {
     }
     
     func accessoryText(for certificateCell: GameCertificateCell) -> String {
-        if items.filter({ $0 == .certificate }).count > 1,
-           let indexOfFirstCertificate = indexOfFirstCertificate,
-           let cell = tableView.cellForRow(at: IndexPath(row: indexOfFirstCertificate, section: 0)),
-           cell != certificateCell {
-            return ""
-        }
-        
+//        if items.filter({ $0 == .certificate }).count > 1,
+//           let indexOfFirstCertificate = indexOfFirstCertificate,
+//           let cell = tableView.cellForRow(at: IndexPath(row: indexOfFirstCertificate, section: 0)),
+//           cell != certificateCell {
+//            return ""
+//        }
+//
         switch certificateCell.associatedItemKind {
         case .certificate:
             return "Для активации сертификатов от наших партнеров свяжитесь с нами"
@@ -108,11 +107,7 @@ extension GameOrderVC: GameCertificateCellDelegate {
     }
     
     func certificateCell(_ certificateCell: GameCertificateCell, didChangeCertificateCode newCode: String) {
-        guard
-            let indexPath = tableView.indexPath(for: certificateCell),
-            let indexOfFirstCertificate = indexOfFirstCertificate
-        else { return }
-        let index = indexPath.row - indexOfFirstCertificate
+        guard let index = indexForPresenter(of: certificateCell) else { return }
         presenter.didChangeSpecialCondition(newValue: newCode, at: index)
         
         switch certificateCell.associatedItemKind {
@@ -142,14 +137,16 @@ extension GameOrderVC: GameCertificateCellDelegate {
     
     func didPressOkButton(in certificateCell: GameCertificateCell) {
         view.endEditing(true)
-        switch certificateCell.associatedItemKind {
-        case .certificate:
-            presenter.checkCertificate()
-        case .promocode:
-            presenter.checkPromocode()
-        default:
-            break
-        }
+        guard let index = indexForPresenter(of: certificateCell) else { return }
+        presenter.didPressCheckSpecialCondition(at: index)
+//        switch certificateCell.associatedItemKind {
+//        case .certificate:
+//            presenter.checkCertificate()
+//        case .promocode:
+//            presenter.checkPromocode()
+//        default:
+//            break
+//        }
     }
 }
 
@@ -240,7 +237,7 @@ extension GameOrderVC: GameOnlinePaymentCellDelegate {
     }
     
     func priceTextColor(in cell: GameOnlinePaymentCell) -> UIColor? {
-        presenter.priceTextColor()
+        presenter.getPriceTextColor()
     }
 }
 
