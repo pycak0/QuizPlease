@@ -110,10 +110,11 @@ class ShopPresenter: ShopPresenterProtocol {
             return
         }
         guard canUser(user, buyItem: item) else {
-            let diff = (item.priceNumber - user.pointsAmount).string(withAssociatedMaleWord: "балл")
+            let diff = (Double(item.priceNumber) - user.pointsAmount)
+            let diffFormatted = PointsDecorator().string(from: diff as NSNumber) ?? "несколько баллов"
             view?.showSimpleAlert(
                 title: "Недостаточно баллов",
-                message: "Для приобретения этого продукта Вам не хватает \(diff)"
+                message: "Для приобретения этого продукта Вам не хватает \(diffFormatted)"
             )
             return
         }
@@ -125,6 +126,6 @@ class ShopPresenter: ShopPresenterProtocol {
     }
 
     private func canUser(_ user: UserInfo, buyItem item: ShopItem) -> Bool {
-        return user.pointsAmount >= item.priceNumber
+        return user.pointsAmount >= Double(item.priceNumber)
     }
 }

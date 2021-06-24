@@ -204,6 +204,7 @@
 		A4CC5FEE24DAEA840042B41C /* NavigationBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4CC5FED24DAEA840042B41C /* NavigationBar.xib */; };
 		A4CC5FF024DAF7300042B41C /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CC5FEF24DAF7300042B41C /* NavigationBar.swift */; };
 		A4CC5FF224DAFECF0042B41C /* VCExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CC5FF124DAFECF0042B41C /* VCExtensions.swift */; };
+		A4D0C2662684EBF60012E05C /* PointsDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D0C2652684EBF60012E05C /* PointsDecorator.swift */; };
 		A4D230A624F91F0100524A01 /* QuestionPageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D230A524F91F0100524A01 /* QuestionPageVC.swift */; };
 		A4D230A824F9203500524A01 /* WarmupQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D230A724F9203500524A01 /* WarmupQuestion.swift */; };
 		A4D230AA24F9219D00524A01 /* UIImageView+LoadImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D230A924F9219D00524A01 /* UIImageView+LoadImage.swift */; };
@@ -459,6 +460,7 @@
 		A4CC5FED24DAEA840042B41C /* NavigationBar.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NavigationBar.xib; sourceTree = "<group>"; };
 		A4CC5FEF24DAF7300042B41C /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
 		A4CC5FF124DAFECF0042B41C /* VCExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCExtensions.swift; sourceTree = "<group>"; };
+		A4D0C2652684EBF60012E05C /* PointsDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointsDecorator.swift; sourceTree = "<group>"; };
 		A4D230A524F91F0100524A01 /* QuestionPageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionPageVC.swift; sourceTree = "<group>"; };
 		A4D230A724F9203500524A01 /* WarmupQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarmupQuestion.swift; sourceTree = "<group>"; };
 		A4D230A924F9219D00524A01 /* UIImageView+LoadImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+LoadImage.swift"; sourceTree = "<group>"; };
@@ -1101,6 +1103,7 @@
 				A4088896267CF5D6005D0ED1 /* NumberFormatter+DecimalStyle.swift */,
 				A4BB03492681FF72005FE6D7 /* NumberDecorator.swift */,
 				A4BB034B26820006005FE6D7 /* BigNumberDecorator.swift */,
+				A4D0C2652684EBF60012E05C /* PointsDecorator.swift */,
 			);
 			path = NumberFormatter;
 			sourceTree = "<group>";
@@ -1501,6 +1504,7 @@
 				A45C656F265D2136009A63BB /* Cancellable.swift in Sources */,
 				A44A462F24F901ED00C81F82 /* WarmupQuestionVC.swift in Sources */,
 				A4FCBC28263C8F1A0048D382 /* ShopPurchaseResponse.swift in Sources */,
+				A4D0C2662684EBF60012E05C /* PointsDecorator.swift in Sources */,
 				A43DB6AF254770F8006E4569 /* ActivityIndicator+Extensions.swift in Sources */,
 				A40689FD24F7D913001273B2 /* SessionError.swift in Sources */,
 				A45241E8265497370058285C /* AddGameResponse.swift in Sources */,

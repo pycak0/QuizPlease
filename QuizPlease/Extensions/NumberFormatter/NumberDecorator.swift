@@ -18,7 +18,7 @@ extension NumberFormatter: NumberFormatterProtocol {}
 public class NumberDecorator: NumberFormatterProtocol {
     let baseFormatter: NumberFormatterProtocol
     
-    init(baseFormatter: NumberFormatterProtocol = NumberFormatter.decimalFormatter) {
+    public init(baseFormatter: NumberFormatterProtocol = NumberFormatter.decimalFormatter) {
         self.baseFormatter = baseFormatter
     }
     

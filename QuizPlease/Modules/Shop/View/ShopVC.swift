@@ -16,7 +16,7 @@ protocol ShopViewProtocol: UIViewController, LoadingIndicator {
     func reloadCollectionView()
     func showItemsEmpty()
 
-    func showUserPoints(_ points: Int)
+    func showUserPoints(_ points: Double)
 }
 
 class ShopVC: UIViewController {
@@ -79,9 +79,10 @@ extension ShopVC: ShopViewProtocol {
         shopCollectionView.isHidden = true
     }
     
-    func showUserPoints(_ points: Int) {
+    func showUserPoints(_ points: Double) {
         userPointsLabel.isHidden = false
-        userPointsLabel.text = "\(points) Б"
+        let pointsStr = NumberFormatter.decimalGroupingFormatter.string(from: points as NSNumber) ?? "N/A"
+        userPointsLabel.text = "\(pointsStr) Б"
     }
 }
 

@@ -121,7 +121,7 @@ extension MainMenuVC: PickCityVCDelegate {
 
 //MARK:- MenuProfileCellDelegate
 extension MainMenuVC: MenuProfileCellDelegate {
-    func userPoints(in cell: MenuProfileCell) -> Int? {
+    func userPoints(in cell: MenuProfileCell) -> Double? {
         presenter.userPointsAmount()
     }
     
