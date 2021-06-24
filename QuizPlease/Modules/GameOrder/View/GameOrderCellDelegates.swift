@@ -161,21 +161,21 @@ extension GameOrderVC: GameAddExtraCertificateCellDelegate {
 extension GameOrderVC: GameFirstPlayCellDelegate {
     func firstPlayCell(_ cell: GameFirstPlayCell, didChangeStateTo isFirstPlay: Bool) {
         presenter.registerForm.isFirstTime = isFirstPlay
-        if isFirstPlay {
-            guard let i = items.firstIndex(of: .firstPlay) else { return }
-            let index = i + 1
-            items.insert(.promocode, at: index)
-            tableView.insertRows(at: [IndexPath(row: index, section: 0)], with: .fade)
-        } else {
-            guard let index = items.firstIndex(of: .promocode) else { return }
-            items.remove(at: index)
-            let indexPath = IndexPath(row: index, section: 0)
-            if let cell = tableView.cellForRow(at: indexPath) as? GameCertificateCell {
-                cell.fieldView.textField.text = nil
-            }
-            presenter.registerForm.promocode = nil
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        }
+//        if isFirstPlay {
+//            guard let i = items.firstIndex(of: .firstPlay) else { return }
+//            let index = i + 1
+//            items.insert(.promocode, at: index)
+//            tableView.insertRows(at: [IndexPath(row: index, section: 0)], with: .fade)
+//        } else {
+//            guard let index = items.firstIndex(of: .promocode) else { return }
+//            items.remove(at: index)
+//            let indexPath = IndexPath(row: index, section: 0)
+//            if let cell = tableView.cellForRow(at: indexPath) as? GameCertificateCell {
+//                cell.fieldView.textField.text = nil
+//            }
+//            presenter.registerForm.promocode = nil
+//            tableView.deleteRows(at: [indexPath], with: .fade)
+//        }
     }
 }
 
