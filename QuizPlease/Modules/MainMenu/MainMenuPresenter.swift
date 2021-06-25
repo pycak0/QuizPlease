@@ -72,7 +72,7 @@ class MainMenuPresenter: MainMenuPresenterProtocol {
     }
     
     func didSelectCityButton() {
-        router.showChooseCityScreen(AppSettings.defaultCity)
+        router.showChooseCityScreen(selectedCity: AppSettings.defaultCity)
     }
     
     func didChangeDefaultCity(_ newCity: City) {
