@@ -19,6 +19,7 @@ enum AppSettings {
     static var defaultCity: City = .moscow {
         didSet {
             DefaultsManager.shared.saveDefaultCity(defaultCity)
+            NetworkService.shared.setDefaultCity(defaultCity)
             //Utilities.main.fetchClientSettings()
         }
     }

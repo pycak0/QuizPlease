@@ -80,7 +80,6 @@ class GameCertificateCell: UITableViewCell, GameOrderCellProtocol {
             layoutIfNeeded()
         }
     }
-    
 }
 
 

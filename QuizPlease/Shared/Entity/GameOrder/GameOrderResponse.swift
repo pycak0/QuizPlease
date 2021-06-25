@@ -14,11 +14,11 @@ enum GameOrderStatus: String, Decodable {
 
 struct GameOrderResponse: Decodable {
     private var redirect: Bool?
-    private var success: AnyValue?
+    private var success: AnyDecodable?
     private var sameTeam: Bool?
     
     var link: URL?
-    private var status: AnyValue?
+    private var status: AnyDecodable?
     
     private var successMsg: String?
     private var errorMsg: String?
@@ -32,17 +32,17 @@ struct GameOrderResponse: Decodable {
     }
     
     var isSuccess: Bool {
-        if let number = success?.value() as? Int {
+        if let number = success?.value as? Int {
             return number == 1
         }
-        if let isSuccess = success?.value() as? Bool {
+        if let isSuccess = success?.value as? Bool {
             return isSuccess
         }
         return false
     }
     
     var paymentStatus: GameOrderStatus {
-        if let string = success?.value() as? String {
+        if let string = success?.value as? String {
             return GameOrderStatus(rawValue: string) ?? .undefined
         }
         return .undefined
@@ -52,10 +52,10 @@ struct GameOrderResponse: Decodable {
         if let isSameTeam = sameTeam, isSameTeam {
             return false
         }
-        if let statusNumber = status?.value() as? Int {
+        if let statusNumber = status?.value as? Int {
             return statusNumber == 1
         }
-        if let statusString = status?.value() as? String {
+        if let statusString = status?.value as? String {
             if let paymentStatus = GameOrderStatus(rawValue: statusString), paymentStatus == .canceled {
                 return false
             }

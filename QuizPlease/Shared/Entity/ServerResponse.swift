@@ -9,5 +9,5 @@
 import Foundation
 
 struct ServerResponse<Data: Decodable>: Decodable {
-    var data: Data
+    let data: Data
 }
