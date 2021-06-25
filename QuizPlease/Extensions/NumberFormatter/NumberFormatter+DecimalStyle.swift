@@ -23,7 +23,6 @@ extension NumberFormatter {
     ///Formats given number like usual `decimalFormatter` but also uses number groups
     public static var decimalGroupingFormatter: NumberFormatter {
         let formatter = decimalFormatter
-        formatter.decimalSeparator = ", "
         formatter.usesGroupingSeparator = true
         formatter.groupingSeparator = " "
         return formatter
