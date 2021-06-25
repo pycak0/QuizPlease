@@ -9,8 +9,8 @@
 import Foundation
 
 public struct City: Codable {
-    public var id: Int
-    public var title: String
+    public let id: Int
+    public let title: String
 }
 
 extension City {
