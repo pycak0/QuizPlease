@@ -8,11 +8,11 @@
 
 import Foundation
 
-struct City: Codable {
-    var id: Int
-    var title: String
+public struct City: Codable {
+    public var id: Int
+    public var title: String
 }
 
 extension City {
-    static let moscow = City(id: 9, title: "Москва")
+    public static let moscow = City(id: 9, title: "Москва")
 }
