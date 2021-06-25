@@ -7,6 +7,11 @@
 //
 
 struct SpecialCondition {
+    var value: String?
+    var discountInfo: DiscountInfo?
+}
+
+extension SpecialCondition {
     enum Kind: String, Decodable {
         case promocode = "promo", certificate
     }
@@ -24,9 +29,6 @@ struct SpecialCondition {
         private let percent: Double?
         private let certificate_type: Int?
     }
-    
-    var value: String?
-    var discountInfo: DiscountInfo?
 }
 
 extension SpecialCondition.Response {
