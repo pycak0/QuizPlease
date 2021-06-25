@@ -16,12 +16,10 @@ class UserInfo: Decodable {
 }
 
 extension UserInfo {
-    var pointsAmount: Int {
+    var pointsAmount: Double {
         guard let dict = bonus_points else { return 0 }
-        if let points = dict[AppSettings.defaultCity.title] {
-            return Int(Double(points) ?? 0)
-        }
-        return 0
+        let points = dict[AppSettings.defaultCity.title] ?? ""
+        return Double(points) ?? 0
     }
     
     var subscribedGames: [Int] {
