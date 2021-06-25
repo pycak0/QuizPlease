@@ -91,13 +91,12 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
         }
         peopleToPay -= peopleForFree
         
-        let percentDiscountSum = price * Double(number) * percentFraction
-        
         if game.isOnlineGame {
-            ///Процентный промокод работает только на онлайн-играх
-            price = min(price - percentDiscountSum, 0)
+            ///Процентный промокод работает только на онлайн-играх, а `price` на них считается за всю команду
+            let percentDiscountSum = price * percentFraction
+            price = max(price - percentDiscountSum, 0)
         } else {
-            ///Разделение оплаты по количеству человек есть только на оффлайн-играх
+            ///Разделение оплаты по количеству человек есть только на офлайн-играх
             price *= peopleToPay
         }
         

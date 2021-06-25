@@ -31,6 +31,7 @@ class GameOnlinePaymentCell: UITableViewCell, GameOrderCellProtocol {
     @IBOutlet private weak var paymentCommentLabel: UILabel!
     @IBOutlet private weak var dashView: UIView!
     @IBOutlet private weak var priceLabel: UILabel!
+    private weak var dashedLine: CAShapeLayer?
     
     //MARK:- Public
     var selectedNumberOfPeopleToPay: Int {
@@ -79,6 +80,7 @@ class GameOnlinePaymentCell: UITableViewCell, GameOrderCellProtocol {
     override func layoutSubviews() {
         super.layoutSubviews()
         configureViews()
+        reloadPrice()
     }
     
     private func configureCell() {
@@ -90,9 +92,10 @@ class GameOnlinePaymentCell: UITableViewCell, GameOrderCellProtocol {
     private func configureViews() {
         countPicker.buttonsCornerRadius = countPicker.frame.height / 2
         
+        dashedLine?.removeFromSuperlayer()
         let start = CGPoint(x: dashView.bounds.minX + 3, y: dashView.frame.maxY - 8)
         let end = CGPoint(x: priceLabel.frame.minX - 3, y: dashView.frame.maxY - 8)
-        UIView.drawDottedLine(in: dashView, start: start, end: end, dashLength: 4, gapLength: 2)
+        dashedLine = UIView.drawDottedLine(in: dashView, start: start, end: end, dashLength: 4, gapLength: 2)
     }
     
     //MARK:- Update Picker
@@ -112,6 +115,12 @@ class GameOnlinePaymentCell: UITableViewCell, GameOrderCellProtocol {
             countPicker.setSelectedButton(at: selectedIndex, animated: true)
             updatePrice(withNumberOfPeople: numberOfPeople)
         }
+    }
+    
+    private func reloadPrice() {
+        guard let delegate = _delegate else { return }
+        let numberOfPeople = delegate.selectedNumberOfPeople(in: self)
+        updatePrice(withNumberOfPeople: numberOfPeople)
     }
     
     private func updatePrice(withNumberOfPeople number: Int) {
