@@ -16,11 +16,9 @@ struct RegisterForm: Encodable {
     var phone: String = ""
     var count: Int = 2
     var countPaidOnline: Int?
-    var certificates: String?
     var isFirstTime: Bool = false
     var comment: String?
     var paymentType: PaymentType = .online
-    var promocode: String?
     
     var paymentToken: String?
     

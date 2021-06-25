@@ -14,7 +14,7 @@ protocol GameOrderInteractorProtocol {
     ///must be weak
     var output: GameOrderInteractorOutput? { get }
     
-    func register(with form: RegisterForm, completion: @escaping (_ orderResponse: GameOrderResponse?) -> Void)
+    func register(with form: RegisterForm, specialConditions: [SpecialCondition], completion: @escaping (_ orderResponse: GameOrderResponse?) -> Void)
     
     func checkCertificate(forGameId id: Int, certificate: String, completion: @escaping (Result<CertificateResponse, SessionError>) -> Void)
     func checkPromocode(_ promocode: String, teamName: String, forGameWithId id: Int)
@@ -26,15 +26,19 @@ protocol GameOrderInteractorOutput: AnyObject {
     func interactor(_ interactor: GameOrderInteractorProtocol?, didCheckPromocodeWith response: PromocodeResponse)
     func interactor(_ interactor: GameOrderInteractorProtocol?, errorOccured error: SessionError)
     
-    func interactor(_ interactor: GameOrderInteractorProtocol?, didCheckSpecialCondition value: String, with response: SpecialConditionResponse)
+    func interactor(_ interactor: GameOrderInteractorProtocol?, didCheckSpecialCondition value: String, with response: SpecialCondition.Response)
 }
 
 //MARK:- Implementation
 class GameOrderInteractor: GameOrderInteractorProtocol {
     weak var output: GameOrderInteractorOutput?
     
-    func register(with form: RegisterForm, completion: @escaping (_ orderResponse: GameOrderResponse?) -> Void) {
-        NetworkService.shared.registerOnGame(registerForm: form) { serverResponse in
+    func register(with form: RegisterForm, specialConditions: [SpecialCondition], completion: @escaping (_ orderResponse: GameOrderResponse?) -> Void) {
+        let certs = specialConditions
+            .filter { $0.discountInfo?.kind == .certificate }
+            .compactMap { $0.value }
+        let promo = specialConditions.first(where: { $0.discountInfo?.kind == .promocode })?.value
+        NetworkService.shared.registerOnGame(registerForm: form, certificates: certs, promocode: promo) { serverResponse in
             switch serverResponse {
             case let .failure(error):
                 print(error)
@@ -69,7 +73,7 @@ class GameOrderInteractor: GameOrderInteractorProtocol {
     
     func checkSpecialCondition(_ value: String, forGameWithId id: Int, selectedTeamName name: String) {
         NetworkService.shared.get(
-            SpecialConditionResponse.self,
+            SpecialCondition.Response.self,
             apiPath: "/ajax/check-code",
             parameters: [
                 "game_id": "\(id)",

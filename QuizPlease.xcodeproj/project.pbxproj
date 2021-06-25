@@ -14,7 +14,7 @@
 		A40689FF24F7D94B001273B2 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40689FE24F7D94B001273B2 /* AppSettings.swift */; };
 		A4068A0124F7DAE2001273B2 /* ServerResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4068A0024F7DAE2001273B2 /* ServerResponse.swift */; };
 		A4068A0324F7DB3C001273B2 /* CityResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4068A0224F7DB3C001273B2 /* CityResponse.swift */; };
-		A4088895267CC798005D0ED1 /* SpecialConditionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4088894267CC798005D0ED1 /* SpecialConditionResponse.swift */; };
+		A4088895267CC798005D0ED1 /* DiscountKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4088894267CC798005D0ED1 /* DiscountKind.swift */; };
 		A4088897267CF5D6005D0ED1 /* NumberFormatter+DecimalStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4088896267CF5D6005D0ED1 /* NumberFormatter+DecimalStyle.swift */; };
 		A40B757C24D9A744006DB7D1 /* ScheduleInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40B757B24D9A744006DB7D1 /* ScheduleInteractor.swift */; };
 		A40B757E24D9A750006DB7D1 /* SchedulePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40B757D24D9A750006DB7D1 /* SchedulePresenter.swift */; };
@@ -277,7 +277,7 @@
 		A40689FE24F7D94B001273B2 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		A4068A0024F7DAE2001273B2 /* ServerResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerResponse.swift; sourceTree = "<group>"; };
 		A4068A0224F7DB3C001273B2 /* CityResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityResponse.swift; sourceTree = "<group>"; };
-		A4088894267CC798005D0ED1 /* SpecialConditionResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialConditionResponse.swift; sourceTree = "<group>"; };
+		A4088894267CC798005D0ED1 /* DiscountKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscountKind.swift; sourceTree = "<group>"; };
 		A4088896267CF5D6005D0ED1 /* NumberFormatter+DecimalStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NumberFormatter+DecimalStyle.swift"; sourceTree = "<group>"; };
 		A40B757B24D9A744006DB7D1 /* ScheduleInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleInteractor.swift; sourceTree = "<group>"; };
 		A40B757D24D9A750006DB7D1 /* SchedulePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulePresenter.swift; sourceTree = "<group>"; };
@@ -765,7 +765,7 @@
 			isa = PBXGroup;
 			children = (
 				A4317730267BEEEE0062E0E0 /* SpecialCondition.swift */,
-				A4088894267CC798005D0ED1 /* SpecialConditionResponse.swift */,
+				A4088894267CC798005D0ED1 /* DiscountKind.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -1591,7 +1591,7 @@
 				A4F3A792257D898A00D6A9C7 /* CameraChecker.swift in Sources */,
 				A4CC5FC524DACE230042B41C /* ShopRouter.swift in Sources */,
 				A4BA1CF324D84C4B00D32ADC /* MainMenuItem.swift in Sources */,
-				A4088895267CC798005D0ED1 /* SpecialConditionResponse.swift in Sources */,
+				A4088895267CC798005D0ED1 /* DiscountKind.swift in Sources */,
 				A40B759024D9A829006DB7D1 /* HomeGameRouter.swift in Sources */,
 				A4A0659D24E477E20080E0D8 /* GameInfoCell.swift in Sources */,
 				A43E0AD9258E2F3400207616 /* UIEdgeInsets+Init.swift in Sources */,

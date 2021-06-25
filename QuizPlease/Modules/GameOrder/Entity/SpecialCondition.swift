@@ -7,18 +7,43 @@
 //
 
 struct SpecialCondition {
+    enum Kind: String, Decodable {
+        case promocode = "promo", certificate
+    }
+    
+    struct DiscountInfo {
+        let kind: Kind?
+        let discount: DiscountKind
+    }
+    
+    struct Response: Decodable {
+        let success: Bool
+        let message: String
+        private let type: SpecialCondition.Kind?
+        private let promo_type: Int?
+        private let percent: Double?
+        private let certificate_type: Int?
+    }
+    
     var value: String?
-    var discountInfo: SpecialConditionDiscountInfo?
+    var discountInfo: DiscountInfo?
 }
 
-struct SpecialConditionDiscountInfo {
-    let kind: SpecialConditionKind?
-    let discount: DiscountKind
-}
-
-enum DiscountKind {
-    case percent(fraction: Double)
-    case somePeopleForFree(amount: Int)
-    case certificateDiscount(type: CertificateDiscountType)
-    case none
+extension SpecialCondition.Response {
+    private var discountKind: DiscountKind {
+        if let certType = certificate_type {
+            return .certificateDiscount(type: CertificateDiscountType(rawValue: certType))
+        }
+        if let promoType = promo_type {
+            return .somePeopleForFree(amount: promoType)
+        }
+        if let fraction = percent {
+            return .percent(fraction: fraction)
+        }
+        return .none
+    }
+    
+    var discountInfo: SpecialCondition.DiscountInfo {
+        return SpecialCondition.DiscountInfo(kind: type, discount: discountKind)
+    }
 }

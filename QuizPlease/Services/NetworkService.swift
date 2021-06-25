@@ -531,12 +531,10 @@ class NetworkService {
     }
     
     //MARK:- Register on Game
-    func registerOnGame(registerForm: RegisterForm, completion: @escaping (Result<GameOrderResponse, SessionError>) -> Void) {
+    func registerOnGame(registerForm: RegisterForm, certificates: [String], promocode: String?, completion: @escaping (Result<GameOrderResponse, SessionError>) -> Void) {
         var registerUrlComps = baseUrlComponents
         registerUrlComps.path = "/ajax/save-record"
-        
-        let countPaidOnline = registerForm.countPaidOnline == nil ? nil : "\(registerForm.countPaidOnline!)"
-        
+                
         let parameters: [String: String?] = [
             //2 - регистрация через мобильное приложение
             "QpRecord[registration_type]"   : "2",
@@ -546,13 +544,13 @@ class NetworkService {
             "QpRecord[comment]"             : registerForm.comment ?? "",
             "QpRecord[game_id]"             : "\(registerForm.gameId)",
             "QpRecord[first_time]"          : registerForm.isFirstTime ? "1" : "0",
-            "certificates[]"                : registerForm.certificates,
+            "certificates[]"                : !certificates.isEmpty ? "\(certificates)" : "",
             "QpRecord[payment_type]"        : "\(registerForm.paymentType.rawValue)",
             "QpRecord[count]"               : "\(registerForm.count)",
             "QpRecord[teamName]"            : registerForm.teamName,
             "QpRecord[payment_token]"       : registerForm.paymentToken,
-            "QpRecord[surcharge]"           : countPaidOnline,
-            "promo_code"                    : registerForm.promocode
+            "QpRecord[surcharge]"           : registerForm.countPaidOnline.map { "\($0)" },
+            "promo_code"                    : promocode
         ]
         
         afPost(with: parameters, to: registerUrlComps, responseType: GameOrderResponse.self, completion: completion)

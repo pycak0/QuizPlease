@@ -110,29 +110,29 @@ extension GameOrderVC: GameCertificateCellDelegate {
         guard let index = indexForPresenter(of: certificateCell) else { return }
         presenter.didChangeSpecialCondition(newValue: newCode, at: index)
         
-        switch certificateCell.associatedItemKind {
-        case .certificate:
-            presenter.registerForm.certificates = newCode
-            let certificatesCount = items
-                .filter { $0 == .certificate }
-                .count
-            if newCode.isEmpty,
-               certificatesCount == 1,
-               let index = items.firstIndex(of: .addExtraCertificate) {
-                items.remove(at: index)
-                tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .fade)
-            } else if !newCode.isEmpty,
-                      items.firstIndex(of: .addExtraCertificate) == nil,
-                      let i = items.lastIndex(of: .certificate) {
-                let index = i + 1
-                items.insert(.addExtraCertificate, at: index)
-                tableView.insertRows(at: [IndexPath(row: index, section: 0)], with: .fade)
-            }
-        case .promocode:
-            presenter.registerForm.promocode = newCode
-        default:
-            break
-        }
+//        switch certificateCell.associatedItemKind {
+//        case .certificate:
+//            presenter.registerForm.certificates = newCode
+//            let certificatesCount = items
+//                .filter { $0 == .certificate }
+//                .count
+//            if newCode.isEmpty,
+//               certificatesCount == 1,
+//               let index = items.firstIndex(of: .addExtraCertificate) {
+//                items.remove(at: index)
+//                tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .fade)
+//            } else if !newCode.isEmpty,
+//                      items.firstIndex(of: .addExtraCertificate) == nil,
+//                      let i = items.lastIndex(of: .certificate) {
+//                let index = i + 1
+//                items.insert(.addExtraCertificate, at: index)
+//                tableView.insertRows(at: [IndexPath(row: index, section: 0)], with: .fade)
+//            }
+//        case .promocode:
+//            presenter.registerForm.promocode = newCode
+//        default:
+//            break
+//        }
     }
     
     func didPressOkButton(in certificateCell: GameCertificateCell) {

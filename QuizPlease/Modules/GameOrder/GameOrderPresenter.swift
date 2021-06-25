@@ -196,13 +196,13 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
     }
     
     func checkPromocode() {
-        guard let promocode = registerForm.promocode else { return }
-        view?.startLoading()
-        interactor.checkPromocode(
-            promocode,
-            teamName: registerForm.teamName,
-            forGameWithId: game.id
-        )
+//        guard let promocode = registerForm.promocode else { return }
+//        view?.startLoading()
+//        interactor.checkPromocode(
+//            promocode,
+//            teamName: registerForm.teamName,
+//            forGameWithId: game.id
+//        )
     }
         
     //MARK:- Submit Button Action
@@ -251,7 +251,10 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
     //MARK:- Register
     private func register() {
         view?.startLoading()
-        interactor.register(with: registerForm) { [weak self] (registerResponse) in
+        interactor.register(
+            with: registerForm,
+            specialConditions: specialConditions
+        ) { [weak self] registerResponse in
             guard let self = self else { return }
             self.view?.stopLoading()
             guard let response = registerResponse else {
@@ -319,7 +322,7 @@ extension GameOrderPresenter: GameOrderInteractorOutput {
         view?.showErrorConnectingToServerAlert()
     }
     
-    func interactor(_ interactor: GameOrderInteractorProtocol?, didCheckSpecialCondition value: String, with response: SpecialConditionResponse) {
+    func interactor(_ interactor: GameOrderInteractorProtocol?, didCheckSpecialCondition value: String, with response: SpecialCondition.Response) {
         view?.stopLoading()
         switch response.discountInfo.kind {
         case .promocode:
