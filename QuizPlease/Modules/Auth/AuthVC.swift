@@ -9,7 +9,7 @@
 import UIKit
 
 //MARK:- Delegate Protocol
-protocol AuthVCDelegate: class {
+protocol AuthVCDelegate: AnyObject {
     func didSuccessfullyAuthenticate(in authVC: AuthVC)
     
     func didCancelAuth(in authVC: AuthVC)
@@ -20,7 +20,7 @@ class AuthVC: UIViewController {
     weak var delegate: AuthVCDelegate?
     
     @IBOutlet private weak var authButton: ScalingButton!
-    @IBOutlet private weak var textFieldView: TitledTextFieldView!
+    @IBOutlet private weak var textFieldView: MaskedTextFieldView!
     @IBOutlet private weak var descriptionLabel: UILabel!
     @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
@@ -163,7 +163,7 @@ class AuthVC: UIViewController {
         textFieldView.textField.text = ""
         textFieldView.textField.placeholder = String(repeating: "X", count: 6)
         textFieldView.textField.textContentType = .oneTimeCode
-        textFieldView.inputMask = TitledTextFieldView.noMask
+        textFieldView.inputMask = MaskedTextFieldView.noMask
     }
     
     private func showIncorrectInputNotification() {
@@ -174,6 +174,10 @@ class AuthVC: UIViewController {
 
 //MARK:- Text Field View Delegate
 extension AuthVC: TitledTextFieldViewDelegate {
+    func textFieldViewDidEndEditing(_ textFieldView: TitledTextFieldView) {
+        
+    }
+    
     func textFieldView(_ textFieldView: TitledTextFieldView, didChangeTextField text: String, didCompleteMask isComplete: Bool) {
         if isCodeSent {
             smsCode = text

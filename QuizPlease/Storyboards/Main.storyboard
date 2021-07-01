@@ -2256,7 +2256,7 @@
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RLJ-3L-P4p" customClass="TitledTextFieldView" customModule="QuizPlease" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RLJ-3L-P4p" customClass="MaskedTextFieldView" customModule="QuizPlease" customModuleProvider="target">
                                         <rect key="frame" x="20" y="614" width="388" height="77"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>

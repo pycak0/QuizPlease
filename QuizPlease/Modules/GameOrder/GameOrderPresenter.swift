@@ -152,13 +152,8 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
     }
     
     func didEndEditingSpecialCondition(at index: Int) {
-        ///Should not remove the first certificate cell
-        guard index > 0 else { return }
-        let value = specialConditions[index].value ?? ""
-        if value.isEmpty {
-            specialConditions.remove(at: index)
-            view?.removeCertificateCell(at: index)
-        }
+        guard let number = registerForm.countPaidOnline else { return }
+        view?.setPrice(countSumToPay(forPeople: number))
     }
     
     func didPressCheckSpecialCondition(at index: Int) {
@@ -336,10 +331,10 @@ extension GameOrderPresenter: GameOrderInteractorOutput {
         default:
             break
         }
-        if response.success, let index = specialConditions.firstIndex(where: { $0.value == value }) {
+        if let index = specialConditions.firstIndex(where: { $0.value == value }) {
             specialConditions[index].discountInfo = response.discountInfo
         }
-        if response.success, let number = registerForm.countPaidOnline {
+        if let number = registerForm.countPaidOnline {
             self.view?.setPrice(self.countSumToPay(forPeople: number))
         }
         let title = response.success ? "Успешно" : "Ошибка"

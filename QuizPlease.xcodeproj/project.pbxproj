@@ -92,7 +92,6 @@
 		A44C697624EFD45300AB3BC9 /* QRCodeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44C697524EFD45300AB3BC9 /* QRCodeService.swift */; };
 		A44C697824EFE06000AB3BC9 /* QRScannerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44C697724EFE06000AB3BC9 /* QRScannerVC.swift */; };
 		A44C697B24EFE70B00AB3BC9 /* ViperProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44C697A24EFE70B00AB3BC9 /* ViperProtocols.swift */; };
-		A450E39624E559CD00C49AEE /* TitledTextFieldView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A450E39424E559CD00C49AEE /* TitledTextFieldView.xib */; };
 		A450E39724E559CD00C49AEE /* TitledTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A450E39524E559CD00C49AEE /* TitledTextFieldView.swift */; };
 		A450E39A24E564A900C49AEE /* GameCertificateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A450E39824E564A900C49AEE /* GameCertificateCell.swift */; };
 		A450E39B24E564A900C49AEE /* GameCertificateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A450E39924E564A900C49AEE /* GameCertificateCell.xib */; };
@@ -138,6 +137,8 @@
 		A472D2AD2528A89100AA9906 /* AuthVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A472D2AC2528A89100AA9906 /* AuthVC.swift */; };
 		A472D2B325291F0200AA9906 /* UserRegisterData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A472D2B225291F0200AA9906 /* UserRegisterData.swift */; };
 		A472F22B2641D38E00E6DFC5 /* MockWarmupQuestionsData.json in Resources */ = {isa = PBXBuildFile; fileRef = A472F22A2641D38E00E6DFC5 /* MockWarmupQuestionsData.json */; };
+		A4768C94268E72650085B622 /* PhoneTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4768C93268E72650085B622 /* PhoneTextFieldView.swift */; };
+		A4768C96268E72A00085B622 /* MaskedTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4768C95268E72A00085B622 /* MaskedTextFieldView.swift */; };
 		A477164F261B3D580037A69A /* PaymentOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = A477164E261B3D580037A69A /* PaymentOption.swift */; };
 		A4779C7F251618C90064F863 /* GameOrderCompletionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4779C7E251618C90064F863 /* GameOrderCompletionVC.swift */; };
 		A47E06DA261095EC008EBACE /* PromocodeResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47E06D9261095EC008EBACE /* PromocodeResponse.swift */; };
@@ -351,7 +352,6 @@
 		A44C697524EFD45300AB3BC9 /* QRCodeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeService.swift; sourceTree = "<group>"; };
 		A44C697724EFE06000AB3BC9 /* QRScannerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerVC.swift; sourceTree = "<group>"; };
 		A44C697A24EFE70B00AB3BC9 /* ViperProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViperProtocols.swift; sourceTree = "<group>"; };
-		A450E39424E559CD00C49AEE /* TitledTextFieldView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TitledTextFieldView.xib; sourceTree = "<group>"; };
 		A450E39524E559CD00C49AEE /* TitledTextFieldView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitledTextFieldView.swift; sourceTree = "<group>"; };
 		A450E39824E564A900C49AEE /* GameCertificateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCertificateCell.swift; sourceTree = "<group>"; };
 		A450E39924E564A900C49AEE /* GameCertificateCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameCertificateCell.xib; sourceTree = "<group>"; };
@@ -396,6 +396,8 @@
 		A472D2AC2528A89100AA9906 /* AuthVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthVC.swift; sourceTree = "<group>"; };
 		A472D2B225291F0200AA9906 /* UserRegisterData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRegisterData.swift; sourceTree = "<group>"; };
 		A472F22A2641D38E00E6DFC5 /* MockWarmupQuestionsData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MockWarmupQuestionsData.json; sourceTree = "<group>"; };
+		A4768C93268E72650085B622 /* PhoneTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneTextFieldView.swift; sourceTree = "<group>"; };
+		A4768C95268E72A00085B622 /* MaskedTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskedTextFieldView.swift; sourceTree = "<group>"; };
 		A477164E261B3D580037A69A /* PaymentOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentOption.swift; sourceTree = "<group>"; };
 		A4779C7E251618C90064F863 /* GameOrderCompletionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOrderCompletionVC.swift; sourceTree = "<group>"; };
 		A47E06D9261095EC008EBACE /* PromocodeResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromocodeResponse.swift; sourceTree = "<group>"; };
@@ -829,7 +831,8 @@
 			isa = PBXGroup;
 			children = (
 				A450E39524E559CD00C49AEE /* TitledTextFieldView.swift */,
-				A450E39424E559CD00C49AEE /* TitledTextFieldView.xib */,
+				A4768C95268E72A00085B622 /* MaskedTextFieldView.swift */,
+				A4768C93268E72650085B622 /* PhoneTextFieldView.swift */,
 			);
 			path = TitledTextFieldView;
 			sourceTree = "<group>";
@@ -1334,7 +1337,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A450E39624E559CD00C49AEE /* TitledTextFieldView.xib in Resources */,
 				A40D816624D2C6C2006D2CE3 /* LaunchScreen.storyboard in Resources */,
 				A4DAF73C24DD9BF400963C15 /* Gilroy-SemiBold.ttf in Resources */,
 				A4A065A324E47D1F0080E0D8 /* GameAnnotationCell.xib in Resources */,
@@ -1494,6 +1496,7 @@
 				A44A462C24F8EEC500C81F82 /* UIView+Blur.swift in Sources */,
 				A40D818224D2CA30006D2CE3 /* ProfileVC.swift in Sources */,
 				A423AC2424EEC65100071E68 /* ConfirmVC.swift in Sources */,
+				A4768C96268E72A00085B622 /* MaskedTextFieldView.swift in Sources */,
 				A44B2FD525841D9100B5B52C /* CertificateResponse.swift in Sources */,
 				A4FFA4B124F3BE2A006A1150 /* PaymentType.swift in Sources */,
 				A4A5370424EC7691004A10D4 /* UIColorExtensions.swift in Sources */,
@@ -1552,6 +1555,7 @@
 				A441A80B253F2799007146D3 /* CheckInResponse.swift in Sources */,
 				A4F0B9DC26248B5A00E4E2A5 /* SplashScreenPresenter.swift in Sources */,
 				A445E34824DE02BC0070B9FC /* TitleLabel.swift in Sources */,
+				A4768C94268E72650085B622 /* PhoneTextFieldView.swift in Sources */,
 				A40B758C24D9A81A006DB7D1 /* HomeGameInteractor.swift in Sources */,
 				A4F234802685E0D200E6FC68 /* AnyCodable.swift in Sources */,
 				A4F0B9D426246EB100E4E2A5 /* NetworkConfiguration.swift in Sources */,

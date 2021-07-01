@@ -17,6 +17,8 @@ protocol GameCertificateCellDelegate: AnyObject {
         
     func certificateCell(_ certificateCell: GameCertificateCell, didChangeCertificateCode newCode: String)
     
+    func certificateCellDidEndEditing(_ certificateCell: GameCertificateCell)
+    
     func didPressOkButton(in certificateCell: GameCertificateCell)
 }
 
@@ -36,13 +38,19 @@ class GameCertificateCell: UITableViewCell, GameOrderCellProtocol {
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var accessoryLabel: UILabel!
     @IBOutlet private weak var okButton: UIButton!
-    @IBOutlet weak var fieldView: TitledTextFieldView!
+    @IBOutlet weak var fieldView: TitledTextFieldView! {
+        didSet {
+            fieldView.backgroundColor = .systemBackgroundAdapted
+            fieldView.textField.autocapitalizationType = .none
+            fieldView.textField.returnKeyType = .done
+            fieldView.delegate = self
+        }
+    }
     
     var associatedItemKind: GameOrderVC.GameInfoItemKind?
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        configureTextField()
         configureViews()
     }
     
@@ -62,12 +70,6 @@ class GameCertificateCell: UITableViewCell, GameOrderCellProtocol {
         okButton.layer.cornerRadius = 10
     }
     
-    private func configureTextField() {
-        fieldView.textField.autocapitalizationType = .none
-        fieldView.textField.returnKeyType = .done
-        fieldView.delegate = self
-    }
-    
     private func updateUI() {
         guard let delegate = _delegate else { return }
         let title = delegate.titleForCell(self)
@@ -85,6 +87,10 @@ class GameCertificateCell: UITableViewCell, GameOrderCellProtocol {
 
 //MARK:- TitledTextFieldViewDelegate
 extension GameCertificateCell: TitledTextFieldViewDelegate {
+    func textFieldViewDidEndEditing(_ textFieldView: TitledTextFieldView) {
+        _delegate?.certificateCellDidEndEditing(self)
+    }
+    
     func textFieldView(_ textFieldView: TitledTextFieldView, didChangeTextField text: String, didCompleteMask isComplete: Bool) {
         _delegate?.certificateCell(self, didChangeCertificateCode: text)
     }
