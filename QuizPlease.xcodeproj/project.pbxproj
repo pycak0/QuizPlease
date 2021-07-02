@@ -58,6 +58,7 @@
 		A40F035D24D412D700C381F2 /* ShopItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40F035B24D412D700C381F2 /* ShopItemCell.swift */; };
 		A40F036224D4187800C381F2 /* UIKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40F036124D4187800C381F2 /* UIKitExtensions.swift */; };
 		A40F036424D419D200C381F2 /* MenuCellItemProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40F036324D419D200C381F2 /* MenuCellItemProtocol.swift */; };
+		A4132787268F33550088DE6A /* PhoneNumberKit-Static in Frameworks */ = {isa = PBXBuildFile; productRef = A4132786268F33550088DE6A /* PhoneNumberKit-Static */; };
 		A4147AD524E596FC007C131F /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = A4147AD424E596FC007C131F /* IQKeyboardManagerSwift */; };
 		A4147AD724E5B92D007C131F /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4147AD624E5B92D007C131F /* Place.swift */; };
 		A4147AD924E5BAF9007C131F /* MapService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4147AD824E5BAF9007C131F /* MapService.swift */; };
@@ -524,6 +525,7 @@
 				A423AC2024EEBA0600071E68 /* BottomPopup in Frameworks */,
 				A40E2A6A25294B4D00986CCA /* UICircularProgressRing in Frameworks */,
 				A4147AD524E596FC007C131F /* IQKeyboardManagerSwift in Frameworks */,
+				A4132787268F33550088DE6A /* PhoneNumberKit-Static in Frameworks */,
 				FF12F985D9FD6405E16CEC39 /* Pods_QuizPlease.framework in Frameworks */,
 				BC35081BEA3D2B8C4E2C71C2 /* Pods_QuizPlease.framework in Frameworks */,
 			);
@@ -1286,6 +1288,7 @@
 				A40E2A6925294B4D00986CCA /* UICircularProgressRing */,
 				A4A2647B252BC9D2005C0894 /* Alamofire */,
 				A445C89025436C9D003B68E8 /* Kingfisher */,
+				A4132786268F33550088DE6A /* PhoneNumberKit-Static */,
 			);
 			productName = QuizPlease;
 			productReference = A40D815624D2C6C1006D2CE3 /* QuizPlease.app */;
@@ -1322,6 +1325,7 @@
 				A40E2A6825294B4D00986CCA /* XCRemoteSwiftPackageReference "UICircularProgressRing" */,
 				A4A2647A252BC9D2005C0894 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				A445C88F25436C9D003B68E8 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				A4132785268F33550088DE6A /* XCRemoteSwiftPackageReference "PhoneNumberKit" */,
 			);
 			productRefGroup = A40D815724D2C6C1006D2CE3 /* Products */;
 			projectDirPath = "";
@@ -1845,6 +1849,14 @@
 				minimumVersion = 6.0.0;
 			};
 		};
+		A4132785268F33550088DE6A /* XCRemoteSwiftPackageReference "PhoneNumberKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/marmelroy/PhoneNumberKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.3.3;
+			};
+		};
 		A4147AD324E596FC007C131F /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager";
@@ -1892,6 +1904,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A40E2A6825294B4D00986CCA /* XCRemoteSwiftPackageReference "UICircularProgressRing" */;
 			productName = UICircularProgressRing;
+		};
+		A4132786268F33550088DE6A /* PhoneNumberKit-Static */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A4132785268F33550088DE6A /* XCRemoteSwiftPackageReference "PhoneNumberKit" */;
+			productName = "PhoneNumberKit-Static";
 		};
 		A4147AD424E596FC007C131F /* IQKeyboardManagerSwift */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -13,6 +13,10 @@ protocol TitledTextFieldViewDelegate: AnyObject {
     func textFieldViewDidEndEditing(_ textFieldView: TitledTextFieldView)
 }
 
+extension TitledTextFieldViewDelegate {
+    func textFieldViewDidEndEditing(_ textFieldView: TitledTextFieldView) {}
+}
+
 fileprivate enum Constants {
     static let offset: CGFloat = 14
     static let bottomInset: CGFloat = -8
@@ -25,10 +29,8 @@ class TitledTextFieldView: UIView {
     //MARK:- UI
     lazy var textField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = placeholder
+        textField.placeholder = self.placeholder
         textField.font = .gilroy(.semibold, size: 16)
-        textField.delegate = self
-        textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         return textField
     }()
     
@@ -37,7 +39,7 @@ class TitledTextFieldView: UIView {
         label.font = .gilroy(.semibold, size: 12)
         label.textColor = .darkGray
         label.contentMode = .left
-        label.text = title
+        label.text = self.title
         label.setContentHuggingPriority(.defaultHigh, for: .vertical)
         label.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         return label
@@ -111,13 +113,13 @@ class TitledTextFieldView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
-        addRecognizer()
+        configure()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setup()
-        addRecognizer()
+        configure()
     }
     
     override func prepareForInterfaceBuilder() {
@@ -144,9 +146,12 @@ class TitledTextFieldView: UIView {
             ?? .systemFont(ofSize: textFontSize, weight: .semibold)
     }
     
-    private func addRecognizer() {
+    private func configure() {
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(startEditing))
         addGestureRecognizer(tapRecognizer)
+        
+        textField.delegate = self
+        textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     }
     
     @objc
@@ -182,12 +187,13 @@ class TitledTextFieldView: UIView {
 }
 
 extension TitledTextFieldView: UITextFieldDelegate {
+    ///You can override this method to provide custom delegate calls
     func textFieldDidEndEditing(_ textField: UITextField) {
         delegate?.textFieldViewDidEndEditing(self)
     }
     
-    @objc
-    private func textFieldDidChange(_ textField: UITextField) {
+    ///You can override this method to provide custom delegate calls
+    @objc func textFieldDidChange(_ textField: UITextField) {
         delegate?.textFieldView(self, didChangeTextField: textField.text ?? "", didCompleteMask: true)
     }
 }

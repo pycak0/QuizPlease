@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PhoneNumberKit
 
 //MARK:- Delegate Protocol
 protocol AuthVCDelegate: AnyObject {
@@ -20,7 +21,7 @@ class AuthVC: UIViewController {
     weak var delegate: AuthVCDelegate?
     
     @IBOutlet private weak var authButton: ScalingButton!
-    @IBOutlet private weak var textFieldView: MaskedTextFieldView!
+    @IBOutlet private weak var textFieldView: PhoneTextFieldView!
     @IBOutlet private weak var descriptionLabel: UILabel!
     @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
@@ -55,7 +56,7 @@ class AuthVC: UIViewController {
             showIncorrectInputNotification()
             return
         }
-        let phoneNumber = "8" + number
+        let phoneNumber = number
         activityIndicator.startAnimating()
         if isCodeSent {
             if let code = smsCode {
@@ -142,7 +143,6 @@ class AuthVC: UIViewController {
         authButton.layer.cornerRadius = 20
         textFieldView.textField.keyboardType = .phonePad
         textFieldView.textField.textColor = .black
-        textFieldView.textField.text = "+7"
         textFieldView.delegate = self
     }
     
@@ -159,11 +159,11 @@ class AuthVC: UIViewController {
         imageView.image = UIImage(named: "key")
         descriptionLabel.text = "Введите код из СМС"
         authButton.setTitle("Отправить код", for: .normal)
+        textFieldView.isPhoneMaskEnabled = false
         textFieldView.title = "Код"
         textFieldView.textField.text = ""
         textFieldView.textField.placeholder = String(repeating: "X", count: 6)
         textFieldView.textField.textContentType = .oneTimeCode
-        textFieldView.inputMask = MaskedTextFieldView.noMask
     }
     
     private func showIncorrectInputNotification() {
@@ -174,18 +174,18 @@ class AuthVC: UIViewController {
 
 //MARK:- Text Field View Delegate
 extension AuthVC: TitledTextFieldViewDelegate {
-    func textFieldViewDidEndEditing(_ textFieldView: TitledTextFieldView) {
-        
-    }
-    
-    func textFieldView(_ textFieldView: TitledTextFieldView, didChangeTextField text: String, didCompleteMask isComplete: Bool) {
+    func textFieldView(
+        _ textFieldView: TitledTextFieldView,
+        didChangeTextField extractedPhoneNumber: String,
+        didCompleteMask isComplete: Bool
+    ) {
         if isCodeSent {
-            smsCode = text
-            if text.count == 6 {
+            smsCode = textFieldView.textField.text
+            if smsCode?.count == 6 {
                 handleInput()
             }
         } else {
-            phoneNumber = isComplete ? text : nil
+            phoneNumber = isComplete ? extractedPhoneNumber : nil
         }
     }
 }
