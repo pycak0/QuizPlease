@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreHaptics
 
 //MARK:- View Protocol
 protocol GameOrderViewProtocol: UIViewController, LoadingIndicator {
@@ -62,6 +63,8 @@ class GameOrderVC: UIViewController {
     }()
     
     var isFirstLoad = true
+    
+    let hapticGenerator = UIImpactFeedbackGenerator(style: .medium)
     
     private let activityIndicator = UIActivityIndicatorView()
     
