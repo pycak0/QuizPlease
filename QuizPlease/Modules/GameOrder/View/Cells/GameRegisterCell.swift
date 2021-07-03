@@ -38,7 +38,7 @@ class GameRegisterCell: UITableViewCell, GameOrderCellProtocol {
     @IBOutlet weak var teamNameFieldView: TitledTextFieldView!
     @IBOutlet weak var captainNameFieldView: TitledTextFieldView!
     @IBOutlet weak var emailFieldView: TitledTextFieldView!
-    @IBOutlet weak var phoneFieldView: MaskedTextFieldView!
+    @IBOutlet weak var phoneFieldView: PhoneTextFieldView!
     @IBOutlet weak var fieldsStack: UIStackView!
     @IBOutlet weak var countPicker: CountPickerView!
     @IBOutlet weak var feedbackFieldView: TitledTextFieldView!

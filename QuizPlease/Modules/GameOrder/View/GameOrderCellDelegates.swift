@@ -64,13 +64,9 @@ extension GameOrderVC: GameRegisterCellDelegate {
         presenter.registerForm.email = email
     }
     
-    func registerCell(_ registerCell: GameRegisterCell, didChangePhone number: String, didCompleteMask: Bool) {
-        if didCompleteMask {
-            let phoneNumber = "8" + number
-            presenter.registerForm.phone = phoneNumber
-        } else {
-            presenter.registerForm.phone = ""
-        }
+    func registerCell(_ registerCell: GameRegisterCell, didChangePhone extractedNumber: String, didCompleteMask: Bool) {
+        presenter.isPhoneNumberValid = didCompleteMask
+        presenter.registerForm.phone = extractedNumber
     }
     
     func registerCell(_ registerCell: GameRegisterCell, didChangeFeedback newValue: String) {

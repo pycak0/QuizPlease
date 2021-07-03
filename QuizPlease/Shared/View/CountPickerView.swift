@@ -8,7 +8,7 @@
 import UIKit
 
 //MARK:- Delegate Protocol
-protocol CountPickerViewDelegate: class {
+protocol CountPickerViewDelegate: AnyObject {
     ///Tells the delegate that selected value is changed (only when by user, not via `setSelectedButton(at:)` method).
     ///
     ///The value of `number` is calculated according to the specified `startCount` value.

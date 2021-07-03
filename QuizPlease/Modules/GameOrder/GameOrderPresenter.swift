@@ -16,6 +16,7 @@ protocol GameOrderPresenterProtocol {
     var router: GameOrderRouterProtocol! { get }
     var isOnlinePaymentDefault: Bool { get }
     var isOnlyCashAvailable: Bool { get }
+    var isPhoneNumberValid: Bool { get set }
     var specialConditions: [SpecialCondition] { get set }
     
     init(view: GameOrderViewProtocol, interactor: GameOrderInteractorProtocol, router: GameOrderRouterProtocol)
@@ -46,6 +47,8 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
             registerForm.paymentType = isOnlinePaymentDefault ? .online : .cash
         }
     }
+    
+    var isPhoneNumberValid = false
     
     var specialConditions: [SpecialCondition] = [SpecialCondition()]
     
@@ -217,7 +220,7 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
                     self.view?.editEmail()
                 }
                 
-            } else if !registerForm.phone.isValidMobilePhone {
+            } else if !isPhoneNumberValid {
                 view?.showSimpleAlert(
                     title: "Некорректный номер телефона",
                     message: "Пожалуйста, введите корректный номер и попробуйте еще раз"

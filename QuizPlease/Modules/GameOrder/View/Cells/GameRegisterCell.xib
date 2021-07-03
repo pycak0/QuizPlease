@@ -69,13 +69,11 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Введите почту"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wae-y6-ACP" customClass="MaskedTextFieldView" customModule="QuizPlease" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wae-y6-ACP" customClass="PhoneTextFieldView" customModule="QuizPlease" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="226" width="288" height="67.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="title" value="Телефон капитана *"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="+7"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="inputMask" value="+7 ([000]) [000]-[00]-[00]"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
