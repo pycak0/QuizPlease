@@ -193,7 +193,7 @@ extension GameOrderVC: GamePaymentTypeCellDelegate {
     }
     
     func paymentTypeCell(_ cell: GamePaymentTypeCell, didChangePaymentType isOnlinePayment: Bool) {
-        if !isFirstLoad { hapticGenerator.impactOccurred() }
+        hapticGenerator.impactOccurred()
         presenter.registerForm.paymentType = isOnlinePayment ? .online : .cash
         
         if let index = items.firstIndex(of: .submit), let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? GameSubmitButtonCell {

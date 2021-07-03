@@ -61,9 +61,7 @@ class GameOrderVC: UIViewController {
     private(set) lazy var indexOfFirstCertificate: Int? = {
         items.firstIndex(of: .certificate)
     }()
-    
-    var isFirstLoad = true
-    
+        
     let hapticGenerator = UIImpactFeedbackGenerator(style: .medium)
     
     private let activityIndicator = UIActivityIndicatorView()
