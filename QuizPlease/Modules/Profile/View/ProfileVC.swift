@@ -13,12 +13,15 @@ protocol ProfileViewProtocol: UIViewController {
     var presenter: ProfilePresenterProtocol! { get set }
     func configure()
     func reloadGames()
-    func updateUserInfo(with pointsScored: Int)
+    func updateUserInfo(with pointsScored: Double)
     func setCity(_ city: String)
 }
 
 class ProfileVC: UIViewController {
     var presenter: ProfilePresenterProtocol!
+    private let pointsFormatter: NumberFormatterProtocol = PointsDecorator(
+        baseFormatter: NumberFormatter.decimalGroupingFormatter
+    )
 
     @IBOutlet private weak var infoHeader: UIView!
     @IBOutlet private weak var gamesCountLabel: UILabel!
@@ -98,9 +101,9 @@ extension ProfileVC: ProfileViewProtocol {
         tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .automatic)
     }
     
-    func updateUserInfo(with pointsScored: Int) {
+    func updateUserInfo(with pointsScored: Double) {
         let gamesCount = presenter.userInfo?.games?.count ?? 0
-        totalPointsScoredLabel.text = pointsScored.string(withAssociatedMaleWord: "балл")
+        totalPointsScoredLabel.text = pointsFormatter.string(from: pointsScored as NSNumber)
         let gamesFormattedCount = gamesCount.string(withAssociatedFirstCaseWord: "игра")
         gamesCountLabel.text = "Вы сходили на \(gamesFormattedCount) и накопили"
     }

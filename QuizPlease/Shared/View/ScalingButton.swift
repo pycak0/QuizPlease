@@ -8,8 +8,8 @@
 
 import UIKit
 
-class ScalingButton: UIButton {
-    var scaleRate: CGFloat = 0.96
+public class ScalingButton: UIButton {
+    public var scaleRate: CGFloat = 0.96
     
     override init(frame: CGRect) {
         super.init(frame: frame)

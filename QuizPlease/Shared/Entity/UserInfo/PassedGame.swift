@@ -14,7 +14,7 @@ struct PassedGame: Decodable {
     var title: String
     var place: String?
     
-    private var bonus_points: AnyValue?
+    private var bonus_points: AnyDecodable?
     
     init(sampleTitle: String) {
         id = "-1"
@@ -33,10 +33,10 @@ extension PassedGame {
     }
     
     var points: Int? {
-        if let points = bonus_points?.value() as? Int {
+        if let points = bonus_points?.value as? Int {
             return points
         }
-        if let pointsStr = bonus_points?.value() as? String {
+        if let pointsStr = bonus_points?.value as? String {
             return Int(pointsStr)
         }
         return nil

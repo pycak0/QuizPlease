@@ -112,6 +112,9 @@ extension RatingVC: ExpandingHeaderDelegate {
         presenter.didChangeRatingScope(selectedSegment)
     }
     
+    func expandingHeaderDidBeginEditingQuery(_ expandingHeader: ExpandingHeader) {
+    }
+    
     func expandingHeader(_ expandingHeader: ExpandingHeader, didEndSearchingWith query: String) {
         presenter.didHideKeyboard(with: query)
     }

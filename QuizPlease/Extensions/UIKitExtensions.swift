@@ -69,15 +69,24 @@ public extension UIView {
     }
     
     //MARK:- Draw Dotted Line
-    static func drawDottedLine(in view: UIView, start p0: CGPoint, end p1: CGPoint, dashLength: NSNumber = 7, gapLength: NSNumber = 3) {
+    @discardableResult
+    static func drawDottedLine(
+        in view: UIView,
+        start: CGPoint,
+        end: CGPoint,
+        dashLength: Double = 7,
+        gapLength: Double = 3
+    ) -> CAShapeLayer {
         let shapeLayer = CAShapeLayer()
         shapeLayer.strokeColor = UIColor.lightGray.cgColor
         shapeLayer.lineWidth = 1
-        shapeLayer.lineDashPattern = [dashLength, gapLength] // [length of dash, length of gap]
+        shapeLayer.lineDashPattern = [dashLength, gapLength] as [NSNumber] // [length of dash, length of gap]
 
         let path = CGMutablePath()
-        path.addLines(between: [p0, p1])
+        path.addLines(between: [start, end])
         shapeLayer.path = path
         view.layer.addSublayer(shapeLayer)
+        
+        return shapeLayer
     }
 }

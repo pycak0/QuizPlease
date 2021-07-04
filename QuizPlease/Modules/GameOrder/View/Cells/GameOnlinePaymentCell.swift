@@ -16,7 +16,7 @@ protocol GameOnlinePaymentCellDelegate: AnyObject {
     func maxNumberOfPeopleToPay(in cell: GameOnlinePaymentCell) -> Int
     
     ///Requires the sum to pay for selected number of people. Delegate (Data source) must update its value with the new `number` value here.
-    func sumToPay(in cell: GameOnlinePaymentCell, forNumberOfPeople number: Int) -> Int
+    func sumToPay(in cell: GameOnlinePaymentCell, forUpdatedNumberOfPeople number: Int) -> Double
     
     ///If `nil`, the default color is `UIColor.label`
     func priceTextColor(in cell: GameOnlinePaymentCell) -> UIColor?
@@ -31,6 +31,7 @@ class GameOnlinePaymentCell: UITableViewCell, GameOrderCellProtocol {
     @IBOutlet private weak var paymentCommentLabel: UILabel!
     @IBOutlet private weak var dashView: UIView!
     @IBOutlet private weak var priceLabel: UILabel!
+    private weak var dashedLine: CAShapeLayer?
     
     //MARK:- Public
     var selectedNumberOfPeopleToPay: Int {
@@ -46,9 +47,9 @@ class GameOnlinePaymentCell: UITableViewCell, GameOrderCellProtocol {
         updatePrice(withNumberOfPeople: number)
     }
     
-    func setPrice(_ price: Int) {
+    func setPrice(_ price: Double) {
         let priceColor = _delegate?.priceTextColor(in: self) ?? .labelAdapted
-        priceLabel.text = "\(price)"
+        priceLabel.text = NumberFormatter.decimalFormatter.string(from: price as NSNumber) ?? "N/A"
         priceLabel.textColor = priceColor
     }
         
@@ -79,6 +80,7 @@ class GameOnlinePaymentCell: UITableViewCell, GameOrderCellProtocol {
     override func layoutSubviews() {
         super.layoutSubviews()
         configureViews()
+        reloadPrice()
     }
     
     private func configureCell() {
@@ -90,9 +92,10 @@ class GameOnlinePaymentCell: UITableViewCell, GameOrderCellProtocol {
     private func configureViews() {
         countPicker.buttonsCornerRadius = countPicker.frame.height / 2
         
+        dashedLine?.removeFromSuperlayer()
         let start = CGPoint(x: dashView.bounds.minX + 3, y: dashView.frame.maxY - 8)
         let end = CGPoint(x: priceLabel.frame.minX - 3, y: dashView.frame.maxY - 8)
-        UIView.drawDottedLine(in: dashView, start: start, end: end, dashLength: 4, gapLength: 2)
+        dashedLine = UIView.drawDottedLine(in: dashView, start: start, end: end, dashLength: 4, gapLength: 2)
     }
     
     //MARK:- Update Picker
@@ -114,9 +117,15 @@ class GameOnlinePaymentCell: UITableViewCell, GameOrderCellProtocol {
         }
     }
     
+    private func reloadPrice() {
+        guard let delegate = _delegate else { return }
+        let numberOfPeople = delegate.selectedNumberOfPeople(in: self)
+        updatePrice(withNumberOfPeople: numberOfPeople)
+    }
+    
     private func updatePrice(withNumberOfPeople number: Int) {
-        let newPrice = _delegate?.sumToPay(in: self, forNumberOfPeople: number) ?? 0
-       setPrice(newPrice)
+        let newPrice = _delegate?.sumToPay(in: self, forUpdatedNumberOfPeople: number) ?? 0
+        setPrice(newPrice)
     }
 }
 

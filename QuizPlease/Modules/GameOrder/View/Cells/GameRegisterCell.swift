@@ -9,7 +9,7 @@
 import UIKit
 
 //MARK:- Delegate Protocol
-protocol GameRegisterCellDelegate: class {
+protocol GameRegisterCellDelegate: AnyObject {
     ///The delegate should return a  number of people to select in picker. If the number is invalid, picker will select the first button.
     func selectedNumberOfPeople(in registerCell: GameRegisterCell) -> Int
     
@@ -38,7 +38,7 @@ class GameRegisterCell: UITableViewCell, GameOrderCellProtocol {
     @IBOutlet weak var teamNameFieldView: TitledTextFieldView!
     @IBOutlet weak var captainNameFieldView: TitledTextFieldView!
     @IBOutlet weak var emailFieldView: TitledTextFieldView!
-    @IBOutlet weak var phoneFieldView: TitledTextFieldView!
+    @IBOutlet weak var phoneFieldView: PhoneTextFieldView!
     @IBOutlet weak var fieldsStack: UIStackView!
     @IBOutlet weak var countPicker: CountPickerView!
     @IBOutlet weak var feedbackFieldView: TitledTextFieldView!
@@ -90,6 +90,10 @@ class GameRegisterCell: UITableViewCell, GameOrderCellProtocol {
 
 //MARK:- TitledTextFieldViewDelegate
 extension GameRegisterCell: TitledTextFieldViewDelegate {
+    func textFieldViewDidEndEditing(_ textFieldView: TitledTextFieldView) {
+        
+    }
+    
     func textFieldView(_ textFieldView: TitledTextFieldView, didChangeTextField text: String, didCompleteMask isComplete: Bool) {
         switch textFieldView {
         case phoneFieldView:

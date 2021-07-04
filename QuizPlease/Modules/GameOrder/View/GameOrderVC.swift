@@ -7,34 +7,47 @@
 //
 
 import UIKit
+import CoreHaptics
 
 //MARK:- View Protocol
 protocol GameOrderViewProtocol: UIViewController, LoadingIndicator {
     var presenter: GameOrderPresenterProtocol! { get set }
-    //var configurator: GameOrderConfiguratorProtocol! { get }
     
     var shouldScrollToSignUp: Bool! { get set }
     
     func reloadInfo()
     func configureTableView()
     
+    ///Works only if view already contains at least one certificate cell
+    func addCertificateCell()
+    func removeCertificateCell(at index: Int)
+    
     func editEmail()
     func editPhone()
     
-    func setPrice(_ price: Int)
+    func setPrice(_ price: Double)
     func setBackgroundImage(with path: String)
     func endEditing()
 }
 
 class GameOrderVC: UIViewController {
-    //let configurator: GameOrderConfiguratorProtocol! = GameOrderConfigurator()
     var presenter: GameOrderPresenterProtocol!
     
     var shouldScrollToSignUp: Bool!
-    
+        
     lazy var items: [GameInfoItemKind] = {
         let types = presenter.game.availablePaymentTypes
         var _items = GameInfoItemKind.allCases
+        let specialConditionsAmount = presenter.specialConditions.count
+        if specialConditionsAmount > 1 {
+            let specialConditions = Array(repeating: GameInfoItemKind.certificate, count: specialConditionsAmount)
+            _items.insert(contentsOf: specialConditions, at: _items.firstIndex(of: .certificate)!)
+        } else {
+            if specialConditionsAmount != 1 {
+                _items.removeAll(where: { $0 == .certificate })
+            }
+            _items.removeAll { $0 == .addExtraCertificate }
+        }
         if presenter.isOnlyCashAvailable || !presenter.isOnlinePaymentDefault {
             _items.removeAll { $0 == .onlinePayment }
         }
@@ -45,13 +58,27 @@ class GameOrderVC: UIViewController {
         return _items
     }()
     
-    var isFirstLoad = true
+    private(set) lazy var indexOfFirstCertificate: Int? = {
+        items.firstIndex(of: .certificate)
+    }()
+        
+    let hapticGenerator = UIImpactFeedbackGenerator(style: .medium)
     
-    private var activityIndicator = UIActivityIndicatorView()
+    private let activityIndicator = UIActivityIndicatorView()
     
     @IBOutlet private weak var gameImageView: UIImageView!
     @IBOutlet private weak var imageDarkeningView: UIView!
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var tableView: UITableView! {
+        didSet {
+            tableView.delegate = self
+            tableView.dataSource = self
+            
+            for cellKind in GameInfoItemKind.allCases where cellKind != .addExtraCertificate {
+                tableView.register(UINib(nibName: cellKind.identifier, bundle: nil), forCellReuseIdentifier: cellKind.identifier)
+            }
+            tableView.register(GameAddExtraCertificateCell.self, forCellReuseIdentifier: GameAddExtraCertificateCell.identifier)
+        }
+    }
         
     //MARK:- Lifecycle
     override func viewDidLoad() {
@@ -85,9 +112,17 @@ class GameOrderVC: UIViewController {
             completion?(nil)
             print("Invalid cell kind at Register indexPath")
         }
-        
     }
-
+    
+    func indexForPresenter(of cell: GameCertificateCell) -> Int? {
+        guard let indexPath = tableView.indexPath(for: cell) else { return nil }
+        return indexOfCertificateForPresenter(from: indexPath)
+    }
+    
+    func indexOfCertificateForPresenter(from indexPath: IndexPath) -> Int? {
+        guard let indexOfFirstCertificate = indexOfFirstCertificate else { return nil }
+        return indexPath.row - indexOfFirstCertificate
+    }
 }
 
 //MARK:- Protocol Implementation
@@ -101,13 +136,6 @@ extension GameOrderVC: GameOrderViewProtocol {
     }
     
     func configureTableView() {
-        tableView.delegate = self
-        tableView.dataSource = self
-        
-        for cellKind in GameInfoItemKind.allCases {
-            tableView.register(UINib(nibName: cellKind.identifier, bundle: nil), forCellReuseIdentifier: cellKind.identifier)
-        }
-        
         if shouldScrollToSignUp {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 self.scrollToSignUp()
@@ -133,7 +161,7 @@ extension GameOrderVC: GameOrderViewProtocol {
         }
     }
     
-    func setPrice(_ price: Int) {
+    func setPrice(_ price: Double) {
         guard let index = items.firstIndex(of: .onlinePayment) else { return }
         if let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? GameOnlinePaymentCell {
             cell.setPrice(price)
@@ -144,12 +172,40 @@ extension GameOrderVC: GameOrderViewProtocol {
         let placeholder = gameImageView.image
         gameImageView.loadImage(
             path: path,
-            placeholderImage: placeholder)
-        { [weak self] image in
+            placeholderImage: placeholder
+        ) { [weak self] image in
             guard let self = self else { return }
             if image == nil {
-                self.gameImageView.loadImageFromMainDomain(path: path, placeholderImage: placeholder)
+                self.gameImageView.loadImage(using: .prod, path: path, placeholderImage: placeholder)
             }
+        }
+    }
+    
+    func addCertificateCell() {
+        guard let index = items.lastIndex(of: .certificate) else { return }
+        let newIndex = index + 1
+        items.insert(.certificate, at: newIndex)
+        tableView.insertRows(at: [IndexPath(row: newIndex, section: 0)], with: .fade)
+    }
+    
+    func removeCertificateCell(at indexForPresenter: Int) {
+        guard let indexOfFirstCertificate = indexOfFirstCertificate else { return }
+        let newIndex = indexOfFirstCertificate + indexForPresenter
+        let indexPath = IndexPath(row: newIndex, section: 0)
+        removeCertificateCell(at: indexPath)
+    }
+    
+    private func removeCertificateCell(at indexPath: IndexPath) {
+        items.remove(at: indexPath.row)
+        tableView.deleteRows(at: [indexPath], with: .fade)
+        //Also remove 'add' button if the only one certificate cell is left
+        let prevIndex = indexPath.row - 1
+        if let firstIndex = indexOfFirstCertificate,
+           prevIndex == firstIndex,
+           presenter.specialConditions[prevIndex - firstIndex].value?.isEmpty ?? true,
+           let index = items.firstIndex(of: .addExtraCertificate) {
+            items.remove(at: index)
+            tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .fade)
         }
     }
 }
@@ -167,7 +223,13 @@ extension GameOrderVC: UITableViewDataSource, UITableViewDelegate {
         //guard let kind = GameInfoItemKind(rawValue: index) else { fatalError("Invalid Game Item Kind") }
         let cell = tableView.dequeueReusableCell(withIdentifier: kind.identifier, for: indexPath) as! TableCellProtocol
         
-        (cell as? GameCertificateCell)?.associatedItemKind = kind
+        if let cell = cell as? GameCertificateCell {
+            cell.associatedItemKind = kind
+            if let index = indexOfCertificateForPresenter(from: indexPath) {
+                cell.fieldView.textField.text = presenter.specialConditions[index].value
+            }
+        }
+        
         if let cell = cell as? GameOrderCellProtocol, (cell.delegate as? GameOrderVC) == nil {
             cell.delegate = self
         }
@@ -175,6 +237,33 @@ extension GameOrderVC: UITableViewDataSource, UITableViewDelegate {
         //(cell as? GameOrderCellProtocol)?.delegate = self
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        indexPath.row != indexOfFirstCertificate && items[indexPath.row] == .certificate
+    }
+
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(
+            style: .destructive,
+            title: nil,
+            handler: { [weak self] action, view, completion in
+                guard let self = self else { return }
+                if let firstIndex = self.indexOfFirstCertificate {
+                    let cellIndexForPresenter = indexPath.row - firstIndex
+                    self.presenter.didPressDeleteSpecialCondition(at: cellIndexForPresenter)
+                }
+                completion(true)
+            }
+        )
+        deleteAction.backgroundColor = .systemGray5Adapted
+        if #available(iOS 13.0, *) {
+            deleteAction.image = UIImage(systemName: "trash.circle.fill")
+        } else {
+            deleteAction.title = "Удалить"
+        }
+        
+        return UISwipeActionsConfiguration(actions: [deleteAction])
     }
 }
 

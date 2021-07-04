@@ -12,6 +12,8 @@ import Alamofire
 class NetworkService {
     private init() {}
     
+    typealias Completion<Object: Decodable> = (Result<Object, SessionError>) -> Void
+    
     enum AuthorizationKind: Equatable {
         case none, bearer, bearerCustom(_ token: String)
         
@@ -30,7 +32,7 @@ class NetworkService {
     static let shared = NetworkService()
         
     var baseUrlComponents: URLComponents {
-        var urlComps = URLComponents(string: Configuration.dev.host)!
+        var urlComps = URLComponents(string: NetworkConfiguration.standard.host)!
         urlComps.queryItems = nil
         return urlComps
     }
@@ -40,6 +42,15 @@ class NetworkService {
             return nil
         }
         return ("Authorization", "Bearer \(userToken)")
+    }
+    
+    static func mapResponse<Object: Decodable>(_ data: Data) -> Result<Object, SessionError> {
+        do {
+            let object = try JSONDecoder().decode(Object.self, from: data)
+            return .success(object)
+        } catch {
+            return .failure(.decoding(error))
+        }
     }
     
     ///
@@ -269,7 +280,13 @@ class NetworkService {
     //MARK:- Get Request
     ///- parameter authorizationKind: Use this parameter to choose authoriztion kind for the request. Auth info from this parameter will be used for 'Authoriztion' HTTP Header Field, so, if you provide `headers` with authoriztion header, it may be rewritten
     @discardableResult
-    func get<Object: Decodable>(_ type: Object.Type, with urlComponents: URLComponents, headers: [String: String]? = nil, authorizationKind: AuthorizationKind = .none, completion: @escaping ((Result<Object, SessionError>) -> Void)) -> Cancellable? {
+    func get<Object: Decodable>(
+        _ type: Object.Type,
+        with urlComponents: URLComponents,
+        headers: [String: String]? = nil,
+        authorizationKind: AuthorizationKind = .none,
+        completion: @escaping Completion<Object>
+    ) -> Cancellable? {
         guard let url = urlComponents.url else {
             completion(.failure(.invalidUrl))
             return nil
@@ -325,15 +342,8 @@ class NetworkService {
             \(String(data: data, encoding: .utf8) ?? "JSON error.")
             =====\n\n
             """)
-            do {
-                let object = try JSONDecoder().decode(Object.self, from: data)
-                DispatchQueue.main.async {
-                    completion(.success(object))
-                }
-            } catch {
-                DispatchQueue.main.async {
-                    completion(.failure(.decoding(error)))
-                }
+            DispatchQueue.main.async {
+                completion(NetworkService.mapResponse(data))
             }
         }
         task.resume()
@@ -508,13 +518,23 @@ class NetworkService {
         }
     }
     
+    func setDefaultCity(_ city: City) {
+        guard let auth = createBearerAuthHeader() else { return }
+        let headers = [auth.key : auth.value]
+        let params = ["city_id": "\(city.id)"]
+        var urlComps = baseUrlComponents
+        urlComps.path = "/api/users/set-city"
+        afPostStandard(with: params, and: headers, to: urlComps, responseType: AnyDecodable.self) { result in
+            print("Default city setting result:")
+            print(result)
+        }
+    }
+    
     //MARK:- Register on Game
-    func registerOnGame(registerForm: RegisterForm, completion: @escaping (Result<GameOrderResponse, SessionError>) -> Void) {
+    func registerOnGame(registerForm: RegisterForm, certificates: [String], promocode: String?, completion: @escaping (Result<GameOrderResponse, SessionError>) -> Void) {
         var registerUrlComps = baseUrlComponents
         registerUrlComps.path = "/ajax/save-record"
-        
-        let countPaidOnline = registerForm.countPaidOnline == nil ? nil : "\(registerForm.countPaidOnline!)"
-        
+                
         let parameters: [String: String?] = [
             //2 - регистрация через мобильное приложение
             "QpRecord[registration_type]"   : "2",
@@ -524,13 +544,13 @@ class NetworkService {
             "QpRecord[comment]"             : registerForm.comment ?? "",
             "QpRecord[game_id]"             : "\(registerForm.gameId)",
             "QpRecord[first_time]"          : registerForm.isFirstTime ? "1" : "0",
-            "certificates[]"                : registerForm.certificates,
+            "certificates[]"                : !certificates.isEmpty ? "\(certificates)" : "",
             "QpRecord[payment_type]"        : "\(registerForm.paymentType.rawValue)",
             "QpRecord[count]"               : "\(registerForm.count)",
             "QpRecord[teamName]"            : registerForm.teamName,
             "QpRecord[payment_token]"       : registerForm.paymentToken,
-            "QpRecord[surcharge]"           : countPaidOnline,
-            "promo_code"                    : registerForm.promocode
+            "QpRecord[surcharge]"           : registerForm.countPaidOnline.map { "\($0)" },
+            "promo_code"                    : promocode
         ]
         
         afPost(with: parameters, to: registerUrlComps, responseType: GameOrderResponse.self, completion: completion)
@@ -560,7 +580,7 @@ class NetworkService {
     ///Wraps server response to the success or failure. Use this method if you don't mind about data that is passed via response and you only want to know if the request was successul or not
     func afPostBool(with parameters: [String: String?], and headers: [String : String]? = nil,
                 to urlComponents: URLComponents, completion: @escaping ((_ isSuccess: Bool) -> Void)) {
-        afPostStandard(with: parameters, and: headers, to: urlComponents, responseType: [String : AnyValue?]?.self) { (postResult) in
+        afPostStandard(with: parameters, and: headers, to: urlComponents, responseType: [String : AnyDecodable?]?.self) { (postResult) in
             let isSuccess = (try? postResult.get()) != nil
             completion(isSuccess)
         }
@@ -583,11 +603,14 @@ class NetworkService {
     }
     
     //MARK:- Alamofire POST
-    func afPost<Response: Decodable>(with parameters: [String: String?], and headers: [String : String]? = nil,
-                                     to urlComponents: URLComponents, responseType: Response.Type,
-                                     authorizationKind: AuthorizationKind = .none,
-                                     completion: @escaping ((Result<Response, SessionError>) -> Void)) {
-        
+    func afPost<Response: Decodable>(
+        with parameters: [String: String?],
+        and headers: [String : String]? = nil,
+        to urlComponents: URLComponents,
+        responseType: Response.Type,
+        authorizationKind: AuthorizationKind = .none,
+        completion: @escaping Completion<Response>
+    ) {
         var headers = headers ?? [:]
         if let auth = authorizationKind.header {
             headers[auth.key] = auth.value
@@ -596,14 +619,17 @@ class NetworkService {
             return
         }
         let httpHeaders = headers.isEmpty ? nil : HTTPHeaders(headers)
-        AF.upload(multipartFormData: { (multipartFormData) in
-            for (key, value) in parameters {
-                if let value = value {
-                    multipartFormData.append(Data(value.utf8), withName: key)
+        AF.upload(
+            multipartFormData: { (multipartFormData) in
+                for (key, value) in parameters {
+                    if let value = value {
+                        multipartFormData.append(Data(value.utf8), withName: key)
+                    }
                 }
-            }
-        }, to: urlComponents, headers: httpHeaders)
-        .responseData { (afResponse) in
+            },
+            to: urlComponents,
+            headers: httpHeaders
+        ).responseData(queue: .global()) { (afResponse) in
             print("""
             \n=====
             [\(Self.self).swift]
@@ -613,15 +639,14 @@ class NetworkService {
             switch afResponse.result {
             case let .failure(error):
                 print("Error: \(error)")
-                completion(.failure(.other(error)))
+                DispatchQueue.main.async {
+                    completion(.failure(.other(error)))
+                }
             case let .success(data):
                 print("Body:")
                 print(String(data: data, encoding: .utf8) ?? "json decoding error")
-                do {
-                    let serverResponse = try JSONDecoder().decode(Response.self, from: data)
-                    completion(.success(serverResponse))
-                } catch {
-                    completion(.failure(.decoding(error)))
+                DispatchQueue.main.async {
+                    completion(NetworkService.mapResponse(data))
                 }
             }
             print("=====\n\n")

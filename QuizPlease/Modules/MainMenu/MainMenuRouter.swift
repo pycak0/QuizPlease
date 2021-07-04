@@ -10,7 +10,7 @@ import UIKit
 
 protocol MainMenuRouterProtocol: RouterProtocol {
     func showMenuSection(_ kind: MainMenuItemProtocol, sender: Any?)
-    func showChooseCityScreen(_ selectedCity: City)
+    func showChooseCityScreen(selectedCity: City)
     func showQRScanner()
     func showAddGameScreen(_ info: String)
 }
@@ -69,7 +69,7 @@ class MainMenuRouter: MainMenuRouterProtocol {
         viewController?.performSegue(withIdentifier: kind._kind.segueID, sender: sender)
     }
     
-    func showChooseCityScreen(_ selectedCity: City) {
+    func showChooseCityScreen(selectedCity: City) {
         viewController?.performSegue(withIdentifier: "PickCityMenu", sender: selectedCity)
     }
     

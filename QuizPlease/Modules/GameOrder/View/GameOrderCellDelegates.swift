@@ -17,7 +17,6 @@ extension GameOrderVC: GameAnnotationCellDelegate {
     func signUpButtonPressed(in cell: GameAnnotationCell) {
         scrollToSignUp()
     }
-    
 }
 
 //MARK:- Game Info
@@ -65,13 +64,9 @@ extension GameOrderVC: GameRegisterCellDelegate {
         presenter.registerForm.email = email
     }
     
-    func registerCell(_ registerCell: GameRegisterCell, didChangePhone number: String, didCompleteMask: Bool) {
-        if didCompleteMask {
-            let phoneNumber = "8" + number
-            presenter.registerForm.phone = phoneNumber
-        } else {
-            presenter.registerForm.phone = ""
-        }
+    func registerCell(_ registerCell: GameRegisterCell, didChangePhone extractedNumber: String, didCompleteMask: Bool) {
+        presenter.isPhoneNumberValid = didCompleteMask
+        presenter.registerForm.phone = extractedNumber
     }
     
     func registerCell(_ registerCell: GameRegisterCell, didChangeFeedback newValue: String) {
@@ -84,14 +79,21 @@ extension GameOrderVC: GameRegisterCellDelegate {
 extension GameOrderVC: GameCertificateCellDelegate {
     func titleForCell(_ certificateCell: GameCertificateCell) -> String {
         if certificateCell.associatedItemKind == .certificate {
-            certificateCell.fieldView.title = "Введите номер сертификата"
-            return "У Вас есть сертификат Квиз, плиз! ?"
+            certificateCell.fieldView.title = "Введите номер сертификата/промокода"
+            return "У Вас есть промокод / сертификат Квиз, плиз! ?"
         }
         certificateCell.fieldView.title = "Введите промокод"
         return "У Вас есть промокод?"
     }
     
     func accessoryText(for certificateCell: GameCertificateCell) -> String {
+//        if items.filter({ $0 == .certificate }).count > 1,
+//           let indexOfFirstCertificate = indexOfFirstCertificate,
+//           let cell = tableView.cellForRow(at: IndexPath(row: indexOfFirstCertificate, section: 0)),
+//           cell != certificateCell {
+//            return ""
+//        }
+//
         switch certificateCell.associatedItemKind {
         case .certificate:
             return "Для активации сертификатов от наших партнеров свяжитесь с нами"
@@ -101,49 +103,82 @@ extension GameOrderVC: GameCertificateCellDelegate {
     }
     
     func certificateCell(_ certificateCell: GameCertificateCell, didChangeCertificateCode newCode: String) {
-        switch certificateCell.associatedItemKind {
-        case .certificate:
-            presenter.registerForm.certificates = newCode
-        case .promocode:
-            presenter.registerForm.promocode = newCode
-        default:
-            break
+        guard let index = indexForPresenter(of: certificateCell) else { return }
+        presenter.didChangeSpecialCondition(newValue: newCode, at: index)
+        
+        let certificatesCount = items
+            .filter { $0 == .certificate }
+            .count
+        if newCode.isEmpty,
+           certificatesCount == 1,
+           let index = items.firstIndex(of: .addExtraCertificate) {
+            items.remove(at: index)
+            tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .fade)
+        } else if !newCode.isEmpty,
+                  items.firstIndex(of: .addExtraCertificate) == nil,
+                  let i = items.lastIndex(of: .certificate) {
+            let index = i + 1
+            items.insert(.addExtraCertificate, at: index)
+            tableView.insertRows(at: [IndexPath(row: index, section: 0)], with: .fade)
         }
+        
+//        switch certificateCell.associatedItemKind {
+//        case .certificate:
+//            presenter.registerForm.certificates = newCode
+//        case .promocode:
+//            presenter.registerForm.promocode = newCode
+//        default:
+//            break
+//        }
     }
     
     func didPressOkButton(in certificateCell: GameCertificateCell) {
         view.endEditing(true)
-        switch certificateCell.associatedItemKind {
-        case .certificate:
-            presenter.checkCertificate()
-        case .promocode:
-            presenter.checkPromocode()
-        default:
-            break
-        }
+        guard let index = indexForPresenter(of: certificateCell) else { return }
+        presenter.didPressCheckSpecialCondition(at: index)
+//        switch certificateCell.associatedItemKind {
+//        case .certificate:
+//            presenter.checkCertificate()
+//        case .promocode:
+//            presenter.checkPromocode()
+//        default:
+//            break
+//        }
+    }
+    
+    func certificateCellDidEndEditing(_ certificateCell: GameCertificateCell) {
+        guard let index = indexForPresenter(of: certificateCell) else { return }
+        presenter.didEndEditingSpecialCondition(at: index)
     }
 }
 
+//MARK:- Add Extra Certificate
+extension GameOrderVC: GameAddExtraCertificateCellDelegate {
+    func cellDidPressAddButton(_ cell: GameAddExtraCertificateCell) {
+        presenter.didPressAddSpecialCondition()
+    }
+}
 
 //MARK:- First Play
 extension GameOrderVC: GameFirstPlayCellDelegate {
     func firstPlayCell(_ cell: GameFirstPlayCell, didChangeStateTo isFirstPlay: Bool) {
+        hapticGenerator.impactOccurred()
         presenter.registerForm.isFirstTime = isFirstPlay
-        if isFirstPlay {
-            guard let i = items.firstIndex(of: .firstPlay) else { return }
-            let index = i + 1
-            items.insert(.promocode, at: index)
-            tableView.insertRows(at: [IndexPath(row: index, section: 0)], with: .fade)
-        } else {
-            guard let index = items.firstIndex(of: .promocode) else { return }
-            items.remove(at: index)
-            let indexPath = IndexPath(row: index, section: 0)
-            if let cell = tableView.cellForRow(at: indexPath) as? GameCertificateCell {
-                cell.fieldView.textField.text = nil
-            }
-            presenter.registerForm.promocode = nil
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        }
+//        if isFirstPlay {
+//            guard let i = items.firstIndex(of: .firstPlay) else { return }
+//            let index = i + 1
+//            items.insert(.promocode, at: index)
+//            tableView.insertRows(at: [IndexPath(row: index, section: 0)], with: .fade)
+//        } else {
+//            guard let index = items.firstIndex(of: .promocode) else { return }
+//            items.remove(at: index)
+//            let indexPath = IndexPath(row: index, section: 0)
+//            if let cell = tableView.cellForRow(at: indexPath) as? GameCertificateCell {
+//                cell.fieldView.textField.text = nil
+//            }
+//            presenter.registerForm.promocode = nil
+//            tableView.deleteRows(at: [indexPath], with: .fade)
+//        }
     }
 }
 
@@ -158,14 +193,13 @@ extension GameOrderVC: GamePaymentTypeCellDelegate {
     }
     
     func paymentTypeCell(_ cell: GamePaymentTypeCell, didChangePaymentType isOnlinePayment: Bool) {
+        hapticGenerator.impactOccurred()
         presenter.registerForm.paymentType = isOnlinePayment ? .online : .cash
         
         if let index = items.firstIndex(of: .submit), let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? GameSubmitButtonCell {
             let title = isOnlinePayment ? "Оплатить игру" : "Записаться на игру"
             cell.updateTitle(with: title)
         }
-        
-        //guard !isFirstLoad else { isFirstLoad = false; return }
         
         if isOnlinePayment {
             guard let i = items.firstIndex(of: .paymentType), i+1 < items.count,
@@ -200,14 +234,13 @@ extension GameOrderVC: GameOnlinePaymentCellDelegate {
         return presenter.registerForm.count
     }
     
-    func sumToPay(in cell: GameOnlinePaymentCell, forNumberOfPeople number: Int) -> Int {
-        return presenter.sumToPay(forPeople: number)
+    func sumToPay(in cell: GameOnlinePaymentCell, forUpdatedNumberOfPeople number: Int) -> Double {
+        return presenter.countSumToPay(forPeople: number)
     }
     
     func priceTextColor(in cell: GameOnlinePaymentCell) -> UIColor? {
-        presenter.priceTextColor()
+        presenter.getPriceTextColor()
     }
-    
 }
 
 

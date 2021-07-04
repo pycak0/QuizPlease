@@ -34,7 +34,7 @@ class RatingCell: UITableViewCell, TableCellProtocol {
         //if let points = Int(points) {
             pointsScoredLabel.text = points.string(withAssociatedMaleWord: "балл")
        // }
-        teamImageView.loadImageFromMainDomain(path: imagePath, placeholderImage: UIImage(named: "pixelGuyHatAndPlate"))
+        teamImageView.loadImage(using: .prod, path: imagePath, placeholderImage: UIImage(named: "pixelGuyHatAndPlate"))
     }
     
 }

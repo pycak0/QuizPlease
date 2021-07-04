@@ -10,7 +10,6 @@ import UIKit
 import IQKeyboardManagerSwift
 import Firebase
 import UserNotificationsUI
-import YooKassaPaymentsApi
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate {
@@ -25,11 +24,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate {
         FirebaseApp.configure()
         Messaging.messaging().delegate = self
         
-        // For iOS 10+ display notification (sent via APNS)
         UNUserNotificationCenter.current().delegate = self
-        
-        let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
-        UNUserNotificationCenter.current().requestAuthorization(options: authOptions, completionHandler: {_, _ in })
+        UNUserNotificationCenter.current().requestAuthorization(
+            options: [.alert, .badge, .sound],
+            completionHandler: {_, _ in }
+        )
         
         application.registerForRemoteNotifications()
         
@@ -69,8 +68,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate {
         //}
         
     }
-
-
 }
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
@@ -95,8 +92,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     
     
     //MARK:- Did Receive Remote Notification with Completion Handler
-    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any],
-                     fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         // If you are receiving a notification message while your app is in the background,
         // this callback will not be fired till the user taps on the notification launching the application.
         // MARK:TODO: Handle data of notification
@@ -117,7 +113,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     
     
     //MARK: Will Present Notification
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler:    @escaping (UNNotificationPresentationOptions) -> Void) {
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         
         let userInfo = notification.request.content.userInfo
         

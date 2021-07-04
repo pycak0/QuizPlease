@@ -9,25 +9,70 @@
 import UIKit
 
 public class ExpandingHeader: UIView {
+    //MARK:- Constants
     static let nibName = "\(ExpandingHeader.self)"
     static let collapsedHeight: CGFloat = 140
     static let expandedHeight: CGFloat = 320
     static let gradientExpandedHeight: CGFloat = ExpandingHeader.expandedHeight - 65
+    static let itemsCornerRadius: CGFloat = 20
+    static let themeColor = UIColor.plum.withAlphaComponent(0.5)
+    
+    //MARK:- UI
+    private unowned var gradientLayer: CAGradientLayer!
 
     @IBOutlet private var contentView: UIView!
     @IBOutlet private weak var containerView: UIView!
-    @IBOutlet private weak var expandView: UIView!
     @IBOutlet private weak var footLabel: UILabel!
     @IBOutlet private weak var stackView: UIStackView!
-    
-    @IBOutlet private weak var searchField: UITextField!
-    @IBOutlet private weak var segmentControl: HBSegmentedControl!
-    @IBOutlet private weak var gameTypesView: UIView!
     @IBOutlet private weak var selectedGameTypeLabel: UILabel!
-    @IBOutlet private weak var collapseButton: UIButton!
+        
+    @IBOutlet private weak var collapseButton: UIButton! {
+        didSet { collapseButton.tintColor = ExpandingHeader.themeColor }
+    }
     
-    private unowned var gradientLayer: CAGradientLayer!
+    @IBOutlet private weak var expandView: UIView! {
+        didSet {
+            expandView.layer.cornerRadius = ExpandingHeader.itemsCornerRadius
+            expandView.addGestureRecognizer(UITapGestureRecognizer(
+                target: self, action: #selector(toggleExpanded)))
+        }
+    }
+
+    @IBOutlet private weak var searchField: UITextField! {
+        didSet {
+            searchField.delegate = self
+            searchField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+            searchField.tintColor = .lemon
+            searchField.layer.cornerRadius = ExpandingHeader.itemsCornerRadius
+            searchField.backgroundColor = ExpandingHeader.themeColor
+            searchField.setImage(UIImage(named: "search"))
+            searchField.attributedPlaceholder = makePlaceholder(textColor: .white)
+        }
+    }
     
+    @IBOutlet private weak var segmentControl: HBSegmentedControl! {
+        didSet {
+            segmentControl.dampingRatio = 0.7
+            segmentControl.font = .gilroy(.bold, size: 16)
+            segmentControl.backgroundColor = ExpandingHeader.themeColor
+            segmentControl.addTarget(self, action: #selector(segmentChanged), for: .valueChanged)
+        }
+    }
+    
+    @IBOutlet private weak var gameTypesView: UIView! {
+        didSet {
+            gameTypesView.layer.cornerRadius = ExpandingHeader.itemsCornerRadius
+            gameTypesView.backgroundColor = ExpandingHeader.themeColor
+            gameTypesView.addTapGestureRecognizer { [weak self] in
+                guard let self = self else { return }
+                self.delegate?.didPressGameTypeView(in: self) { selectedName in
+                    self.selectedGameTypeLabel.text = selectedName
+                }
+            }
+        }
+    }
+        
+    //MARK:- Delegates
     public weak var delegate: ExpandingHeaderDelegate?
     
     public weak var dataSource: ExpandingHeaderDataSource? {
@@ -123,30 +168,8 @@ public class ExpandingHeader: UIView {
     //MARK:- Awake from Nib
     public override func awakeFromNib() {
         super.awakeFromNib()
-        configureViews()
-        setExpanded(isExpanded)
-    }
-    
-    private func configureViews() {
-        let itemsCornerRadius: CGFloat = 20
-        let color = UIColor.plum.withAlphaComponent(0.5)
-        
-        expandView.layer.cornerRadius = itemsCornerRadius
-        expandView.addGestureRecognizer(UITapGestureRecognizer(
-            target: self, action: #selector(toggleExpanded)))
-        collapseButton.tintColor = color
-        
-        configureSearchField(radius: itemsCornerRadius, color: color)
-        configureSegmentControl(color: color)        
-        
-        gameTypesView.layer.cornerRadius = itemsCornerRadius
-        gameTypesView.backgroundColor = color
-        gameTypesView.addTapGestureRecognizer {
-            self.delegate?.didPressGameTypeView(in: self) { selectedName in
-                self.selectedGameTypeLabel.text = selectedName
-            }
-        }
         setupGradient()
+        setExpanded(isExpanded)
     }
     
     private func setupGradient() {
@@ -160,38 +183,26 @@ public class ExpandingHeader: UIView {
         gradientLayer = self.layer.sublayers?.first as? CAGradientLayer
     }
     
-    private func configureSearchField(radius: CGFloat, color: UIColor) {
-        searchField.delegate = self
-        searchField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        
-        searchField.layer.cornerRadius = radius
-        searchField.backgroundColor = color
-        searchField.setImage(UIImage(named: "search"))
-        searchField.attributedPlaceholder = NSAttributedString(
+    private func makePlaceholder(textColor: UIColor) -> NSAttributedString {
+        NSAttributedString(
             string: "Поиск",
             attributes: [
                 NSAttributedString.Key.font : UIFont.gilroy(.bold, size: 16),
-                NSAttributedString.Key.foregroundColor : UIColor.white
+                NSAttributedString.Key.foregroundColor : textColor
             ]
         )
-    }
-    
-    //MARK:- Configure Segment Control
-    private func configureSegmentControl(color: UIColor) {
-        segmentControl.dampingRatio = 0.7
-        segmentControl.font = .gilroy(.bold, size: 16)
-        segmentControl.backgroundColor = color
-        segmentControl.addTarget(self, action: #selector(segmentChanged), for: .valueChanged)
     }
 }
 
 //MARK: - UITextFieldDelegate
 extension ExpandingHeader: UITextFieldDelegate {
     public func textFieldDidBeginEditing(_ textField: UITextField) {
-        //
+        textField.attributedPlaceholder = makePlaceholder(textColor: UIColor.white.withAlphaComponent(0.7))
+        delegate?.expandingHeaderDidBeginEditingQuery(self)
     }
     
     public func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.attributedPlaceholder = makePlaceholder(textColor: .white)
         delegate?.expandingHeader(self, didEndSearchingWith: textField.text ?? "")
     }
     

@@ -121,7 +121,12 @@ extension WarmupPresenter: WarmupInteractorOutput {
     
     func interactor(_ interactor: WarmupInteractorProtocol, failedToLoadQuestionsWithError error: SessionError) {
         print(error)
-        view?.showErrorConnectingToServerAlert()
+        switch error {
+        case .invalidToken:
+            view?.showNeedsAuthAlert(title: "Разминка доступна только авторизованным пользователям")
+        default:
+            view?.showErrorConnectingToServerAlert()
+        }
     }
     
     func interactor(_ interactor: WarmupInteractorProtocol, isAnswerCorrect: Bool, answerId: Int, questionId: String) {

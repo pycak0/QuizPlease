@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol GamePaymentTypeCellDelegate: class {
+protocol GamePaymentTypeCellDelegate: AnyObject {
     func availablePaymentTypes(in cell: GamePaymentTypeCell) -> [PaymentType]
     
     func isOnlinePaymentInitially(in cell: GamePaymentTypeCell) -> Bool
@@ -32,7 +32,7 @@ class GamePaymentTypeCell: UITableViewCell, GameOrderCellProtocol {
         didSet {
             guard let delegate = _delegate else { return }
             setPaymentTypes()
-            updatePaymentType(isOnlinePayment: delegate.isOnlinePaymentInitially(in: self))
+            updateViews(isOnlinePayment: delegate.isOnlinePaymentInitially(in: self))
         }
     }
     
@@ -51,9 +51,13 @@ class GamePaymentTypeCell: UITableViewCell, GameOrderCellProtocol {
     }
     
     //MARK:- Update Payment Type
+    ///Must be called only in response on user actions
     func updatePaymentType(isOnlinePayment: Bool) {
         _delegate?.paymentTypeCell(self, didChangePaymentType: isOnlinePayment)
-        
+        updateViews(isOnlinePayment: isOnlinePayment)
+    }
+    
+    private func updateViews(isOnlinePayment: Bool) {
         cashCheckBox.image = !isOnlinePayment ? UIImage(named: "rectDot") : nil
         onlineCheckBox.image = isOnlinePayment ? UIImage(named: "rectDot") : nil
     }

@@ -26,7 +26,7 @@ protocol MainMenuPresenterProtocol: AnyObject {
     func didAddNewGame(with info: String)
     func didPressMenuRemindButton()
     
-    func userPointsAmount() -> Int?
+    func userPointsAmount() -> Double?
     func indexPath(for menuItemKind: MainMenuItemKind) -> IndexPath?
 }
 
@@ -72,7 +72,7 @@ class MainMenuPresenter: MainMenuPresenterProtocol {
     }
     
     func didSelectCityButton() {
-        router.showChooseCityScreen(AppSettings.defaultCity)
+        router.showChooseCityScreen(selectedCity: AppSettings.defaultCity)
     }
     
     func didChangeDefaultCity(_ newCity: City) {
@@ -99,7 +99,7 @@ class MainMenuPresenter: MainMenuPresenterProtocol {
         //
     }
     
-    func userPointsAmount() -> Int? {
+    func userPointsAmount() -> Double? {
         userInfo?.pointsAmount
     }
     

@@ -9,13 +9,15 @@
 import UIKit
 
 ///If cell delegate is not provided, it uses the default `title` and `accessoryText` values
-protocol GameCertificateCellDelegate: class {
+protocol GameCertificateCellDelegate: AnyObject {
     func titleForCell(_ certificateCell: GameCertificateCell) -> String
         
     ///If the provided string is an empty string, the accessoryTitleLabel will be hidden
     func accessoryText(for certificateCell: GameCertificateCell) -> String
         
     func certificateCell(_ certificateCell: GameCertificateCell, didChangeCertificateCode newCode: String)
+    
+    func certificateCellDidEndEditing(_ certificateCell: GameCertificateCell)
     
     func didPressOkButton(in certificateCell: GameCertificateCell)
 }
@@ -36,14 +38,26 @@ class GameCertificateCell: UITableViewCell, GameOrderCellProtocol {
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var accessoryLabel: UILabel!
     @IBOutlet private weak var okButton: UIButton!
-    @IBOutlet weak var fieldView: TitledTextFieldView!
+    @IBOutlet weak var fieldView: TitledTextFieldView! {
+        didSet {
+            fieldView.backgroundColor = .systemBackgroundAdapted
+            fieldView.textField.autocapitalizationType = .none
+            fieldView.textField.returnKeyType = .done
+            fieldView.delegate = self
+        }
+    }
     
     var associatedItemKind: GameOrderVC.GameInfoItemKind?
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        configureTextField()
         configureViews()
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        delegate = nil
+        fieldView.textField.text = nil
     }
         
     @IBAction private func okButtonPressed(_ sender: UIButton) {
@@ -54,12 +68,6 @@ class GameCertificateCell: UITableViewCell, GameOrderCellProtocol {
     private func configureViews() {
         contentView.backgroundColor = UIColor.lightGreen.withAlphaComponent(0.2)
         okButton.layer.cornerRadius = 10
-    }
-    
-    private func configureTextField() {
-        fieldView.textField.autocapitalizationType = .allCharacters
-        fieldView.textField.returnKeyType = .done
-        fieldView.delegate = self
     }
     
     private func updateUI() {
@@ -74,12 +82,15 @@ class GameCertificateCell: UITableViewCell, GameOrderCellProtocol {
             layoutIfNeeded()
         }
     }
-    
 }
 
 
 //MARK:- TitledTextFieldViewDelegate
 extension GameCertificateCell: TitledTextFieldViewDelegate {
+    func textFieldViewDidEndEditing(_ textFieldView: TitledTextFieldView) {
+        _delegate?.certificateCellDidEndEditing(self)
+    }
+    
     func textFieldView(_ textFieldView: TitledTextFieldView, didChangeTextField text: String, didCompleteMask isComplete: Bool) {
         _delegate?.certificateCell(self, didChangeCertificateCode: text)
     }

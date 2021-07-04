@@ -78,7 +78,8 @@ class WarmupInteractor: WarmupInteractorProtocol {
 //        self.output?.interactor(self, isAnswerCorrect: Int.random(in: 0...1) == 1, answerId: answerId, questionId: questionId)
         
         
-        NetworkService.shared.sendWarmupAnswer(questionId: questionId, answerId: answerId) { (result) in
+        NetworkService.shared.sendWarmupAnswer(questionId: questionId, answerId: answerId) { [weak self] (result) in
+            guard let self = self else { return }
             switch result {
             case let .failure(error):
                 self.output?.interactor(self, failedToCheckAnswer: answerId, questionId: questionId, error: error)

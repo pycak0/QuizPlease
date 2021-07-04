@@ -7,46 +7,45 @@
 //
 
 import UIKit
-import InputMask
 
-protocol TitledTextFieldViewDelegate: class {
+protocol TitledTextFieldViewDelegate: AnyObject {
     func textFieldView(_ textFieldView: TitledTextFieldView, didChangeTextField text: String, didCompleteMask isComplete: Bool)
+    func textFieldViewDidEndEditing(_ textFieldView: TitledTextFieldView)
 }
 
-//@IBDesignable
+extension TitledTextFieldViewDelegate {
+    func textFieldViewDidEndEditing(_ textFieldView: TitledTextFieldView) {}
+}
+
+fileprivate enum Constants {
+    static let offset: CGFloat = 14
+    static let bottomInset: CGFloat = -8
+}
+
+@IBDesignable
 class TitledTextFieldView: UIView {
-    static let nibName = "TitledTextFieldView"
-    static let noMask = "[…]"
-    
     weak var delegate: TitledTextFieldViewDelegate?
-    
-    private var contentView: UIView!
-    @IBOutlet weak var textField: UITextField!
-    @IBOutlet private var listener: MaskedTextFieldDelegate!
-    @IBOutlet private weak var titleLabel: UILabel!
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        xibSetup()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        xibSetup()
-    }
-    
-    override func prepareForInterfaceBuilder() {
-        xibSetup()
-        super.prepareForInterfaceBuilder()
         
-    }
+    //MARK:- UI
+    lazy var textField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = self.placeholder
+        textField.font = .gilroy(.semibold, size: 16)
+        return textField
+    }()
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        updateAppearance()
-        configure()
-    }
+    lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = .gilroy(.semibold, size: 12)
+        label.textColor = .darkGray
+        label.contentMode = .left
+        label.text = self.title
+        label.setContentHuggingPriority(.defaultHigh, for: .vertical)
+        label.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        return label
+    }()
     
+    //MARK:- Inspectables
     @IBInspectable
     var title: String = "Title" {
         didSet {
@@ -61,21 +60,8 @@ class TitledTextFieldView: UIView {
         }
     }
     
-    ///Make sure that mask satisfies the syntax described here:
-    ///https://github.com/RedMadRobot/input-mask-ios/wiki/1.-Mask-Syntax
     @IBInspectable
-    var inputMask: String = TitledTextFieldView.noMask {
-        didSet {
-            listener.primaryMaskFormat = inputMask
-            if inputMask == TitledTextFieldView.noMask {
-                textField.delegate = nil
-                textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-            }
-        }
-    }
-    
-    @IBInspectable
-    var titleFontName: String? = "Gilroy-SemiBold" {
+    var titleFontName: String? = FontSet.Gilroy.semibold.fileName {
         didSet {
             updateAppearance()
         }
@@ -89,7 +75,7 @@ class TitledTextFieldView: UIView {
     }
     
     @IBInspectable
-    var textFontName: String? = "Gilroy-SemiBold" {
+    var textFontName: String? = FontSet.Gilroy.semibold.fileName {
         didSet {
             updateAppearance()
         }
@@ -123,6 +109,29 @@ class TitledTextFieldView: UIView {
         }
     }
     
+    //MARK:- Init
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setup()
+        configure()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setup()
+        configure()
+    }
+    
+    override func prepareForInterfaceBuilder() {
+        setup()
+        super.prepareForInterfaceBuilder()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        updateAppearance()
+    }
+    
     func updateAppearance() {
         titleLabel.text = title
         textField.placeholder = placeholder
@@ -131,22 +140,18 @@ class TitledTextFieldView: UIView {
         layer.cornerRadius = viewCornerRadius
         layer.masksToBounds = viewCornerRadius > 0
         
-        titleLabel.font = titleFontName != nil ? UIFont(name: titleFontName!, size: titleFontSize) : .systemFont(ofSize: titleFontSize, weight: .semibold)
-        textField.font = textFontName != nil ? UIFont(name: textFontName!, size: textFontSize) : .systemFont(ofSize: textFontSize, weight: .semibold)
-                
+        titleLabel.font = titleFontName.map { UIFont(name: $0, size: titleFontSize) }
+            ?? .systemFont(ofSize: titleFontSize, weight: .semibold)
+        textField.font = textFontName.map { UIFont(name: $0, size: textFontSize) }
+            ?? .systemFont(ofSize: textFontSize, weight: .semibold)
     }
     
-    //MARK:- Configure
-    func configure() {
+    private func configure() {
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(startEditing))
-        self.addGestureRecognizer(tapRecognizer)
-        if inputMask != listener.primaryMaskFormat {
-            listener.primaryMaskFormat = inputMask
-        }
-        if inputMask == TitledTextFieldView.noMask {
-            textField.delegate = nil
-            textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        }
+        addGestureRecognizer(tapRecognizer)
+        
+        textField.delegate = self
+        textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     }
     
     @objc
@@ -155,31 +160,40 @@ class TitledTextFieldView: UIView {
         textField.becomeFirstResponder()
     }
     
-    @objc
-    private func textFieldDidChange(_ textField: UITextField) {
-        delegate?.textFieldView(self, didChangeTextField: textField.text ?? "", didCompleteMask: true)
-    }
-    
-}
-
-private extension TitledTextFieldView {
-    
     //MARK:- Xib Setup
-    func xibSetup() {
-        let nib = UINib(nibName: TitledTextFieldView.nibName, bundle: nil)
-        contentView = nib.instantiate(withOwner: self, options: nil).first as? UIView
-        self.addSubview(contentView)
-        contentView.frame = self.bounds
-        contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+    func setup() {
+        backgroundColor = .clear
+        addSubview(titleLabel)
+        addSubview(textField)
+        makeConstraints()
     }
     
+    func makeConstraints() {
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: Constants.offset),
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.offset)
+        ])
+        
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            textField.centerXAnchor.constraint(equalTo: centerXAnchor),
+            textField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.offset),
+            textField.topAnchor.constraint(equalTo: titleLabel.bottomAnchor),
+            textField.bottomAnchor.constraint(equalTo: bottomAnchor, constant: Constants.bottomInset)
+        ])
+    }
 }
 
-
-//MARK:- MaskedTextFieldDelegateListener
-extension TitledTextFieldView: MaskedTextFieldDelegateListener {
-    func textField(_ textField: UITextField, didFillMandatoryCharacters complete: Bool, didExtractValue value: String) {
-        //print(value)
-        delegate?.textFieldView(self, didChangeTextField: value, didCompleteMask: complete)
+extension TitledTextFieldView: UITextFieldDelegate {
+    ///You can override this method to provide custom delegate calls
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        delegate?.textFieldViewDidEndEditing(self)
+    }
+    
+    ///You can override this method to provide custom delegate calls
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        delegate?.textFieldView(self, didChangeTextField: textField.text ?? "", didCompleteMask: true)
     }
 }
