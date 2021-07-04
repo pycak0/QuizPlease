@@ -234,7 +234,7 @@ extension GameOrderVC: GameOnlinePaymentCellDelegate {
         return presenter.registerForm.count
     }
     
-    func sumToPay(in cell: GameOnlinePaymentCell, forNumberOfPeople number: Int) -> Double {
+    func sumToPay(in cell: GameOnlinePaymentCell, forUpdatedNumberOfPeople number: Int) -> Double {
         return presenter.countSumToPay(forPeople: number)
     }
     

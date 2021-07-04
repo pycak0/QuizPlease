@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol PickCityVCDelegate: class {
+protocol PickCityVCDelegate: AnyObject {
     func didPick(_ city: City)
 }
 
