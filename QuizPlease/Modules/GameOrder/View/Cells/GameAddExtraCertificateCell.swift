@@ -23,16 +23,16 @@ class GameAddExtraCertificateCell: UITableViewCell, GameOrderCellProtocol {
 
     private lazy var addButton: UIButton = {
         let button = ScalingButton()
-        button.addTarget(self, action: #selector(addButtonPressed), for: .touchUpInside)
         button.backgroundColor = .lightGreen
+        button.tintColor = .systemBackgroundAdapted
+        button.addTarget(self, action: #selector(addButtonPressed), for: .touchUpInside)
         button.layer.cornerRadius = 20
         button.setTitle("Ещё сертификат или промокод", for: .normal)
         button.titleLabel?.font = .gilroy(.bold, size: 16)
         button.titleLabel?.adjustsFontSizeToFitWidth = true
-        button.setImage(UIImage(named: "plus"), for: .normal)
+        button.setImage(UIImage(named: "plus")?.withRenderingMode(.alwaysTemplate), for: .normal)
         button.adjustsImageWhenHighlighted = false
         button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 10)
-        button.tintColor = .systemBackgroundAdapted
         return button
     }()
     

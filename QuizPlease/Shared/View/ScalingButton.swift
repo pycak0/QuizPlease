@@ -11,12 +11,21 @@ import UIKit
 public class ScalingButton: UIButton {
     public var scaleRate: CGFloat = 0.96
     
-    override init(frame: CGRect) {
+    ///Setting this property assigns `tintColor` to `newValue` and calls `setTitleColor(newValue, for: .normal)`
+    public override var tintColor: UIColor! {
+        get { super.tintColor }
+        set {
+            super.tintColor = newValue
+            setTitleColor(newValue, for: .normal)
+        }
+    }
+    
+    public override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
     }
     
-    required init?(coder: NSCoder) {
+    public required init?(coder: NSCoder) {
         super.init(coder: coder)
         configure()
     }

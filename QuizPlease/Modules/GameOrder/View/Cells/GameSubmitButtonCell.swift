@@ -8,14 +8,14 @@
 
 import UIKit
 
-protocol GameSubmitButtonCellDelegate: class {
+protocol GameSubmitButtonCellDelegate: AnyObject {
     func submitButtonCell(_ cell: GameSubmitButtonCell, didPressSubmitButton button: UIButton)
     
     func titleForButton(in cell: GameSubmitButtonCell) -> String?
 }
 
 class GameSubmitButtonCell: UITableViewCell, GameOrderCellProtocol {
-    static let identifier = "GameSubmitButtonCell"
+    static let identifier = "\(GameSubmitButtonCell.self)"
     
     @IBOutlet weak var submitButton: ScalingButton!
     @IBOutlet private weak var termsLabel: UILabel!
@@ -37,5 +37,4 @@ class GameSubmitButtonCell: UITableViewCell, GameOrderCellProtocol {
     func updateTitle(with newTitle: String?) {
         submitButton.setTitle(newTitle, for: .normal)
     }
-    
 }

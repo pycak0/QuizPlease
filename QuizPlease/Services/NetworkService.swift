@@ -44,7 +44,7 @@ class NetworkService {
         return ("Authorization", "Bearer \(userToken)")
     }
     
-    static func mapResponse<Object: Decodable>(_ data: Data) -> Result<Object, SessionError> {
+    static func mapResponse<Object: Decodable>(_ data: Data, to: Object.Type) -> Result<Object, SessionError> {
         do {
             let object = try JSONDecoder().decode(Object.self, from: data)
             return .success(object)
@@ -342,8 +342,9 @@ class NetworkService {
             \(String(data: data, encoding: .utf8) ?? "JSON error.")
             =====\n\n
             """)
+            let result = NetworkService.mapResponse(data, to: type)
             DispatchQueue.main.async {
-                completion(NetworkService.mapResponse(data))
+                completion(result)
             }
         }
         task.resume()
@@ -645,8 +646,9 @@ class NetworkService {
             case let .success(data):
                 print("Body:")
                 print(String(data: data, encoding: .utf8) ?? "json decoding error")
+                let result = NetworkService.mapResponse(data, to: responseType)
                 DispatchQueue.main.async {
-                    completion(NetworkService.mapResponse(data))
+                    completion(result)
                 }
             }
             print("=====\n\n")

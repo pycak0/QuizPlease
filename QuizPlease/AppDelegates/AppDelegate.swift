@@ -63,8 +63,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate {
         print("Registration Token: \(fcmToken)")
         //let savedToken = DefaultsManager.shared.getFcmToken() ?? ""
         //if savedToken != fcmToken {
+        #if !targetEnvironment(simulator)
            NetworkService.shared.sendFirebaseId(fcmToken)
             DefaultsManager.shared.saveFcmToken(fcmToken)
+        #endif
         //}
         
     }
