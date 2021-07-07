@@ -198,7 +198,7 @@ extension GameOrderVC: GamePaymentTypeCellDelegate {
         
         if let index = items.firstIndex(of: .submit), let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? GameSubmitButtonCell {
             let title = isOnlinePayment ? "Оплатить игру" : "Записаться на игру"
-            cell.updateTitle(with: title)
+            cell.setButtonTitle(title)
         }
         
         if isOnlinePayment {

@@ -26,15 +26,20 @@ class GameSubmitButtonCell: UITableViewCell, GameOrderCellProtocol {
     }
     private weak var _delegate: GameSubmitButtonCellDelegate? {
         didSet {
-            updateTitle(with: _delegate?.titleForButton(in: self))
+            setButtonTitle(_delegate?.titleForButton(in: self))
         }
     }
     
-    @IBAction func submitButtonPressed(_ sender: UIButton) {
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        setButtonTitle(_delegate?.titleForButton(in: self))
+    }
+    
+    @IBAction private func submitButtonPressed(_ sender: UIButton) {
         _delegate?.submitButtonCell(self, didPressSubmitButton: sender)
     }
     
-    func updateTitle(with newTitle: String?) {
+    func setButtonTitle(_ newTitle: String?) {
         submitButton.setTitle(newTitle, for: .normal)
     }
 }
