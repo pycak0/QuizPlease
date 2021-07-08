@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProfileSampleCell: UITableViewCell, TableCellProtocol {
+class ProfileSampleCell: UITableViewCell, IdentifiableType {
     static let identifier = "ProfileSampleCell"
     
     @IBOutlet weak var cellView: UIView!

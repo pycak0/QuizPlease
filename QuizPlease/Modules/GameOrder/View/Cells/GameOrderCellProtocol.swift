@@ -8,6 +8,6 @@
 
 import UIKit
 
-protocol GameOrderCellProtocol: TableCellProtocol {
+protocol GameOrderCellProtocol: UITableViewCell, IdentifiableType {
     var delegate: AnyObject? { get set }
 }

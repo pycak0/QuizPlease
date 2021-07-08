@@ -170,7 +170,7 @@
 		A4A0659E24E477E20080E0D8 /* GameInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4A0659C24E477E20080E0D8 /* GameInfoCell.xib */; };
 		A4A065A224E47D1F0080E0D8 /* GameAnnotationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A065A024E47D1F0080E0D8 /* GameAnnotationCell.swift */; };
 		A4A065A324E47D1F0080E0D8 /* GameAnnotationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4A065A124E47D1F0080E0D8 /* GameAnnotationCell.xib */; };
-		A4A065A524E47D460080E0D8 /* TableCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A065A424E47D460080E0D8 /* TableCellProtocol.swift */; };
+		A4A065A524E47D460080E0D8 /* IdentifiableType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A065A424E47D460080E0D8 /* IdentifiableType.swift */; };
 		A4A065A724E47E510080E0D8 /* Gilroy-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A4A065A624E47E500080E0D8 /* Gilroy-Medium.ttf */; };
 		A4A065AA24E4812F0080E0D8 /* GameGeneralDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A065A824E4812F0080E0D8 /* GameGeneralDescriptionCell.swift */; };
 		A4A065AB24E4812F0080E0D8 /* GameGeneralDescriptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4A065A924E4812F0080E0D8 /* GameGeneralDescriptionCell.xib */; };
@@ -429,7 +429,7 @@
 		A4A0659C24E477E20080E0D8 /* GameInfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameInfoCell.xib; sourceTree = "<group>"; };
 		A4A065A024E47D1F0080E0D8 /* GameAnnotationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameAnnotationCell.swift; sourceTree = "<group>"; };
 		A4A065A124E47D1F0080E0D8 /* GameAnnotationCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameAnnotationCell.xib; sourceTree = "<group>"; };
-		A4A065A424E47D460080E0D8 /* TableCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableCellProtocol.swift; sourceTree = "<group>"; };
+		A4A065A424E47D460080E0D8 /* IdentifiableType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableType.swift; sourceTree = "<group>"; };
 		A4A065A624E47E500080E0D8 /* Gilroy-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-Medium.ttf"; sourceTree = "<group>"; };
 		A4A065A824E4812F0080E0D8 /* GameGeneralDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameGeneralDescriptionCell.swift; sourceTree = "<group>"; };
 		A4A065A924E4812F0080E0D8 /* GameGeneralDescriptionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameGeneralDescriptionCell.xib; sourceTree = "<group>"; };
@@ -803,7 +803,7 @@
 		A44C697924EFE6E000AB3BC9 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				A4A065A424E47D460080E0D8 /* TableCellProtocol.swift */,
+				A4A065A424E47D460080E0D8 /* IdentifiableType.swift */,
 				A44C697A24EFE70B00AB3BC9 /* ViperProtocols.swift */,
 				A4358950265528D400B54C89 /* LoadingIndicator.swift */,
 				A45C656E265D2136009A63BB /* Cancellable.swift */,
@@ -1519,7 +1519,7 @@
 				A40B759A24D9A85B006DB7D1 /* ProfileConfigurator.swift in Sources */,
 				A45241E226547A990058285C /* UIView+TapGestureRecognizer.swift in Sources */,
 				A4CC5FC324DACE1A0042B41C /* ShopPresenter.swift in Sources */,
-				A4A065A524E47D460080E0D8 /* TableCellProtocol.swift in Sources */,
+				A4A065A524E47D460080E0D8 /* IdentifiableType.swift in Sources */,
 				A4A5DE912501907300EBC408 /* GameFormat.swift in Sources */,
 				A4DAF73F24DDABFF00963C15 /* WarmupCell.swift in Sources */,
 				A45C656F265D2136009A63BB /* Cancellable.swift in Sources */,

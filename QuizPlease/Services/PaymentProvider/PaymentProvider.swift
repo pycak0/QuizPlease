@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol PaymentProvider: class {
+protocol PaymentProvider: AnyObject {
     associatedtype Delegate
     
     func showPaymentView(for amount: Double, description: String, from presentationController: UIViewController, delegate: Delegate)

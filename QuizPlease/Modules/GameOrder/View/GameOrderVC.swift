@@ -221,7 +221,7 @@ extension GameOrderVC: UITableViewDataSource, UITableViewDelegate {
 
         let kind = items[indexPath.row]
         //guard let kind = GameInfoItemKind(rawValue: index) else { fatalError("Invalid Game Item Kind") }
-        let cell = tableView.dequeueReusableCell(withIdentifier: kind.identifier, for: indexPath) as! TableCellProtocol
+        let cell = tableView.dequeueReusableCell(withIdentifier: kind.identifier, for: indexPath) as! GameOrderCellProtocol
         
         if let cell = cell as? GameCertificateCell {
             cell.associatedItemKind = kind
@@ -230,11 +230,9 @@ extension GameOrderVC: UITableViewDataSource, UITableViewDelegate {
             }
         }
         
-        if let cell = cell as? GameOrderCellProtocol, (cell.delegate as? GameOrderVC) == nil {
+        if (cell.delegate as? GameOrderVC) == nil {
             cell.delegate = self
         }
-        
-        //(cell as? GameOrderCellProtocol)?.delegate = self
         
         return cell
     }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProfileCell: UITableViewCell, TableCellProtocol {
+class ProfileCell: UITableViewCell, IdentifiableType {
     static let identifier = "ProfileCell"
     
     @IBOutlet weak var cellView: UIView!
