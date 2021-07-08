@@ -21,8 +21,12 @@ final class YooMoneyPaymentProvider: PaymentProvider {
         productionKey = SecurityHelper.shared.value(for: .paymentKey(.prod)) ?? "prod-key"
     }
     
-    func showPaymentView(for amount: Double, description: String, from presentationController: UIViewController, delegate: TokenizationModuleOutput) {
-        
+    func showPaymentView(
+        for amount: Double,
+        description: String,
+        from presentationController: UIViewController,
+        delegate: TokenizationModuleOutput
+    ) {
         let paymentAmount = Amount(value: Decimal(amount), currency: .rub)
         
         //MARK:- ❗️replace `"client_id"` with real client id value
