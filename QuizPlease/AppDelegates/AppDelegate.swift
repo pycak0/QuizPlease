@@ -10,6 +10,7 @@ import UIKit
 import IQKeyboardManagerSwift
 import Firebase
 import UserNotificationsUI
+import YooKassaPayments
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate {
@@ -69,6 +70,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate {
         #endif
         //}
         
+    }
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any]) -> Bool {
+        return YKSdk.shared.handleOpen(url: url, sourceApplication: options[.sourceApplication] as? String)
     }
 }
 

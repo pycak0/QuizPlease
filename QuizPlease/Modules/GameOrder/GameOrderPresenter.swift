@@ -53,7 +53,6 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
     var specialConditions: [SpecialCondition] = [SpecialCondition()]
     
 //    private var discountType: CertificateDiscountType = .none
-    private var tokenizationModule: TokenizationModuleInput?
     private var priceTextColor: UIColor?
     
     required init(view: GameOrderViewProtocol, interactor: GameOrderInteractorProtocol, router: GameOrderRouterProtocol) {
@@ -236,10 +235,12 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
         let paymentSum = Double(countSumToPay(forPeople: count))
         if registerForm.paymentType == .online && paymentSum > 0 {
             router.showPaymentView(
-                provider: YooMoneyPaymentProvider(),
-                withSum: paymentSum,
-                description: createPaymentDescription(),
-                delegate: self
+                provider: YooMoneyPaymentProvider(delegate: self),
+                withOptions: PaymentOptions(
+                    amount: paymentSum,
+                    description: createPaymentDescription(),
+                    userPhoneNumber: registerForm.phone
+                )
             )
         } else {
             register()
@@ -247,7 +248,7 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
     }
     
     //MARK:- Register
-    private func register() {
+    private func register(tokenizationModule: TokenizationModuleInput? = nil, paymentMethod: PaymentMethodType? = nil) {
         view?.startLoading()
         interactor.register(
             with: registerForm,
@@ -264,8 +265,11 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
             var message: String = "Произошла ошибка при записи на игру"
             
             if response.shouldRedirect {
-                if let url = response.link {
-                    self.tokenizationModule?.start3dsProcess(requestUrl: url.absoluteString)
+                if let url = response.link, let paymentMethod = paymentMethod {
+                    tokenizationModule?.startConfirmationProcess(
+                        confirmationUrl: url.absoluteString,
+                        paymentMethodType: paymentMethod
+                    )
                 } else {
                     self.view?.dismiss(animated: true) {
                         self.view?.showSimpleAlert(title: title, message: message)
@@ -354,21 +358,28 @@ extension GameOrderPresenter: TokenizationModuleOutput {
         print("Error:", error as Any)
     }
     
+    func tokenizationModule(_ module: TokenizationModuleInput, didTokenize token: Tokens, paymentMethodType: PaymentMethodType) {
+        DispatchQueue.main.async {
+            self.registerForm.paymentToken = token.paymentToken
+            self.register(tokenizationModule: module, paymentMethod: paymentMethodType)
+        }
+    }
+    
+    func didSuccessfullyConfirmation(paymentMethodType: PaymentMethodType) {
+        completeAfterConfirm()
+        print("Payment successfully confirmed")
+    }
+    
     func didSuccessfullyPassedCardSec(on module: TokenizationModuleInput) {
+        completeAfterConfirm()
+        print("3-D Secure process successfully passed")
+    }
+    
+    private func completeAfterConfirm() {
         DispatchQueue.main.async {
             self.view?.dismiss(animated: true) {
                 self.completeOrder()
             }
-        }
-        print("3-D Secure process successfully passed")
-    }
-    
-    func tokenizationModule(_ module: TokenizationModuleInput, didTokenize token: Tokens, paymentMethodType: PaymentMethodType) {
-        DispatchQueue.main.async {
-            //self.view?.dismiss(animated: true)
-            self.tokenizationModule = module
-            self.registerForm.paymentToken = token.paymentToken
-            self.register()
         }
     }
 }

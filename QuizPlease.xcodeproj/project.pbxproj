@@ -174,6 +174,7 @@
 		A4A065A724E47E510080E0D8 /* Gilroy-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A4A065A624E47E500080E0D8 /* Gilroy-Medium.ttf */; };
 		A4A065AA24E4812F0080E0D8 /* GameGeneralDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A065A824E4812F0080E0D8 /* GameGeneralDescriptionCell.swift */; };
 		A4A065AB24E4812F0080E0D8 /* GameGeneralDescriptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4A065A924E4812F0080E0D8 /* GameGeneralDescriptionCell.xib */; };
+		A4A13E6C2698754800B3A499 /* PaymentOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A13E6B2698754800B3A499 /* PaymentOptions.swift */; };
 		A4A2647C252BC9D2005C0894 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = A4A2647B252BC9D2005C0894 /* Alamofire */; };
 		A4A296C224F6DC2800347EB2 /* AddGameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A296C124F6DC2800347EB2 /* AddGameVC.swift */; };
 		A4A296C424F6E1A700347EB2 /* MainMenuQRDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A296C324F6E1A700347EB2 /* MainMenuQRDelegate.swift */; };
@@ -433,6 +434,7 @@
 		A4A065A624E47E500080E0D8 /* Gilroy-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-Medium.ttf"; sourceTree = "<group>"; };
 		A4A065A824E4812F0080E0D8 /* GameGeneralDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameGeneralDescriptionCell.swift; sourceTree = "<group>"; };
 		A4A065A924E4812F0080E0D8 /* GameGeneralDescriptionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameGeneralDescriptionCell.xib; sourceTree = "<group>"; };
+		A4A13E6B2698754800B3A499 /* PaymentOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentOptions.swift; sourceTree = "<group>"; };
 		A4A296C124F6DC2800347EB2 /* AddGameVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGameVC.swift; sourceTree = "<group>"; };
 		A4A296C324F6E1A700347EB2 /* MainMenuQRDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuQRDelegate.swift; sourceTree = "<group>"; };
 		A4A5370324EC7691004A10D4 /* UIColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtensions.swift; sourceTree = "<group>"; };
@@ -1122,6 +1124,7 @@
 			children = (
 				A4C71765254DE61600898CA5 /* YooMoneyPaymentProvider.swift */,
 				A4C71768254E016400898CA5 /* PaymentProvider.swift */,
+				A4A13E6B2698754800B3A499 /* PaymentOptions.swift */,
 			);
 			path = PaymentProvider;
 			sourceTree = "<group>";
@@ -1532,6 +1535,7 @@
 				A4BB034C26820006005FE6D7 /* BigNumberDecorator.swift in Sources */,
 				A40D815C24D2C6C1006D2CE3 /* SceneDelegate.swift in Sources */,
 				A40B757C24D9A744006DB7D1 /* ScheduleInteractor.swift in Sources */,
+				A4A13E6C2698754800B3A499 /* PaymentOptions.swift in Sources */,
 				A4C71766254DE61600898CA5 /* YooMoneyPaymentProvider.swift in Sources */,
 				A40D818A24D2D24C006D2CE3 /* ScheduleCell.swift in Sources */,
 				A46F303A24F52CAE0062A333 /* GameOnlinePaymentCell.swift in Sources */,
