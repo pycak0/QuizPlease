@@ -9,14 +9,17 @@
 import UIKit
 
 //MARK:- Router Protocol
-protocol GameOrderRouterProtocol: RouterProtocol {
-    func showPaymentView<Provider: PaymentProvider>(provider: Provider, withSum sum: Double, description: String, delegate: Provider.Delegate)
+protocol GameOrderRouterProtocol {
+    ///- parameter viewController: Must be an '`unowned let`' constant
+    init(viewController: UIViewController)
+    func prepare(for segue: UIStoryboardSegue, sender: Any?)
     
+    func showPaymentView<Provider: PaymentProvider>(provider: Provider, withOptions paymentOptions: PaymentOptions)
     func showCompletionScreen(with gameInfo: GameInfo, numberOfPeopleInTeam number: Int)
 }
 
 class GameOrderRouter: GameOrderRouterProtocol {
-    weak var viewController: UIViewController?
+    unowned let viewController: UIViewController
     
     required init(viewController: UIViewController) {
         self.viewController = viewController
@@ -47,21 +50,21 @@ class GameOrderRouter: GameOrderRouterProtocol {
             "info": gameInfo,
             "number": number
         ]
-        viewController?.performSegue(withIdentifier: "ShowGameOrderCompletionScreen", sender: dict)
+        viewController.performSegue(withIdentifier: "ShowGameOrderCompletionScreen", sender: dict)
     }
     
-    func showPaymentView<Provider: PaymentProvider>(provider: Provider, withSum sum: Double, description: String, delegate: Provider.Delegate) {
-        guard let vc = viewController else { return }
-        
-        provider.showPaymentView(for: sum, description: description, from: vc, delegate: delegate)
+    func showPaymentView<Provider: PaymentProvider>(provider: Provider, withOptions paymentOptions: PaymentOptions) {
+        provider.showPaymentView(
+            presentationController: viewController,
+            options: paymentOptions
+        )
     }
-    
 }
 
 //MARK:- GameOrderCompletionDelegate
 extension GameOrderRouter: GameOrderCompletionDelegate {
     func didPressDismissButton(in vc: GameOrderCompletionVC) {
         vc.dismiss(animated: true)
-        viewController?.navigationController?.popViewController(animated: true)
+        viewController.navigationController?.popViewController(animated: true)
     }
 }
