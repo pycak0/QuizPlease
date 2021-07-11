@@ -12,18 +12,30 @@ import UIKit
 protocol ShopViewProtocol: UIViewController, LoadingIndicator {
     var presenter: ShopPresenterProtocol! { get set }
     
-    func configure()
     func reloadCollectionView()
     func showItemsEmpty()
-
     func showUserPoints(_ points: Double)
 }
 
 class ShopVC: UIViewController {
     var presenter: ShopPresenterProtocol!
 
-    @IBOutlet private weak var userPointsLabel: UILabel!
-    @IBOutlet private weak var shopCollectionView: UICollectionView!
+    @IBOutlet private weak var userPointsLabel: UILabel! {
+        didSet {
+            userPointsLabel.isHidden = true
+            userPointsLabel.layer.cornerRadius = 15
+        }
+    }
+    
+    @IBOutlet private weak var shopCollectionView: UICollectionView! {
+        didSet {
+            shopCollectionView.register(UINib(nibName: ShopItemCell.identifier, bundle: nil), forCellWithReuseIdentifier: ShopItemCell.identifier)
+            shopCollectionView.refreshControl = UIRefreshControl(target: self, action: #selector(refreshControlTriggered))
+            shopCollectionView.collectionViewLayout = TwoColumnsFlowLayout(cellAspectRatio: 3 / 4)
+            shopCollectionView.delegate = self
+            shopCollectionView.dataSource = self
+        }
+    }
     
     private var gradients = UIView.GradientPreset.shopItemPresets
         
@@ -48,17 +60,6 @@ class ShopVC: UIViewController {
 
 //MARK:- Protocol Implementation
 extension ShopVC: ShopViewProtocol {
-    func configure() {
-        shopCollectionView.delegate = self
-        shopCollectionView.dataSource = self
-        
-        shopCollectionView.register(UINib(nibName: ShopItemCell.identifier, bundle: nil), forCellWithReuseIdentifier: ShopItemCell.identifier)
-        shopCollectionView.refreshControl = UIRefreshControl(target: self, action: #selector(refreshControlTriggered))
-        
-        userPointsLabel.isHidden = true
-        userPointsLabel.layer.cornerRadius = 15
-    }
-    
     func startLoading() {
         shopCollectionView.refreshControl?.beginRefreshing()
     }
@@ -138,45 +139,4 @@ extension ShopVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         presenter.didSelectItem(at: indexPath.row)
     }
-}
-
-
-//MARK:- Flow Layout
-extension ShopVC: UICollectionViewDelegateFlowLayout {
-    private struct SectionLayout {
-        static let sectionInsets: CGFloat = 16
-        static let interItemSpacing: CGFloat = 16
-        static let cellsPerLine: CGFloat = 2
-        static let cellAspectRatio: CGFloat = 3 / 4
-        
-        /**
-         width       3
-         ------- =  ---- = ASPECT RATIO    =>    height = width  /  aspectRatio
-         height      4
-         */
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        let fullWidth = collectionView.bounds.width
-        let rowWidth = fullWidth
-                        - 2 * SectionLayout.sectionInsets
-                        - SectionLayout.interItemSpacing * (SectionLayout.cellsPerLine - 1)
-        
-        let cellWidth = rowWidth / SectionLayout.cellsPerLine
-        let cellHeight = cellWidth / SectionLayout.cellAspectRatio
-        
-        
-        return CGSize(width: cellWidth, height: cellHeight)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        let inset: CGFloat = SectionLayout.sectionInsets
-        return UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return SectionLayout.interItemSpacing
-    }
-    
 }
