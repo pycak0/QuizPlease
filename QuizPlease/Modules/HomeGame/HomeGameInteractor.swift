@@ -10,8 +10,6 @@ import UIKit
 
 protocol HomeGameInteractorProtocol {
     func loadHomeGames(completion: @escaping (Result<[HomeGame], SessionError>) -> Void)
-    
-    //func openUrl(with path: String)
 }
 
 class HomeGameInteractor: HomeGameInteractorProtocol {

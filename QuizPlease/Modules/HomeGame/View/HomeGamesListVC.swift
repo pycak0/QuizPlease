@@ -11,24 +11,34 @@ import UIKit
 //MARK:- View Protocol
 protocol HomeGameViewProtocol: UIViewController {
     var presenter: HomeGamePresenterProtocol! { get set }
-    
-    func congigureCollectionView()
     func reloadHomeGamesList()
-    
 }
 
 class HomeGamesListVC: UIViewController {
     var presenter: HomeGamePresenterProtocol!
 
-    @IBOutlet weak var headerView: UIView!
-    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var headerView: UIView! {
+        didSet {
+            headerView.layer.cornerRadius = 25
+            headerView.clipsToBounds = true
+            headerView.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
+        }
+    }
+    
+    @IBOutlet weak var collectionView: UICollectionView! {
+        didSet {
+            collectionView.collectionViewLayout = TwoColumnsFlowLayout(cellAspectRatio: 8 / 11)
+            collectionView.register(UINib(nibName: HomeGameCell.identifier, bundle: nil), forCellWithReuseIdentifier: HomeGameCell.identifier)
+            collectionView.delegate = self
+            collectionView.dataSource = self
+        }
+    }
     
     //MARK:- Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         HomeGameConfigurator().configure(self)
-        presenter.configureViews()
-
+        presenter.viewDidLoad(self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -36,36 +46,17 @@ class HomeGamesListVC: UIViewController {
         navigationController?.navigationBar.tintColor = .white
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        //navigationController?.navigationBar.tintColor = .labelAdapted
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         presenter.router.prepare(for: segue, sender: sender)
     }
-
 }
 
 //MARK:- Protocol Implementation
 extension HomeGamesListVC: HomeGameViewProtocol {
-    func congigureCollectionView() {
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        
-        collectionView.register(UINib(nibName: HomeGameCell.identifier, bundle: nil), forCellWithReuseIdentifier: HomeGameCell.identifier)
-        
-        headerView.layer.cornerRadius = 25
-        headerView.clipsToBounds = true
-        headerView.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
-    }
-    
     func reloadHomeGamesList() {
         collectionView.reloadSections(IndexSet(arrayLiteral: 0))
-        //collectionView.reloadData()
     }
 }
-
 
 //MARK:- Data Source & Delegate
 extension HomeGamesListVC: UICollectionViewDataSource, UICollectionViewDelegate {
@@ -91,10 +82,9 @@ extension HomeGamesListVC: UICollectionViewDataSource, UICollectionViewDelegate 
     func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
         collectionView.cellForItem(at: indexPath)?.scaleOut()
     }
-    
 }
 
-
+/*
 //MARK:- Flow Layout
 extension HomeGamesListVC: UICollectionViewDelegateFlowLayout {
     private struct SectionLayout {
@@ -133,3 +123,4 @@ extension HomeGamesListVC: UICollectionViewDelegateFlowLayout {
         return SectionLayout.interItemSpacing
     }
 }
+*/
