@@ -15,16 +15,8 @@ extension Int {
     ///- parameter word: Associated male russian word, must be given in singular form (Именительный Падеж, единственное число)
     ///
     ///`5.string(withAssociatedMaleWord: "балл") -> "5 баллов"`
-    
     func string(withAssociatedMaleWord word: String) -> String {
-        let result = "\(self) \(word)"
-        if self % 10 == 1 && self % 100 != 11 {
-            return result
-        }
-        if 2 <= self % 10 && self % 10 <= 4 && (self % 100 > 20 || self % 100 < 10) {
-            return result + "a"
-        }
-        return result + "ов"
+        "\(self) \(word.changingAs(maleWordUsedWithNumber: self))"
     }
     
     ///Returns a string containing number and a word changed to match the number. This method works for words from Russian language than end with letter "a" (first-case words) and changes them according to the rules of language.
@@ -34,14 +26,6 @@ extension Int {
     ///
     ///`5.string(withAssociatedMaleWord: "игра") -> "5 игр"`
     func string(withAssociatedFirstCaseWord word: String) -> String {
-        let root = String(word.dropLast())
-        let result = "\(self) \(root)"
-        if self % 10 == 1 && self % 100 != 11 {
-            return result + "a"
-        }
-        if 2 <= self % 10 && self % 10 <= 4 && (self % 100 > 20 || self % 100 < 10) {
-            return result + "ы"
-        }
-        return result
+        "\(self) \(word.changingAs(firstCaseWordUsedWithNumber: self))"
     }
 }

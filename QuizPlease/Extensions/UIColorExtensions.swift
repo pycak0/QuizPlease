@@ -103,4 +103,12 @@ public extension UIColor {
         }
         return .lightGray
     }
+    
+    class var opaqueSeparatorAdapted: UIColor {
+        if #available(iOS 13.0, *) {
+            return .opaqueSeparator
+        } else {
+            return UIColor.lightGray.withAlphaComponent(0.7)
+        }
+    }
 }

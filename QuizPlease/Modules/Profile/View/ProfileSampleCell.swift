@@ -9,24 +9,23 @@
 import UIKit
 
 class ProfileSampleCell: UITableViewCell, IdentifiableType {
-    static let identifier = "ProfileSampleCell"
+    static let identifier = "\(ProfileSampleCell.self)"
     
-    @IBOutlet weak var cellView: UIView!
     @IBOutlet weak var sampleTextLabel: UILabel!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        configureCell()
+    @IBOutlet weak var cellView: UIView! {
+        didSet {
+            cellView.layer.cornerRadius = 20
+            cellView.layer.borderWidth = 4
+            cellView.layer.borderColor = UIColor.systemGray6Adapted.cgColor
+        }
     }
     
-    private func configureCell() {
-        cellView.layer.cornerRadius = 20
-        cellView.layer.borderWidth = 4
-        cellView.layer.borderColor = UIColor.themeGray.cgColor
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        cellView.layer.borderColor = UIColor.systemGray6Adapted.cgColor
     }
     
     func configure(with sampleText: String) {
         sampleTextLabel.text = sampleText
     }
-    
 }

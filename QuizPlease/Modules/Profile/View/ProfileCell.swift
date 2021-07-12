@@ -22,13 +22,14 @@ class ProfileCell: UITableViewCell, IdentifiableType {
         didSet {
             cellView.layer.cornerRadius = 20
             cellView.layer.borderWidth = 4
-            cellView.layer.borderColor = UIColor.themeGray.cgColor
+            cellView.layer.borderColor = UIColor.systemGray6Adapted.cgColor
         }
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         pointsScoredLabel.layer.cornerRadius = pointsScoredLabel.bounds.height / 2
+        cellView.layer.borderColor = UIColor.systemGray6Adapted.cgColor
     }
     
     func configure(
