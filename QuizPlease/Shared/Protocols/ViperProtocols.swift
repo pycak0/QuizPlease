@@ -8,10 +8,15 @@
 
 import UIKit
 
-protocol RouterProtocol: class {
-    ///Must be weak
-    var viewController: UIViewController? { get set }
+protocol Router: AnyObject {
+    ///Must be an '`unowned let`' constant
+    var viewController: UIViewController { get }
+    
+    ///- parameter viewController: Must be an '`unowned let`' constant
     init(viewController: UIViewController)
+}
+
+protocol SegueRouter: Router {
     func prepare(for segue: UIStoryboardSegue, sender: Any?)
 }
 

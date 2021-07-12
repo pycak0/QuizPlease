@@ -58,14 +58,11 @@ class WarmupVC: UIViewController {
     
     //MARK:- Prepare for Segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard segue.identifier == "WarmupPageVCEmbedded" else {
-            presenter.router.prepare(for: segue, sender: sender)
-            return
-        }
-        guard let vc = segue.destination as? QuestionPageVC else { return }
+        guard segue.identifier == "WarmupPageVCEmbedded",
+              let vc = segue.destination as? QuestionPageVC
+        else { return }
         pageVC = vc
     }
-    
     
     @IBAction private func startButtonPressed(_ sender: UIButton) {
         presenter.didPressStartGame()

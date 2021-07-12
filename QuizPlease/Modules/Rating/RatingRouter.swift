@@ -8,19 +8,12 @@
 
 import UIKit
 
-protocol RatingRouterProtocol: RouterProtocol {
-    //
-}
+protocol RatingRouterProtocol: Router {}
 
 class RatingRouter: RatingRouterProtocol {
-    weak var viewController: UIViewController?
+    unowned let viewController: UIViewController
     
     required init(viewController: UIViewController) {
         self.viewController = viewController
     }
-    
-    func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        //
-    }
-    
 }

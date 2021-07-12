@@ -8,12 +8,12 @@
 
 import UIKit
 
-protocol HomeGameRouterProtocol: RouterProtocol {
+protocol HomeGameRouterProtocol: SegueRouter {
     func showGame(_ game: HomeGame)
 }
 
 class HomeGameRouter: HomeGameRouterProtocol {
-    weak var viewController: UIViewController?
+    unowned let viewController: UIViewController
     
     required init(viewController: UIViewController) {
         self.viewController = viewController
@@ -33,7 +33,6 @@ class HomeGameRouter: HomeGameRouterProtocol {
     }
     
     func showGame(_ game: HomeGame) {
-        viewController?.performSegue(withIdentifier: "ShowHomeGame", sender: game)
+        viewController.performSegue(withIdentifier: "ShowHomeGame", sender: game)
     }
-    
 }

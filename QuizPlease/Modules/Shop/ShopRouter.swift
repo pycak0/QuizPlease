@@ -8,13 +8,13 @@
 
 import UIKit
 
-protocol ShopRouterProtocol: RouterProtocol {
+protocol ShopRouterProtocol: SegueRouter {
     func showConfirmScreen(for item: ShopItem)
     func showCompletionScreen(for item: ShopItem)
 }
 
 class ShopRouter: ShopRouterProtocol {
-    weak var viewController: UIViewController?
+    unowned let viewController: UIViewController
     
     required init(viewController: UIViewController) {
         self.viewController = viewController
@@ -36,11 +36,10 @@ class ShopRouter: ShopRouterProtocol {
     }
     
     func showConfirmScreen(for item: ShopItem) {
-        viewController?.performSegue(withIdentifier: "ConfirmPurchase", sender: item)
+        viewController.performSegue(withIdentifier: "ConfirmPurchase", sender: item)
     }
     
     func showCompletionScreen(for item: ShopItem) {
-        viewController?.performSegue(withIdentifier: "ShowShopCompletion", sender: item)
+        viewController.performSegue(withIdentifier: "ShowShopCompletion", sender: item)
     }
-    
 }

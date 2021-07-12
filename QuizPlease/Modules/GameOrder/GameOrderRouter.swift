@@ -9,11 +9,7 @@
 import UIKit
 
 //MARK:- Router Protocol
-protocol GameOrderRouterProtocol {
-    ///- parameter viewController: Must be an '`unowned let`' constant
-    init(viewController: UIViewController)
-    func prepare(for segue: UIStoryboardSegue, sender: Any?)
-    
+protocol GameOrderRouterProtocol: SegueRouter {
     func showPaymentView<Provider: PaymentProvider>(provider: Provider, withOptions paymentOptions: PaymentOptions)
     func showCompletionScreen(with gameInfo: GameInfo, numberOfPeopleInTeam number: Int)
 }

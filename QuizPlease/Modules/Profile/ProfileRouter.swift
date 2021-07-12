@@ -9,7 +9,7 @@
 import UIKit
 
 //MARK:- Router Protocol
-protocol ProfileRouterProtocol: RouterProtocol {
+protocol ProfileRouterProtocol: SegueRouter {
     func showShop(with userInfo: UserInfo?)
     func showQRScanner()
     func showAddGameScreen(_ info: String)
@@ -19,7 +19,7 @@ protocol ProfileRouterProtocol: RouterProtocol {
 }
 
 class ProfileRouter: ProfileRouterProtocol {
-    weak var viewController: UIViewController?
+    unowned let viewController: UIViewController
     
     required init(viewController: UIViewController) {
         self.viewController = viewController
@@ -61,23 +61,23 @@ class ProfileRouter: ProfileRouterProtocol {
     
     //MARK:- Segues
     func showShop(with userInfo: UserInfo?) {
-        viewController?.performSegue(withIdentifier: "ShowShop", sender: userInfo)
+        viewController.performSegue(withIdentifier: "ShowShop", sender: userInfo)
     }
     
     func showQRScanner() {
-        viewController?.performSegue(withIdentifier: "ShowQRScreenProfile", sender: nil)
+        viewController.performSegue(withIdentifier: "ShowQRScreenProfile", sender: nil)
     }
     
     func showAddGameScreen(_ info: String) {
-        viewController?.performSegue(withIdentifier: "AddGameProfile", sender: info)
+        viewController.performSegue(withIdentifier: "AddGameProfile", sender: info)
     }
     
     func showAuthScreen() {
-        viewController?.performSegue(withIdentifier: "ProfileAuthVC", sender: nil)
+        viewController.performSegue(withIdentifier: "ProfileAuthVC", sender: nil)
     }
     
     func closeProfile() {
-        viewController?.navigationController?.popViewController(animated: true)
+        viewController.navigationController?.popViewController(animated: true)
     }
 }
 
@@ -90,7 +90,7 @@ extension ProfileRouter: AuthVCDelegate {
     
     func didCancelAuth(in authVC: AuthVC) {
         authVC.dismiss(animated: true) { [unowned self] in
-            viewController?.navigationController?.popViewController(animated: true)
+            viewController.navigationController?.popViewController(animated: true)
         }
     }
 }

@@ -29,10 +29,6 @@ class SplashScreenVC: UIViewController, SplashScreenViewProtocol {
         presenter.viewDidLoad(self)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        presenter.router.prepare(for: segue, sender: sender)
-    }
-    
     func startLoading() {
         activityIndicator.startAnimating()
         UIView.animate(withDuration: 0.5) {
