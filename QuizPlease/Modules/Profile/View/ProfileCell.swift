@@ -9,26 +9,25 @@
 import UIKit
 
 class ProfileCell: UITableViewCell, IdentifiableType {
-    static let identifier = "ProfileCell"
+    static let identifier = "\(ProfileCell.self)"
     
-    @IBOutlet weak var cellView: UIView!
     @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var gameNameLabel: UILabel!
     @IBOutlet weak var gameNumberLabel: UILabel!
     @IBOutlet weak var prizeImageView: UIImageView!
     @IBOutlet weak var placeLabel: UILabel!
     @IBOutlet weak var teamNameLabel: UILabel!
-    @IBOutlet weak var pointsScoredLabel: UILabel!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        configureCell()
+    @IBOutlet weak var pointsScoredLabel: PaddingLabel!
+    @IBOutlet weak var cellView: UIView! {
+        didSet {
+            cellView.layer.cornerRadius = 20
+            cellView.layer.borderWidth = 4
+            cellView.layer.borderColor = UIColor.themeGray.cgColor
+        }
     }
     
-    private func configureCell() {
-        cellView.layer.cornerRadius = 20
-        cellView.layer.borderWidth = 4
-        cellView.layer.borderColor = UIColor.themeGray.cgColor
+    override func layoutSubviews() {
+        super.layoutSubviews()
         pointsScoredLabel.layer.cornerRadius = pointsScoredLabel.bounds.height / 2
     }
     
@@ -56,8 +55,5 @@ class ProfileCell: UITableViewCell, IdentifiableType {
             placeLabel.isHidden = true 
             prizeImageView.isHidden = true
         }
-        
     }
-
-    
 }
