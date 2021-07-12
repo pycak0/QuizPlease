@@ -144,12 +144,13 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: ProfileCell.identifier, for: indexPath) as! ProfileCell
         
         let game = games[indexPath.row]
+        let pointsText = game.points.map { pointsFormatter.string(from: $0 as NSNumber) ?? "" }
         cell.configure(
             gameName:     game.title,
             gameNumber:   game.gameNumber,
             teamName:     "",
             place:        game.place,
-            pointsScored: game.points
+            pointsScoredText: pointsText
         )
         return cell
     }
