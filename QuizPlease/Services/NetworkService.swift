@@ -167,17 +167,6 @@ class NetworkService {
         get(GameInfo.self, with: gameUrlComponents, completion: completion)
     }
     
-    //MARK:- Check Certificate
-    func validateCertificate(forGameWithId id: Int, certificate: String, completion: @escaping (Result<CertificateResponse, SessionError>) -> Void) {
-        var urlComps = baseUrlComponents
-        urlComps.path = "/ajax/check-certificate"
-        urlComps.queryItems = [
-            URLQueryItem(name: "code", value: certificate),
-            URLQueryItem(name: "game_id", value: "\(id)")
-        ]
-        get(CertificateResponse.self, with: urlComps, completion: completion)
-    }
-    
     //MARK:- Get Schedule
     func getSchedule(with filter: ScheduleFilter, completion: @escaping (Result<[GameShortInfo], SessionError>) -> Void) {
         var scheduleUrlComponents = baseUrlComponents
@@ -531,32 +520,6 @@ class NetworkService {
         }
     }
     
-    //MARK:- Register on Game
-    func registerOnGame(registerForm: RegisterForm, certificates: [String], promocode: String?, completion: @escaping (Result<GameOrderResponse, SessionError>) -> Void) {
-        var registerUrlComps = baseUrlComponents
-        registerUrlComps.path = "/ajax/save-record"
-                
-        let parameters: [String: String?] = [
-            //2 - регистрация через мобильное приложение
-            "QpRecord[registration_type]"   : "2",
-            "QpRecord[captainName]"         : registerForm.captainName,
-            "QpRecord[email]"               : registerForm.email,
-            "QpRecord[phone]"               : registerForm.phone,
-            "QpRecord[comment]"             : registerForm.comment ?? "",
-            "QpRecord[game_id]"             : "\(registerForm.gameId)",
-            "QpRecord[first_time]"          : registerForm.isFirstTime ? "1" : "0",
-            "certificates[]"                : !certificates.isEmpty ? "\(certificates)" : "",
-            "QpRecord[payment_type]"        : "\(registerForm.paymentType.rawValue)",
-            "QpRecord[count]"               : "\(registerForm.count)",
-            "QpRecord[teamName]"            : registerForm.teamName,
-            "QpRecord[payment_token]"       : registerForm.paymentToken,
-            "QpRecord[surcharge]"           : registerForm.countPaidOnline.map { "\($0)" },
-            "promo_code"                    : promocode
-        ]
-        
-        afPost(with: parameters, to: registerUrlComps, responseType: GameOrderResponse.self, completion: completion)
-    }
-    
     //MARK:- AF Post Auth
     ///Post request with response type of `SavedAuthInfo`
     func afPostAuth(with parameters: [String: String?], to urlComponents: URLComponents,
@@ -603,9 +566,48 @@ class NetworkService {
         }
     }
     
+    ///- parameter apiPath: used to constructs URLComponents using `baseUrlComponents` and given path
+    func afPost<Response: Decodable>(
+        with bodyParameters: [String: String?],
+        and headers: [String : String]? = nil,
+        to apiPath: String,
+        responseType: Response.Type,
+        authorizationKind: AuthorizationKind = .none,
+        completion: @escaping Completion<Response>
+    ) {
+        var urlComponents = baseUrlComponents
+        urlComponents.path = apiPath
+        afPost(with: bodyParameters, and: headers, to: urlComponents, responseType: responseType, authorizationKind: authorizationKind, completion: completion)
+    }
+    
+    func afPost<Response: Decodable>(
+        with bodyParameters: [String: String?],
+        and headers: [String : String]? = nil,
+        to urlComponents: URLComponents,
+        responseType: Response.Type,
+        authorizationKind: AuthorizationKind = .none,
+        completion: @escaping Completion<Response>
+    ) {
+        afPost(with: MultipartFormDataObjects(bodyParameters), and: headers, to: urlComponents, responseType: responseType, authorizationKind: authorizationKind, completion: completion)
+    }
+    
+    ///- parameter apiPath: used to constructs URLComponents using `baseUrlComponents` and given path
+    func afPost<Response: Decodable>(
+        with multipartFormDataObjects: MultipartFormDataObjects,
+        and headers: [String : String]? = nil,
+        to apiPath: String,
+        responseType: Response.Type,
+        authorizationKind: AuthorizationKind = .none,
+        completion: @escaping Completion<Response>
+    ) {
+        var urlComponents = baseUrlComponents
+        urlComponents.path = apiPath
+        afPost(with: multipartFormDataObjects, and: headers, to: urlComponents, responseType: responseType, authorizationKind: authorizationKind, completion: completion)
+    }
+    
     //MARK:- Alamofire POST
     func afPost<Response: Decodable>(
-        with parameters: [String: String?],
+        with multipartFormDataObjects: MultipartFormDataObjects,
         and headers: [String : String]? = nil,
         to urlComponents: URLComponents,
         responseType: Response.Type,
@@ -622,10 +624,13 @@ class NetworkService {
         let httpHeaders = headers.isEmpty ? nil : HTTPHeaders(headers)
         AF.upload(
             multipartFormData: { (multipartFormData) in
-                for (key, value) in parameters {
-                    if let value = value {
-                        multipartFormData.append(Data(value.utf8), withName: key)
-                    }
+                for object in multipartFormDataObjects {
+                    multipartFormData.append(
+                        object.data,
+                        withName: object.name,
+                        fileName: object.fileName,
+                        mimeType: object.mimeType
+                    )
                 }
             },
             to: urlComponents,
@@ -658,7 +663,7 @@ class NetworkService {
         [\(Self.self).swift]
         afPost request: \(urlComponents.url as Any)
         Headers: \(headers)
-        Body parameters: \(parameters)
+        Body parameters: \(multipartFormDataObjects)
         =====\n\n
         """)
     }

@@ -87,13 +87,6 @@ extension GameOrderVC: GameCertificateCellDelegate {
     }
     
     func accessoryText(for certificateCell: GameCertificateCell) -> String {
-//        if items.filter({ $0 == .certificate }).count > 1,
-//           let indexOfFirstCertificate = indexOfFirstCertificate,
-//           let cell = tableView.cellForRow(at: IndexPath(row: indexOfFirstCertificate, section: 0)),
-//           cell != certificateCell {
-//            return ""
-//        }
-//
         switch certificateCell.associatedItemKind {
         case .certificate:
             return "Для активации сертификатов от наших партнеров свяжитесь с нами"
@@ -121,15 +114,6 @@ extension GameOrderVC: GameCertificateCellDelegate {
             items.insert(.addExtraCertificate, at: index)
             tableView.insertRows(at: [IndexPath(row: index, section: 0)], with: .fade)
         }
-        
-//        switch certificateCell.associatedItemKind {
-//        case .certificate:
-//            presenter.registerForm.certificates = newCode
-//        case .promocode:
-//            presenter.registerForm.promocode = newCode
-//        default:
-//            break
-//        }
     }
     
     func didPressOkButton(in certificateCell: GameCertificateCell) {
@@ -164,21 +148,6 @@ extension GameOrderVC: GameFirstPlayCellDelegate {
     func firstPlayCell(_ cell: GameFirstPlayCell, didChangeStateTo isFirstPlay: Bool) {
         hapticGenerator.impactOccurred()
         presenter.registerForm.isFirstTime = isFirstPlay
-//        if isFirstPlay {
-//            guard let i = items.firstIndex(of: .firstPlay) else { return }
-//            let index = i + 1
-//            items.insert(.promocode, at: index)
-//            tableView.insertRows(at: [IndexPath(row: index, section: 0)], with: .fade)
-//        } else {
-//            guard let index = items.firstIndex(of: .promocode) else { return }
-//            items.remove(at: index)
-//            let indexPath = IndexPath(row: index, section: 0)
-//            if let cell = tableView.cellForRow(at: indexPath) as? GameCertificateCell {
-//                cell.fieldView.textField.text = nil
-//            }
-//            presenter.registerForm.promocode = nil
-//            tableView.deleteRows(at: [indexPath], with: .fade)
-//        }
     }
 }
 
@@ -254,25 +223,5 @@ extension GameOrderVC: GameSubmitButtonCellDelegate {
     
     func submitButtonCell(_ cell: GameSubmitButtonCell, didPressSubmitButton button: UIButton) {
         presenter.didPressSubmitButton()
-//        return
-//
-//        button.isUserInteractionEnabled = false
-//        button.setTitle("Хорошо", for: .normal)
-//
-//        for kind in items {
-//            if kind != .info, let index = items.firstIndex(of: kind) {
-//                items.remove(at: index)
-//                let indexPath = IndexPath(row: index, section: 0)
-//                tableView.beginUpdates()
-//                tableView.deleteRows(at: [indexPath], with: .fade)
-//                tableView.endUpdates()
-//            }
-//        }
-//        gameImageView.isHidden = true
-//        imageDarkeningView.isHidden = true
-//
-//        guard let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? GameInfoCell else { return }
-//        cell.cellView.layer.borderColor = UIColor.systemGreen.cgColor
-//        cell.cellView.layer.borderWidth = 4
     }
 }
