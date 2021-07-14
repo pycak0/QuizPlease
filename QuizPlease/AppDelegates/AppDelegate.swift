@@ -11,6 +11,7 @@ import IQKeyboardManagerSwift
 import Firebase
 import UserNotificationsUI
 import YooKassaPayments
+import PhoneNumberKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate {
@@ -34,6 +35,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate {
         application.registerForRemoteNotifications()
         
         IQKeyboardManager.shared.enable = true
+        PhoneNumberKit.CountryCodePicker.forceModalPresentation = true
+        PhoneNumberKit.CountryCodePicker.commonCountryCodes = ["ru", "de", "us", "kz", "by", "ua"]
         
         return true
     }

@@ -23,6 +23,7 @@ class PhoneTextFieldView: TitledTextFieldView {
         textField.withFlag = true
         textField.withPrefix = true
         textField.withExamplePlaceholder = true
+        textField.withDefaultPickerUI = true
         return textField
     }()
     
