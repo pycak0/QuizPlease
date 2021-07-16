@@ -77,7 +77,8 @@ class MaskedTextFieldView: TitledTextFieldView {
 //MARK:- MaskedTextFieldDelegateListener
 extension MaskedTextFieldView: MaskedTextFieldDelegateListener, NotifyingMaskedTextFieldDelegateListener {
     func onEndEditing(in textField: UITextField) {
-        delegate?.textFieldViewDidEndEditing(self)
+        /// must call `super.textFieldDidEndEditing(_:)` to preserve correct behavior
+        super.textFieldDidEndEditing(textField)
     }
     
     func onEditingChanged(in textField: UITextField) {

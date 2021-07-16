@@ -66,6 +66,7 @@ class PhoneTextFieldView: TitledTextFieldView {
     }
     
     override func textFieldDidEndEditing(_ textField: UITextField) {
-        delegate?.textFieldViewDidEndEditing(self)
+        ///must call `super.textFieldDidEndEditing(_:)` to preserve correct behavior
+        super.textFieldDidEndEditing(textField)
     }
 }

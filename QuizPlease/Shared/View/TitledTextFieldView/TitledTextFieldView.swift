@@ -127,6 +127,39 @@ class TitledTextFieldView: UIView {
         super.prepareForInterfaceBuilder()
     }
     
+    private func setup() {
+        backgroundColor = .clear
+        addSubview(titleLabel)
+        addSubview(textField)
+        makeConstraints()
+    }
+    
+    private func makeConstraints() {
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: Constants.offset),
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.offset)
+        ])
+        
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            textField.centerXAnchor.constraint(equalTo: centerXAnchor),
+            textField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.offset),
+            textField.topAnchor.constraint(equalTo: titleLabel.bottomAnchor),
+            textField.bottomAnchor.constraint(equalTo: bottomAnchor, constant: Constants.bottomInset)
+        ])
+    }
+    
+    private func configure() {
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(startEditing))
+        addGestureRecognizer(tapRecognizer)
+        
+        textField.delegate = self
+        textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+    }
+    
+    //MARK:- Layout Subviews
     override func layoutSubviews() {
         super.layoutSubviews()
         updateAppearance()
@@ -146,53 +179,37 @@ class TitledTextFieldView: UIView {
             ?? .systemFont(ofSize: textFontSize, weight: .semibold)
     }
     
-    private func configure() {
-        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(startEditing))
-        addGestureRecognizer(tapRecognizer)
-        
-        textField.delegate = self
-        textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-    }
-    
     @objc
     private func startEditing() {
         guard !textField.isFirstResponder else { return }
         textField.becomeFirstResponder()
     }
     
-    //MARK:- Xib Setup
-    func setup() {
-        backgroundColor = .clear
-        addSubview(titleLabel)
-        addSubview(textField)
-        makeConstraints()
-    }
-    
-    func makeConstraints() {
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: Constants.offset),
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.offset)
-        ])
-        
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            textField.centerXAnchor.constraint(equalTo: centerXAnchor),
-            textField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.offset),
-            textField.topAnchor.constraint(equalTo: titleLabel.bottomAnchor),
-            textField.bottomAnchor.constraint(equalTo: bottomAnchor, constant: Constants.bottomInset)
-        ])
+    private func updateEditingAppearance() {
+        UIView.transition(with: titleLabel, duration: 0.2, options: .transitionCrossDissolve) { [self] in
+            titleLabel.textColor = textField.isEditing ? nil : .darkGray
+        } completion: { _ in }
     }
 }
 
+//MARK:- UITextFieldDelegate
 extension TitledTextFieldView: UITextFieldDelegate {
-    ///You can override this method to provide custom delegate calls
+    ///You can override this method to provide custom delegate calls, but make sure to call `super.textFieldDidEndEditing(_:)` at the end of your implementation to preserve correct behavior
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        updateEditingAppearance()
+    }
+    
+    ///You can override this method to provide custom delegate calls, but make sure to call `super.textFieldDidEndEditing(_:)` at the end of your implementation to preserve correct behavior
     func textFieldDidEndEditing(_ textField: UITextField) {
+        updateEditingAppearance()
         delegate?.textFieldViewDidEndEditing(self)
     }
     
-    ///You can override this method to provide custom delegate calls
+    ///You can override this method to provide custom delegate calls.
+    ///
+    ///Default implementation of this method calls `textFieldView(_:didChangeTextField:didCompleteMask:)` delegate method.
+    ///
+    ///When overriding this class, you must also call this delegate method, or (preferred) you can call `super.textFieldDidChange(_:)` at the end of your implementation
     @objc func textFieldDidChange(_ textField: UITextField) {
         delegate?.textFieldView(self, didChangeTextField: textField.text ?? "", didCompleteMask: true)
     }
