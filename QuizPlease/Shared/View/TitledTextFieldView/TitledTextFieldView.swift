@@ -112,22 +112,22 @@ class TitledTextFieldView: UIView {
     //MARK:- Init
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setup()
+        commonInit()
         configure()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        setup()
+        commonInit()
         configure()
     }
     
     override func prepareForInterfaceBuilder() {
-        setup()
+        commonInit()
         super.prepareForInterfaceBuilder()
     }
     
-    private func setup() {
+    private func commonInit() {
         backgroundColor = .clear
         addSubview(titleLabel)
         addSubview(textField)
