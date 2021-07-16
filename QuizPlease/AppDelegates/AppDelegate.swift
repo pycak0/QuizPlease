@@ -36,7 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate {
         
         IQKeyboardManager.shared.enable = true
         PhoneNumberKit.CountryCodePicker.forceModalPresentation = true
-        PhoneNumberKit.CountryCodePicker.commonCountryCodes = ["ru", "de", "us", "kz", "by", "ua"]
+        PhoneNumberKit.CountryCodePicker.commonCountryCodes = []
         
         return true
     }

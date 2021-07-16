@@ -10,7 +10,7 @@
 "PhoneNumberKit.CountryCodePicker.Title" = "Выберите код страны";
 
 /* Name of \"Current\" section */
-"PhoneNumberKit.CountryCodePicker.Current" = "Текущий";
+"PhoneNumberKit.CountryCodePicker.Current" = "Предложенный";
 
 /* Name of \"Common\" section */
-"PhoneNumberKit.CountryCodePicker.Common" = "Предложенные";
+"PhoneNumberKit.CountryCodePicker.Common" = "Популярные";
