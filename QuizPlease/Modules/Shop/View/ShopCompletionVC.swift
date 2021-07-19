@@ -16,10 +16,16 @@ class ShopCompletionVC: UIViewController {
     
     //MARK:- Outlets
     @IBOutlet private weak var imageView: UIImageView!
-    @IBOutlet private weak var textFieldView: TitledTextFieldView!
     @IBOutlet private weak var arrowImageView: UIImageView!
     @IBOutlet private weak var segmentControl: HBSegmentedControl!
     @IBOutlet private weak var questionLabel: UILabel!
+    @IBOutlet private weak var textFieldView: TitledTextFieldView! {
+        didSet {
+            textFieldView.addTapGestureRecognizer { self.didPressFieldView() }
+            textFieldView.textField.keyboardType = .emailAddress
+            textFieldView.textField.textContentType = .emailAddress
+        }
+    }
     
     weak var delegate: ShopCompletionVCDelegate?
     
@@ -119,7 +125,6 @@ class ShopCompletionVC: UIViewController {
         } else {
             configureSegmentControl()
         }
-        configureTextField()
     }
     
     private func configureSegmentControl() {
@@ -127,13 +132,5 @@ class ShopCompletionVC: UIViewController {
         segmentControl.dampingRatio = 0.9
         segmentControl.font = .gilroy(.bold, size: 16)
         segmentControl.addTarget(self, action: #selector(segmentChanged), for: .valueChanged)
-    }
-    
-    private func configureTextField() {
-        textFieldView.addTapGestureRecognizer {
-            self.didPressFieldView()
-        }
-        textFieldView.textField.keyboardType = .emailAddress
-        textFieldView.textField.textContentType = .emailAddress
     }
 }
