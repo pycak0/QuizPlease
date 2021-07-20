@@ -40,6 +40,8 @@ class PhoneTextFieldView: TitledTextFieldView {
         }
     }
     
+    var isValidNumber: Bool { phoneTextField.isValidNumber }
+    
     override var textField: UITextField {
         get { phoneTextField } set {}
     }
@@ -62,7 +64,7 @@ class PhoneTextFieldView: TitledTextFieldView {
                 return "+\(number.countryCode)\(number.nationalNumber)"
             }
         }()
-        delegate?.textFieldView(self, didChangeTextField: text, didCompleteMask: phoneTextField.isValidNumber)
+        delegate?.textFieldView(self, didChangeTextField: text)
     }
     
     override func textFieldDidEndEditing(_ textField: UITextField) {

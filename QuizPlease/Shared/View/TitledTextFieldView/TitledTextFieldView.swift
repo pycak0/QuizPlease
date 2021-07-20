@@ -9,7 +9,7 @@
 import UIKit
 
 protocol TitledTextFieldViewDelegate: AnyObject {
-    func textFieldView(_ textFieldView: TitledTextFieldView, didChangeTextField text: String, didCompleteMask isComplete: Bool)
+    func textFieldView(_ textFieldView: TitledTextFieldView, didChangeTextField text: String)
     func textFieldViewDidEndEditing(_ textFieldView: TitledTextFieldView)
 }
 
@@ -211,6 +211,6 @@ extension TitledTextFieldView: UITextFieldDelegate {
     ///
     ///When overriding this class, you must also call this delegate method, or (preferred) you can call `super.textFieldDidChange(_:)` at the end of your implementation
     @objc func textFieldDidChange(_ textField: UITextField) {
-        delegate?.textFieldView(self, didChangeTextField: textField.text ?? "", didCompleteMask: true)
+        delegate?.textFieldView(self, didChangeTextField: textField.text ?? "")
     }
 }

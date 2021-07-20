@@ -176,8 +176,7 @@ class AuthVC: UIViewController {
 extension AuthVC: TitledTextFieldViewDelegate {
     func textFieldView(
         _ textFieldView: TitledTextFieldView,
-        didChangeTextField extractedPhoneNumber: String,
-        didCompleteMask isComplete: Bool
+        didChangeTextField extractedPhoneNumber: String
     ) {
         if isCodeSent {
             smsCode = textFieldView.textField.text
@@ -185,7 +184,7 @@ extension AuthVC: TitledTextFieldViewDelegate {
                 handleInput()
             }
         } else {
-            phoneNumber = isComplete ? extractedPhoneNumber : nil
+            phoneNumber = self.textFieldView.isValidNumber ? extractedPhoneNumber : nil
         }
     }
 }

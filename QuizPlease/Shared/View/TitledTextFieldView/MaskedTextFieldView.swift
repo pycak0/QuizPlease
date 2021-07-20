@@ -48,6 +48,10 @@ class MaskedTextFieldView: TitledTextFieldView {
         }
     }
     
+    lazy var isMaskComplete: Bool = {
+        inputMask == Self.noMask
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
@@ -88,10 +92,11 @@ extension MaskedTextFieldView: MaskedTextFieldDelegateListener, MaskedTextFieldD
     
     func onEditingChanged(in textField: UITextField) {
         guard inputMask == Self.noMask else { return }
-        delegate?.textFieldView(self, didChangeTextField: textField.text ?? "", didCompleteMask: true)
+        delegate?.textFieldView(self, didChangeTextField: textField.text ?? "")
     }
     
-    func textField(_ textField: UITextField, didFillMandatoryCharacters complete: Bool, didExtractValue value: String) {
-        delegate?.textFieldView(self, didChangeTextField: value, didCompleteMask: complete)
+    func textField(_ textField: UITextField, didFillMandatoryCharacters isComplete: Bool, didExtractValue value: String) {
+        isMaskComplete = isComplete
+        delegate?.textFieldView(self, didChangeTextField: value)
     }
 }
