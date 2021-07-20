@@ -97,7 +97,7 @@ extension GameRegisterCell: TitledTextFieldViewDelegate {
     func textFieldView(_ textFieldView: TitledTextFieldView, didChangeTextField text: String) {
         switch textFieldView {
         case phoneFieldView:
-            _delegate?.registerCell(self, didChangePhone: text, didCompleteMask: phoneFieldView.isValidNumber)
+            _delegate?.registerCell(self, didChangePhone: phoneFieldView.extractedFormattedNumber, didCompleteMask: phoneFieldView.isValidNumber)
         case teamNameFieldView:
             _delegate?.registerCell(self, didChangeTeamName: text)
         case emailFieldView:
