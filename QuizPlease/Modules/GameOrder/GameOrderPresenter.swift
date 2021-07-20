@@ -174,7 +174,7 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
     //MARK:- Submit Button Action
     func didPressSubmitButton() {
         view?.endEditing()
-        guard registerForm.isValid else {
+        guard isPhoneNumberValid, registerForm.isValid else {
             if registerForm.email.isEmpty {
                 view?.showSimpleAlert(
                     title: "Заполнены не все необходимые поля",
