@@ -119,7 +119,7 @@ extension WarmupPresenter: WarmupInteractorOutput {
         startGame()
     }
     
-    func interactor(_ interactor: WarmupInteractorProtocol, failedToLoadQuestionsWithError error: SessionError) {
+    func interactor(_ interactor: WarmupInteractorProtocol, failedToLoadQuestionsWithError error: NetworkServiceError) {
         print(error)
         switch error {
         case .invalidToken:
@@ -144,7 +144,7 @@ extension WarmupPresenter: WarmupInteractorOutput {
         }
     }
     
-    func interactor(_ interactor: WarmupInteractorProtocol, failedToCheckAnswer answerId: Int, questionId: String, error: SessionError) {
+    func interactor(_ interactor: WarmupInteractorProtocol, failedToCheckAnswer answerId: Int, questionId: String, error: NetworkServiceError) {
         view?.stopLoading()
         view?.showErrorConnectingToServerAlert()
     }

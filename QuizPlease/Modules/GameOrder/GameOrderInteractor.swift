@@ -20,7 +20,7 @@ protocol GameOrderInteractorProtocol {
 
 //MARK:- Output Protocol
 protocol GameOrderInteractorOutput: AnyObject {
-    func interactor(_ interactor: GameOrderInteractorProtocol?, errorOccured error: SessionError)
+    func interactor(_ interactor: GameOrderInteractorProtocol?, errorOccured error: NetworkServiceError)
     func interactor(_ interactor: GameOrderInteractorProtocol?, didCheckSpecialCondition value: String, with response: SpecialCondition.Response)
     func interactor(_ interactor: GameOrderInteractorProtocol?, didRegisterWithResponse: GameOrderResponse, paymentMethod: PaymentMethodType?)
 }

@@ -106,7 +106,7 @@ class ShopCompletionVC: UIViewController {
         }
     }
     
-    private func handleError(_ error: SessionError) {
+    private func handleError(_ error: NetworkServiceError) {
         print(error)
         switch error {
         case .invalidToken:

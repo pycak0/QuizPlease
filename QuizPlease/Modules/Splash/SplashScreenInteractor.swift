@@ -21,7 +21,7 @@ protocol SplashScreenInteractorProtocol {
 }
 
 protocol SplashScreenInteractorOutput: AnyObject {
-    func interactor(_ interactor: SplashScreenInteractorProtocol, errorOccured error: SessionError)
+    func interactor(_ interactor: SplashScreenInteractorProtocol, errorOccured error: NetworkServiceError)
     func interactor(_ interactor: SplashScreenInteractorProtocol, didLoadClientSettings settings: ClientSettings)
     func interactorDidUpdateUserToken(_ interactor: SplashScreenInteractorProtocol)
 }

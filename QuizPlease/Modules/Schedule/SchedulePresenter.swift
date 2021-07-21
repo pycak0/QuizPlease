@@ -185,7 +185,7 @@ extension SchedulePresenter: ScheduleInteractorOutput {
         self.view?.changeSubscribeStatus(forGameAt: index)
     }
     
-    func interactor(_ interactor: ScheduleInteractorProtocol?, failedToSubscribeForGameWith gameId: String, error: SessionError) {
+    func interactor(_ interactor: ScheduleInteractorProtocol?, failedToSubscribeForGameWith gameId: String, error: NetworkServiceError) {
         print(error)
         switch error {
         case .invalidToken:

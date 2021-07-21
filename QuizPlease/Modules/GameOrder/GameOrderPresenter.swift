@@ -195,6 +195,8 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
                 ) { (okAction) in
                     self.view?.editPhone()
                 }
+            } else {
+                view?.showSimpleAlert(title: "Произошла неизвестная ошибка", message: "Error status code 40")
             }
             return
         }
@@ -278,7 +280,7 @@ extension GameOrderPresenter: GameOrderInteractorOutput {
         }
     }
     
-    func interactor(_ interactor: GameOrderInteractorProtocol?, errorOccured error: SessionError) {
+    func interactor(_ interactor: GameOrderInteractorProtocol?, errorOccured error: NetworkServiceError) {
         view?.stopLoading()
         view?.showErrorConnectingToServerAlert()
     }

@@ -64,7 +64,7 @@ extension SplashScreenPresenter: SplashScreenInteractorOutput {
         interactor.updateClientSettings()
     }
     
-    func interactor(_ interactor: SplashScreenInteractorProtocol, errorOccured error: SessionError) {
+    func interactor(_ interactor: SplashScreenInteractorProtocol, errorOccured error: NetworkServiceError) {
         dispatchGroup.leave()
         print(error)
     }

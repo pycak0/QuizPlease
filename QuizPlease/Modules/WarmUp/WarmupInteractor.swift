@@ -21,9 +21,9 @@ protocol WarmupInteractorProtocol {
 
 protocol WarmupInteractorOutput: AnyObject {
     func interactor(_ interactor: WarmupInteractorProtocol, isAnswerCorrect: Bool, answerId: Int, questionId: String)
-    func interactor(_ interactor: WarmupInteractorProtocol, failedToCheckAnswer answerId: Int, questionId: String, error: SessionError)
+    func interactor(_ interactor: WarmupInteractorProtocol, failedToCheckAnswer answerId: Int, questionId: String, error: NetworkServiceError)
     func interactor(_ interactor: WarmupInteractorProtocol, didLoadQuestions: [WarmupQuestion])
-    func interactor(_ interactor: WarmupInteractorProtocol, failedToLoadQuestionsWithError: SessionError)
+    func interactor(_ interactor: WarmupInteractorProtocol, failedToLoadQuestionsWithError: NetworkServiceError)
 }
 
 class WarmupInteractor: WarmupInteractorProtocol {
@@ -94,7 +94,7 @@ class MockNetworkService {
     private init() {}
     static let shared = MockNetworkService()
 
-    func getWarmupQuestions(completion: @escaping (Result<[WarmupQuestion], SessionError>) -> Void) {
+    func getWarmupQuestions(completion: @escaping (Result<[WarmupQuestion], NetworkServiceError>) -> Void) {
         let path = Bundle.main.path(forResource: "MockWarmupQuestionsData", ofType: "json")!
         let data = FileManager.default.contents(atPath: path)!
         let response = try! JSONDecoder().decode(ServerResponse<[WarmupQuestion]>.self, from: data)

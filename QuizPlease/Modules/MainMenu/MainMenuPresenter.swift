@@ -128,15 +128,15 @@ extension MainMenuPresenter: MainMenuInteractorOutput {
         view?.reloadShopItems()
     }
     
-    func interactor(_ interactor: MainMenuInteractorProtocol, failedToLoadShopItemsWithError error: SessionError) {
+    func interactor(_ interactor: MainMenuInteractorProtocol, failedToLoadShopItemsWithError error: NetworkServiceError) {
         print(error)
     }
     
-    func interactor(_ interactor: MainMenuInteractorProtocol, failedToLoadMenuItemsWithError error: SessionError) {
+    func interactor(_ interactor: MainMenuInteractorProtocol, failedToLoadMenuItemsWithError error: NetworkServiceError) {
         view?.failureLoadingMenuItems(error)
     }
     
-    func interactor(_ interactor: MainMenuInteractorProtocol, failedToLoadUserInfoWithError error: SessionError) {
+    func interactor(_ interactor: MainMenuInteractorProtocol, failedToLoadUserInfoWithError error: NetworkServiceError) {
         print(error)
         switch error {
         case .invalidToken:

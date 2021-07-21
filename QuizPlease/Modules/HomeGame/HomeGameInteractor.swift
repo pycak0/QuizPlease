@@ -9,11 +9,11 @@
 import UIKit
 
 protocol HomeGameInteractorProtocol {
-    func loadHomeGames(completion: @escaping (Result<[HomeGame], SessionError>) -> Void)
+    func loadHomeGames(completion: @escaping (Result<[HomeGame], NetworkServiceError>) -> Void)
 }
 
 class HomeGameInteractor: HomeGameInteractorProtocol {
-    func loadHomeGames(completion: @escaping (Result<[HomeGame], SessionError>) -> Void) {
+    func loadHomeGames(completion: @escaping (Result<[HomeGame], NetworkServiceError>) -> Void) {
         NetworkService.shared.getHomeGames { (serverResult) in
             completion(serverResult)
         }

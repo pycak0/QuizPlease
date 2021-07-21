@@ -19,7 +19,7 @@ protocol ProfileInteractorProtocol {
 
 //MARK:- Delegate Protocol
 protocol ProfileInteractorDelegate: class {
-    func didFailLoadingUserInfo(with error: SessionError)
+    func didFailLoadingUserInfo(with error: NetworkServiceError)
     
     func didSuccessfullyLoadUserInfo(_ userInfo: UserInfo)
 }
