@@ -28,9 +28,14 @@ enum CertificateDiscountType {
 }
 
 struct CertificateResponse: Decodable {
-    var success: Bool
-    var message: String?
-    private var type: Int?
+    let isSuccess: Bool
+    let message: String?
+    private let type: Int?
+    
+    private enum CodingKeys: String, CodingKey {
+        case isSuccess = "success"
+        case message, type
+    }
 }
 
 extension CertificateResponse {

@@ -11,7 +11,7 @@
 		A405C98724F651C900C74787 /* MainMenuShopCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A405C98624F651C900C74787 /* MainMenuShopCollectionView.swift */; };
 		A40689F924F7D11A001273B2 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40689F824F7D11A001273B2 /* City.swift */; };
 		A40689FB24F7D86F001273B2 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40689FA24F7D86F001273B2 /* NetworkService.swift */; };
-		A40689FD24F7D913001273B2 /* SessionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40689FC24F7D913001273B2 /* SessionError.swift */; };
+		A40689FD24F7D913001273B2 /* NetworkServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40689FC24F7D913001273B2 /* NetworkServiceError.swift */; };
 		A40689FF24F7D94B001273B2 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40689FE24F7D94B001273B2 /* AppSettings.swift */; };
 		A4068A0124F7DAE2001273B2 /* ServerResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4068A0024F7DAE2001273B2 /* ServerResponse.swift */; };
 		A4068A0324F7DB3C001273B2 /* CityResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4068A0224F7DB3C001273B2 /* CityResponse.swift */; };
@@ -281,7 +281,7 @@
 		A405C98624F651C900C74787 /* MainMenuShopCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuShopCollectionView.swift; sourceTree = "<group>"; };
 		A40689F824F7D11A001273B2 /* City.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
 		A40689FA24F7D86F001273B2 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
-		A40689FC24F7D913001273B2 /* SessionError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionError.swift; sourceTree = "<group>"; };
+		A40689FC24F7D913001273B2 /* NetworkServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceError.swift; sourceTree = "<group>"; };
 		A40689FE24F7D94B001273B2 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		A4068A0024F7DAE2001273B2 /* ServerResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerResponse.swift; sourceTree = "<group>"; };
 		A4068A0224F7DB3C001273B2 /* CityResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityResponse.swift; sourceTree = "<group>"; };
@@ -782,8 +782,13 @@
 		A431772F267BEEDF0062E0E0 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
-				A4317730267BEEEE0062E0E0 /* SpecialCondition.swift */,
+				A44B2FD425841D9100B5B52C /* CertificateResponse.swift */,
 				A4088894267CC798005D0ED1 /* DiscountKind.swift */,
+				A47003CA253A53C1002E8EA2 /* GameOrderResponse.swift */,
+				A4FFA4B024F3BE2A006A1150 /* PaymentType.swift */,
+				A47E06D9261095EC008EBACE /* PromocodeResponse.swift */,
+				A4FFA4AE24F3BD73006A1150 /* RegisterForm.swift */,
+				A4317730267BEEEE0062E0E0 /* SpecialCondition.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -916,18 +921,6 @@
 				A45A072024FFED6D00137637 /* PickCityVC.swift */,
 			);
 			path = PickCity;
-			sourceTree = "<group>";
-		};
-		A48E2FAF2530DBFA00CD6BE6 /* GameOrder */ = {
-			isa = PBXGroup;
-			children = (
-				A4FFA4AE24F3BD73006A1150 /* RegisterForm.swift */,
-				A4FFA4B024F3BE2A006A1150 /* PaymentType.swift */,
-				A44B2FD425841D9100B5B52C /* CertificateResponse.swift */,
-				A47003CA253A53C1002E8EA2 /* GameOrderResponse.swift */,
-				A47E06D9261095EC008EBACE /* PromocodeResponse.swift */,
-			);
-			path = GameOrder;
 			sourceTree = "<group>";
 		};
 		A48E2FB12530DC2F00CD6BE6 /* UserInfo */ = {
@@ -1085,11 +1078,10 @@
 				A4B2C3E125013DC3008D5175 /* ScheduleFilters */,
 				A4B2C3E225013DD5008D5175 /* City */,
 				A472D29125288D4400AA9906 /* Auth */,
-				A48E2FAF2530DBFA00CD6BE6 /* GameOrder */,
 				A472D2A4252897BA00AA9906 /* CheckIn */,
 				A48E2FB12530DC2F00CD6BE6 /* UserInfo */,
 				A4068A0024F7DAE2001273B2 /* ServerResponse.swift */,
-				A40689FC24F7D913001273B2 /* SessionError.swift */,
+				A40689FC24F7D913001273B2 /* NetworkServiceError.swift */,
 				A471166C269DB61200F90099 /* MultipartFormDataObject.swift */,
 				A4147AD624E5B92D007C131F /* Place.swift */,
 				A46436E824EA7E590033F23A /* RatingItem.swift */,
@@ -1549,7 +1541,7 @@
 				A4FCBC28263C8F1A0048D382 /* ShopPurchaseResponse.swift in Sources */,
 				A4D0C2662684EBF60012E05C /* PointsDecorator.swift in Sources */,
 				A43DB6AF254770F8006E4569 /* ActivityIndicator+Extensions.swift in Sources */,
-				A40689FD24F7D913001273B2 /* SessionError.swift in Sources */,
+				A40689FD24F7D913001273B2 /* NetworkServiceError.swift in Sources */,
 				A45241E8265497370058285C /* AddGameResponse.swift in Sources */,
 				A4BB034C26820006005FE6D7 /* BigNumberDecorator.swift in Sources */,
 				A40D815C24D2C6C1006D2CE3 /* SceneDelegate.swift in Sources */,

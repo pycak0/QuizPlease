@@ -9,8 +9,8 @@
 import Foundation
 
 struct PromocodeResponse: Decodable {
-    var isSuccess: Bool
-    var message: String
+    let isSuccess: Bool
+    let message: String
     
     private enum CodingKeys: String, CodingKey {
         case isSuccess = "success"
