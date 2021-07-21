@@ -198,14 +198,26 @@ extension GameOrderVC: GameOrderViewProtocol {
     private func removeCertificateCell(at indexPath: IndexPath) {
         items.remove(at: indexPath.row)
         tableView.deleteRows(at: [indexPath], with: .fade)
-        //Also remove 'add' button if the only one certificate cell is left
-        let prevIndex = indexPath.row - 1
-        if let firstIndex = indexOfFirstCertificate,
-           prevIndex == firstIndex,
-           presenter.specialConditions[prevIndex - firstIndex].value?.isEmpty ?? true,
+        
+        // Also remove 'add' button if the only one certificate cell is left
+        updateUiOnCertificateTextChange(newCode: presenter.specialConditions.first?.value ?? "")
+    }
+    
+    func updateUiOnCertificateTextChange(newCode: String) {
+        let certificatesCount = items
+            .filter { $0 == .certificate }
+            .count
+        if newCode.isEmpty,
+           certificatesCount == 1,
            let index = items.firstIndex(of: .addExtraCertificate) {
             items.remove(at: index)
             tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .fade)
+        } else if !newCode.isEmpty,
+                  items.firstIndex(of: .addExtraCertificate) == nil,
+                  let i = items.lastIndex(of: .certificate) {
+            let index = i + 1
+            items.insert(.addExtraCertificate, at: index)
+            tableView.insertRows(at: [IndexPath(row: index, section: 0)], with: .fade)
         }
     }
 }
@@ -238,7 +250,7 @@ extension GameOrderVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        indexPath.row != indexOfFirstCertificate && items[indexPath.row] == .certificate
+        items[indexPath.row] == .certificate && presenter.specialConditions.count > 1
     }
 
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {

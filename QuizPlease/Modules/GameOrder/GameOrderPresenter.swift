@@ -165,8 +165,11 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
     }
     
     func didPressDeleteSpecialCondition(at index: Int) {
-        ///Should not remove the first certificate cell
-        guard index > 0 else { return }
+        guard
+            specialConditions.count > 1,
+            index >= specialConditions.startIndex,
+            index < specialConditions.endIndex
+        else { return }
         specialConditions.remove(at: index)
         view?.removeCertificateCell(at: index)
     }
