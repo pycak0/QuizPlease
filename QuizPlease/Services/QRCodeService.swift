@@ -9,15 +9,28 @@
 import UIKit
 import AVFoundation
 
-//MARK:- Delegate Protocol
-protocol QRCodeServiceResultsDelegate: class {
-    ///When the '`result`' is non-`nil`, `QRCodeService` is guaranteed to stop scan session
-    func didFinishCodeScanning(with result: String?)
+protocol QRCodeServiceProtocol {
+    var isFlashEnabled: Bool { get set }
     
-    func didFailToSetupCaptureSession(with error: QRCodeService.CaptureSessionError)
+    ///- parameter delegate: Must be an `unonwed let` property
+    init(delegate: QRCodeServiceResultsDelegate)
+    
+    ///This method creates a camera preview layer and configures capture session for scanning QR codes
+    ///
+    ///Call can throw if the device does not have a camera
+    func makePreviewLayer(frame: CGRect) throws -> CALayer
+    
+    func startCaptureSession()
+    func stopCaptureSession()
 }
 
-class QRCodeService: NSObject {
+//MARK:- Delegate Protocol
+protocol QRCodeServiceResultsDelegate: AnyObject {
+    ///When the '`result`' is non-`nil`, `QRCodeService` is guaranteed to stop scan session
+    func didFinishCodeScanning(with result: String?)
+}
+
+class QRCodeService: NSObject, QRCodeServiceProtocol {
     
     //MARK:- Session Error
     enum CaptureSessionError: Error {
@@ -32,13 +45,35 @@ class QRCodeService: NSObject {
             }
         }
     }
-    
-    static let shared = QRCodeService()
-    
-    private weak var delegate: QRCodeServiceResultsDelegate?
+        
     private var captureSession: AVCaptureSession?
+    private var captureDevice: AVCaptureDevice? = AVCaptureDevice.default(for: .video)
     
-    ///Explicitly stop capture session if needed
+    unowned let delegate: QRCodeServiceResultsDelegate
+
+    //MARK:- Camera Flash
+    var isFlashEnabled = false {
+        didSet {
+            guard captureDevice?.isTorchAvailable ?? false else { return }
+            do {
+                try captureDevice?.lockForConfiguration()
+                captureDevice?.torchMode = isFlashEnabled ? .on : .off
+            } catch {
+                print(error)
+            }
+        }
+    }
+    
+    required init(delegate: QRCodeServiceResultsDelegate) {
+        self.delegate = delegate
+    }
+    
+    ///To start scanning QR codes, you should call this method
+    func startCaptureSession() {
+        captureSession?.startRunning()
+    }
+
+    ///Capture Session automatically stops and calls delegate method when found something, but you can explicitly stop capture session if needed
     func stopCaptureSession() {
         if let session = captureSession, session.isRunning {
             session.stopRunning()
@@ -46,68 +81,51 @@ class QRCodeService: NSObject {
     }
     
     //MARK:- Setup QR Scanner
-    ///This method is much easier in use than the `setupCaptureSessionConfiguration`
-    func setupQrScanner(in view: UIView, resultsDelegate: QRCodeServiceResultsDelegate) {
-        delegate = resultsDelegate
-        setupCaptureSessionConfiguration(self, previewLayerFrame: view.bounds) { (captureSession, previewLayer, error) in
-            if let error = error {
-                resultsDelegate.didFailToSetupCaptureSession(with: error)
-                return
-            }
-            self.captureSession = captureSession
-            view.layer.insertSublayer(previewLayer!, at: 0)
-            captureSession?.startRunning()
-        }
+    ///This method typically throws if the device does not have a camera
+    func makePreviewLayer(frame: CGRect) throws -> CALayer {
+        return try setupCaptureSessionConfiguration(
+            metadataOutputDelegate: self,
+            previewLayerFrame: frame
+        )
     }
     
-    
     //MARK:- Capture Session Configuration
-    private func setupCaptureSessionConfiguration(_ delegate: AVCaptureMetadataOutputObjectsDelegate?,
-                                          previewLayerFrame: CGRect,
-                                          handler: (_ captureSession: AVCaptureSession?, _ previewLayer: AVCaptureVideoPreviewLayer?, _ error: CaptureSessionError?) -> Void)
-    {
+    ///This method can throw if
+    private func setupCaptureSessionConfiguration(
+        metadataOutputDelegate delegate: AVCaptureMetadataOutputObjectsDelegate,
+        previewLayerFrame: CGRect
+    ) throws -> AVCaptureVideoPreviewLayer {
         let captureSession = AVCaptureSession()
 
-        guard let videoCaptureDevice = AVCaptureDevice.default(for: .video)
-        else {
-            handler(nil, nil, .notSupported)
-            return
+        guard let videoCaptureDevice = captureDevice else {
+            throw CaptureSessionError.notSupported
         }
         
-        let videoInput: AVCaptureDeviceInput
-
-        do {
-            videoInput = try AVCaptureDeviceInput(device: videoCaptureDevice)
-        } catch {
-            handler(nil, nil, .notSupported)
-            return
-        }
+        let videoInput = try AVCaptureDeviceInput(device: videoCaptureDevice)
 
         if captureSession.canAddInput(videoInput) {
             captureSession.addInput(videoInput)
         } else {
-            handler(nil, nil, .notSupported)
-            return
+            throw CaptureSessionError.notSupported
         }
 
         let metadataOutput = AVCaptureMetadataOutput()
 
         if captureSession.canAddOutput(metadataOutput) {
             captureSession.addOutput(metadataOutput)
-
             metadataOutput.setMetadataObjectsDelegate(delegate, queue: .main)
             metadataOutput.metadataObjectTypes = [.qr]
         } else {
-            handler(nil, nil, .notSupported)
-            return
+            throw CaptureSessionError.notSupported
         }
+        
+        self.captureSession = captureSession
 
         let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
         previewLayer.frame = previewLayerFrame
         previewLayer.videoGravity = .resizeAspectFill
         
-        handler(captureSession, previewLayer, nil)
-        
+        return previewLayer
     }
 }
 
@@ -119,13 +137,12 @@ extension QRCodeService: AVCaptureMetadataOutputObjectsDelegate {
             let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject,
             let stringValue = readableObject.stringValue
         else {
-            delegate?.didFinishCodeScanning(with: nil)
+            delegate.didFinishCodeScanning(with: nil)
             return
         }
         AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
         
         captureSession?.stopRunning()
-        delegate?.didFinishCodeScanning(with: stringValue)
-        
+        delegate.didFinishCodeScanning(with: stringValue)
     }
 }

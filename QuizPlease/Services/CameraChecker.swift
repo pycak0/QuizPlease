@@ -11,30 +11,33 @@ import AVKit
 class CameraChecker {
     private init() {}
     
-    //MARK:- Check Camera Access
     /**
      - Parameters:
-         - vc: View Controller where alerts will be presented;
+         - presentationController: View Controller where alerts will be presented
          - completion: action to do if access is granted
-    **/
-    static func checkCameraAccess(vc: UIViewController, grantedCompletion: @escaping (() -> Void),
-                                  deniedAlertOkButtonHandler: ((UIAlertAction) -> Void)? = nil) {
+    */
+    static func checkCameraAccess(
+        presentationController: UIViewController,
+        completion: @escaping (_ isGranted: Bool) -> Void
+    ) {
         switch AVCaptureDevice.authorizationStatus(for: .video) {
         case .authorized:
-            grantedCompletion()
+            completion(true)
         case .notDetermined:
-            AVCaptureDevice.requestAccess(for: .video) { (granted) in
+            AVCaptureDevice.requestAccess(for: .video) { (isGranted) in
                 DispatchQueue.main.async {
-                    if granted {
-                        grantedCompletion()
-                    } else {
-                        //
-                    }
+                    completion(isGranted)
                 }
             }
         default:
-            let alert = UIAlertController(title: "Нет доступа к камере для сканирования QR", message: "Разрешить доступ к Камере можно в \"Настройках\"", preferredStyle: .alert)
-            let okBtn = UIAlertAction(title: "ОК", style: .default, handler: deniedAlertOkButtonHandler)
+            let alert = UIAlertController(
+                title: "Нет доступа к камере для сканирования QR",
+                message: "Разрешить доступ к Камере можно в \"Настройках\"",
+                preferredStyle: .alert
+            )
+            let okBtn = UIAlertAction(title: "ОК", style: .default) { _ in
+                completion(false)
+            }
             let settingsBtn = UIAlertAction(title: "Настройки", style: .cancel) { (action) in
                 if let url = URL(string: UIApplication.openSettingsURLString) {
                     UIApplication.shared.open(url)
@@ -43,7 +46,7 @@ class CameraChecker {
             alert.addAction(okBtn)
             alert.addAction(settingsBtn)
             //alert.view.tintColor = .labelAdapted
-            vc.present(alert, animated: true)
+            presentationController.present(alert, animated: true)
         }
     }
 }
