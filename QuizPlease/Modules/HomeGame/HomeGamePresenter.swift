@@ -13,7 +13,7 @@ protocol HomeGamePresenterProtocol {
     var games: [HomeGame] { get set }
     init(view: HomeGameViewProtocol, interactor: HomeGameInteractorProtocol, router: HomeGameRouterProtocol)
     
-    func configureViews()
+    func viewDidLoad(_ view: HomeGameViewProtocol)
     func didSelectHomeGame(at index: Int)
 }
 
@@ -30,10 +30,9 @@ class HomeGamePresenter: HomeGamePresenterProtocol {
         self.interactor = interactor
     }
     
-    func configureViews() {
-        view?.congigureCollectionView()
-        
-        interactor.loadHomeGames { (result) in
+    func viewDidLoad(_ view: HomeGameViewProtocol) {
+        interactor.loadHomeGames { [weak self] (result) in
+            guard let self = self else { return }
             switch result {
             case .failure(let error):
                 print(error)

@@ -95,7 +95,7 @@ class ProfilePresenter: ProfilePresenterProtocol {
 
 //MARK:- Interactor Delegate
 extension ProfilePresenter: ProfileInteractorDelegate {
-    func didFailLoadingUserInfo(with error: SessionError) {
+    func didFailLoadingUserInfo(with error: NetworkServiceError) {
         view?.showErrorConnectingToServerAlert()
     }
     

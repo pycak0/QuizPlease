@@ -10,16 +10,12 @@ import Foundation
 
 extension String {
     //MARK:- Mobile Phone
-    ///A phone string may have only '`+`' sign and whole digits to pass the validating and must be 11 or 12 characters length (depending on the existence of `+` sign)
+    ///A phone string may have only '`+`' sign in the start and contain only whole digits to pass this validating. Amount of digits is ignored.
     var isValidMobilePhone: Bool {
         var str = self
         if str.hasPrefix("+") {
             str.remove(at: str.startIndex)
         }
-        if str.count != 11 {
-            return false
-        }
-        
         return str.allSatisfy { $0.isWholeNumber }
     }
     

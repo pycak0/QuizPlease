@@ -91,7 +91,7 @@ extension GameCertificateCell: TitledTextFieldViewDelegate {
         _delegate?.certificateCellDidEndEditing(self)
     }
     
-    func textFieldView(_ textFieldView: TitledTextFieldView, didChangeTextField text: String, didCompleteMask isComplete: Bool) {
+    func textFieldView(_ textFieldView: TitledTextFieldView, didChangeTextField text: String) {
         _delegate?.certificateCell(self, didChangeCertificateCode: text)
     }
 }

@@ -72,6 +72,7 @@ class PickCityVC: UITableViewController {
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Введите город"
         searchController.searchBar.autocorrectionType = .yes
+        searchController.searchBar.tintColor = .labelAdapted
         
         navigationItem.searchController = searchController
         definesPresentationContext = true

@@ -25,7 +25,11 @@ class SplashScreenPresenter: SplashScreenPresenterProtocol {
 
     private let timeout = 0.5
     
-    required init(view: SplashScreenViewProtocol, interactor: SplashScreenInteractorProtocol, router: SplashScreenRouterProtocol) {
+    required init(
+        view: SplashScreenViewProtocol,
+        interactor: SplashScreenInteractorProtocol,
+        router: SplashScreenRouterProtocol
+    ) {
         self.view = view
         self.interactor = interactor
         self.router = router
@@ -60,7 +64,7 @@ extension SplashScreenPresenter: SplashScreenInteractorOutput {
         interactor.updateClientSettings()
     }
     
-    func interactor(_ interactor: SplashScreenInteractorProtocol, errorOccured error: SessionError) {
+    func interactor(_ interactor: SplashScreenInteractorProtocol, errorOccured error: NetworkServiceError) {
         dispatchGroup.leave()
         print(error)
     }

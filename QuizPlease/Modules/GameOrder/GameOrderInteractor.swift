@@ -7,66 +7,65 @@
 //
 
 import Foundation
-import SafariServices
+import YooKassaPayments
 
 //MARK:- Interactor Protocol
 protocol GameOrderInteractorProtocol {
     ///must be weak
     var output: GameOrderInteractorOutput? { get }
     
-    func register(with form: RegisterForm, specialConditions: [SpecialCondition], completion: @escaping (_ orderResponse: GameOrderResponse?) -> Void)
-    
-    func checkCertificate(forGameId id: Int, certificate: String, completion: @escaping (Result<CertificateResponse, SessionError>) -> Void)
-    func checkPromocode(_ promocode: String, teamName: String, forGameWithId id: Int)
+    func register(with form: RegisterForm, specialConditions: [SpecialCondition], paymentMethod: PaymentMethodType?)
     func checkSpecialCondition(_ value: String, forGameWithId id: Int, selectedTeamName name: String)
 }
 
 //MARK:- Output Protocol
 protocol GameOrderInteractorOutput: AnyObject {
-    func interactor(_ interactor: GameOrderInteractorProtocol?, didCheckPromocodeWith response: PromocodeResponse)
-    func interactor(_ interactor: GameOrderInteractorProtocol?, errorOccured error: SessionError)
-    
+    func interactor(_ interactor: GameOrderInteractorProtocol?, errorOccured error: NetworkServiceError)
     func interactor(_ interactor: GameOrderInteractorProtocol?, didCheckSpecialCondition value: String, with response: SpecialCondition.Response)
+    func interactor(_ interactor: GameOrderInteractorProtocol?, didRegisterWithResponse: GameOrderResponse, paymentMethod: PaymentMethodType?)
 }
 
 //MARK:- Implementation
 class GameOrderInteractor: GameOrderInteractorProtocol {
     weak var output: GameOrderInteractorOutput?
     
-    func register(with form: RegisterForm, specialConditions: [SpecialCondition], completion: @escaping (_ orderResponse: GameOrderResponse?) -> Void) {
-        let certs = specialConditions
+    func register(with registerForm: RegisterForm, specialConditions: [SpecialCondition], paymentMethod: PaymentMethodType?) {
+        let certificates: [MultipartFormDataObject] = specialConditions
+            .lazy
             .filter { $0.discountInfo?.kind == .certificate }
-            .compactMap { $0.value }
-        let promo = specialConditions.first(where: { $0.discountInfo?.kind == .promocode })?.value
-        NetworkService.shared.registerOnGame(registerForm: form, certificates: certs, promocode: promo) { serverResponse in
-            switch serverResponse {
-            case let .failure(error):
-                print(error)
-                completion(nil)
-            case let .success(response):
-                completion(response)
-            }
-        }
-    }
-    
-    func checkCertificate(forGameId id: Int, certificate: String, completion: @escaping (Result<CertificateResponse, SessionError>) -> Void) {
-        NetworkService.shared.validateCertificate(forGameWithId: id, certificate: certificate, completion: completion)
-    }
-    
-    func checkPromocode(_ promocode: String, teamName: String, forGameWithId id: Int) {
-        let path = "/ajax/check-promo"
-        let params = [
-            "game_id": "\(id)",
-            "code": promocode,
-            "name": teamName
+            .compactMap { MultipartFormDataObject(name: "certificates[]", optionalStringData: $0.value) }
+
+        let promocode = specialConditions.first(where: { $0.discountInfo?.kind == .promocode })?.value
+        
+        let params: [String: String?] = [
+            "QpRecord[registration_type]":  "2", //2 - регистрация через мобильное приложение
+            "QpRecord[captainName]":        registerForm.captainName,
+            "QpRecord[email]":              registerForm.email,
+            "QpRecord[phone]":              registerForm.phone,
+            "QpRecord[comment]":            registerForm.comment ?? "",
+            "QpRecord[game_id]":            "\(registerForm.gameId)",
+            "QpRecord[first_time]":         registerForm.isFirstTime ? "1" : "0",
+            "QpRecord[payment_type]":       "\(registerForm.paymentType.rawValue)",
+            "QpRecord[count]":              "\(registerForm.count)",
+            "QpRecord[teamName]":           registerForm.teamName,
+            "QpRecord[payment_token]":      registerForm.paymentToken,
+            "QpRecord[surcharge]":          registerForm.countPaidOnline.map { "\($0)" },
+            "promo_code":                   promocode
         ]
-        NetworkService.shared.get(PromocodeResponse.self, apiPath: path, parameters: params) { [weak self] result in
+        
+        let formData: [MultipartFormDataObject] = certificates + MultipartFormDataObjects(params)
+
+        NetworkService.shared.afPost(
+            with: formData,
+            to: "/ajax/save-record",
+            responseType: GameOrderResponse.self
+        ) { [weak self] serverResult in
             guard let self = self else { return }
-            switch result {
+            switch serverResult {
             case let .failure(error):
                 self.output?.interactor(self, errorOccured: error)
             case let .success(response):
-                self.output?.interactor(self, didCheckPromocodeWith: response)
+                self.output?.interactor(self, didRegisterWithResponse: response, paymentMethod: paymentMethod)
             }
         }
     }

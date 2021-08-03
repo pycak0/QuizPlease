@@ -1,5 +1,5 @@
 //
-//  SessionError.swift
+//  NetworkServiceError.swift
 //  QuizPlease
 //
 //  Created by Владислав on 27.08.2020.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum SessionError: Error {
+enum NetworkServiceError: Error {
     case invalidUrl, jsonError, encodingError, invalidToken
     case serverError(_ statusCode: Int)
     case decoding(Error)

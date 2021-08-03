@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RatingCell: UITableViewCell, TableCellProtocol {
+class RatingCell: UITableViewCell, IdentifiableType {
     static let identifier = "RatingCell"
     
     @IBOutlet weak var teamNameLabel: UILabel!

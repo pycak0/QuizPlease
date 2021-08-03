@@ -9,13 +9,17 @@
 import UIKit
 import InputMask
 
-protocol NotifyingMaskedTextFieldDelegateListener: AnyObject {
+protocol MaskedTextFieldDelegateEditingListener: AnyObject {
     func onEditingChanged(in textField: UITextField)
+}
+
+protocol MaskedTextFieldDelegateEndEditingListener: AnyObject {
     func onEndEditing(in textField: UITextField)
 }
 
 class NotifyingMaskedTextFieldDelegate: MaskedTextFieldDelegate {
-    weak var editingListener: NotifyingMaskedTextFieldDelegateListener?
+    weak var editingListener: MaskedTextFieldDelegateEditingListener?
+    weak var endEditingListener: MaskedTextFieldDelegateEndEditingListener?
     
     override func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         defer { self.editingListener?.onEditingChanged(in: textField) }
@@ -23,7 +27,7 @@ class NotifyingMaskedTextFieldDelegate: MaskedTextFieldDelegate {
     }
     
     override func textFieldDidEndEditing(_ textField: UITextField) {
-        defer { self.editingListener?.onEndEditing(in: textField) }
+        defer { self.endEditingListener?.onEndEditing(in: textField) }
         return super.textFieldDidEndEditing(textField)
     }
 }
@@ -32,17 +36,21 @@ class NotifyingMaskedTextFieldDelegate: MaskedTextFieldDelegate {
 class MaskedTextFieldView: TitledTextFieldView {
     static let noMask = "[…]"
     
-    private let listener = NotifyingMaskedTextFieldDelegate()
+    private let maskDelegate = NotifyingMaskedTextFieldDelegate()
     
     ///Make sure that mask satisfies the syntax described here:
     ///https://github.com/RedMadRobot/input-mask-ios/wiki/1.-Mask-Syntax
     @IBInspectable
     var inputMask: String = MaskedTextFieldView.noMask {
         didSet {
-            listener.primaryMaskFormat = inputMask
+            maskDelegate.primaryMaskFormat = inputMask
             checkListener()
         }
     }
+    
+    lazy var isMaskComplete: Bool = {
+        inputMask == Self.noMask
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -56,36 +64,39 @@ class MaskedTextFieldView: TitledTextFieldView {
     
     //MARK:- Configure
     private func configure() {
-        textField.delegate = listener
-        if inputMask != listener.primaryMaskFormat {
-            listener.primaryMaskFormat = inputMask
+        textField.delegate = maskDelegate
+        maskDelegate.endEditingListener = self
+        if inputMask != maskDelegate.primaryMaskFormat {
+            maskDelegate.primaryMaskFormat = inputMask
         }
         checkListener()
     }
     
     private func checkListener() {
-        if listener.primaryMaskFormat == Self.noMask {
-            listener.editingListener = self
-            listener.listener = nil
+        if maskDelegate.primaryMaskFormat == Self.noMask {
+            maskDelegate.editingListener = self
+            maskDelegate.listener = nil
         } else {
-            listener.editingListener = nil
-            listener.listener = self
+            maskDelegate.editingListener = nil
+            maskDelegate.listener = self
         }
     }
 }
 
 //MARK:- MaskedTextFieldDelegateListener
-extension MaskedTextFieldView: MaskedTextFieldDelegateListener, NotifyingMaskedTextFieldDelegateListener {
+extension MaskedTextFieldView: MaskedTextFieldDelegateListener, MaskedTextFieldDelegateEditingListener, MaskedTextFieldDelegateEndEditingListener {
     func onEndEditing(in textField: UITextField) {
-        delegate?.textFieldViewDidEndEditing(self)
+        /// must call `super.textFieldDidEndEditing(_:)` to preserve correct behavior
+        super.textFieldDidEndEditing(textField)
     }
     
     func onEditingChanged(in textField: UITextField) {
         guard inputMask == Self.noMask else { return }
-        delegate?.textFieldView(self, didChangeTextField: textField.text ?? "", didCompleteMask: true)
+        delegate?.textFieldView(self, didChangeTextField: textField.text ?? "")
     }
     
-    func textField(_ textField: UITextField, didFillMandatoryCharacters complete: Bool, didExtractValue value: String) {
-        delegate?.textFieldView(self, didChangeTextField: value, didCompleteMask: complete)
+    func textField(_ textField: UITextField, didFillMandatoryCharacters isComplete: Bool, didExtractValue value: String) {
+        isMaskComplete = isComplete
+        delegate?.textFieldView(self, didChangeTextField: value)
     }
 }

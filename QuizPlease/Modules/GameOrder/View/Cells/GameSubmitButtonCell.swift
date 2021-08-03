@@ -8,14 +8,14 @@
 
 import UIKit
 
-protocol GameSubmitButtonCellDelegate: class {
+protocol GameSubmitButtonCellDelegate: AnyObject {
     func submitButtonCell(_ cell: GameSubmitButtonCell, didPressSubmitButton button: UIButton)
     
     func titleForButton(in cell: GameSubmitButtonCell) -> String?
 }
 
 class GameSubmitButtonCell: UITableViewCell, GameOrderCellProtocol {
-    static let identifier = "GameSubmitButtonCell"
+    static let identifier = "\(GameSubmitButtonCell.self)"
     
     @IBOutlet weak var submitButton: ScalingButton!
     @IBOutlet private weak var termsLabel: UILabel!
@@ -26,16 +26,20 @@ class GameSubmitButtonCell: UITableViewCell, GameOrderCellProtocol {
     }
     private weak var _delegate: GameSubmitButtonCellDelegate? {
         didSet {
-            updateTitle(with: _delegate?.titleForButton(in: self))
+            setButtonTitle(_delegate?.titleForButton(in: self))
         }
     }
     
-    @IBAction func submitButtonPressed(_ sender: UIButton) {
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        setButtonTitle(_delegate?.titleForButton(in: self))
+    }
+    
+    @IBAction private func submitButtonPressed(_ sender: UIButton) {
         _delegate?.submitButtonCell(self, didPressSubmitButton: sender)
     }
     
-    func updateTitle(with newTitle: String?) {
+    func setButtonTitle(_ newTitle: String?) {
         submitButton.setTitle(newTitle, for: .normal)
     }
-    
 }

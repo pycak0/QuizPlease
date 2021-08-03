@@ -10,10 +10,12 @@ import UIKit
 
 public protocol FontStyle: RawRepresentable {
     var fileName: String { get }
+    func font(size: CGFloat) -> UIFont
 }
 
 public extension FontStyle {
     var fileName: String { "\(Self.self)-\(rawValue)" }
+    func font(size: CGFloat) -> UIFont { UIFont(name: fileName, size: size)! }
 }
 
 public enum FontSet {
@@ -27,10 +29,10 @@ public enum FontSet {
 
 public extension UIFont {
     class func customFont<Font: FontStyle>(of style: Font, size: CGFloat) -> UIFont {
-        UIFont(name: style.fileName, size: size)!
+        style.font(size: size)
     }
     
     class func gilroy(_ style: FontSet.Gilroy, size: CGFloat) -> UIFont {
-        UIFont(name: style.fileName, size: size)!
+        customFont(of: style, size: size)
     }
 }

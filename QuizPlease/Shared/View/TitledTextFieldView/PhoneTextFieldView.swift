@@ -23,11 +23,23 @@ class PhoneTextFieldView: TitledTextFieldView {
         textField.withFlag = true
         textField.withPrefix = true
         textField.withExamplePlaceholder = true
+        textField.withDefaultPickerUI = true
         return textField
     }()
     
     ///This property defines the way how does delegate method `textFieldView(_:didChangeTextField:didCompleteMask:)` return the '`didChangeTextField`' text parameter
     var formattingKind: NumberFormattingKind = .international
+    
+    ///Extracts phone number from `PhoneNumberTextField` using format specified in `formattingKind` property
+    var extractedFormattedNumber: String {
+        switch formattingKind {
+        case .national:
+            return phoneTextField.nationalNumber
+        case .international:
+            guard let number = phoneTextField.phoneNumber else { return phoneTextField.text ?? "" }
+            return "+\(number.countryCode)\(number.nationalNumber)"
+        }
+    }
     
     var isPhoneMaskEnabled: Bool {
         get { phoneTextField.isPartialFormatterEnabled }
@@ -38,6 +50,8 @@ class PhoneTextFieldView: TitledTextFieldView {
             phoneTextField.withExamplePlaceholder = newValue
         }
     }
+    
+    var isValidNumber: Bool { phoneTextField.isValidNumber }
     
     override var textField: UITextField {
         get { phoneTextField } set {}
@@ -52,19 +66,11 @@ class PhoneTextFieldView: TitledTextFieldView {
     }
     
     override func textFieldDidChange(_ textField: UITextField) {
-        let text: String = {
-            switch formattingKind {
-            case .national:
-                return phoneTextField.nationalNumber
-            case .international:
-                guard let number = phoneTextField.phoneNumber else { return phoneTextField.text ?? "" }
-                return "+\(number.countryCode)\(number.nationalNumber)"
-            }
-        }()
-        delegate?.textFieldView(self, didChangeTextField: text, didCompleteMask: phoneTextField.isValidNumber)
+        delegate?.textFieldView(self, didChangeTextField: extractedFormattedNumber)
     }
     
     override func textFieldDidEndEditing(_ textField: UITextField) {
-        delegate?.textFieldViewDidEndEditing(self)
+        ///must call `super.textFieldDidEndEditing(_:)` to preserve correct behavior
+        super.textFieldDidEndEditing(textField)
     }
 }

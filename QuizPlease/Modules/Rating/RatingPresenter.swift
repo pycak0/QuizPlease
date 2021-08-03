@@ -149,7 +149,7 @@ class RatingPresenter: RatingPresenterProtocol {
 
 //MARK:- RatingInteractorOutput
 extension RatingPresenter: RatingInteractorOutput {
-    func interactor(_ interactor: RatingInteractorProtocol, errorOccured error: SessionError) {
+    func interactor(_ interactor: RatingInteractorProtocol, errorOccured error: NetworkServiceError) {
         print(error)
         switch error {
         case let .other(otherError):

@@ -91,13 +91,13 @@ class GameRegisterCell: UITableViewCell, GameOrderCellProtocol {
 //MARK:- TitledTextFieldViewDelegate
 extension GameRegisterCell: TitledTextFieldViewDelegate {
     func textFieldViewDidEndEditing(_ textFieldView: TitledTextFieldView) {
-        
+        self.textFieldView(textFieldView, didChangeTextField: textFieldView.textField.text ?? "")
     }
     
-    func textFieldView(_ textFieldView: TitledTextFieldView, didChangeTextField text: String, didCompleteMask isComplete: Bool) {
+    func textFieldView(_ textFieldView: TitledTextFieldView, didChangeTextField text: String) {
         switch textFieldView {
         case phoneFieldView:
-            _delegate?.registerCell(self, didChangePhone: text, didCompleteMask: isComplete)
+            _delegate?.registerCell(self, didChangePhone: phoneFieldView.extractedFormattedNumber, didCompleteMask: phoneFieldView.isValidNumber)
         case teamNameFieldView:
             _delegate?.registerCell(self, didChangeTeamName: text)
         case emailFieldView:

@@ -24,9 +24,9 @@ protocol MainMenuInteractorOutput: AnyObject {
     func interactor(_ interactor: MainMenuInteractorProtocol, didLoadMenuItems: [MainMenuItemProtocol])
     func interactor(_ interactor: MainMenuInteractorProtocol, didLoadUserInfo userInfo: UserInfo)
     func interactor(_ interactor: MainMenuInteractorProtocol, didLoadShopItems: [ShopItem])
-    func interactor(_ interactor: MainMenuInteractorProtocol, failedToLoadShopItemsWithError error: SessionError)
-    func interactor(_ interactor: MainMenuInteractorProtocol, failedToLoadMenuItemsWithError error: SessionError)
-    func interactor(_ interactor: MainMenuInteractorProtocol, failedToLoadUserInfoWithError error: SessionError)
+    func interactor(_ interactor: MainMenuInteractorProtocol, failedToLoadShopItemsWithError error: NetworkServiceError)
+    func interactor(_ interactor: MainMenuInteractorProtocol, failedToLoadMenuItemsWithError error: NetworkServiceError)
+    func interactor(_ interactor: MainMenuInteractorProtocol, failedToLoadUserInfoWithError error: NetworkServiceError)
 }
 
 class MainMenuInteractor: MainMenuInteractorProtocol {

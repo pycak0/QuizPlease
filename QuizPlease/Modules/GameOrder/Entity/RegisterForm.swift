@@ -19,14 +19,15 @@ struct RegisterForm: Encodable {
     var isFirstTime: Bool = false
     var comment: String?
     var paymentType: PaymentType = .online
-    
     var paymentToken: String?
-    
 }
 
 extension RegisterForm {
     var isValid: Bool {
-        return gameId >= 0 && email.isValidEmail && phone.isValidMobilePhone &&
-            !teamName.isEmpty && !captainName.isEmpty
+        return gameId >= 0
+            && email.isValidEmail
+            && phone.isValidMobilePhone
+            && !teamName.isEmpty
+            && !captainName.isEmpty
     }
 }

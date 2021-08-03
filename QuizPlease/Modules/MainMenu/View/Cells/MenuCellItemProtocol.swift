@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol MenuCellItemProtocol: TableCellProtocol {
+protocol MenuCellItemProtocol: UITableViewCell, IdentifiableType {
     var cellViewCornerRadius: CGFloat { get }
     
     var cellView: UIView! { get set }
@@ -20,11 +20,8 @@ protocol MenuCellItemProtocol: TableCellProtocol {
     
     ///Should be called inside `tableView(_:cellForRowAt)` method
     func configureCell(with model: MainMenuItemProtocol)
-    
 }
 
 extension MenuCellItemProtocol {
-    var cellViewCornerRadius: CGFloat {
-        25
-    }
+    var cellViewCornerRadius: CGFloat { 25 }
 }

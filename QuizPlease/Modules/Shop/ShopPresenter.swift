@@ -44,7 +44,6 @@ class ShopPresenter: ShopPresenterProtocol {
     
     //MARK:- Setup View
     func viewDidLoad(_ view: ShopViewProtocol) {
-        view.configure()
         reloadItems()
         view.startLoading()
 

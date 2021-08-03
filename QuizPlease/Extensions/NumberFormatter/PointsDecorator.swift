@@ -11,11 +11,16 @@ import Foundation
 class PointsDecorator: NumberDecorator {
     override func string(from number: NSNumber) -> String? {
         let number = number.doubleValue
+        let formattedNumber = super.string(from: number as NSNumber) ?? "N/A"
+        let suffix = makeSuffix(for: number)
+        return "\(formattedNumber) \(suffix)"
+    }
+    
+    private func makeSuffix(for number: Double) -> String {
         if number.truncatingRemainder(dividingBy: 1) == 0 {
-            return Int(number).string(withAssociatedMaleWord: "балл")
+            return "балл".changingAs(maleWordUsedWithNumber: Int(number))
         }
-        let formatted = super.string(from: number as NSNumber) ?? "N/A"
-        return "\(formatted) баллов"
+        return "баллов"
     }
     
     override func number(from string: String) -> NSNumber? {

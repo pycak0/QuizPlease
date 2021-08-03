@@ -58,7 +58,7 @@ class Utilities {
         }
     }
     
-    func fetchClientSettings(completion: ((Result<ClientSettings, SessionError>) -> Void)? = nil) {
+    func fetchClientSettings(completion: ((Result<ClientSettings, NetworkServiceError>) -> Void)? = nil) {
         NetworkService.shared.getSettings(cityId: AppSettings.defaultCity.id) { (result) in
             switch result {
             case let .failure(error):

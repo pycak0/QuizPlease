@@ -16,7 +16,7 @@ protocol RatingInteractorProtocol {
 }
 
 protocol RatingInteractorOutput: AnyObject {
-    func interactor(_ interactor: RatingInteractorProtocol, errorOccured error: SessionError)
+    func interactor(_ interactor: RatingInteractorProtocol, errorOccured error: NetworkServiceError)
     func interactor(_ interactor: RatingInteractorProtocol, didLoadRatingItems ratingItems: [RatingItem])
 }
 

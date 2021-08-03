@@ -8,38 +8,44 @@
 
 import UIKit
 
-class ProfileCell: UITableViewCell, TableCellProtocol {
-    static let identifier = "ProfileCell"
+class ProfileCell: UITableViewCell, IdentifiableType {
+    static let identifier = "\(ProfileCell.self)"
     
-    @IBOutlet weak var cellView: UIView!
     @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var gameNameLabel: UILabel!
     @IBOutlet weak var gameNumberLabel: UILabel!
     @IBOutlet weak var prizeImageView: UIImageView!
     @IBOutlet weak var placeLabel: UILabel!
     @IBOutlet weak var teamNameLabel: UILabel!
-    @IBOutlet weak var pointsScoredLabel: UILabel!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        configureCell()
+    @IBOutlet weak var pointsScoredLabel: PaddingLabel!
+    @IBOutlet weak var cellView: UIView! {
+        didSet {
+            cellView.layer.cornerRadius = 20
+            cellView.layer.borderWidth = 4
+            cellView.layer.borderColor = UIColor.systemGray6Adapted.cgColor
+        }
     }
     
-    private func configureCell() {
-        cellView.layer.cornerRadius = 20
-        cellView.layer.borderWidth = 4
-        cellView.layer.borderColor = UIColor.themeGray.cgColor
+    override func layoutSubviews() {
+        super.layoutSubviews()
         pointsScoredLabel.layer.cornerRadius = pointsScoredLabel.bounds.height / 2
+        cellView.layer.borderColor = UIColor.systemGray6Adapted.cgColor
     }
     
-    func configure(gameName: String, gameNumber: String, teamName: String, place: String?, pointsScored: Int?) {
+    func configure(
+        gameName: String,
+        gameNumber: String,
+        teamName: String,
+        place: String?,
+        pointsScoredText: String?
+    ) {
         gameNameLabel.text = gameName
         gameNumberLabel.text = gameNumber
         teamNameLabel.text = teamName
         
-        pointsScoredLabel.isHidden = pointsScored == nil
-        if let points = pointsScored {
-            pointsScoredLabel.text = "+ \(points.string(withAssociatedMaleWord: "балл"))"
+        pointsScoredLabel.isHidden = pointsScoredText == nil
+        if let text = pointsScoredText {
+            pointsScoredLabel.text = text
         }
         
         if let placeStr = place {
@@ -50,8 +56,5 @@ class ProfileCell: UITableViewCell, TableCellProtocol {
             placeLabel.isHidden = true 
             prizeImageView.isHidden = true
         }
-        
     }
-
-    
 }

@@ -10,6 +10,8 @@ import UIKit
 import IQKeyboardManagerSwift
 import Firebase
 import UserNotificationsUI
+import YooKassaPayments
+import PhoneNumberKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate {
@@ -33,6 +35,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate {
         application.registerForRemoteNotifications()
         
         IQKeyboardManager.shared.enable = true
+        PhoneNumberKit.CountryCodePicker.forceModalPresentation = true
+        PhoneNumberKit.CountryCodePicker.commonCountryCodes = []
         
         return true
     }
@@ -63,10 +67,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate {
         print("Registration Token: \(fcmToken)")
         //let savedToken = DefaultsManager.shared.getFcmToken() ?? ""
         //if savedToken != fcmToken {
+        #if !targetEnvironment(simulator)
            NetworkService.shared.sendFirebaseId(fcmToken)
             DefaultsManager.shared.saveFcmToken(fcmToken)
+        #endif
         //}
         
+    }
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any]) -> Bool {
+        return YKSdk.shared.handleOpen(url: url, sourceApplication: options[.sourceApplication] as? String)
     }
 }
 

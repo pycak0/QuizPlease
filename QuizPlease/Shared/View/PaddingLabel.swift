@@ -12,8 +12,8 @@ import UIKit
 
     @IBInspectable var topInset: CGFloat = 0
     @IBInspectable var bottomInset: CGFloat = 0
-    @IBInspectable var leftInset: CGFloat = 7
-    @IBInspectable var rightInset: CGFloat = 7
+    @IBInspectable var leftInset: CGFloat = 10
+    @IBInspectable var rightInset: CGFloat = 10
 
     override func drawText(in rect: CGRect) {
         let insets = UIEdgeInsets(

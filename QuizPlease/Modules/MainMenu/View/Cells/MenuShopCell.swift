@@ -8,14 +8,13 @@
 
 import UIKit
 
-protocol MenuShopCellDelegate: class {
+protocol MenuShopCellDelegate: AnyObject {
     func didPressMoreButton(in cell: MenuShopCell)
-    
     func didPressRemindButton(in cell: MenuShopCell)
 }
 
 class MenuShopCell: UITableViewCell, MenuCellItemProtocol {
-    static let identifier: String = "MenuShopCell"
+    static let identifier: String = "\(MenuShopCell.self)"
     
     ///Assigned in the `registerCollectoinView(_:) method`
     private weak var delegate: MenuShopCellDelegate?
@@ -31,6 +30,11 @@ class MenuShopCell: UITableViewCell, MenuCellItemProtocol {
     override func awakeFromNib() {
         super.awakeFromNib()
         configureViews()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        emptyItemsView.layer.borderColor = UIColor.opaqueSeparatorAdapted.cgColor
     }
     
     func configureViews() {
@@ -64,8 +68,7 @@ class MenuShopCell: UITableViewCell, MenuCellItemProtocol {
     
     func reloadItemsIfNeeded() {
         if collectionView.visibleCells.count == 0 {
-            collectionView.reloadData()
+            reloadItems()
         }
     }
-    
 }

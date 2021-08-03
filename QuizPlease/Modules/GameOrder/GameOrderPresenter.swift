@@ -25,8 +25,6 @@ protocol GameOrderPresenterProtocol {
     func didPressSubmitButton()
     func countSumToPay(forPeople number: Int) -> Double
     func getPriceTextColor() -> UIColor?
-    func checkCertificate()
-    func checkPromocode()
     
     func didPressAddSpecialCondition()
     func didChangeSpecialCondition(newValue: String, at index: Int)
@@ -53,8 +51,9 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
     var specialConditions: [SpecialCondition] = [SpecialCondition()]
     
 //    private var discountType: CertificateDiscountType = .none
-    private var tokenizationModule: TokenizationModuleInput?
     private var priceTextColor: UIColor?
+    
+    private var tokenizationModule: TokenizationModuleInput?
     
     required init(view: GameOrderViewProtocol, interactor: GameOrderInteractorProtocol, router: GameOrderRouterProtocol) {
         self.view = view
@@ -166,47 +165,19 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
     }
     
     func didPressDeleteSpecialCondition(at index: Int) {
-        ///Should not remove the first certificate cell
-        guard index > 0 else { return }
+        guard
+            specialConditions.count > 1,
+            index >= specialConditions.startIndex,
+            index < specialConditions.endIndex
+        else { return }
         specialConditions.remove(at: index)
         view?.removeCertificateCell(at: index)
-    }
-    
-    //MARK:- Check Certificate
-    func checkCertificate() {
-//        guard let cert = registerForm.certificates else { return }
-//        view?.startLoading()
-//        interactor.checkCertificate(forGameId: game.id, certificate: cert) { [weak self] (result) in
-//            guard let self = self else { return }
-//            self.view?.stopLoading()
-//            switch result {
-//            case let .failure(error):
-//                print(error)
-//                self.view?.showErrorConnectingToServerAlert()
-//            case let .success(response):
-//                self.discountType = response.discountType
-//                self.view?.showSimpleAlert(title: "Проверка сертификата", message: response.message ?? "Не удалось получить статус проверки")
-//                if let number = self.registerForm.countPaidOnline {
-//                    self.view?.setPrice(self.countSumToPay(forPeople: number))
-//                }
-//            }
-//        }
-    }
-    
-    func checkPromocode() {
-//        guard let promocode = registerForm.promocode else { return }
-//        view?.startLoading()
-//        interactor.checkPromocode(
-//            promocode,
-//            teamName: registerForm.teamName,
-//            forGameWithId: game.id
-//        )
     }
         
     //MARK:- Submit Button Action
     func didPressSubmitButton() {
         view?.endEditing()
-        guard registerForm.isValid else {
+        guard isPhoneNumberValid, registerForm.isValid else {
             if registerForm.email.isEmpty {
                 view?.showSimpleAlert(
                     title: "Заполнены не все необходимые поля",
@@ -227,8 +198,9 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
                 ) { (okAction) in
                     self.view?.editPhone()
                 }
+            } else {
+                view?.showSimpleAlert(title: "Произошла неизвестная ошибка", message: "Error status code 40")
             }
-            
             return
         }
         
@@ -236,10 +208,12 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
         let paymentSum = Double(countSumToPay(forPeople: count))
         if registerForm.paymentType == .online && paymentSum > 0 {
             router.showPaymentView(
-                provider: YooMoneyPaymentProvider(),
-                withSum: paymentSum,
-                description: createPaymentDescription(),
-                delegate: self
+                provider: YooMoneyPaymentProvider(delegate: self),
+                withOptions: PaymentOptions(
+                    amount: paymentSum,
+                    description: createPaymentDescription(),
+                    userPhoneNumber: registerForm.phone
+                )
             )
         } else {
             register()
@@ -247,54 +221,13 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
     }
     
     //MARK:- Register
-    private func register() {
+    private func register(paymentMethod: PaymentMethodType? = nil) {
         view?.startLoading()
         interactor.register(
             with: registerForm,
-            specialConditions: specialConditions
-        ) { [weak self] registerResponse in
-            guard let self = self else { return }
-            self.view?.stopLoading()
-            guard let response = registerResponse else {
-                self.view?.showErrorConnectingToServerAlert()
-                return
-            }
-
-            let title = "Запись на игру"
-            var message: String = "Произошла ошибка при записи на игру"
-            
-            if response.shouldRedirect {
-                if let url = response.link {
-                    self.tokenizationModule?.start3dsProcess(requestUrl: url.absoluteString)
-                } else {
-                    self.view?.dismiss(animated: true) {
-                        self.view?.showSimpleAlert(title: title, message: message)
-                    }
-                    return
-                }
-            }
-            else if response.paymentStatus == .succeeded {
-                self.view?.dismiss(animated: true) {
-                    self.completeOrder()
-                }
-                return
-            }
-            else {
-                self.view?.dismiss(animated: true)
-            }
-            
-            if response.isSuccess {
-                message = response.successMessage ?? "Успешно"
-            } else {
-                message = response.successMessage ?? response.errorMessage ?? "Произошла ошибка при записи на игру"
-            }
-
-            self.view?.showSimpleAlert(title: title, message: message) { okAction in
-                if response.isSuccessfullyRegistered {
-                    self.completeOrder()
-                }
-            }
-        }
+            specialConditions: specialConditions,
+            paymentMethod: paymentMethod
+        )
     }
     
     private func completeOrder() {
@@ -309,13 +242,48 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
 
 //MARK:- GameOrderInteractorOutput
 extension GameOrderPresenter: GameOrderInteractorOutput {
-    func interactor(_ interactor: GameOrderInteractorProtocol?, didCheckPromocodeWith response: PromocodeResponse) {
+    func interactor(_ interactor: GameOrderInteractorProtocol?, didRegisterWithResponse response: GameOrderResponse, paymentMethod: PaymentMethodType?) {
         view?.stopLoading()
-        let title = response.isSuccess ? "Успешно" : "Ошибка"
-        view?.showSimpleAlert(title: title, message: response.message)
+        let title = "Запись на игру"
+        var message: String = "Произошла ошибка при записи на игру"
+        
+        if response.shouldRedirect {
+            if let url = response.link, let module = tokenizationModule, let paymentMethod = paymentMethod {
+                module.startConfirmationProcess(
+                    confirmationUrl: url.absoluteString,
+                    paymentMethodType: paymentMethod
+                )
+            } else {
+                self.view?.dismiss(animated: true) {
+                    self.view?.showSimpleAlert(title: title, message: message)
+                }
+                return
+            }
+        }
+        else if response.paymentStatus == .succeeded {
+            self.view?.dismiss(animated: true) {
+                self.completeOrder()
+            }
+            return
+        }
+        else {
+            self.view?.dismiss(animated: true)
+        }
+        
+        if response.isSuccess {
+            message = response.successMessage ?? "Успешно"
+        } else {
+            message = response.successMessage ?? response.errorMessage ?? "Произошла ошибка при записи на игру"
+        }
+        
+        self.view?.showSimpleAlert(title: title, message: message) { okAction in
+            if response.isSuccessfullyRegistered {
+                self.completeOrder()
+            }
+        }
     }
     
-    func interactor(_ interactor: GameOrderInteractorProtocol?, errorOccured error: SessionError) {
+    func interactor(_ interactor: GameOrderInteractorProtocol?, errorOccured error: NetworkServiceError) {
         view?.stopLoading()
         view?.showErrorConnectingToServerAlert()
     }
@@ -354,21 +322,29 @@ extension GameOrderPresenter: TokenizationModuleOutput {
         print("Error:", error as Any)
     }
     
+    func tokenizationModule(_ module: TokenizationModuleInput, didTokenize token: Tokens, paymentMethodType: PaymentMethodType) {
+        DispatchQueue.main.async {
+            self.registerForm.paymentToken = token.paymentToken
+            self.tokenizationModule = module
+            self.register(paymentMethod: paymentMethodType)
+        }
+    }
+    
+    func didSuccessfullyConfirmation(paymentMethodType: PaymentMethodType) {
+        completeAfterConfirm()
+        print("Payment successfully confirmed")
+    }
+    
     func didSuccessfullyPassedCardSec(on module: TokenizationModuleInput) {
+        completeAfterConfirm()
+        print("3-D Secure process successfully passed")
+    }
+    
+    private func completeAfterConfirm() {
         DispatchQueue.main.async {
             self.view?.dismiss(animated: true) {
                 self.completeOrder()
             }
-        }
-        print("3-D Secure process successfully passed")
-    }
-    
-    func tokenizationModule(_ module: TokenizationModuleInput, didTokenize token: Tokens, paymentMethodType: PaymentMethodType) {
-        DispatchQueue.main.async {
-            //self.view?.dismiss(animated: true)
-            self.tokenizationModule = module
-            self.registerForm.paymentToken = token.paymentToken
-            self.register()
         }
     }
 }

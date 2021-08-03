@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol MainMenuRouterProtocol: RouterProtocol {
+protocol MainMenuRouterProtocol: SegueRouter {
     func showMenuSection(_ kind: MainMenuItemProtocol, sender: Any?)
     func showChooseCityScreen(selectedCity: City)
     func showQRScanner()
@@ -16,7 +16,7 @@ protocol MainMenuRouterProtocol: RouterProtocol {
 }
 
 class MainMenuRouter: MainMenuRouterProtocol {
-    weak var viewController: UIViewController?
+    unowned let viewController: UIViewController
     
     required init(viewController: UIViewController) {
         self.viewController = viewController
@@ -66,19 +66,18 @@ class MainMenuRouter: MainMenuRouterProtocol {
     
     //MARK:- Segues
     func showMenuSection(_ kind: MainMenuItemProtocol, sender: Any?) {
-        viewController?.performSegue(withIdentifier: kind._kind.segueID, sender: sender)
+        viewController.performSegue(withIdentifier: kind._kind.segueID, sender: sender)
     }
     
     func showChooseCityScreen(selectedCity: City) {
-        viewController?.performSegue(withIdentifier: "PickCityMenu", sender: selectedCity)
+        viewController.performSegue(withIdentifier: "PickCityMenu", sender: selectedCity)
     }
     
     func showQRScanner() {
-        viewController?.performSegue(withIdentifier: "ShowQRScreenMenu", sender: nil)
+        viewController.performSegue(withIdentifier: "ShowQRScreenMenu", sender: nil)
     }
     
     func showAddGameScreen(_ info: String) {
-        viewController?.performSegue(withIdentifier: "AddGameMenu", sender: info)
+        viewController.performSegue(withIdentifier: "AddGameMenu", sender: info)
     }
-    
 }

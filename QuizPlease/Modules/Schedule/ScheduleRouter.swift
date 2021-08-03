@@ -9,7 +9,7 @@
 import UIKit
 
 //MARK:- Router Protocol
-protocol ScheduleRouterProtocol: RouterProtocol {
+protocol ScheduleRouterProtocol: SegueRouter {
     func showGameInfo(_ sender: GameInfoPresentAttributes)
     func showScheduleFilters(with filterInfo: ScheduleFilter)
     
@@ -26,8 +26,7 @@ struct GameInfoPresentAttributes {
 }
 
 class ScheduleRouter: ScheduleRouterProtocol {
-
-    weak var viewController: UIViewController?
+    unowned let viewController: UIViewController
     
     required init(viewController: UIViewController) {
         self.viewController = viewController
@@ -39,7 +38,6 @@ class ScheduleRouter: ScheduleRouterProtocol {
         case "ShowGameInfo":
             guard let gameInfo = sender as? GameInfoPresentAttributes,
                 let vc = segue.destination as? GameOrderVC else { return }
-            
             GameOrderConfigurator().configure(vc, withGameInfo: gameInfo)
         case "ShowFilters":
             guard let vc = segue.destination as? FiltersVC,
@@ -53,35 +51,32 @@ class ScheduleRouter: ScheduleRouterProtocol {
     
     //MARK:- Segues
     func showGameInfo(_ sender: GameInfoPresentAttributes) {
-        viewController?.performSegue(withIdentifier: "ShowGameInfo", sender: sender)
+        viewController.performSegue(withIdentifier: "ShowGameInfo", sender: sender)
     }
     
     func showScheduleFilters(with filterInfo: ScheduleFilter) {
-        viewController?.performSegue(withIdentifier: "ShowFilters", sender: filterInfo)
+        viewController.performSegue(withIdentifier: "ShowFilters", sender: filterInfo)
     }
     
     func showWarmup(popCurrent: Bool) {
-        guard let vc = viewController?.storyboard?.instantiateViewController(withIdentifier: "WarmupVC") as? WarmupVC,
-              let navC = viewController?.navigationController
+        guard let vc = viewController.storyboard?.instantiateViewController(withIdentifier: "WarmupVC") as? WarmupVC,
+              let navC = viewController.navigationController
         else { return }
         
         if popCurrent {
             navC.popViewController(animated: true)
         }
         navC.pushViewController(vc, animated: true)
-        
     }
     
     func showHomeGame(popCurrent: Bool) {
-        guard let vc = viewController?.storyboard?.instantiateViewController(withIdentifier: "HomeGamesListVC") as? HomeGamesListVC,
-              let navC = viewController?.navigationController
+        guard let vc = viewController.storyboard?.instantiateViewController(withIdentifier: "HomeGamesListVC") as? HomeGamesListVC,
+              let navC = viewController.navigationController
         else { return }
         
         if popCurrent {
             navC.popViewController(animated: true)
         }
         navC.pushViewController(vc, animated: true)
-        
     }
-    
 }

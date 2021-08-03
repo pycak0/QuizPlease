@@ -13,7 +13,7 @@ protocol ScheduleInteractorProtocol: class {
     ///must be weak
     var output: ScheduleInteractorOutput? { get set }
     
-    func loadSchedule(filter: ScheduleFilter, completion: @escaping (Result<[GameInfo], SessionError>) -> Void)
+    func loadSchedule(filter: ScheduleFilter, completion: @escaping (Result<[GameInfo], NetworkServiceError>) -> Void)
     func loadDetailInfo(for game: GameInfo, completion: @escaping (GameInfo?) -> Void)
     
     func openInMaps(placeName: String, withLongitutde lon: Double, andLatitude lat: Double)
@@ -26,13 +26,13 @@ protocol ScheduleInteractorProtocol: class {
 protocol ScheduleInteractorOutput: class {
     func interactor(_ interactor: ScheduleInteractorProtocol?, failedToOpenMapsWithError error: Error)
     func interactor(_ interactor: ScheduleInteractorProtocol?, didGetSubscribeStatus isSubscribed: Bool, forGameWithId id: String)
-    func interactor(_ interactor: ScheduleInteractorProtocol?, failedToSubscribeForGameWith gameId: String, error: SessionError)
+    func interactor(_ interactor: ScheduleInteractorProtocol?, failedToSubscribeForGameWith gameId: String, error: NetworkServiceError)
 }
 
 class ScheduleInteractor: ScheduleInteractorProtocol {
     weak var output: ScheduleInteractorOutput?
     
-    func loadSchedule(filter: ScheduleFilter, completion: @escaping (Result<[GameInfo], SessionError>) -> Void) {
+    func loadSchedule(filter: ScheduleFilter, completion: @escaping (Result<[GameInfo], NetworkServiceError>) -> Void) {
         NetworkService.shared.getSchedule(with: filter) { (serverResult) in
             switch serverResult {
             case let .failure(error):

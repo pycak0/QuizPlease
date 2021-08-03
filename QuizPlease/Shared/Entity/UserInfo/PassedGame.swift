@@ -9,17 +9,18 @@
 import Foundation
 
 struct PassedGame: Decodable {
-    var id: String
-    private var name: String
-    var title: String
-    var place: String?
+    let id: String
+    private let name: String
+    let title: String
+    let place: String?
     
-    private var bonus_points: AnyDecodable?
+    private var bonus_points: Double?
     
     init(sampleTitle: String) {
         id = "-1"
         name = "1"
         title = sampleTitle
+        place = "sample place"
     }
 }
 
@@ -32,13 +33,5 @@ extension PassedGame {
         return "#\(number)"
     }
     
-    var points: Int? {
-        if let points = bonus_points?.value as? Int {
-            return points
-        }
-        if let pointsStr = bonus_points?.value as? String {
-            return Int(pointsStr)
-        }
-        return nil
-    }
+    var points: Double? { bonus_points }
 }

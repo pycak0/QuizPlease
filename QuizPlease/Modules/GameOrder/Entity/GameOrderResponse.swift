@@ -13,22 +13,25 @@ enum GameOrderStatus: String, Decodable {
 }
 
 struct GameOrderResponse: Decodable {
-    private var redirect: Bool?
-    private var success: AnyDecodable?
-    private var sameTeam: Bool?
+    private let redirect: Bool?
+    private let success: AnyDecodable?
+    private let sameTeam: Bool?
     
-    var link: URL?
-    private var status: AnyDecodable?
+    let link: URL?
+    private let status: AnyDecodable?
     
-    private var successMsg: String?
-    private var errorMsg: String?
+    private let successMsg: String?
+    private let errorMsg: [String: AnyDecodable]?
     
     var successMessage: String? {
         successMsg?.htmlFormatted()?.string
     }
     
     var errorMessage: String? {
-        errorMsg?.htmlFormatted()?.string
+        ///well sorry for such terrible logic but backend in quizplease is awful …
+        let first = errorMsg?.values.first?.value
+        return (first as? String)?.htmlFormatted()?.string
+            ?? (first as? [String])?.first
     }
     
     var isSuccess: Bool {

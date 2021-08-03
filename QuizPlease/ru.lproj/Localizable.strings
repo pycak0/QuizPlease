@@ -1,0 +1,16 @@
+/* 
+  Localizable.strings
+  QuizPlease
+
+  Created by Владислав on 14.07.2021.
+  Copyright © 2021 Владислав. All rights reserved.
+*/
+
+/* Title of CountryCodePicker ViewController */
+"PhoneNumberKit.CountryCodePicker.Title" = "Выберите код страны";
+
+/* Name of \"Current\" section */
+"PhoneNumberKit.CountryCodePicker.Current" = "Предложенный";
+
+/* Name of \"Common\" section */
+"PhoneNumberKit.CountryCodePicker.Common" = "Популярные";
