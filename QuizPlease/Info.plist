@@ -2,24 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>CFBundleURLTypes</key>
-    <array>
-        <dict>
-            <key>CFBundleTypeRole</key>
-            <string>Editor</string>
-            <key>CFBundleURLName</key>
-            <string>${BUNDLE_ID}</string>
-            <key>CFBundleURLSchemes</key>
-            <array>
-                <string>quizplease</string>
-            </array>
-        </dict>
-    </array>
-    <key>LSApplicationQueriesSchemes</key>
-    <array>
-        <string>sberpay</string>
-        <string>yoomoneyauth</string>
-    </array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>ru</string>
 	<key>CFBundleExecutable</key>
@@ -34,10 +16,28 @@
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
 	<string>$(MARKETING_VERSION)</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>${BUNDLE_ID}</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>quizplease</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>sberpay</string>
+		<string>yoomoneyauth</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
