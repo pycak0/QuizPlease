@@ -26,7 +26,7 @@ protocol QRCodeServiceProtocol {
 
 //MARK:- Delegate Protocol
 protocol QRCodeServiceResultsDelegate: AnyObject {
-    ///When the '`result`' is non-`nil`, `QRCodeService` is guaranteed to stop scan session
+    ///When the '`result`' parameter is non-`nil`, `QRCodeService` is guaranteed to stop scan session
     func didFinishCodeScanning(with result: String?)
 }
 
@@ -83,7 +83,7 @@ class QRCodeService: NSObject, QRCodeServiceProtocol {
     //MARK:- Setup QR Scanner
     ///This method typically throws if the device does not have a camera
     func makePreviewLayer(frame: CGRect) throws -> CALayer {
-        return try setupCaptureSessionConfiguration(
+        try setupCaptureSessionConfiguration(
             metadataOutputDelegate: self,
             previewLayerFrame: frame
         )
