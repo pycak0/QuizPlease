@@ -215,6 +215,9 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
                     userPhoneNumber: registerForm.phone
                 )
             )
+        } else if registerForm.paymentType == .online && paymentSum <= 0 {
+            registerForm.paymentType = .cash
+            register()
         } else {
             register()
         }

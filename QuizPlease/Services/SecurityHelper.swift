@@ -8,9 +8,20 @@
 
 import Foundation
 
+fileprivate protocol SecurityKey {
+    var key: String { get }
+}
+
 enum KeyKind {
-    enum PaymentKeyKind {
+    enum PaymentKeyKind: SecurityKey {
         case dev, prod
+        
+        var key: String {
+            switch self {
+            case .dev: return "devKey"
+            case .prod: return "productionKey"
+            }
+        }
     }
     
     case paymentKey(PaymentKeyKind)
@@ -60,11 +71,6 @@ class SecurityHelper {
         if keys.isEmpty {
             print("⚠️🔒[\(Self.self).swift] Warning: payment keys dictionary is empty.")
         }
-        switch kind {
-        case .dev:
-            return keys["devKey"]
-        case .prod:
-            return keys["productionKey"]
-        }
+        return keys[kind.key]
     }
 }
