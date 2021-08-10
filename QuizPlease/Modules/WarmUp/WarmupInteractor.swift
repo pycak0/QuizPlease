@@ -10,8 +10,8 @@ import UIKit
 
 //MARK:- Interactor Protocol
 protocol WarmupInteractorProtocol {
-    ///must be weak
-    var output: WarmupInteractorOutput? { get set }
+    ///must be an `unowned var`
+    var output: WarmupInteractorOutput! { get set }
     init(questionsService: WarmupQuestionsService)
     func loadQuestions()
     func shareResults(_ image: UIImage, delegate: UIViewController)
@@ -28,7 +28,7 @@ protocol WarmupInteractorOutput: AnyObject {
 }
 
 class WarmupInteractor: WarmupInteractorProtocol {
-    weak var output: WarmupInteractorOutput?
+    unowned var output: WarmupInteractorOutput!
     let questionsService: WarmupQuestionsService
     
     required init(questionsService: WarmupQuestionsService) {
@@ -43,12 +43,12 @@ class WarmupInteractor: WarmupInteractorProtocol {
                 switch error {
                 case let .serverError(statusCode):
                     if statusCode == 422 {
-                        self.output?.interactor(self, didLoadQuestions: [])
+                        self.output.interactor(self, didLoadQuestions: [])
                     } else {
                         fallthrough
                     }
                 default:
-                    self.output?.interactor(self, failedToLoadQuestionsWithError: error)
+                    self.output.interactor(self, failedToLoadQuestionsWithError: error)
                 }
             case let .success(questions):
 //                self.loadSavedQuestionIds { (savedQuestions) in
@@ -57,7 +57,7 @@ class WarmupInteractor: WarmupInteractorProtocol {
 //                        .filter { !savedSet.contains("\($0.id)") }
 //                        .shuffled()
 //                        .prefix(5)
-                    self.output?.interactor(self, didLoadQuestions: Array(questions))
+                    self.output.interactor(self, didLoadQuestions: Array(questions))
 //                }
             }
         }
@@ -85,9 +85,9 @@ class WarmupInteractor: WarmupInteractorProtocol {
             guard let self = self else { return }
             switch result {
             case let .failure(error):
-                self.output?.interactor(self, failedToCheckAnswer: answerId, questionId: questionId, error: error)
+                self.output.interactor(self, failedToCheckAnswer: answerId, questionId: questionId, error: error)
             case let .success(answerResponse):
-                self.output?.interactor(self, isAnswerCorrect: answerResponse.message, answerId: answerId, questionId: questionId)
+                self.output.interactor(self, isAnswerCorrect: answerResponse.message, answerId: answerId, questionId: questionId)
             }
         }
     }
