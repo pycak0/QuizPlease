@@ -28,4 +28,12 @@ public enum AppSettings {
     
     public static var isShopEnabled: Bool = false
     public static var isProfileEnabled: Bool = false
+    
+    public static var isDebug: Bool {
+        #if DEBUG
+        return true
+        #else
+        return false
+        #endif
+    }
 }
