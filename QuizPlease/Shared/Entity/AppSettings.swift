@@ -36,4 +36,16 @@ public enum AppSettings {
         return false
         #endif
     }
+    
+    public static var description: String {
+        """
+        AppSettings: {
+            userToken: "\(String(describing: userToken))"
+            defaultCity: \(defaultCity)
+            isShopEnabled: \(isShopEnabled)
+            isProfileEnabled: \(isProfileEnabled)
+            isDebug: \(isDebug)
+        }
+        """
+    }
 }

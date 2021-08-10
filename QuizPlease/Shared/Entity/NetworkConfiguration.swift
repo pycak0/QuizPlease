@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum NetworkConfiguration {
+public enum NetworkConfiguration: CustomStringConvertible {
     case dev, prod
     
     public static let standard: NetworkConfiguration = .dev
@@ -20,5 +20,21 @@ public enum NetworkConfiguration {
         case .prod:
             return "https://quizplease.ru/"
         }
+    }
+    
+    private var identifier: String {
+        switch self {
+        case .dev: return "dev"
+        case .prod: return "prod"
+        }
+    }
+    
+    public var description: String {
+        """
+        NetworkConfiguration: {
+            value: \(identifier)
+            host: "\(host)"
+        }
+        """
     }
 }

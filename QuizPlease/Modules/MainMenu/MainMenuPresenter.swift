@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 //MARK:- Presenter Protocol
 protocol MainMenuPresenterProtocol: AnyObject {
@@ -25,6 +26,7 @@ protocol MainMenuPresenterProtocol: AnyObject {
     func didPressAddGame()
     func didAddNewGame(with info: String)
     func didPressMenuRemindButton()
+    func didLongTapOnLogo()
     
     func userPointsAmount() -> Double?
     func indexPath(for menuItemKind: MainMenuItemKind) -> IndexPath?
@@ -97,6 +99,26 @@ class MainMenuPresenter: MainMenuPresenterProtocol {
     
     func didPressMenuRemindButton() {
         //
+    }
+    
+    func didLongTapOnLogo() {
+        guard AppSettings.isDebug, #available(iOS 13.0, *) else { return }
+        let message = """
+        \(AppSettings.description)
+        \(NetworkConfiguration.standard)
+        """
+        let pStyle = NSMutableParagraphStyle()
+        pStyle.alignment = .left
+        view?.showSimpleAlert(
+            attributedTitle: NSAttributedString(string: "Debug Mode"),
+            attributedMessage: NSAttributedString(
+                string: message,
+                attributes: [
+                    .font: UIFont.monospacedSystemFont(ofSize: 11, weight: .regular),
+                    .paragraphStyle: pStyle
+                ]
+            )
+        )
     }
     
     func userPointsAmount() -> Double? {

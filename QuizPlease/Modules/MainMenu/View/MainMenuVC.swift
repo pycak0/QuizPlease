@@ -25,16 +25,17 @@ protocol MainMenuViewProtocol: UIViewController {
 class MainMenuVC: UIViewController {
     var presenter: MainMenuPresenterProtocol!
 
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var logoImageView: UIImageView!
-    @IBOutlet weak var menuHeader: UIView!
-    @IBOutlet weak var cityButton: UIButton!
+    @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private weak var logoImageView: UIImageView!
+    @IBOutlet private weak var menuHeader: UIView!
+    @IBOutlet private weak var cityButton: UIButton!
     
     //MARK:- Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         MainMenuConfigurator().configure(self)
         presenter.viewDidLoad(self)
+        addLongTap()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -63,11 +64,21 @@ class MainMenuVC: UIViewController {
     @IBAction func cityButtonPressed(_ sender: UIButton) {
         presenter.didSelectCityButton()
     }
+    
+    private func addLongTap() {
+        let longTapRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(didLongTap))
+        logoImageView.isUserInteractionEnabled = true
+        logoImageView.addGestureRecognizer(longTapRecognizer)
+    }
+    
+    @objc private func didLongTap() {
+        UIImpactFeedbackGenerator().impactOccurred()
+        presenter.didLongTapOnLogo()
+    }
 }
 
 //MARK:- View Protocol Implementation
 extension MainMenuVC: MainMenuViewProtocol {
-    
     func configureTableView() {
         tableView.delegate = self
         tableView.dataSource = self
