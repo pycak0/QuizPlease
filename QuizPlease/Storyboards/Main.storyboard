@@ -97,7 +97,6 @@
                         <segue destination="H5s-MK-eJ0" kind="show" identifier="Show ShopVC" id="C1a-qd-8Vm"/>
                         <segue destination="9lb-5I-2Om" kind="presentation" identifier="ShowQRScreenMenu" id="HCF-Ox-xP4"/>
                         <segue destination="a3e-UY-Aou" kind="show" identifier="AddGameMenu" id="smb-dh-maI"/>
-                        <segue destination="0gS-7P-H4J" kind="presentation" identifier="PickCityMenu" id="cFD-tO-9oB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iuS-O9-PLA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -226,58 +225,11 @@
                         <outlet property="gameTypeFilterView" destination="I6a-3d-zSN" id="r5S-WX-Htw"/>
                         <outlet property="statusFilterView" destination="TQR-O0-70O" id="HCC-hC-Hif"/>
                         <outlet property="topStack" destination="HC7-Xb-3ht" id="1q0-BR-Lil"/>
-                        <segue destination="0gS-7P-H4J" kind="presentation" identifier="PickCityFilter" id="mmP-8i-2SH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tqm-1y-vDM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1907" y="-2725"/>
-        </scene>
-        <!--Выберите город-->
-        <scene sceneID="A2O-1C-aLd">
-            <objects>
-                <tableViewController id="gn8-dD-inI" customClass="PickCityVC" customModule="QuizPlease" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="mFM-OR-PZK">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="790"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PickCityCell" textLabel="2I0-pL-YIw" style="IBUITableViewCellStyleDefault" id="sbO-Ka-peD">
-                                <rect key="frame" x="0.0" y="24.333333969116211" width="390" height="47.666667938232422"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sbO-Ka-peD" id="6qW-QU-9QQ">
-                                    <rect key="frame" x="0.0" y="0.0" width="390" height="47.666667938232422"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2I0-pL-YIw">
-                                            <rect key="frame" x="20" y="0.0" width="350" height="47.666667938232422"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="20"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="gn8-dD-inI" id="Ti0-h9-f8o"/>
-                            <outlet property="delegate" destination="gn8-dD-inI" id="An8-bL-n3o"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="Выберите город" id="B2C-01-3Xs">
-                        <barButtonItem key="leftBarButtonItem" id="X1F-vx-fqX"/>
-                        <barButtonItem key="rightBarButtonItem" image="cross" style="done" id="QkR-wT-7Jy">
-                            <color key="tintColor" systemColor="labelColor"/>
-                            <connections>
-                                <action selector="cancelButtonPressed:" destination="gn8-dD-inI" id="UsD-w3-4rt"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="cVw-mX-HlQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-426.08695652173918" y="-1653.3482142857142"/>
         </scene>
         <!--Расписание игр-->
         <scene sceneID="Wkg-ye-w7i">
@@ -2317,24 +2269,6 @@
             <point key="canvasLocation" x="1904" y="1379"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="bcz-jq-p9c">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="0gS-7P-H4J" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="36S-cO-MsE">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="56"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="gn8-dD-inI" kind="relationship" relationship="rootViewController" id="Swb-Rw-AJK"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="3lh-Xz-JAS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1336.2318840579712" y="-1653.3482142857142"/>
-        </scene>
-        <!--Navigation Controller-->
         <scene sceneID="NIi-rw-EO9">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="aTk-QU-tXA" sceneMemberID="viewController">
@@ -2524,7 +2458,6 @@
         </designable>
     </designables>
     <inferredMetricsTieBreakers>
-        <segue reference="cFD-tO-9oB"/>
         <segue reference="pVV-GK-MaB"/>
         <segue reference="mmH-hO-g5X"/>
         <segue reference="kQf-Xc-fDF"/>

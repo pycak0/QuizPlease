@@ -17,9 +17,14 @@ protocol MainMenuRouterProtocol: SegueRouter {
 
 class MainMenuRouter: MainMenuRouterProtocol {
     unowned let viewController: UIViewController
+    private unowned let storyboard: UIStoryboard
+    private var navigationController: UINavigationController {
+        viewController.navigationController!
+    }
     
     required init(viewController: UIViewController) {
         self.viewController = viewController
+        self.storyboard = viewController.storyboard ?? UIStoryboard(name: "Main", bundle: .main)
     }
     
     //MARK:- Prepare for Segue
@@ -28,37 +33,28 @@ class MainMenuRouter: MainMenuRouterProtocol {
         case "ShowQRScreenMenu":
             guard let vc = segue.destination as? QRScannerVC else { return }
             vc.delegate = viewController as? QRScannerVCDelegate
-            
+
         case "AddGameMenu":
             guard let vc = segue.destination as? AddGameVC,
                   let info = sender as? String
             else { fatalError("Incorrect Data passed when showing AddGameVC from MainMenuVC") }
             
             vc.token = info
-            
-        case "PickCityMenu":
-            guard let navC = segue.destination as? UINavigationController,
-                  let vc = navC.viewControllers.first as? PickCityVC,
-                  let city = sender as? City
-            else { fatalError("Incorrect Data passed when showing PickCityVC from MainMenuVC") }
-            
-            vc.selectedCity = city
-            vc.delegate = viewController as? PickCityVCDelegate
-            
+
         case "Show ProfileVC":
             guard let vc = segue.destination as? ProfileVC
             else { fatalError("Incorrect Data passed when showing ProfileVC from MainMenu Router") }
             
             let userInfo = sender as? UserInfo
             ProfileConfigurator().configure(vc, userInfo: userInfo)
-            
+
         case "Show ShopVC":
             guard let vc = segue.destination as? ShopVC
             else { fatalError("Incorrect Data passed when showing ShopVC from MainMenu Router") }
             
             let userInfo = sender as? UserInfo
             ShopConfigurator().configure(vc, userInfo: userInfo)
-            
+
         default:
             print("no preparations were made for segue with id '\(String(describing: segue.identifier))'")
         }
@@ -70,7 +66,12 @@ class MainMenuRouter: MainMenuRouterProtocol {
     }
     
     func showChooseCityScreen(selectedCity: City) {
-        viewController.performSegue(withIdentifier: "PickCityMenu", sender: selectedCity)
+        let pickCityVc = PickCityVC(
+            selectedCity: selectedCity,
+            delegate: viewController as? PickCityVCDelegate
+        )
+        let navC = UINavigationController(rootViewController: pickCityVc)
+        viewController.present(navC, animated: true)
     }
     
     func showQRScanner() {
@@ -79,5 +80,9 @@ class MainMenuRouter: MainMenuRouterProtocol {
     
     func showAddGameScreen(_ info: String) {
         viewController.performSegue(withIdentifier: "AddGameMenu", sender: info)
+    }
+    
+    private func couldNotInstantiateError<T>(type: T.Type) {
+        fatalError("Could not instantiate \(type) on storyboard \(storyboard) with identifier '\(type)'")
     }
 }

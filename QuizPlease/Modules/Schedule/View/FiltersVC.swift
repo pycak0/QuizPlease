@@ -10,7 +10,7 @@ import UIKit
 import BottomPopup
 
 //MARK:- Delegate Protocol
-protocol FiltersVCDelegate: class {
+protocol FiltersVCDelegate: AnyObject {
     func didChangeFilter(_ newFilter: ScheduleFilter)
     
     //func didResetFilter()
@@ -55,20 +55,6 @@ class FiltersVC: BottomPopupViewController {
         updateUI()
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        switch segue.identifier {
-        case "PickCityFilter":
-            guard let navC = segue.destination as? UINavigationController,
-            let vc = navC.viewControllers.first as? PickCityVC else {
-                fatalError("Incorrect data passed when showing PickCityVC from FiltersVC")
-            }
-            vc.selectedCity = filter.city
-            vc.delegate = self
-        default:
-            print("No preparations for segue with id '\(segue.identifier ?? "")'")
-        }
-    }
-    
     //MARK:- Configure Views
     func configureViews() {
         let color = UIColor.darkBlue.withAlphaComponent(0.3)
@@ -94,7 +80,7 @@ class FiltersVC: BottomPopupViewController {
     //MARK:- Add Actions
     private func addActions() {
         cityFilterView.addTapGestureRecognizer {
-            self.performSegue(withIdentifier: "PickCityFilter", sender: nil)
+            self.showCityPicker()
         }
         dateFilterView.addTapGestureRecognizer {
             self.showOptions(for: self.dates) { self.filter.date = $0 }
@@ -115,6 +101,15 @@ class FiltersVC: BottomPopupViewController {
                 self.filter.format = newFormat == .all ? nil : newFormat
             }
         }
+    }
+    
+    private func showCityPicker() {
+        let pickCityVc = PickCityVC(
+            selectedCity: filter.city,
+            delegate: self
+        )
+        let navC = UINavigationController(rootViewController: pickCityVc)
+        present(navC, animated: true)
     }
     
     //MARK:- Show Options Sheet
