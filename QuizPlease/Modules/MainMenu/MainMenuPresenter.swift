@@ -102,15 +102,21 @@ class MainMenuPresenter: MainMenuPresenterProtocol {
     }
     
     func didLongTapOnLogo() {
-        guard AppSettings.isDebug, #available(iOS 13.0, *) else { return }
+        guard AppSettings.isDebug else { return }
         let pStyle = NSMutableParagraphStyle()
         pStyle.alignment = .left
+        let font: UIFont
+        if #available(iOS 13.0, *) {
+            font = .monospacedSystemFont(ofSize: 11, weight: .regular)
+        } else {
+            font = .systemFont(ofSize: 11)
+        }
         view?.showSimpleAlert(
             attributedTitle: NSAttributedString(string: "Debug Mode"),
             attributedMessage: NSAttributedString(
                 string: UIApplication.shared.debugInfo,
                 attributes: [
-                    .font: UIFont.monospacedSystemFont(ofSize: 11, weight: .regular),
+                    .font: font,
                     .paragraphStyle: pStyle
                 ]
             )

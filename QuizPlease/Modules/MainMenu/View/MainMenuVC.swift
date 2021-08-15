@@ -71,9 +71,11 @@ class MainMenuVC: UIViewController {
         logoImageView.addGestureRecognizer(longTapRecognizer)
     }
     
-    @objc private func didLongTap() {
-        UIImpactFeedbackGenerator().impactOccurred()
-        presenter.didLongTapOnLogo()
+    @objc private func didLongTap(_ sender: UILongPressGestureRecognizer) {
+        if sender.state == .began {
+            UIImpactFeedbackGenerator().impactOccurred()
+            presenter.didLongTapOnLogo()
+        }
     }
 }
 
