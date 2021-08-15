@@ -233,6 +233,7 @@
 		A4E675F7255DB4AB0011A801 /* String+Validating.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E675F6255DB4AB0011A801 /* String+Validating.swift */; };
 		A4E91EBC26C30D5C008C13A7 /* UIWindow+topViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E91EBB26C30D5C008C13A7 /* UIWindow+topViewController.swift */; };
 		A4E91EBE26C312BA008C13A7 /* WarmupQuestionsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E91EBD26C312BA008C13A7 /* WarmupQuestionsService.swift */; };
+		A4E91EC026C32310008C13A7 /* UIApplication+debugInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E91EBF26C32310008C13A7 /* UIApplication+debugInfo.swift */; };
 		A4F0B9D2262469B000E4E2A5 /* ClientSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F0B9D1262469B000E4E2A5 /* ClientSettings.swift */; };
 		A4F0B9D426246EB100E4E2A5 /* NetworkConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F0B9D326246EB100E4E2A5 /* NetworkConfiguration.swift */; };
 		A4F0B9DC26248B5A00E4E2A5 /* SplashScreenPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F0B9DB26248B5A00E4E2A5 /* SplashScreenPresenter.swift */; };
@@ -503,6 +504,7 @@
 		A4E675F6255DB4AB0011A801 /* String+Validating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Validating.swift"; sourceTree = "<group>"; };
 		A4E91EBB26C30D5C008C13A7 /* UIWindow+topViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+topViewController.swift"; sourceTree = "<group>"; };
 		A4E91EBD26C312BA008C13A7 /* WarmupQuestionsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarmupQuestionsService.swift; sourceTree = "<group>"; };
+		A4E91EBF26C32310008C13A7 /* UIApplication+debugInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+debugInfo.swift"; sourceTree = "<group>"; };
 		A4F0B9D1262469B000E4E2A5 /* ClientSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientSettings.swift; sourceTree = "<group>"; };
 		A4F0B9D326246EB100E4E2A5 /* NetworkConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConfiguration.swift; sourceTree = "<group>"; };
 		A4F0B9DB26248B5A00E4E2A5 /* SplashScreenPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenPresenter.swift; sourceTree = "<group>"; };
@@ -771,6 +773,7 @@
 				A45241DD265479A70058285C /* CGRect+setHeight.swift */,
 				A45241DF26547A060058285C /* UITextField+Extensions.swift */,
 				A4E91EBB26C30D5C008C13A7 /* UIWindow+topViewController.swift */,
+				A4E91EBF26C32310008C13A7 /* UIApplication+debugInfo.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1521,6 +1524,7 @@
 				A48F64662501438D00E7A528 /* ScheduleFilterType.swift in Sources */,
 				A44A462C24F8EEC500C81F82 /* UIView+Blur.swift in Sources */,
 				A40D818224D2CA30006D2CE3 /* ProfileVC.swift in Sources */,
+				A4E91EC026C32310008C13A7 /* UIApplication+debugInfo.swift in Sources */,
 				A423AC2424EEC65100071E68 /* ConfirmVC.swift in Sources */,
 				A4768C96268E72A00085B622 /* MaskedTextFieldView.swift in Sources */,
 				A44B2FD525841D9100B5B52C /* CertificateResponse.swift in Sources */,

@@ -103,16 +103,12 @@ class MainMenuPresenter: MainMenuPresenterProtocol {
     
     func didLongTapOnLogo() {
         guard AppSettings.isDebug, #available(iOS 13.0, *) else { return }
-        let message = """
-        \(AppSettings.description)
-        \(NetworkConfiguration.standard)
-        """
         let pStyle = NSMutableParagraphStyle()
         pStyle.alignment = .left
         view?.showSimpleAlert(
             attributedTitle: NSAttributedString(string: "Debug Mode"),
             attributedMessage: NSAttributedString(
-                string: message,
+                string: UIApplication.shared.debugInfo,
                 attributes: [
                     .font: UIFont.monospacedSystemFont(ofSize: 11, weight: .regular),
                     .paragraphStyle: pStyle

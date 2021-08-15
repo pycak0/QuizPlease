@@ -40,7 +40,7 @@ public enum AppSettings {
     public static var description: String {
         """
         AppSettings: {
-            userToken: "\(String(describing: userToken))"
+            userToken: "\(userToken ?? "nil")"
             defaultCity: \(defaultCity)
             isShopEnabled: \(isShopEnabled)
             isProfileEnabled: \(isProfileEnabled)
