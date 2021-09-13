@@ -124,6 +124,7 @@
 		A468E12224FD0BE40083ADB2 /* InputMask in Frameworks */ = {isa = PBXBuildFile; productRef = A468E12124FD0BE40083ADB2 /* InputMask */; };
 		A468E12424FD37390083ADB2 /* RatingFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A468E12324FD37390083ADB2 /* RatingFilter.swift */; };
 		A469F75924E3084D007FB332 /* ScheduleGameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A469F75824E3084D007FB332 /* ScheduleGameCell.swift */; };
+		A46ADA3126EFF9E800C5EC75 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A46ADA3026EFF9E800C5EC75 /* GoogleService-Info.plist */; };
 		A46F303624F5284E0062A333 /* GamePaymentTypeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46F303424F5284E0062A333 /* GamePaymentTypeCell.swift */; };
 		A46F303724F5284E0062A333 /* GamePaymentTypeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A46F303524F5284E0062A333 /* GamePaymentTypeCell.xib */; };
 		A46F303A24F52CAE0062A333 /* GameOnlinePaymentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46F303824F52CAE0062A333 /* GameOnlinePaymentCell.swift */; };
@@ -248,7 +249,6 @@
 		A4F3A79A257E7A1700D6A9C7 /* UIImage+Static.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F3A799257E7A1700D6A9C7 /* UIImage+Static.swift */; };
 		A4F3A79C257E82A600D6A9C7 /* ProfileSampleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F3A79B257E82A600D6A9C7 /* ProfileSampleCell.swift */; };
 		A4F47EE226C997E300590FBD /* PickCityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F47EE126C997E300590FBD /* PickCityCell.swift */; };
-		A4F567E12533C5B10050B5DF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A4F567E02533C5B10050B5DF /* GoogleService-Info.plist */; };
 		A4FB0485251790CD00054DE4 /* GOCPeopleNumberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FB0483251790CD00054DE4 /* GOCPeopleNumberCell.swift */; };
 		A4FB0486251790CD00054DE4 /* GOCPeopleNumberCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4FB0484251790CD00054DE4 /* GOCPeopleNumberCell.xib */; };
 		A4FCBC28263C8F1A0048D382 /* ShopPurchaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FCBC27263C8F1A0048D382 /* ShopPurchaseResponse.swift */; };
@@ -392,6 +392,7 @@
 		A464370124EB37DB0033F23A /* ExpandingHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpandingHeader.swift; sourceTree = "<group>"; };
 		A468E12324FD37390083ADB2 /* RatingFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingFilter.swift; sourceTree = "<group>"; };
 		A469F75824E3084D007FB332 /* ScheduleGameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleGameCell.swift; sourceTree = "<group>"; };
+		A46ADA3026EFF9E800C5EC75 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A46F303424F5284E0062A333 /* GamePaymentTypeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePaymentTypeCell.swift; sourceTree = "<group>"; };
 		A46F303524F5284E0062A333 /* GamePaymentTypeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GamePaymentTypeCell.xib; sourceTree = "<group>"; };
 		A46F303824F52CAE0062A333 /* GameOnlinePaymentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOnlinePaymentCell.swift; sourceTree = "<group>"; };
@@ -520,7 +521,6 @@
 		A4F3A799257E7A1700D6A9C7 /* UIImage+Static.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Static.swift"; sourceTree = "<group>"; };
 		A4F3A79B257E82A600D6A9C7 /* ProfileSampleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSampleCell.swift; sourceTree = "<group>"; };
 		A4F47EE126C997E300590FBD /* PickCityCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickCityCell.swift; sourceTree = "<group>"; };
-		A4F567E02533C5B10050B5DF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A4FB0483251790CD00054DE4 /* GOCPeopleNumberCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GOCPeopleNumberCell.swift; sourceTree = "<group>"; };
 		A4FB0484251790CD00054DE4 /* GOCPeopleNumberCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GOCPeopleNumberCell.xib; sourceTree = "<group>"; };
 		A4FCBC27263C8F1A0048D382 /* ShopPurchaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopPurchaseResponse.swift; sourceTree = "<group>"; };
@@ -613,8 +613,8 @@
 			children = (
 				A40D816224D2C6C2006D2CE3 /* Assets.xcassets */,
 				A4A7E6AB2533C82A00F86947 /* QuizPlease.entitlements */,
+				A46ADA3026EFF9E800C5EC75 /* GoogleService-Info.plist */,
 				A40D816724D2C6C2006D2CE3 /* Info.plist */,
-				A4F567E02533C5B10050B5DF /* GoogleService-Info.plist */,
 				A4837BCE2636065F00517EC6 /* Keys.plist */,
 				A4711674269F6F7700F90099 /* Localizable.strings */,
 				A40D816D24D2C73D006D2CE3 /* AppDelegates */,
@@ -1391,8 +1391,8 @@
 				A4DAF74424DDBAFE00963C15 /* MenuHomeGameCell.xib in Resources */,
 				A4A065AB24E4812F0080E0D8 /* GameGeneralDescriptionCell.xib in Resources */,
 				A46F303724F5284E0062A333 /* GamePaymentTypeCell.xib in Resources */,
+				A46ADA3126EFF9E800C5EC75 /* GoogleService-Info.plist in Resources */,
 				A4A0659E24E477E20080E0D8 /* GameInfoCell.xib in Resources */,
-				A4F567E12533C5B10050B5DF /* GoogleService-Info.plist in Resources */,
 				A4DAF74024DDABFF00963C15 /* WarmupCell.xib in Resources */,
 				A4A5370924EC7AA6004A10D4 /* HomeGameCell.xib in Resources */,
 				A40D818B24D2D24C006D2CE3 /* ScheduleCell.xib in Resources */,

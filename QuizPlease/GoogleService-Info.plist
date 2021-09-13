@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>562713612905-o7dp5aaqvfad79vi3gdlvrbb9bqt9jcn.apps.googleusercontent.com</string>
+	<string>562713612905-432ndtsfuvhd9110nbb9kfj2jkbtio0n.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.562713612905-o7dp5aaqvfad79vi3gdlvrbb9bqt9jcn</string>
+	<string>com.googleusercontent.apps.562713612905-432ndtsfuvhd9110nbb9kfj2jkbtio0n</string>
 	<key>API_KEY</key>
 	<string>AIzaSyCHjOTyXBkTJAbQeBYa9dITeYQw_f4CAxg</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.pycak.QuizPlease</string>
+	<string>com.quizplease.app</string>
 	<key>PROJECT_ID</key>
 	<string>quizplease-mobile</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,7 +29,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:562713612905:ios:bc286d7e267f7e407288f8</string>
+	<string>1:562713612905:ios:473b4dcf0b7f63ab7288f8</string>
 	<key>DATABASE_URL</key>
 	<string>https://quizplease-mobile.firebaseio.com</string>
 </dict>
