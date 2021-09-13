@@ -10,7 +10,9 @@ import Foundation
 
 class WarmupConfigurator: Configurator {
     func configure(_ view: WarmupViewProtocol) {
-        let interactor = WarmupInteractor()
+        let interactor = WarmupInteractor(
+            questionsService: AppSettings.isDebug ? NetworkServiceMock(maxNumberOfQuestions: 3) : NetworkService.shared
+        )
         let router = WarmupRouter(viewController: view)
         let presenter = WarmupPresenter(view: view, interactor: interactor, router: router)
         interactor.output = presenter

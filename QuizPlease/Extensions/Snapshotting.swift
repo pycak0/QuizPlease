@@ -8,8 +8,11 @@
 
 import UIKit
 
-extension UIApplication {
+protocol Snapshotable {
+    func makeSnapshot() -> UIImage?
+}
 
+extension UIApplication: Snapshotable {
     func getKeyWindow() -> UIWindow? {
         if #available(iOS 13, *) {
             return windows.first { $0.isKeyWindow }
@@ -22,7 +25,7 @@ extension UIApplication {
 }
 
 
-extension CALayer {
+extension CALayer: Snapshotable {
     func makeSnapshot() -> UIImage? {
         let scale = UIScreen.main.scale
         UIGraphicsBeginImageContextWithOptions(frame.size, false, scale)
@@ -34,7 +37,7 @@ extension CALayer {
     }
 }
 
-extension UIView {
+extension UIView: Snapshotable {
     func makeSnapshot() -> UIImage? {
         if #available(iOS 10.0, *) {
             let renderer = UIGraphicsImageRenderer(size: frame.size)

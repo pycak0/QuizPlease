@@ -124,6 +124,7 @@
 		A468E12224FD0BE40083ADB2 /* InputMask in Frameworks */ = {isa = PBXBuildFile; productRef = A468E12124FD0BE40083ADB2 /* InputMask */; };
 		A468E12424FD37390083ADB2 /* RatingFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A468E12324FD37390083ADB2 /* RatingFilter.swift */; };
 		A469F75924E3084D007FB332 /* ScheduleGameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A469F75824E3084D007FB332 /* ScheduleGameCell.swift */; };
+		A46ADA3126EFF9E800C5EC75 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A46ADA3026EFF9E800C5EC75 /* GoogleService-Info.plist */; };
 		A46F303624F5284E0062A333 /* GamePaymentTypeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46F303424F5284E0062A333 /* GamePaymentTypeCell.swift */; };
 		A46F303724F5284E0062A333 /* GamePaymentTypeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A46F303524F5284E0062A333 /* GamePaymentTypeCell.xib */; };
 		A46F303A24F52CAE0062A333 /* GameOnlinePaymentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46F303824F52CAE0062A333 /* GameOnlinePaymentCell.swift */; };
@@ -231,6 +232,9 @@
 		A4E675F2255D76640011A801 /* AudioView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4E675F1255D76640011A801 /* AudioView.xib */; };
 		A4E675F4255D78400011A801 /* AudioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E675F3255D78400011A801 /* AudioView.swift */; };
 		A4E675F7255DB4AB0011A801 /* String+Validating.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E675F6255DB4AB0011A801 /* String+Validating.swift */; };
+		A4E91EBC26C30D5C008C13A7 /* UIWindow+topViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E91EBB26C30D5C008C13A7 /* UIWindow+topViewController.swift */; };
+		A4E91EBE26C312BA008C13A7 /* WarmupQuestionsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E91EBD26C312BA008C13A7 /* WarmupQuestionsService.swift */; };
+		A4E91EC026C32310008C13A7 /* UIApplication+debugInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E91EBF26C32310008C13A7 /* UIApplication+debugInfo.swift */; };
 		A4F0B9D2262469B000E4E2A5 /* ClientSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F0B9D1262469B000E4E2A5 /* ClientSettings.swift */; };
 		A4F0B9D426246EB100E4E2A5 /* NetworkConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F0B9D326246EB100E4E2A5 /* NetworkConfiguration.swift */; };
 		A4F0B9DC26248B5A00E4E2A5 /* SplashScreenPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F0B9DB26248B5A00E4E2A5 /* SplashScreenPresenter.swift */; };
@@ -244,7 +248,7 @@
 		A4F3A795257E561800D6A9C7 /* SplashScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F3A794257E561800D6A9C7 /* SplashScreenVC.swift */; };
 		A4F3A79A257E7A1700D6A9C7 /* UIImage+Static.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F3A799257E7A1700D6A9C7 /* UIImage+Static.swift */; };
 		A4F3A79C257E82A600D6A9C7 /* ProfileSampleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F3A79B257E82A600D6A9C7 /* ProfileSampleCell.swift */; };
-		A4F567E12533C5B10050B5DF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A4F567E02533C5B10050B5DF /* GoogleService-Info.plist */; };
+		A4F47EE226C997E300590FBD /* PickCityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F47EE126C997E300590FBD /* PickCityCell.swift */; };
 		A4FB0485251790CD00054DE4 /* GOCPeopleNumberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FB0483251790CD00054DE4 /* GOCPeopleNumberCell.swift */; };
 		A4FB0486251790CD00054DE4 /* GOCPeopleNumberCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4FB0484251790CD00054DE4 /* GOCPeopleNumberCell.xib */; };
 		A4FCBC28263C8F1A0048D382 /* ShopPurchaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FCBC27263C8F1A0048D382 /* ShopPurchaseResponse.swift */; };
@@ -388,6 +392,7 @@
 		A464370124EB37DB0033F23A /* ExpandingHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpandingHeader.swift; sourceTree = "<group>"; };
 		A468E12324FD37390083ADB2 /* RatingFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingFilter.swift; sourceTree = "<group>"; };
 		A469F75824E3084D007FB332 /* ScheduleGameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleGameCell.swift; sourceTree = "<group>"; };
+		A46ADA3026EFF9E800C5EC75 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A46F303424F5284E0062A333 /* GamePaymentTypeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePaymentTypeCell.swift; sourceTree = "<group>"; };
 		A46F303524F5284E0062A333 /* GamePaymentTypeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GamePaymentTypeCell.xib; sourceTree = "<group>"; };
 		A46F303824F52CAE0062A333 /* GameOnlinePaymentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOnlinePaymentCell.swift; sourceTree = "<group>"; };
@@ -499,6 +504,9 @@
 		A4E675F1255D76640011A801 /* AudioView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AudioView.xib; sourceTree = "<group>"; };
 		A4E675F3255D78400011A801 /* AudioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioView.swift; sourceTree = "<group>"; };
 		A4E675F6255DB4AB0011A801 /* String+Validating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Validating.swift"; sourceTree = "<group>"; };
+		A4E91EBB26C30D5C008C13A7 /* UIWindow+topViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+topViewController.swift"; sourceTree = "<group>"; };
+		A4E91EBD26C312BA008C13A7 /* WarmupQuestionsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarmupQuestionsService.swift; sourceTree = "<group>"; };
+		A4E91EBF26C32310008C13A7 /* UIApplication+debugInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+debugInfo.swift"; sourceTree = "<group>"; };
 		A4F0B9D1262469B000E4E2A5 /* ClientSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientSettings.swift; sourceTree = "<group>"; };
 		A4F0B9D326246EB100E4E2A5 /* NetworkConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConfiguration.swift; sourceTree = "<group>"; };
 		A4F0B9DB26248B5A00E4E2A5 /* SplashScreenPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenPresenter.swift; sourceTree = "<group>"; };
@@ -512,7 +520,7 @@
 		A4F3A794257E561800D6A9C7 /* SplashScreenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenVC.swift; sourceTree = "<group>"; };
 		A4F3A799257E7A1700D6A9C7 /* UIImage+Static.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Static.swift"; sourceTree = "<group>"; };
 		A4F3A79B257E82A600D6A9C7 /* ProfileSampleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSampleCell.swift; sourceTree = "<group>"; };
-		A4F567E02533C5B10050B5DF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		A4F47EE126C997E300590FBD /* PickCityCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickCityCell.swift; sourceTree = "<group>"; };
 		A4FB0483251790CD00054DE4 /* GOCPeopleNumberCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GOCPeopleNumberCell.swift; sourceTree = "<group>"; };
 		A4FB0484251790CD00054DE4 /* GOCPeopleNumberCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GOCPeopleNumberCell.xib; sourceTree = "<group>"; };
 		A4FCBC27263C8F1A0048D382 /* ShopPurchaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopPurchaseResponse.swift; sourceTree = "<group>"; };
@@ -605,8 +613,8 @@
 			children = (
 				A40D816224D2C6C2006D2CE3 /* Assets.xcassets */,
 				A4A7E6AB2533C82A00F86947 /* QuizPlease.entitlements */,
+				A46ADA3026EFF9E800C5EC75 /* GoogleService-Info.plist */,
 				A40D816724D2C6C2006D2CE3 /* Info.plist */,
-				A4F567E02533C5B10050B5DF /* GoogleService-Info.plist */,
 				A4837BCE2636065F00517EC6 /* Keys.plist */,
 				A4711674269F6F7700F90099 /* Localizable.strings */,
 				A40D816D24D2C73D006D2CE3 /* AppDelegates */,
@@ -718,6 +726,7 @@
 				A40C8083252E872200CE40D8 /* Entity */,
 				A4E1CFF424F14CF5000F0B22 /* View */,
 				A40B758324D9A7CD006DB7D1 /* WarmupInteractor.swift */,
+				A4E91EBD26C312BA008C13A7 /* WarmupQuestionsService.swift */,
 				A40B758524D9A7F6006DB7D1 /* WarmupPresenter.swift */,
 				A40B758724D9A7FD006DB7D1 /* WarmupRouter.swift */,
 				A40B758924D9A806006DB7D1 /* WarmupConfigurator.swift */,
@@ -765,6 +774,8 @@
 				A492B8742631AE6100AEC388 /* UIRefreshControl+Init.swift */,
 				A45241DD265479A70058285C /* CGRect+setHeight.swift */,
 				A45241DF26547A060058285C /* UITextField+Extensions.swift */,
+				A4E91EBB26C30D5C008C13A7 /* UIWindow+topViewController.swift */,
+				A4E91EBF26C32310008C13A7 /* UIApplication+debugInfo.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -919,6 +930,7 @@
 			isa = PBXGroup;
 			children = (
 				A45A072024FFED6D00137637 /* PickCityVC.swift */,
+				A4F47EE126C997E300590FBD /* PickCityCell.swift */,
 			);
 			path = PickCity;
 			sourceTree = "<group>";
@@ -1379,8 +1391,8 @@
 				A4DAF74424DDBAFE00963C15 /* MenuHomeGameCell.xib in Resources */,
 				A4A065AB24E4812F0080E0D8 /* GameGeneralDescriptionCell.xib in Resources */,
 				A46F303724F5284E0062A333 /* GamePaymentTypeCell.xib in Resources */,
+				A46ADA3126EFF9E800C5EC75 /* GoogleService-Info.plist in Resources */,
 				A4A0659E24E477E20080E0D8 /* GameInfoCell.xib in Resources */,
-				A4F567E12533C5B10050B5DF /* GoogleService-Info.plist in Resources */,
 				A4DAF74024DDABFF00963C15 /* WarmupCell.xib in Resources */,
 				A4A5370924EC7AA6004A10D4 /* HomeGameCell.xib in Resources */,
 				A40D818B24D2D24C006D2CE3 /* ScheduleCell.xib in Resources */,
@@ -1449,6 +1461,7 @@
 				A472D29B25288F1100AA9906 /* RegisterResponse.swift in Sources */,
 				A40B758024D9A75A006DB7D1 /* ScheduleRouter.swift in Sources */,
 				A4068A0124F7DAE2001273B2 /* ServerResponse.swift in Sources */,
+				A4E91EBC26C30D5C008C13A7 /* UIWindow+topViewController.swift in Sources */,
 				A4C71769254E016400898CA5 /* PaymentProvider.swift in Sources */,
 				A40B758424D9A7CD006DB7D1 /* WarmupInteractor.swift in Sources */,
 				A48F64642501416300E7A528 /* ScheduleFilterProtocol.swift in Sources */,
@@ -1493,6 +1506,7 @@
 				A40689FB24F7D86F001273B2 /* NetworkService.swift in Sources */,
 				A40B759C24D9A868006DB7D1 /* RatingInteractor.swift in Sources */,
 				A40F036224D4187800C381F2 /* UIKitExtensions.swift in Sources */,
+				A4E91EBE26C312BA008C13A7 /* WarmupQuestionsService.swift in Sources */,
 				A450E39F24E5729200C49AEE /* GameOrderConfigurator.swift in Sources */,
 				A4D5A395263C72340075ECF3 /* WarmupAnswerResponse.swift in Sources */,
 				A40B758224D9A76F006DB7D1 /* ScheduleConfigurator.swift in Sources */,
@@ -1513,6 +1527,7 @@
 				A48F64662501438D00E7A528 /* ScheduleFilterType.swift in Sources */,
 				A44A462C24F8EEC500C81F82 /* UIView+Blur.swift in Sources */,
 				A40D818224D2CA30006D2CE3 /* ProfileVC.swift in Sources */,
+				A4E91EC026C32310008C13A7 /* UIApplication+debugInfo.swift in Sources */,
 				A423AC2424EEC65100071E68 /* ConfirmVC.swift in Sources */,
 				A4768C96268E72A00085B622 /* MaskedTextFieldView.swift in Sources */,
 				A44B2FD525841D9100B5B52C /* CertificateResponse.swift in Sources */,
@@ -1525,6 +1540,7 @@
 				A450E39A24E564A900C49AEE /* GameCertificateCell.swift in Sources */,
 				A40F036424D419D200C381F2 /* MenuCellItemProtocol.swift in Sources */,
 				A4F3A79A257E7A1700D6A9C7 /* UIImage+Static.swift in Sources */,
+				A4F47EE226C997E300590FBD /* PickCityCell.swift in Sources */,
 				A452E3B424D431C5002EE514 /* Int+WordBuilding.swift in Sources */,
 				A45241E026547A060058285C /* UITextField+Extensions.swift in Sources */,
 				A4317731267BEEEE0062E0E0 /* SpecialCondition.swift in Sources */,
@@ -1793,8 +1809,8 @@
 				CODE_SIGN_ENTITLEMENTS = QuizPlease/QuizPlease.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20;
-				DEVELOPMENT_TEAM = P89V4KBVYT;
+				CURRENT_PROJECT_VERSION = 21;
+				DEVELOPMENT_TEAM = 5524GP5G24;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1807,7 +1823,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.pycak.QuizPlease;
+				PRODUCT_BUNDLE_IDENTIFIER = com.quizplease.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -1823,8 +1839,8 @@
 				CODE_SIGN_ENTITLEMENTS = QuizPlease/QuizPlease.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20;
-				DEVELOPMENT_TEAM = P89V4KBVYT;
+				CURRENT_PROJECT_VERSION = 21;
+				DEVELOPMENT_TEAM = 5524GP5G24;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1838,7 +1854,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = com.pycak.QuizPlease;
+				PRODUCT_BUNDLE_IDENTIFIER = com.quizplease.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;

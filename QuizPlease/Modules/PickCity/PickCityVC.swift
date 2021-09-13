@@ -17,27 +17,33 @@ class PickCityVC: UITableViewController {
     var cities: [City] = []
     var filteredCities: [City] = []
     ///Pass a City object when loading VC
-    var selectedCity: City!
+    private(set) var selectedCity: City?
     
     weak var delegate: PickCityVCDelegate?
-
+    
+    init(selectedCity: City?, delegate: PickCityVCDelegate?) {
+        self.selectedCity = selectedCity
+        self.delegate = delegate
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
     //MARK:- Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureSearchController()
-        prepareNavigationBar()
+        configure()
         loadCities()
-    }
-    
-    @IBAction func cancelButtonPressed(_ sender: Any) {
-        dismiss(animated: true)
     }
     
     func confirmSelection() {
         if navigationItem.searchController?.isActive ?? false {
             navigationItem.searchController?.isActive = false
         }
-        delegate?.didPick(selectedCity)
+        guard let city = selectedCity else { return }
+        delegate?.didPick(city)
         dismiss(animated: true)
     }
     
@@ -57,12 +63,20 @@ class PickCityVC: UITableViewController {
     }
     
     func reloadDataAndSelect() {
-        if let index = filteredCities.firstIndex(where: { selectedCity?.id == $0.id }) {
+        if let city = selectedCity,
+           let index = filteredCities.firstIndex(where: { city.id == $0.id }) {
             filteredCities.remove(at: index)
-            filteredCities.insert(self.selectedCity, at: 0)
+            filteredCities.insert(city, at: 0)
         }
         tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .automatic)
         //tableView.reloadData()
+    }
+    
+    private func configure() {
+        prepareNavigationBar(title: "Выберите город", tintColor: .labelAdapted)
+        configureSearchController()
+        addBarButtonItems()
+        tableView.register(PickCityCell.self, forCellReuseIdentifier: "\(PickCityCell.self)")
     }
     
     //MARK:- Search Controller Configuration
@@ -76,6 +90,20 @@ class PickCityVC: UITableViewController {
         
         navigationItem.searchController = searchController
         definesPresentationContext = true
+    }
+    
+    private func addBarButtonItems() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            image: UIImage(named: "cross"),
+            style: .done,
+            target: self,
+            action: #selector(cancelButtonPressed)
+        )
+        navigationItem.leftBarButtonItem = UIBarButtonItem()
+    }
+    
+    @objc private func cancelButtonPressed() {
+        dismiss(animated: true)
     }
     
     //MARK:- Filter
@@ -103,11 +131,11 @@ extension PickCityVC {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "PickCityCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "\(PickCityCell.self)", for: indexPath)
         
         let city = filteredCities[indexPath.row]
         cell.textLabel?.text = city.title
-        cell.accessoryType = city.id == selectedCity.id ? .checkmark : .none
+        cell.accessoryType = city.id == selectedCity?.id ? .checkmark : .none
         
         return cell
     }

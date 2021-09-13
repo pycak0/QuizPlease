@@ -10,8 +10,9 @@ import UIKit
 
 //MARK:- Interactor Protocol
 protocol WarmupInteractorProtocol {
-    ///must be weak
-    var output: WarmupInteractorOutput? { get set }
+    ///must be an `unowned var`
+    var output: WarmupInteractorOutput! { get set }
+    init(questionsService: WarmupQuestionsService)
     func loadQuestions()
     func shareResults(_ image: UIImage, delegate: UIViewController)
     func saveQuestionId(_ id: String)
@@ -27,22 +28,27 @@ protocol WarmupInteractorOutput: AnyObject {
 }
 
 class WarmupInteractor: WarmupInteractorProtocol {
-    weak var output: WarmupInteractorOutput?
+    unowned var output: WarmupInteractorOutput!
+    let questionsService: WarmupQuestionsService
+    
+    required init(questionsService: WarmupQuestionsService) {
+        self.questionsService = questionsService
+    }
     
     func loadQuestions() {
-        NetworkService.shared.getWarmupQuestions { [weak self] serverResult in
+        questionsService.getWarmupQuestions { [weak self] serverResult in
             guard let self = self else { return }
             switch serverResult {
             case let .failure(error):
                 switch error {
                 case let .serverError(statusCode):
                     if statusCode == 422 {
-                        self.output?.interactor(self, didLoadQuestions: [])
+                        self.output.interactor(self, didLoadQuestions: [])
                     } else {
                         fallthrough
                     }
                 default:
-                    self.output?.interactor(self, failedToLoadQuestionsWithError: error)
+                    self.output.interactor(self, failedToLoadQuestionsWithError: error)
                 }
             case let .success(questions):
 //                self.loadSavedQuestionIds { (savedQuestions) in
@@ -51,7 +57,7 @@ class WarmupInteractor: WarmupInteractorProtocol {
 //                        .filter { !savedSet.contains("\($0.id)") }
 //                        .shuffled()
 //                        .prefix(5)
-                    self.output?.interactor(self, didLoadQuestions: Array(questions))
+                    self.output.interactor(self, didLoadQuestions: Array(questions))
 //                }
             }
         }
@@ -75,29 +81,14 @@ class WarmupInteractor: WarmupInteractorProtocol {
     }
     
     func checkAnswerWithId(_ answerId: Int, forQuestionWithId questionId: String) {
-//        self.output?.interactor(self, isAnswerCorrect: Int.random(in: 0...1) == 1, answerId: answerId, questionId: questionId)
-        
-        
-        NetworkService.shared.sendWarmupAnswer(questionId: questionId, answerId: answerId) { [weak self] (result) in
+        questionsService.sendWarmupAnswer(questionId: questionId, answerId: answerId) { [weak self] (result) in
             guard let self = self else { return }
             switch result {
             case let .failure(error):
-                self.output?.interactor(self, failedToCheckAnswer: answerId, questionId: questionId, error: error)
+                self.output.interactor(self, failedToCheckAnswer: answerId, questionId: questionId, error: error)
             case let .success(answerResponse):
-                self.output?.interactor(self, isAnswerCorrect: answerResponse.message, answerId: answerId, questionId: questionId)
+                self.output.interactor(self, isAnswerCorrect: answerResponse.message, answerId: answerId, questionId: questionId)
             }
         }
-    }
-}
-
-class MockNetworkService {
-    private init() {}
-    static let shared = MockNetworkService()
-
-    func getWarmupQuestions(completion: @escaping (Result<[WarmupQuestion], NetworkServiceError>) -> Void) {
-        let path = Bundle.main.path(forResource: "MockWarmupQuestionsData", ofType: "json")!
-        let data = FileManager.default.contents(atPath: path)!
-        let response = try! JSONDecoder().decode(ServerResponse<[WarmupQuestion]>.self, from: data)
-        completion(.success(response.data))
     }
 }

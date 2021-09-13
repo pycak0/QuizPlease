@@ -129,4 +129,19 @@ extension UIViewController {
 //        alert.addAction(title: cancelButtonTitle, style: .cancel)
 //        present(alert, animated: true)
 //    }
+    
+    func showSimpleAlert(
+        attributedTitle: NSAttributedString,
+        attributedMessage: NSAttributedString = NSAttributedString(string: ""),
+        okButtonTitle: String = "OK",
+        okButtonStyle: UIAlertAction.Style = .default,
+        okHandler: ((UIAlertAction) -> Void)? = nil
+    ) {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
+        alert.setValue(attributedMessage, forKey: "attributedMessage")
+        alert.setValue(attributedTitle, forKey: "attributedTitle")
+        let okBtn = UIAlertAction(title: okButtonTitle, style: okButtonStyle, handler: okHandler)
+        alert.addAction(okBtn)
+        present(alert, animated: true)
+    }
 }
