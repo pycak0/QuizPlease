@@ -15,7 +15,7 @@ protocol WarmupQuestionsService {
 
 extension NetworkService: WarmupQuestionsService {}
 
-class NetworkServiceMock: WarmupQuestionsService {
+class WarmupQuestionsServiceMock: WarmupQuestionsService {
     let numberOfQuestions: Int
     
     init(maxNumberOfQuestions: Int) {

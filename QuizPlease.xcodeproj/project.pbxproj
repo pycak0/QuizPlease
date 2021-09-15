@@ -257,7 +257,6 @@
 		A4FFA4AD24F3AE78006A1150 /* MapExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FFA4AC24F3AE78006A1150 /* MapExtensions.swift */; };
 		A4FFA4AF24F3BD73006A1150 /* RegisterForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FFA4AE24F3BD73006A1150 /* RegisterForm.swift */; };
 		A4FFA4B124F3BE2A006A1150 /* PaymentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FFA4B024F3BE2A006A1150 /* PaymentType.swift */; };
-		BC35081BEA3D2B8C4E2C71C2 /* Pods_QuizPlease.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4D9180E261A72F900C4D51E /* Pods_QuizPlease.framework */; };
 		FF12F985D9FD6405E16CEC39 /* Pods_QuizPlease.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B96AC7846537ADF1B2E29E1 /* Pods_QuizPlease.framework */; };
 /* End PBXBuildFile section */
 
@@ -548,7 +547,6 @@
 				A4147AD524E596FC007C131F /* IQKeyboardManagerSwift in Frameworks */,
 				A4132787268F33550088DE6A /* PhoneNumberKit-Static in Frameworks */,
 				FF12F985D9FD6405E16CEC39 /* Pods_QuizPlease.framework in Frameworks */,
-				BC35081BEA3D2B8C4E2C71C2 /* Pods_QuizPlease.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1323,7 +1321,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1220;
-				LastUpgradeCheck = 1240;
+				LastUpgradeCheck = 1250;
 				ORGANIZATIONNAME = "Владислав";
 				TargetAttributes = {
 					A40D815524D2C6C1006D2CE3 = {
