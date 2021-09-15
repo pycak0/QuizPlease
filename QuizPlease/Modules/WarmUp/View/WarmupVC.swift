@@ -51,6 +51,17 @@ class WarmupVC: UIViewController {
         presenter.viewDidLoad(self)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.barStyle = .black
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        resultsView.layer.sublayers?.removeAll(where: { $0 is CAGradientLayer })
+        resultsView.addGradient(.warmupItems)
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         pageVC.currentViewController?.stopMedia()
@@ -125,7 +136,6 @@ extension WarmupVC: WarmupViewProtocol {
     func configure() {
         configureTimerRing()
         configureResultLabels()
-        resultsView.addGradient(.warmupItems)
     }
     
     func setPenaltyTimeInfo(penaltySeconds: Int) {
