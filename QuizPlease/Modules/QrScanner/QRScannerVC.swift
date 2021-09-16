@@ -37,7 +37,12 @@ class QRScannerVC: UIViewController {
         } catch {
             let error = (error as? QRCodeService.CaptureSessionError)
                 ?? QRCodeService.CaptureSessionError.other(error)
-            handleCaptureSessionError(error)
+            switch error {
+            case .notSupported:
+                handleCaptureSessionError(error)
+            default:
+                print(error)
+            }
         }
     }
     
