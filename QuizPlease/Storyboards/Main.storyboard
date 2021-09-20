@@ -252,7 +252,7 @@
                                         <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="20"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ooJ-ih-UFn">
+                                    <button hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ooJ-ih-UFn">
                                         <rect key="frame" x="50" y="470.66666666666663" width="290" height="40"/>
                                         <color key="backgroundColor" name="themePurple"/>
                                         <constraints>
@@ -1485,7 +1485,7 @@
                                         <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="20"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XRR-c2-q0z">
+                                    <button hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XRR-c2-q0z">
                                         <rect key="frame" x="50" y="479" width="290" height="40"/>
                                         <color key="backgroundColor" name="themePurple"/>
                                         <constraints>
