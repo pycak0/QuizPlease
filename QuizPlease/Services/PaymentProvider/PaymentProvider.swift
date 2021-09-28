@@ -11,7 +11,7 @@ import UIKit
 protocol PaymentProvider: AnyObject {
     associatedtype Delegate
     
-    init(delegate: Delegate)
+    init(cityId: Int, delegate: Delegate)
     
     func showPaymentView(presentationController: UIViewController, options: PaymentOptions)
 }

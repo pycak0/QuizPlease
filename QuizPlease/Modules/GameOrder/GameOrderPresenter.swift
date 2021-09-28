@@ -9,18 +9,20 @@
 import Foundation
 import YooKassaPayments
 
-//MARK:- Presenter Protocol
+//MARK: - Presenter Protocol
 protocol GameOrderPresenterProtocol {
-    var game: GameInfo! { get set }
-    var registerForm: RegisterForm { get set }
     var router: GameOrderRouterProtocol! { get }
+    var view: GameOrderViewProtocol? { get }
+    var interactor: GameOrderInteractorProtocol! { get }
+    
+    var game: GameInfo { get }
+    var registerForm: RegisterForm { get }
+    
     var isOnlinePaymentDefault: Bool { get }
     var isOnlyCashAvailable: Bool { get }
     var isPhoneNumberValid: Bool { get set }
     var specialConditions: [SpecialCondition] { get set }
-    
-    init(view: GameOrderViewProtocol, interactor: GameOrderInteractorProtocol, router: GameOrderRouterProtocol)
-    
+        
     func configureViews()
     func didPressSubmitButton()
     func countSumToPay(forPeople number: Int) -> Double
@@ -38,13 +40,8 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
     var interactor: GameOrderInteractorProtocol!
     var router: GameOrderRouterProtocol!
     
-    var registerForm = RegisterForm()
-    var game: GameInfo! {
-        didSet {
-            registerForm.gameId = game.id
-            registerForm.paymentType = isOnlinePaymentDefault ? .online : .cash
-        }
-    }
+    let registerForm: RegisterForm
+    var game: GameInfo
     
     var isPhoneNumberValid = false
     
@@ -55,10 +52,19 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
     
     private var tokenizationModule: TokenizationModuleInput?
     
-    required init(view: GameOrderViewProtocol, interactor: GameOrderInteractorProtocol, router: GameOrderRouterProtocol) {
+    required init(
+        view: GameOrderViewProtocol,
+        interactor: GameOrderInteractorProtocol,
+        router: GameOrderRouterProtocol,
+        registerForm: RegisterForm,
+        gameInfo: GameInfo
+    ) {
         self.view = view
         self.interactor = interactor
         self.router = router
+        self.game = gameInfo
+        self.registerForm = registerForm
+        self.registerForm.paymentType = isOnlinePaymentDefault ? .online : .cash
     }
     
     var isOnlinePaymentDefault: Bool {
@@ -141,7 +147,7 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
         return priceTextColor
     }
     
-    //MARK:- Special Conditions
+    // MARK: - Special Conditions
     func didPressAddSpecialCondition() {
         specialConditions.append(SpecialCondition())
         view?.addCertificateCell()
@@ -174,7 +180,7 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
         view?.removeCertificateCell(at: index)
     }
         
-    //MARK:- Submit Button Action
+    // MARK: - Submit Button Action
     func didPressSubmitButton() {
         view?.endEditing()
         guard isPhoneNumberValid, registerForm.isValid else {
@@ -208,7 +214,10 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
         let paymentSum = Double(countSumToPay(forPeople: count))
         if registerForm.paymentType == .online && paymentSum > 0 {
             router.showPaymentView(
-                provider: YooMoneyPaymentProvider(delegate: self),
+                provider: YooMoneyPaymentProvider(
+                    cityId: registerForm.cityId,
+                    delegate: self
+                ),
                 withOptions: PaymentOptions(
                     amount: paymentSum,
                     description: createPaymentDescription(),
@@ -223,7 +232,7 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
         }
     }
     
-    //MARK:- Register
+    // MARK: - Register
     private func register(paymentMethod: PaymentMethodType? = nil) {
         view?.startLoading()
         interactor.register(
@@ -243,7 +252,7 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
     }
 }
 
-//MARK:- GameOrderInteractorOutput
+// MARK: - GameOrderInteractorOutput
 extension GameOrderPresenter: GameOrderInteractorOutput {
     func interactor(_ interactor: GameOrderInteractorProtocol?, didRegisterWithResponse response: GameOrderResponse, paymentMethod: PaymentMethodType?) {
         view?.stopLoading()
@@ -316,7 +325,7 @@ extension GameOrderPresenter: GameOrderInteractorOutput {
     }
 }
 
-//MARK:- TokenizationModuleOutput
+// MARK: - TokenizationModuleOutput
 extension GameOrderPresenter: TokenizationModuleOutput {
     func didFinish(on module: TokenizationModuleInput, with error: YooKassaPaymentsError?) {
         DispatchQueue.main.async {

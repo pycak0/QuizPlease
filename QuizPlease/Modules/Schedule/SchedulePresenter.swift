@@ -9,7 +9,7 @@
 import Foundation
 
 //MARK:- Presenter Protocol
-protocol SchedulePresenterProtocol: class {
+protocol SchedulePresenterProtocol: AnyObject {
     var router: ScheduleRouterProtocol! { get }
     init(view: ScheduleViewProtocol, interactor: ScheduleInteractorProtocol, router: ScheduleRouterProtocol)
     
@@ -46,7 +46,11 @@ class SchedulePresenter: SchedulePresenterProtocol {
     
     private var subscribedGameIds = [Int]()
     
-    required init(view: ScheduleViewProtocol, interactor: ScheduleInteractorProtocol, router: ScheduleRouterProtocol) {
+    required init(
+        view: ScheduleViewProtocol,
+        interactor: ScheduleInteractorProtocol,
+        router: ScheduleRouterProtocol
+    ) {
         self.view = view
         self.router = router
         self.interactor = interactor
@@ -65,12 +69,24 @@ class SchedulePresenter: SchedulePresenterProtocol {
     //MARK:- Actions
     func didSignUp(forGameAt index: Int) {
         let game = games[index]
-        router.showGameInfo(GameInfoPresentAttributes(game: game, shouldScrollToSignUp: true))
+        router.showGameInfo(
+            with: GameOrderPresentationOptions(
+                gameInfo: game,
+                city: scheduleFilter.city,
+                shouldScrollToSignUp: true
+            )
+        )
     }
     
     func didPressInfoButton(forGameAt index: Int) {
         let game = games[index]
-        router.showGameInfo(GameInfoPresentAttributes(game: game, shouldScrollToSignUp: false))
+        router.showGameInfo(
+            with: GameOrderPresentationOptions(
+                gameInfo: game,
+                city: scheduleFilter.city,
+                shouldScrollToSignUp: false
+            )
+        )
     }
     
     func didAskLocation(forGameAt index: Int) {

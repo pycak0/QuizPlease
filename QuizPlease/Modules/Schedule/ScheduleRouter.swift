@@ -10,7 +10,7 @@ import UIKit
 
 //MARK:- Router Protocol
 protocol ScheduleRouterProtocol: SegueRouter {
-    func showGameInfo(_ sender: GameInfoPresentAttributes)
+    func showGameInfo(with options: GameOrderPresentationOptions)
     func showScheduleFilters(with filterInfo: ScheduleFilter)
     
     ///Pop current screen and push Warmup Screen onto the navigation stack
@@ -20,9 +20,10 @@ protocol ScheduleRouterProtocol: SegueRouter {
     func showHomeGame(popCurrent: Bool)
 }
 
-struct GameInfoPresentAttributes {
-    var game: GameInfo
-    var shouldScrollToSignUp: Bool
+struct GameOrderPresentationOptions {
+    let gameInfo: GameInfo
+    let city: City
+    let shouldScrollToSignUp: Bool
 }
 
 class ScheduleRouter: ScheduleRouterProtocol {
@@ -36,9 +37,9 @@ class ScheduleRouter: ScheduleRouterProtocol {
     func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case "ShowGameInfo":
-            guard let gameInfo = sender as? GameInfoPresentAttributes,
+            guard let gameInfo = sender as? GameOrderPresentationOptions,
                 let vc = segue.destination as? GameOrderVC else { return }
-            GameOrderConfigurator().configure(vc, withGameInfo: gameInfo)
+            GameOrderConfigurator().configure(vc, with: gameInfo)
         case "ShowFilters":
             guard let vc = segue.destination as? FiltersVC,
                 let filter = sender as? ScheduleFilter else { return }
@@ -50,8 +51,8 @@ class ScheduleRouter: ScheduleRouterProtocol {
     }
     
     //MARK:- Segues
-    func showGameInfo(_ sender: GameInfoPresentAttributes) {
-        viewController.performSegue(withIdentifier: "ShowGameInfo", sender: sender)
+    func showGameInfo(with options: GameOrderPresentationOptions) {
+        viewController.performSegue(withIdentifier: "ShowGameInfo", sender: options)
     }
     
     func showScheduleFilters(with filterInfo: ScheduleFilter) {
