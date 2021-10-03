@@ -55,7 +55,7 @@ class ProfileVC: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        addGradientIfNeeded()
+        resetGradient()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -76,16 +76,17 @@ class ProfileVC: UIViewController {
         presenter.didPressExitButton()
     }
     
-    private func addGradientIfNeeded() {
-        guard infoHeader.layer.sublayers?.first(where: { $0 is CAGradientLayer }) == nil,
-              infoHeader.layer.sublayers?.first(where: { $0 is CAGradientLayer }) == nil
-        else { return }
+    private func resetGradient() {
+        infoHeader.layer.sublayers?.removeAll(where: { $0 is CAGradientLayer })
         let infoGradFrame = CGRect(
             x: 0, y: 0,
             width: view.bounds.width,
             height: infoHeader.bounds.height
         )
         infoHeader.addGradient(colors: [.lemon, .lightOrange], frame: infoGradFrame, insertAt: 0)
+        infoHeader.clipsToBounds = false
+        
+        addGameButton.layer.sublayers?.removeAll(where: { $0 is CAGradientLayer })
         addGameButton.addGradient(colors: [.lemon, .lightOrange], insertAt: 0)
     }
 }
@@ -105,7 +106,7 @@ extension ProfileVC: ProfileViewProtocol {
     func updateUserInfo(with pointsScored: Double) {
         let gamesCount = presenter.userInfo?.games?.count ?? 0
         totalPointsScoredLabel.text = pointsFormatter.string(from: pointsScored as NSNumber)
-        let gamesFormattedCount = gamesCount.string(withAssociatedFirstCaseWord: "игра")
+        let gamesFormattedCount = gamesCount.string(withAssociatedFirstCaseWord: "игра", changingCase: .genitive)
         gamesCountLabel.text = "Вы сходили на \(gamesFormattedCount) и накопили"
     }
     

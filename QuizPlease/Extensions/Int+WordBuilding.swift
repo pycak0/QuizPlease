@@ -25,7 +25,7 @@ extension Int {
     ///- parameter word: Associated first-case (ending with "a") russian word, must be given in singular form (Именительный Падеж, единственное число)
     ///
     ///`5.string(withAssociatedMaleWord: "игра") -> "5 игр"`
-    func string(withAssociatedFirstCaseWord word: String) -> String {
-        "\(self) \(word.changingAs(firstCaseWordUsedWithNumber: self))"
+    func string(withAssociatedFirstCaseWord word: String, changingCase: String.ChangingCase) -> String {
+        "\(self) \(word.changingAs(firstCaseWordUsedWithNumber: self, changingCase: changingCase))"
     }
 }

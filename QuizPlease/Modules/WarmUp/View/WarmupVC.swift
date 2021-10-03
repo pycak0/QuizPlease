@@ -139,7 +139,7 @@ extension WarmupVC: WarmupViewProtocol {
     }
     
     func setPenaltyTimeInfo(penaltySeconds: Int) {
-        let secondsFormatted = penaltySeconds.string(withAssociatedFirstCaseWord: "секунда")
+        let secondsFormatted = penaltySeconds.string(withAssociatedFirstCaseWord: "секунда", changingCase: .nominative)
         infoLabel.text = "Тут будут появляться новые вопросы разминки. Ваша задача — ответить правильно и максимально быстро. В случае неправильного ответа к таймеру добавится \(secondsFormatted)."
     }
     
