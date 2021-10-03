@@ -24,7 +24,7 @@ public class HBSegmentedControl: UIControl {
         didSet { displayNewSelectedIndex() }
     }
     
-    //MARK:- IBInspectable
+    // MARK: - IBInspectable
     
     @IBInspectable public var selectedLabelColor: UIColor = UIColor.black {
         didSet { setSelectedColors() }
@@ -61,7 +61,7 @@ public class HBSegmentedControl: UIControl {
     public var dampingRatio: CGFloat = 0.5
     
     
-    //MARK:- Init
+    // MARK: - Init
     
     public override init(frame: CGRect) {
         super.init(frame: frame)

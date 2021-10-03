@@ -8,7 +8,7 @@
 
 import UIKit
 
-//MARK:- Shop Cell Collection View
+// MARK: - Shop Cell Collection View
 extension MainMenuVC: UICollectionViewDelegate, UICollectionViewDataSource, MenuShopCellDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         let count = presenter.sampleShopItems.count

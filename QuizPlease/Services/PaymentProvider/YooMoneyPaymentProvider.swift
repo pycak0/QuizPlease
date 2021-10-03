@@ -26,7 +26,7 @@ final class YooMoneyPaymentProvider: PaymentProvider {
     func showPaymentView(presentationController: UIViewController, options: PaymentOptions) {
         let paymentAmount = Amount(value: Decimal(options.amount), currency: .rub)
         
-        //MARK:- ❗️replace `"client_id"` with real client id value
+        // MARK: - ❗️replace `"client_id"` with real client id value
         let tokenizationModuleInputData = TokenizationModuleInputData(
             clientApplicationKey: apiKey,
             shopName: options.shopName,

@@ -30,6 +30,6 @@ class GameOrderConfigurator: GameOrderConfiguratorProtocol {
         interactor.output = presenter
         viewController.presenter = presenter
         viewController.shouldScrollToSignUp = options.shouldScrollToSignUp
-        viewController.prepareNavigationBar(title: options.gameInfo.fullTitle)
+        viewController.prepareNavigationBar(title: options.gameInfo.fullTitle, barStyle: .transcluent(tintColor: viewController.view.backgroundColor))
     }
 }

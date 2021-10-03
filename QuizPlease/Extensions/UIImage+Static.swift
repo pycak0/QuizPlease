@@ -16,4 +16,8 @@ extension UIImage {
     class var logoTemplateImage: UIImage? {
         UIImage(named: "logoSmall")?.withRenderingMode(.alwaysTemplate)
     }
+    
+    class var backButton: UIImage {
+        UIImage(imageLiteralResourceName: "backButton")
+    }
 }

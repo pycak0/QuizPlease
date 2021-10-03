@@ -8,7 +8,7 @@
 
 import Foundation
 
-//MARK:- Presenter Protocol
+// MARK: - Presenter Protocol
 protocol ShopPresenterProtocol {
     var router: ShopRouterProtocol! { get }
     init(view: ShopViewProtocol, interactor: ShopInteractorProtocol, router: ShopRouterProtocol)
@@ -42,7 +42,7 @@ class ShopPresenter: ShopPresenterProtocol {
         self.router = router
     }
     
-    //MARK:- Setup View
+    // MARK: - Setup View
     func viewDidLoad(_ view: ShopViewProtocol) {
         reloadItems()
         view.startLoading()
@@ -53,13 +53,13 @@ class ShopPresenter: ShopPresenterProtocol {
         loadUserInfo()
     }
     
-    //MARK:- Refresh Control
+    // MARK: - Refresh Control
     func handleRefreshControl() {
         reloadItems()
         loadUserInfo()
     }
     
-    //MARK:- Reload Items
+    // MARK: - Reload Items
     private func reloadItems() {
         interactor.loadItems { [weak self] (result) in
             guard let self = self else { return }
@@ -79,7 +79,7 @@ class ShopPresenter: ShopPresenterProtocol {
         }
     }
     
-    //MARK:- Load User Info
+    // MARK: - Load User Info
     private func loadUserInfo() {
         interactor.loadUserInfo { [weak self] (serverResult) in
             guard let self = self else { return }
@@ -93,7 +93,7 @@ class ShopPresenter: ShopPresenterProtocol {
         }
     }
     
-    //MARK:- Actions
+    // MARK: - Actions
     func didSelectItem(at index: Int) {
         let item = items[index]
         router.showConfirmScreen(for: item)

@@ -14,7 +14,7 @@ fileprivate struct SearchAttempt {
     var query: String
 }
 
-protocol GameInfoCellDelegate: class {
+protocol GameInfoCellDelegate: AnyObject {
     func gameInfo(for gameInfoCell: GameInfoCell) -> GameInfo
 }
 
@@ -58,7 +58,7 @@ class GameInfoCell: UITableViewCell, GameOrderCellProtocol {
         cellView.layer.cornerRadius = 20
     }
     
-    //MARK:- Configure
+    // MARK: - Configure
     func configure(with info: GameInfo) {
         priceLabel.text = info.priceDetails
         timeLabel.text = "в \(info.time)"

@@ -20,7 +20,7 @@ class UserLocationService: NSObject {
     var isLocationAuthStatusDetermined = true
     var hasStartedUpdatingLocation = false
 
-    //MARK:- Ask User Location
+    // MARK: - Ask User Location
     ///Use this method to update user location.
     ///
     ///`completion` closure is executed after location is updated (either with success or failure). `completion` provides new location (if exists) and request status.
@@ -44,7 +44,7 @@ class UserLocationService: NSObject {
         }
     }
     
-    //MARK:- Start & Stop Updating Location
+    // MARK: - Start & Stop Updating Location
     private func startUpdatingLocation() {
         hasStartedUpdatingLocation = true
         _locationManager.startUpdatingLocation()
@@ -56,7 +56,7 @@ class UserLocationService: NSObject {
     }
 }
 
-//MARK:- CLLocationManagerDelegate
+// MARK: - CLLocationManagerDelegate
 extension UserLocationService: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         stopUpdatingLocation()

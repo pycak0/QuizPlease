@@ -1,5 +1,5 @@
 //
-//MARK:  ScheduleVC.swift
+//MARK: ScheduleVC.swift
 //  QuizPlease
 //
 //  Created by Владислав on 30.07.2020.
@@ -24,9 +24,10 @@ class ScheduleVC: UIViewController {
     var presenter: SchedulePresenterProtocol!
     
     @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private weak var noGamesView: UIView!
     @IBOutlet private weak var noGamesTextView: UITextView!
     
-    //MARK:- Lifecycle
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         ScheduleConfigurator().configure(self)
@@ -53,7 +54,7 @@ class ScheduleVC: UIViewController {
         presenter.handleRefreshControl()
     }
     
-    //MARK:- Configure Text
+    // MARK: - Configure Text
     private func configureNoGamesText() {
         let text = noGamesTextView.text ?? ""
         let nsString = text as NSString
@@ -79,7 +80,7 @@ class ScheduleVC: UIViewController {
         noGamesTextView.addGestureRecognizer(tapRecognizer)
     }
     
-    //MARK:- Handle Tap on Text
+    // MARK: - Handle Tap on Text
     @objc private func handleTextTap(_ sender: UITapGestureRecognizer) {
         guard let textView = sender.view as? UITextView else { return }
         let layoutManager = textView.layoutManager
@@ -105,15 +106,13 @@ class ScheduleVC: UIViewController {
         } else if warmupRange.intersection(detectedRange) != nil {
             presenter.warmupAction()
         }
-        
     }
-    
 }
 
-//MARK:- View Protocol
+// MARK: - View Protocol
 extension ScheduleVC: ScheduleViewProtocol {
     func reloadScheduleList() {
-        tableView.isHidden = false
+        noGamesView.isHidden = true
         tableView.reloadData()
     }
     
@@ -144,16 +143,15 @@ extension ScheduleVC: ScheduleViewProtocol {
     }
     
     func showNoGamesScheduled() {
-        tableView.isHidden = true
+        noGamesView.isHidden = false
     }
     
     func changeSubscribeStatus(forGameAt index: Int) {
         tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
     }
-    
 }
 
-//MARK:- FiltersVCDelegate
+// MARK: - FiltersVCDelegate
 extension ScheduleVC: FiltersVCDelegate {
     func didChangeFilter(_ newFilter: ScheduleFilter) {
         presenter.didChangeScheduleFilter(newFilter: newFilter)
@@ -165,7 +163,7 @@ extension ScheduleVC: FiltersVCDelegate {
 }
 
 
-//MARK:- Data Source & Delegate
+// MARK: - Data Source & Delegate
 extension ScheduleVC: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -188,7 +186,7 @@ extension ScheduleVC: UITableViewDelegate, UITableViewDataSource {
     
 }
 
-//MARK:- ScheduleGameCellDelegate
+// MARK: - ScheduleGameCellDelegate
 extension ScheduleVC: ScheduleGameCellDelegate {
     func signUpButtonPressed(in cell: ScheduleGameCell) {
         guard let indexPath = tableView.indexPath(for: cell) else { return }

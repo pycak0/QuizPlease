@@ -20,7 +20,7 @@ class VideoView: UIView {
     private var playerVC = AVPlayerViewController()
     var url: URL?
     
-    //MARK:- Public
+    // MARK: - Public
     func play() {
         setCategoryPlayback()
         playerVC.player?.play()
@@ -50,7 +50,7 @@ class VideoView: UIView {
         playerVC.view.backgroundColor = .black
         playerVC.showsPlaybackControls = true
         
-        //MARK:- insert player into videoView
+        // MARK: - insert player into videoView
         parent.addChild(playerVC)
         playerVC.didMove(toParent: parent)
         playerView.addSubview(playerVC.view)
@@ -66,7 +66,7 @@ class VideoView: UIView {
         }
     }
 
-    //MARK:- Init
+    // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
         xibSetup()

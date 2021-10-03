@@ -8,7 +8,7 @@
 
 import UIKit
 
-//MARK:- Router Protocol
+// MARK: - Router Protocol
 protocol ScheduleRouterProtocol: SegueRouter {
     func showGameInfo(with options: GameOrderPresentationOptions)
     func showScheduleFilters(with filterInfo: ScheduleFilter)
@@ -33,7 +33,7 @@ class ScheduleRouter: ScheduleRouterProtocol {
         self.viewController = viewController
     }
     
-    //MARK:- Prepare for Segue
+    // MARK: - Prepare for Segue
     func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case "ShowGameInfo":
@@ -50,7 +50,7 @@ class ScheduleRouter: ScheduleRouterProtocol {
         }
     }
     
-    //MARK:- Segues
+    // MARK: - Segues
     func showGameInfo(with options: GameOrderPresentationOptions) {
         viewController.performSegue(withIdentifier: "ShowGameInfo", sender: options)
     }

@@ -8,8 +8,8 @@
 
 import UIKit
 
-//MARK:- Delegate Protocol
-protocol GameOrderCompletionDelegate: class {
+// MARK: - Delegate Protocol
+protocol GameOrderCompletionDelegate: AnyObject {
     func didPressDismissButton(in vc: GameOrderCompletionVC)
 }
 
@@ -29,7 +29,7 @@ class GameOrderCompletionVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        prepareNavigationBar(title: gameInfo.fullTitle)
+        prepareNavigationBar(title: gameInfo.fullTitle, barStyle: .transcluent(tintColor: view.backgroundColor))
         configureViews()
     }
     
@@ -50,7 +50,7 @@ class GameOrderCompletionVC: UIViewController {
 }
 
 
-//MARK:- Data Source & Delegate
+// MARK: - Data Source & Delegate
 extension GameOrderCompletionVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return RowKind.allCases.count
@@ -77,7 +77,7 @@ extension GameOrderCompletionVC: UITableViewDelegate, UITableViewDataSource {
     
 }
 
-//MARK:- GameInfoCellDelegate
+// MARK: - GameInfoCellDelegate
 extension GameOrderCompletionVC: GameInfoCellDelegate {
     func gameInfo(for gameInfoCell: GameInfoCell) -> GameInfo {
         return gameInfo

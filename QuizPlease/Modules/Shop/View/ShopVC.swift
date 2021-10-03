@@ -8,7 +8,7 @@
 
 import UIKit
 
-//MARK:- View Protocol
+// MARK: - View Protocol
 protocol ShopViewProtocol: UIViewController, LoadingIndicator {
     var presenter: ShopPresenterProtocol! { get set }
     
@@ -37,10 +37,13 @@ class ShopVC: UIViewController {
         }
     }
     
+    @IBOutlet private weak var emptyProductsView: UIView!
+    
     private var gradients = UIView.GradientPreset.shopItemPresets
         
     override func viewDidLoad() {
         super.viewDidLoad()
+        prepareNavigationBar(barStyle: .transcluent(tintColor: view.backgroundColor))
         presenter.viewDidLoad(self)
     }
     
@@ -58,7 +61,7 @@ class ShopVC: UIViewController {
     }
 }
 
-//MARK:- Protocol Implementation
+// MARK: - Protocol Implementation
 extension ShopVC: ShopViewProtocol {
     func startLoading() {
         shopCollectionView.refreshControl?.beginRefreshing()
@@ -71,13 +74,12 @@ extension ShopVC: ShopViewProtocol {
     }
     
     func reloadCollectionView() {
-        //shopCollectionView.reloadData()
-        shopCollectionView.isHidden = false
+        emptyProductsView.isHidden = true
         shopCollectionView.reloadSections(IndexSet(arrayLiteral: 0))
     }
     
     func showItemsEmpty() {
-        shopCollectionView.isHidden = true
+        emptyProductsView.isHidden = false
     }
     
     func showUserPoints(_ points: Double) {
@@ -87,7 +89,7 @@ extension ShopVC: ShopViewProtocol {
     }
 }
 
-//MARK:- ConfirmVC Delegate
+// MARK: - ConfirmVC Delegate
 extension ShopVC: ConfirmVCDelegate {
     func didAgreeToPurchase(item: ShopItem) {
         presenter.didAgreeToPurchase(item)
@@ -100,7 +102,7 @@ extension ShopVC: ShopCompletionVCDelegate {
     }
 }
 
-//MARK:- Data Source
+// MARK: - Data Source
 extension ShopVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return presenter.items.count
@@ -122,7 +124,7 @@ extension ShopVC: UICollectionViewDataSource {
     
 }
 
-//MARK:- Delegate
+// MARK: - Delegate
 extension ShopVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
         if let cell = collectionView.cellForItem(at: indexPath) {

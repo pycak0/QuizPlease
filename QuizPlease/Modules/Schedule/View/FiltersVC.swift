@@ -9,7 +9,7 @@
 import UIKit
 import BottomPopup
 
-//MARK:- Delegate Protocol
+// MARK: - Delegate Protocol
 protocol FiltersVCDelegate: AnyObject {
     func didChangeFilter(_ newFilter: ScheduleFilter)
     
@@ -21,7 +21,7 @@ protocol FiltersVCDelegate: AnyObject {
 class FiltersVC: BottomPopupViewController {
     let duration = 0.2
     
-    //MARK:- Properties
+    // MARK: - Properties
     @IBOutlet weak var topStack: UIStackView!
     @IBOutlet weak var bottomStack: UIStackView!
     @IBOutlet weak var clearFilterButton: UIButton!
@@ -47,7 +47,7 @@ class FiltersVC: BottomPopupViewController {
     var gameTypes: [ScheduleFilterOption]?
     var bars: [ScheduleFilterOption]?
     
-    //MARK:- Lifecycle
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         loadAllFilters()
@@ -55,7 +55,7 @@ class FiltersVC: BottomPopupViewController {
         updateUI()
     }
     
-    //MARK:- Configure Views
+    // MARK: - Configure Views
     func configureViews() {
         let color = UIColor.darkBlue.withAlphaComponent(0.3)
         let radius: CGFloat = 20
@@ -77,7 +77,7 @@ class FiltersVC: BottomPopupViewController {
         addActions()
     }
     
-    //MARK:- Add Actions
+    // MARK: - Add Actions
     private func addActions() {
         cityFilterView.addTapGestureRecognizer {
             self.showCityPicker()
@@ -112,7 +112,7 @@ class FiltersVC: BottomPopupViewController {
         present(navC, animated: true)
     }
     
-    //MARK:- Show Options Sheet
+    // MARK: - Show Options Sheet
     ///- warning: `updateFilterWith` closure must update `filter`'s property with new value for correct work.
     private func showOptions(for filterOptions: [ScheduleFilterOption]?, updateFilterWith: @escaping (ScheduleFilterOption?) -> Void) {
         guard let names = filterOptions?.map({ $0.title }) else { return }
@@ -130,7 +130,7 @@ class FiltersVC: BottomPopupViewController {
         }
     }
     
-    //MARK:- Load Filters
+    // MARK: - Load Filters
     private func loadFilters(_ type: ScheduleFilterType, city_id: Int? = nil, completion: @escaping ([ScheduleFilterOption]?) -> Void) {
         NetworkService.shared.getFilterOptions(type, scopeFor: city_id) { serverResult in
             switch serverResult {
@@ -150,7 +150,7 @@ class FiltersVC: BottomPopupViewController {
         loadFilters(.places, city_id: filter.city.id) { [weak self] in self?.bars = $0 }
     }
     
-    //MARK:- Update UI
+    // MARK: - Update UI
     private func updateUI() {
         cityFilterView.title = filter.city.title
         dateFilterView.title = filter.date?.title ?? "Все время"
@@ -160,13 +160,13 @@ class FiltersVC: BottomPopupViewController {
         barFilterView.title = filter.place?.title ?? "Все бары"
     }
     
-    //MARK:- Close Button Pressed
+    // MARK: - Close Button Pressed
     @IBAction func closeButtonPressed(_ sender: Any) {
         delegate?.didEndEditingFilters()
         dismiss(animated: true, completion: nil)
     }
     
-    //MARK:- Clear Filters Button Pressed
+    // MARK: - Clear Filters Button Pressed
     @IBAction func clearFiltersButtonPressed(_ sender: Any) {
         filter = ScheduleFilter()
         updateUI()
@@ -175,7 +175,7 @@ class FiltersVC: BottomPopupViewController {
     
 }
 
-//MARK:- PickCityVCDelegate
+// MARK: - PickCityVCDelegate
 extension FiltersVC: PickCityVCDelegate {
     func didPick(_ city: City) {
         filter.city = city

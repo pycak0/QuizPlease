@@ -239,53 +239,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6ly-LF-rJR">
-                                <rect key="frame" x="0.0" y="88" width="390" height="722"/>
-                                <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="empty" translatesAutoresizingMaskIntoConstraints="NO" id="552-gI-g13">
-                                        <rect key="frame" x="30" y="170.33333333333331" width="330" height="115"/>
-                                    </imageView>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Упс! Кажется, сейчас нет игр, на которые открыта регистрация, поэтому пока вы можете размяться или сыграть в наши игры Хоум" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pxi-Le-rcS">
-                                        <rect key="frame" x="25" y="315.33333333333331" width="340" height="135.33333333333331"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="20"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                    </textView>
-                                    <button hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ooJ-ih-UFn">
-                                        <rect key="frame" x="50" y="470.66666666666663" width="290" height="40"/>
-                                        <color key="backgroundColor" name="themePurple"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="SEF-Vv-iDx"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="16"/>
-                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <inset key="imageEdgeInsets" minX="25" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <state key="normal" title="Оповестить о появлении" image="bell"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusView">
-                                                <real key="value" value="20"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="remindButtonPressed:" destination="UZG-kg-EzM" eventType="touchUpInside" id="lFl-4t-4gD"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstItem="552-gI-g13" firstAttribute="top" relation="greaterThanOrEqual" secondItem="6ly-LF-rJR" secondAttribute="top" constant="40" id="2Ue-IE-boB"/>
-                                    <constraint firstItem="pxi-Le-rcS" firstAttribute="centerX" secondItem="6ly-LF-rJR" secondAttribute="centerX" id="7Ay-sc-Z8F"/>
-                                    <constraint firstItem="ooJ-ih-UFn" firstAttribute="top" secondItem="pxi-Le-rcS" secondAttribute="bottom" constant="20" id="DIy-h9-l7J"/>
-                                    <constraint firstItem="pxi-Le-rcS" firstAttribute="centerY" secondItem="6ly-LF-rJR" secondAttribute="centerY" constant="22" id="Jje-sk-Qes"/>
-                                    <constraint firstItem="pxi-Le-rcS" firstAttribute="leading" secondItem="6ly-LF-rJR" secondAttribute="leading" constant="25" id="Q4j-AC-byb"/>
-                                    <constraint firstItem="ooJ-ih-UFn" firstAttribute="centerX" secondItem="6ly-LF-rJR" secondAttribute="centerX" id="V5a-fj-NFa"/>
-                                    <constraint firstItem="552-gI-g13" firstAttribute="leading" secondItem="6ly-LF-rJR" secondAttribute="leading" constant="30" id="eZL-1x-DKh"/>
-                                    <constraint firstItem="552-gI-g13" firstAttribute="centerX" secondItem="6ly-LF-rJR" secondAttribute="centerX" id="nIE-gU-jeA"/>
-                                    <constraint firstItem="ooJ-ih-UFn" firstAttribute="leading" secondItem="6ly-LF-rJR" secondAttribute="leading" constant="50" id="oNr-bV-rRu"/>
-                                    <constraint firstItem="pxi-Le-rcS" firstAttribute="top" secondItem="552-gI-g13" secondAttribute="bottom" constant="30" id="tLA-uX-Kw3"/>
-                                </constraints>
-                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cDB-VW-MNb">
                                 <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -537,6 +490,53 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6ly-LF-rJR">
+                                <rect key="frame" x="0.0" y="88" width="390" height="722"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="empty" translatesAutoresizingMaskIntoConstraints="NO" id="552-gI-g13">
+                                        <rect key="frame" x="30" y="170.33333333333331" width="330" height="115"/>
+                                    </imageView>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Упс! Кажется, сейчас нет игр, на которые открыта регистрация, поэтому пока вы можете размяться или сыграть в наши игры Хоум" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pxi-Le-rcS">
+                                        <rect key="frame" x="25" y="315.33333333333331" width="340" height="135.33333333333331"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="20"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <button hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ooJ-ih-UFn">
+                                        <rect key="frame" x="50" y="470.66666666666663" width="290" height="40"/>
+                                        <color key="backgroundColor" name="themePurple"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="SEF-Vv-iDx"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="16"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <inset key="imageEdgeInsets" minX="25" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <state key="normal" title="Оповестить о появлении" image="bell"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusView">
+                                                <real key="value" value="20"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="remindButtonPressed:" destination="UZG-kg-EzM" eventType="touchUpInside" id="lFl-4t-4gD"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="552-gI-g13" firstAttribute="top" relation="greaterThanOrEqual" secondItem="6ly-LF-rJR" secondAttribute="top" constant="40" id="2Ue-IE-boB"/>
+                                    <constraint firstItem="pxi-Le-rcS" firstAttribute="centerX" secondItem="6ly-LF-rJR" secondAttribute="centerX" id="7Ay-sc-Z8F"/>
+                                    <constraint firstItem="ooJ-ih-UFn" firstAttribute="top" secondItem="pxi-Le-rcS" secondAttribute="bottom" constant="20" id="DIy-h9-l7J"/>
+                                    <constraint firstItem="pxi-Le-rcS" firstAttribute="centerY" secondItem="6ly-LF-rJR" secondAttribute="centerY" constant="22" id="Jje-sk-Qes"/>
+                                    <constraint firstItem="pxi-Le-rcS" firstAttribute="leading" secondItem="6ly-LF-rJR" secondAttribute="leading" constant="25" id="Q4j-AC-byb"/>
+                                    <constraint firstItem="ooJ-ih-UFn" firstAttribute="centerX" secondItem="6ly-LF-rJR" secondAttribute="centerX" id="V5a-fj-NFa"/>
+                                    <constraint firstItem="552-gI-g13" firstAttribute="leading" secondItem="6ly-LF-rJR" secondAttribute="leading" constant="30" id="eZL-1x-DKh"/>
+                                    <constraint firstItem="552-gI-g13" firstAttribute="centerX" secondItem="6ly-LF-rJR" secondAttribute="centerX" id="nIE-gU-jeA"/>
+                                    <constraint firstItem="ooJ-ih-UFn" firstAttribute="leading" secondItem="6ly-LF-rJR" secondAttribute="leading" constant="50" id="oNr-bV-rRu"/>
+                                    <constraint firstItem="pxi-Le-rcS" firstAttribute="top" secondItem="552-gI-g13" secondAttribute="bottom" constant="30" id="tLA-uX-Kw3"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="udw-hb-dYR"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -561,6 +561,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="noGamesTextView" destination="pxi-Le-rcS" id="fGW-GZ-tc2"/>
+                        <outlet property="noGamesView" destination="6ly-LF-rJR" id="RLq-6g-9I7"/>
                         <outlet property="tableView" destination="cDB-VW-MNb" id="tas-8h-Jd6"/>
                         <segue destination="hGT-Iz-M2s" kind="show" identifier="ShowGameInfo" id="igl-eH-8rq"/>
                         <segue destination="rAk-7b-BCn" kind="presentation" identifier="ShowFilters" id="z5i-4v-r7U"/>
@@ -1064,7 +1065,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ahH-nd-hl4">
-                                <rect key="frame" x="0.0" y="88" width="390" height="756"/>
+                                <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gameInfoTemplate" translatesAutoresizingMaskIntoConstraints="NO" id="FKI-MS-LTd">
                                         <rect key="frame" x="0.0" y="0.0" width="390" height="270"/>
@@ -1104,7 +1105,7 @@
                             <constraint firstItem="zWG-FS-gI7" firstAttribute="leading" secondItem="B1B-P2-bzf" secondAttribute="leading" id="OqO-W8-Twt"/>
                             <constraint firstAttribute="bottom" secondItem="zWG-FS-gI7" secondAttribute="bottom" id="QbE-cq-NmU"/>
                             <constraint firstItem="ahH-nd-hl4" firstAttribute="leading" secondItem="B1B-P2-bzf" secondAttribute="leading" id="RxM-mB-TDI"/>
-                            <constraint firstItem="ahH-nd-hl4" firstAttribute="top" secondItem="B1B-P2-bzf" secondAttribute="top" id="yvb-Pa-gAa"/>
+                            <constraint firstItem="ahH-nd-hl4" firstAttribute="top" secondItem="bSr-Tq-E4k" secondAttribute="top" id="yvb-Pa-gAa"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="ts0-9H-xLu"/>
@@ -1472,7 +1473,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="66t-IR-fdS">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" delaysContentTouches="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="8i9-Kw-lHF">
+                                <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Qbe-rZ-S6Q">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                            </collectionView>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="66t-IR-fdS">
                                 <rect key="frame" x="0.0" y="0.0" width="390" height="810"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="empty" translatesAutoresizingMaskIntoConstraints="NO" id="sTQ-Bo-12p">
@@ -1519,17 +1531,6 @@
                                     <constraint firstItem="gC7-Su-ngT" firstAttribute="centerY" secondItem="66t-IR-fdS" secondAttribute="centerY" constant="22" id="xlz-Df-fE0"/>
                                 </constraints>
                             </view>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" delaysContentTouches="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="8i9-Kw-lHF">
-                                <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Qbe-rZ-S6Q">
-                                    <size key="itemSize" width="128" height="128"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells/>
-                            </collectionView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="J3q-4e-HIV"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -1573,6 +1574,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="emptyProductsView" destination="66t-IR-fdS" id="6fl-Yw-hYV"/>
                         <outlet property="shopCollectionView" destination="8i9-Kw-lHF" id="KU5-2E-DRr"/>
                         <outlet property="userPointsLabel" destination="Ozp-8d-wSt" id="LhI-jb-7Vz"/>
                         <segue destination="oZJ-S8-d62" kind="presentation" identifier="ConfirmPurchase" id="y6g-Fb-faW"/>

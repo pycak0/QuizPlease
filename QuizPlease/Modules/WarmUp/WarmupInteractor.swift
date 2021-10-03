@@ -8,7 +8,7 @@
 
 import UIKit
 
-//MARK:- Interactor Protocol
+// MARK: - Interactor Protocol
 protocol WarmupInteractorProtocol {
     ///must be an `unowned var`
     var output: WarmupInteractorOutput! { get set }

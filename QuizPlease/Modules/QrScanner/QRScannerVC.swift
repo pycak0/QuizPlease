@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-//MARK:- Delegate Protocol
+// MARK: - Delegate Protocol
 protocol QRScannerVCDelegate: AnyObject {
     func qrScanner(_ qrScanner: QRScannerVC, didFinishCodeScanningWith result: String?)
 }
@@ -58,7 +58,7 @@ class QRScannerVC: UIViewController {
         }
     }
     
-    //MARK:- Buttons
+    // MARK: - Buttons
     @IBAction private func flashButtonPressed(_ sender: UIButton) {
         qrService.isFlashEnabled.toggle()
         sender.backgroundColor = qrService.isFlashEnabled ? .lemon : .systemBlue
@@ -70,7 +70,7 @@ class QRScannerVC: UIViewController {
     }
 }
 
-//MARK:- QRCodeService Results Delegate
+// MARK: - QRCodeService Results Delegate
 extension QRScannerVC: QRCodeServiceResultsDelegate {
     func didFinishCodeScanning(with result: String?) {
         delegate?.qrScanner(self, didFinishCodeScanningWith: result)

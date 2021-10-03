@@ -9,7 +9,7 @@
 import Foundation
 import CoreGraphics
 
-//MARK:- Protocol
+// MARK: - Protocol
 protocol MainMenuItemProtocol {
     var _kind: MainMenuItemKind { get }
     var identifier: String { get }
@@ -19,7 +19,7 @@ protocol MainMenuItemProtocol {
     var height: CGFloat { get }
 }
 
-//MARK:- Menu Item Struct
+// MARK: - Menu Item Struct
 struct MainMenuItem: MainMenuItemProtocol {
     var _kind: MainMenuItemKind
     var identifier: String
@@ -39,7 +39,7 @@ struct MainMenuItem: MainMenuItemProtocol {
     }
 }
 
-//MARK:- MainMenuItem Kinds
+// MARK: - MainMenuItem Kinds
 enum MainMenuItemKind: Int, CaseIterable, MainMenuItemProtocol {
     var _kind: MainMenuItemKind { self }
     

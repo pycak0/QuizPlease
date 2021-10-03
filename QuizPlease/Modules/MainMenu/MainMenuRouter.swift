@@ -27,7 +27,7 @@ class MainMenuRouter: MainMenuRouterProtocol {
         self.storyboard = viewController.storyboard ?? UIStoryboard(name: "Main", bundle: .main)
     }
     
-    //MARK:- Prepare for Segue
+    // MARK: - Prepare for Segue
     func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case "ShowQRScreenMenu":
@@ -60,7 +60,7 @@ class MainMenuRouter: MainMenuRouterProtocol {
         }
     }
     
-    //MARK:- Segues
+    // MARK: - Segues
     func showMenuSection(_ kind: MainMenuItemProtocol, sender: Any?) {
         viewController.performSegue(withIdentifier: kind._kind.segueID, sender: sender)
     }

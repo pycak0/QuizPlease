@@ -9,7 +9,7 @@
 import UIKit
 import PhoneNumberKit
 
-//MARK:- Delegate Protocol
+// MARK: - Delegate Protocol
 protocol AuthVCDelegate: AnyObject {
     func didSuccessfullyAuthenticate(in authVC: AuthVC)
     
@@ -30,10 +30,10 @@ class AuthVC: UIViewController {
     private var phoneNumber: String?
     private var smsCode: String?
     
-    //MARK:- Lifecycle
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        prepareNavigationBar(tintColor: .black)
+        prepareNavigationBar(tintColor: .black, barStyle: .transcluent(tintColor: view.backgroundColor))
         configure()
     }
     
@@ -41,12 +41,12 @@ class AuthVC: UIViewController {
         view.endEditing(true)
     }
     
-    //MARK:- Cancel Button Pressed
+    // MARK: - Cancel Button Pressed
     @IBAction private func cancelButtonPressed(_ sender: Any) {
         delegate?.didCancelAuth(in: self)
     }
     
-    //MARK:- Auth Button Pressed
+    // MARK: - Auth Button Pressed
     @IBAction private func authButtonPressed(_ sender: Any) {
         handleInput()
     }
@@ -74,7 +74,7 @@ class AuthVC: UIViewController {
         }
     }
     
-    //MARK:- Register
+    // MARK: - Register
     private func register(phone: String) {
         let userData = UserRegisterData(phone: phone, cityId: "\(AppSettings.defaultCity.id)")
         NetworkService.shared.register(userData) { [weak self] (serverResult) in
@@ -97,7 +97,7 @@ class AuthVC: UIViewController {
         }
     }
     
-    //MARK:- Send Code
+    // MARK: - Send Code
     private func sendCode(to phoneNumber: String) {
         NetworkService.shared.sendCode(to: phoneNumber) { [weak self] (isSuccess) in
             guard let self = self else { return }
@@ -112,7 +112,7 @@ class AuthVC: UIViewController {
         }
     }
     
-    //MARK:- Auth
+    // MARK: - Auth
     private func auth(with phoneNumber: String, smsCode: String) {
         let firebaseId = ""
         NetworkService.shared.authenticate(phoneNumber: phoneNumber, smsCode: smsCode, firebaseId: firebaseId) { [weak self] (serverResponse) in
@@ -136,7 +136,7 @@ class AuthVC: UIViewController {
         }
     }
     
-    //MARK:- Configure Views
+    // MARK: - Configure Views
     private func configure() {
         view.addGradient(colors: [.lemon, .lightOrange], insertAt: 0)
         
@@ -172,7 +172,7 @@ class AuthVC: UIViewController {
 }
 
 
-//MARK:- Text Field View Delegate
+// MARK: - Text Field View Delegate
 extension AuthVC: TitledTextFieldViewDelegate {
     func textFieldView(
         _ textFieldView: TitledTextFieldView,

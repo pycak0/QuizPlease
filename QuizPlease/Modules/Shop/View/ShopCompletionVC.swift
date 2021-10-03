@@ -14,7 +14,7 @@ protocol ShopCompletionVCDelegate: AnyObject {
 
 class ShopCompletionVC: UIViewController {
     
-    //MARK:- Outlets
+    // MARK: - Outlets
     @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var arrowImageView: UIImageView!
     @IBOutlet private weak var segmentControl: HBSegmentedControl!
@@ -32,20 +32,20 @@ class ShopCompletionVC: UIViewController {
     var shopItem: ShopItem!
     //var selectedGame: PassedGame?
     
-    //MARK:- Lifecycle
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        prepareNavigationBar()
+        prepareNavigationBar(barStyle: .transcluent(tintColor: view.backgroundColor))
         configureViews()
     }
     
-    //MARK:- Segment Changed
+    // MARK: - Segment Changed
     @objc
     private func segmentChanged() {
         view.endEditing(true)
     }
     
-    //MARK:- Did Press Field View
+    // MARK: - Did Press Field View
     @objc
     private func didPressFieldView() {
         guard !textFieldView.textField.isEnabled else { return }
@@ -56,7 +56,7 @@ class ShopCompletionVC: UIViewController {
         }
     }
     
-    //MARK:- Confirm Button Pressed
+    // MARK: - Confirm Button Pressed
     @IBAction func confirmButtonPressed(_ sender: Any) {
         let index = segmentControl.selectedIndex
         let chosenDelivery: DeliveryMethod? = shopItem.isOfflineDeliveryOnly ? .game : DeliveryMethod(title: segmentControl.items[index])
@@ -74,7 +74,7 @@ class ShopCompletionVC: UIViewController {
         purchase(withDelivryMethod: deliveryMethod, email: text)
     }
     
-    //MARK:- Purchase
+    // MARK: - Purchase
     private func purchase(withDelivryMethod method: DeliveryMethod, email: String) {
         guard let itemId = shopItem.id else {
             self.showSimpleAlert(title: "Не удалось завершить покупку", message: "Произошла ошибка, но не волнуйтесь, Ваши бонусные баллы не были списаны. (desc: product id not found)")

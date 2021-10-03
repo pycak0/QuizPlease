@@ -31,9 +31,15 @@ class PickCityVC: UITableViewController {
         super.init(coder: coder)
     }
     
-    //MARK:- Lifecycle
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        prepareNavigationBar(
+            title: "Выберите город",
+            tintColor: .labelAdapted,
+            barStyle: .transparent,
+            scrollBarStyle: .transcluent(tintColor: .clear)
+        )
         configure()
         loadCities()
     }
@@ -47,7 +53,7 @@ class PickCityVC: UITableViewController {
         dismiss(animated: true)
     }
     
-    //MARK:- Loading
+    // MARK: - Loading
     func loadCities() {
         NetworkService.shared.getCities { (result) in
             switch result {
@@ -73,13 +79,12 @@ class PickCityVC: UITableViewController {
     }
     
     private func configure() {
-        prepareNavigationBar(title: "Выберите город", tintColor: .labelAdapted)
         configureSearchController()
         addBarButtonItems()
         tableView.register(PickCityCell.self, forCellReuseIdentifier: "\(PickCityCell.self)")
     }
     
-    //MARK:- Search Controller Configuration
+    // MARK: - Search Controller Configuration
     private func configureSearchController() {
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchResultsUpdater = self
@@ -106,7 +111,7 @@ class PickCityVC: UITableViewController {
         dismiss(animated: true)
     }
     
-    //MARK:- Filter
+    // MARK: - Filter
     private func filterCities(with query: String?) {
         guard let query = query?.lowercased(), !query.isEmpty else {
             filteredCities = cities
@@ -119,7 +124,7 @@ class PickCityVC: UITableViewController {
     
 }
     
-//MARK:- Data Source & Delegate
+// MARK: - Data Source & Delegate
 extension PickCityVC {
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -157,7 +162,7 @@ extension PickCityVC {
 
 }
 
-//MARK:- UISearchResultsUpdating
+// MARK: - UISearchResultsUpdating
 extension PickCityVC: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         filterCities(with: searchController.searchBar.text)

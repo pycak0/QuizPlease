@@ -8,7 +8,7 @@
 
 import UIKit
 
-//MARK:- View Protocol
+// MARK: - View Protocol
 protocol HomeGameViewProtocol: UIViewController {
     var presenter: HomeGamePresenterProtocol! { get set }
     func reloadHomeGamesList()
@@ -34,7 +34,7 @@ class HomeGamesListVC: UIViewController {
         }
     }
     
-    //MARK:- Lifecycle
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         HomeGameConfigurator().configure(self)
@@ -52,14 +52,14 @@ class HomeGamesListVC: UIViewController {
     }
 }
 
-//MARK:- Protocol Implementation
+// MARK: - Protocol Implementation
 extension HomeGamesListVC: HomeGameViewProtocol {
     func reloadHomeGamesList() {
         collectionView.reloadSections(IndexSet(arrayLiteral: 0))
     }
 }
 
-//MARK:- Data Source & Delegate
+// MARK: - Data Source & Delegate
 extension HomeGamesListVC: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         presenter.games.count

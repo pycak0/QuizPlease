@@ -8,8 +8,8 @@
 
 import Foundation
 
-//MARK:- Interactor Protocol
-protocol ScheduleInteractorProtocol: class {
+// MARK: - Interactor Protocol
+protocol ScheduleInteractorProtocol: AnyObject {
     ///must be weak
     var output: ScheduleInteractorOutput? { get set }
     
@@ -23,7 +23,7 @@ protocol ScheduleInteractorProtocol: class {
     func getSubscribedGameIds(completion: @escaping ((Array<Int>) -> Void))
 }
 
-protocol ScheduleInteractorOutput: class {
+protocol ScheduleInteractorOutput: AnyObject {
     func interactor(_ interactor: ScheduleInteractorProtocol?, failedToOpenMapsWithError error: Error)
     func interactor(_ interactor: ScheduleInteractorProtocol?, didGetSubscribeStatus isSubscribed: Bool, forGameWithId id: String)
     func interactor(_ interactor: ScheduleInteractorProtocol?, failedToSubscribeForGameWith gameId: String, error: NetworkServiceError)

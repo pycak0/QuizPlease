@@ -82,7 +82,7 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
         if let path = game.backgroundImagePath?.pathProof {
             view?.setBackgroundImage(with: path)
         } else {
-            print(">>>\n>>> No background image path for game with id \(game.id)\n>>>")
+            print(">>>\n>>> No background image path for game with id '\(game.id ?? -1)'\n>>>")
         }
     }
     

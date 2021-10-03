@@ -20,6 +20,5 @@ class ShopConfigurator: ShopConfiguratorProtocol {
         presenter.userInfo = userInfo
         
         view.presenter = presenter
-        view.prepareNavigationBar()
     }
 }

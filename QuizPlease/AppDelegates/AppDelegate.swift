@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate {
     
     var window: UIWindow?
 
-    //MARK:- Application Lifecycle
+    // MARK: - Application Lifecycle
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         FirebaseApp.configure()
@@ -61,7 +61,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate {
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
     
-    //MARK:- Did Receieve FCM Token
+    // MARK: - Did Receieve FCM Token
     
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
         print("Registration Token: \(fcmToken)")
@@ -82,7 +82,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate {
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
     
-    //MARK:- Did Receive Remote Notification
+    // MARK: - Did Receive Remote Notification
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
         // If you are receiving a notification message while your app is in the background,
         // this callback will not be fired till the user taps on the notification launching the application.
@@ -101,7 +101,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     }
     
     
-    //MARK:- Did Receive Remote Notification with Completion Handler
+    // MARK: - Did Receive Remote Notification with Completion Handler
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         // If you are receiving a notification message while your app is in the background,
         // this callback will not be fired till the user taps on the notification launching the application.

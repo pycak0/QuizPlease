@@ -9,7 +9,7 @@
 import UIKit
 
 public extension UIActivityIndicatorView {
-    //MARK:- Bar Button Loading Indicator
+    // MARK: - Bar Button Loading Indicator
     func enableInNavBar(of navigationItem: UINavigationItem){
         self.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
         let barButton = UIBarButtonItem(customView: self)

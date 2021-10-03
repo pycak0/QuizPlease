@@ -12,7 +12,7 @@ class ShareManager {
     //singleton
     private init() {}
     
-    //MARK:- Share Image
+    // MARK: - Share Image
     static func presentShareSheet(for image: UIImage?, delegate: UIViewController, title: String? = nil) {
         guard let image = image else {
             delegate.showSimpleAlert(title: "Не удалось поделиться фото", message: "Пожалуйста, попробуйте повторить позже")
@@ -26,7 +26,7 @@ class ShareManager {
         delegate.present(shareSheetVC, animated: true, completion: nil)
     }
     
-    //MARK:- Share URL
+    // MARK: - Share URL
     static func presentShareSheet(for url: URL?, delegate: UIViewController, title: String? = nil) {
         guard let url = url else {
             print("Invalid url passed to the ShareManager")

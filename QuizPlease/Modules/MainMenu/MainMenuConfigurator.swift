@@ -14,7 +14,7 @@ class MainMenuConfigurator: Configurator {
         let router = MainMenuRouter(viewController: mainMenuVC)
         let presenter = MainMenuPresenter(view: mainMenuVC, interactor: interactor, router: router)
         interactor.output = presenter
-        mainMenuVC.prepareNavigationBar()
+        mainMenuVC.prepareNavigationBar(barStyle: .transcluent(tintColor: .clear))
         mainMenuVC.presenter = presenter
     }
 }
