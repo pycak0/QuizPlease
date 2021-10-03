@@ -1,0 +1,11 @@
+QuizPlease/Keys.plist
+Keys.plist
+Frameworks
+Pods
+*.lock
+*.resolved
+*.xcscheme
+*.xcbkptlist
+QuizPlease.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
+QuizPlease.xcworkspace/xcuserdata/pycak.xcuserdatad/IDEFindNavigatorScopes.plist
+QuizPlease.xcworkspace
