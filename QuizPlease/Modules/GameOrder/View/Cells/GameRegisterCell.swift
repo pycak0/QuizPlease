@@ -8,7 +8,7 @@
 
 import UIKit
 
-//MARK:- Delegate Protocol
+// MARK: - Delegate Protocol
 protocol GameRegisterCellDelegate: AnyObject {
     ///The delegate should return a  number of people to select in picker. If the number is invalid, picker will select the first button.
     func selectedNumberOfPeople(in registerCell: GameRegisterCell) -> Int
@@ -27,7 +27,7 @@ protocol GameRegisterCellDelegate: AnyObject {
 }
 
 class GameRegisterCell: UITableViewCell, GameOrderCellProtocol {
-    static let identifier = "GameRegisterCell"
+    static let identifier = "\(GameRegisterCell.self)"
     
     weak var delegate: AnyObject? {
         get { _delegate }
@@ -48,7 +48,7 @@ class GameRegisterCell: UITableViewCell, GameOrderCellProtocol {
         configureCell()
     }
     
-    //MARK:- Layout Subviews
+    // MARK: - Layout Subviews
     override func layoutSubviews() {
         super.layoutSubviews()
         countPicker.buttonsCornerRadius = 15
@@ -88,7 +88,7 @@ class GameRegisterCell: UITableViewCell, GameOrderCellProtocol {
     
 }
 
-//MARK:- TitledTextFieldViewDelegate
+// MARK: - TitledTextFieldViewDelegate
 extension GameRegisterCell: TitledTextFieldViewDelegate {
     func textFieldViewDidEndEditing(_ textFieldView: TitledTextFieldView) {
         self.textFieldView(textFieldView, didChangeTextField: textFieldView.textField.text ?? "")
@@ -112,14 +112,14 @@ extension GameRegisterCell: TitledTextFieldViewDelegate {
     }
 }
 
-//MARK:- CountPickViewDelegate
+// MARK: - CountPickViewDelegate
 extension GameRegisterCell: CountPickerViewDelegate {
     func countPicker(_ picker: CountPickerView, didChangeSelectedNumber number: Int) {
         _delegate?.registerCell(self, didChangeNumberOfPeopleInTeam: number)
     }
 }
 
-//MARK:- Text Field Types
+// MARK: - Text Field Types
 fileprivate enum TextFieldType: Int, CaseIterable {
     case team, captain, email, phone
     

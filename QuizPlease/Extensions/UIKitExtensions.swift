@@ -8,7 +8,7 @@
 
 import UIKit
 
-//MARK:- UIView
+// MARK: - UIView
 ///
 
 public extension UIView {
@@ -37,7 +37,7 @@ public extension UIView {
         set { self.layer.borderColor = newValue?.cgColor }
     }
     
-    //MARK:- View Scale Animation
+    // MARK: - View Scale Animation
     func scaleIn(scale: CGFloat = 0.96) {
         UIView.animate(withDuration: 0.15) {
             self.transform = CGAffineTransform(scaleX: scale, y: scale)
@@ -50,7 +50,7 @@ public extension UIView {
         }
     }
     
-    //MARK:- Add Blur to View
+    // MARK: - Add Blur to View
     ///Clears view's background color by default but you can specify blur background color
     @discardableResult
     func addBlur(color: UIColor = .clear, style: UIBlurEffect.Style = .regular, alpha: CGFloat = 1) -> UIVisualEffectView {
@@ -68,7 +68,7 @@ public extension UIView {
         return blur
     }
     
-    //MARK:- Draw Dotted Line
+    // MARK: - Draw Dotted Line
     @discardableResult
     static func drawDottedLine(
         in view: UIView,

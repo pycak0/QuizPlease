@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol NavigationBarDelegate: class {
+protocol NavigationBarDelegate: AnyObject {
     func backButtonPressed(_ sender: Any)
 }
 
@@ -21,7 +21,7 @@ class NavigationBar: UIView {
     
     weak var delegate: NavigationBarDelegate?
     
-    //MARK:- Init
+    // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
         xibSetup()
@@ -46,7 +46,7 @@ class NavigationBar: UIView {
 
 private extension NavigationBar {
     
-    //MARK:- Xib Setup
+    // MARK: - Xib Setup
     func xibSetup() {
         Bundle.main.loadNibNamed(NavigationBar.nibName, owner: self, options: nil)
         self.addSubview(contentView)

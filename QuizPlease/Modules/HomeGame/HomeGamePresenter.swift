@@ -47,5 +47,4 @@ class HomeGamePresenter: HomeGamePresenterProtocol {
     func didSelectHomeGame(at index: Int) {
         router.showGame(games[index])
     }
-    
 }

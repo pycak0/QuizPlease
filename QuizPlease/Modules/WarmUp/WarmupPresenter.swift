@@ -8,7 +8,7 @@
 
 import UIKit
 
-//MARK:- Presenter Protocol
+// MARK: - Presenter Protocol
 protocol WarmupPresenterProtocol {
     var router: WarmupRouterProtocol! { get }
     var questions: [WarmupQuestion] { get }
@@ -54,13 +54,13 @@ class WarmupPresenter: WarmupPresenterProtocol {
         self.router = router
     }
     
-    //MARK:- Setup
+    // MARK: - Setup
     func viewDidLoad(_ view: WarmupViewProtocol) {
         view.configure()
         view.setPenaltyTimeInfo(penaltySeconds: Int(penaltyTime))
     }
     
-    //MARK:- Actions
+    // MARK: - Actions
     func didPressStartGame() {
         interactor.loadQuestions()
     }
@@ -84,7 +84,7 @@ class WarmupPresenter: WarmupPresenterProtocol {
         }
     }
     
-    //MARK:- Private
+    // MARK: - Private
     private func startGame() {
         isGameStarted = true
         if questions.count > 0 {
@@ -111,7 +111,7 @@ class WarmupPresenter: WarmupPresenterProtocol {
     }
 }
 
-//MARK:- WarmupInteractorOutput
+// MARK: - WarmupInteractorOutput
 extension WarmupPresenter: WarmupInteractorOutput {
     func interactor(_ interactor: WarmupInteractorProtocol, didLoadQuestions questions: [WarmupQuestion]) {
         self.questions = questions

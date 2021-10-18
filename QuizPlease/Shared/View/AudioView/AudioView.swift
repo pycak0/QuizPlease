@@ -9,7 +9,7 @@
 import UIKit
 import AVKit
 
-//MARK:- Delegate Protocol
+// MARK: - Delegate Protocol
 protocol AudioViewDelegate: AnyObject {
     
     ///- parameter progress: the value is in [0, 1] bounds
@@ -24,7 +24,7 @@ protocol AudioViewDelegate: AnyObject {
 class AudioView: UIView {
     static let nibName = "\(AudioView.self)"
     
-    //MARK:- Outlets
+    // MARK: - Outlets
     
     @IBOutlet private var contentView: UIView!
     @IBOutlet private weak var playPauseButton: UIButton!
@@ -39,7 +39,7 @@ class AudioView: UIView {
     
     private var updater: CADisplayLink?
     
-    //MARK:- Public
+    // MARK: - Public
     
     weak var delegate: AudioViewDelegate?
     
@@ -96,7 +96,7 @@ class AudioView: UIView {
 
     }
     
-    //MARK:- Private 
+    // MARK: - Private 
     @IBAction
     private func playPauseButtonPressed(_ sender: UIButton) {
         isPlaying ? pause() : play()
@@ -138,7 +138,7 @@ class AudioView: UIView {
     }
     
     
-    //MARK:- Init
+    // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
         xibSetup()
@@ -167,7 +167,7 @@ class AudioView: UIView {
     
 }
 
-//MARK:- AVAudioPlayerDelegate
+// MARK: - AVAudioPlayerDelegate
 extension AudioView: AVAudioPlayerDelegate {
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         pause()

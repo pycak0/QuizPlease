@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol GameAnnotationCellDelegate: class {
+protocol GameAnnotationCellDelegate: AnyObject {
     func signUpButtonPressed(in cell: GameAnnotationCell)
     func gameAnnotation(for cell: GameAnnotationCell) -> String
 }

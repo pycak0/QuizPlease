@@ -8,7 +8,7 @@
 
 import Foundation
 
-//MARK:- Presenter Protocol
+// MARK: - Presenter Protocol
 protocol SplashScreenPresenterProtocol {
     var router: SplashScreenRouterProtocol { get }
     init(view: SplashScreenViewProtocol, interactor: SplashScreenInteractorProtocol, router: SplashScreenRouterProtocol)
@@ -57,7 +57,7 @@ class SplashScreenPresenter: SplashScreenPresenterProtocol {
     }
 }
 
-//MARK:- SplashScreenInteractorOutput
+// MARK: - SplashScreenInteractorOutput
 extension SplashScreenPresenter: SplashScreenInteractorOutput {
     func interactorDidUpdateUserToken(_ interactor: SplashScreenInteractorProtocol) {
         interactor.updateDefaultCity()

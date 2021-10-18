@@ -8,7 +8,7 @@
 
 import UIKit
 
-//MARK:- View Protocol
+// MARK: - View Protocol
 protocol ProfileViewProtocol: UIViewController {
     var presenter: ProfilePresenterProtocol! { get set }
     func configure()
@@ -41,9 +41,10 @@ class ProfileVC: UIViewController {
     private var lastOffset: CGFloat = 0
     private var startOffset: CGFloat?
     
-    //MARK:- Lifecycle
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        prepareNavigationBar(barStyle: .transcluent(tintColor: view.backgroundColor))
         presenter.viewDidLoad(self)
     }
     
@@ -54,7 +55,7 @@ class ProfileVC: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        addGradientIfNeeded()
+        resetGradient()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -75,21 +76,22 @@ class ProfileVC: UIViewController {
         presenter.didPressExitButton()
     }
     
-    private func addGradientIfNeeded() {
-        guard infoHeader.layer.sublayers?.first(where: { $0 is CAGradientLayer }) == nil,
-              infoHeader.layer.sublayers?.first(where: { $0 is CAGradientLayer }) == nil
-        else { return }
+    private func resetGradient() {
+        infoHeader.layer.sublayers?.removeAll(where: { $0 is CAGradientLayer })
         let infoGradFrame = CGRect(
             x: 0, y: 0,
             width: view.bounds.width,
             height: infoHeader.bounds.height
         )
         infoHeader.addGradient(colors: [.lemon, .lightOrange], frame: infoGradFrame, insertAt: 0)
+        infoHeader.clipsToBounds = false
+        
+        addGameButton.layer.sublayers?.removeAll(where: { $0 is CAGradientLayer })
         addGameButton.addGradient(colors: [.lemon, .lightOrange], insertAt: 0)
     }
 }
 
-//MARK:- View Protocol Implementation
+// MARK: - View Protocol Implementation
 extension ProfileVC: ProfileViewProtocol {
     func configure() {
         totalPointsScoredLabel.layer.cornerRadius = totalPointsScoredLabel.bounds.height / 2
@@ -104,7 +106,7 @@ extension ProfileVC: ProfileViewProtocol {
     func updateUserInfo(with pointsScored: Double) {
         let gamesCount = presenter.userInfo?.games?.count ?? 0
         totalPointsScoredLabel.text = pointsFormatter.string(from: pointsScored as NSNumber)
-        let gamesFormattedCount = gamesCount.string(withAssociatedFirstCaseWord: "игра")
+        let gamesFormattedCount = gamesCount.string(withAssociatedFirstCaseWord: "игра", changingCase: .genitive)
         gamesCountLabel.text = "Вы сходили на \(gamesFormattedCount) и накопили"
     }
     
@@ -113,7 +115,7 @@ extension ProfileVC: ProfileViewProtocol {
     }
 }
 
-//MARK:- QR Scanner VC Delegate
+// MARK: - QR Scanner VC Delegate
 extension ProfileVC: QRScannerVCDelegate {
     func qrScanner(_ qrScanner: QRScannerVC, didFinishCodeScanningWith result: String?) {
         guard let code = result else { return }
@@ -127,7 +129,7 @@ extension ProfileVC: AddGameVCDelegate {
     }
 }
 
-//MARK:- Data Source & Delegate
+// MARK: - Data Source & Delegate
 extension ProfileVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return presenter.userInfo?.games?.count ?? 1
@@ -156,7 +158,7 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-//MARK:- UIScrollViewDelegate
+// MARK: - UIScrollViewDelegate
 extension ProfileVC: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let currentOffset = scrollView.contentOffset.y + scrollView.safeAreaInsets.top

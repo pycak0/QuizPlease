@@ -18,6 +18,6 @@ class WarmupConfigurator: Configurator {
         let presenter = WarmupPresenter(view: view, interactor: interactor, router: router)
         interactor.output = presenter
         view.presenter = presenter
-        view.prepareNavigationBar(tintColor: .white)
+        view.prepareNavigationBar(tintColor: .white, barStyle: .opaque(tintColor: view.view.backgroundColor))
     }
 }

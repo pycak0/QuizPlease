@@ -9,7 +9,7 @@
 import Foundation
 
 extension String {
-    //MARK:- Mobile Phone
+    // MARK: - Mobile Phone
     ///A phone string may have only '`+`' sign in the start and contain only whole digits to pass this validating. Amount of digits is ignored.
     var isValidMobilePhone: Bool {
         var str = self
@@ -19,7 +19,7 @@ extension String {
         return str.allSatisfy { $0.isWholeNumber }
     }
     
-    //MARK:- Is Valid Email
+    // MARK: - Is Valid Email
     var isValidEmail: Bool {
         let list = self.map { String($0) }
         guard let atSymbol = list.firstIndex(of: "@"),

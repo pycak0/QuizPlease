@@ -17,7 +17,7 @@ protocol GamePaymentTypeCellDelegate: AnyObject {
 }
 
 class GamePaymentTypeCell: UITableViewCell, GameOrderCellProtocol {
-    static let identifier = "GamePaymentTypeCell"
+    static let identifier = "\(GamePaymentTypeCell.self)"
     
     @IBOutlet private weak var cashCheckBox: UIImageView!
     @IBOutlet private weak var onlineCheckBox: UIImageView!
@@ -50,7 +50,7 @@ class GamePaymentTypeCell: UITableViewCell, GameOrderCellProtocol {
         }
     }
     
-    //MARK:- Update Payment Type
+    // MARK: - Update Payment Type
     ///Must be called only in response on user actions
     func updatePaymentType(isOnlinePayment: Bool) {
         _delegate?.paymentTypeCell(self, didChangePaymentType: isOnlinePayment)

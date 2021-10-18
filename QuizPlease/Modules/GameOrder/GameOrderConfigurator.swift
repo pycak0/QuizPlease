@@ -9,18 +9,27 @@
 import UIKit
 
 protocol GameOrderConfiguratorProtocol {
-    func configure(_ viewController: GameOrderViewProtocol, withGameInfo gameInfo: GameInfoPresentAttributes)
+    func configure(_ viewController: GameOrderViewProtocol, with gameInfo: GameOrderPresentationOptions)
 }
 
 class GameOrderConfigurator: GameOrderConfiguratorProtocol {
-    func configure(_ viewController: GameOrderViewProtocol, withGameInfo gameInfo: GameInfoPresentAttributes) {
+    func configure(_ viewController: GameOrderViewProtocol, with options: GameOrderPresentationOptions) {
         let interactor = GameOrderInteractor()
         let router = GameOrderRouter(viewController: viewController)
-        let presenter = GameOrderPresenter(view: viewController, interactor: interactor, router: router)
-        presenter.game = gameInfo.game
+        let presenter = GameOrderPresenter(
+            view: viewController,
+            interactor: interactor,
+            router: router,
+            registerForm: RegisterForm(
+                cityId: options.city.id,
+                gameId: options.gameInfo.id
+            ),
+            gameInfo: options.gameInfo
+        )
+        presenter.game = options.gameInfo
         interactor.output = presenter
         viewController.presenter = presenter
-        viewController.shouldScrollToSignUp = gameInfo.shouldScrollToSignUp
-        viewController.prepareNavigationBar(title: gameInfo.game.fullTitle)
+        viewController.shouldScrollToSignUp = options.shouldScrollToSignUp
+        viewController.prepareNavigationBar(title: options.gameInfo.fullTitle, barStyle: .transcluent(tintColor: viewController.view.backgroundColor))
     }
 }

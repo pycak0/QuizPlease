@@ -23,7 +23,7 @@ class DefaultsManager {
     private let answeredQuestionsKey = "answered-questions-key"
     private let clientSettingsKey = "client-settings"
     
-    //MARK:- Auth Info
+    // MARK: - Auth Info
     func getUserAuthInfo() -> SavedAuthInfo? {
         if let data = defaults.data(forKey: authInfoKey),
            let authInfo = try? JSONDecoder().decode(SavedAuthInfo.self, from: data) {
@@ -45,7 +45,7 @@ class DefaultsManager {
         defaults.removeObject(forKey: authInfoKey)
     }
     
-    //MARK:- Default City 
+    // MARK: - Default City 
     func getDefaultCity() -> City? {
         if let data = defaults.data(forKey: defaultCityKey),
            let city = try? JSONDecoder().decode(City.self, from: data) {
@@ -63,7 +63,7 @@ class DefaultsManager {
         }
     }
     
-    //MARK:- FCM Token
+    // MARK: - FCM Token
     func getFcmToken() -> String? {
         defaults.string(forKey: fcmTokenKey)
     }
@@ -72,7 +72,7 @@ class DefaultsManager {
         defaults.setValue(token, forKey: fcmTokenKey)
     }
     
-    //MARK:- Answered Questions
+    // MARK: - Answered Questions
     func saveAnsweredQuestionId(_ id: String) {
         var array = getSavedQuestionIds() ?? []
         array.append(id)
@@ -93,7 +93,7 @@ class DefaultsManager {
         defaults.removeObject(forKey: answeredQuestionsKey)
     }
     
-    //MARK:- Client Settings
+    // MARK: - Client Settings
     func saveClientSettings(_ settings: ClientSettings) {
         do {
             let data = try JSONEncoder().encode(settings)

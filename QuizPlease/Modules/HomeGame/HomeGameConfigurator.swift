@@ -16,6 +16,6 @@ class HomeGameConfigurator: Configurator {
         
         view.presenter = presenter
         view.clearNavBarBackground()
-        view.prepareNavigationBar(tintColor: .white)
+        view.prepareNavigationBar(tintColor: .white, barStyle: .transparent)
     }
 }

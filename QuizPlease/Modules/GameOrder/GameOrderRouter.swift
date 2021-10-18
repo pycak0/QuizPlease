@@ -8,7 +8,7 @@
 
 import UIKit
 
-//MARK:- Router Protocol
+// MARK: - Router Protocol
 protocol GameOrderRouterProtocol: SegueRouter {
     func showPaymentView<Provider: PaymentProvider>(provider: Provider, withOptions paymentOptions: PaymentOptions)
     func showCompletionScreen(with gameInfo: GameInfo, numberOfPeopleInTeam number: Int)
@@ -21,7 +21,7 @@ class GameOrderRouter: GameOrderRouterProtocol {
         self.viewController = viewController
     }
     
-    //MARK:- Prepare for segue
+    // MARK: - Prepare for segue
     func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case "ShowGameOrderCompletionScreen":
@@ -40,7 +40,7 @@ class GameOrderRouter: GameOrderRouterProtocol {
         }
     }
     
-    //MARK:- Show Completion Screen
+    // MARK: - Show Completion Screen
     func showCompletionScreen(with gameInfo: GameInfo, numberOfPeopleInTeam number: Int) {
         let dict: [String: Any] = [
             "info": gameInfo,
@@ -57,7 +57,7 @@ class GameOrderRouter: GameOrderRouterProtocol {
     }
 }
 
-//MARK:- GameOrderCompletionDelegate
+// MARK: - GameOrderCompletionDelegate
 extension GameOrderRouter: GameOrderCompletionDelegate {
     func didPressDismissButton(in vc: GameOrderCompletionVC) {
         vc.dismiss(animated: true)

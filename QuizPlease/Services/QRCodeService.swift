@@ -24,7 +24,7 @@ protocol QRCodeServiceProtocol {
     func stopCaptureSession()
 }
 
-//MARK:- Delegate Protocol
+// MARK: - Delegate Protocol
 protocol QRCodeServiceResultsDelegate: AnyObject {
     ///When the '`result`' parameter is non-`nil`, `QRCodeService` is guaranteed to stop scan session
     func didFinishCodeScanning(with result: String?)
@@ -32,7 +32,7 @@ protocol QRCodeServiceResultsDelegate: AnyObject {
 
 class QRCodeService: NSObject, QRCodeServiceProtocol {
     
-    //MARK:- Session Error
+    // MARK: - Session Error
     enum CaptureSessionError: Error {
         case notSupported, other(Error)
         
@@ -51,7 +51,7 @@ class QRCodeService: NSObject, QRCodeServiceProtocol {
     
     unowned let delegate: QRCodeServiceResultsDelegate
 
-    //MARK:- Camera Flash
+    // MARK: - Camera Flash
     var isFlashEnabled = false {
         didSet {
             guard captureDevice?.isTorchAvailable ?? false else { return }
@@ -80,7 +80,7 @@ class QRCodeService: NSObject, QRCodeServiceProtocol {
         }
     }
     
-    //MARK:- Setup QR Scanner
+    // MARK: - Setup QR Scanner
     ///This method typically throws if the device does not have a camera
     func makePreviewLayer(frame: CGRect) throws -> CALayer {
         try setupCaptureSessionConfiguration(
@@ -89,7 +89,7 @@ class QRCodeService: NSObject, QRCodeServiceProtocol {
         )
     }
     
-    //MARK:- Capture Session Configuration
+    // MARK: - Capture Session Configuration
     ///This method can throw if
     private func setupCaptureSessionConfiguration(
         metadataOutputDelegate delegate: AVCaptureMetadataOutputObjectsDelegate,
@@ -129,7 +129,7 @@ class QRCodeService: NSObject, QRCodeServiceProtocol {
     }
 }
 
-//MARK:- AVCaptureMetadataOutputObjectsDelegate
+// MARK: - AVCaptureMetadataOutputObjectsDelegate
 extension QRCodeService: AVCaptureMetadataOutputObjectsDelegate {
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         

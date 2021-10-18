@@ -9,7 +9,7 @@
 import UIKit
 
 class RatingCell: UITableViewCell, IdentifiableType {
-    static let identifier = "RatingCell"
+    static let identifier = "\(RatingCell.self)"
     
     @IBOutlet weak var teamNameLabel: UILabel!
     @IBOutlet weak var gamesPlayedLabel: UILabel!
@@ -30,7 +30,7 @@ class RatingCell: UITableViewCell, IdentifiableType {
     
     func configure(with team: String, games: Int, points: Int, imagePath: String?) {
         teamNameLabel.text = team
-        gamesPlayedLabel.text = games.string(withAssociatedFirstCaseWord: "игра")
+        gamesPlayedLabel.text = games.string(withAssociatedFirstCaseWord: "игра", changingCase: .nominative)
         //if let points = Int(points) {
             pointsScoredLabel.text = points.string(withAssociatedMaleWord: "балл")
        // }

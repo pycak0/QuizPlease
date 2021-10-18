@@ -8,7 +8,7 @@
 
 import Foundation
 
-//MARK:- Presenter Protocol
+// MARK: - Presenter Protocol
 protocol ProfilePresenterProtocol {
     var router: ProfileRouterProtocol! { get }
     init(view: ProfileViewProtocol, interactor: ProfileInteractorProtocol, router: ProfileRouterProtocol)
@@ -42,7 +42,7 @@ class ProfilePresenter: ProfilePresenterProtocol {
         self.interactor = interactor
     }
     
-    //MARK:- View Did Load
+    // MARK: - View Did Load
     func viewDidLoad(_ view: ProfileViewProtocol) {
         view.configure()
         view.setCity(AppSettings.defaultCity.title)
@@ -62,7 +62,7 @@ class ProfilePresenter: ProfilePresenterProtocol {
         interactor.loadUserInfo()
     }
     
-    //MARK:- Actions
+    // MARK: - Actions
     func didPressExitButton() {
         view?.showTwoOptionsAlert(title: "Вы уверены, что хотите выйти из личного кабинета?", message: "", option1Title: "Да", handler1: { _ in
             self.interactor.deleteUserInfo()
@@ -93,7 +93,7 @@ class ProfilePresenter: ProfilePresenterProtocol {
     }
 }
 
-//MARK:- Interactor Delegate
+// MARK: - Interactor Delegate
 extension ProfilePresenter: ProfileInteractorDelegate {
     func didFailLoadingUserInfo(with error: NetworkServiceError) {
         view?.showErrorConnectingToServerAlert()

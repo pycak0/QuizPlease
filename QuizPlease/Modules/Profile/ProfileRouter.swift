@@ -8,7 +8,7 @@
 
 import UIKit
 
-//MARK:- Router Protocol
+// MARK: - Router Protocol
 protocol ProfileRouterProtocol: SegueRouter {
     func showShop(with userInfo: UserInfo?)
     func showQRScanner()
@@ -25,7 +25,7 @@ class ProfileRouter: ProfileRouterProtocol {
         self.viewController = viewController
     }
     
-    //MARK:- Prepare for Segue
+    // MARK: - Prepare for Segue
     func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case "ShowQRScreenProfile":
@@ -59,7 +59,7 @@ class ProfileRouter: ProfileRouterProtocol {
         }
     }
     
-    //MARK:- Segues
+    // MARK: - Segues
     func showShop(with userInfo: UserInfo?) {
         viewController.performSegue(withIdentifier: "ShowShop", sender: userInfo)
     }
@@ -81,7 +81,7 @@ class ProfileRouter: ProfileRouterProtocol {
     }
 }
 
-//MARK:- Auth VC Delegate
+// MARK: - Auth VC Delegate
 extension ProfileRouter: AuthVCDelegate {
     func didSuccessfullyAuthenticate(in authVC: AuthVC) {
         (viewController as? ProfileViewProtocol)?.presenter.didPerformAuth()

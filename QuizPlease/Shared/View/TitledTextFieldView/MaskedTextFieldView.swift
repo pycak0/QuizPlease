@@ -62,7 +62,7 @@ class MaskedTextFieldView: TitledTextFieldView {
         configure()
     }
     
-    //MARK:- Configure
+    // MARK: - Configure
     private func configure() {
         textField.delegate = maskDelegate
         maskDelegate.endEditingListener = self
@@ -83,7 +83,7 @@ class MaskedTextFieldView: TitledTextFieldView {
     }
 }
 
-//MARK:- MaskedTextFieldDelegateListener
+// MARK: - MaskedTextFieldDelegateListener
 extension MaskedTextFieldView: MaskedTextFieldDelegateListener, MaskedTextFieldDelegateEditingListener, MaskedTextFieldDelegateEndEditingListener {
     func onEndEditing(in textField: UITextField) {
         /// must call `super.textFieldDidEndEditing(_:)` to preserve correct behavior

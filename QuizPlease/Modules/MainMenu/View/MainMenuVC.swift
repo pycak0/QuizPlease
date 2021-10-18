@@ -8,7 +8,7 @@
 
 import UIKit
 
-//MARK:- View Protocol
+// MARK: - View Protocol
 protocol MainMenuViewProtocol: UIViewController {
     var presenter: MainMenuPresenterProtocol! { get set }
     func configureTableView()
@@ -30,7 +30,7 @@ class MainMenuVC: UIViewController {
     @IBOutlet private weak var menuHeader: UIView!
     @IBOutlet private weak var cityButton: UIButton!
     
-    //MARK:- Lifecycle
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         MainMenuConfigurator().configure(self)
@@ -45,6 +45,7 @@ class MainMenuVC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        navigationController?.navigationBar.barStyle = .default
         navigationController?.navigationBar.tintColor = .labelAdapted
         navigationController?.navigationBar.barTintColor = .systemBackgroundAdapted
         setNavBarDefault()
@@ -79,7 +80,7 @@ class MainMenuVC: UIViewController {
     }
 }
 
-//MARK:- View Protocol Implementation
+// MARK: - View Protocol Implementation
 extension MainMenuVC: MainMenuViewProtocol {
     func configureTableView() {
         tableView.delegate = self
@@ -125,14 +126,14 @@ extension MainMenuVC: MainMenuViewProtocol {
     }
 }
 
-//MARK:- PickCityVCDelegate
+// MARK: - PickCityVCDelegate
 extension MainMenuVC: PickCityVCDelegate {
     func didPick(_ city: City) {
         presenter.didChangeDefaultCity(city)
     }
 }
 
-//MARK:- MenuProfileCellDelegate
+// MARK: - MenuProfileCellDelegate
 extension MainMenuVC: MenuProfileCellDelegate {
     func userPoints(in cell: MenuProfileCell) -> Double? {
         presenter.userPointsAmount()
@@ -144,7 +145,7 @@ extension MainMenuVC: MenuProfileCellDelegate {
 }
 
 
-//MARK:- Table View Data Source
+// MARK: - Table View Data Source
 extension MainMenuVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return presenter.menuItems?.count ?? 0
@@ -168,7 +169,7 @@ extension MainMenuVC: UITableViewDataSource {
     }
 }
 
-//MARK:- Delegate
+// MARK: - Delegate
 extension MainMenuVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return presenter.menuItems?[indexPath.row].height ?? 0

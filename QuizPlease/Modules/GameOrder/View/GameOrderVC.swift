@@ -9,7 +9,7 @@
 import UIKit
 import CoreHaptics
 
-//MARK:- View Protocol
+// MARK: - View Protocol
 protocol GameOrderViewProtocol: UIViewController, LoadingIndicator {
     var presenter: GameOrderPresenterProtocol! { get set }
     
@@ -80,7 +80,7 @@ class GameOrderVC: UIViewController {
         }
     }
         
-    //MARK:- Lifecycle
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter.configureViews()
@@ -125,7 +125,7 @@ class GameOrderVC: UIViewController {
     }
 }
 
-//MARK:- Protocol Implementation
+// MARK: - Protocol Implementation
 extension GameOrderVC: GameOrderViewProtocol {
     func endEditing() {
         view.endEditing(true)
@@ -222,7 +222,7 @@ extension GameOrderVC: GameOrderViewProtocol {
     }
 }
 
-//MARK:- Data Source & Delegate
+// MARK: - Data Source & Delegate
 extension GameOrderVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items.count
@@ -277,7 +277,7 @@ extension GameOrderVC: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
-//MARK:- UIScrollViewDelegate
+// MARK: - UIScrollViewDelegate
 extension GameOrderVC: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offset = scrollView.contentOffset.y + scrollView.safeAreaInsets.top

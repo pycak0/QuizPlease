@@ -8,7 +8,7 @@
 
 import UIKit
 
-//MARK:- Delegate Protocol
+// MARK: - Delegate Protocol
 protocol GameOnlinePaymentCellDelegate: AnyObject {
     ///Initial number of people to set in the cell
     func selectedNumberOfPeople(in cell: GameOnlinePaymentCell) -> Int
@@ -33,7 +33,7 @@ class GameOnlinePaymentCell: UITableViewCell, GameOrderCellProtocol {
     @IBOutlet private weak var priceLabel: UILabel!
     private weak var dashedLine: CAShapeLayer?
     
-    //MARK:- Public
+    // MARK: - Public
     var selectedNumberOfPeopleToPay: Int {
         return countPicker.selectedIndex + countPicker.startCount
     }
@@ -64,7 +64,7 @@ class GameOnlinePaymentCell: UITableViewCell, GameOrderCellProtocol {
         }
     }
     
-    //MARK:- Awake From Nib
+    // MARK: - Awake From Nib
     override func awakeFromNib() {
         super.awakeFromNib()
         configureCell()
@@ -76,7 +76,7 @@ class GameOnlinePaymentCell: UITableViewCell, GameOrderCellProtocol {
         updatePicker()
     }
     
-    //MARK:- Layout Subviews
+    // MARK: - Layout Subviews
     override func layoutSubviews() {
         super.layoutSubviews()
         configureViews()
@@ -98,7 +98,7 @@ class GameOnlinePaymentCell: UITableViewCell, GameOrderCellProtocol {
         dashedLine = UIView.drawDottedLine(in: dashView, start: start, end: end, dashLength: 4, gapLength: 2)
     }
     
-    //MARK:- Update Picker
+    // MARK: - Update Picker
     private func updatePicker() {
         guard let delegate = _delegate else { return }
         guard delegate.shouldDisplayCountPicker(in: self) else {
@@ -129,7 +129,7 @@ class GameOnlinePaymentCell: UITableViewCell, GameOrderCellProtocol {
     }
 }
 
-//MARK:- CountPickViewDelegate
+// MARK: - CountPickViewDelegate
 extension GameOnlinePaymentCell: CountPickerViewDelegate {
     func countPicker(_ picker: CountPickerView, didChangeSelectedNumber number: Int) {
         updatePrice(withNumberOfPeople: number)

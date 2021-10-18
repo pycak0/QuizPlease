@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-//MARK:- Presenter Protocol
+// MARK: - Presenter Protocol
 protocol MainMenuPresenterProtocol: AnyObject {
     var router: MainMenuRouterProtocol! { get }
     var menuItems: [MainMenuItemProtocol]? { get set }
@@ -60,7 +60,7 @@ class MainMenuPresenter: MainMenuPresenterProtocol {
         }
     }
     
-    //MARK:- Actions
+    // MARK: - Actions
     func didSelectMenuItem(at index: Int) {
         guard let item = menuItems?[index] else { return }
         var sender: UserInfo?
@@ -135,7 +135,7 @@ class MainMenuPresenter: MainMenuPresenterProtocol {
     }
 }
 
-//MARK:- MainMenuInteractorOutput
+// MARK: - MainMenuInteractorOutput
 extension MainMenuPresenter: MainMenuInteractorOutput {
     func interactor(_ interactor: MainMenuInteractorProtocol, didLoadMenuItems items: [MainMenuItemProtocol]) {
         menuItems = items

@@ -14,7 +14,7 @@ protocol AddGameVCDelegate: AnyObject {
 
 class AddGameVC: UIViewController {
     
-    //MARK:- Outlets
+    // MARK: - Outlets
     @IBOutlet private weak var addGameButton: ScalingButton!
     @IBOutlet private weak var infoView: UIView!
     @IBOutlet private weak var gameNameLabel: UILabel!
@@ -31,16 +31,16 @@ class AddGameVC: UIViewController {
     
     weak var delegate: AddGameVCDelegate?
     
-    //MARK:- Add Game Button Pressed
+    // MARK: - Add Game Button Pressed
     @IBAction private func addGameButtonPressed(_ sender: Any) {
         saveGame()
         //navigationController?.popViewController(animated: true)
     }
     
-    //MARK:- Lifecycle
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        prepareNavigationBar()
+        prepareNavigationBar(barStyle: .transcluent(tintColor: view.backgroundColor))
         configureViews()
         setupData()
     }
@@ -51,7 +51,7 @@ class AddGameVC: UIViewController {
         loadDataFromQR()
     }
     
-    //MARK:- Save Game
+    // MARK: - Save Game
     private func saveGame() {
         guard let id = chosenTeam?.id else {
             showSimpleAlert(title: "Команда не выбрана", message: "Пожалуйста, выберите команду, за которую Вы играли")
@@ -81,7 +81,7 @@ class AddGameVC: UIViewController {
         }
     }
     
-    //MARK:- Check In
+    // MARK: - Check In
     private func checkIn(teamId id: Int) {
         NetworkService.shared.checkInOnGame(with: token, chosenTeamId: id) { [weak self] (result) in
             guard let self = self else { return }
@@ -105,7 +105,7 @@ class AddGameVC: UIViewController {
         }
     }
         
-    //MARK:- Load From QR
+    // MARK: - Load From QR
     private func loadDataFromQR() {
         NetworkService.shared.getTeamsFromQR(token) { [weak self] (serverResult) in
             guard let self = self else { return }
@@ -126,7 +126,7 @@ class AddGameVC: UIViewController {
         }
     }
     
-    //MARK:- Load Game
+    // MARK: - Load Game
     private func loadGameInfo(with id: Int) {
         NetworkService.shared.getGameInfo(by: id) { [weak self] (serverResult) in
             guard let self = self else { return }
@@ -141,7 +141,7 @@ class AddGameVC: UIViewController {
         }
     }
     
-    //MARK:- Check User Location
+    // MARK: - Check User Location
     ///- parameter isSatisfactory: `true` - user location is close to the place location, `false` - user location is too far from the place location, `nil` - unavailable to get user loaction
     private func checkUserLocation(completion: @escaping (_ isSatisfactory: Bool?) -> Void) {
         UserLocationService.shared.askUserLocation { (location) in
@@ -155,7 +155,7 @@ class AddGameVC: UIViewController {
         }
     }
     
-    //MARK:- Set Game Fata
+    // MARK: - Set Game Fata
     private func setGameData() {
         gameNameLabel.text = gameInfo?.nameGame ?? "-"
         gameNumberLabel.text = gameInfo?.gameNumber ?? "#"
