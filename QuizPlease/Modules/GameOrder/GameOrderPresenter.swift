@@ -25,6 +25,7 @@ protocol GameOrderPresenterProtocol {
         
     func configureViews()
     func didPressSubmitButton()
+    func didPressTermsOfUse()
     func countSumToPay(forPeople number: Int) -> Double
     func getPriceTextColor() -> UIColor?
     
@@ -181,6 +182,14 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
     }
         
     // MARK: - Submit Button Action
+    func didPressTermsOfUse() {
+        view?.openSafariVC(
+            with: AppSettings.termsOfUseUrl,
+            delegate: nil,
+            autoReaderView: true
+        )
+    }
+    
     func didPressSubmitButton() {
         view?.endEditing()
         guard isPhoneNumberValid, registerForm.isValid else {
