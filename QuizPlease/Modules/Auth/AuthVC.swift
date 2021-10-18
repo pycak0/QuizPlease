@@ -164,6 +164,7 @@ class AuthVC: UIViewController {
         textFieldView.textField.text = ""
         textFieldView.textField.placeholder = String(repeating: "X", count: 6)
         textFieldView.textField.textContentType = .oneTimeCode
+        textFieldView.textField.keyboardType = .numberPad
     }
     
     private func showIncorrectInputNotification() {
