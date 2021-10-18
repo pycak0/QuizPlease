@@ -57,10 +57,10 @@ class HomeGameVideoVC: UIViewController {
         }
     }
         
-    //MARK:- Lifecycle 
+    // MARK: - Lifecycle 
     override func viewDidLoad() {
         super.viewDidLoad()
-        prepareNavigationBar(title: homeGame.fullTitle, tintColor: .white)
+        prepareNavigationBar(title: homeGame.fullTitle, tintColor: .white, barStyle: .transparent)
         loadDetail()
     }
     
@@ -80,7 +80,7 @@ class HomeGameVideoVC: UIViewController {
         openSafariVC(with: url, delegate: nil)
     }
     
-    //MARK:- Load Details
+    // MARK: - Load Details
     private func loadDetail() {
         NetworkService.shared.getHomeGame(by: homeGame.id) { (result) in
             switch result {
@@ -94,7 +94,7 @@ class HomeGameVideoVC: UIViewController {
         }
     }
     
-    //MARK:- Update UI
+    // MARK: - Update UI
     private func updateUI() {
         videoView.configurePlayer(url: homeGame.videoUrl, shouldAutoPlay: false)
         videoView.imageView.loadImage(path: homeGame.frontImagePath)

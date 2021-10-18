@@ -26,7 +26,7 @@ fileprivate enum Constants {
 class TitledTextFieldView: UIView {
     weak var delegate: TitledTextFieldViewDelegate?
         
-    //MARK:- UI
+    // MARK: - UI
     lazy var textField: UITextField = {
         let textField = UITextField()
         textField.placeholder = self.placeholder
@@ -45,7 +45,7 @@ class TitledTextFieldView: UIView {
         return label
     }()
     
-    //MARK:- Inspectables
+    // MARK: - Inspectables
     @IBInspectable
     var title: String = "Title" {
         didSet {
@@ -109,7 +109,7 @@ class TitledTextFieldView: UIView {
         }
     }
     
-    //MARK:- Init
+    // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
@@ -159,7 +159,7 @@ class TitledTextFieldView: UIView {
         textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     }
     
-    //MARK:- Layout Subviews
+    // MARK: - Layout Subviews
     override func layoutSubviews() {
         super.layoutSubviews()
         updateAppearance()
@@ -192,7 +192,7 @@ class TitledTextFieldView: UIView {
     }
 }
 
-//MARK:- UITextFieldDelegate
+// MARK: - UITextFieldDelegate
 extension TitledTextFieldView: UITextFieldDelegate {
     ///You can override this method to provide custom delegate calls, but make sure to call `super.textFieldDidEndEditing(_:)` at the end of your implementation to preserve correct behavior
     func textFieldDidBeginEditing(_ textField: UITextField) {

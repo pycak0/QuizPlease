@@ -14,7 +14,7 @@ fileprivate struct BlurableKey {
     static var blurable = "blurable"
 }
 
-//MARK:- Blurable Protocol
+// MARK: - Blurable Protocol
 protocol Blurable {
     var layer: CALayer { get }
     var subviews: [UIView] { get }
@@ -33,13 +33,13 @@ protocol Blurable {
 extension UIView: Blurable {}
 
 extension Blurable {
-    //MARK:- Is Blurred
+    // MARK: - Is Blurred
     var isBlurred: Bool {
         guard let self = self as? UIView else { return false }
         return objc_getAssociatedObject(self, &BlurableKey.blurable) is BlurOverlay
     }
     
-    //MARK:- Set Blur
+    // MARK: - Set Blur
     func setBlur(radius: CGFloat) {
         if self.superview == nil {
             return
@@ -95,7 +95,7 @@ extension Blurable {
         objc_setAssociatedObject(this, &BlurableKey.blurable, blurOverlay, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN)
     }
     
-    //MARK:- Remove Blur
+    // MARK: - Remove Blur
     func removeBlur() {
         guard let this = self as? UIView,
               let blurOverlay = objc_getAssociatedObject(this, &BlurableKey.blurable) as? BlurOverlay

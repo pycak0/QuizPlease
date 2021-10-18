@@ -13,7 +13,7 @@ class MapService {
     //singleton
     private init() {}
     
-    //MARK:- Open with coordinates
+    // MARK: - Open with coordinates
     ///Wrapper for method `openAppleMaps(for:withLongitude:andLatitude:radius:)`
     static func openAppleMaps(for placeName: String, withCoordinate coord: CLLocationCoordinate2D, regionRadius: Double = 1000) {
         openAppleMaps(for: placeName, withLongitude: coord.longitude, andLatitude: coord.latitude, radius: regionRadius)
@@ -40,7 +40,7 @@ class MapService {
         mapItem.openInMaps(launchOptions: options)
     }
     
-    //MARK:- Open with Address string
+    // MARK: - Open with Address string
     static func getCoordinatesAndOpenMap(for placeName: String, withAddress address: String, radius: Double = 1000, completion: ((Error?) -> Void)?) {
         getCoordinates(from: address) { (location) in
             guard let location = location else {
@@ -52,7 +52,7 @@ class MapService {
         }
     }
     
-    //MARK:- Get Coordinates
+    // MARK: - Get Coordinates
     static func getCoordinates(from address: String, completion: @escaping (CLLocationCoordinate2D?) -> Void) {
         getLocation(from: address) { (location) in
             completion(location?.coordinate)

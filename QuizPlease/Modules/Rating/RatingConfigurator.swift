@@ -15,6 +15,11 @@ class RatingConfigurator: Configurator {
         let presenter = RatingPresenter(view: view, interactor: interactor, router: router)
         interactor.output = presenter
         view.presenter = presenter
-        view.prepareNavigationBar(tintColor: .white)
+        let color = view.view.backgroundColor
+        view.prepareNavigationBar(
+            tintColor: .white,
+            barStyle: .transcluent(tintColor: color),
+            scrollBarStyle: .transcluent(tintColor: color?.withAlphaComponent(0.9))
+        )
     }
 }

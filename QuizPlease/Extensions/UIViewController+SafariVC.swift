@@ -10,7 +10,7 @@ import UIKit
 import SafariServices
 
 extension UIViewController {
-    //MARK:- Open Safari VC with link
+    // MARK: - Open Safari VC with link
     ///Opens Safari screen with chosen preset link or any other given
     ///- parameter url: if `nil`, will not open anything
     func openSafariVC(

@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol GameFirstPlayCellDelegate: class {
+protocol GameFirstPlayCellDelegate: AnyObject {
     func firstPlayCell(_ cell: GameFirstPlayCell, didChangeStateTo isFirstPlay: Bool)
 }
 

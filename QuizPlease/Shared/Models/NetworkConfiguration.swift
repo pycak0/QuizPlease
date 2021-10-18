@@ -32,7 +32,7 @@ public enum NetworkConfiguration: CustomStringConvertible {
     public var description: String {
         """
         NetworkConfiguration: {
-            value: \(identifier)
+            kind: \(identifier)
             host: "\(host)"
         }
         """

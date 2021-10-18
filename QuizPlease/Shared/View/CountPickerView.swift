@@ -8,7 +8,7 @@
 import UIKit
 import CoreHaptics
 
-//MARK:- Delegate Protocol
+// MARK: - Delegate Protocol
 protocol CountPickerViewDelegate: AnyObject {
     ///Tells the delegate that selected value is changed (only when by user, not via `setSelectedButton(at:)` method).
     ///
@@ -22,7 +22,7 @@ protocol CountPickerViewDelegate: AnyObject {
 class CountPickerView: UIView {
     private let hapticsGenerator = UISelectionFeedbackGenerator()
     
-    //MARK:- UI
+    // MARK: - UI
     private let vStack: UIStackView = {
         let vStack = UIStackView()
         vStack.axis = .vertical
@@ -58,7 +58,7 @@ class CountPickerView: UIView {
     
     weak var delegate: CountPickerViewDelegate?
     
-    //MARK:- IBInspectable
+    // MARK: - IBInspectable
     @IBInspectable
     var startCount: Int = 2 {
         didSet { updateButtonViews() }
@@ -111,7 +111,7 @@ class CountPickerView: UIView {
         didSet { updateButtonViews() }
     }
     
-    //MARK:- Touches
+    // MARK: - Touches
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         setScrollEnabled(false)
         selectButton(with: touches)
@@ -154,7 +154,7 @@ class CountPickerView: UIView {
         }
     }
     
-    //MARK:- Update Selected Button
+    // MARK: - Update Selected Button
     ///This method does not call any delegate methods
     func setSelectedButton(at index: Int, animated: Bool) {
         deselectAllButtons()
@@ -165,7 +165,7 @@ class CountPickerView: UIView {
         select(selectedButton, animated: animated)
     }
     
-    //MARK:- Count Button Pressed
+    // MARK: - Count Button Pressed
     @objc
     private func pickerButtonPressed(_ sender: UIButton) {
         guard let index = buttons.firstIndex(of: sender), index != selectedIndex else { return }
@@ -178,7 +178,7 @@ class CountPickerView: UIView {
         setSelectedButton(at: index, animated: true)
     }
     
-    //MARK:- Set Buttons
+    // MARK: - Set Buttons
     private func setButtons() {
         buttons.forEach { $0.removeFromSuperview() }
         buttons.removeAll()
@@ -194,7 +194,7 @@ class CountPickerView: UIView {
         }
     }
     
-    //MARK:- Update Button Views
+    // MARK: - Update Button Views
     private func updateButtonViews() {
         for (i, button) in buttons.enumerated() {
             updateView(for: button, at: i)
@@ -215,7 +215,7 @@ class CountPickerView: UIView {
         //button.layer.cornerRadius = buttonsCornerRadius
     }
     
-    //MARK:- Select
+    // MARK: - Select
     ///- parameter number: The value to set as the button's title
     private func select(_ button: UIButton, animated: Bool = true) {
         let scale: CGFloat = 1.1
@@ -228,7 +228,7 @@ class CountPickerView: UIView {
         }
     }
     
-    //MARK:- Deselect
+    // MARK: - Deselect
     private func deselect(_ button: UIButton?) {
         button?.isSelected = false
         UIView.animate(withDuration: 0.2) {
@@ -243,7 +243,7 @@ class CountPickerView: UIView {
         buttons.forEach { deselect($0) }
     }
 
-    //MARK:- Init
+    // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
@@ -259,7 +259,7 @@ class CountPickerView: UIView {
         //buttons.forEach { $0.layer.cornerRadius = $0.frame.height / 2 }
     }
     
-    //MARK:- Setup View
+    // MARK: - Setup View
     private func setupView() {
         addSubview(vStack)
         activateConstraints(for: vStack, fillInto: self)
@@ -278,7 +278,7 @@ class CountPickerView: UIView {
         setSelectedButton(at: maxButtonsCount - 1, animated: false)
     }
     
-    //MARK:- Constraints
+    // MARK: - Constraints
     private func activateConstraints(for view: UIView, fillInto superview: UIView) {
         view.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([

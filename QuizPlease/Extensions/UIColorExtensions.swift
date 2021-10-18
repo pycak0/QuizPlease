@@ -8,7 +8,7 @@
 
 import UIKit
 
-//MARK:- Colors
+// MARK: - Colors
 public extension UIColor {
     class var darkBlue: UIColor {
         return UIColor(named: "darkBlue")!

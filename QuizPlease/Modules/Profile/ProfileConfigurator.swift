@@ -21,6 +21,5 @@ class ProfileConfigurator: ProfileConfiguratorProtocol {
         interactor.delegate = presenter
         
         view.presenter = presenter
-        view.prepareNavigationBar()
     }
 }

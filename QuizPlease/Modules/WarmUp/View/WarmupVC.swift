@@ -9,7 +9,7 @@
 import UIKit
 import UICircularProgressRing
 
-//MARK:- View Protocol
+// MARK: - View Protocol
 protocol WarmupViewProtocol: UIViewController, LoadingIndicator {
     var presenter: WarmupPresenterProtocol! { get set }
     
@@ -27,7 +27,7 @@ class WarmupVC: UIViewController {
     var presenter: WarmupPresenterProtocol!
     private weak var pageVC: QuestionPageVC!
     
-    //MARK:- Outlets
+    // MARK: - Outlets
     @IBOutlet private weak var previewStack: UIStackView!
     @IBOutlet private weak var startButton: ScalingButton!
     @IBOutlet private weak var container: UIView!
@@ -44,11 +44,22 @@ class WarmupVC: UIViewController {
     private var activityIndicator = UIActivityIndicatorView()
     
             
-    //MARK:- Lifecycle
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         WarmupConfigurator().configure(self)
         presenter.viewDidLoad(self)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.barStyle = .black
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        resultsView.layer.sublayers?.removeAll(where: { $0 is CAGradientLayer })
+        resultsView.addGradient(.warmupItems)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -56,7 +67,7 @@ class WarmupVC: UIViewController {
         pageVC.currentViewController?.stopMedia()
     }
     
-    //MARK:- Prepare for Segue
+    // MARK: - Prepare for Segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard segue.identifier == "WarmupPageVCEmbedded",
               let vc = segue.destination as? QuestionPageVC
@@ -72,7 +83,7 @@ class WarmupVC: UIViewController {
         presenter.shareAction()
     }
     
-    //MARK:- Configure Timer View
+    // MARK: - Configure Timer View
     private func configureTimerRing() {
         progressRing.isHidden = true
         progressRing.style = .ontop
@@ -92,7 +103,7 @@ class WarmupVC: UIViewController {
 
     }
     
-    //MARK:- Configure Result Labels
+    // MARK: - Configure Result Labels
     private func configureResultLabels() {
         let bgColor = UIColor.white.withAlphaComponent(0.1)
         let cRadius: CGFloat = 10
@@ -106,7 +117,7 @@ class WarmupVC: UIViewController {
         
     }
     
-    //MARK:- Set Results
+    // MARK: - Set Results
     private func setResults(with totalTimePassed: Double) {
         let count = presenter.questions.count
         let correct = presenter.correctAnswersCount
@@ -120,16 +131,15 @@ class WarmupVC: UIViewController {
     }
 }
 
-//MARK:- View Protocol Implemenation
+// MARK: - View Protocol Implemenation
 extension WarmupVC: WarmupViewProtocol {
     func configure() {
         configureTimerRing()
         configureResultLabels()
-        resultsView.addGradient(.warmupItems)
     }
     
     func setPenaltyTimeInfo(penaltySeconds: Int) {
-        let secondsFormatted = penaltySeconds.string(withAssociatedFirstCaseWord: "секунда")
+        let secondsFormatted = penaltySeconds.string(withAssociatedFirstCaseWord: "секунда", changingCase: .nominative)
         infoLabel.text = "Тут будут появляться новые вопросы разминки. Ваша задача — ответить правильно и максимально быстро. В случае неправильного ответа к таймеру добавится \(secondsFormatted)."
     }
     
@@ -174,14 +184,14 @@ extension WarmupVC: WarmupViewProtocol {
     }
 }
 
-//MARK:- Answer Delegate
+// MARK: - Answer Delegate
 extension WarmupVC: WarmupQuestionVCAnswerDelegate {
     func questionVC(_ vc: WarmupQuestionVC, didSelectAnswer answer: String, forQuestion question: WarmupQuestion) {
         presenter.didAnswer(answer, for: question)
     }
 }
 
-//MARK:- Page VC Delegate
+// MARK: - Page VC Delegate
 extension WarmupVC: QuestionPageVCDelegate {
     func questionsDidEnd() {
         presenter.gameEnded()

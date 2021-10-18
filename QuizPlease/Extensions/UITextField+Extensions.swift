@@ -9,7 +9,7 @@
 import UIKit
 
 public extension UITextField {
-    //MARK:- Placeholder color
+    // MARK: - Placeholder color
     @IBInspectable var placeholderColor: UIColor? {
         get {
             return self.attributedPlaceholder?.attribute(.foregroundColor, at: 0, effectiveRange: nil) as? UIColor
@@ -22,7 +22,7 @@ public extension UITextField {
         }
     }
     
-    //MARK:- Set Image
+    // MARK: - Set Image
     
     ///- parameter side: Preferred width and height of image's `CGrect` (the shape is a square).
     ///- parameter textPadding: Image inset from textField's text

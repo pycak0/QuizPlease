@@ -9,7 +9,7 @@
 import UIKit
 
 public class ExpandingHeader: UIView {
-    //MARK:- Constants
+    // MARK: - Constants
     static let nibName = "\(ExpandingHeader.self)"
     static let collapsedHeight: CGFloat = 140
     static let expandedHeight: CGFloat = 320
@@ -17,7 +17,7 @@ public class ExpandingHeader: UIView {
     static let itemsCornerRadius: CGFloat = 20
     static let themeColor = UIColor.plum.withAlphaComponent(0.5)
     
-    //MARK:- UI
+    // MARK: - UI
     private unowned var gradientLayer: CAGradientLayer!
 
     @IBOutlet private var contentView: UIView!
@@ -72,7 +72,7 @@ public class ExpandingHeader: UIView {
         }
     }
         
-    //MARK:- Delegates
+    // MARK: - Delegates
     public weak var delegate: ExpandingHeaderDelegate?
     
     public weak var dataSource: ExpandingHeaderDataSource? {
@@ -97,7 +97,7 @@ public class ExpandingHeader: UIView {
         footLabel.text = "Рейтинг \(gameType) \(season) в городе: \(city)"
     }
     
-    //MARK:- Set Expanded
+    // MARK: - Set Expanded
     private func setExpanded(_ isExpanded: Bool) {
         if !isExpanded { endEditing(true) }
         
@@ -141,13 +141,13 @@ public class ExpandingHeader: UIView {
         }
     }
     
-    //MARK:- Segment Changed
+    // MARK: - Segment Changed
     @objc
     private func segmentChanged() {
         delegate?.expandingHeader(self, didChange: segmentControl.selectedIndex)
     }
     
-    //MARK:- Init
+    // MARK: - Init
     override public init(frame: CGRect) {
         super.init(frame: frame)
         xibSetup()
@@ -165,7 +165,7 @@ public class ExpandingHeader: UIView {
         contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
     }
     
-    //MARK:- Awake from Nib
+    // MARK: - Awake from Nib
     public override func awakeFromNib() {
         super.awakeFromNib()
         setupGradient()

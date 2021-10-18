@@ -8,8 +8,8 @@
 
 import Foundation
 
-//MARK:- Presenter Protocol
-protocol SchedulePresenterProtocol: class {
+// MARK: - Presenter Protocol
+protocol SchedulePresenterProtocol: AnyObject {
     var router: ScheduleRouterProtocol! { get }
     init(view: ScheduleViewProtocol, interactor: ScheduleInteractorProtocol, router: ScheduleRouterProtocol)
     
@@ -34,7 +34,7 @@ protocol SchedulePresenterProtocol: class {
     func isSubscribedOnGame(with id: Int) -> Bool
 }
 
-//MARK:- Presenter Implementation
+// MARK: - Presenter Implementation
 class SchedulePresenter: SchedulePresenterProtocol {
     weak var view: ScheduleViewProtocol?
     var interactor: ScheduleInteractorProtocol!
@@ -46,7 +46,11 @@ class SchedulePresenter: SchedulePresenterProtocol {
     
     private var subscribedGameIds = [Int]()
     
-    required init(view: ScheduleViewProtocol, interactor: ScheduleInteractorProtocol, router: ScheduleRouterProtocol) {
+    required init(
+        view: ScheduleViewProtocol,
+        interactor: ScheduleInteractorProtocol,
+        router: ScheduleRouterProtocol
+    ) {
         self.view = view
         self.router = router
         self.interactor = interactor
@@ -62,15 +66,27 @@ class SchedulePresenter: SchedulePresenterProtocol {
         return subscribedGameIds.contains(id)
     }
     
-    //MARK:- Actions
+    // MARK: - Actions
     func didSignUp(forGameAt index: Int) {
         let game = games[index]
-        router.showGameInfo(GameInfoPresentAttributes(game: game, shouldScrollToSignUp: true))
+        router.showGameInfo(
+            with: GameOrderPresentationOptions(
+                gameInfo: game,
+                city: scheduleFilter.city,
+                shouldScrollToSignUp: true
+            )
+        )
     }
     
     func didPressInfoButton(forGameAt index: Int) {
         let game = games[index]
-        router.showGameInfo(GameInfoPresentAttributes(game: game, shouldScrollToSignUp: false))
+        router.showGameInfo(
+            with: GameOrderPresentationOptions(
+                gameInfo: game,
+                city: scheduleFilter.city,
+                shouldScrollToSignUp: false
+            )
+        )
     }
     
     func didAskLocation(forGameAt index: Int) {
@@ -106,12 +122,12 @@ class SchedulePresenter: SchedulePresenterProtocol {
         router.showWarmup(popCurrent: true)
     }
     
-    //MARK:- Handle Refresh Control
+    // MARK: - Handle Refresh Control
     func handleRefreshControl() {
         updateSchedule()
     }
     
-    //MARK:- Loading
+    // MARK: - Loading
     func updateDetailInfoIfNeeded(at index: Int) {
         guard index < games.count else { return }
         let game = games[index]
@@ -131,7 +147,7 @@ class SchedulePresenter: SchedulePresenterProtocol {
     }
     
     
-    //MARK:- Load
+    // MARK: - Load
     private func updateSchedule() {
         loadSchedule()
         updateSubscribedGames()
@@ -167,7 +183,7 @@ class SchedulePresenter: SchedulePresenterProtocol {
     }
 }
 
-//MARK:- ScheduleInteractorOutput
+// MARK: - ScheduleInteractorOutput
 extension SchedulePresenter: ScheduleInteractorOutput {
     func interactor(_ interactor: ScheduleInteractorProtocol?, didGetSubscribeStatus isSubscribed: Bool, forGameWithId id: String) {
         let subscirbeMessage = isSubscribed ? "подписаны на уведомления" : "отписаны от уведомлений"

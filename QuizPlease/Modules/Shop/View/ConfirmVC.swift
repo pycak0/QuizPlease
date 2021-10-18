@@ -9,15 +9,15 @@
 import UIKit
 import BottomPopup
 
-//MARK:- Delegate Protocol
-protocol ConfirmVCDelegate: class {
+// MARK: - Delegate Protocol
+protocol ConfirmVCDelegate: AnyObject {
     func didAgreeToPurchase(item: ShopItem)
 }
 
 class ConfirmVC: BottomPopupViewController {
     let duration = 0.2
     
-    //MARK:- Override props
+    // MARK: - Override props
     override var popupTopCornerRadius: CGFloat { 30 }
     override var popupHeight: CGFloat { 530 }
     override var popupDismissDuration: Double { duration }
@@ -26,7 +26,7 @@ class ConfirmVC: BottomPopupViewController {
     
     weak var delegate: ConfirmVCDelegate?
     
-    //MARK:- Outlets
+    // MARK: - Outlets
     @IBOutlet private weak var itemImageView: UIImageView!
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var descriptionLabel: UILabel!
@@ -36,7 +36,7 @@ class ConfirmVC: BottomPopupViewController {
     
     var shopItem: ShopItem!
 
-    //MARK:- Lifecycle
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -65,7 +65,7 @@ class ConfirmVC: BottomPopupViewController {
         
     }
     
-    //MARK:- Actions
+    // MARK: - Actions
     @IBAction
     private func cancelButtonPressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)

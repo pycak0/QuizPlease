@@ -8,7 +8,7 @@
 
 import UIKit
 
-//MARK:- View Protocol
+// MARK: - View Protocol
 protocol RatingViewProtocol: UIViewController, LoadingIndicator {
     var presenter: RatingPresenterProtocol! { get set }
     
@@ -32,7 +32,7 @@ class RatingVC: UIViewController {
         }
     }
     
-    //MARK:- Lifecycle
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         RatingConfigurator().configure(self)
@@ -41,6 +41,7 @@ class RatingVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationController?.navigationBar.barStyle = .black
         navigationController?.navigationBar.tintColor = .white
     }
     
@@ -55,7 +56,7 @@ class RatingVC: UIViewController {
     }
 }
 
-//MARK:- Protocol Implementation
+// MARK: - Protocol Implementation
 extension RatingVC: RatingViewProtocol {
     func reloadRatingList() {
         tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .fade)
@@ -95,7 +96,7 @@ extension RatingVC: RatingViewProtocol {
     }
 }
 
-//MARK:- ExpandingHeaderDelegate
+// MARK: - ExpandingHeaderDelegate
 extension RatingVC: ExpandingHeaderDelegate {
     func didPressGameTypeView(in expandingHeader: ExpandingHeader, completion: @escaping (String?) -> Void) {
         showChooseItemActionSheet(itemNames: presenter.availableGameTypeNames) { [unowned self] (selectedName, index) in
@@ -128,7 +129,7 @@ extension RatingVC: ExpandingHeaderDelegate {
     }
 }
 
-//MARK:- ExpandingHeaderDataSource
+// MARK: - ExpandingHeaderDataSource
 extension RatingVC: ExpandingHeaderDataSource {
     func numberOfSegmentControlItems(in expandingHeader: ExpandingHeader) -> Int {
         return presenter.availableFilters.count
@@ -148,7 +149,7 @@ extension RatingVC: ExpandingHeaderDataSource {
 }
 
 
-//MARK:- Data Source & Delegate
+// MARK: - Data Source & Delegate
 extension RatingVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return presenter.filteredTeams.count

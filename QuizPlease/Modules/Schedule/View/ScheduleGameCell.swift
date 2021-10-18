@@ -8,8 +8,8 @@
 
 import UIKit
 
-//MARK:- Delegate Protocol
-protocol ScheduleGameCellDelegate: class {
+// MARK: - Delegate Protocol
+protocol ScheduleGameCellDelegate: AnyObject {
     func signUpButtonPressed(in cell: ScheduleGameCell)
     func infoButtonPressed(in cell: ScheduleGameCell)
     func locationButtonPressed(in cell: ScheduleGameCell)
@@ -21,7 +21,7 @@ class ScheduleGameCell: UITableViewCell {
     
     weak var delegate: ScheduleGameCellDelegate?
 
-    //MARK:- Outlets
+    // MARK: - Outlets
     @IBOutlet private weak var cellView: UIView!
     @IBOutlet private weak var backgroundImageView: UIImageView!
     
@@ -42,7 +42,7 @@ class ScheduleGameCell: UITableViewCell {
     
     @IBOutlet private weak var signUpButton: UIButton!
     
-    //MARK:- Actions
+    // MARK: - Actions
     @IBAction private func signUpButtonPressed(_ sender: Any) {
         delegate?.signUpButtonPressed(in: self)
     }
@@ -69,7 +69,7 @@ class ScheduleGameCell: UITableViewCell {
         onReuseActions()
     }
     
-    //MARK:- Configure Cell Data
+    // MARK: - Configure Cell Data
     func fill(model: GameInfo, isSubscribed: Bool) {
         nameLabel.text = model.nameGame
         numberLabel.text = model.gameNumber

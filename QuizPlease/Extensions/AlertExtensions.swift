@@ -9,7 +9,7 @@
 import UIKit
 
 extension UIViewController {
-    //MARK:- Simple Alert
+    // MARK: - Simple Alert
     /**A simple alert that gives some additional info,
      has only one  button which dismisses the alert controller by default.
      Use it for displaying supplementary messages e.g. successful url request.
@@ -24,7 +24,7 @@ extension UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    //MARK:- Show Alert With 2 Buttons
+    // MARK: - Show Alert With 2 Buttons
     ///All messages are customizable and both buttons may be handled (or not)
     func showTwoOptionsAlert(title: String, message: String, option1Title: String, handler1: ((UIAlertAction) -> Void)?, option2Title: String, handler2: ((UIAlertAction) -> Void)?) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -37,7 +37,7 @@ extension UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    //MARK:- Show Action Sheet With Configurable Option
+    // MARK: - Show Action Sheet With Configurable Option
     ///Cancel button is set by default
     func showActionSheetWithOptions(title: String?, buttons: [UIAlertAction], buttonTextAligment: CATextLayerAlignmentMode = .center, cancelTitle: String = "Отмена", tintColor: UIColor? = .labelAdapted) {
         let alert = UIAlertController(title: title, message: nil, preferredStyle: .actionSheet)
@@ -54,7 +54,7 @@ extension UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    //MARK:- Text Field Alert
+    // MARK: - Text Field Alert
     func showAlertWithTextField(
         title: String,
         message: String,
@@ -90,7 +90,7 @@ extension UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    //MARK:- Error Connecting To Server Alert
+    // MARK: - Error Connecting To Server Alert
     ///Not as good as 'simple alert' but is very easy to call specially for internet issues
     func showErrorConnectingToServerAlert(title: String = "Не удалось связаться с сервером", message: String = "Повторите попытку позже"){
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)

@@ -10,7 +10,7 @@ import UIKit
 
 public extension UIView {
     ///
-    //MARK:- • With Custom Transform
+    // MARK: - • With Custom Transform
     ///Deletes existing view background color and makes a gradient one. This implementation is useful when working with auto-generated gradients
     func addGradient(
         firstColor: UIColor,
@@ -44,19 +44,21 @@ public extension UIView {
         }
     }
     
-    //MARK:- • With UIColor Array
-    ///Supports array of colors and setting optional start, end points and the gradient layer frame
-    ///- parameter frame: An optional frame for the gradient layer. Default is `view`'s `bounds`
-    ///- parameter startPoint: Read description of `CAGradientLayer`'s `startPoint`
-    ///- parameter endPoint: Read description of `CAGradientLayer`'s `endPoint`
-    ///- parameter pos: A position to insert gradient layer at. The default is `0`, i.e. adding it as the bottom view's layer. If `nil`, adds as the top view layer
+    // MARK: - • With UIColor Array
+    /// Supports array of colors and setting optional start, end points and the gradient layer frame
+    /// - Parameters:
+    ///   - frame: An optional frame for the gradient layer. Default is `view`'s `bounds`
+    ///   - startPoint: Read description of `CAGradientLayer`'s `startPoint`
+    ///   - endPoint: Read description of `CAGradientLayer`'s `endPoint`
+    ///   - pos: A position to insert gradient layer at. The default is `0`, i.e. adding it as the bottom view's layer. If `nil`, adds as the top view layer
+    @discardableResult
     func addGradient(
         colors: [UIColor],
         startPoint: CGPoint? = nil,
         endPoint: CGPoint? = nil,
         frame: CGRect? = nil,
         insertAt pos: UInt32? = 0
-    ) {
+    ) -> CAGradientLayer {
         self.backgroundColor = .clear
         self.clipsToBounds = true
         
@@ -75,12 +77,15 @@ public extension UIView {
         } else {
             self.layer.addSublayer(gradLayer)
         }
+        
+        return gradLayer
     }
     
-    //MARK:- • With Preset
+    // MARK: - • With Preset
     ///- parameter pos: A position to insert gradient layer at. The default is `0`, i.e. adding it as the bottom view's layer. If `nil`, adds as the top view layer
-    func addGradient(_ preset: GradientPreset, insertAt pos: UInt32? = 0) {
-        addGradient(colors: preset.colors, insertAt: pos)
+    @discardableResult
+    func addGradient(_ preset: GradientPreset, insertAt pos: UInt32? = 0) -> CAGradientLayer {
+        return addGradient(colors: preset.colors, insertAt: pos)
     }
     
     enum GradientPreset {

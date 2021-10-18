@@ -11,7 +11,7 @@ import UIKit
 // Extensions for the UIViewController
 
 extension UIViewController {
-    //MARK:- Clear Navigation Bar
+    // MARK: - Clear Navigation Bar
     ///Clears navigation bar's background color, separator and back button
     func clearNavigationBar(clearBorder: Bool = true) {
         guard let navBar = navigationController?.navigationBar else { return }
@@ -24,7 +24,7 @@ extension UIViewController {
         navBar.layoutIfNeeded()
     }
     
-    //MARK:- Clear Nav Bar Backgorund
+    // MARK: - Clear Nav Bar Backgorund
     ///Clears navigation bar's background color and separator
     func clearNavBarBackground(andBorder: Bool = true) {
         guard let navBar = navigationController?.navigationBar else { return }
@@ -56,10 +56,15 @@ extension UIViewController {
         ])
     }
     
-    //MARK:- Prepare Navigation Bar
-    func prepareNavigationBar(title: String? = nil, titleAlignment: NSTextAlignment = .left, tintColor: UIColor? = nil, barTintColor: UIColor? = nil) {
-        navigationController?.navigationBar.barTintColor = barTintColor ?? view.backgroundColor
+    // MARK: - Prepare Navigation Bar
+    func prepareNavigationBar(title: String? = nil, titleAlignment: NSTextAlignment = .left, tintColor: UIColor? = nil, barStyle: BarStyle, scrollBarStyle: BarStyle? = nil) {
+        navigationController?.navigationBar.barTintColor = barStyle.tintColor ?? view.backgroundColor
         navigationController?.navigationBar.shadowImage = UIImage()
+                
+        if #available(iOS 15, *) {
+            navigationController?.navigationBar.standardAppearance = (scrollBarStyle ?? barStyle).appearance
+            navigationController?.navigationBar.scrollEdgeAppearance = barStyle.appearance
+        }
         
         if let color = tintColor {
             navigationController?.navigationBar.tintColor = color

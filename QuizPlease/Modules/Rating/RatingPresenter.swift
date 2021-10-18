@@ -8,7 +8,7 @@
 
 import Foundation
 
-//MARK:- Presenter Protocol
+// MARK: - Presenter Protocol
 protocol RatingPresenterProtocol {
     var router: RatingRouterProtocol! { get set }
     init(view: RatingViewProtocol, interactor: RatingInteractorProtocol, router: RatingRouterProtocol)
@@ -60,7 +60,7 @@ class RatingPresenter: RatingPresenterProtocol {
         self.view = view
     }
     
-    //MARK:- Actions
+    // MARK: - Actions
     func didChangeLeague(_ selectedIndex: Int) {
         let league = RatingFilter.RatingLeague.allCases[selectedIndex]
         filter.league = league
@@ -133,7 +133,7 @@ class RatingPresenter: RatingPresenterProtocol {
         view?.reloadRatingList()
     }
     
-    //MARK:- Load
+    // MARK: - Load
     ///Resets `currentPage` value to `1`, clears `teams` array and reloads view, then calls `loadRating` method
     private func reloadRating(afterDelay delay: Double = 0) {
         resetData()
@@ -147,7 +147,7 @@ class RatingPresenter: RatingPresenterProtocol {
     }
 }
 
-//MARK:- RatingInteractorOutput
+// MARK: - RatingInteractorOutput
 extension RatingPresenter: RatingInteractorOutput {
     func interactor(_ interactor: RatingInteractorProtocol, errorOccured error: NetworkServiceError) {
         print(error)

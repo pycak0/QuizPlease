@@ -9,7 +9,7 @@
 import Foundation
 import YooKassaPayments
 
-//MARK:- Interactor Protocol
+// MARK: - Interactor Protocol
 protocol GameOrderInteractorProtocol {
     ///must be weak
     var output: GameOrderInteractorOutput? { get }
@@ -18,14 +18,14 @@ protocol GameOrderInteractorProtocol {
     func checkSpecialCondition(_ value: String, forGameWithId id: Int, selectedTeamName name: String)
 }
 
-//MARK:- Output Protocol
+// MARK: - Output Protocol
 protocol GameOrderInteractorOutput: AnyObject {
     func interactor(_ interactor: GameOrderInteractorProtocol?, errorOccured error: NetworkServiceError)
     func interactor(_ interactor: GameOrderInteractorProtocol?, didCheckSpecialCondition value: String, with response: SpecialCondition.Response)
     func interactor(_ interactor: GameOrderInteractorProtocol?, didRegisterWithResponse: GameOrderResponse, paymentMethod: PaymentMethodType?)
 }
 
-//MARK:- Implementation
+// MARK: - Implementation
 class GameOrderInteractor: GameOrderInteractorProtocol {
     weak var output: GameOrderInteractorOutput?
     

@@ -85,7 +85,7 @@ class GameCertificateCell: UITableViewCell, GameOrderCellProtocol {
 }
 
 
-//MARK:- TitledTextFieldViewDelegate
+// MARK: - TitledTextFieldViewDelegate
 extension GameCertificateCell: TitledTextFieldViewDelegate {
     func textFieldViewDidEndEditing(_ textFieldView: TitledTextFieldView) {
         _delegate?.certificateCellDidEndEditing(self)
