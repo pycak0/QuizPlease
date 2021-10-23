@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -46,31 +46,29 @@
                             <action selector="submitButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="vUz-4u-q6V"/>
                         </connections>
                     </button>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Записываясь на игру, вы соглашаетесь c условиями пользовательского соглашения" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="7" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KO2-0p-mt9">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="Fqs-cu-bmC">
                         <rect key="frame" x="16" y="105" width="288" height="34"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="34" id="5yM-m8-fpl"/>
-                        </constraints>
                         <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="12"/>
-                        <color key="textColor" systemColor="opaqueSeparatorColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                        <color key="tintColor" systemColor="opaqueSeparatorColor"/>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                        <state key="normal" title="Записываясь на игру, вы соглашаетесь c условиями пользовательского соглашения"/>
+                    </button>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="Fqs-cu-bmC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="4Zs-Wm-z3T"/>
                     <constraint firstItem="yuM-ch-jCa" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="25" id="6dw-sE-UQG"/>
                     <constraint firstAttribute="trailing" secondItem="yuM-ch-jCa" secondAttribute="trailing" constant="16" id="BuB-p8-0Mm"/>
-                    <constraint firstItem="KO2-0p-mt9" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="F39-bt-DYE"/>
-                    <constraint firstItem="KO2-0p-mt9" firstAttribute="top" secondItem="yuM-ch-jCa" secondAttribute="bottom" constant="20" id="H4v-Mi-cmX"/>
-                    <constraint firstAttribute="trailing" secondItem="KO2-0p-mt9" secondAttribute="trailing" constant="16" id="OUK-HO-Br1"/>
+                    <constraint firstItem="Fqs-cu-bmC" firstAttribute="top" secondItem="yuM-ch-jCa" secondAttribute="bottom" constant="20" id="L9b-6a-1tx"/>
+                    <constraint firstAttribute="trailing" secondItem="Fqs-cu-bmC" secondAttribute="trailing" constant="16" id="Ml4-Sl-NhY"/>
+                    <constraint firstAttribute="bottom" secondItem="Fqs-cu-bmC" secondAttribute="bottom" constant="20" id="RsK-9S-hcr"/>
                     <constraint firstItem="yuM-ch-jCa" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="VHB-9P-wUG"/>
-                    <constraint firstAttribute="bottom" secondItem="KO2-0p-mt9" secondAttribute="bottom" constant="20" id="vyi-uc-q2M"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="submitButton" destination="yuM-ch-jCa" id="l3z-He-Pkj"/>
-                <outlet property="termsLabel" destination="KO2-0p-mt9" id="2fI-V8-w0J"/>
+                <outlet property="termsButton" destination="Fqs-cu-bmC" id="EdZ-kH-tF7"/>
             </connections>
             <point key="canvasLocation" x="137.68115942028987" y="153.68303571428569"/>
         </tableViewCell>

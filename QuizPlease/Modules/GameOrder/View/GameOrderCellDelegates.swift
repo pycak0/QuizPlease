@@ -210,4 +210,8 @@ extension GameOrderVC: GameSubmitButtonCellDelegate {
     func submitButtonCell(_ cell: GameSubmitButtonCell, didPressSubmitButton button: UIButton) {
         presenter.didPressSubmitButton()
     }
+    
+    func didPressTermsOfUse(in cell: GameSubmitButtonCell) {
+        presenter.didPressTermsOfUse()
+    }
 }
