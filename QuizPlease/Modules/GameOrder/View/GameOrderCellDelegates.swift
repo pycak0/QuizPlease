@@ -80,10 +80,10 @@ extension GameOrderVC: GameCertificateCellDelegate {
     func titleForCell(_ certificateCell: GameCertificateCell) -> String {
         if certificateCell.associatedItemKind == .certificate {
             certificateCell.fieldView.title = "Введите номер сертификата/промокода"
-            return "У Вас есть промокод / сертификат Квиз, плиз! ?"
+            return "У вас есть промокод / сертификат Квиз, плиз! ?"
         }
         certificateCell.fieldView.title = "Введите промокод"
-        return "У Вас есть промокод?"
+        return "У вас есть промокод?"
     }
     
     func accessoryText(for certificateCell: GameCertificateCell) -> String {
