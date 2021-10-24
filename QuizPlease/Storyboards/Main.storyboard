@@ -742,7 +742,7 @@
                                 <rect key="frame" x="252" y="20" width="178" height="246"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="749" image="radioImage" translatesAutoresizingMaskIntoConstraints="NO" id="h6c-My-5EX">
-                                <rect key="frame" x="-25" y="535" width="110" height="145"/>
+                                <rect key="frame" x="-30" y="545" width="110" height="145"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="dup-Ph-3o2"/>
@@ -750,7 +750,7 @@
                         <constraints>
                             <constraint firstItem="ArP-nU-1hg" firstAttribute="top" secondItem="U21-JA-Gep" secondAttribute="top" constant="20" id="2BY-PY-wyL"/>
                             <constraint firstItem="FzP-Sr-chM" firstAttribute="bottom" secondItem="3f9-Ms-nhV" secondAttribute="bottom" constant="20" id="2FZ-RC-86d"/>
-                            <constraint firstItem="lu4-z4-p3d" firstAttribute="top" secondItem="h6c-My-5EX" secondAttribute="bottom" constant="40" id="88B-CQ-6Vp"/>
+                            <constraint firstItem="lu4-z4-p3d" firstAttribute="top" secondItem="h6c-My-5EX" secondAttribute="bottom" constant="30" id="88B-CQ-6Vp"/>
                             <constraint firstItem="mEJ-qY-QPc" firstAttribute="top" secondItem="FzP-Sr-chM" secondAttribute="bottom" constant="30" id="8uD-hq-KXx"/>
                             <constraint firstItem="3f9-Ms-nhV" firstAttribute="leading" secondItem="dup-Ph-3o2" secondAttribute="leading" constant="20" id="CM1-G4-G5a"/>
                             <constraint firstItem="FzP-Sr-chM" firstAttribute="leading" secondItem="dup-Ph-3o2" secondAttribute="leading" id="DYB-Ey-1dF"/>
@@ -768,7 +768,7 @@
                             <constraint firstItem="mEJ-qY-QPc" firstAttribute="leading" secondItem="dup-Ph-3o2" secondAttribute="leading" constant="20" id="nDs-Pm-MyB"/>
                             <constraint firstItem="dup-Ph-3o2" firstAttribute="trailing" secondItem="3f9-Ms-nhV" secondAttribute="trailing" constant="20" id="pRH-4K-cJO"/>
                             <constraint firstItem="3f9-Ms-nhV" firstAttribute="top" secondItem="7qy-R2-uOg" secondAttribute="bottom" constant="-25" id="ux8-ly-r5J"/>
-                            <constraint firstItem="h6c-My-5EX" firstAttribute="leading" secondItem="U21-JA-Gep" secondAttribute="leading" constant="-25" id="wk1-Jr-DGb"/>
+                            <constraint firstItem="h6c-My-5EX" firstAttribute="leading" secondItem="U21-JA-Gep" secondAttribute="leading" constant="-30" id="wk1-Jr-DGb"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Game Name" id="puO-tf-bht"/>
