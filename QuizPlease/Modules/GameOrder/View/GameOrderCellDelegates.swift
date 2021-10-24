@@ -87,12 +87,8 @@ extension GameOrderVC: GameCertificateCellDelegate {
     }
     
     func accessoryText(for certificateCell: GameCertificateCell) -> String {
-        switch certificateCell.associatedItemKind {
-        case .certificate:
-            return "Для активации сертификатов от наших партнеров свяжитесь с нами"
-        default:
-            return ""
-        }
+        // "Для активации сертификатов от наших партнеров свяжитесь с нами"
+        return ""
     }
     
     func certificateCell(_ certificateCell: GameCertificateCell, didChangeCertificateCode newCode: String) {

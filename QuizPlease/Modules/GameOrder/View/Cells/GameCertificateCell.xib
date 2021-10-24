@@ -24,20 +24,20 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="210"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="A79-8R-Jwd">
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="A79-8R-Jwd">
                         <rect key="frame" x="16" y="16" width="288" height="178"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yfm-gl-DTg">
-                                <rect key="frame" x="0.0" y="0.0" width="288" height="39"/>
+                                <rect key="frame" x="0.0" y="0.0" width="288" height="47"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="У вас есть сертификат Квиз, плиз! ?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oeN-kq-8Mf">
-                                        <rect key="frame" x="0.0" y="0.0" width="258" height="39"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="258" height="47"/>
                                         <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="16"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fya-gc-boo">
-                                        <rect key="frame" x="258" y="0.0" width="30" height="39"/>
+                                        <rect key="frame" x="258" y="0.0" width="30" height="47"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="30" id="tRb-G1-RFq"/>
                                         </constraints>
@@ -46,7 +46,7 @@
                                 </subviews>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ASP-l2-1Yt">
-                                <rect key="frame" x="0.0" y="59" width="288" height="70"/>
+                                <rect key="frame" x="0.0" y="63" width="288" height="70"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rfo-0R-A9X" customClass="TitledTextFieldView" customModule="QuizPlease" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="288" height="70"/>
