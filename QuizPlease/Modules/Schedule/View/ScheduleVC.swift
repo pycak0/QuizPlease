@@ -188,6 +188,7 @@ extension ScheduleVC: UITableViewDelegate, UITableViewDataSource {
 
 // MARK: - ScheduleGameCellDelegate
 extension ScheduleVC: ScheduleGameCellDelegate {
+    
     func signUpButtonPressed(in cell: ScheduleGameCell) {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         presenter.didSignUp(forGameAt: indexPath.row)
@@ -208,4 +209,13 @@ extension ScheduleVC: ScheduleGameCellDelegate {
         presenter.didAskNotification(forGameAt: indexPath.row)
     }
     
+    func gameNumberPressed(in cell: ScheduleGameCell) {
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        presenter.didPressInfoButton(forGameAt: indexPath.row)
+    }
+    
+    func gameNamePressed(in cell: ScheduleGameCell) {
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        presenter.didPressInfoButton(forGameAt: indexPath.row)
+    }
 }
