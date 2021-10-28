@@ -78,9 +78,8 @@ class WarmupPresenter: WarmupPresenterProtocol {
     }
     
     func shareAction() {
-        if let viewController = view,
-           let image = UIApplication.shared.makeSnapshot() {
-            interactor.shareResults(image, delegate: viewController)
+        if let image = view?.makeResultsSnapshot() {
+            router.showShareSheet(with: image)
         }
     }
     

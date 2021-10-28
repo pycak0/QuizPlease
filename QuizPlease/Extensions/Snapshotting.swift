@@ -13,37 +13,25 @@ protocol Snapshotable {
 }
 
 extension UIApplication: Snapshotable {
-    func getKeyWindow() -> UIWindow? {
-        if #available(iOS 13, *) {
-            return windows.first { $0.isKeyWindow }
-        } else {
-            return keyWindow
-        }
+    func makeSnapshot() -> UIImage? {
+        getKeyWindow()?.makeSnapshot()
     }
-
-    func makeSnapshot() -> UIImage? { return getKeyWindow()?.layer.makeSnapshot() }
 }
-
 
 extension CALayer: Snapshotable {
     func makeSnapshot() -> UIImage? {
-        let scale = UIScreen.main.scale
-        UIGraphicsBeginImageContextWithOptions(frame.size, false, scale)
-        defer { UIGraphicsEndImageContext() }
-        guard let context = UIGraphicsGetCurrentContext() else { return nil }
-        render(in: context)
-        let screenshot = UIGraphicsGetImageFromCurrentImageContext()
-        return screenshot
+        let renderer = UIGraphicsImageRenderer(size: frame.size)
+        return renderer.image { ctx in
+            render(in: ctx.cgContext)
+        }
     }
 }
 
 extension UIView: Snapshotable {
     func makeSnapshot() -> UIImage? {
-        if #available(iOS 10.0, *) {
-            let renderer = UIGraphicsImageRenderer(size: frame.size)
-            return renderer.image { _ in drawHierarchy(in: bounds, afterScreenUpdates: true) }
-        } else {
-            return layer.makeSnapshot()
+        let renderer = UIGraphicsImageRenderer(size: frame.size)
+        return renderer.image { _ in
+            drawHierarchy(in: bounds, afterScreenUpdates: true)
         }
     }
 }
