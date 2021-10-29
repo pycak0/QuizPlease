@@ -30,13 +30,10 @@ class MainMenuVC: UIViewController {
     @IBOutlet private weak var menuHeader: UIView!
     @IBOutlet private weak var cityButton: UIButton!
     
-    private var fullWidthBackGestureRecognizer = UIPanGestureRecognizer()
-    
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         MainMenuConfigurator().configure(self)
-        setupSwipeBackGestureRecognizer()
         presenter.viewDidLoad(self)
         addLongTap()
     }
@@ -79,16 +76,6 @@ class MainMenuVC: UIViewController {
         if sender.state == .began {
             UIImpactFeedbackGenerator().impactOccurred()
             presenter.didLongTapOnLogo()
-        }
-    }
-    
-    private func setupSwipeBackGestureRecognizer() {
-        if let interactivePopGestureRecognizer = navigationController?.interactivePopGestureRecognizer, let targets = interactivePopGestureRecognizer.value(forKey: "targets") {
-            fullWidthBackGestureRecognizer.setValue(targets, forKey: "targets")
-            navigationController?.view.addGestureRecognizer(fullWidthBackGestureRecognizer)
-            if #available(iOS 13.4, *) {
-                fullWidthBackGestureRecognizer.allowedScrollTypesMask = .continuous
-            }
         }
     }
 }

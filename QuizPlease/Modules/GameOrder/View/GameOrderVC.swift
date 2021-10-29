@@ -86,6 +86,20 @@ class GameOrderVC: UIViewController {
         super.viewDidLoad()
         presenter.configureViews()
     }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if let navC = navigationController as? QPNavigationController {
+            navC.fullWidthSwipeBackGestureRecognizer.isEnabled = false
+        }
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        if let navC = navigationController as? QPNavigationController {
+            navC.fullWidthSwipeBackGestureRecognizer.isEnabled = true
+        }
+    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         presenter.router.prepare(for: segue, sender: sender)
