@@ -9,6 +9,7 @@
 import UIKit
 
 // MARK: - Game Annotation
+
 extension GameOrderVC: GameAnnotationCellDelegate {
     func gameAnnotation(for cell: GameAnnotationCell) -> String {
         presenter.game.description
@@ -20,22 +21,23 @@ extension GameOrderVC: GameAnnotationCellDelegate {
 }
 
 // MARK: - Game Info
+
 extension GameOrderVC: GameInfoCellDelegate {
     func gameInfo(for gameInfoCell: GameInfoCell) -> GameInfo {
         return presenter.game
     }
 }
 
-
 // MARK: - Game Description
+
 extension GameOrderVC: GameDescriptionDelegate {
     func optionalDescription(for descriptionCell: GameGeneralDescriptionCell) -> String? {
         return presenter.game.optionalDescription
     }
 }
 
-
 // MARK: - Register
+
 extension GameOrderVC: GameRegisterCellDelegate {
     func selectedNumberOfPeople(in registerCell: GameRegisterCell) -> Int {
         return presenter.registerForm.count
@@ -74,8 +76,8 @@ extension GameOrderVC: GameRegisterCellDelegate {
     }
 }
 
-
 // MARK: - Certificate
+
 extension GameOrderVC: GameCertificateCellDelegate {
     func titleForCell(_ certificateCell: GameCertificateCell) -> String {
         if certificateCell.associatedItemKind == .certificate {
@@ -119,6 +121,7 @@ extension GameOrderVC: GameCertificateCellDelegate {
 }
 
 // MARK: - Add Extra Certificate
+
 extension GameOrderVC: GameAddExtraCertificateCellDelegate {
     func cellDidPressAddButton(_ cell: GameAddExtraCertificateCell) {
         presenter.didPressAddSpecialCondition()
@@ -126,6 +129,7 @@ extension GameOrderVC: GameAddExtraCertificateCellDelegate {
 }
 
 // MARK: - First Play
+
 extension GameOrderVC: GameFirstPlayCellDelegate {
     func firstPlayCell(_ cell: GameFirstPlayCell, didChangeStateTo isFirstPlay: Bool) {
         hapticGenerator.impactOccurred()
@@ -134,6 +138,7 @@ extension GameOrderVC: GameFirstPlayCellDelegate {
 }
 
 // MARK: - Payment Type
+
 extension GameOrderVC: GamePaymentTypeCellDelegate {
     func availablePaymentTypes(in cell: GamePaymentTypeCell) -> [PaymentType] {
         return presenter.game.availablePaymentTypes
@@ -172,6 +177,7 @@ extension GameOrderVC: GamePaymentTypeCellDelegate {
 }
 
 // MARK: - Online Payment
+
 extension GameOrderVC: GameOnlinePaymentCellDelegate {
     func shouldDisplayCountPicker(in cell: GameOnlinePaymentCell) -> Bool {
         return !presenter.game.isOnlineGame
@@ -194,8 +200,8 @@ extension GameOrderVC: GameOnlinePaymentCellDelegate {
     }
 }
 
-
 // MARK: - Submit Button
+
 extension GameOrderVC: GameSubmitButtonCellDelegate {
     func titleForButton(in cell: GameSubmitButtonCell) -> String? {
         let isOnlinePayment = presenter.registerForm.paymentType == .online

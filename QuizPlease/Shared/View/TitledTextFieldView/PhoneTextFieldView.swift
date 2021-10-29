@@ -11,11 +11,20 @@ import PhoneNumberKit
 
 @IBDesignable
 class PhoneTextFieldView: TitledTextFieldView {
+    
+    /// Kind of formatting the phone number
     enum NumberFormattingKind {
-        ///A number without country code, e.g. `9121234567` for +7 (912) 123-45-67
+        
+        /// A number without country code, e.g. `9121234567` for +7 (912) 123-45-67
         case national
-        ///A whole number with country code, e.g. `+79121234567` for +7 (912) 123-45-67
+        
+        /// A whole number with country code, e.g. `+79121234567` for +7 (912) 123-45-67
         case international
+        
+        /// A whole number with country code and a phone mask
+        /// (as it appears in the View for the user),
+        /// e.g. `+7 912 123-45-67` for +7 (912) 123-45-67
+        case internationalWithMask
     }
     
     private let phoneTextField: PhoneNumberTextField = {
@@ -27,17 +36,21 @@ class PhoneTextFieldView: TitledTextFieldView {
         return textField
     }()
     
-    ///This property defines the way how does delegate method `textFieldView(_:didChangeTextField:didCompleteMask:)` return the '`didChangeTextField`' text parameter
+    /// This property defines the way how does delegate method `textFieldView(_:didChangeTextField:didCompleteMask:)` return the '`didChangeTextField`' text parameter
     var formattingKind: NumberFormattingKind = .international
     
-    ///Extracts phone number from `PhoneNumberTextField` using format specified in `formattingKind` property
+    /// Extracts phone number from `PhoneNumberTextField` using format specified in `formattingKind` property
     var extractedFormattedNumber: String {
         switch formattingKind {
         case .national:
             return phoneTextField.nationalNumber
         case .international:
-            guard let number = phoneTextField.phoneNumber else { return phoneTextField.text ?? "" }
+            guard let number = phoneTextField.phoneNumber else {
+                return phoneTextField.text ?? ""
+            }
             return "+\(number.countryCode)\(number.nationalNumber)"
+        case .internationalWithMask:
+            return phoneTextField.text ?? ""
         }
     }
     
