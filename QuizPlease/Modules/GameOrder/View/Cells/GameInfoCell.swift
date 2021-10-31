@@ -9,13 +9,15 @@
 import UIKit
 import MapKit
 
-fileprivate struct SearchAttempt {
-    var place: Place
-    var query: String
+private struct SearchAttempt {
+    let place: Place
+    let query: String
 }
 
 protocol GameInfoCellDelegate: AnyObject {
     func gameInfo(for gameInfoCell: GameInfoCell) -> GameInfo
+    
+    func gameInfoCellDidTapOnMap(_ cell: GameInfoCell)
 }
 
 class GameInfoCell: UITableViewCell, GameOrderCellProtocol {
@@ -47,18 +49,25 @@ class GameInfoCell: UITableViewCell, GameOrderCellProtocol {
     @IBOutlet private weak var statusImageView: UIImageView!
     @IBOutlet private weak var gameStatusLabel: UILabel!
     
-    @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet private weak var mapView: MKMapView! {
+        didSet {
+            mapView.delegate = self
+            mapView.addTapGestureRecognizer { [weak self] in
+                guard let self = self else { return }
+                self._delegate?.gameInfoCellDidTapOnMap(self)
+            }
+            mapView.isPitchEnabled = false
+            setMapInteractions(enabled: false)
+        }
+    }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         configureViews()
     }
     
-    func configureViews() {
-        cellView.layer.cornerRadius = 20
-    }
-    
     // MARK: - Configure
+    
     func configure(with info: GameInfo) {
         priceLabel.text = info.priceDetails
         timeLabel.text = "в \(info.time)"
@@ -72,7 +81,19 @@ class GameInfoCell: UITableViewCell, GameOrderCellProtocol {
         statusImageView.image = info.gameStatus?.image
     }
     
-    func configureMapView(with place: Place) {
+    func setMapInteractions(enabled isEnabled: Bool) {
+        mapView.isZoomEnabled = isEnabled
+        mapView.isRotateEnabled = isEnabled
+        mapView.isScrollEnabled = isEnabled
+    }
+    
+    // MARK: - Private Methods
+    
+    private func configureViews() {
+        cellView.layer.cornerRadius = 20
+    }
+    
+    private func configureMapView(with place: Place) {
         if !place.isZeroCoordinate {
             setLocation(of: place)
             return
@@ -105,7 +126,16 @@ class GameInfoCell: UITableViewCell, GameOrderCellProtocol {
     }
     
     private func setLocation(of place: Place, radius: CLLocationDistance = 1000) {
-        self.mapView.centerToLocation(with: place.coordinate, regionRadius: radius, animated: false)
+        self.mapView.setCenter(place.coordinate, regionRadius: radius, animated: false)
         self.mapView.addAnnotation(place)
+    }
+}
+
+// MARK: - MKMapViewDelegate
+
+extension GameInfoCell: MKMapViewDelegate {
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        mapView.deselectAnnotation(view.annotation, animated: true)
     }
 }

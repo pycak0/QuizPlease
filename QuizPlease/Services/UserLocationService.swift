@@ -6,66 +6,84 @@
 //  Copyright © 2021 Владислав. All rights reserved.
 //
 
-import Foundation
 import CoreLocation
 
+/// Object that can one-time provide the user's current geolocation
+protocol UserLocationProvider {
+    
+    /// Requests 'When in use' authorization for tracking user location (if needed)
+    /// and provides captured `CLLocation` instance in `completion` clousure
+    func askUserLocation(completion: @escaping (CLLocation?) -> Void)
+}
+
+protocol UserLocationAuthorizationService {
+    
+    /// Requests 'When in use' authorization for tracking user location (if needed)
+    /// and returns if any kind of geo authorization is provided
+    func requestAuthorization(completion: @escaping (_ granted: Bool) -> Void)
+}
+
 class UserLocationService: NSObject {
-    private override init() {}
     
     static let shared = UserLocationService()
     
-    private let _locationManager = CLLocationManager()
-    private var completion: ((CLLocation?) -> Void)?
+    private let locationManager: CLLocationManager
+    
+    private var authorizationHandler: ((Bool) -> Void)?
+    private var locationHandler: ((CLLocation?) -> Void)?
     
     var isLocationAuthStatusDetermined = true
     var hasStartedUpdatingLocation = false
-
-    // MARK: - Ask User Location
-    ///Use this method to update user location.
-    ///
-    ///`completion` closure is executed after location is updated (either with success or failure). `completion` provides new location (if exists) and request status.
-    func askUserLocation(completion: @escaping (CLLocation?) -> Void) {
+    
+    private override init() {
+        locationManager = CLLocationManager()
+        super.init()
+        
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.delegate = self
+    }
+    
+    private func requestAuthorizationIfNeeded() {
         switch CLLocationManager.authorizationStatus() {
         case .notDetermined:
             isLocationAuthStatusDetermined = false
-            _locationManager.requestWhenInUseAuthorization()
+            locationManager.requestWhenInUseAuthorization()
+
         case .denied, .restricted:
-            break
+            authorizationHandler?(false)
+
+        case .authorizedAlways, .authorizedWhenInUse:
+            authorizationHandler?(true)
+
         default:
             break
-        }
-        
-        _locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        _locationManager.delegate = self
-        self.completion = completion
-        
-        if isLocationAuthStatusDetermined {
-            startUpdatingLocation()
         }
     }
     
     // MARK: - Start & Stop Updating Location
+    
     private func startUpdatingLocation() {
         hasStartedUpdatingLocation = true
-        _locationManager.startUpdatingLocation()
+        locationManager.startUpdatingLocation()
     }
     
     private func stopUpdatingLocation() {
         hasStartedUpdatingLocation = false
-        _locationManager.stopUpdatingLocation()
+        locationManager.stopUpdatingLocation()
     }
 }
 
 // MARK: - CLLocationManagerDelegate
+
 extension UserLocationService: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         stopUpdatingLocation()
-        completion?(locations.first)
+        locationHandler?(locations.first)
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         if hasStartedUpdatingLocation {
-            completion?(nil)
+            locationHandler?(nil)
         }
         stopUpdatingLocation()
     }
@@ -81,8 +99,38 @@ extension UserLocationService: CLLocationManagerDelegate {
     
     private func handleAuthStatusChange(_ status: CLAuthorizationStatus) {
         isLocationAuthStatusDetermined = status != .notDetermined
+        let isAuthorized = status == .authorizedAlways || status == .authorizedWhenInUse
+        authorizationHandler?(isAuthorized)
         if isLocationAuthStatusDetermined {
             startUpdatingLocation()
         }
+    }
+}
+
+// MARK: - UserLocationProvider
+
+extension UserLocationService: UserLocationProvider {
+        
+    /// Use this method to update user location.
+    ///
+    /// `completion` closure is executed after location is updated (either with success or failure). `completion` provides new location (if exists) and request status.
+    func askUserLocation(completion: @escaping (CLLocation?) -> Void) {
+        locationHandler = completion
+
+        requestAuthorizationIfNeeded()
+
+        if isLocationAuthStatusDetermined {
+            startUpdatingLocation()
+        }
+    }
+}
+
+// MARK: - UserLocationAuthorizationService
+
+extension UserLocationService: UserLocationAuthorizationService {
+    
+    func requestAuthorization(completion: @escaping (Bool) -> Void) {
+        authorizationHandler = completion
+        requestAuthorizationIfNeeded()
     }
 }

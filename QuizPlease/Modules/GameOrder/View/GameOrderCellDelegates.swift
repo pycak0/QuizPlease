@@ -26,6 +26,10 @@ extension GameOrderVC: GameInfoCellDelegate {
     func gameInfo(for gameInfoCell: GameInfoCell) -> GameInfo {
         return presenter.game
     }
+    
+    func gameInfoCellDidTapOnMap(_ cell: GameInfoCell) {
+        presenter.didTapOnMap()
+    }
 }
 
 // MARK: - Game Description

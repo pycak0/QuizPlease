@@ -63,8 +63,9 @@ class ScheduleInteractor: ScheduleInteractorProtocol {
     }
     
     func openInMaps(place: Place) {
-        if !place.isZeroCoordinate {
+        guard !place.isZeroCoordinate else {
             MapService.openAppleMaps(for: place.title ?? "", withCoordinate: place.coordinate)
+            return
         }
         MapService.getCoordinatesAndOpenMap(for: place.title ?? "", withAddress: place.fullAddress) { [weak self] error in
             guard let self = self else { return }

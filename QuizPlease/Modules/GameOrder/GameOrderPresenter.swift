@@ -36,6 +36,8 @@ protocol GameOrderPresenterProtocol {
     func didPressCheckSpecialCondition(at index: Int)
     func didEndEditingSpecialCondition(at index: Int)
     func didPressDeleteSpecialCondition(at index: Int)
+    
+    func didTapOnMap()
 }
 
 class GameOrderPresenter: GameOrderPresenterProtocol {
@@ -186,6 +188,10 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
         specialConditions.remove(at: index)
         view?.removeCertificateCell(at: index)
     }
+    
+    func didTapOnMap() {
+        router.showMap(for: game.placeInfo)
+    }
         
     // MARK: - Submit Button Action
     
@@ -269,6 +275,7 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
 }
 
 // MARK: - GameOrderInteractorOutput
+
 extension GameOrderPresenter: GameOrderInteractorOutput {
     func interactor(_ interactor: GameOrderInteractorProtocol?, didRegisterWithResponse response: GameOrderResponse, paymentMethod: PaymentMethodType?) {
         view?.stopLoading()
