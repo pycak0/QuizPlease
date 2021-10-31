@@ -1462,60 +1462,6 @@
             </objects>
             <point key="canvasLocation" x="5628.985507246377" y="39.508928571428569"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="lIs-nf-NBb">
-            <objects>
-                <viewController id="bg3-ax-dkH" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="nlQ-B4-1tH">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Pqj-2k-sVe">
-                                <rect key="frame" x="0.0" y="44" width="390" height="766"/>
-                            </mapView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Yq-lh-h9o">
-                                <rect key="frame" x="10" y="54" width="36" height="36"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="36" id="qLH-hV-fpV"/>
-                                    <constraint firstAttribute="width" secondItem="2Yq-lh-h9o" secondAttribute="height" multiplier="1:1" id="yHL-We-JAs"/>
-                                </constraints>
-                                <color key="tintColor" systemColor="secondarySystemBackgroundColor"/>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" image="xmark.circle.fill" catalog="system">
-                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20" scale="large"/>
-                                </state>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1il-5d-Gpt">
-                                <rect key="frame" x="338" y="54" width="36" height="36"/>
-                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="36" id="d9p-K5-7dx"/>
-                                    <constraint firstAttribute="width" secondItem="1il-5d-Gpt" secondAttribute="height" multiplier="1:1" id="duV-Lg-UUX"/>
-                                </constraints>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" image="location" catalog="system">
-                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" weight="semibold"/>
-                                </state>
-                            </button>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="ydy-nt-erv"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="ydy-nt-erv" firstAttribute="trailing" secondItem="Pqj-2k-sVe" secondAttribute="trailing" id="JaD-Q2-NJp"/>
-                            <constraint firstItem="1il-5d-Gpt" firstAttribute="centerY" secondItem="2Yq-lh-h9o" secondAttribute="centerY" id="TDa-l4-jl7"/>
-                            <constraint firstItem="ydy-nt-erv" firstAttribute="trailing" secondItem="1il-5d-Gpt" secondAttribute="trailing" constant="16" id="aI6-CC-lrq"/>
-                            <constraint firstItem="ydy-nt-erv" firstAttribute="bottom" secondItem="Pqj-2k-sVe" secondAttribute="bottom" id="joK-NQ-dvp"/>
-                            <constraint firstItem="2Yq-lh-h9o" firstAttribute="top" secondItem="ydy-nt-erv" secondAttribute="top" constant="10" id="mtx-Ac-lvj"/>
-                            <constraint firstItem="Pqj-2k-sVe" firstAttribute="leading" secondItem="ydy-nt-erv" secondAttribute="leading" id="njw-Kv-cG4"/>
-                            <constraint firstItem="Pqj-2k-sVe" firstAttribute="top" secondItem="ydy-nt-erv" secondAttribute="top" id="ofs-ps-ZkW"/>
-                            <constraint firstItem="2Yq-lh-h9o" firstAttribute="leading" secondItem="ydy-nt-erv" secondAttribute="leading" constant="10" id="tyl-15-Fhe"/>
-                        </constraints>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="S3n-66-F60" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="6113" y="824"/>
-        </scene>
         <!--Магазин-->
         <scene sceneID="4UR-t7-0fQ">
             <objects>
@@ -2533,7 +2479,6 @@
         <image name="gameInfoTemplate" width="374" height="270"/>
         <image name="homeGameBackground" width="375" height="650"/>
         <image name="launchScreenBackground" width="375" height="812"/>
-        <image name="location" catalog="system" width="128" height="118"/>
         <image name="lock" width="12" height="16"/>
         <image name="logoSmall" width="60" height="60"/>
         <image name="mapIcon" width="13" height="10"/>
@@ -2545,7 +2490,6 @@
         <image name="teapotImage" width="178" height="246"/>
         <image name="tick" width="64" height="47"/>
         <image name="warmupPreview" width="375" height="227"/>
-        <image name="xmark.circle.fill" catalog="system" width="128" height="121"/>
         <namedColor name="darkBlue">
             <color red="0.25882352941176473" green="0.16078431372549021" blue="0.46274509803921571" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
@@ -2575,9 +2519,6 @@
         </systemColor>
         <systemColor name="scrollViewTexturedBackgroundColor">
             <color red="0.43529411764705878" green="0.44313725490196082" blue="0.47450980392156861" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="secondarySystemBackgroundColor">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
