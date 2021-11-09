@@ -22,6 +22,8 @@ protocol GameOrderPresenterProtocol {
     var isOnlyCashAvailable: Bool { get }
     var isPhoneNumberValid: Bool { get set }
     var specialConditions: [SpecialCondition] { get set }
+    
+    var maximumSpecialConditionsAmount: Int { get }
         
     func configureViews()
     func didPressSubmitButton()
@@ -47,6 +49,8 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
     var isPhoneNumberValid = false
     
     var specialConditions: [SpecialCondition] = [SpecialCondition()]
+    
+    let maximumSpecialConditionsAmount = 9
     
 //    private var discountType: CertificateDiscountType = .none
     private var priceTextColor: UIColor?
@@ -149,7 +153,9 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
     }
     
     // MARK: - Special Conditions
+    
     func didPressAddSpecialCondition() {
+        guard specialConditions.count < maximumSpecialConditionsAmount else { return }
         specialConditions.append(SpecialCondition())
         view?.addCertificateCell()
     }
@@ -182,6 +188,7 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
     }
         
     // MARK: - Submit Button Action
+    
     func didPressTermsOfUse() {
         view?.openSafariVC(
             with: AppSettings.termsOfUseUrl,

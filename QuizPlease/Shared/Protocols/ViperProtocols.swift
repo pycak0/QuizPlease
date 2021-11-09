@@ -11,9 +11,6 @@ import UIKit
 protocol Router: AnyObject {
     ///Must be an '`unowned let`' constant
     var viewController: UIViewController { get }
-    
-    ///- parameter viewController: Must be an '`unowned let`' constant
-    init(viewController: UIViewController)
 }
 
 protocol SegueRouter: Router {

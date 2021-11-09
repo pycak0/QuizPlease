@@ -9,6 +9,7 @@
 import UIKit
 
 // MARK: - Delegate Protocol
+
 protocol GameRegisterCellDelegate: AnyObject {
     ///The delegate should return a  number of people to select in picker. If the number is invalid, picker will select the first button.
     func selectedNumberOfPeople(in registerCell: GameRegisterCell) -> Int
@@ -35,13 +36,28 @@ class GameRegisterCell: UITableViewCell, GameOrderCellProtocol {
     }
     private weak var _delegate: GameRegisterCellDelegate?
     
+    // MARK: - Outlets
+    
     @IBOutlet weak var teamNameFieldView: TitledTextFieldView!
     @IBOutlet weak var captainNameFieldView: TitledTextFieldView!
     @IBOutlet weak var emailFieldView: TitledTextFieldView!
-    @IBOutlet weak var phoneFieldView: PhoneTextFieldView!
+    
+    @IBOutlet weak var phoneFieldView: PhoneTextFieldView! {
+        didSet {
+            phoneFieldView.formattingKind = .internationalWithMask
+        }
+    }
+    
     @IBOutlet weak var fieldsStack: UIStackView!
     @IBOutlet weak var countPicker: CountPickerView!
-    @IBOutlet weak var feedbackFieldView: TitledTextFieldView!
+    
+    @IBOutlet weak var feedbackFieldView: TitledTextFieldView! {
+        didSet {
+            feedbackFieldView.delegate = self
+            feedbackFieldView.textField.autocapitalizationType = .sentences
+            feedbackFieldView.textField.returnKeyType = .done
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -81,15 +97,13 @@ class GameRegisterCell: UITableViewCell, GameOrderCellProtocol {
                 field.textField.returnKeyType = .done
             }
         }
-        feedbackFieldView.delegate = self
-        feedbackFieldView.textField.autocapitalizationType = .sentences
-        feedbackFieldView.textField.returnKeyType = .done
     }
-    
 }
 
 // MARK: - TitledTextFieldViewDelegate
+
 extension GameRegisterCell: TitledTextFieldViewDelegate {
+    
     func textFieldViewDidEndEditing(_ textFieldView: TitledTextFieldView) {
         self.textFieldView(textFieldView, didChangeTextField: textFieldView.textField.text ?? "")
     }
@@ -113,7 +127,9 @@ extension GameRegisterCell: TitledTextFieldViewDelegate {
 }
 
 // MARK: - CountPickViewDelegate
+
 extension GameRegisterCell: CountPickerViewDelegate {
+    
     func countPicker(_ picker: CountPickerView, didChangeSelectedNumber number: Int) {
         _delegate?.registerCell(self, didChangeNumberOfPeopleInTeam: number)
     }

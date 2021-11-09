@@ -81,9 +81,24 @@ class GameOrderVC: UIViewController {
     }
         
     // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter.configureViews()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if let navC = navigationController as? QPNavigationController {
+            navC.fullWidthSwipeBackGestureRecognizer.isEnabled = false
+        }
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        if let navC = navigationController as? QPNavigationController {
+            navC.fullWidthSwipeBackGestureRecognizer.isEnabled = true
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -125,7 +140,8 @@ class GameOrderVC: UIViewController {
     }
 }
 
-// MARK: - Protocol Implementation
+// MARK: - GameOrderViewProtocol
+
 extension GameOrderVC: GameOrderViewProtocol {
     func endEditing() {
         view.endEditing(true)
@@ -186,6 +202,7 @@ extension GameOrderVC: GameOrderViewProtocol {
         let newIndex = index + 1
         items.insert(.certificate, at: newIndex)
         tableView.insertRows(at: [IndexPath(row: newIndex, section: 0)], with: .fade)
+        updateUiOnCertificateTextChange(newCode: nil)
     }
     
     func removeCertificateCell(at indexForPresenter: Int) {
@@ -203,26 +220,34 @@ extension GameOrderVC: GameOrderViewProtocol {
         updateUiOnCertificateTextChange(newCode: presenter.specialConditions.first?.value ?? "")
     }
     
-    func updateUiOnCertificateTextChange(newCode: String) {
+    func updateUiOnCertificateTextChange(newCode: String?) {
+        let newCode = newCode ?? ""
         let certificatesCount = items
             .filter { $0 == .certificate }
             .count
-        if newCode.isEmpty,
-           certificatesCount == 1,
+        let isCertLimitReached = certificatesCount == presenter.maximumSpecialConditionsAmount
+        
+        if (newCode.isEmpty && certificatesCount == 1 || isCertLimitReached),
            let index = items.firstIndex(of: .addExtraCertificate) {
+            
             items.remove(at: index)
             tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .fade)
-        } else if !newCode.isEmpty,
-                  items.firstIndex(of: .addExtraCertificate) == nil,
-                  let i = items.lastIndex(of: .certificate) {
-            let index = i + 1
-            items.insert(.addExtraCertificate, at: index)
-            tableView.insertRows(at: [IndexPath(row: index, section: 0)], with: .fade)
+            return
+        }
+        
+        if !(newCode.isEmpty || isCertLimitReached),
+           items.firstIndex(of: .addExtraCertificate) == nil,
+           let index = items.lastIndex(of: .certificate) {
+            
+            let buttonIndex = index + 1
+            items.insert(.addExtraCertificate, at: buttonIndex)
+            tableView.insertRows(at: [IndexPath(row: buttonIndex, section: 0)], with: .fade)
         }
     }
 }
 
 // MARK: - Data Source & Delegate
+
 extension GameOrderVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items.count
@@ -278,6 +303,7 @@ extension GameOrderVC: UITableViewDataSource, UITableViewDelegate {
 }
 
 // MARK: - UIScrollViewDelegate
+
 extension GameOrderVC: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offset = scrollView.contentOffset.y + scrollView.safeAreaInsets.top

@@ -14,6 +14,8 @@ protocol ScheduleGameCellDelegate: AnyObject {
     func infoButtonPressed(in cell: ScheduleGameCell)
     func locationButtonPressed(in cell: ScheduleGameCell)
     func remindButtonPressed(in cell: ScheduleGameCell)
+    func gameNamePressed(in cell: ScheduleGameCell)
+    func gameNumberPressed(in cell: ScheduleGameCell)
 }
 
 class ScheduleGameCell: UITableViewCell {
@@ -25,8 +27,24 @@ class ScheduleGameCell: UITableViewCell {
     @IBOutlet private weak var cellView: UIView!
     @IBOutlet private weak var backgroundImageView: UIImageView!
     
-    @IBOutlet private weak var nameLabel: UILabel!
-    @IBOutlet private weak var numberLabel: UILabel!
+    @IBOutlet private weak var nameLabel: UILabel! {
+        didSet {
+            nameLabel.addTapGestureRecognizer { [weak self] in
+                guard let self = self else { return }
+                self.delegate?.gameNamePressed(in: self)
+            }
+        }
+    }
+    
+    @IBOutlet private weak var numberLabel: UILabel! {
+        didSet {
+            numberLabel.addTapGestureRecognizer { [weak self] in
+                guard let self = self else { return }
+                self.delegate?.gameNumberPressed(in: self)
+            }
+        }
+    }
+    
     @IBOutlet private weak var placeNameLabel: UILabel!
     @IBOutlet private weak var placeAddressLabel: UILabel!
     @IBOutlet private weak var timeLabel: UILabel!
@@ -70,6 +88,7 @@ class ScheduleGameCell: UITableViewCell {
     }
     
     // MARK: - Configure Cell Data
+    
     func fill(model: GameInfo, isSubscribed: Bool) {
         nameLabel.text = model.nameGame
         numberLabel.text = model.gameNumber
