@@ -94,8 +94,8 @@ class GameOrderVC: UIViewController {
         }
     }
 
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         if let navC = navigationController as? QPNavigationController {
             navC.fullWidthSwipeBackGestureRecognizer.isEnabled = true
         }

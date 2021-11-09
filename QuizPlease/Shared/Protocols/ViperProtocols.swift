@@ -21,3 +21,8 @@ protocol Configurator {
     associatedtype ConfigurableView
     func configure(_ view: ConfigurableView)
 }
+
+protocol ViewAssembly {
+    associatedtype View
+    func makeViewController() -> View
+}
