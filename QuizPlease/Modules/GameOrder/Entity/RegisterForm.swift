@@ -28,10 +28,10 @@ class RegisterForm: Encodable {
 }
 
 extension RegisterForm {
+    /// Property validates email, checks that team and captain names are not empty but does not check if mobile phone is valid
     var isValid: Bool {
         return gameId >= 0
             && email.isValidEmail
-            && phone.isValidMobilePhone
             && !teamName.isEmpty
             && !captainName.isEmpty
     }

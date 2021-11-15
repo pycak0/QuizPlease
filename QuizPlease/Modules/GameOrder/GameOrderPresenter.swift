@@ -235,14 +235,21 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
         let count = registerForm.countPaidOnline ?? 0
         let paymentSum = Double(countSumToPay(forPeople: count))
         if registerForm.paymentType == .online && paymentSum > 0 {
+            if game.shopId?.isEmpty ?? true {
+                print("⚠️ [\(Self.self)|\(#line)] Shop id is empty. Production payment will fail")
+            }
+            if game.paymentKey?.isEmpty ?? true {
+                print("❌ [\(Self.self)|\(#line)] Payment key is empty. Payment SDK launch will fail")
+            }
             router.showPaymentView(
                 provider: YooMoneyPaymentProvider(
-                    cityId: registerForm.cityId,
                     delegate: self
                 ),
                 withOptions: PaymentOptions(
                     amount: paymentSum,
                     description: createPaymentDescription(),
+                    shopId: game.shopId ?? "",
+                    transactionKey: game.paymentKey ?? "",
                     userPhoneNumber: registerForm.phone
                 )
             )

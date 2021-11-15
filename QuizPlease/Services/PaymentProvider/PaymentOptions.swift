@@ -7,15 +7,27 @@
 //
 
 struct PaymentOptions {
-    let amount: Double
-    let shopName: String
-    let description: String
-    let userPhoneNumber: String?
-    
-    init(amount: Double, shopName: String = "Квиз, плиз!", description: String, userPhoneNumber: String?) {
-        self.shopName = shopName
-        self.amount = amount
-        self.description = description
-        self.userPhoneNumber = userPhoneNumber
-    }
+
+     let amount: Double
+     let description: String
+     let userPhoneNumber: String?
+     let shopId: String
+     let shopName: String
+     let transactionKey: String
+
+     init(
+         amount: Double,
+         description: String,
+         shopId: String,
+         transactionKey: String,
+         userPhoneNumber: String?,
+         shopName: String = "Квиз, плиз!"
+     ) {
+         self.amount = amount
+         self.description = description
+         self.userPhoneNumber = userPhoneNumber
+         self.shopName = shopName
+         self.shopId = shopId
+         self.transactionKey = transactionKey
+     }
 }
