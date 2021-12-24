@@ -21,6 +21,8 @@ protocol WarmupViewProtocol: UIViewController, LoadingIndicator {
     func setQuestions()
     func showResults(with totalTimePassed: Double)
     func updatePassedTime(withMinutes minutes: Int, seconds: Int)
+    
+    func makeResultsSnapshot() -> UIImage?
 }
 
 class WarmupVC: UIViewController {
@@ -181,6 +183,10 @@ extension WarmupVC: WarmupViewProtocol {
     
     func stopLoading() {
         //activityIndicator.stopAnimating()
+    }
+    
+    func makeResultsSnapshot() -> UIImage? {
+        resultsView.makeSnapshot()
     }
 }
 

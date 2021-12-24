@@ -25,17 +25,17 @@ extension UIViewController {
         let config = SFSafariViewController.Configuration()
         config.entersReaderIfAvailable = autoReaderView
         
-        let vc = SFSafariViewController(url: url, configuration: config)
-        vc.delegate = delegate
-        vc.preferredControlTintColor = controlsColor
-        vc.preferredBarTintColor = barsColor
+        let safariViewController = SFSafariViewController(url: url, configuration: config)
+        safariViewController.delegate = delegate
+        safariViewController.preferredControlTintColor = controlsColor
+        safariViewController.preferredBarTintColor = barsColor
         if #available(iOS 13.0, *) {
-            vc.modalPresentationStyle = .automatic
-            vc.isModalInPresentation = true
+            safariViewController.modalPresentationStyle = .automatic
+            safariViewController.isModalInPresentation = true
         } else {
-            vc.modalPresentationStyle = .pageSheet
+            safariViewController.modalPresentationStyle = .pageSheet
         }
-        present(vc, animated: true, completion: nil)
+        present(safariViewController, animated: true, completion: nil)
     }
 }
 

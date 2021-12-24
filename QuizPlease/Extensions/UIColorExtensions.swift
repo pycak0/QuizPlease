@@ -14,7 +14,8 @@ public extension UIColor {
         return UIColor(named: "darkBlue")!
     }
     
-    ///In the light appearance, it's the same color as `darkBlue` but in the dark appearance it becomes white.
+    /// In the light appearance, it's the same color as `darkBlue`.
+    /// In the dark appearance, becomes `white`.
     class var darkBlueDynamic: UIColor {
         UIColor(named: "darkBlueDynamic")!
     }
@@ -23,7 +24,7 @@ public extension UIColor {
         UIColor(named: "middleBlue")!
     }
     
-    ///dark blue with kind of purple
+    /// Dark blue with kind of purple
     class var plum: UIColor {
         UIColor(named: "plum")!
     }
@@ -48,10 +49,12 @@ public extension UIColor {
         UIColor(named: "themeGray")!
     }
     
+    /// Бирюзовый
     class var turquoise: UIColor {
         UIColor(named: "turquoise")!
     }
     
+    /// Синевато-зеленый
     class var bluishGreen: UIColor {
         UIColor(named: "bluishGreen")!
     }
@@ -76,6 +79,8 @@ public extension UIColor {
         UIColor(named: "themePink")!
     }
     
+    /// For iOS 13+, returns `label`.
+    /// For iOS 12, returns `black`
     class var labelAdapted: UIColor {
         if #available(iOS 13.0, *) {
             return .label
@@ -83,11 +88,22 @@ public extension UIColor {
         return .black
     }
     
+    /// For iOS 13+, returns `systemBackground`.
+    /// For iOS 12, returns `white`
     class var systemBackgroundAdapted: UIColor {
         if #available(iOS 13.0, *) {
             return .systemBackground
         }
         return .white
+    }
+    
+    /// For iOS 13+, returns `secondarySystemBackground`.
+    /// For iOS 12, returns `systemBackgroundAdapted`
+    class var secondarySystemBackgroundAdapted: UIColor {
+        if #available(iOS 13.0, *) {
+            return .secondarySystemBackground
+        }
+        return .systemBackgroundAdapted
     }
     
     class var systemGray6Adapted: UIColor {

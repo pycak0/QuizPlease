@@ -9,5 +9,10 @@
 import Foundation
 
 enum PaymentType: Int, CaseIterable, Encodable {
-    case online = 1, cash
+    
+    /// In-app Payment
+    case online = 1
+    
+    /// Payment type not available in app
+    case cash
 }

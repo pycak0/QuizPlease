@@ -37,6 +37,10 @@
 	<array>
 		<string>sberpay</string>
 		<string>yoomoneyauth</string>
+		<string>yandexnavi</string>
+		<string>comgooglemaps</string>
+		<string>yandexmaps</string>
+		<string>dgis</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>

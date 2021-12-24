@@ -10,6 +10,7 @@ import UIKit
 
 // MARK: - Router Protocol
 protocol ScheduleRouterProtocol: SegueRouter {
+    
     func showGameInfo(with options: GameOrderPresentationOptions)
     func showScheduleFilters(with filterInfo: ScheduleFilter)
     
@@ -18,6 +19,8 @@ protocol ScheduleRouterProtocol: SegueRouter {
     
     ///Pop current screen and push HomeGame Screen onto the navigation stack
     func showHomeGame(popCurrent: Bool)
+    
+    func showMap(for place: Place)
 }
 
 struct GameOrderPresentationOptions {
@@ -79,5 +82,10 @@ class ScheduleRouter: ScheduleRouterProtocol {
             navC.popViewController(animated: true)
         }
         navC.pushViewController(vc, animated: true)
+    }
+    
+    func showMap(for place: Place) {
+        let mapViewController = MapAssembly(place: place).makeViewController()
+        viewController.present(mapViewController, animated: true)
     }
 }

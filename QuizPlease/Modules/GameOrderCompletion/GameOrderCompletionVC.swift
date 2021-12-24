@@ -29,7 +29,10 @@ class GameOrderCompletionVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        prepareNavigationBar(title: gameInfo.fullTitle, barStyle: .transcluent(tintColor: view.backgroundColor))
+        prepareNavigationBar(
+            title: gameInfo.fullTitle,
+            barStyle: .transcluent(tintColor: view.backgroundColor)
+        )
         configureViews()
     }
     
@@ -49,25 +52,25 @@ class GameOrderCompletionVC: UIViewController {
     }
 }
 
-
 // MARK: - Data Source & Delegate
+
 extension GameOrderCompletionVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return RowKind.allCases.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let sectionKind = RowKind(rawValue: indexPath.row) else { fatalError("Invalid Section Kind") }
+        guard let rowkKind = RowKind(rawValue: indexPath.row) else { fatalError("Invalid Row Kind") }
         
-        switch sectionKind {
+        switch rowkKind {
         case .info:
             let cell = tableView.dequeueReusableCell(withIdentifier: GameInfoCell.identifier, for: indexPath) as! GameInfoCell
             cell.cellView.layer.borderWidth = 4
             cell.cellView.layer.borderColor = UIColor.lightGreen.cgColor
-            cell.mapView.isUserInteractionEnabled = false
             cell.availablePlacesStack.isHidden = true
             cell.delegate = self
             return cell
+
         case .people:
             let cell = tableView.dequeueReusableCell(withIdentifier: GOCPeopleNumberCell.identifier, for: indexPath) as! GOCPeopleNumberCell
             cell.setNumber(numberOfPeopleInTeam)
@@ -81,5 +84,10 @@ extension GameOrderCompletionVC: UITableViewDelegate, UITableViewDataSource {
 extension GameOrderCompletionVC: GameInfoCellDelegate {
     func gameInfo(for gameInfoCell: GameInfoCell) -> GameInfo {
         return gameInfo
+    }
+    
+    func gameInfoCellDidTapOnMap(_ cell: GameInfoCell) {
+        let mapViewController = MapAssembly(place: gameInfo.placeInfo).makeViewController()
+        present(mapViewController, animated: true)
     }
 }

@@ -10,8 +10,12 @@ import UIKit
 
 // MARK: - Router Protocol
 protocol GameOrderRouterProtocol: SegueRouter {
+    
     func showPaymentView<Provider: PaymentProvider>(provider: Provider, withOptions paymentOptions: PaymentOptions)
+    
     func showCompletionScreen(with gameInfo: GameInfo, numberOfPeopleInTeam number: Int)
+    
+    func showMap(for place: Place)
 }
 
 class GameOrderRouter: GameOrderRouterProtocol {
@@ -54,6 +58,11 @@ class GameOrderRouter: GameOrderRouterProtocol {
             presentationController: viewController,
             options: paymentOptions
         )
+    }
+    
+    func showMap(for place: Place) {
+        let mapViewController = MapAssembly(place: place).makeViewController()
+        viewController.present(mapViewController, animated: true)
     }
 }
 

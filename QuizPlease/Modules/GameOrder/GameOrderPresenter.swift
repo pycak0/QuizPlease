@@ -22,9 +22,12 @@ protocol GameOrderPresenterProtocol {
     var isOnlyCashAvailable: Bool { get }
     var isPhoneNumberValid: Bool { get set }
     var specialConditions: [SpecialCondition] { get set }
+    
+    var maximumSpecialConditionsAmount: Int { get }
         
     func configureViews()
     func didPressSubmitButton()
+    func didPressTermsOfUse()
     func countSumToPay(forPeople number: Int) -> Double
     func getPriceTextColor() -> UIColor?
     
@@ -33,6 +36,8 @@ protocol GameOrderPresenterProtocol {
     func didPressCheckSpecialCondition(at index: Int)
     func didEndEditingSpecialCondition(at index: Int)
     func didPressDeleteSpecialCondition(at index: Int)
+    
+    func didTapOnMap()
 }
 
 class GameOrderPresenter: GameOrderPresenterProtocol {
@@ -46,6 +51,8 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
     var isPhoneNumberValid = false
     
     var specialConditions: [SpecialCondition] = [SpecialCondition()]
+    
+    let maximumSpecialConditionsAmount = 9
     
 //    private var discountType: CertificateDiscountType = .none
     private var priceTextColor: UIColor?
@@ -148,7 +155,9 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
     }
     
     // MARK: - Special Conditions
+    
     func didPressAddSpecialCondition() {
+        guard specialConditions.count < maximumSpecialConditionsAmount else { return }
         specialConditions.append(SpecialCondition())
         view?.addCertificateCell()
     }
@@ -179,8 +188,21 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
         specialConditions.remove(at: index)
         view?.removeCertificateCell(at: index)
     }
+    
+    func didTapOnMap() {
+        router.showMap(for: game.placeInfo)
+    }
         
     // MARK: - Submit Button Action
+    
+    func didPressTermsOfUse() {
+        view?.openSafariVC(
+            with: AppSettings.termsOfUseUrl,
+            delegate: nil,
+            autoReaderView: true
+        )
+    }
+    
     func didPressSubmitButton() {
         view?.endEditing()
         guard isPhoneNumberValid, registerForm.isValid else {
@@ -213,14 +235,21 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
         let count = registerForm.countPaidOnline ?? 0
         let paymentSum = Double(countSumToPay(forPeople: count))
         if registerForm.paymentType == .online && paymentSum > 0 {
+            if game.shopId?.isEmpty ?? true {
+                print("⚠️ [\(Self.self)|\(#line)] Shop id is empty. Production payment will fail")
+            }
+            if game.paymentKey?.isEmpty ?? true {
+                print("❌ [\(Self.self)|\(#line)] Payment key is empty. Payment SDK launch will fail")
+            }
             router.showPaymentView(
                 provider: YooMoneyPaymentProvider(
-                    cityId: registerForm.cityId,
                     delegate: self
                 ),
                 withOptions: PaymentOptions(
                     amount: paymentSum,
                     description: createPaymentDescription(),
+                    shopId: game.shopId ?? "",
+                    transactionKey: game.paymentKey ?? "",
                     userPhoneNumber: registerForm.phone
                 )
             )
@@ -253,6 +282,7 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
 }
 
 // MARK: - GameOrderInteractorOutput
+
 extension GameOrderPresenter: GameOrderInteractorOutput {
     func interactor(_ interactor: GameOrderInteractorProtocol?, didRegisterWithResponse response: GameOrderResponse, paymentMethod: PaymentMethodType?) {
         view?.stopLoading()

@@ -92,7 +92,7 @@ class SchedulePresenter: SchedulePresenterProtocol {
     func didAskLocation(forGameAt index: Int) {
         let game = games[index]
         let place = game.placeInfo
-        interactor.openInMaps(place: place)
+        router.showMap(for: place)
     }
     
     func didAskNotification(forGameAt index: Int) {

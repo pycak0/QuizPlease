@@ -14,7 +14,6 @@ protocol WarmupInteractorProtocol {
     var output: WarmupInteractorOutput! { get set }
     init(questionsService: WarmupQuestionsService)
     func loadQuestions()
-    func shareResults(_ image: UIImage, delegate: UIViewController)
     func saveQuestionId(_ id: String)
     func loadSavedQuestionIds(completion: @escaping ([String]) -> Void)
     func checkAnswerWithId(_ answerId: Int, forQuestionWithId id: String)
@@ -61,10 +60,6 @@ class WarmupInteractor: WarmupInteractorProtocol {
 //                }
             }
         }
-    }
-    
-    func shareResults(_ image: UIImage, delegate: UIViewController) {
-        ShareManager.presentShareSheet(for: image, delegate: delegate)
     }
     
     func saveQuestionId(_ id: String) {

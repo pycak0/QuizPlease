@@ -742,7 +742,7 @@
                                 <rect key="frame" x="252" y="20" width="178" height="246"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="749" image="radioImage" translatesAutoresizingMaskIntoConstraints="NO" id="h6c-My-5EX">
-                                <rect key="frame" x="-25" y="535" width="110" height="145"/>
+                                <rect key="frame" x="-30" y="545" width="110" height="145"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="dup-Ph-3o2"/>
@@ -750,7 +750,7 @@
                         <constraints>
                             <constraint firstItem="ArP-nU-1hg" firstAttribute="top" secondItem="U21-JA-Gep" secondAttribute="top" constant="20" id="2BY-PY-wyL"/>
                             <constraint firstItem="FzP-Sr-chM" firstAttribute="bottom" secondItem="3f9-Ms-nhV" secondAttribute="bottom" constant="20" id="2FZ-RC-86d"/>
-                            <constraint firstItem="lu4-z4-p3d" firstAttribute="top" secondItem="h6c-My-5EX" secondAttribute="bottom" constant="40" id="88B-CQ-6Vp"/>
+                            <constraint firstItem="lu4-z4-p3d" firstAttribute="top" secondItem="h6c-My-5EX" secondAttribute="bottom" constant="30" id="88B-CQ-6Vp"/>
                             <constraint firstItem="mEJ-qY-QPc" firstAttribute="top" secondItem="FzP-Sr-chM" secondAttribute="bottom" constant="30" id="8uD-hq-KXx"/>
                             <constraint firstItem="3f9-Ms-nhV" firstAttribute="leading" secondItem="dup-Ph-3o2" secondAttribute="leading" constant="20" id="CM1-G4-G5a"/>
                             <constraint firstItem="FzP-Sr-chM" firstAttribute="leading" secondItem="dup-Ph-3o2" secondAttribute="leading" id="DYB-Ey-1dF"/>
@@ -768,7 +768,7 @@
                             <constraint firstItem="mEJ-qY-QPc" firstAttribute="leading" secondItem="dup-Ph-3o2" secondAttribute="leading" constant="20" id="nDs-Pm-MyB"/>
                             <constraint firstItem="dup-Ph-3o2" firstAttribute="trailing" secondItem="3f9-Ms-nhV" secondAttribute="trailing" constant="20" id="pRH-4K-cJO"/>
                             <constraint firstItem="3f9-Ms-nhV" firstAttribute="top" secondItem="7qy-R2-uOg" secondAttribute="bottom" constant="-25" id="ux8-ly-r5J"/>
-                            <constraint firstItem="h6c-My-5EX" firstAttribute="leading" secondItem="U21-JA-Gep" secondAttribute="leading" constant="-25" id="wk1-Jr-DGb"/>
+                            <constraint firstItem="h6c-My-5EX" firstAttribute="leading" secondItem="U21-JA-Gep" secondAttribute="leading" constant="-30" id="wk1-Jr-DGb"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Game Name" id="puO-tf-bht"/>
@@ -841,11 +841,8 @@
                                     <constraint firstAttribute="width" secondItem="Wv1-TK-1r3" secondAttribute="height" multiplier="1:1" id="sQW-LE-6eJ"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WSQ-Fw-IK5">
-                                <rect key="frame" x="40" y="602" width="310" height="57.333333333333371"/>
-                                <string key="text">Наведите камеру
-на квадратный код
-на вашей карточке</string>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Наведите камеру на QR-код" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WSQ-Fw-IK5">
+                                <rect key="frame" x="40" y="602" width="310" height="19.333333333333371"/>
                                 <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -1065,7 +1062,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ahH-nd-hl4">
-                                <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                                <rect key="frame" x="0.0" y="88" width="390" height="756"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gameInfoTemplate" translatesAutoresizingMaskIntoConstraints="NO" id="FKI-MS-LTd">
                                         <rect key="frame" x="0.0" y="0.0" width="390" height="270"/>
@@ -1105,7 +1102,7 @@
                             <constraint firstItem="zWG-FS-gI7" firstAttribute="leading" secondItem="B1B-P2-bzf" secondAttribute="leading" id="OqO-W8-Twt"/>
                             <constraint firstAttribute="bottom" secondItem="zWG-FS-gI7" secondAttribute="bottom" id="QbE-cq-NmU"/>
                             <constraint firstItem="ahH-nd-hl4" firstAttribute="leading" secondItem="B1B-P2-bzf" secondAttribute="leading" id="RxM-mB-TDI"/>
-                            <constraint firstItem="ahH-nd-hl4" firstAttribute="top" secondItem="bSr-Tq-E4k" secondAttribute="top" id="yvb-Pa-gAa"/>
+                            <constraint firstItem="ahH-nd-hl4" firstAttribute="top" secondItem="B1B-P2-bzf" secondAttribute="top" id="yvb-Pa-gAa"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="ts0-9H-xLu"/>
@@ -1354,7 +1351,7 @@
                 <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="JO0-RJ-kRi" customClass="QuestionPageVC" customModule="QuizPlease" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="No5-bz-pkR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4533" y="-1390"/>
+            <point key="canvasLocation" x="4575" y="-1425"/>
         </scene>
         <!--Рейтинг команд-->
         <scene sceneID="Alv-D0-KoK">
@@ -2142,7 +2139,7 @@
         <!--Navigation Controller-->
         <scene sceneID="1qP-4D-002">
             <objects>
-                <navigationController storyboardIdentifier="MainMenuNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="MXu-d8-TzQ" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="MainMenuNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="MXu-d8-TzQ" customClass="QPNavigationController" customModule="QuizPlease" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="DbJ-DV-xRf"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" backIndicatorImage="backButton" backIndicatorTransitionMaskImage="backButton" id="eis-mF-N6E">
@@ -2449,19 +2446,19 @@
     </scenes>
     <designables>
         <designable name="Ozp-8d-wSt">
-            <size key="intrinsicContentSize" width="76" height="22"/>
+            <size key="intrinsicContentSize" width="56" height="22"/>
         </designable>
         <designable name="v7Q-1I-FH4">
-            <size key="intrinsicContentSize" width="56" height="17"/>
+            <size key="intrinsicContentSize" width="36" height="17"/>
         </designable>
         <designable name="zbv-jy-ImX">
-            <size key="intrinsicContentSize" width="27.333333333333332" height="17"/>
+            <size key="intrinsicContentSize" width="7.333333333333333" height="17"/>
         </designable>
     </designables>
     <inferredMetricsTieBreakers>
-        <segue reference="pVV-GK-MaB"/>
-        <segue reference="mmH-hO-g5X"/>
-        <segue reference="kQf-Xc-fDF"/>
+        <segue reference="C1a-qd-8Vm"/>
+        <segue reference="smb-dh-maI"/>
+        <segue reference="HCF-Ox-xP4"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="arrowDown" width="20" height="12"/>

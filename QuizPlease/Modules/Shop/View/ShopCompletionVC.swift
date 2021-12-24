@@ -91,7 +91,7 @@ class ShopCompletionVC: UIViewController {
                     self.showSimpleAlert(
                         title: "Покупка прошла успешно",
                         message: method.message,
-                        okButtonTitle: "Завершить"
+                        okButtonTitle: "OK"
                     ) { okAction in
                         self.delegate?.shopCompletionVC(self, didCompletePurchaseForItem: self.shopItem)
                         self.navigationController?.popViewController(animated: true)

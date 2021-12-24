@@ -56,6 +56,9 @@ struct GameInfo: Decodable {
     private var latitude: String?
     private var longitude: String?
     
+    private var sdk_key: String?
+    private var yookassa_mobile_shop_id: String?
+    
     init(shortInfo: GameShortInfo) {
         id = shortInfo.id
         date = shortInfo.date
@@ -164,5 +167,13 @@ extension GameInfo {
     
     var optionalDescription: String? {
         text_block?.removingAngleBrackets(replaceWith: " ")
+    }
+    
+    var paymentKey: String? {
+        sdk_key
+    }
+    
+    var shopId: String? {
+        yookassa_mobile_shop_id
     }
 }
