@@ -187,6 +187,7 @@
 		A4A2647C252BC9D2005C0894 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = A4A2647B252BC9D2005C0894 /* Alamofire */; };
 		A4A296C224F6DC2800347EB2 /* AddGameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A296C124F6DC2800347EB2 /* AddGameVC.swift */; };
 		A4A296C424F6E1A700347EB2 /* MainMenuQRDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A296C324F6E1A700347EB2 /* MainMenuQRDelegate.swift */; };
+		A4A4ED382775D8D000DAA945 /* Bundle+version.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A4ED372775D8D000DAA945 /* Bundle+version.swift */; };
 		A4A5370424EC7691004A10D4 /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A5370324EC7691004A10D4 /* UIColorExtensions.swift */; };
 		A4A5370824EC7AA6004A10D4 /* HomeGameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A5370624EC7AA6004A10D4 /* HomeGameCell.swift */; };
 		A4A5370924EC7AA6004A10D4 /* HomeGameCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4A5370724EC7AA6004A10D4 /* HomeGameCell.xib */; };
@@ -475,6 +476,7 @@
 		A4A13E6B2698754800B3A499 /* PaymentOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentOptions.swift; sourceTree = "<group>"; };
 		A4A296C124F6DC2800347EB2 /* AddGameVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGameVC.swift; sourceTree = "<group>"; };
 		A4A296C324F6E1A700347EB2 /* MainMenuQRDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuQRDelegate.swift; sourceTree = "<group>"; };
+		A4A4ED372775D8D000DAA945 /* Bundle+version.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+version.swift"; sourceTree = "<group>"; };
 		A4A5370324EC7691004A10D4 /* UIColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtensions.swift; sourceTree = "<group>"; };
 		A4A5370624EC7AA6004A10D4 /* HomeGameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeGameCell.swift; sourceTree = "<group>"; };
 		A4A5370724EC7AA6004A10D4 /* HomeGameCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeGameCell.xib; sourceTree = "<group>"; };
@@ -795,6 +797,7 @@
 			children = (
 				A40C8080252E857500CE40D8 /* UIView */,
 				A4B129262739E1D40035C041 /* UIImage */,
+				A4A4ED362775D8A800DAA945 /* UIApplication */,
 				A4E675F5255DB49E0011A801 /* String */,
 				A4BB03482681FF5A005FE6D7 /* NumberFormatter */,
 				A4A5370324EC7691004A10D4 /* UIColorExtensions.swift */,
@@ -814,8 +817,7 @@
 				A45241DD265479A70058285C /* CGRect+setHeight.swift */,
 				A45241DF26547A060058285C /* UITextField+Extensions.swift */,
 				A4E91EBB26C30D5C008C13A7 /* UIWindow+topViewController.swift */,
-				A4E91EBF26C32310008C13A7 /* UIApplication+debugInfo.swift */,
-				A428383D272B221100F417E6 /* UIApplication+getKeyWindow.swift */,
+				A4A4ED372775D8D000DAA945 /* Bundle+version.swift */,
 				A4FEB058273749010052AD7B /* UIAlertAction+Cancel.swift */,
 			);
 			path = Extensions;
@@ -1048,6 +1050,15 @@
 				A46F303D24F5302B0062A333 /* GameSubmitButtonCell.xib */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		A4A4ED362775D8A800DAA945 /* UIApplication */ = {
+			isa = PBXGroup;
+			children = (
+				A4E91EBF26C32310008C13A7 /* UIApplication+debugInfo.swift */,
+				A428383D272B221100F417E6 /* UIApplication+getKeyWindow.swift */,
+			);
+			path = UIApplication;
 			sourceTree = "<group>";
 		};
 		A4A5370524EC7706004A10D4 /* View */ = {
@@ -1625,6 +1636,7 @@
 				A450E39A24E564A900C49AEE /* GameCertificateCell.swift in Sources */,
 				A40F036424D419D200C381F2 /* MenuCellItemProtocol.swift in Sources */,
 				A4F3A79A257E7A1700D6A9C7 /* UIImage+Static.swift in Sources */,
+				A4A4ED382775D8D000DAA945 /* Bundle+version.swift in Sources */,
 				A4F47EE226C997E300590FBD /* PickCityCell.swift in Sources */,
 				A4162021270A5C030050CBD8 /* BarStyle.swift in Sources */,
 				A452E3B424D431C5002EE514 /* Int+WordBuilding.swift in Sources */,
