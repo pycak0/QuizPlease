@@ -23,7 +23,9 @@ enum KeyKind {
         case dev
         /// Default production payment info key
         case prod
-        /// Payment info key for given  city
+        
+        /// Payment info key for given city (not available now)
+        @available(*, unavailable)
         case forCity(id: Int)
         
         var key: String {
@@ -39,16 +41,11 @@ enum KeyKind {
 }
 
 fileprivate struct KeyStore: Decodable {
-    let shopKeys: [String: PaymentInfo]
+    let paymentKeys: [String: String]
     
     private enum CodingKeys: String, CodingKey {
-        case shopKeys = "ShopKeys"
+        case paymentKeys = "PaymentKeys"
     }
-}
-
-struct PaymentInfo: Decodable {
-    let paymentKey: String
-    let shopId: String?
 }
 
 class SecurityHelper: KeyProvider {
@@ -62,7 +59,7 @@ class SecurityHelper: KeyProvider {
             let path = keysPath,
             let data = FileManager.default.contents(atPath: path)
         else {
-            keyStore = KeyStore(shopKeys: [:])
+            keyStore = KeyStore(paymentKeys: [:])
             print("❌🔒[\(Self.self).swift] Error initializing key store: no data found for given path.")
             return
         }
@@ -70,7 +67,7 @@ class SecurityHelper: KeyProvider {
             let plist = try PropertyListDecoder().decode(KeyStore.self, from: data)
             keyStore = plist
         } catch {
-            keyStore = KeyStore(shopKeys: [:])
+            keyStore = KeyStore(paymentKeys: [:])
             print("❌🔒[\(Self.self).swift] Error decoding key store: \(error.localizedDescription)")
         }
     }
@@ -84,14 +81,13 @@ class SecurityHelper: KeyProvider {
     
     func string(for key: KeyKind) -> String? {
         switch key {
-        case .paymentKey:
-            print("⚠️🔒[\(Self.self).swift] Warning: '\(key)' KeyKind does not contain String data.")
-            return nil
+        case let .paymentKey(kind):
+            return getPaymentKey(kind)
         }
     }
     
-    private func getPaymentKey(_ kind: KeyKind.PaymentKeyKind) -> PaymentInfo? {
-        let keys = keyStore.shopKeys
+    private func getPaymentKey(_ kind: KeyKind.PaymentKeyKind) -> String? {
+        let keys = keyStore.paymentKeys
         if keys.isEmpty {
             print("⚠️🔒[\(Self.self).swift] Warning: payment keys dictionary is empty.")
         }

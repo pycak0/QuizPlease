@@ -10,17 +10,12 @@ import UIKit
 import YooKassaPayments
 import YooKassaPaymentsApi
 
-final class YooMoneyPaymentProvider: PaymentProvider {        
-    private let devInfo: PaymentInfo?
-    private let productionInfo: PaymentInfo?
+final class YooMoneyPaymentProvider: PaymentProvider {
+    
     private unowned let delegate: TokenizationModuleOutput
-    
-    private var apiKey: String { devInfo?.paymentKey ?? "" }
-    
-    init(cityId: Int, delegate: TokenizationModuleOutput) {
+        
+    init(delegate: TokenizationModuleOutput) {
         self.delegate = delegate
-        devInfo = SecurityHelper.shared.value(for: .paymentKey(.dev)) as? PaymentInfo
-        productionInfo = SecurityHelper.shared.value(for: .paymentKey(.forCity(id: cityId))) as? PaymentInfo
     }
     
     func showPaymentView(presentationController: UIViewController, options: PaymentOptions) {
@@ -28,11 +23,11 @@ final class YooMoneyPaymentProvider: PaymentProvider {
         
         // MARK: - ❗️replace `"client_id"` with real client id value
         let tokenizationModuleInputData = TokenizationModuleInputData(
-            clientApplicationKey: apiKey,
+            clientApplicationKey: options.transactionKey,
             shopName: options.shopName,
             purchaseDescription: options.description,
             amount: paymentAmount,
-            gatewayId: productionInfo?.shopId,
+            gatewayId: options.shopId,
             isLoggingEnabled: AppSettings.isDebug,
             userPhoneNumber: options.userPhoneNumber,
             savePaymentMethod: .userSelects,
