@@ -170,6 +170,7 @@
 		A48E2FC425335A9500CD6BE6 /* SavedAuthInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48E2FC325335A9500CD6BE6 /* SavedAuthInfo.swift */; };
 		A48F64642501416300E7A528 /* ScheduleFilterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48F64632501416300E7A528 /* ScheduleFilterProtocol.swift */; };
 		A48F64662501438D00E7A528 /* ScheduleFilterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48F64652501438D00E7A528 /* ScheduleFilterType.swift */; };
+		A490ACD527A6A0E300DEF87B /* UIBarButtonItem+swizzleMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = A490ACD427A6A0E300DEF87B /* UIBarButtonItem+swizzleMenu.swift */; };
 		A492B8732631A42600AEC388 /* ExpandingHeaderContract.swift in Sources */ = {isa = PBXBuildFile; fileRef = A492B8722631A42600AEC388 /* ExpandingHeaderContract.swift */; };
 		A492B8752631AE6100AEC388 /* UIRefreshControl+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = A492B8742631AE6100AEC388 /* UIRefreshControl+Init.swift */; };
 		A498FCCC24E52ED80069F896 /* GameRegisterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A498FCCA24E52ED80069F896 /* GameRegisterCell.swift */; };
@@ -460,6 +461,7 @@
 		A48E2FC325335A9500CD6BE6 /* SavedAuthInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedAuthInfo.swift; sourceTree = "<group>"; };
 		A48F64632501416300E7A528 /* ScheduleFilterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleFilterProtocol.swift; sourceTree = "<group>"; };
 		A48F64652501438D00E7A528 /* ScheduleFilterType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleFilterType.swift; sourceTree = "<group>"; };
+		A490ACD427A6A0E300DEF87B /* UIBarButtonItem+swizzleMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+swizzleMenu.swift"; sourceTree = "<group>"; };
 		A492B8722631A42600AEC388 /* ExpandingHeaderContract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandingHeaderContract.swift; sourceTree = "<group>"; };
 		A492B8742631AE6100AEC388 /* UIRefreshControl+Init.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIRefreshControl+Init.swift"; sourceTree = "<group>"; };
 		A498FCCA24E52ED80069F896 /* GameRegisterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRegisterCell.swift; sourceTree = "<group>"; };
@@ -819,6 +821,7 @@
 				A4E91EBB26C30D5C008C13A7 /* UIWindow+topViewController.swift */,
 				A4A4ED372775D8D000DAA945 /* Bundle+version.swift */,
 				A4FEB058273749010052AD7B /* UIAlertAction+Cancel.swift */,
+				A490ACD427A6A0E300DEF87B /* UIBarButtonItem+swizzleMenu.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1627,6 +1630,7 @@
 				A44B2FD525841D9100B5B52C /* CertificateResponse.swift in Sources */,
 				A4FFA4B124F3BE2A006A1150 /* PaymentType.swift in Sources */,
 				A4B129212739CB170035C041 /* CopyableLabel.swift in Sources */,
+				A490ACD527A6A0E300DEF87B /* UIBarButtonItem+swizzleMenu.swift in Sources */,
 				A4A5370424EC7691004A10D4 /* UIColorExtensions.swift in Sources */,
 				A4E675F4255D78400011A801 /* AudioView.swift in Sources */,
 				A40B759224D9A836006DB7D1 /* HomeGameConfigurator.swift in Sources */,

@@ -227,13 +227,21 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
                     self.view?.editPhone()
                 }
             } else {
-                view?.showSimpleAlert(title: "Произошла неизвестная ошибка", message: "Error status code 40")
+                view?.showSimpleAlert(
+                    title: "Произошла неизвестная ошибка",
+                    message: "Error status code 40"
+                )
             }
             return
         }
         
         let count = registerForm.countPaidOnline ?? 0
         let paymentSum = Double(countSumToPay(forPeople: count))
+        let userPhoneNumber = registerForm.phone
+            .replacingOccurrences(of: "-", with: " ")
+            .replacingOccurrences(of: "(", with: "")
+            .replacingOccurrences(of: ")", with: "")
+
         if registerForm.paymentType == .online && paymentSum > 0 {
             if game.shopId?.isEmpty ?? true {
                 print("⚠️ [\(Self.self)|\(#line)] Shop id is empty. Production payment will fail")
@@ -250,7 +258,7 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
                     description: createPaymentDescription(),
                     shopId: game.shopId ?? "",
                     transactionKey: game.paymentKey ?? "",
-                    userPhoneNumber: registerForm.phone
+                    userPhoneNumber: userPhoneNumber
                 )
             )
         } else if registerForm.paymentType == .online && paymentSum <= 0 {
