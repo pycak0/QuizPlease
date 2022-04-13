@@ -57,7 +57,7 @@ struct GameInfo: Decodable {
     private var longitude: String?
     
     private var sdk_key: String?
-    private var yookassa_mobile_shop_id: String?
+    private var sdk_shop_id: String?
     
     init(shortInfo: GameShortInfo) {
         id = shortInfo.id
@@ -174,6 +174,6 @@ extension GameInfo {
     }
     
     var shopId: String? {
-        yookassa_mobile_shop_id
+        sdk_shop_id
     }
 }

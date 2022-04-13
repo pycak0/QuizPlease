@@ -34,6 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate {
         
         application.registerForRemoteNotifications()
         
+        UIBarButtonItem.swizzleMenu()
         IQKeyboardManager.shared.enable = true
         PhoneNumberKit.CountryCodePicker.forceModalPresentation = true
         PhoneNumberKit.CountryCodePicker.commonCountryCodes = []

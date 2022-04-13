@@ -12,15 +12,13 @@ import UIKit
 ///
 /// Key features:
 /// - full-width swipe back gesture recognizer
-/// - (soon) stylable navigation bar
-/// - (soon) disabled back button actions (iOS 14)
+/// - (maybe in the future) stylable navigation bar
 class QPNavigationController: UINavigationController {
     
     let fullWidthSwipeBackGestureRecognizer = UIPanGestureRecognizer()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupSwipeBackGestureRecognizer()
     }
 
     private func setupSwipeBackGestureRecognizer() {

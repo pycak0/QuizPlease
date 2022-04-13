@@ -9,12 +9,12 @@
 import UIKit
 
 extension UIApplication {
+    
     var debugInfo: String {
-        let appVersionString: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
-        let buildNumber: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String
+        let appVersionString = Bundle.main.version
         let buildKind = AppSettings.isDebug ? "Debug" : "Release"
         return """
-        AppVersion: \(buildKind) \(appVersionString) (\(buildNumber))
+        AppVersion: \(buildKind) \(appVersionString)
         \(AppSettings.description)
         \(NetworkConfiguration.standard)
         """
