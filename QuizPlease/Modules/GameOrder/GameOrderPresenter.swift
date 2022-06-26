@@ -14,9 +14,10 @@ protocol GameOrderPresenterProtocol {
     var router: GameOrderRouterProtocol! { get }
     var view: GameOrderViewProtocol? { get }
     var interactor: GameOrderInteractorProtocol! { get }
-    
+
     var game: GameInfo { get }
     var registerForm: RegisterForm { get }
+    var availablePaymentTypes: [PaymentType] { get }
     
     var isOnlinePaymentDefault: Bool { get }
     var isOnlyCashAvailable: Bool { get }
@@ -74,14 +75,21 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
         self.registerForm.paymentType = isOnlinePaymentDefault ? .online : .cash
     }
     
+    var availablePaymentTypes: [PaymentType] {
+        if game.gameStatus == .reserveAvailable {
+            return [.cash]
+        }
+        return game.availablePaymentTypes
+    }
+
     var isOnlinePaymentDefault: Bool {
-        let types = game.availablePaymentTypes
-        return types.count == 1 && types.first! == .online
+        let types = availablePaymentTypes
+        return types.count == 1 && types[0] == .online
     }
     
     var isOnlyCashAvailable: Bool {
-        let types = game.availablePaymentTypes
-        return types.count == 1 && types.first! == .cash
+        let types = availablePaymentTypes
+        return types.count == 1 && types[0] == .cash
     }
     
     func configureViews() {

@@ -145,7 +145,7 @@ extension GameOrderVC: GameFirstPlayCellDelegate {
 
 extension GameOrderVC: GamePaymentTypeCellDelegate {
     func availablePaymentTypes(in cell: GamePaymentTypeCell) -> [PaymentType] {
-        return presenter.game.availablePaymentTypes
+        return presenter.availablePaymentTypes
     }
     
     func isOnlinePaymentInitially(in cell: GamePaymentTypeCell) -> Bool {
