@@ -80,7 +80,6 @@ class ShopCompletionVC: UIViewController {
             self.showSimpleAlert(title: "Не удалось завершить покупку", message: "Произошла ошибка, но не волнуйтесь, Ваши бонусные баллы не были списаны. (desc: product id not found)")
             return
         }
-        //let isSuccess = false
         NetworkService.shared.purchaseProduct(with: "\(itemId)", deliveryMethod: method, email: email) { [weak self] (result) in
             guard let self = self else { return }
             switch result {
