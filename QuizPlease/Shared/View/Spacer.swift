@@ -9,17 +9,17 @@
 import UIKit
 
 class Spacer: UIView {
-    
+
     init() {
         super.init(frame: .zero)
         sharedInit()
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         sharedInit()
     }
-    
+
     private func sharedInit() {
         setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
         setContentCompressionResistancePriority(.defaultHigh, for: .vertical)

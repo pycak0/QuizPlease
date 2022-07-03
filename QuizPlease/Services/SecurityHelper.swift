@@ -13,7 +13,7 @@ protocol KeyProvider {
     func string(for key: KeyKind) -> String?
 }
 
-fileprivate protocol SecurityKey {
+private protocol SecurityKey {
     var key: String { get }
 }
 
@@ -23,11 +23,11 @@ enum KeyKind {
         case dev
         /// Default production payment info key
         case prod
-        
+
         /// Payment info key for given city (not available now)
         @available(*, unavailable)
         case forCity(id: Int)
-        
+
         var key: String {
             switch self {
             case .dev: return "devKey"
@@ -36,13 +36,13 @@ enum KeyKind {
             }
         }
     }
-    
+
     case paymentKey(PaymentKeyKind)
 }
 
-fileprivate struct KeyStore: Decodable {
+private struct KeyStore: Decodable {
     let paymentKeys: [String: String]
-    
+
     private enum CodingKeys: String, CodingKey {
         case paymentKeys = "PaymentKeys"
     }
@@ -51,9 +51,9 @@ fileprivate struct KeyStore: Decodable {
 class SecurityHelper: KeyProvider {
     private let keysPath = Bundle.main.path(forResource: "Keys", ofType: "plist")
     private let keyStore: KeyStore
-    
+
     static let shared = SecurityHelper()
-    
+
     private init() {
         guard
             let path = keysPath,
@@ -71,21 +71,21 @@ class SecurityHelper: KeyProvider {
             print("❌🔒[\(Self.self).swift] Error decoding key store: \(error.localizedDescription)")
         }
     }
-    
+
     func value(for keyType: KeyKind) -> Any? {
         switch keyType {
         case let .paymentKey(kind):
             return getPaymentKey(kind)
         }
     }
-    
+
     func string(for key: KeyKind) -> String? {
         switch key {
         case let .paymentKey(kind):
             return getPaymentKey(kind)
         }
     }
-    
+
     private func getPaymentKey(_ kind: KeyKind.PaymentKeyKind) -> String? {
         let keys = keyStore.paymentKeys
         if keys.isEmpty {

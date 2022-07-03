@@ -13,7 +13,7 @@ protocol AddGameVCDelegate: AnyObject {
 }
 
 class AddGameVC: UIViewController {
-    
+
     // MARK: - Outlets
     @IBOutlet private weak var addGameButton: ScalingButton!
     @IBOutlet private weak var infoView: UIView!
@@ -23,20 +23,20 @@ class AddGameVC: UIViewController {
     @IBOutlet private weak var placeAddressLabel: UILabel!
     @IBOutlet private weak var timeLabel: UILabel!
     @IBOutlet private weak var chooseTeamView: TitledTextFieldView!
-    
+
     var token: String!
     var teamsInfo = [TeamInfo]()
     var chosenTeam: TeamInfo?
     var gameInfo: GameInfo?
-    
+
     weak var delegate: AddGameVCDelegate?
-    
+
     // MARK: - Add Game Button Pressed
     @IBAction private func addGameButtonPressed(_ sender: Any) {
         saveGame()
-        //navigationController?.popViewController(animated: true)
+        // navigationController?.popViewController(animated: true)
     }
-    
+
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,13 +44,13 @@ class AddGameVC: UIViewController {
         configureViews()
         setupData()
     }
-    
+
     private func setupData() {
         setGameData()
         gameNameLabel.text = "Загрузка…"
         loadDataFromQR()
     }
-    
+
     // MARK: - Save Game
     private func saveGame() {
         guard let id = chosenTeam?.id else {
@@ -80,7 +80,7 @@ class AddGameVC: UIViewController {
             }
         }
     }
-    
+
     // MARK: - Check In
     private func checkIn(teamId id: Int) {
         NetworkService.shared.checkInOnGame(with: token, chosenTeamId: id) { [weak self] (result) in
@@ -104,7 +104,7 @@ class AddGameVC: UIViewController {
             }
         }
     }
-        
+
     // MARK: - Load From QR
     private func loadDataFromQR() {
         NetworkService.shared.getTeamsFromQR(token) { [weak self] (serverResult) in
@@ -125,7 +125,7 @@ class AddGameVC: UIViewController {
             }
         }
     }
-    
+
     // MARK: - Load Game
     private func loadGameInfo(with id: Int) {
         NetworkService.shared.getGameInfo(by: id) { [weak self] (serverResult) in
@@ -140,9 +140,9 @@ class AddGameVC: UIViewController {
             self.setGameData()
         }
     }
-    
+
     // MARK: - Check User Location
-    ///- parameter isSatisfactory: `true` - user location is close to the place location, `false` - user location is too far from the place location, `nil` - unavailable to get user loaction
+    /// - parameter isSatisfactory: `true` - user location is close to the place location, `false` - user location is too far from the place location, `nil` - unavailable to get user loaction
     private func checkUserLocation(completion: @escaping (_ isSatisfactory: Bool?) -> Void) {
         UserLocationService.shared.askUserLocation { (location) in
             guard let gameInfo = self.gameInfo else { return }
@@ -154,34 +154,34 @@ class AddGameVC: UIViewController {
             completion(isCloseToPlace)
         }
     }
-    
+
     // MARK: - Set Game Fata
     private func setGameData() {
         gameNameLabel.text = gameInfo?.nameGame ?? "-"
         gameNumberLabel.text = gameInfo?.gameNumber ?? "#"
         placeNameLabel.text = gameInfo?.placeInfo.title ?? "-"
         placeAddressLabel.text = gameInfo?.placeInfo.fullAddress  ?? "-"
-        
+
         if let dateStr = gameInfo?.formattedDate, let time = gameInfo?.time {
             timeLabel.text = "\(dateStr) в \(time)"
         } else {
             timeLabel.text = "-"
         }
     }
-    
+
     private func configureViews() {
         infoView.layer.borderColor = UIColor.systemGreen.cgColor
         infoView.layer.borderWidth = 4
         infoView.layer.cornerRadius = 20
-        
+
         addGameButton.layer.cornerRadius = 20
         addGameButton.addGradient(colors: [.lemon, .lightOrange], insertAt: 0)
-        
+
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(didPressChooseTeam))
         chooseTeamView.addGestureRecognizer(tapRecognizer)
         chooseTeamView.textField.isEnabled = false
     }
-    
+
     @objc
     private func didPressChooseTeam() {
         guard teamsInfo.count > 0 else { return }

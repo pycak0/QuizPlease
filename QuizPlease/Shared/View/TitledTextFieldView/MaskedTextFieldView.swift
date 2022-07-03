@@ -20,12 +20,16 @@ protocol MaskedTextFieldDelegateEndEditingListener: AnyObject {
 class NotifyingMaskedTextFieldDelegate: MaskedTextFieldDelegate {
     weak var editingListener: MaskedTextFieldDelegateEditingListener?
     weak var endEditingListener: MaskedTextFieldDelegateEndEditingListener?
-    
-    override func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+
+    override func textField(
+        _ textField: UITextField,
+        shouldChangeCharactersIn range: NSRange,
+        replacementString string: String
+    ) -> Bool {
         defer { self.editingListener?.onEditingChanged(in: textField) }
         return super.textField(textField, shouldChangeCharactersIn: range, replacementString: string)
     }
-    
+
     override func textFieldDidEndEditing(_ textField: UITextField) {
         defer { self.endEditingListener?.onEndEditing(in: textField) }
         return super.textFieldDidEndEditing(textField)
@@ -35,10 +39,10 @@ class NotifyingMaskedTextFieldDelegate: MaskedTextFieldDelegate {
 @IBDesignable
 class MaskedTextFieldView: TitledTextFieldView {
     static let noMask = "[…]"
-    
+
     private let maskDelegate = NotifyingMaskedTextFieldDelegate()
-    
-    ///Make sure that mask satisfies the syntax described here:
+
+    /// Make sure that mask satisfies the syntax described here:
     ///https://github.com/RedMadRobot/input-mask-ios/wiki/1.-Mask-Syntax
     @IBInspectable
     var inputMask: String = MaskedTextFieldView.noMask {
@@ -47,21 +51,21 @@ class MaskedTextFieldView: TitledTextFieldView {
             checkListener()
         }
     }
-    
+
     lazy var isMaskComplete: Bool = {
         inputMask == Self.noMask
     }()
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         configure()
     }
-    
+
     // MARK: - Configure
     private func configure() {
         textField.delegate = maskDelegate
@@ -71,7 +75,7 @@ class MaskedTextFieldView: TitledTextFieldView {
         }
         checkListener()
     }
-    
+
     private func checkListener() {
         if maskDelegate.primaryMaskFormat == Self.noMask {
             maskDelegate.editingListener = self
@@ -84,18 +88,26 @@ class MaskedTextFieldView: TitledTextFieldView {
 }
 
 // MARK: - MaskedTextFieldDelegateListener
-extension MaskedTextFieldView: MaskedTextFieldDelegateListener, MaskedTextFieldDelegateEditingListener, MaskedTextFieldDelegateEndEditingListener {
+
+extension MaskedTextFieldView: MaskedTextFieldDelegateListener,
+                               MaskedTextFieldDelegateEditingListener,
+                               MaskedTextFieldDelegateEndEditingListener {
+
     func onEndEditing(in textField: UITextField) {
         /// must call `super.textFieldDidEndEditing(_:)` to preserve correct behavior
         super.textFieldDidEndEditing(textField)
     }
-    
+
     func onEditingChanged(in textField: UITextField) {
         guard inputMask == Self.noMask else { return }
         delegate?.textFieldView(self, didChangeTextField: textField.text ?? "")
     }
-    
-    func textField(_ textField: UITextField, didFillMandatoryCharacters isComplete: Bool, didExtractValue value: String) {
+
+    func textField(
+        _ textField: UITextField,
+        didFillMandatoryCharacters isComplete: Bool,
+        didExtractValue value: String
+    ) {
         isMaskComplete = isComplete
         delegate?.textFieldView(self, didChangeTextField: value)
     }

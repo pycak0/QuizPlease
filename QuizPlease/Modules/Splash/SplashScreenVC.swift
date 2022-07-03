@@ -14,7 +14,7 @@ protocol SplashScreenViewProtocol: UIViewController, LoadingIndicator {
 
 class SplashScreenVC: UIViewController, SplashScreenViewProtocol {
     var presenter: SplashScreenPresenterProtocol!
-    
+
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView! {
         didSet {
             activityIndicator.hidesWhenStopped = false
@@ -28,14 +28,14 @@ class SplashScreenVC: UIViewController, SplashScreenViewProtocol {
         SplashScreenConfigurator().configure(self)
         presenter.viewDidLoad(self)
     }
-    
+
     func startLoading() {
         activityIndicator.startAnimating()
         UIView.animate(withDuration: 0.5) {
             self.activityIndicator.alpha = 1
         }
     }
-    
+
     func stopLoading() {
         UIView.animate(withDuration: 0.5) {
             self.activityIndicator.alpha = 0

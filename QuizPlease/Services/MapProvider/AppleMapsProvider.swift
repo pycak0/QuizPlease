@@ -10,19 +10,19 @@ import UIKit
 import MapKit
 
 class AppleMapsProvider: MapProvider {
-    
+
     let title = "Apple Карты"
-    let urlSchema = URL(string: "https://maps.apple.com/")! 
-    
+    let urlSchema = URL(string: "https://maps.apple.com/")!
+
     func openMapRoute(to coordinate: CLLocationCoordinate2D, placeName: String?) {
         let options = [
-            MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving
+            MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving
         ]
-        
+
         let destinationPlacemark = MKPlacemark(coordinate: coordinate)
         let destinationMapItem = MKMapItem(placemark: destinationPlacemark)
         destinationMapItem.name = placeName ?? "Место назначения"
-        
+
         destinationMapItem.openInMaps(launchOptions: options)
     }
 }

@@ -9,7 +9,7 @@
 class RegisterForm: Encodable {
     let cityId: Int
     let gameId: Int
-    
+
     var teamName: String = ""
     var captainName: String = ""
     var email: String = ""
@@ -20,7 +20,7 @@ class RegisterForm: Encodable {
     var comment: String?
     var paymentType: PaymentType = .online
     var paymentToken: String?
-    
+
     init(cityId: Int, gameId: Int) {
         self.cityId = cityId
         self.gameId = gameId

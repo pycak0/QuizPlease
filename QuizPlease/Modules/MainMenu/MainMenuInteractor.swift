@@ -9,14 +9,14 @@
 import Foundation
 
 protocol MainMenuInteractorProtocol: AnyObject {
-    ///must be weak
+    /// must be weak
     var output: MainMenuInteractorOutput? { get }
-    
+
     func loadMenuItems()
     func loadUserInfo()
     func loadShopItems()
-    
-    ///Loads new client settings, then calls `loadMenuItems`, `loadShopItems` and `loadUserInfo`
+
+    /// Loads new client settings, then calls `loadMenuItems`, `loadShopItems` and `loadUserInfo`
     func updateAllData()
 }
 
@@ -31,10 +31,10 @@ protocol MainMenuInteractorOutput: AnyObject {
 
 class MainMenuInteractor: MainMenuInteractorProtocol {
     weak var output: MainMenuInteractorOutput?
-    
+
     func loadMenuItems() {
         var items = MainMenuItemKind.allCases
-    
+
         if !AppSettings.isProfileEnabled {
             items.removeAll(where: { $0._kind == .profile })
         }
@@ -42,11 +42,11 @@ class MainMenuInteractor: MainMenuInteractorProtocol {
             items.removeAll(where: { $0._kind == .shop })
         }
         output?.interactor(self, didLoadMenuItems: items)
-        //completion(.success(items))
+        // completion(.success(items))
     }
-    
+
     func loadUserInfo() {
-        NetworkService.shared.getUserInfo() { [weak self] result in
+        NetworkService.shared.getUserInfo { [weak self] result in
             guard let self = self else { return }
             switch result {
             case let .failure(error):
@@ -56,9 +56,9 @@ class MainMenuInteractor: MainMenuInteractorProtocol {
             }
         }
     }
-    
+
     func loadShopItems() {
-        //completion(self.createSampleItems())
+        // completion(self.createSampleItems())
         NetworkService.shared.getShopItems { [weak self] (serverResult) in
             guard let self = self else { return }
             switch serverResult {
@@ -70,7 +70,7 @@ class MainMenuInteractor: MainMenuInteractorProtocol {
             }
         }
     }
-    
+
     func updateAllData() {
         Utilities.main.fetchClientSettings { _ in
             self.loadMenuItems()
@@ -78,7 +78,7 @@ class MainMenuInteractor: MainMenuInteractorProtocol {
             self.loadUserInfo()
         }
     }
-    
+
     private func createSampleItems() -> [ShopItem] {
         var sampleItems = [ShopItem]()
         for i in 0..<3 {

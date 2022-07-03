@@ -14,14 +14,14 @@ struct RatingItem: Decodable, Equatable {
     var pointsTotal: Double
     var rank: String?
     private var image: String?
-    
+
     enum CodingKeys: String, CodingKey {
         case teamName, count, balls, rang, rang_image
     }
-    
+
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        
+
         name = try container.decode(String.self, forKey: .teamName)
         games = try container.decode(Int.self, forKey: .count)
         pointsTotal = try container.decode(Double.self, forKey: .balls)

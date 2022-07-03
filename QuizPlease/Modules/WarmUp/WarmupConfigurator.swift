@@ -9,7 +9,7 @@
 import Foundation
 
 class WarmupConfigurator: Configurator {
-    
+
     func configure(_ view: WarmupViewProtocol) {
         let interactor = WarmupInteractor(
             questionsService: AppSettings.isDebug ?

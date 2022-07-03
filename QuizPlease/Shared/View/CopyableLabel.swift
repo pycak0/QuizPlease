@@ -9,9 +9,9 @@
 import UIKit
 
 public class CopyableLabel: UILabel {
-    
+
     public override var canBecomeFirstResponder: Bool { true }
-    
+
     // MARK: - Lifecycle
 
     public override init(frame: CGRect) {
@@ -23,23 +23,23 @@ public class CopyableLabel: UILabel {
         super.init(coder: coder)
         sharedInit()
     }
-    
+
     // MARK: - Actions
 
     public override func copy(_ sender: Any?) {
         UIPasteboard.general.string = text
         UIMenuController.shared.setMenuVisible(false, animated: true)
     }
-    
+
     public override func canPerformAction(
         _ action: Selector,
         withSender sender: Any?
     ) -> Bool {
         action == #selector(copy(_:))
     }
-    
+
     // MARK: - Private Methods
-    
+
     private func sharedInit() {
         isUserInteractionEnabled = true
         addGestureRecognizer(UILongPressGestureRecognizer(

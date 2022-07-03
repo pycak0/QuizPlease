@@ -12,18 +12,18 @@ import Foundation
 protocol ShopPresenterProtocol {
     var router: ShopRouterProtocol! { get }
     init(view: ShopViewProtocol, interactor: ShopInteractorProtocol, router: ShopRouterProtocol)
-    
+
     var items: [ShopItem] { get set }
-    
+
     var userInfo: UserInfo? { get set }
-    
+
     func viewDidLoad(_ view: ShopViewProtocol)
-    
+
     func didSelectItem(at index: Int)
     func didAgreeToPurchase(_ item: ShopItem)
     func didPurchase(_ item: ShopItem)
     func handleRefreshControl()
-    
+
     func didPressRemindButton()
 }
 
@@ -31,17 +31,17 @@ class ShopPresenter: ShopPresenterProtocol {
     var router: ShopRouterProtocol!
     var interactor: ShopInteractorProtocol
     weak var view: ShopViewProtocol?
-    
+
     var userInfo: UserInfo?
-    
+
     var items: [ShopItem] = []
-    
+
     required init(view: ShopViewProtocol, interactor: ShopInteractorProtocol, router: ShopRouterProtocol) {
         self.view = view
         self.interactor = interactor
         self.router = router
     }
-    
+
     // MARK: - Setup View
     func viewDidLoad(_ view: ShopViewProtocol) {
         reloadItems()
@@ -52,13 +52,13 @@ class ShopPresenter: ShopPresenterProtocol {
         }
         loadUserInfo()
     }
-    
+
     // MARK: - Refresh Control
     func handleRefreshControl() {
         reloadItems()
         loadUserInfo()
     }
-    
+
     // MARK: - Reload Items
     private func reloadItems() {
         interactor.loadItems { [weak self] (result) in
@@ -78,7 +78,7 @@ class ShopPresenter: ShopPresenterProtocol {
             }
         }
     }
-    
+
     // MARK: - Load User Info
     private func loadUserInfo() {
         interactor.loadUserInfo { [weak self] (serverResult) in
@@ -92,17 +92,17 @@ class ShopPresenter: ShopPresenterProtocol {
             }
         }
     }
-    
+
     // MARK: - Actions
     func didSelectItem(at index: Int) {
         let item = items[index]
         router.showConfirmScreen(for: item)
     }
-    
+
     func didPressRemindButton() {
         //
     }
-    
+
     func didAgreeToPurchase(_ item: ShopItem) {
         guard let user = userInfo else {
             view?.showNeedsAuthAlert(title: "Для совершения покупок необходимо авторизоваться")
@@ -119,7 +119,7 @@ class ShopPresenter: ShopPresenterProtocol {
         }
         router.showCompletionScreen(for: item)
     }
-    
+
     func didPurchase(_ item: ShopItem) {
         loadUserInfo()
     }

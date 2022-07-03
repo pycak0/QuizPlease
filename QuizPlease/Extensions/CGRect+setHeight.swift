@@ -9,7 +9,7 @@
 import CoreGraphics
 
 extension CGRect {
-    ///retunrs a new CGRect with changed `height`
+    /// retunrs a new CGRect with changed `height`
     mutating func setHeight(_ height: CGFloat) {
         self = CGRect(origin: self.origin, size: CGSize(width: self.width, height: height))
     }

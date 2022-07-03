@@ -1,5 +1,5 @@
 //
-//MARK:  HomeGameVideoVC.swift
+// MARK: HomeGameVideoVC.swift
 //  QuizPlease
 //
 //  Created by Владислав on 24.08.2020.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-fileprivate enum Constants {
+private enum Constants {
     static let buttonCornerRadius: CGFloat = 20
     static let videoCornerRadius: CGFloat = 30
     static let gameRulesPath = "/files/quizplease_home_rules.pdf"
@@ -16,7 +16,7 @@ fileprivate enum Constants {
 
 class HomeGameVideoVC: UIViewController {
     var homeGame: HomeGame! = HomeGame()
-    
+
     @IBOutlet private weak var descriptionLabel: UILabel!
 
     @IBOutlet private weak var backgroundImageView: UIImageView! {
@@ -25,7 +25,7 @@ class HomeGameVideoVC: UIViewController {
             backgroundImageView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         }
     }
-    
+
     @IBOutlet private weak var descriptionBackground: UIView! {
         didSet {
             descriptionBackground.layer.cornerRadius = Constants.videoCornerRadius
@@ -33,7 +33,7 @@ class HomeGameVideoVC: UIViewController {
             descriptionBackground.blurView.setup(style: .regular, alpha: 0.8).enable()
         }
     }
-    
+
     @IBOutlet private weak var rulesButton: ScalingButton! {
         didSet {
             rulesButton.backgroundColor = UIColor.systemRed.withAlphaComponent(0.2)
@@ -41,7 +41,7 @@ class HomeGameVideoVC: UIViewController {
             rulesButton.addTarget(self, action: #selector(rulesButtonPressed(_:)), for: .touchUpInside)
         }
     }
-    
+
     @IBOutlet private weak var blanksButton: ScalingButton! {
         didSet {
             blanksButton.backgroundColor = UIColor.systemBlue.withAlphaComponent(0.2)
@@ -49,29 +49,29 @@ class HomeGameVideoVC: UIViewController {
             blanksButton.addTarget(self, action: #selector(blanksButtonPressed(_:)), for: .touchUpInside)
         }
     }
-    
+
     @IBOutlet private weak var videoView: VideoView! {
         didSet {
             videoView.configureVideoView(parent: self)
             videoView.layer.cornerRadius = Constants.videoCornerRadius
         }
     }
-        
+
     // MARK: - Lifecycle 
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareNavigationBar(title: homeGame.fullTitle, tintColor: .white, barStyle: .transparent)
         loadDetail()
     }
-    
+
     @objc private func rulesButtonPressed(_ sender: UIButton) {
         openUrl(with: Constants.gameRulesPath, accentColor: sender.backgroundColor)
     }
-    
+
     @objc private func blanksButtonPressed(_ sender: UIButton) {
         openUrl(with: homeGame.blanksPath, accentColor: sender.backgroundColor)
     }
-    
+
     private func openUrl(with path: String?, accentColor: UIColor!) {
         guard let path = path else { return }
         var rulesUrlComps = NetworkService.shared.baseUrlComponents
@@ -79,7 +79,7 @@ class HomeGameVideoVC: UIViewController {
         guard let url = rulesUrlComps.url else { return }
         openSafariVC(with: url, delegate: nil)
     }
-    
+
     // MARK: - Load Details
     private func loadDetail() {
         NetworkService.shared.getHomeGame(by: homeGame.id) { (result) in
@@ -93,7 +93,7 @@ class HomeGameVideoVC: UIViewController {
             }
         }
     }
-    
+
     // MARK: - Update UI
     private func updateUI() {
         videoView.configurePlayer(url: homeGame.videoUrl, shouldAutoPlay: false)

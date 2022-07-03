@@ -10,12 +10,12 @@ import Foundation
 
 enum GameFormat: Int, Decodable, CaseIterable, ScheduleFilterProtocol {
     case offline, online
-    
-    ///Do not assign to this case. It is used for system purposes
+
+    /// Do not assign to this case. It is used for system purposes
     case all
-    
+
     var id: Int { rawValue }
-    
+
     var title: String {
         switch self {
         case .all:

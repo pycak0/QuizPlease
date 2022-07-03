@@ -1,5 +1,5 @@
 //
-//MARK:  ProfileVC.swift
+// MARK: ProfileVC.swift
 //  QuizPlease
 //
 //  Created by Владислав on 30.07.2020.
@@ -36,37 +36,37 @@ class ProfileVC: UIViewController {
             tableView.dataSource = self
         }
     }
-    
-    //`addGameButton` fading helpers
+
+    // `addGameButton` fading helpers
     private var lastOffset: CGFloat = 0
     private var startOffset: CGFloat?
-    
+
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareNavigationBar(barStyle: .transcluent(tintColor: view.backgroundColor))
         presenter.viewDidLoad(self)
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         presenter.handleViewDidAppear()
     }
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         resetGradient()
     }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         presenter.router.prepare(for: segue, sender: sender)
     }
 
     @IBAction private func shopButtonPressed(_ sender: UIButton) {
-        //sender.scaleOut()
+        // sender.scaleOut()
         presenter.didPressShowShopButton()
     }
-    
+
     @IBAction private func addGameButtonPressed(_ sender: UIButton) {
         sender.scaleOut()
         presenter.didPressAddGameButton()
@@ -75,7 +75,7 @@ class ProfileVC: UIViewController {
     @IBAction private func exitButtonPressed(_ sender: Any) {
         presenter.didPressExitButton()
     }
-    
+
     private func resetGradient() {
         infoHeader.layer.sublayers?.removeAll(where: { $0 is CAGradientLayer })
         let infoGradFrame = CGRect(
@@ -85,7 +85,7 @@ class ProfileVC: UIViewController {
         )
         infoHeader.addGradient(colors: [.lemon, .lightOrange], frame: infoGradFrame, insertAt: 0)
         infoHeader.clipsToBounds = false
-        
+
         addGameButton.layer.sublayers?.removeAll(where: { $0 is CAGradientLayer })
         addGameButton.addGradient(colors: [.lemon, .lightOrange], insertAt: 0)
     }
@@ -98,18 +98,18 @@ extension ProfileVC: ProfileViewProtocol {
         showShopButton.layer.cornerRadius = showShopButton.bounds.height / 2
         addGameButton.layer.cornerRadius = 20
     }
-    
+
     func reloadGames() {
-        tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .automatic)
+        tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
     }
-    
+
     func updateUserInfo(with pointsScored: Double) {
         let gamesCount = presenter.userInfo?.games?.count ?? 0
         totalPointsScoredLabel.text = pointsFormatter.string(from: pointsScored as NSNumber)
         let gamesFormattedCount = gamesCount.string(withAssociatedFirstCaseWord: "игра", changingCase: .genitive)
         gamesCountLabel.text = "Вы сходили на \(gamesFormattedCount) и накопили"
     }
-    
+
     func setCity(_ city: String) {
         cityLabel.text = "Игры, на кототрых Вы зажигали в городе: \(city)"
     }
@@ -134,24 +134,25 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return presenter.userInfo?.games?.count ?? 1
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let games = presenter.userInfo?.games, !games.isEmpty else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: ProfileSampleCell.identifier, for: indexPath) as! ProfileSampleCell
-            cell.configure(with: "Тут появляются игры, на которых вы зажигали! Чтобы добавить игру, жмите на кнопку Добавить игру и сканируйте qr-код")
-            
+            let cell = tableView.dequeueReusableCell(ProfileSampleCell.self, for: indexPath)
+            let description = "Тут появляются игры, на которых вы зажигали! " +
+            "Чтобы добавить игру, жмите на кнопку Добавить игру и сканируйте qr-код"
+
+            cell.configure(with: description)
             return cell
         }
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: ProfileCell.identifier, for: indexPath) as! ProfileCell
-        
+
+        let cell = tableView.dequeueReusableCell(ProfileCell.self, for: indexPath)
         let game = games[indexPath.row]
         let pointsText = game.points.map { pointsFormatter.string(from: $0 as NSNumber) ?? "" }
         cell.configure(
-            gameName:     game.title,
-            gameNumber:   game.gameNumber,
-            teamName:     "",
-            place:        game.place,
+            gameName: game.title,
+            gameNumber: game.gameNumber,
+            teamName: "",
+            place: game.place,
             pointsScoredText: pointsText
         )
         return cell
@@ -163,7 +164,7 @@ extension ProfileVC: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let currentOffset = scrollView.contentOffset.y + scrollView.safeAreaInsets.top
         let isScrollingDown = currentOffset > lastOffset
-        
+
         if isScrollingDown && currentOffset > 10 {
             if startOffset == nil {
                 startOffset = currentOffset
@@ -181,17 +182,19 @@ extension ProfileVC: UIScrollViewDelegate {
             }
             startOffset = nil
         }
-        
+
         lastOffset = currentOffset
     }
-    
+
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         guard !decelerate, addGameButton.alpha != 0 && addGameButton.alpha != 1 else { return }
-        
-        let transform = addGameButton.alpha >= 0.5 ? CGAffineTransform.identity : CGAffineTransform(translationX: 0, y: 100)
+
+        let transform = addGameButton.alpha >= 0.5
+            ? CGAffineTransform.identity
+            : CGAffineTransform(translationX: 0, y: 100)
         let alpha = addGameButton.alpha.rounded()
         startOffset = alpha == 1 ? nil : startOffset
-        
+
         UIView.animate(withDuration: 0.2) {
             self.addGameButton.transform = transform
             self.addGameButton.alpha = alpha

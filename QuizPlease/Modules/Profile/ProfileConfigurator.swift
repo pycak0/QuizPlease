@@ -19,7 +19,7 @@ class ProfileConfigurator: ProfileConfiguratorProtocol {
         let presenter = ProfilePresenter(view: view, interactor: interactor, router: router)
         presenter.userInfo = userInfo
         interactor.delegate = presenter
-        
+
         view.presenter = presenter
     }
 }

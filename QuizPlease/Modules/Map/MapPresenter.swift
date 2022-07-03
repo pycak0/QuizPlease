@@ -9,18 +9,18 @@
 import Foundation
 
 final class MapPresenter {
-    
+
     /// Map Screen
     weak var view: MapViewInput?
-    
+
     /// Map Interactor
     private let interactor: MapInteractorInput
-    
+
     /// Map Router
     private let router: MapRouterProtocol
-    
+
     // MARK: - Lifecycle
-        
+
     init(
         interactor: MapInteractorInput,
         router: MapRouterProtocol
@@ -33,7 +33,7 @@ final class MapPresenter {
 // MARK: - MapViewOutput
 
 extension MapPresenter: MapViewOutput {
-    
+
     func viewDidLoad() {
         interactor.getPlaceAnnotation { [weak self] place in
             if let place = place {
@@ -41,23 +41,23 @@ extension MapPresenter: MapViewOutput {
             }
         }
     }
-    
+
     func didTapClose() {
         router.close()
     }
-    
+
     func didTapDirections(for place: Place) {
         router.openMapWithRoute(to: place)
     }
-    
+
     func zoomInPressed() {
         view?.zoomIn()
     }
-    
+
     func zoomOutPressed() {
         view?.zoomOut()
     }
-    
+
     func locationPressed() {
         interactor.requestLocationAuthorizationStatus { [weak view] isGranted in
             if isGranted {
@@ -65,7 +65,7 @@ extension MapPresenter: MapViewOutput {
             }
         }
     }
-    
+
     func didTapPlace(_ place: Place) {
         view?.showInfoView(for: place)
     }

@@ -14,7 +14,7 @@ import UIKit
 /// - full-width swipe back gesture recognizer
 /// - (maybe in the future) stylable navigation bar
 class QPNavigationController: UINavigationController {
-    
+
     let fullWidthSwipeBackGestureRecognizer = UIPanGestureRecognizer()
 
     override func viewDidLoad() {
@@ -22,7 +22,9 @@ class QPNavigationController: UINavigationController {
     }
 
     private func setupSwipeBackGestureRecognizer() {
-        if let interactivePopGestureRecognizer = interactivePopGestureRecognizer, let targets = interactivePopGestureRecognizer.value(forKey: "targets") {
+        if let interactivePopGestureRecognizer = interactivePopGestureRecognizer,
+           let targets = interactivePopGestureRecognizer.value(forKey: "targets") {
+
             fullWidthSwipeBackGestureRecognizer.setValue(targets, forKey: "targets")
             view.addGestureRecognizer(fullWidthSwipeBackGestureRecognizer)
             if #available(iOS 13.4, *) {

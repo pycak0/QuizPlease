@@ -12,7 +12,7 @@ import Foundation
 protocol SplashScreenPresenterProtocol {
     var router: SplashScreenRouterProtocol { get }
     init(view: SplashScreenViewProtocol, interactor: SplashScreenInteractorProtocol, router: SplashScreenRouterProtocol)
-    
+
     func viewDidLoad(_ view: SplashScreenViewProtocol)
 }
 
@@ -20,11 +20,11 @@ class SplashScreenPresenter: SplashScreenPresenterProtocol {
     weak var view: SplashScreenViewProtocol?
     var interactor: SplashScreenInteractorProtocol
     var router: SplashScreenRouterProtocol
-    
+
     private let dispatchGroup = DispatchGroup()
 
     private let timeout = 0.5
-    
+
     required init(
         view: SplashScreenViewProtocol,
         interactor: SplashScreenInteractorProtocol,
@@ -34,7 +34,7 @@ class SplashScreenPresenter: SplashScreenPresenterProtocol {
         self.interactor = interactor
         self.router = router
     }
-    
+
     func viewDidLoad(_ view: SplashScreenViewProtocol) {
         updateUserToken()
         setTimer()
@@ -42,15 +42,15 @@ class SplashScreenPresenter: SplashScreenPresenterProtocol {
             self.router.showMainMenu()
         }
     }
-    
+
     private func updateUserToken() {
         dispatchGroup.enter()
         interactor.updateUserToken()
     }
-    
+
     private func setTimer() {
         dispatchGroup.enter()
-        Timer.scheduledTimer(withTimeInterval: timeout, repeats: false) { [self] timer in
+        Timer.scheduledTimer(withTimeInterval: timeout, repeats: false) { [self] _ in
             dispatchGroup.leave()
             view?.startLoading()
         }
@@ -63,12 +63,12 @@ extension SplashScreenPresenter: SplashScreenInteractorOutput {
         interactor.updateDefaultCity()
         interactor.updateClientSettings()
     }
-    
+
     func interactor(_ interactor: SplashScreenInteractorProtocol, errorOccured error: NetworkServiceError) {
         dispatchGroup.leave()
         print(error)
     }
-    
+
     func interactor(_ interactor: SplashScreenInteractorProtocol, didLoadClientSettings settings: ClientSettings) {
         dispatchGroup.leave()
     }

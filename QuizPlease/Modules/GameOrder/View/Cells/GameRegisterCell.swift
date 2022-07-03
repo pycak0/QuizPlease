@@ -11,46 +11,47 @@ import UIKit
 // MARK: - Delegate Protocol
 
 protocol GameRegisterCellDelegate: AnyObject {
-    ///The delegate should return a  number of people to select in picker. If the number is invalid, picker will select the first button.
+    /// The delegate should return a  number of people to select in picker.
+    /// If the number is invalid, picker will select the first button.
     func selectedNumberOfPeople(in registerCell: GameRegisterCell) -> Int
-    
+
     func registerCell(_ registerCell: GameRegisterCell, didChangeNumberOfPeopleInTeam number: Int)
-    
+
     func registerCell(_ registerCell: GameRegisterCell, didChangeTeamName newName: String)
-    
+
     func registerCell(_ registerCell: GameRegisterCell, didChangeCaptainName newName: String)
-    
+
     func registerCell(_ registerCell: GameRegisterCell, didChangeEmail email: String)
-    
+
     func registerCell(_ registerCell: GameRegisterCell, didChangePhone number: String, didCompleteMask: Bool)
-    
+
     func registerCell(_ registerCell: GameRegisterCell, didChangeFeedback newValue: String)
 }
 
 class GameRegisterCell: UITableViewCell, GameOrderCellProtocol {
     static let identifier = "\(GameRegisterCell.self)"
-    
+
     weak var delegate: AnyObject? {
         get { _delegate }
         set { _delegate = newValue as? GameRegisterCellDelegate }
     }
     private weak var _delegate: GameRegisterCellDelegate?
-    
+
     // MARK: - Outlets
-    
+
     @IBOutlet weak var teamNameFieldView: TitledTextFieldView!
     @IBOutlet weak var captainNameFieldView: TitledTextFieldView!
     @IBOutlet weak var emailFieldView: TitledTextFieldView!
-    
+
     @IBOutlet weak var phoneFieldView: PhoneTextFieldView! {
         didSet {
             phoneFieldView.formattingKind = .internationalWithMask
         }
     }
-    
+
     @IBOutlet weak var fieldsStack: UIStackView!
     @IBOutlet weak var countPicker: CountPickerView!
-    
+
     @IBOutlet weak var feedbackFieldView: TitledTextFieldView! {
         didSet {
             feedbackFieldView.delegate = self
@@ -58,12 +59,12 @@ class GameRegisterCell: UITableViewCell, GameOrderCellProtocol {
             feedbackFieldView.textField.returnKeyType = .done
         }
     }
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         configureCell()
     }
-    
+
     // MARK: - Layout Subviews
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -74,21 +75,22 @@ class GameRegisterCell: UITableViewCell, GameOrderCellProtocol {
             countPicker.setSelectedButton(at: index, animated: false)
         }
     }
-    
+
     private func configureCell() {
         configurePicker()
         configureTextFields()
     }
-    
+
     private func configurePicker() {
         countPicker.delegate = self
         let font: UIFont = .gilroy(.semibold, size: 16)
         countPicker.titleLabel.font = font
         countPicker.buttonsTitleFont = font
     }
-    
+
     private func configureTextFields() {
-        for (index, field) in (fieldsStack.arrangedSubviews as! [TitledTextFieldView]).enumerated() {
+        let subviews = fieldsStack.arrangedSubviews as? [TitledTextFieldView] ?? []
+        for (index, field) in subviews.enumerated() {
             field.delegate = self
             if let type = TextFieldType(rawValue: index) {
                 field.textField.textContentType = type.contentType
@@ -103,15 +105,19 @@ class GameRegisterCell: UITableViewCell, GameOrderCellProtocol {
 // MARK: - TitledTextFieldViewDelegate
 
 extension GameRegisterCell: TitledTextFieldViewDelegate {
-    
+
     func textFieldViewDidEndEditing(_ textFieldView: TitledTextFieldView) {
         self.textFieldView(textFieldView, didChangeTextField: textFieldView.textField.text ?? "")
     }
-    
+
     func textFieldView(_ textFieldView: TitledTextFieldView, didChangeTextField text: String) {
         switch textFieldView {
         case phoneFieldView:
-            _delegate?.registerCell(self, didChangePhone: phoneFieldView.extractedFormattedNumber, didCompleteMask: phoneFieldView.isValidNumber)
+            _delegate?.registerCell(
+                self,
+                didChangePhone: phoneFieldView.extractedFormattedNumber,
+                didCompleteMask: phoneFieldView.isValidNumber
+            )
         case teamNameFieldView:
             _delegate?.registerCell(self, didChangeTeamName: text)
         case emailFieldView:
@@ -129,16 +135,16 @@ extension GameRegisterCell: TitledTextFieldViewDelegate {
 // MARK: - CountPickViewDelegate
 
 extension GameRegisterCell: CountPickerViewDelegate {
-    
+
     func countPicker(_ picker: CountPickerView, didChangeSelectedNumber number: Int) {
         _delegate?.registerCell(self, didChangeNumberOfPeopleInTeam: number)
     }
 }
 
 // MARK: - Text Field Types
-fileprivate enum TextFieldType: Int, CaseIterable {
+private enum TextFieldType: Int, CaseIterable {
     case team, captain, email, phone
-    
+
     var contentType: UITextContentType {
         switch self {
         case .team:
@@ -151,7 +157,7 @@ fileprivate enum TextFieldType: Int, CaseIterable {
             return .telephoneNumber
         }
     }
-    
+
     var keyboardType: UIKeyboardType {
         switch self {
         case .email:
@@ -162,7 +168,7 @@ fileprivate enum TextFieldType: Int, CaseIterable {
             return .default
         }
     }
-    
+
     var capitalizationType: UITextAutocapitalizationType {
         switch self {
         case .team:

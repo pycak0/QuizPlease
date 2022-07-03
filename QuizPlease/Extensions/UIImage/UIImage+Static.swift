@@ -12,36 +12,36 @@ extension UIImage {
     class var logoColoredImage: UIImage? {
         UIImage(named: "logoSmall")?.withRenderingMode(.alwaysOriginal)
     }
-    
+
     class var logoTemplateImage: UIImage? {
         UIImage(named: "logoSmall")?.withRenderingMode(.alwaysTemplate)
     }
-    
+
     class var backButton: UIImage {
         UIImage(imageLiteralResourceName: "backButton")
     }
-    
+
     class var xmark: UIImage? {
         if #available(iOS 13.0, *) {
             return UIImage(systemName: "xmark")
         }
         return UIImage(named: "xmarkIcon")
     }
-    
+
     class var plus: UIImage? {
         if #available(iOS 13.0, *) {
             return UIImage(systemName: "plus")
         }
         return UIImage(named: "plus")
     }
-    
+
     class var minus: UIImage? {
         if #available(iOS 13.0, *) {
             return UIImage(systemName: "minus")
         }
         return UIImage(named: "minus")
     }
-    
+
     class var location: UIImage? {
         if #available(iOS 13.0, *) {
             return UIImage(systemName: "location")

@@ -10,6 +10,6 @@ import Foundation
 
 struct RegisterResponse: Decodable {
     var status: Int?
-    
+
     var message: String
 }

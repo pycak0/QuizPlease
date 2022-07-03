@@ -15,18 +15,24 @@ public extension UIView {
 
     fileprivate typealias Action = (() -> Void)?
     fileprivate var tapGestureRecognizerAction: Action? {
+        get {
+            let tapGestureRecognizerActionInstance = objc_getAssociatedObject(
+                self,
+                &AssociatedObjectKeys.tapGestureRecognizer
+            ) as? Action
+            return tapGestureRecognizerActionInstance
+        }
         set {
             if let newValue = newValue {
                 // Computed properties get stored as associated objects
-                objc_setAssociatedObject(self, &AssociatedObjectKeys.tapGestureRecognizer, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN)
+                objc_setAssociatedObject(
+                    self, &AssociatedObjectKeys.tapGestureRecognizer, newValue,
+                    objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN
+                )
             }
         }
-        get {
-            let tapGestureRecognizerActionInstance = objc_getAssociatedObject(self, &AssociatedObjectKeys.tapGestureRecognizer) as? Action
-            return tapGestureRecognizerActionInstance
-        }
     }
-    
+
     @objc fileprivate func handleTapGesture(sender: UITapGestureRecognizer) {
         if let action = self.tapGestureRecognizerAction {
             action?()
@@ -34,7 +40,7 @@ public extension UIView {
             print("no action")
         }
     }
-    
+
     func addTapGestureRecognizer(action: (() -> Void)?) {
         self.isUserInteractionEnabled = true
         self.tapGestureRecognizerAction = action

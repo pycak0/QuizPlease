@@ -8,7 +8,7 @@
 
 import UIKit
 
-///Protocol for type's static `identifier` that is name of type by default
+/// Protocol for type's static `identifier` that is name of type by default
 protocol IdentifiableType {
     static var identifier: String { get }
 }

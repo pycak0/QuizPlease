@@ -12,7 +12,7 @@ protocol RatingRouterProtocol: Router {}
 
 class RatingRouter: RatingRouterProtocol {
     unowned let viewController: UIViewController
-    
+
     required init(viewController: UIViewController) {
         self.viewController = viewController
     }

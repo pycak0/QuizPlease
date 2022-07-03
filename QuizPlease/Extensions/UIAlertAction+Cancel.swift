@@ -9,7 +9,7 @@
 import UIKit
 
 extension UIAlertAction {
-    
+
     /// Creates a new instance with `title: "Отмена", style: .cancel, handler: nil`
     static var cancel: UIAlertAction {
         UIAlertAction(title: "Отмена", style: .cancel)

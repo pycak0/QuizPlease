@@ -1,3 +1,4 @@
+// swiftlint:disable all
 /**
  A type-erased `Codable` value.
 

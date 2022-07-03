@@ -12,7 +12,7 @@ enum BarStyle {
     case transparent
     case transcluent(tintColor: UIColor?)
     case opaque(tintColor: UIColor?)
-    
+
     var tintColor: UIColor? {
         switch self {
         case .transparent:
@@ -23,7 +23,7 @@ enum BarStyle {
             return tintColor
         }
     }
-    
+
     @available(iOS 13, *)
     var appearance: UINavigationBarAppearance {
         let appearance = UINavigationBarAppearance()

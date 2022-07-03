@@ -9,7 +9,7 @@
 import Foundation
 
 protocol RatingInteractorProtocol {
-    ///must be weak
+    /// must be weak
     var output: RatingInteractorOutput? { get set }
     func loadRating(with filter: RatingFilter, page: Int, delay: Double)
     func cancelLoading()
@@ -24,20 +24,20 @@ class RatingInteractor: RatingInteractorProtocol {
     private var timer: Timer?
     private var runningTasks = [Cancellable?]()
     weak var output: RatingInteractorOutput?
-    
+
     func cancelLoading() {
         timer?.invalidate()
         runningTasks.forEach { $0?.cancel() }
         runningTasks.removeAll()
     }
-    
+
     func loadRating(with filter: RatingFilter, page: Int, delay: Double) {
         cancelLoading()
         timer = Timer.scheduledTimer(withTimeInterval: delay, repeats: false) { [weak self] _ in
             self?._loadRating(with: filter, page: page)
         }
     }
-    
+
     private func _loadRating(with filter: RatingFilter, page: Int) {
         let token = NetworkService.shared.getRating(
             cityId: filter.city.id,

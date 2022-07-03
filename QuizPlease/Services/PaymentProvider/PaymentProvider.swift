@@ -10,8 +10,8 @@ import UIKit
 
 protocol PaymentProvider: AnyObject {
     associatedtype Delegate
-    
+
     init(delegate: Delegate)
-    
+
     func showPaymentView(presentationController: UIViewController, options: PaymentOptions)
 }

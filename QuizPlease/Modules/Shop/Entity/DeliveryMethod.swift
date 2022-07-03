@@ -10,7 +10,7 @@ import Foundation
 
 enum DeliveryMethod {
     case game, online
-    
+
     init?(title: String) {
         switch title {
         case DeliveryMethod.game.title:
@@ -21,8 +21,8 @@ enum DeliveryMethod {
             return nil
         }
     }
-    
-    ///An identificator of DeliveryMethod used to perform server request
+
+    /// An identificator of DeliveryMethod used to perform server request
     var id: Int {
         switch self {
         case .online:
@@ -31,7 +31,7 @@ enum DeliveryMethod {
             return 1
         }
     }
-    
+
     var title: String {
         switch self {
         case .online:
@@ -40,8 +40,8 @@ enum DeliveryMethod {
             return "Забрать на игре"
         }
     }
-    
-    ///A message to show to user after successful purchase request
+
+    /// A message to show to user after successful purchase request
     var message: String {
         return "Наш менеджер отправит информацию о заказе на указанную почту"
     }
