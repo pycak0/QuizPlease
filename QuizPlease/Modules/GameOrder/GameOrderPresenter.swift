@@ -214,9 +214,9 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
     func didPressSubmitButton() {
         view?.endEditing()
         guard isPhoneNumberValid, registerForm.isValid else {
-            if registerForm.email.isEmpty {
+            if registerForm.email.isEmpty || registerForm.captainName.isEmpty || registerForm.teamName.isEmpty {
                 view?.showSimpleAlert(
-                    title: "Заполнены не все необходимые поля",
+                    title: "Заполнены не все обязательные поля",
                     message: "Пожалуйста, заполните все поля, отмеченные звездочкой, и проверьте их корректность"
                 )
             } else if !registerForm.email.isValidEmail {
