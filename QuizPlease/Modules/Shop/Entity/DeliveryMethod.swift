@@ -43,11 +43,6 @@ enum DeliveryMethod {
     
     ///A message to show to user after successful purchase request
     var message: String {
-        switch self {
-        case .online:
-            return "Заказ был отправлен на указанную почту"
-        case .game:
-            return "Информация о заказе была отправлена на указанную почту"
-        }
+        return "Наш менеджер отправит информацию о заказе на указанную почту"
     }
 }
