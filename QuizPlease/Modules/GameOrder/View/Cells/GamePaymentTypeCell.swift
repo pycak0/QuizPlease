@@ -67,9 +67,10 @@ class GamePaymentTypeCell: UITableViewCell, GameOrderCellProtocol {
         guard types.count <= 2, types.count >= 1 else {
             fatalError("Invalid count of payment types. Only online and cash (max 2, min 1) type(s) are supported now.")
         }
-        guard types.count == 1 else { return }
-        let singleType = types.first!
-        cashTypeView.isHidden = singleType == .online
-        onlineTypeView.isHidden = singleType == .cash
+        if types.count == 1, let singleType = types.first {
+            // if the only single type is available, hide the second one
+            cashTypeView.isHidden = singleType == .online
+            onlineTypeView.isHidden = singleType == .cash
+        }
     }
 }
