@@ -15,45 +15,64 @@ extension UIViewController {
      Use it for displaying supplementary messages e.g. successful url request.
      Default button title is 'OK', also any action can be assigned to the button with the closure.
      */
-    func showSimpleAlert(title: String = "Успешно!", message: String = "", okButtonTitle: String = "OK", okButtonStyle: UIAlertAction.Style = .default, okHandler: ((UIAlertAction) -> Void)? = nil) {
+    func showSimpleAlert(
+        title: String = "Успешно!",
+        message: String = "",
+        okButtonTitle: String = "OK",
+        okButtonStyle: UIAlertAction.Style = .default,
+        okHandler: ((UIAlertAction) -> Void)? = nil
+    ) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
        // alert.view.tintColor = tintColor
         let okBtn = UIAlertAction(title: okButtonTitle, style: okButtonStyle, handler: okHandler)
         alert.addAction(okBtn)
-        
+
         present(alert, animated: true, completion: nil)
     }
-    
+
     // MARK: - Show Alert With 2 Buttons
-    ///All messages are customizable and both buttons may be handled (or not)
-    func showTwoOptionsAlert(title: String, message: String, option1Title: String, handler1: ((UIAlertAction) -> Void)?, option2Title: String, handler2: ((UIAlertAction) -> Void)?) {
+    /// All messages are customizable and both buttons may be handled (or not)
+    func showTwoOptionsAlert(
+        title: String,
+        message: String,
+        option1Title: String,
+        handler1: ((UIAlertAction) -> Void)?,
+        option2Title: String,
+        handler2: ((UIAlertAction) -> Void)?
+    ) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        //alert.view.tintColor = tintColor
+        // alert.view.tintColor = tintColor
         let option1 = UIAlertAction(title: option1Title, style: .default, handler: handler1)
         let option2 = UIAlertAction(title: option2Title, style: .default, handler: handler2)
-        
+
         alert.addAction(option1)
         alert.addAction(option2)
         present(alert, animated: true, completion: nil)
     }
-    
+
     // MARK: - Show Action Sheet With Configurable Option
-    ///Cancel button is set by default
-    func showActionSheetWithOptions(title: String?, buttons: [UIAlertAction], buttonTextAligment: CATextLayerAlignmentMode = .center, cancelTitle: String = "Отмена", tintColor: UIColor? = .labelAdapted) {
+    /// Cancel button is set by default
+    func showActionSheetWithOptions(
+        title: String?,
+        buttons: [UIAlertAction],
+        buttonTextAligment: CATextLayerAlignmentMode = .center,
+        cancelTitle: String = "Отмена",
+        tintColor: UIColor? = .labelAdapted
+    ) {
         let alert = UIAlertController(title: title, message: nil, preferredStyle: .actionSheet)
         alert.view.tintColor = tintColor
-        
+
         buttons.forEach { (button) in
-            //button.titleAlignment = buttonTextAligment
+            // button.titleAlignment = buttonTextAligment
             alert.addAction(button)
         }
-        
+
         let cancel = UIAlertAction(title: cancelTitle, style: .cancel, handler: nil)
         alert.addAction(cancel)
-        
+
         present(alert, animated: true, completion: nil)
     }
-    
+
     // MARK: - Text Field Alert
     func showAlertWithTextField(
         title: String,
@@ -67,18 +86,18 @@ extension UIViewController {
         okTitle: String = "OK",
         okHandler: ((_ textFieldText: String) -> Void)?
     ) {
-        
+
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        //alert.view.tintColor = tintColor
+        // alert.view.tintColor = tintColor
         let cancelBtn = UIAlertAction(title: cancelTitle, style: .cancel, handler: cancelHandler)
-        let okBtn = UIAlertAction(title: okTitle, style: .default) { (okAction) in
+        let okBtn = UIAlertAction(title: okTitle, style: .default) { (_) in
             let text = alert.textFields?.first?.text ?? ""
             okHandler?(text)
         }
 
         alert.addAction(cancelBtn)
         alert.addAction(okBtn)
-        
+
         alert.addTextField { (field) in
             field.text = textFieldText
             field.placeholder = placeholder
@@ -86,29 +105,39 @@ extension UIViewController {
             field.textContentType = contentType
             field.textAlignment = textAlignment
         }
-        
+
         present(alert, animated: true, completion: nil)
     }
-    
+
     // MARK: - Error Connecting To Server Alert
-    ///Not as good as 'simple alert' but is very easy to call specially for internet issues
-    func showErrorConnectingToServerAlert(title: String = "Не удалось связаться с сервером", message: String = "Повторите попытку позже"){
+    /// Not as good as 'simple alert' but is very easy to call specially for internet issues
+    func showErrorConnectingToServerAlert(
+        title: String = "Не удалось связаться с сервером",
+        message: String = "Повторите попытку позже"
+    ) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        //alert.view.tintColor = tintColor
+        // alert.view.tintColor = tintColor
         let okBtn = UIAlertAction(title: "OK", style: .cancel, handler: nil)
         alert.addAction(okBtn)
         present(alert, animated: true, completion: nil)
     }
-    
-    func showNeedsAuthAlert(title: String = "Ошибка авторизации", message: String = "Вы можете авторизоваться или зарегистрироваться в Личном кабинете") {
+
+    func showNeedsAuthAlert(
+        title: String = "Ошибка авторизации",
+        message: String = "Вы можете авторизоваться или зарегистрироваться в Личном кабинете"
+    ) {
         showSimpleAlert(title: title, message: message, okButtonTitle: "OK", okHandler: nil)
     }
-    
-    func showChooseItemActionSheet(itemNames: [String], tintColor: UIColor? = .labelAdapted, completion: ((_ selectedName: String, _ index: Int) -> Void)?) {
+
+    func showChooseItemActionSheet(
+        itemNames: [String],
+        tintColor: UIColor? = .labelAdapted,
+        completion: ((_ selectedName: String, _ index: Int) -> Void)?
+    ) {
         var buttons = [UIAlertAction]()
         for name in itemNames {
             buttons.append(
-                UIAlertAction(title: name, style: .default) { (action) in
+                UIAlertAction(title: name, style: .default) { (_) in
                     let index = Int(itemNames.firstIndex(of: name)!)
                     completion?(name, index)
                 }
@@ -116,20 +145,7 @@ extension UIViewController {
         }
         showActionSheetWithOptions(title: nil, buttons: buttons, tintColor: tintColor)
     }
-    
-//    func showPickerSheet(_ title: String, with values: [String], selectedIndex: Int,
-//                         cancelButtonTitle: String = "Готово",
-//                         handler: @escaping (_ selectedIndex: Int) -> Void) {
-//        let alert = UIAlertController(style: .actionSheet, title: title, message: nil)
-//        //works incorrect
-//        //alert.view.tintColor = .labelAdapted
-//        alert.addPickerView(values: [values], initialSelection: (column: 0, row: selectedIndex)) { (_, picker, _, _) in
-//            handler(picker.selectedRow(inComponent: 0))
-//        }
-//        alert.addAction(title: cancelButtonTitle, style: .cancel)
-//        present(alert, animated: true)
-//    }
-    
+
     func showSimpleAlert(
         attributedTitle: NSAttributedString,
         attributedMessage: NSAttributedString = NSAttributedString(string: ""),

@@ -19,7 +19,7 @@ extension UserInfo {
     var pointsAmount: Double {
         bonus_points?[AppSettings.defaultCity.title] ?? 0
     }
-    
+
     var subscribedGames: [Int] {
         subscribe_games?.compactMap { Int($0) } ?? []
     }

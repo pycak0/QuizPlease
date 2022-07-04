@@ -15,12 +15,12 @@ struct HomeGame: Decodable {
     var duration: String
     var number: String
     var price: Int
-    
+
     private var videos_link: String?
     private var front_image: String?
     private var packages_link: String?
 //    var cover: String
-    
+
     init() {
         id = 0
         title = ""
@@ -29,7 +29,7 @@ struct HomeGame: Decodable {
         number = ""
         price = 0
     }
-    
+
 }
 
 extension HomeGame {
@@ -39,16 +39,16 @@ extension HomeGame {
         components.path = path.pathProof
         return components.url
     }
-    
+
     var frontImagePath: String? {
         return front_image?.pathProof
     }
-    
+
     var blanksPath: String? {
         packages_link?.pathProof
     }
-    
-    ///A title of home game containing its `title` and `number` properties separated by a whitespace
+
+    /// A title of home game containing its `title` and `number` properties separated by a whitespace
     var fullTitle: String {
         return "\(title.trimmingCharacters(in: .whitespaces)) \(number)"
     }

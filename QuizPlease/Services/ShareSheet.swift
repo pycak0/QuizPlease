@@ -10,20 +10,20 @@ import UIKit
 import LinkPresentation
 
 protocol ShareSheetProtocol {
-    
+
     func present(on viewController: UIViewController, with items: [Any], completion: @escaping (Bool) -> Void)
-    
+
     func present(on viewController: UIViewController, with image: UIImage, completion: @escaping (Bool) -> Void)
-    
+
     func present(on viewController: UIViewController, with url: URL, completion: @escaping (Bool) -> Void)
 }
 
 class ShareSheet: NSObject, ShareSheetProtocol {
-    
+
     var tempImage: UIImage?
-    
+
     // MARK: - ShareSheetProtocol
-    
+
     /// Present Share Sheet with any supported items
     ///
     /// This method should be used for sharing multiple different items at once.
@@ -44,7 +44,7 @@ class ShareSheet: NSObject, ShareSheetProtocol {
         }
         viewController.present(shareSheetVc, animated: true)
     }
-    
+
     /// Present Share Sheet with an image
     ///
     /// This method is designed not only for convenience
@@ -52,15 +52,14 @@ class ShareSheet: NSObject, ShareSheetProtocol {
     /// (When using universal method with '`items`' parameter,
     /// you'll not able to see the preview of `UIImage` instance passed to that method)
     func present(
-        on viewController:
-        UIViewController,
+        on viewController: UIViewController,
         with image: UIImage,
         completion: @escaping (Bool) -> Void
     ) {
         tempImage = image
         present(on: viewController, with: [image, self], completion: completion)
     }
-    
+
     /// Present Share Sheet with a URL
     func present(
         on viewController: UIViewController,
@@ -74,20 +73,20 @@ class ShareSheet: NSObject, ShareSheetProtocol {
 // MARK: - UIActivityItemSource
 
 extension ShareSheet: UIActivityItemSource {
-    
+
     func activityViewControllerPlaceholderItem(
         _ activityViewController: UIActivityViewController
     ) -> Any {
         ""
     }
-    
+
     func activityViewController(
         _ activityViewController: UIActivityViewController,
         itemForActivityType activityType: UIActivity.ActivityType?
     ) -> Any? {
         nil
     }
-    
+
     @available(iOS 13.0, *)
     func activityViewControllerLinkMetadata(
         _ activityViewController: UIActivityViewController

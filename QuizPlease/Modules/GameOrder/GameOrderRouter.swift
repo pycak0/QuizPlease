@@ -10,21 +10,21 @@ import UIKit
 
 // MARK: - Router Protocol
 protocol GameOrderRouterProtocol: SegueRouter {
-    
+
     func showPaymentView<Provider: PaymentProvider>(provider: Provider, withOptions paymentOptions: PaymentOptions)
-    
+
     func showCompletionScreen(with gameInfo: GameInfo, numberOfPeopleInTeam number: Int)
-    
+
     func showMap(for place: Place)
 }
 
 class GameOrderRouter: GameOrderRouterProtocol {
     unowned let viewController: UIViewController
-    
+
     required init(viewController: UIViewController) {
         self.viewController = viewController
     }
-    
+
     // MARK: - Prepare for segue
     func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
@@ -43,7 +43,7 @@ class GameOrderRouter: GameOrderRouterProtocol {
             print("No preparations made for segue with id '\(segue.identifier ?? "")' from GameOrderVC")
         }
     }
-    
+
     // MARK: - Show Completion Screen
     func showCompletionScreen(with gameInfo: GameInfo, numberOfPeopleInTeam number: Int) {
         let dict: [String: Any] = [
@@ -52,14 +52,14 @@ class GameOrderRouter: GameOrderRouterProtocol {
         ]
         viewController.performSegue(withIdentifier: "ShowGameOrderCompletionScreen", sender: dict)
     }
-    
+
     func showPaymentView<Provider: PaymentProvider>(provider: Provider, withOptions paymentOptions: PaymentOptions) {
         provider.showPaymentView(
             presentationController: viewController,
             options: paymentOptions
         )
     }
-    
+
     func showMap(for place: Place) {
         let mapViewController = MapAssembly(place: place).makeViewController()
         viewController.present(mapViewController, animated: true)

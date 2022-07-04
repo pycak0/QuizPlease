@@ -11,7 +11,7 @@ import Foundation
 struct ClientSettings: Codable {
     private let show_account: Int
     private let show_shop: Int
-    
+
     var isProfileEnabled: Bool { show_account == 1 }
     var isShopEnabled: Bool { show_shop == 1 }
 }

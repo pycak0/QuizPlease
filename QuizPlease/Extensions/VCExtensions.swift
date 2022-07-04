@@ -12,10 +12,10 @@ import UIKit
 
 extension UIViewController {
     // MARK: - Clear Navigation Bar
-    ///Clears navigation bar's background color, separator and back button
+    /// Clears navigation bar's background color, separator and back button
     func clearNavigationBar(clearBorder: Bool = true) {
         guard let navBar = navigationController?.navigationBar else { return }
-        
+
         clearNavBarBackground(andBorder: clearBorder)
         navBar.isTranslucent = true
         navBar.isOpaque = false
@@ -23,30 +23,30 @@ extension UIViewController {
         navBar.backIndicatorImage = UIImage()
         navBar.layoutIfNeeded()
     }
-    
+
     // MARK: - Clear Nav Bar Backgorund
-    ///Clears navigation bar's background color and separator
+    /// Clears navigation bar's background color and separator
     func clearNavBarBackground(andBorder: Bool = true) {
         guard let navBar = navigationController?.navigationBar else { return }
-        
+
         navBar.backgroundColor = .clear
         navBar.setBackgroundImage(UIImage(), for: .default)
         if andBorder {
             navBar.shadowImage = UIImage()
         }
     }
-    
+
     func setNavBarDefault(clearBorder: Bool = true) {
         guard let navBar = navigationController?.navigationBar else { return }
         navBar.setBackgroundImage(nil, for: .default)
         navBar.shadowImage = clearBorder ? UIImage() : nil
     }
-    
+
     func setupNavBarView(_ customNavBar: NavigationBar) {
         clearNavigationBar()
-    
+
         view.addSubview(customNavBar)
-        
+
         customNavBar.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             customNavBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
@@ -55,17 +55,17 @@ extension UIViewController {
             customNavBar.heightAnchor.constraint(equalToConstant: navBarHeight)
         ])
     }
-    
+
     // MARK: - Prepare Navigation Bar
     func prepareNavigationBar(title: String? = nil, titleAlignment: NSTextAlignment = .left, tintColor: UIColor? = nil, barStyle: BarStyle, scrollBarStyle: BarStyle? = nil) {
         navigationController?.navigationBar.barTintColor = barStyle.tintColor ?? view.backgroundColor
         navigationController?.navigationBar.shadowImage = UIImage()
-                
+
         if #available(iOS 15, *) {
             navigationController?.navigationBar.standardAppearance = (scrollBarStyle ?? barStyle).appearance
             navigationController?.navigationBar.scrollEdgeAppearance = barStyle.appearance
         }
-        
+
         if let color = tintColor {
             navigationController?.navigationBar.tintColor = color
         }
@@ -75,7 +75,7 @@ extension UIViewController {
             textAlignment: titleAlignment
         )
     }
-    
+
     var navBarHeight: CGFloat {
         return 120
 //        return 120

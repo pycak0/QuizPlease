@@ -8,25 +8,24 @@
 
 import UIKit
 
-class GOCPeopleNumberCell: UITableViewCell {
-    static let identifier = "\(GOCPeopleNumberCell.self)"
-    
+/// GOC - GameOrderCompletion Number Cell
+final class GOCPeopleNumberCell: UITableViewCell {
+
     @IBOutlet weak var countPicker: CountPickerView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
         configureCell()
     }
-    
+
     private func configureCell() {
         let font: UIFont = .gilroy(.semibold, size: 16)
         countPicker.isUserInteractionEnabled = false
         countPicker.titleLabel.font = font
         countPicker.buttonsTitleFont = font
     }
-    
+
     func setNumber(_ number: Int) {
         countPicker.setSelectedButton(at: number - countPicker.startCount, animated: false)
     }
-
 }

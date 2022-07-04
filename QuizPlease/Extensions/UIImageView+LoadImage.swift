@@ -21,7 +21,7 @@ extension UIImageView {
             }
         })
     }
-    
+
     func loadImage(
         using configuration: NetworkConfiguration = .standard,
         path: String?,

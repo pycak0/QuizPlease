@@ -18,7 +18,7 @@ class ShopConfigurator: ShopConfiguratorProtocol {
         let router = ShopRouter(viewController: view)
         let presenter = ShopPresenter(view: view, interactor: interactor, router: router)
         presenter.userInfo = userInfo
-        
+
         view.presenter = presenter
     }
 }

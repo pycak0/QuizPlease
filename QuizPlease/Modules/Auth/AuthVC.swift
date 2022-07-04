@@ -12,45 +12,45 @@ import PhoneNumberKit
 // MARK: - Delegate Protocol
 protocol AuthVCDelegate: AnyObject {
     func didSuccessfullyAuthenticate(in authVC: AuthVC)
-    
+
     func didCancelAuth(in authVC: AuthVC)
 }
 
 class AuthVC: UIViewController {
-    
+
     weak var delegate: AuthVCDelegate?
-    
+
     @IBOutlet private weak var authButton: ScalingButton!
     @IBOutlet private weak var textFieldView: PhoneTextFieldView!
     @IBOutlet private weak var descriptionLabel: UILabel!
     @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
-    
+
     private var isCodeSent: Bool = false
     private var phoneNumber: String?
     private var smsCode: String?
-    
+
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareNavigationBar(tintColor: .black, barStyle: .transcluent(tintColor: view.backgroundColor))
         configure()
     }
-    
+
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
     }
-    
+
     // MARK: - Cancel Button Pressed
     @IBAction private func cancelButtonPressed(_ sender: Any) {
         delegate?.didCancelAuth(in: self)
     }
-    
+
     // MARK: - Auth Button Pressed
     @IBAction private func authButtonPressed(_ sender: Any) {
         handleInput()
     }
-    
+
     private func handleInput() {
         guard let number = phoneNumber else {
             showIncorrectInputNotification()
@@ -73,30 +73,30 @@ class AuthVC: UIViewController {
             register(phone: phoneNumber)
         }
     }
-    
+
     // MARK: - Register
     private func register(phone: String) {
         let userData = UserRegisterData(phone: phone, cityId: "\(AppSettings.defaultCity.id)")
         NetworkService.shared.register(userData) { [weak self] (serverResult) in
             guard let self = self else { return }
-            
+
             switch serverResult {
             case let .failure(error):
                 print(error)
                 self.activityIndicator.stopAnimating()
                 self.setViews(hidden: false)
                 self.showErrorConnectingToServerAlert()
-                
+
             case let .success(response):
                 print(response)
-                ///user exists
-                //if response.status == 0 {
+                /// user exists
+                // if response.status == 0 {
                     self.sendCode(to: phone)
               //  }
             }
         }
     }
-    
+
     // MARK: - Send Code
     private func sendCode(to phoneNumber: String) {
         NetworkService.shared.sendCode(to: phoneNumber) { [weak self] (isSuccess) in
@@ -111,7 +111,7 @@ class AuthVC: UIViewController {
             self.setSmsMode()
         }
     }
-    
+
     // MARK: - Auth
     private func auth(with phoneNumber: String, smsCode: String) {
         let firebaseId = ""
@@ -135,17 +135,17 @@ class AuthVC: UIViewController {
             }
         }
     }
-    
+
     // MARK: - Configure Views
     private func configure() {
         view.addGradient(colors: [.lemon, .lightOrange], insertAt: 0)
-        
+
         authButton.layer.cornerRadius = 20
         textFieldView.textField.keyboardType = .phonePad
         textFieldView.textField.textColor = .black
         textFieldView.delegate = self
     }
-    
+
     private func setViews(hidden: Bool) {
         let alpha: CGFloat = hidden ? 0 : 1
         UIView.animate(withDuration: 0.2) { [self] in
@@ -154,7 +154,7 @@ class AuthVC: UIViewController {
             textFieldView.alpha = alpha
         }
     }
-    
+
     private func setSmsMode() {
         imageView.image = UIImage(named: "key")
         descriptionLabel.text = "Введите код из СМС"
@@ -166,12 +166,11 @@ class AuthVC: UIViewController {
         textFieldView.textField.textContentType = .oneTimeCode
         textFieldView.textField.keyboardType = .numberPad
     }
-    
+
     private func showIncorrectInputNotification() {
         textFieldView.shakeAnimation()
     }
 }
-
 
 // MARK: - Text Field View Delegate
 extension AuthVC: TitledTextFieldViewDelegate {

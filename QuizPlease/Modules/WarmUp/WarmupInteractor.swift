@@ -10,7 +10,7 @@ import UIKit
 
 // MARK: - Interactor Protocol
 protocol WarmupInteractorProtocol {
-    ///must be an `unowned var`
+    /// must be an `unowned var`
     var output: WarmupInteractorOutput! { get set }
     init(questionsService: WarmupQuestionsService)
     func loadQuestions()
@@ -29,11 +29,11 @@ protocol WarmupInteractorOutput: AnyObject {
 class WarmupInteractor: WarmupInteractorProtocol {
     unowned var output: WarmupInteractorOutput!
     let questionsService: WarmupQuestionsService
-    
+
     required init(questionsService: WarmupQuestionsService) {
         self.questionsService = questionsService
     }
-    
+
     func loadQuestions() {
         questionsService.getWarmupQuestions { [weak self] serverResult in
             guard let self = self else { return }
@@ -61,20 +61,20 @@ class WarmupInteractor: WarmupInteractorProtocol {
             }
         }
     }
-    
+
     func saveQuestionId(_ id: String) {
         DefaultsManager.shared.saveAnsweredQuestionId(id)
     }
-    
+
     func loadSavedQuestionIds(completion: @escaping ([String]) -> Void) {
-        //DispatchQueue.global().async {
+        // DispatchQueue.global().async {
             let ids = DefaultsManager.shared.getSavedQuestionIds() ?? []
-            //DispatchQueue.main.async {
+            // DispatchQueue.main.async {
                 completion(ids)
-            //}
-        //}
+            // }
+        // }
     }
-    
+
     func checkAnswerWithId(_ answerId: Int, forQuestionWithId questionId: String) {
         questionsService.sendWarmupAnswer(questionId: questionId, answerId: answerId) { [weak self] (result) in
             guard let self = self else { return }

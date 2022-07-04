@@ -31,7 +31,7 @@ public extension UIFont {
     class func customFont<Font: FontStyle>(of style: Font, size: CGFloat) -> UIFont {
         style.font(size: size)
     }
-    
+
     class func gilroy(_ style: FontSet.Gilroy, size: CGFloat) -> UIFont {
         customFont(of: style, size: size)
     }

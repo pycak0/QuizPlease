@@ -15,14 +15,14 @@ class PointsDecorator: NumberDecorator {
         let suffix = makeSuffix(for: number)
         return "\(formattedNumber) \(suffix)"
     }
-    
+
     private func makeSuffix(for number: Double) -> String {
         if number.truncatingRemainder(dividingBy: 1) == 0 {
             return "балл".changingAs(maleWordUsedWithNumber: Int(number))
         }
         return "баллов"
     }
-    
+
     override func number(from string: String) -> NSNumber? {
         guard let numberComponent = string.components(separatedBy: " ").first else { return nil }
         return super.number(from: numberComponent)

@@ -13,10 +13,10 @@ protocol QuestionPageVCDelegate: AnyObject {
 }
 
 class QuestionPageVC: UIPageViewController {
-    
+
     private var _viewControllers = [UIViewController]()
     private weak var questionsDelegate: QuestionPageVCDelegate?
-    
+
     var currentViewController: WarmupQuestionVC? {
         viewControllers?.first as? WarmupQuestionVC
     }
@@ -24,10 +24,10 @@ class QuestionPageVC: UIPageViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-    
+
     func configure(with items: [WarmupQuestion], delegate: (QuestionPageVCDelegate & WarmupQuestionVCAnswerDelegate)?) {
         dataSource = self
-        
+
         items.forEach { question in
             let vc = WarmupQuestionVC(question)
             vc.delegate = delegate
@@ -35,12 +35,12 @@ class QuestionPageVC: UIPageViewController {
         }
         questionsDelegate = delegate
     }
-    
+
     func start() {
         let vc = _viewControllers.removeFirst()
         setViewControllers([vc], direction: .forward, animated: true, completion: nil)
     }
-    
+
     func next() {
         guard !_viewControllers.isEmpty else {
             questionsDelegate?.questionsDidEnd()
@@ -57,7 +57,7 @@ extension QuestionPageVC: UIPageViewControllerDataSource {
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         return nil
     }
-    
+
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         return nil
     }

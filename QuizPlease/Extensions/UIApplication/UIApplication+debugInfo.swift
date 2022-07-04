@@ -9,7 +9,7 @@
 import UIKit
 
 extension UIApplication {
-    
+
     var debugInfo: String {
         let appVersionString = Bundle.main.version
         let buildKind = AppSettings.isDebug ? "Debug" : "Release"

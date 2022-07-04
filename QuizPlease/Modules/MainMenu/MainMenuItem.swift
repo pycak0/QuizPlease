@@ -28,7 +28,7 @@ struct MainMenuItem: MainMenuItemProtocol {
     var title: String
     var supplementaryText: String
     var height: CGFloat
-    
+
     init(_ kind: MainMenuItemKind) {
         _kind = kind
         identifier = kind.identifier
@@ -42,9 +42,9 @@ struct MainMenuItem: MainMenuItemProtocol {
 // MARK: - MainMenuItem Kinds
 enum MainMenuItemKind: Int, CaseIterable, MainMenuItemProtocol {
     var _kind: MainMenuItemKind { self }
-    
+
     case schedule, profile, warmup, homeGame, shop, rating
-    
+
     var identifier: String {
         switch self {
         case .schedule:     return ScheduleCell.identifier
@@ -55,7 +55,7 @@ enum MainMenuItemKind: Int, CaseIterable, MainMenuItemProtocol {
         case .shop:         return MenuShopCell.identifier
         }
     }
-    
+
     var title: String {
         switch self {
         case .schedule:     return "Расписание"
@@ -66,7 +66,7 @@ enum MainMenuItemKind: Int, CaseIterable, MainMenuItemProtocol {
         case .rating:       return "Рейтинг команд"
         }
     }
-    
+
     var supplementaryText: String {
         switch self {
         case .schedule:     return "Игры в барах"
@@ -77,7 +77,7 @@ enum MainMenuItemKind: Int, CaseIterable, MainMenuItemProtocol {
         case .rating:       return "15. Ваша команда"
         }
     }
-    
+
     var height: CGFloat {
         switch self {
         case .homeGame:     return 225
@@ -85,7 +85,7 @@ enum MainMenuItemKind: Int, CaseIterable, MainMenuItemProtocol {
         default:            return 200
         }
     }
-    
+
     var segueID: String {
         switch self {
         case .schedule:     return "Show ScheduleVC"

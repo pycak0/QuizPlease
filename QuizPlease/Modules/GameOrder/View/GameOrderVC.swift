@@ -18,7 +18,7 @@ protocol GameOrderViewProtocol: UIViewController, LoadingIndicator {
     func reloadInfo()
     func configureTableView()
 
-    ///Works only if view already contains at least one certificate cell
+    /// Works only if view already contains at least one certificate cell
     func addCertificateCell()
     func removeCertificateCell(at index: Int)
 
@@ -72,9 +72,15 @@ class GameOrderVC: UIViewController {
             tableView.dataSource = self
 
             for cellKind in GameInfoItemKind.allCases where cellKind != .addExtraCertificate {
-                tableView.register(UINib(nibName: cellKind.identifier, bundle: nil), forCellReuseIdentifier: cellKind.identifier)
+                tableView.register(
+                    UINib(nibName: cellKind.identifier, bundle: nil),
+                    forCellReuseIdentifier: cellKind.identifier
+                )
             }
-            tableView.register(GameAddExtraCertificateCell.self, forCellReuseIdentifier: GameAddExtraCertificateCell.identifier)
+            tableView.register(
+                GameAddExtraCertificateCell.self,
+                forCellReuseIdentifier: GameAddExtraCertificateCell.identifier
+            )
         }
     }
 
@@ -112,10 +118,11 @@ class GameOrderVC: UIViewController {
         tableView.scrollToRow(at: indexPath, at: .top, animated: true)
     }
 
-    ///Scroll to the top of Register section, after that calls `completion` closure where returns a `GameRegisterCell` object (if no errors occured)
+    /// Scroll to the top of Register section, after that calls `completion` closure,
+    /// where returns a `GameRegisterCell` object (if no errors occured).
     func scrollToRegistrationCell(animated: Bool = true, completion: ((GameRegisterCell?) -> Void)?) {
         let indexPath = IndexPath(row: GameInfoItemKind.registration.rawValue, section: 0)
-        
+
         if let cell = tableView.cellForRow(at: indexPath) as? GameRegisterCell {
             tableView.scrollToRow(at: indexPath, at: .top, animated: animated)
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -213,7 +220,7 @@ extension GameOrderVC: GameOrderViewProtocol {
     private func removeCertificateCell(at indexPath: IndexPath) {
         items.remove(at: indexPath.row)
         tableView.deleteRows(at: [indexPath], with: .fade)
-        
+
         // Also remove 'add' button if the only one certificate cell is left
         updateUiOnCertificateTextChange(newCode: presenter.specialConditions.first?.value ?? "")
     }
@@ -247,16 +254,24 @@ extension GameOrderVC: GameOrderViewProtocol {
 // MARK: - Data Source & Delegate
 
 extension GameOrderVC: UITableViewDataSource, UITableViewDelegate {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(
+        _ tableView: UITableView,
+        numberOfRowsInSection section: Int
+    ) -> Int {
         return items.count
     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //createCell(tableView, at: indexPath)
-
+    func tableView(
+        _ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath
+    ) -> UITableViewCell {
         let kind = items[indexPath.row]
-        //guard let kind = GameInfoItemKind(rawValue: index) else { fatalError("Invalid Game Item Kind") }
-        let cell = tableView.dequeueReusableCell(withIdentifier: kind.identifier, for: indexPath) as! GameOrderCellProtocol
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: kind.identifier,
+            for: indexPath
+        ) as? GameOrderCellProtocol else {
+            fatalError("❌ Invalid Cell Kind!")
+        }
 
         if let cell = cell as? GameCertificateCell {
             cell.associatedItemKind = kind
@@ -272,15 +287,21 @@ extension GameOrderVC: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
 
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+    func tableView(
+        _ tableView: UITableView,
+        canEditRowAt indexPath: IndexPath
+    ) -> Bool {
         items[indexPath.row] == .certificate && presenter.specialConditions.count > 1
     }
 
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    func tableView(
+        _ tableView: UITableView,
+        trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
+    ) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(
             style: .destructive,
             title: nil,
-            handler: { [weak self] action, view, completion in
+            handler: { [weak self] _, _, completion in
                 guard let self = self else { return }
                 if let firstIndex = self.indexOfFirstCertificate {
                     let cellIndexForPresenter = indexPath.row - firstIndex

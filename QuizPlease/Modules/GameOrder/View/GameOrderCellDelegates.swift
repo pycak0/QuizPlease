@@ -14,7 +14,7 @@ extension GameOrderVC: GameAnnotationCellDelegate {
     func gameAnnotation(for cell: GameAnnotationCell) -> String {
         presenter.game.description
     }
-    
+
     func signUpButtonPressed(in cell: GameAnnotationCell) {
         scrollToSignUp()
     }
@@ -26,7 +26,7 @@ extension GameOrderVC: GameInfoCellDelegate {
     func gameInfo(for gameInfoCell: GameInfoCell) -> GameInfo {
         return presenter.game
     }
-    
+
     func gameInfoCellDidTapOnMap(_ cell: GameInfoCell) {
         presenter.didTapOnMap()
     }
@@ -46,7 +46,7 @@ extension GameOrderVC: GameRegisterCellDelegate {
     func selectedNumberOfPeople(in registerCell: GameRegisterCell) -> Int {
         return presenter.registerForm.count
     }
-    
+
     func registerCell(_ registerCell: GameRegisterCell, didChangeNumberOfPeopleInTeam number: Int) {
         presenter.registerForm.count = number
         guard
@@ -57,24 +57,24 @@ extension GameOrderVC: GameRegisterCellDelegate {
         }
         cell.updateMaxNumberOfPeople(number)
     }
-    
+
     func registerCell(_ registerCell: GameRegisterCell, didChangeTeamName newName: String) {
         presenter.registerForm.teamName = newName
     }
-    
+
     func registerCell(_ registerCell: GameRegisterCell, didChangeCaptainName newName: String) {
         presenter.registerForm.captainName = newName
     }
-    
+
     func registerCell(_ registerCell: GameRegisterCell, didChangeEmail email: String) {
         presenter.registerForm.email = email
     }
-    
+
     func registerCell(_ registerCell: GameRegisterCell, didChangePhone extractedNumber: String, didCompleteMask: Bool) {
         presenter.isPhoneNumberValid = didCompleteMask
         presenter.registerForm.phone = extractedNumber
     }
-    
+
     func registerCell(_ registerCell: GameRegisterCell, didChangeFeedback newValue: String) {
         presenter.registerForm.comment = newValue
     }
@@ -91,19 +91,19 @@ extension GameOrderVC: GameCertificateCellDelegate {
         certificateCell.fieldView.title = "Введите промокод"
         return "У вас есть промокод?"
     }
-    
+
     func accessoryText(for certificateCell: GameCertificateCell) -> String {
         // "Для активации сертификатов от наших партнеров свяжитесь с нами"
         return ""
     }
-    
+
     func certificateCell(_ certificateCell: GameCertificateCell, didChangeCertificateCode newCode: String) {
         guard let index = indexForPresenter(of: certificateCell) else { return }
         presenter.didChangeSpecialCondition(newValue: newCode, at: index)
-        
+
         updateUiOnCertificateTextChange(newCode: newCode)
     }
-    
+
     func didPressOkButton(in certificateCell: GameCertificateCell) {
         view.endEditing(true)
         guard let index = indexForPresenter(of: certificateCell) else { return }
@@ -117,7 +117,7 @@ extension GameOrderVC: GameCertificateCellDelegate {
 //            break
 //        }
     }
-    
+
     func certificateCellDidEndEditing(_ certificateCell: GameCertificateCell) {
         guard let index = indexForPresenter(of: certificateCell) else { return }
         presenter.didEndEditingSpecialCondition(at: index)
@@ -147,32 +147,32 @@ extension GameOrderVC: GamePaymentTypeCellDelegate {
     func availablePaymentTypes(in cell: GamePaymentTypeCell) -> [PaymentType] {
         return presenter.availablePaymentTypes
     }
-    
+
     func isOnlinePaymentInitially(in cell: GamePaymentTypeCell) -> Bool {
         return presenter.isOnlinePaymentDefault
     }
-    
+
     func paymentTypeCell(_ cell: GamePaymentTypeCell, didChangePaymentType isOnlinePayment: Bool) {
         hapticGenerator.impactOccurred()
         presenter.registerForm.paymentType = isOnlinePayment ? .online : .cash
-        
+
         if let index = items.firstIndex(of: .submit), let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? GameSubmitButtonCell {
             let title = isOnlinePayment ? "Оплатить игру" : "Записаться на игру"
             cell.setButtonTitle(title)
         }
-        
+
         if isOnlinePayment {
             guard let i = items.firstIndex(of: .paymentType), i+1 < items.count,
                   items[i+1] != .onlinePayment
             else { return }
             let index = i + 1
-            
+
             items.insert(.onlinePayment, at: index)
             tableView.insertRows(at: [IndexPath(row: index, section: 0)], with: .fade)
-            
+
         } else {
             presenter.registerForm.countPaidOnline = nil
-            
+
             guard let index = items.firstIndex(of: .onlinePayment) else { return }
             items.remove(at: index)
             tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .fade)
@@ -186,19 +186,19 @@ extension GameOrderVC: GameOnlinePaymentCellDelegate {
     func shouldDisplayCountPicker(in cell: GameOnlinePaymentCell) -> Bool {
         return !presenter.game.isOnlineGame
     }
-    
+
     func selectedNumberOfPeople(in cell: GameOnlinePaymentCell) -> Int {
         return presenter.registerForm.countPaidOnline ?? presenter.registerForm.count
     }
-    
+
     func maxNumberOfPeopleToPay(in cell: GameOnlinePaymentCell) -> Int {
         return presenter.registerForm.count
     }
-    
+
     func sumToPay(in cell: GameOnlinePaymentCell, forUpdatedNumberOfPeople number: Int) -> Double {
         return presenter.countSumToPay(forPeople: number)
     }
-    
+
     func priceTextColor(in cell: GameOnlinePaymentCell) -> UIColor? {
         presenter.getPriceTextColor()
     }
@@ -212,11 +212,11 @@ extension GameOrderVC: GameSubmitButtonCellDelegate {
         let title = isOnlinePayment ? "Оплатить игру" : "Записаться на игру"
         return title
     }
-    
+
     func submitButtonCell(_ cell: GameSubmitButtonCell, didPressSubmitButton button: UIButton) {
         presenter.didPressSubmitButton()
     }
-    
+
     func didPressTermsOfUse(in cell: GameSubmitButtonCell) {
         presenter.didPressTermsOfUse()
     }

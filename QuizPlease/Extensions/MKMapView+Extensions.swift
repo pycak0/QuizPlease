@@ -9,7 +9,7 @@
 import MapKit
 
 extension MKMapView {
-    
+
     /// Calls method `setCenter(_:regionRadius:animated:)` with `location`'s coordinate
     func setCenter(
         _ location: CLLocation,
@@ -18,7 +18,7 @@ extension MKMapView {
     ) {
         setCenter(location.coordinate, regionRadius: regionRadius, animated: animated)
     }
-    
+
     func setCenter(
         _ coordinate: CLLocationCoordinate2D,
         regionRadius: CLLocationDistance = 1000,
@@ -31,7 +31,7 @@ extension MKMapView {
         )
         setRegion(coordinateRegion, animated: animated)
     }
-    
+
     /// Sets map zoom level
     /// - Parameters:
     ///   - scale: Relative zoom factor applied to current map zoom.

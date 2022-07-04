@@ -10,9 +10,9 @@ import Foundation
 
 struct UserAuthData: Codable {
     var phone: String
-    
-    ///sms code
+
+    /// sms code
     var code: String?
-    ///firebase id
+    /// firebase id
     var device_id: String = ""
 }

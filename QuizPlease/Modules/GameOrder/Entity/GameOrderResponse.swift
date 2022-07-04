@@ -16,24 +16,24 @@ struct GameOrderResponse: Decodable {
     private let redirect: Bool?
     private let success: AnyDecodable?
     private let sameTeam: Bool?
-    
+
     let link: URL?
     private let status: AnyDecodable?
-    
+
     private let successMsg: String?
     private let errorMsg: [String: AnyDecodable]?
-    
+
     var successMessage: String? {
         successMsg?.htmlFormatted()?.string
     }
-    
+
     var errorMessage: String? {
-        ///well sorry for such terrible logic but backend in quizplease is awful …
+        /// well sorry for such terrible logic but backend in quizplease is awful …
         let first = errorMsg?.values.first?.value
         return (first as? String)?.htmlFormatted()?.string
             ?? (first as? [String])?.first
     }
-    
+
     var isSuccess: Bool {
         if let number = success?.value as? Int {
             return number == 1
@@ -43,14 +43,14 @@ struct GameOrderResponse: Decodable {
         }
         return false
     }
-    
+
     var paymentStatus: GameOrderStatus {
         if let string = success?.value as? String {
             return GameOrderStatus(rawValue: string) ?? .undefined
         }
         return .undefined
     }
-    
+
     var isSuccessfullyRegistered: Bool {
         if let isSameTeam = sameTeam, isSameTeam {
             return false
@@ -66,9 +66,8 @@ struct GameOrderResponse: Decodable {
         }
         return isSuccess
     }
-    
+
     var shouldRedirect: Bool {
         redirect ?? false
     }
 }
-

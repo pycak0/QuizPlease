@@ -12,7 +12,7 @@ enum CertificateDiscountType {
     case allTeamFree
     case numberOfPeopleForFree(_ number: Int)
     case none
-    
+
     init(rawValue: Int) {
         switch rawValue {
         case 0:
@@ -31,7 +31,7 @@ struct CertificateResponse: Decodable {
     let isSuccess: Bool
     let message: String?
     private let type: Int?
-    
+
     private enum CodingKeys: String, CodingKey {
         case isSuccess = "success"
         case message, type

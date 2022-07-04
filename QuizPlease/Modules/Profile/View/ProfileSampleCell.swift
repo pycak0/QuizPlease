@@ -10,7 +10,7 @@ import UIKit
 
 class ProfileSampleCell: UITableViewCell, IdentifiableType {
     static let identifier = "\(ProfileSampleCell.self)"
-    
+
     @IBOutlet weak var sampleTextLabel: UILabel!
     @IBOutlet weak var cellView: UIView! {
         didSet {
@@ -19,12 +19,12 @@ class ProfileSampleCell: UITableViewCell, IdentifiableType {
             cellView.layer.borderColor = UIColor.systemGray6Adapted.cgColor
         }
     }
-    
+
     override func layoutSubviews() {
         super.layoutSubviews()
         cellView.layer.borderColor = UIColor.systemGray6Adapted.cgColor
     }
-    
+
     func configure(with sampleText: String) {
         sampleTextLabel.text = sampleText
     }

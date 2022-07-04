@@ -10,48 +10,48 @@ import UIKit
 import MapKit
 
 protocol MapInfoViewDelegate: AnyObject {
-    
+
     /// Close button was pressed
     func mapInfoViewDidPressClose(_ mapInfoView: MapInfoView)
-    
+
     /// Directions button was pressed
     func mapInfoViewDidPressDirections(_ mapInfoView: MapInfoView)
-    
+
     /// View was swiped to close
     func mapInfoViewDidSwipeToClose(_ mapInfoView: MapInfoView)
-    
+
     /// Provide user location to show distance from from place to it
     func userLocation() -> CLLocation?
 }
 
 final class MapInfoView: UIView {
-    
+
     enum Constants {
         static let spacing: CGFloat = 16
         static let buttonHeight: CGFloat = 24
     }
-    
+
     // MARK: - State Properties
-    
+
     weak var delegate: MapInfoViewDelegate?
-    
+
     var place: Place? {
         didSet {
             updateText()
         }
     }
-    
+
     // MARK: - Private Properties
-    
+
     private let distanceFormatter = MKDistanceFormatter()
-    
+
     private let titleLabel: UILabel = {
         let label = CopyableLabel()
         label.font = .gilroy(.semibold, size: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     private let addressLabel: UILabel = {
         let label = CopyableLabel()
         label.font = .gilroy(.medium, size: 14)
@@ -60,7 +60,7 @@ final class MapInfoView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     private let distanceLabel: UILabel = {
         let label = UILabel()
         label.font = .gilroy(.medium, size: 14)
@@ -68,7 +68,7 @@ final class MapInfoView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     private lazy var closeButton: UIButton = {
         let button = UIButton()
         let image = UIImage.xmark?.withScale(.small)
@@ -80,7 +80,7 @@ final class MapInfoView: UIView {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-    
+
     private lazy var directionsButton: UIButton = {
         let button = ScalingButton()
         button.titleLabel?.font = .gilroy(.semibold, size: 14)
@@ -93,23 +93,23 @@ final class MapInfoView: UIView {
         button.titleEdgeInsets = .init(vertical: 0, horizontal: 8)
         return button
     }()
-    
+
     // MARK: - Lifecycle
-    
+
     init() {
         super.init(frame: .zero)
         backgroundColor = .systemBackgroundAdapted
         configureViews()
         updateText()
     }
-    
+
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     // MARK: - Methods
-    
+
     func show(animated: Bool, completion: (() -> Void)? = nil) {
         guard animated else {
             transform = .identity
@@ -118,7 +118,7 @@ final class MapInfoView: UIView {
             completion?()
             return
         }
-        
+
         isHidden = false
         alpha = 0
         transform = CGAffineTransform(translationX: 0, y: bounds.height + 20)
@@ -134,7 +134,7 @@ final class MapInfoView: UIView {
             }
         )
     }
-    
+
     func hide(animated: Bool, completion: (() -> Void)?) {
         guard animated else {
             transform = .identity
@@ -143,7 +143,7 @@ final class MapInfoView: UIView {
             completion?()
             return
         }
-        
+
         UIView.animate(withDuration: 0.15) { [self] in
             transform = CGAffineTransform(translationX: 0, y: bounds.height + 20)
         } completion: { [self] _ in
@@ -153,9 +153,9 @@ final class MapInfoView: UIView {
             completion?()
         }
     }
-    
+
     // MARK: - Private Methods
-    
+
     private func configureViews() {
         addSubview(closeButton)
         NSLayoutConstraint.activate([
@@ -163,7 +163,7 @@ final class MapInfoView: UIView {
             closeButton.heightAnchor.constraint(equalToConstant: Constants.buttonHeight),
             closeButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12)
         ])
-        
+
         let stackView = UIStackView()
         stackView.spacing = 8
         stackView.axis = .vertical
@@ -172,7 +172,7 @@ final class MapInfoView: UIView {
            titleLabel,
            addressLabel,
            Spacer(),
-           makeHorizontalStack(),
+           makeHorizontalStack()
         ].forEach {
             stackView.addArrangedSubview($0)
         }
@@ -185,11 +185,11 @@ final class MapInfoView: UIView {
             directionsButton.widthAnchor.constraint(equalToConstant: 100),
             closeButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor)
         ])
-        
+
         let gestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(didPan(_:)))
         addGestureRecognizer(gestureRecognizer)
     }
-    
+
     private func makeHorizontalStack() -> UIView {
         let horizontalStack = UIStackView()
         horizontalStack.axis = .horizontal
@@ -203,9 +203,9 @@ final class MapInfoView: UIView {
         }
         return horizontalStack
     }
-    
+
     // MARK: - Update Text
-    
+
     private func updateText() {
         titleLabel.text = place?.title
         addressLabel.text = place?.fullAddress
@@ -213,7 +213,7 @@ final class MapInfoView: UIView {
         if let placeCoordinate = place?.coordinate,
            let location = delegate?.userLocation() {
             distanceLabel.isHidden = false
-            
+
             let placeLocation = CLLocation(
                 latitude: placeCoordinate.latitude,
                 longitude: placeCoordinate.longitude
@@ -225,20 +225,20 @@ final class MapInfoView: UIView {
             distanceLabel.isHidden = true
         }
     }
-    
+
     @objc private func didTapClose() {
         delegate?.mapInfoViewDidPressClose(self)
     }
-    
+
     @objc private func didTapDirections() {
         delegate?.mapInfoViewDidPressDirections(self)
     }
-    
+
     @objc private func didPan(_ sender: UIPanGestureRecognizer) {
         guard let view = sender.view else { return }
         let offsetY = sender.translation(in: view).y
         let translationY = offsetY > 0 ? offsetY : -sqrt(-offsetY)
-        
+
         switch sender.state {
         case .began, .changed:
             transform = CGAffineTransform(translationX: 0, y: translationY)
@@ -259,7 +259,7 @@ final class MapInfoView: UIView {
             resetView()
         }
     }
-    
+
     private func resetView() {
         UIView.animate(
             withDuration: 0.3,

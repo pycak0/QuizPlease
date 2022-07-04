@@ -9,30 +9,30 @@
 import Foundation
 
 public protocol ExpandingHeaderDelegate: AnyObject {
-    ///Delegate should provide a new selected Game Type Name string as an argument for `completion` closure for the `ExpandingHeader` to update its `selectedGameTypeLabel` text
+    /// Delegate should provide a new selected Game Type Name string as an argument for `completion` closure for the `ExpandingHeader` to update its `selectedGameTypeLabel` text
     func didPressGameTypeView(in expandingHeader: ExpandingHeader, completion: @escaping (_ selectedName: String?) -> Void)
-    
+
     func expandingHeader(_ expandingHeader: ExpandingHeader, didChangeStateTo isExpanded: Bool)
-    
+
     func expandingHeader(_ expandingHeader: ExpandingHeader, didChange selectedSegment: Int)
-    
+
     func expandingHeaderDidBeginEditingQuery(_ expandingHeader: ExpandingHeader)
-    
+
     func expandingHeader(_ expandingHeader: ExpandingHeader, didChange query: String)
-    
-    ///Is called when `ExpandingHeader`'s `searchField` did end editing
+
+    /// Is called when `ExpandingHeader`'s `searchField` did end editing
     func expandingHeader(_ expandingHeader: ExpandingHeader, didEndSearchingWith query: String)
-    
-    ///Is called when `ExpandingHeader`'s `searchField` did press return button
+
+    /// Is called when `ExpandingHeader`'s `searchField` did press return button
     func expandingHeader(_ expandingHeader: ExpandingHeader, didPressReturnButtonWith query: String)
 }
 
 public protocol ExpandingHeaderDataSource: AnyObject {
     func numberOfSegmentControlItems(in expandingHeader: ExpandingHeader) -> Int
-    
+
     func expandingHeaderSelectedSegmentIndex(_ expandingHeader: ExpandingHeader) -> Int
-    
+
     func expandingHeader(_ expandingHeader: ExpandingHeader, titleForSegmentAtIndex segmentIndex: Int) -> String
-    
+
     func expandingHeaderInitialSelectedGameType(_ expandingHeader: ExpandingHeader) -> String
 }

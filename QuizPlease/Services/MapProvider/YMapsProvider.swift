@@ -10,10 +10,10 @@ import UIKit
 import CoreLocation
 
 class YMapsProvider: MapProvider {
-    
+
     let title = "Яндекс.Карты"
     let urlSchema = URL(string: "yandexmaps://")!
-    
+
     func openMapRoute(to coordinate: CLLocationCoordinate2D, placeName: String?) {
         if let url = URL(string: "yandexmaps://build_route_on_map/?lat_to=\(coordinate.latitude)&lon_to=\(coordinate.longitude)"),
            UIApplication.shared.canOpenURL(url) {

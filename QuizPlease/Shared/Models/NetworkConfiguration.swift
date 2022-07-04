@@ -10,9 +10,9 @@ import Foundation
 
 public enum NetworkConfiguration: CustomStringConvertible {
     case dev, prod
-    
+
     public static let standard: NetworkConfiguration = .dev
-    
+
     var host: String {
         switch self {
         case .dev:
@@ -21,14 +21,14 @@ public enum NetworkConfiguration: CustomStringConvertible {
             return "https://quizplease.ru/"
         }
     }
-    
+
     private var identifier: String {
         switch self {
         case .dev: return "dev"
         case .prod: return "prod"
         }
     }
-    
+
     public var description: String {
         """
         NetworkConfiguration: {

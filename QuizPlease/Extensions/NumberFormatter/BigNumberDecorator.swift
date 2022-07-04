@@ -10,7 +10,7 @@ import Foundation
 
 class BigNumberDecorator: NumberDecorator {
     private let suffixLabels: [Character] = "BMK".map { $0 }
-    
+
     override func string(from number: NSNumber) -> String? {
         var number = Double(truncating: number)
         var suffix = ""
@@ -32,7 +32,7 @@ class BigNumberDecorator: NumberDecorator {
         }
         return nil
     }
-    
+
     override func number(from string: String) -> NSNumber? {
         var string = string.trimmingCharacters(in: .whitespacesAndNewlines)
         guard

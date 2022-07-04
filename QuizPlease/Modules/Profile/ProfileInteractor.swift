@@ -10,9 +10,9 @@ import Foundation
 
 // MARK: - Interactor Protocol
 protocol ProfileInteractorProtocol {
-    ///must be weak
+    /// must be weak
     var delegate: ProfileInteractorDelegate? { get set }
-    
+
     func loadUserInfo()
     func deleteUserInfo()
 }
@@ -20,13 +20,13 @@ protocol ProfileInteractorProtocol {
 // MARK: - Delegate Protocol
 protocol ProfileInteractorDelegate: AnyObject {
     func didFailLoadingUserInfo(with error: NetworkServiceError)
-    
+
     func didSuccessfullyLoadUserInfo(_ userInfo: UserInfo)
 }
 
 class ProfileInteractor: ProfileInteractorProtocol {
     weak var delegate: ProfileInteractorDelegate?
-    
+
     // MARK: - Load User Info
     func loadUserInfo() {
         NetworkService.shared.getUserInfo { [weak self] (serverResult) in
@@ -39,7 +39,7 @@ class ProfileInteractor: ProfileInteractorProtocol {
             }
         }
     }
-    
+
     func deleteUserInfo() {
         AppSettings.userToken = nil
         DefaultsManager.shared.removeAuthInfo()

@@ -10,25 +10,24 @@ import UIKit
 
 class WarmupCell: UITableViewCell, MenuCellItemProtocol {
     static let identifier = "WarmupCell"
-    
+
     @IBOutlet weak var cellView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var accessoryLabel: UILabel!
-    
+
     override func layoutSubviews() {
         super.layoutSubviews()
         configureViews()
     }
-    
+
     func configureViews() {
         cellView.layer.cornerRadius = cellViewCornerRadius
         accessoryLabel.layer.cornerRadius = accessoryLabel.frame.height / 2
     }
-    
+
     func configureCell(with model: MainMenuItemProtocol) {
         titleLabel.text = model.title
         accessoryLabel.text = model.supplementaryText
     }
-        
-    
+
 }

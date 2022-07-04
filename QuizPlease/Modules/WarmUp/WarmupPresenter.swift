@@ -13,9 +13,9 @@ protocol WarmupPresenterProtocol {
     var router: WarmupRouterProtocol! { get }
     var questions: [WarmupQuestion] { get }
     var correctAnswersCount: Int { get }
-    
+
     init(view: WarmupViewProtocol, interactor: WarmupInteractorProtocol, router: WarmupRouterProtocol)
-    
+
     func viewDidLoad(_ view: WarmupViewProtocol)
     func didPressStartGame()
     func didAnswer(_ answer: String, for question: WarmupQuestion)
@@ -25,20 +25,20 @@ protocol WarmupPresenterProtocol {
 
 class WarmupPresenter: WarmupPresenterProtocol {
     private let penaltyTime: Double = 5
-    
+
     var router: WarmupRouterProtocol!
     var interactor: WarmupInteractorProtocol
     weak var view: WarmupViewProtocol?
-    
+
     var questions: [WarmupQuestion] = []
     var correctAnswersCount: Int = 0
-    
+
     private var isGameStarted = false
-    
+
     private var timestamp: Date = Date()
     private var totalPenaltyTime: Double = 0
     private var timer: Timer?
-    
+
     private var timePassed: Double = 0 {
         didSet {
             let timePassed = Int(self.timePassed)
@@ -47,36 +47,36 @@ class WarmupPresenter: WarmupPresenterProtocol {
             view?.updatePassedTime(withMinutes: minutes, seconds: seconds)
         }
     }
-    
+
     required init(view: WarmupViewProtocol, interactor: WarmupInteractorProtocol, router: WarmupRouterProtocol) {
         self.view = view
         self.interactor = interactor
         self.router = router
     }
-    
+
     // MARK: - Setup
     func viewDidLoad(_ view: WarmupViewProtocol) {
         view.configure()
         view.setPenaltyTimeInfo(penaltySeconds: Int(penaltyTime))
     }
-    
+
     // MARK: - Actions
     func didPressStartGame() {
         interactor.loadQuestions()
     }
-    
+
     func didAnswer(_ answer: String, for question: WarmupQuestion) {
         guard let answer = question.answers.first(where: { $0.value == answer }) else { return }
         view?.startLoading()
         interactor.checkAnswerWithId(answer.id, forQuestionWithId: question.id)
     }
-    
+
     func gameEnded() {
         stopTimer()
         view?.showResults(with: timePassed)
         isGameStarted = false
     }
-    
+
     func shareAction() {
         if let image = view?.makeResultsSnapshot() {
             router.showShareSheet(with: image)
@@ -87,7 +87,7 @@ class WarmupPresenter: WarmupPresenterProtocol {
             )
         }
     }
-    
+
     // MARK: - Private
     private func startGame() {
         isGameStarted = true
@@ -98,7 +98,7 @@ class WarmupPresenter: WarmupPresenterProtocol {
             view?.showSimpleAlert(title: "Новых вопросов пока нет", message: "Но скоро они появятся, загляните чуть позже")
         }
     }
-    
+
     private func startTimer() {
         timestamp = Date()
         let interval: Double = 1
@@ -106,7 +106,7 @@ class WarmupPresenter: WarmupPresenterProtocol {
             self?.timePassed += interval
         }
     }
-    
+
     private func stopTimer() {
         timer?.invalidate()
         timer = nil
@@ -122,7 +122,7 @@ extension WarmupPresenter: WarmupInteractorOutput {
         view?.setQuestions()
         startGame()
     }
-    
+
     func interactor(_ interactor: WarmupInteractorProtocol, failedToLoadQuestionsWithError error: NetworkServiceError) {
         print(error)
         switch error {
@@ -132,7 +132,7 @@ extension WarmupPresenter: WarmupInteractorOutput {
             view?.showErrorConnectingToServerAlert()
         }
     }
-    
+
     func interactor(_ interactor: WarmupInteractorProtocol, isAnswerCorrect: Bool, answerId: Int, questionId: String) {
         view?.stopLoading()
         view?.highlightCurrentAnswer(isCorrect: isAnswerCorrect)
@@ -147,7 +147,7 @@ extension WarmupPresenter: WarmupInteractorOutput {
             self.view?.showNextQuestion()
         }
     }
-    
+
     func interactor(_ interactor: WarmupInteractorProtocol, failedToCheckAnswer answerId: Int, questionId: String, error: NetworkServiceError) {
         view?.stopLoading()
         view?.showErrorConnectingToServerAlert()

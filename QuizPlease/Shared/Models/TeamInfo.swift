@@ -12,13 +12,13 @@ struct TeamInfo: Decodable {
     var id: Int
     var game_id: Int
     var teamName: String
-    
+
     var captainName: String?
     var email: String?
     var phone: String?
     var count: Int?
     var comment: String? = ""
-    
+
     private var created_at: Double?
 }
 

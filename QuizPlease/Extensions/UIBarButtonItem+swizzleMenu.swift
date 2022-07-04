@@ -9,7 +9,7 @@
 import UIKit
 
 extension UIBarButtonItem {
-    
+
     /// Remove back button navigation menu (iOS 14+) with method swizzling
     static func swizzleMenu() {
         guard #available(iOS 14, *) else { return }
@@ -18,17 +18,18 @@ extension UIBarButtonItem {
             with: #selector(setter: UIBarButtonItem.swizzledMenu)
         )
     }
-    
+
     @available(iOS 14, *)
     @objc dynamic private var swizzledMenu: UIMenu? {
         get {
             nil
         }
+        // swiftlint:disable:next unused_setter_value
         set {
             // nothing
         }
     }
-    
+
     private static func exchange(
         _ selector1: Selector,
         with selector2: Selector
