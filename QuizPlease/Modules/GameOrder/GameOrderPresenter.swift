@@ -264,7 +264,7 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
                 withOptions: PaymentOptions(
                     amount: paymentSum,
                     description: createPaymentDescription(),
-                    shopId: game.shopId ?? "",
+                    shopId: game.shopId,
                     transactionKey: game.paymentKey ?? "",
                     userPhoneNumber: userPhoneNumber
                 )

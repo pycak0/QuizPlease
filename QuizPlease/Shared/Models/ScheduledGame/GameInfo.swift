@@ -174,6 +174,9 @@ extension GameInfo {
     }
 
     var shopId: String? {
-        sdk_shop_id
+        if let id = sdk_shop_id, !id.isEmpty {
+            return id
+        }
+        return nil
     }
 }
