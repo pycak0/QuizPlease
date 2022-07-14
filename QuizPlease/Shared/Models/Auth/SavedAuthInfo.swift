@@ -12,7 +12,7 @@ struct SavedAuthInfo: Codable {
     var accessToken: String?
     var refreshToken: String?
     var expireDate: Date?
-    
+
     init(authInfoResponse: AuthInfoResponse) {
         accessToken = authInfoResponse.access_token
         refreshToken = authInfoResponse.refresh_token

@@ -10,17 +10,17 @@ import Foundation
 import MapKit
 
 class MapService {
-    //singleton
+    // singleton
     private init() {}
-    
+
     // MARK: - Open with coordinates
-    ///Wrapper for method `openAppleMaps(for:withLongitude:andLatitude:radius:)`
+    /// Wrapper for method `openAppleMaps(for:withLongitude:andLatitude:radius:)`
     static func openAppleMaps(for placeName: String, withCoordinate coord: CLLocationCoordinate2D, regionRadius: Double = 1000) {
         openAppleMaps(for: placeName, withLongitude: coord.longitude, andLatitude: coord.latitude, radius: regionRadius)
     }
-    
-    ///Opens Apple Maps with given parameters
-    ///- parameter radius: Part of map to be shown around the target point (in meters)
+
+    /// Opens Apple Maps with given parameters
+    /// - parameter radius: Part of map to be shown around the target point (in meters)
     static func openAppleMaps(for placeName: String, withLongitude lon: Double, andLatitude lat: Double, radius: Double = 1000) {
         let latitude: CLLocationDegrees = lat
         let longitude: CLLocationDegrees = lon
@@ -39,7 +39,7 @@ class MapService {
         mapItem.name = placeName
         mapItem.openInMaps(launchOptions: options)
     }
-    
+
     // MARK: - Open with Address string
     static func getCoordinatesAndOpenMap(for placeName: String, withAddress address: String, radius: Double = 1000, completion: ((Error?) -> Void)?) {
         getCoordinates(from: address) { (location) in
@@ -51,14 +51,14 @@ class MapService {
             completion?(nil)
         }
     }
-    
+
     // MARK: - Get Coordinates
     static func getCoordinates(from address: String, completion: @escaping (CLLocationCoordinate2D?) -> Void) {
         getLocation(from: address) { (location) in
             completion(location?.coordinate)
         }
     }
-    
+
     static func getLocation(from address: String, completion: @escaping (CLLocation?) -> Void) {
         let geocoder = CLGeocoder()
         geocoder.geocodeAddressString(address) {

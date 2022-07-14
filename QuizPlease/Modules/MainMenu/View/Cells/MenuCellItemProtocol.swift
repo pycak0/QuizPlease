@@ -10,15 +10,15 @@ import UIKit
 
 protocol MenuCellItemProtocol: UITableViewCell, IdentifiableType {
     var cellViewCornerRadius: CGFloat { get }
-    
+
     var cellView: UIView! { get set }
     var titleLabel: UILabel! { get set }
     var accessoryLabel: UILabel! { get set }
-    
-    ///Should be called inside cell's `layoutSubviews()` method
+
+    /// Should be called inside cell's `layoutSubviews()` method
     func configureViews()
-    
-    ///Should be called inside `tableView(_:cellForRowAt)` method
+
+    /// Should be called inside `tableView(_:cellForRowAt)` method
     func configureCell(with model: MainMenuItemProtocol)
 }
 

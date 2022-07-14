@@ -9,7 +9,7 @@
 import Foundation
 
 extension NumberFormatter {
-    ///Formats given number in such way that it displays from 0 to 2 fraction digits in decimal style and uses "`,`" decimal separator. Does not use number groups
+    /// Formats given number in such way that it displays from 0 to 2 fraction digits in decimal style and uses "`,`" decimal separator. Does not use number groups
     public static var decimalFormatter: NumberFormatter {
         let formatter = NumberFormatter()
         formatter.maximumFractionDigits = 2
@@ -19,8 +19,8 @@ extension NumberFormatter {
         formatter.usesGroupingSeparator = false
         return formatter
     }
-    
-    ///Formats given number like usual `decimalFormatter` but also uses number groups
+
+    /// Formats given number like usual `decimalFormatter` but also uses number groups
     public static var decimalGroupingFormatter: NumberFormatter {
         let formatter = decimalFormatter
         formatter.usesGroupingSeparator = true

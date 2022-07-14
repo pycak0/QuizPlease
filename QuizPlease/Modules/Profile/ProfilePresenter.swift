@@ -12,15 +12,15 @@ import Foundation
 protocol ProfilePresenterProtocol {
     var router: ProfileRouterProtocol! { get }
     init(view: ProfileViewProtocol, interactor: ProfileInteractorProtocol, router: ProfileRouterProtocol)
-    
+
     var userInfo: UserInfo? { get set }
-    
+
     func viewDidLoad(_ view: ProfileViewProtocol)
     func handleViewDidAppear()
-    
+
     func didPerformAuth()
     func didPressExitButton()
-    
+
     func didPressShowShopButton()
     func didPressAddGameButton()
     func didScanQrCode(with info: String)
@@ -31,37 +31,37 @@ class ProfilePresenter: ProfilePresenterProtocol {
     var router: ProfileRouterProtocol!
     var interactor: ProfileInteractorProtocol
     weak var view: ProfileViewProtocol?
-    
+
     var userInfo: UserInfo?
-    
+
     private var isFirstAppear = true
-    
+
     required init(view: ProfileViewProtocol, interactor: ProfileInteractorProtocol, router: ProfileRouterProtocol) {
         self.view = view
         self.router = router
         self.interactor = interactor
     }
-    
+
     // MARK: - View Did Load
     func viewDidLoad(_ view: ProfileViewProtocol) {
         view.configure()
         view.setCity(AppSettings.defaultCity.title)
-        
+
         if AppSettings.userToken == nil {
             router.showAuthScreen()
         } else {
             interactor.loadUserInfo()
         }
     }
-    
+
     func handleViewDidAppear() {
-        //nothing for now
+        // nothing for now
     }
-    
+
     func didPerformAuth() {
         interactor.loadUserInfo()
     }
-    
+
     // MARK: - Actions
     func didPressExitButton() {
         view?.showTwoOptionsAlert(title: "Вы уверены, что хотите выйти из личного кабинета?", message: "", option1Title: "Да", handler1: { _ in
@@ -69,23 +69,23 @@ class ProfilePresenter: ProfilePresenterProtocol {
             self.router.closeProfile()
         }, option2Title: "Отмена", handler2: nil)
     }
-    
+
     func didPressShowShopButton() {
         router.showShop(with: userInfo)
     }
-    
+
     func didPressAddGameButton() {
         router.showQRScanner()
     }
-    
+
     func didScanQrCode(with info: String) {
         router.showAddGameScreen(info)
     }
-    
+
     func didAddNewGame() {
         interactor.loadUserInfo()
     }
-    
+
     private func updateUserInfo() {
         guard let info = userInfo else { return }
         view?.reloadGames()
@@ -98,7 +98,7 @@ extension ProfilePresenter: ProfileInteractorDelegate {
     func didFailLoadingUserInfo(with error: NetworkServiceError) {
         view?.showErrorConnectingToServerAlert()
     }
-    
+
     func didSuccessfullyLoadUserInfo(_ userInfo: UserInfo) {
         print(userInfo)
         self.userInfo = userInfo

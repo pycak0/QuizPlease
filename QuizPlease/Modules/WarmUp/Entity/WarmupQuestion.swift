@@ -16,9 +16,9 @@ struct WarmupQuestion {
     var id: String
     var question: String?
     var answers: [WarmupAnswer]
-    
+
     private var file: String?
-    
+
     var type: WarmupQuestionType {
         guard file != nil, file != "" else {
             return .text
@@ -34,7 +34,7 @@ struct WarmupQuestion {
         }
         return .text
     }
-    
+
     var imageUrl: URL? {
         if let url = makeUrl(from: file?.pathProof),
            url.pathExtension == "jpg" || url.pathExtension == "png" {
@@ -42,21 +42,21 @@ struct WarmupQuestion {
         }
         return nil
     }
-    
+
     var videoUrl: URL? {
         if let url = makeUrl(from: file?.pathProof), url.pathExtension == "mp4" {
             return url
         }
         return nil
     }
-    
+
     var soundUrl: URL? {
         if let url = makeUrl(from: file?.pathProof), url.pathExtension == "mp3" {
             return url
         }
         return nil
     }
-    
+
     private func makeUrl(from path: String?) -> URL? {
         guard let path = path else { return nil }
         var urlComps = NetworkService.shared.baseUrlComponents // URLComponents(string: NetworkConfiguration.prod.host)
@@ -70,11 +70,11 @@ extension WarmupQuestion: Decodable {
     private enum CodingKeys: String, CodingKey {
         case question, answers, file, id
     }
-    
+
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         question = try container.decode(String.self, forKey: .question)
-        
+
         let answerString = try container.decode(String.self, forKey: .answers)
         let answerArray = try JSONDecoder().decode([String].self, from: Data(answerString.utf8))
         answers = []

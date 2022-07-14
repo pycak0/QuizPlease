@@ -15,11 +15,11 @@ protocol ShopRouterProtocol: SegueRouter {
 
 class ShopRouter: ShopRouterProtocol {
     unowned let viewController: UIViewController
-    
+
     required init(viewController: UIViewController) {
         self.viewController = viewController
     }
-    
+
     func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case "ConfirmPurchase":
@@ -34,11 +34,11 @@ class ShopRouter: ShopRouterProtocol {
             print("Unknown segue id")
         }
     }
-    
+
     func showConfirmScreen(for item: ShopItem) {
         viewController.performSegue(withIdentifier: "ConfirmPurchase", sender: item)
     }
-    
+
     func showCompletionScreen(for item: ShopItem) {
         viewController.performSegue(withIdentifier: "ShowShopCompletion", sender: item)
     }

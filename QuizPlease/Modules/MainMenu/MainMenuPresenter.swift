@@ -14,7 +14,7 @@ protocol MainMenuPresenterProtocol: AnyObject {
     var router: MainMenuRouterProtocol! { get }
     var menuItems: [MainMenuItemProtocol]? { get set }
     var sampleShopItems: [ShopItem] { get }
-    
+
     init(view: MainMenuViewProtocol, interactor: MainMenuInteractorProtocol, router: MainMenuRouterProtocol)
 
     func viewDidLoad(_ view: MainMenuViewProtocol)
@@ -27,7 +27,7 @@ protocol MainMenuPresenterProtocol: AnyObject {
     func didAddNewGame(with info: String)
     func didPressMenuRemindButton()
     func didLongTapOnLogo()
-    
+
     func userPointsAmount() -> Double?
     func indexPath(for menuItemKind: MainMenuItemKind) -> IndexPath?
 }
@@ -36,30 +36,30 @@ class MainMenuPresenter: MainMenuPresenterProtocol {
     weak var view: MainMenuViewProtocol?
     var interactor: MainMenuInteractorProtocol!
     var router: MainMenuRouterProtocol!
-    
+
     var menuItems: [MainMenuItemProtocol]?
     var sampleShopItems: [ShopItem] = []
     var userInfo: UserInfo?
-    
+
     required init(view: MainMenuViewProtocol, interactor: MainMenuInteractorProtocol, router: MainMenuRouterProtocol) {
         self.router = router
         self.view = view
         self.interactor = interactor
     }
-    
+
     func viewDidLoad(_ view: MainMenuViewProtocol) {
         view.configureTableView()
         view.updateCityName(with: AppSettings.defaultCity.title)
         interactor.loadMenuItems()
     }
-    
+
     func viewDidAppear(_ view: MainMenuViewProtocol) {
         interactor.loadUserInfo()
         if sampleShopItems.count == 0 || sampleShopItems.first?.title == "SAMPLE" {
             interactor.loadShopItems()
         }
     }
-    
+
     // MARK: - Actions
     func didSelectMenuItem(at index: Int) {
         guard let item = menuItems?[index] else { return }
@@ -72,17 +72,17 @@ class MainMenuPresenter: MainMenuPresenterProtocol {
         }
         router.showMenuSection(item, sender: sender)
     }
-    
+
     func didSelectCityButton() {
         router.showChooseCityScreen(selectedCity: AppSettings.defaultCity)
     }
-    
+
     func didChangeDefaultCity(_ newCity: City) {
         AppSettings.defaultCity = newCity
         view?.updateCityName(with: newCity.title)
         interactor.updateAllData()
     }
-    
+
     func didPressAddGame() {
         if AppSettings.userToken != nil {
             router.showQRScanner()
@@ -92,15 +92,15 @@ class MainMenuPresenter: MainMenuPresenterProtocol {
             }
         }
     }
-    
+
     func didAddNewGame(with info: String) {
         router.showAddGameScreen(info)
     }
-    
+
     func didPressMenuRemindButton() {
         //
     }
-    
+
     func didLongTapOnLogo() {
         guard AppSettings.isDebug else { return }
         let pStyle = NSMutableParagraphStyle()
@@ -122,11 +122,11 @@ class MainMenuPresenter: MainMenuPresenterProtocol {
             )
         )
     }
-    
+
     func userPointsAmount() -> Double? {
         userInfo?.pointsAmount
     }
-    
+
     func indexPath(for menuItemKind: MainMenuItemKind) -> IndexPath? {
         if let index = menuItems?.firstIndex(where: { $0._kind == menuItemKind }) {
             return IndexPath(row: index, section: 0)
@@ -141,25 +141,25 @@ extension MainMenuPresenter: MainMenuInteractorOutput {
         menuItems = items
         view?.reloadMenuItems()
     }
-    
+
     func interactor(_ interactor: MainMenuInteractorProtocol, didLoadUserInfo userInfo: UserInfo) {
         self.userInfo = userInfo
         view?.reloadUserPointsAmount()
     }
-    
+
     func interactor(_ interactor: MainMenuInteractorProtocol, didLoadShopItems shopItems: [ShopItem]) {
         sampleShopItems = shopItems
         view?.reloadShopItems()
     }
-    
+
     func interactor(_ interactor: MainMenuInteractorProtocol, failedToLoadShopItemsWithError error: NetworkServiceError) {
         print(error)
     }
-    
+
     func interactor(_ interactor: MainMenuInteractorProtocol, failedToLoadMenuItemsWithError error: NetworkServiceError) {
         view?.failureLoadingMenuItems(error)
     }
-    
+
     func interactor(_ interactor: MainMenuInteractorProtocol, failedToLoadUserInfoWithError error: NetworkServiceError) {
         print(error)
         switch error {

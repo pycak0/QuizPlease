@@ -9,13 +9,13 @@
 import UIKit
 
 class MapAssembly: ViewAssembly {
-    
+
     let place: Place
-    
+
     init(place: Place) {
         self.place = place
     }
-    
+
     /// Make map screen
     func makeViewController() -> UIViewController {
         let interactor = MapInteractor(

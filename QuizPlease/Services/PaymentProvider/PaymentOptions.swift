@@ -11,14 +11,14 @@ struct PaymentOptions {
      let amount: Double
      let description: String
      let userPhoneNumber: String?
-     let shopId: String
+     let shopId: String?
      let shopName: String
      let transactionKey: String
 
      init(
          amount: Double,
          description: String,
-         shopId: String,
+         shopId: String?,
          transactionKey: String,
          userPhoneNumber: String?,
          shopName: String = "Квиз, плиз!"

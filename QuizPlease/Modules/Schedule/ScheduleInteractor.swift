@@ -10,15 +10,15 @@ import Foundation
 
 // MARK: - Interactor Protocol
 protocol ScheduleInteractorProtocol: AnyObject {
-    ///must be weak
+    /// must be weak
     var output: ScheduleInteractorOutput? { get set }
-    
+
     func loadSchedule(filter: ScheduleFilter, completion: @escaping (Result<[GameInfo], NetworkServiceError>) -> Void)
     func loadDetailInfo(for game: GameInfo, completion: @escaping (GameInfo?) -> Void)
-    
+
     func openInMaps(placeName: String, withLongitutde lon: Double, andLatitude lat: Double)
     func openInMaps(place: Place)
-    
+
     func getSubscribeStatus(gameId: String)
     func getSubscribedGameIds(completion: @escaping ((Array<Int>) -> Void))
 }
@@ -31,7 +31,7 @@ protocol ScheduleInteractorOutput: AnyObject {
 
 class ScheduleInteractor: ScheduleInteractorProtocol {
     weak var output: ScheduleInteractorOutput?
-    
+
     func loadSchedule(filter: ScheduleFilter, completion: @escaping (Result<[GameInfo], NetworkServiceError>) -> Void) {
         NetworkService.shared.getSchedule(with: filter) { (serverResult) in
             switch serverResult {
@@ -43,7 +43,7 @@ class ScheduleInteractor: ScheduleInteractorProtocol {
             }
         }
     }
-    
+
     func loadDetailInfo(for game: GameInfo, completion: @escaping (GameInfo?) -> Void) {
         NetworkService.shared.getGameInfo(by: game.id) { (result) in
             switch result {
@@ -57,11 +57,11 @@ class ScheduleInteractor: ScheduleInteractorProtocol {
             }
         }
     }
-    
+
     func openInMaps(placeName: String, withLongitutde lon: Double, andLatitude lat: Double) {
         MapService.openAppleMaps(for: placeName, withLongitude: lon, andLatitude: lat)
     }
-    
+
     func openInMaps(place: Place) {
         guard !place.isZeroCoordinate else {
             MapService.openAppleMaps(for: place.title ?? "", withCoordinate: place.coordinate)
@@ -74,7 +74,7 @@ class ScheduleInteractor: ScheduleInteractorProtocol {
             }
         }
     }
-    
+
     func getSubscribeStatus(gameId: String) {
         NetworkService.shared.subscribePushOnGame(with: gameId) { [weak self] result in
             guard let self = self else { return }
@@ -86,7 +86,7 @@ class ScheduleInteractor: ScheduleInteractorProtocol {
             }
         }
     }
-    
+
     func getSubscribedGameIds(completion: @escaping ((Array<Int>) -> Void)) {
         NetworkService.shared.getUserInfo { (result) in
             switch result {

@@ -20,9 +20,9 @@ extension GameDescriptionDelegate {
 
 class GameGeneralDescriptionCell: UITableViewCell, GameOrderCellProtocol {
     static let identifier = "\(GameGeneralDescriptionCell.self)"
-    
+
     @IBOutlet private weak var descriptionLabel: UILabel!
-    
+
     weak var delegate: AnyObject? {
         get { _delegate }
         set { _delegate = newValue as? GameDescriptionDelegate }

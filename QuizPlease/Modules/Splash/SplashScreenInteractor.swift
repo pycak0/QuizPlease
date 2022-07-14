@@ -9,14 +9,14 @@
 import Foundation
 
 protocol SplashScreenInteractorProtocol {
-    ///must be weak
+    /// must be weak
     var interactorOutput: SplashScreenInteractorOutput? { get }
-    
-    ///Uses app default city to load settings, updates `AppSettings` and saves new `ClientSettings` to the UserDefaults
+
+    /// Uses app default city to load settings, updates `AppSettings` and saves new `ClientSettings` to the UserDefaults
     func updateClientSettings()
-    
+
     func updateDefaultCity()
-    
+
     func updateUserToken()
 }
 
@@ -28,17 +28,17 @@ protocol SplashScreenInteractorOutput: AnyObject {
 
 class SplashScreenInteractor: SplashScreenInteractorProtocol {
     weak var interactorOutput: SplashScreenInteractorOutput?
-    
+
     func updateDefaultCity() {
         Utilities.main.setDefaultCityFromCache()
     }
-    
+
     func updateUserToken() {
         Utilities.main.updateToken {
             self.interactorOutput?.interactorDidUpdateUserToken(self)
         }
     }
-    
+
     func updateClientSettings() {
         Utilities.main.setClientSettingsFromCache()
         Utilities.main.fetchClientSettings { [weak self] fetchResult in

@@ -17,15 +17,15 @@ extension NumberFormatter: NumberFormatterProtocol {}
 
 public class NumberDecorator: NumberFormatterProtocol {
     let baseFormatter: NumberFormatterProtocol
-    
+
     public init(baseFormatter: NumberFormatterProtocol = NumberFormatter.decimalFormatter) {
         self.baseFormatter = baseFormatter
     }
-    
+
     public func string(from number: NSNumber) -> String? {
         baseFormatter.string(from: number)
     }
-    
+
     public func number(from string: String) -> NSNumber? {
         baseFormatter.number(from: string)
     }

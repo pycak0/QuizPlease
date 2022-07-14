@@ -11,25 +11,25 @@ import AVKit
 
 class VideoView: UIView {
     static let nibName = "VideoView"
-    
+
     @IBOutlet private var contentView: UIView!
     @IBOutlet private weak var playerView: UIView!
     @IBOutlet weak var imageView: UIImageView!
-    
+
     private unowned var parent: UIViewController!
     private var playerVC = AVPlayerViewController()
     var url: URL?
-    
+
     // MARK: - Public
     func play() {
         setCategoryPlayback()
         playerVC.player?.play()
     }
-    
+
     func pause() {
         playerVC.player?.pause()
     }
-    
+
     func configurePlayer(url: URL?, shouldAutoPlay: Bool = true) {
         guard let url = url else { return }
         playerVC.player = AVPlayer(url: url)
@@ -38,18 +38,18 @@ class VideoView: UIView {
             play()
         }
     }
-    
-    ///- parameter parent: a view controller to add AVPlayerViewController as child on it
+
+    /// - parameter parent: a view controller to add AVPlayerViewController as child on it
     func configureVideoView(parent: UIViewController) {
 //        guard parent != nil else { fatalError("VideoView must have `parent` property set") }
-        
+
         playerVC.view.frame = playerView.bounds
         playerVC.videoGravity = .resizeAspectFill
         playerVC.view.layer.masksToBounds = true
-        
+
         playerVC.view.backgroundColor = .black
         playerVC.showsPlaybackControls = true
-        
+
         // MARK: - insert player into videoView
         parent.addChild(playerVC)
         playerVC.didMove(toParent: parent)
@@ -57,7 +57,7 @@ class VideoView: UIView {
         playerView.backgroundColor = .clear
         playerVC.entersFullScreenWhenPlaybackBegins = false
     }
-    
+
     private func setCategoryPlayback() {
         do {
             try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [])
@@ -71,12 +71,12 @@ class VideoView: UIView {
         super.init(frame: frame)
         xibSetup()
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         xibSetup()
     }
-    
+
     convenience init(parent: UIViewController, url: URL?) {
         self.init()
         self.parent = parent
@@ -84,7 +84,7 @@ class VideoView: UIView {
         configureVideoView(parent: parent)
         configurePlayer(url: url)
     }
-    
+
     private func xibSetup() {
         Bundle.main.loadNibNamed(VideoView.nibName, owner: self, options: nil)
         self.addSubview(contentView)

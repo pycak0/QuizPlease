@@ -11,16 +11,16 @@ import YooKassaPayments
 import YooKassaPaymentsApi
 
 final class YooMoneyPaymentProvider: PaymentProvider {
-    
+
     private unowned let delegate: TokenizationModuleOutput
-        
+
     init(delegate: TokenizationModuleOutput) {
         self.delegate = delegate
     }
-    
+
     func showPaymentView(presentationController: UIViewController, options: PaymentOptions) {
         let paymentAmount = Amount(value: Decimal(options.amount), currency: .rub)
-        
+
         // MARK: - ❗️replace `"client_id"` with real client id value
         let tokenizationModuleInputData = TokenizationModuleInputData(
             clientApplicationKey: options.transactionKey,
@@ -34,10 +34,10 @@ final class YooMoneyPaymentProvider: PaymentProvider {
             moneyAuthClientId: "client_id",
             applicationScheme: "quizplease://"
         )
-        
+
         let tokenizationFlow: TokenizationFlow = .tokenization(tokenizationModuleInputData)
         let paymentVC = TokenizationAssembly.makeModule(inputData: tokenizationFlow, moduleOutput: delegate)
-        
+
         presentationController.present(paymentVC, animated: true)
     }
 }

@@ -10,7 +10,7 @@ import AVKit
 
 class CameraChecker {
     private init() {}
-    
+
     /**
      - Parameters:
          - presentationController: View Controller where alerts will be presented
@@ -38,14 +38,14 @@ class CameraChecker {
             let okBtn = UIAlertAction(title: "ОК", style: .default) { _ in
                 completion(false)
             }
-            let settingsBtn = UIAlertAction(title: "Настройки", style: .cancel) { (action) in
+            let settingsBtn = UIAlertAction(title: "Настройки", style: .cancel) { (_) in
                 if let url = URL(string: UIApplication.openSettingsURLString) {
                     UIApplication.shared.open(url)
                 }
             }
             alert.addAction(okBtn)
             alert.addAction(settingsBtn)
-            //alert.view.tintColor = .labelAdapted
+            // alert.view.tintColor = .labelAdapted
             presentationController.present(alert, animated: true)
         }
     }

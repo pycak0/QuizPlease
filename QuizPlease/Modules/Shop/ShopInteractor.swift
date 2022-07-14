@@ -10,7 +10,7 @@ import UIKit
 
 protocol ShopInteractorProtocol {
     func loadItems(completion: @escaping (Result<[ShopItem], NetworkServiceError>) -> Void)
-    
+
     func loadUserInfo(completion: @escaping ((Result<UserInfo, NetworkServiceError>) -> Void))
 }
 
@@ -18,7 +18,7 @@ class ShopInteractor: ShopInteractorProtocol {
     func loadItems(completion: @escaping (Result<[ShopItem], NetworkServiceError>) -> Void) {
         NetworkService.shared.getShopItems(completion: completion)
     }
-    
+
     func loadUserInfo(completion: @escaping ((Result<UserInfo, NetworkServiceError>) -> Void)) {
         NetworkService.shared.getUserInfo(completion: completion)
     }

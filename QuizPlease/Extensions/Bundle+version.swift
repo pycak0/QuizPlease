@@ -9,7 +9,7 @@
 import Foundation
 
 extension Bundle {
-    
+
     /// The version of the framework / executable including build number in format '`1.2.3 (54)`'
     var version: String {
         let versionString = object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "unknown"

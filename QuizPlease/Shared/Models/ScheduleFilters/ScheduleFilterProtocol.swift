@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol ScheduleFilterProtocol: Decodable {    
+protocol ScheduleFilterProtocol: Decodable {
     var id: Int { get }
     var title: String { get }
 }

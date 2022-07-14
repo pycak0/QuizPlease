@@ -17,28 +17,27 @@ class HomeGameCell: UICollectionViewCell {
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var playLabel: UILabel!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         configureViews()
     }
-    
+
     private func configureViews() {
         layer.cornerRadius = 20
         cellView.layer.cornerRadius = 20
         backgroundImage.tintColor = .systemPurple
         backgroundImage.alpha = 0.2
-        //cellView.backgroundColor = UIColor.systemPurple.withAlphaComponent(0.5)
-        //cellView.addBlur(color: .systemPurple, style: .regular, alpha: 0.7)
+        // cellView.backgroundColor = UIColor.systemPurple.withAlphaComponent(0.5)
+        // cellView.addBlur(color: .systemPurple, style: .regular, alpha: 0.7)
         cellView.blurView.setup(style: .regular, alpha: 0.97).enable()
         cellView.blurView.backgroundColor = UIColor.plum.withAlphaComponent(0.7)
         playLabel.layer.cornerRadius = playLabel.frame.height / 2
     }
-    
+
     func configureCell(with game: HomeGame) {
         gameNameLabel.text = game.fullTitle
         timeLabel.text = game.duration
         priceLabel.text = game.price == 0 ? "Бесплатно" : "\(game.price)"
     }
-    
 }

@@ -13,7 +13,7 @@ protocol ShopCompletionVCDelegate: AnyObject {
 }
 
 class ShopCompletionVC: UIViewController {
-    
+
     // MARK: - Outlets
     @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var arrowImageView: UIImageView!
@@ -26,36 +26,36 @@ class ShopCompletionVC: UIViewController {
             textFieldView.textField.textContentType = .emailAddress
         }
     }
-    
+
     weak var delegate: ShopCompletionVCDelegate?
-    
+
     var shopItem: ShopItem!
-    //var selectedGame: PassedGame?
-    
+    // var selectedGame: PassedGame?
+
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareNavigationBar(barStyle: .transcluent(tintColor: view.backgroundColor))
         configureViews()
     }
-    
+
     // MARK: - Segment Changed
     @objc
     private func segmentChanged() {
         view.endEditing(true)
     }
-    
+
     // MARK: - Did Press Field View
     @objc
     private func didPressFieldView() {
         guard !textFieldView.textField.isEnabled else { return }
-        //gamesArray = [...]
-        showChooseItemActionSheet(itemNames: ["game1", "game2"]) { [unowned self] (selectedName, selectedIndex) in
+        // gamesArray = [...]
+        showChooseItemActionSheet(itemNames: ["game1", "game2"]) { [unowned self] (selectedName, _) in
             self.textFieldView.textField.text = selectedName
-            //self.selectedGame = gamesArray[selectedIndex]
+            // self.selectedGame = gamesArray[selectedIndex]
         }
     }
-    
+
     // MARK: - Confirm Button Pressed
     @IBAction func confirmButtonPressed(_ sender: Any) {
         let index = segmentControl.selectedIndex
@@ -73,14 +73,13 @@ class ShopCompletionVC: UIViewController {
         }
         purchase(withDelivryMethod: deliveryMethod, email: text)
     }
-    
+
     // MARK: - Purchase
     private func purchase(withDelivryMethod method: DeliveryMethod, email: String) {
         guard let itemId = shopItem.id else {
             self.showSimpleAlert(title: "Не удалось завершить покупку", message: "Произошла ошибка, но не волнуйтесь, Ваши бонусные баллы не были списаны. (desc: product id not found)")
             return
         }
-        //let isSuccess = false
         NetworkService.shared.purchaseProduct(with: "\(itemId)", deliveryMethod: method, email: email) { [weak self] (result) in
             guard let self = self else { return }
             switch result {
@@ -92,7 +91,7 @@ class ShopCompletionVC: UIViewController {
                         title: "Покупка прошла успешно",
                         message: method.message,
                         okButtonTitle: "OK"
-                    ) { okAction in
+                    ) { _ in
                         self.delegate?.shopCompletionVC(self, didCompletePurchaseForItem: self.shopItem)
                         self.navigationController?.popViewController(animated: true)
                     }
@@ -105,7 +104,7 @@ class ShopCompletionVC: UIViewController {
             }
         }
     }
-    
+
     private func handleError(_ error: NetworkServiceError) {
         print(error)
         switch error {
@@ -115,7 +114,7 @@ class ShopCompletionVC: UIViewController {
             showErrorConnectingToServerAlert()
         }
     }
-    
+
     private func configureViews() {
         imageView.loadImage(path: shopItem.imagePath, placeholderImage: .logoColoredImage)
         if shopItem.isOfflineDeliveryOnly {
@@ -126,7 +125,7 @@ class ShopCompletionVC: UIViewController {
             configureSegmentControl()
         }
     }
-    
+
     private func configureSegmentControl() {
         segmentControl.items = shopItem.availableDeliveryMethods.map { $0.title }
         segmentControl.dampingRatio = 0.9

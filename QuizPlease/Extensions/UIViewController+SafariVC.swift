@@ -11,8 +11,8 @@ import SafariServices
 
 extension UIViewController {
     // MARK: - Open Safari VC with link
-    ///Opens Safari screen with chosen preset link or any other given
-    ///- parameter url: if `nil`, will not open anything
+    /// Opens Safari screen with chosen preset link or any other given
+    /// - parameter url: if `nil`, will not open anything
     func openSafariVC(
         with url: URL?,
         delegate: SFSafariViewControllerDelegate?,
@@ -21,10 +21,10 @@ extension UIViewController {
         controlsColor: UIColor = .white
     ) {
         guard let url = url else { return }
-        
+
         let config = SFSafariViewController.Configuration()
         config.entersReaderIfAvailable = autoReaderView
-        
+
         let safariViewController = SFSafariViewController(url: url, configuration: config)
         safariViewController.delegate = delegate
         safariViewController.preferredControlTintColor = controlsColor
@@ -38,4 +38,3 @@ extension UIViewController {
         present(safariViewController, animated: true, completion: nil)
     }
 }
-

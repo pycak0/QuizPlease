@@ -11,7 +11,7 @@ import Foundation
 struct RatingFilter {
     enum RatingScope: Int, Codable, CaseIterable {
         case season, allTime
-        
+
         var title: String {
             switch self {
             case .allTime:
@@ -20,7 +20,7 @@ struct RatingFilter {
                 return "За сезон"
             }
         }
-        
+
         var comment: String {
             switch self {
             case .allTime:
@@ -30,10 +30,10 @@ struct RatingFilter {
             }
         }
     }
-    
+
     enum RatingLeague: Int, Codable, CaseIterable {
         case classic = 1, movieAndMusic, teens, englishPlease, streams
-        
+
         var name: String {
             switch self {
             case .classic:
@@ -48,7 +48,7 @@ struct RatingFilter {
                 return "Стримы"
             }
         }
-        
+
         var comment: String {
             switch self {
             case .classic:
@@ -64,7 +64,7 @@ struct RatingFilter {
             }
         }
     }
-    
+
     var city: City = AppSettings.defaultCity
     var teamName: String = ""
     var league: RatingLeague = .classic

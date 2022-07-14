@@ -15,12 +15,12 @@ extension SpecialCondition {
     enum Kind: String, Decodable {
         case promocode = "promo", certificate
     }
-    
+
     struct DiscountInfo {
         let kind: Kind?
         let discount: DiscountKind
     }
-    
+
     struct Response: Decodable {
         let success: Bool
         let message: String
@@ -44,7 +44,7 @@ extension SpecialCondition.Response {
         }
         return .none
     }
-    
+
     var discountInfo: SpecialCondition.DiscountInfo {
         return SpecialCondition.DiscountInfo(kind: type, discount: discountKind)
     }

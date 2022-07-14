@@ -9,13 +9,13 @@
 import UIKit
 
 class WarmupAnswerButton: UIButton {
-    
+
     convenience init(title: String) {
         self.init()
         configure()
         setTitle(title, for: .normal)
     }
-    
+
     func highlightAnswer(isCorrect: Bool) {
         let color: UIColor = isCorrect ? .lightGreen : .red
         backgroundColor = color
@@ -23,7 +23,7 @@ class WarmupAnswerButton: UIButton {
             shakeAnimation()
         }
     }
-    
+
     private func configure() {
         layer.cornerRadius = 20
         titleLabel?.textColor = .white

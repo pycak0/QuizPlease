@@ -10,18 +10,17 @@ import CoreHaptics
 
 // MARK: - Delegate Protocol
 protocol CountPickerViewDelegate: AnyObject {
-    ///Tells the delegate that selected value is changed (only when by user, not via `setSelectedButton(at:)` method).
+    /// Tells the delegate that selected value is changed (only when by user, not via `setSelectedButton(at:)` method).
     ///
-    ///The value of `number` is calculated according to the specified `startCount` value.
-    ///For example, if the new selected index is `1` and the `startCount` is `2`, the `number` will be equal to `3`.
+    /// The value of `number` is calculated according to the specified `startCount` value.
+    /// For example, if the new selected index is `1` and the `startCount` is `2`, the `number` will be equal to `3`.
     func countPicker(_ picker: CountPickerView, didChangeSelectedNumber number: Int)
 }
-
 
 @IBDesignable
 class CountPickerView: UIView {
     private let hapticsGenerator = UISelectionFeedbackGenerator()
-    
+
     // MARK: - UI
     private let vStack: UIStackView = {
         let vStack = UIStackView()
@@ -29,22 +28,22 @@ class CountPickerView: UIView {
         vStack.spacing = 16
         return vStack
     }()
-    
+
     lazy var titleLabel: UILabel = {
         let titleLabel = UILabel()
         titleLabel.text = title
         titleLabel.isHidden = title.count == 0
         return titleLabel
     }()
-    
+
     private let pickerView = UIView()
-    
+
     private lazy var pickerLine: UIView = {
         let pickerLine = UIView(frame: pickerView.bounds)
         pickerLine.backgroundColor = pickerBackgroundColor
         return pickerLine
     }()
-    
+
     private let pickerStack: UIStackView = {
         let pickerStack = UIStackView()
         pickerStack.axis = .horizontal
@@ -52,18 +51,18 @@ class CountPickerView: UIView {
         pickerStack.distribution = .fillEqually
         return pickerStack
     }()
-    
+
     private var buttons = [UIButton]()
     private(set) var selectedIndex: Int = 0
-    
+
     weak var delegate: CountPickerViewDelegate?
-    
+
     // MARK: - IBInspectable
     @IBInspectable
     var startCount: Int = 2 {
         didSet { updateButtonViews() }
     }
-    
+
     @IBInspectable
     var maxButtonsCount: Int = 8 {
         didSet {
@@ -71,22 +70,22 @@ class CountPickerView: UIView {
             setSelectedButton(at: maxButtonsCount - 1, animated: true)
         }
     }
-    
+
     @IBInspectable
     var unselectedImage: UIImage? = UIImage(named: "human") {
         didSet { updateButtonViews() }
     }
-    
+
     @IBInspectable
     var selectedColor: UIColor = .systemBlue {
         didSet { updateButtonViews() }
     }
-    
+
     @IBInspectable
     var pickerBackgroundColor: UIColor? = .white {
         didSet { updateButtonViews() }
     }
-    
+
     @IBInspectable
     var title: String = "" {
         didSet {
@@ -94,41 +93,41 @@ class CountPickerView: UIView {
             titleLabel.isHidden = title.count == 0
         }
     }
-    
+
     @IBInspectable
     var buttonsTitleColor: UIColor = .white {
         didSet { updateButtonViews() }
     }
-    
+
     @IBInspectable
     var buttonsCornerRadius: CGFloat = 10 {
         didSet {
             buttons.forEach { $0.layer.cornerRadius = buttonsCornerRadius }
         }
     }
-    
+
     var buttonsTitleFont: UIFont? = .systemFont(ofSize: 16, weight: .semibold) {
         didSet { updateButtonViews() }
     }
-    
+
     // MARK: - Touches
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         setScrollEnabled(false)
         selectButton(with: touches)
     }
-    
+
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         selectButton(with: touches)
     }
-    
+
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         setScrollEnabled(true)
     }
-    
+
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         setScrollEnabled(true)
     }
-    
+
     private func selectButton(with touches: Set<UITouch>) {
         guard let location = touches.first?.location(in: pickerStack) else { return }
         for (index, item) in buttons.enumerated() {
@@ -140,7 +139,7 @@ class CountPickerView: UIView {
             }
         }
     }
-    
+
     private func setScrollEnabled(_ isEnabled: Bool) {
         var superview = superview
         while superview != nil {
@@ -153,31 +152,31 @@ class CountPickerView: UIView {
             superview = superview?.superview
         }
     }
-    
+
     // MARK: - Update Selected Button
-    ///This method does not call any delegate methods
+    /// This method does not call any delegate methods
     func setSelectedButton(at index: Int, animated: Bool) {
         deselectAllButtons()
         guard index >= 0 && index < buttons.count else { return }
         selectedIndex = index
-        //let selectedNumber = selectedIndex + startCount
+        // let selectedNumber = selectedIndex + startCount
         let selectedButton = buttons[index]
         select(selectedButton, animated: animated)
     }
-    
+
     // MARK: - Count Button Pressed
     @objc
     private func pickerButtonPressed(_ sender: UIButton) {
         guard let index = buttons.firstIndex(of: sender), index != selectedIndex else { return }
         pickerButtonPressed(at: index)
     }
-    
+
     private func pickerButtonPressed(at index: Int) {
         hapticsGenerator.selectionChanged()
         delegate?.countPicker(self, didChangeSelectedNumber: index + startCount)
         setSelectedButton(at: index, animated: true)
     }
-    
+
     // MARK: - Set Buttons
     private func setButtons() {
         buttons.forEach { $0.removeFromSuperview() }
@@ -193,7 +192,7 @@ class CountPickerView: UIView {
             button.layer.cornerRadius = pickerStack.frame.height / 2
         }
     }
-    
+
     // MARK: - Update Button Views
     private func updateButtonViews() {
         for (i, button) in buttons.enumerated() {
@@ -202,7 +201,7 @@ class CountPickerView: UIView {
         pickerLine.backgroundColor = pickerBackgroundColor
         setSelectedButton(at: maxButtonsCount - 1, animated: false)
     }
-    
+
     private func updateView(for button: UIButton, at index: Int) {
         button.setImage(unselectedImage, for: .normal)
         button.setImage(nil, for: .highlighted)
@@ -212,22 +211,22 @@ class CountPickerView: UIView {
         button.titleLabel?.font = buttonsTitleFont
         button.setTitleColor(buttonsTitleColor, for: .normal)
         button.backgroundColor = button.isSelected ? selectedColor : pickerBackgroundColor
-        //button.layer.cornerRadius = buttonsCornerRadius
+        // button.layer.cornerRadius = buttonsCornerRadius
     }
-    
+
     // MARK: - Select
-    ///- parameter number: The value to set as the button's title
+    /// - parameter number: The value to set as the button's title
     private func select(_ button: UIButton, animated: Bool = true) {
         let scale: CGFloat = 1.1
         button.isSelected = true
         UIView.animate(withDuration: animated ? 0.2 : 0.0) {
-            //button.setTitle("\(number)", for: .normal)
+            // button.setTitle("\(number)", for: .normal)
             button.setImage(nil, for: .normal)
             button.backgroundColor = self.selectedColor
             button.transform = CGAffineTransform(scaleX: scale, y: scale)
         }
     }
-    
+
     // MARK: - Deselect
     private func deselect(_ button: UIButton?) {
         button?.isSelected = false
@@ -238,7 +237,7 @@ class CountPickerView: UIView {
             button?.transform = .identity
         }
     }
-    
+
     private func deselectAllButtons() {
         buttons.forEach { deselect($0) }
     }
@@ -248,17 +247,17 @@ class CountPickerView: UIView {
         super.init(frame: frame)
         setupView()
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setupView()
     }
-    
+
     override func layoutSubviews() {
         super.layoutSubviews()
-        //buttons.forEach { $0.layer.cornerRadius = $0.frame.height / 2 }
+        // buttons.forEach { $0.layer.cornerRadius = $0.frame.height / 2 }
     }
-    
+
     // MARK: - Setup View
     private func setupView() {
         addSubview(vStack)
@@ -266,18 +265,18 @@ class CountPickerView: UIView {
 
         vStack.addArrangedSubview(titleLabel)
         activateTitleConstraints()
-        
+
         vStack.addArrangedSubview(pickerView)
-        
+
         pickerView.addSubview(pickerLine)
         activatePickerLineConstraints()
-        
+
         pickerView.addSubview(pickerStack)
         activateConstraints(for: pickerStack, fillInto: pickerView)
         setButtons()
         setSelectedButton(at: maxButtonsCount - 1, animated: false)
     }
-    
+
     // MARK: - Constraints
     private func activateConstraints(for view: UIView, fillInto superview: UIView) {
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -288,7 +287,7 @@ class CountPickerView: UIView {
             view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
         ])
     }
-    
+
     private func activatePickerLineConstraints() {
         pickerLine.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -298,7 +297,7 @@ class CountPickerView: UIView {
             pickerLine.centerYAnchor.constraint(equalTo: pickerView.centerYAnchor)
         ])
     }
-    
+
     private func activateTitleConstraints() {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.heightAnchor.constraint(equalToConstant: 22).isActive = true

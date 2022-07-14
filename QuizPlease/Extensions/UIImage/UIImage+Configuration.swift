@@ -9,7 +9,7 @@
 import UIKit
 
 extension UIImage {
-    
+
     /// Works only for SF Symbols, iOS 13+ (`@available` attribute wasn't added for convenience).
     /// In iOS 12 will return the image as it is
     func withPointSize(_ points: CGFloat) -> UIImage? {
@@ -20,7 +20,7 @@ extension UIImage {
             return self
         }
     }
-    
+
     /// Works only for SF Symbols, iOS 13+ (`@available` attribute wasn't added for convenience).
     /// In iOS 12 will return the image as it is
     func withScale(_ scale: SFSymbolScale) -> UIImage? {
@@ -31,11 +31,11 @@ extension UIImage {
             return self
         }
     }
-    
+
     /// Mapper for `SymbolScale`
     enum SFSymbolScale {
         case small, medium, large, `default`, unspecified
-        
+
         @available(iOS 13.0, *)
         fileprivate var symbolScale: SymbolScale {
             switch self {
@@ -53,4 +53,3 @@ extension UIImage {
         }
     }
 }
-

@@ -14,19 +14,19 @@ protocol GameOrderCompletionDelegate: AnyObject {
 }
 
 class GameOrderCompletionVC: UIViewController {
-    
+
     enum RowKind: Int, CaseIterable {
         case info = 0, people = 1
     }
-    
+
     weak var delegate: GameOrderCompletionDelegate?
-    
+
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet weak var bottomView: UIView!
-    
+
     var gameInfo: GameInfo!
     var numberOfPeopleInTeam: Int!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareNavigationBar(
@@ -35,16 +35,21 @@ class GameOrderCompletionVC: UIViewController {
         )
         configureViews()
     }
-    
+
     private func configureViews() {
-        tableView.register(UINib(nibName: GameInfoCell.identifier, bundle: nil), forCellReuseIdentifier: GameInfoCell.identifier)
-        tableView.register(UINib(nibName: GOCPeopleNumberCell.identifier, bundle: nil), forCellReuseIdentifier: GOCPeopleNumberCell.identifier)
-        
+        let cells = [GameInfoCell.self, GOCPeopleNumberCell.self]
+        cells.forEach {
+            tableView.register(
+                UINib(nibName: "\($0.self)", bundle: nil),
+                forCellReuseIdentifier: "\($0.self)"
+            )
+        }
+
         tableView.delegate = self
         tableView.dataSource = self
-        
+
         bottomView.backgroundColor = .clear
-        //bottomView.blurView.setup(style: .regular, alpha: 1).enable()
+        // bottomView.blurView.setup(style: .regular, alpha: 1).enable()
     }
 
     @IBAction func okButtonPressed(_ sender: Any) {
@@ -58,13 +63,13 @@ extension GameOrderCompletionVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return RowKind.allCases.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let rowkKind = RowKind(rawValue: indexPath.row) else { fatalError("Invalid Row Kind") }
-        
+
         switch rowkKind {
         case .info:
-            let cell = tableView.dequeueReusableCell(withIdentifier: GameInfoCell.identifier, for: indexPath) as! GameInfoCell
+            let cell = tableView.dequeueReusableCell(GameInfoCell.self, for: indexPath)
             cell.cellView.layer.borderWidth = 4
             cell.cellView.layer.borderColor = UIColor.lightGreen.cgColor
             cell.availablePlacesStack.isHidden = true
@@ -72,12 +77,11 @@ extension GameOrderCompletionVC: UITableViewDelegate, UITableViewDataSource {
             return cell
 
         case .people:
-            let cell = tableView.dequeueReusableCell(withIdentifier: GOCPeopleNumberCell.identifier, for: indexPath) as! GOCPeopleNumberCell
+            let cell = tableView.dequeueReusableCell(GOCPeopleNumberCell.self, for: indexPath)
             cell.setNumber(numberOfPeopleInTeam)
             return cell
         }
     }
-    
 }
 
 // MARK: - GameInfoCellDelegate
@@ -85,7 +89,7 @@ extension GameOrderCompletionVC: GameInfoCellDelegate {
     func gameInfo(for gameInfoCell: GameInfoCell) -> GameInfo {
         return gameInfo
     }
-    
+
     func gameInfoCellDidTapOnMap(_ cell: GameInfoCell) {
         let mapViewController = MapAssembly(place: gameInfo.placeInfo).makeViewController()
         present(mapViewController, animated: true)

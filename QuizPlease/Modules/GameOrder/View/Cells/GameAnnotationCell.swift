@@ -15,10 +15,10 @@ protocol GameAnnotationCellDelegate: AnyObject {
 
 class GameAnnotationCell: UITableViewCell, GameOrderCellProtocol {
     static let identifier = "GameAnnotationCell"
-    
+
     @IBOutlet weak var annotationLabel: UILabel!
     @IBOutlet weak var signUpButton: ScalingButton!
-    
+
     weak var delegate: AnyObject? {
         get { _delegate }
         set { _delegate = newValue as? GameAnnotationCellDelegate }
@@ -35,14 +35,13 @@ class GameAnnotationCell: UITableViewCell, GameOrderCellProtocol {
         super.layoutSubviews()
         configureViews()
     }
-    
+
     @IBAction func didPressSignUpButton(_ sender: UIButton) {
         _delegate?.signUpButtonPressed(in: self)
     }
-    
-    
+
     func configureViews() {
         signUpButton.layer.cornerRadius = signUpButton.frame.height / 2
     }
-    
+
 }

@@ -13,9 +13,9 @@ struct PassedGame: Decodable {
     private let name: String
     let title: String
     let place: String?
-    
+
     private var bonus_points: Double?
-    
+
     init(sampleTitle: String) {
         id = "-1"
         name = "1"
@@ -32,6 +32,6 @@ extension PassedGame {
         }
         return "#\(number)"
     }
-    
+
     var points: Double? { bonus_points }
 }

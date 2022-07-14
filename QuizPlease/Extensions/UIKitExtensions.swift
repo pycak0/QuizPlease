@@ -12,19 +12,19 @@ import UIKit
 ///
 
 public extension UIView {
-    
+
     @IBInspectable
     var cornerRadiusView: CGFloat {
         get { self.layer.cornerRadius }
         set { self.layer.cornerRadius = newValue }
     }
-    
+
     @IBInspectable
     var borderWidthView: CGFloat {
         get { self.layer.borderWidth }
         set { self.layer.borderWidth = newValue }
     }
-    
+
     @IBInspectable
     var borderColorView: UIColor? {
         get {
@@ -36,22 +36,22 @@ public extension UIView {
         }
         set { self.layer.borderColor = newValue?.cgColor }
     }
-    
+
     // MARK: - View Scale Animation
     func scaleIn(scale: CGFloat = 0.96) {
         UIView.animate(withDuration: 0.15) {
             self.transform = CGAffineTransform(scaleX: scale, y: scale)
         }
     }
-    
+
     func scaleOut() {
         UIView.animate(withDuration: 0.15) {
             self.transform = .identity
         }
     }
-    
+
     // MARK: - Add Blur to View
-    ///Clears view's background color by default but you can specify blur background color
+    /// Clears view's background color by default but you can specify blur background color
     @discardableResult
     func addBlur(color: UIColor = .clear, style: UIBlurEffect.Style = .regular, alpha: CGFloat = 1) -> UIVisualEffectView {
         let blur = UIVisualEffectView(effect: UIBlurEffect(style: style))
@@ -63,11 +63,11 @@ public extension UIView {
         blur.backgroundColor = color
         self.backgroundColor = .clear
 
-        //self.addSubview(blur)
+        // self.addSubview(blur)
         self.insertSubview(blur, at: 0)
         return blur
     }
-    
+
     // MARK: - Draw Dotted Line
     @discardableResult
     static func drawDottedLine(
@@ -86,7 +86,7 @@ public extension UIView {
         path.addLines(between: [start, end])
         shapeLayer.path = path
         view.layer.addSublayer(shapeLayer)
-        
+
         return shapeLayer
     }
 }

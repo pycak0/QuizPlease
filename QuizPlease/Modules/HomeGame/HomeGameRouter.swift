@@ -14,11 +14,11 @@ protocol HomeGameRouterProtocol: SegueRouter {
 
 class HomeGameRouter: HomeGameRouterProtocol {
     unowned let viewController: UIViewController
-    
+
     required init(viewController: UIViewController) {
         self.viewController = viewController
     }
-    
+
     func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case "ShowHomeGame":
@@ -31,7 +31,7 @@ class HomeGameRouter: HomeGameRouterProtocol {
             print("unknown segue from Home Games List")
         }
     }
-    
+
     func showGame(_ game: HomeGame) {
         viewController.performSegue(withIdentifier: "ShowHomeGame", sender: game)
     }

@@ -10,35 +10,65 @@ import Foundation
 import YooKassaPayments
 
 // MARK: - Interactor Protocol
+
 protocol GameOrderInteractorProtocol {
-    ///must be weak
+
+    /// must be weak
     var output: GameOrderInteractorOutput? { get }
-    
-    func register(with form: RegisterForm, specialConditions: [SpecialCondition], paymentMethod: PaymentMethodType?)
-    func checkSpecialCondition(_ value: String, forGameWithId id: Int, selectedTeamName name: String)
+
+    func register(
+        with form: RegisterForm,
+        specialConditions: [SpecialCondition],
+        paymentMethod: PaymentMethodType?
+    )
+
+    func checkSpecialCondition(
+        _ value: String,
+        forGameWithId id: Int,
+        selectedTeamName name: String
+    )
 }
 
 // MARK: - Output Protocol
+
 protocol GameOrderInteractorOutput: AnyObject {
+
     func interactor(_ interactor: GameOrderInteractorProtocol?, errorOccured error: NetworkServiceError)
-    func interactor(_ interactor: GameOrderInteractorProtocol?, didCheckSpecialCondition value: String, with response: SpecialCondition.Response)
-    func interactor(_ interactor: GameOrderInteractorProtocol?, didRegisterWithResponse: GameOrderResponse, paymentMethod: PaymentMethodType?)
+
+    func interactor(
+        _ interactor: GameOrderInteractorProtocol?,
+        didCheckSpecialCondition value: String,
+        with response: SpecialCondition.Response
+    )
+
+    func interactor(
+        _ interactor: GameOrderInteractorProtocol?,
+        didRegisterWithResponse: GameOrderResponse,
+        paymentMethod: PaymentMethodType?
+    )
 }
 
 // MARK: - Implementation
+
 class GameOrderInteractor: GameOrderInteractorProtocol {
     weak var output: GameOrderInteractorOutput?
-    
-    func register(with registerForm: RegisterForm, specialConditions: [SpecialCondition], paymentMethod: PaymentMethodType?) {
+
+    func register(
+        with registerForm: RegisterForm,
+        specialConditions: [SpecialCondition],
+        paymentMethod: PaymentMethodType?
+    ) {
         let certificates: [MultipartFormDataObject] = specialConditions
             .lazy
             .filter { $0.discountInfo?.kind == .certificate }
             .compactMap { MultipartFormDataObject(name: "certificates[]", optionalStringData: $0.value) }
 
         let promocode = specialConditions.first(where: { $0.discountInfo?.kind == .promocode })?.value
-        
+
+        // swiftlint:disable colon
         let params: [String: String?] = [
-            "QpRecord[registration_type]":  "2", //2 - регистрация через мобильное приложение
+            /// 2 - регистрация через мобильное приложение
+            "QpRecord[registration_type]":  "2",
             "QpRecord[captainName]":        registerForm.captainName,
             "QpRecord[email]":              registerForm.email,
             "QpRecord[phone]":              registerForm.phone,
@@ -52,7 +82,8 @@ class GameOrderInteractor: GameOrderInteractorProtocol {
             "QpRecord[surcharge]":          registerForm.countPaidOnline.map { "\($0)" },
             "promo_code":                   promocode
         ]
-        
+        // swiftlint:enable colon
+
         let formData: [MultipartFormDataObject] = certificates + MultipartFormDataObjects(params)
 
         NetworkService.shared.afPost(
@@ -69,8 +100,12 @@ class GameOrderInteractor: GameOrderInteractorProtocol {
             }
         }
     }
-    
-    func checkSpecialCondition(_ value: String, forGameWithId id: Int, selectedTeamName name: String) {
+
+    func checkSpecialCondition(
+        _ value: String,
+        forGameWithId id: Int,
+        selectedTeamName name: String
+    ) {
         NetworkService.shared.get(
             SpecialCondition.Response.self,
             apiPath: "/ajax/check-code",

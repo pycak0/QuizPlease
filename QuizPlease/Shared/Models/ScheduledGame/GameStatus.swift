@@ -10,9 +10,9 @@ import UIKit
 
 enum GameStatus: Int, Decodable {
     case placesAvailable = 1, reserveAvailable = 2, noPlaces = 3, invite = 4, ended = 6
-    
+
     case fewPlaces = 100
-    
+
     var comment: String {
         switch self {
         case .placesAvailable:
@@ -29,7 +29,7 @@ enum GameStatus: Int, Decodable {
             return "Осталось мало мест"
         }
     }
-    
+
     var buttonTitle: String {
         switch self {
         case .placesAvailable, .fewPlaces:
@@ -40,7 +40,7 @@ enum GameStatus: Int, Decodable {
             return "Запись закрыта"
         }
     }
-    
+
     var accentColor: UIColor {
         switch self {
         case .placesAvailable, .fewPlaces:
@@ -51,7 +51,7 @@ enum GameStatus: Int, Decodable {
             return .themeGray
         }
     }
-    
+
     var image: UIImage? {
         switch self {
         case .placesAvailable:

@@ -168,6 +168,8 @@
 		A48E2FB62530E23800CD6BE6 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48E2FB52530E23800CD6BE6 /* Utilities.swift */; };
 		A48E2FBC253330D900CD6BE6 /* DeliveryMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48E2FBB253330D900CD6BE6 /* DeliveryMethod.swift */; };
 		A48E2FC425335A9500CD6BE6 /* SavedAuthInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48E2FC325335A9500CD6BE6 /* SavedAuthInfo.swift */; };
+		A48E303D2871E549000704B2 /* UITableView+deque.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48E303C2871E549000704B2 /* UITableView+deque.swift */; };
+		A48E303F287220A0000704B2 /* UICollectionView+deque.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48E303E287220A0000704B2 /* UICollectionView+deque.swift */; };
 		A48F64642501416300E7A528 /* ScheduleFilterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48F64632501416300E7A528 /* ScheduleFilterProtocol.swift */; };
 		A48F64662501438D00E7A528 /* ScheduleFilterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48F64652501438D00E7A528 /* ScheduleFilterType.swift */; };
 		A490ACD527A6A0E300DEF87B /* UIBarButtonItem+swizzleMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = A490ACD427A6A0E300DEF87B /* UIBarButtonItem+swizzleMenu.swift */; };
@@ -459,6 +461,8 @@
 		A48E2FB52530E23800CD6BE6 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		A48E2FBB253330D900CD6BE6 /* DeliveryMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliveryMethod.swift; sourceTree = "<group>"; };
 		A48E2FC325335A9500CD6BE6 /* SavedAuthInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedAuthInfo.swift; sourceTree = "<group>"; };
+		A48E303C2871E549000704B2 /* UITableView+deque.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+deque.swift"; sourceTree = "<group>"; };
+		A48E303E287220A0000704B2 /* UICollectionView+deque.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+deque.swift"; sourceTree = "<group>"; };
 		A48F64632501416300E7A528 /* ScheduleFilterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleFilterProtocol.swift; sourceTree = "<group>"; };
 		A48F64652501438D00E7A528 /* ScheduleFilterType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleFilterType.swift; sourceTree = "<group>"; };
 		A490ACD427A6A0E300DEF87B /* UIBarButtonItem+swizzleMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+swizzleMenu.swift"; sourceTree = "<group>"; };
@@ -822,6 +826,8 @@
 				A4A4ED372775D8D000DAA945 /* Bundle+version.swift */,
 				A4FEB058273749010052AD7B /* UIAlertAction+Cancel.swift */,
 				A490ACD427A6A0E300DEF87B /* UIBarButtonItem+swizzleMenu.swift */,
+				A48E303C2871E549000704B2 /* UITableView+deque.swift */,
+				A48E303E287220A0000704B2 /* UICollectionView+deque.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1386,6 +1392,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A40D816A24D2C6C2006D2CE3 /* Build configuration list for PBXNativeTarget "QuizPlease" */;
 			buildPhases = (
+				A43868DA2871CC54004031AF /* ShellScript */,
 				51F5F71E4FC0FD57C8E6E086 /* [CP] Check Pods Manifest.lock */,
 				A40D815224D2C6C1006D2CE3 /* Sources */,
 				A40D815324D2C6C1006D2CE3 /* Frameworks */,
@@ -1539,6 +1546,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		A43868DA2871CC54004031AF /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1638,6 +1662,7 @@
 				A4DAF73924DD987F00963C15 /* MenuProfileCell.swift in Sources */,
 				A4FEB059273749010052AD7B /* UIAlertAction+Cancel.swift in Sources */,
 				A450E39A24E564A900C49AEE /* GameCertificateCell.swift in Sources */,
+				A48E303F287220A0000704B2 /* UICollectionView+deque.swift in Sources */,
 				A40F036424D419D200C381F2 /* MenuCellItemProtocol.swift in Sources */,
 				A4F3A79A257E7A1700D6A9C7 /* UIImage+Static.swift in Sources */,
 				A4A4ED382775D8D000DAA945 /* Bundle+version.swift in Sources */,
@@ -1650,6 +1675,7 @@
 				A48E2FAA2530906200CD6BE6 /* UserInfo.swift in Sources */,
 				A40B759A24D9A85B006DB7D1 /* ProfileConfigurator.swift in Sources */,
 				A45241E226547A990058285C /* UIView+TapGestureRecognizer.swift in Sources */,
+				A48E303D2871E549000704B2 /* UITableView+deque.swift in Sources */,
 				A4CC5FC324DACE1A0042B41C /* ShopPresenter.swift in Sources */,
 				A4FEB055273739F10052AD7B /* DGisMapProvier.swift in Sources */,
 				A4A065A524E47D460080E0D8 /* IdentifiableType.swift in Sources */,
@@ -1925,7 +1951,7 @@
 				CODE_SIGN_ENTITLEMENTS = QuizPlease/QuizPlease.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 23;
+				CURRENT_PROJECT_VERSION = 24;
 				DEVELOPMENT_TEAM = 5524GP5G24;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1955,7 +1981,7 @@
 				CODE_SIGN_ENTITLEMENTS = QuizPlease/QuizPlease.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 23;
+				CURRENT_PROJECT_VERSION = 24;
 				DEVELOPMENT_TEAM = 5524GP5G24;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

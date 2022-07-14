@@ -16,23 +16,24 @@ class TwoColumnsFlowLayout: UICollectionViewFlowLayout {
      */
     let cellAspectRatio: CGFloat
     let cellsPerLine: CGFloat
-    
+
     override var itemSize: CGSize {
         get {
             guard let fullWidth = collectionView?.bounds.width else { return .zero }
             let rowWidth = fullWidth
                 - 2 * sectionInset.top
                 - minimumInteritemSpacing * (cellsPerLine - 1)
-            
+
             let cellWidth = rowWidth / cellsPerLine
             let cellHeight = cellWidth / cellAspectRatio
             return CGSize(width: cellWidth, height: cellHeight)
         }
+        // swiftlint:disable:next unused_setter_value
         set {
             fatalError("\(Self.self) does not support setting property `itemSize`")
         }
     }
-    
+
     init(
         sectionInsets: CGFloat = 16,
         interItemSpacing: CGFloat = 16,
@@ -45,7 +46,7 @@ class TwoColumnsFlowLayout: UICollectionViewFlowLayout {
         sectionInset = UIEdgeInsets(all: sectionInsets)
         minimumInteritemSpacing = interItemSpacing
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

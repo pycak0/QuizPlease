@@ -10,7 +10,7 @@ import UIKit
 
 class ProfileCell: UITableViewCell, IdentifiableType {
     static let identifier = "\(ProfileCell.self)"
-    
+
     @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var gameNameLabel: UILabel!
     @IBOutlet weak var gameNumberLabel: UILabel!
@@ -25,13 +25,13 @@ class ProfileCell: UITableViewCell, IdentifiableType {
             cellView.layer.borderColor = UIColor.systemGray6Adapted.cgColor
         }
     }
-    
+
     override func layoutSubviews() {
         super.layoutSubviews()
         pointsScoredLabel.layer.cornerRadius = pointsScoredLabel.bounds.height / 2
         cellView.layer.borderColor = UIColor.systemGray6Adapted.cgColor
     }
-    
+
     func configure(
         gameName: String,
         gameNumber: String,
@@ -42,18 +42,18 @@ class ProfileCell: UITableViewCell, IdentifiableType {
         gameNameLabel.text = gameName
         gameNumberLabel.text = gameNumber
         teamNameLabel.text = teamName
-        
+
         pointsScoredLabel.isHidden = pointsScoredText == nil
         if let text = pointsScoredText {
             pointsScoredLabel.text = text
         }
-        
+
         if let placeStr = place {
             placeLabel.text = "\(placeStr) место"
             let number = Double(placeStr) ?? 99
             prizeImageView.isHidden = number > 3
         } else {
-            placeLabel.isHidden = true 
+            placeLabel.isHidden = true
             prizeImageView.isHidden = true
         }
     }
