@@ -92,7 +92,12 @@ extension Blurable {
             UIView.transition(from: this, to: blurOverlay, duration: 0.2, options: .curveEaseIn, completion: nil)
         }
 
-        objc_setAssociatedObject(this, &BlurableKey.blurable, blurOverlay, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN)
+        objc_setAssociatedObject(
+            this,
+            &BlurableKey.blurable,
+            blurOverlay,
+            objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN
+        )
     }
 
     // MARK: - Remove Blur

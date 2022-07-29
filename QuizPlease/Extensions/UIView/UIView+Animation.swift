@@ -11,7 +11,13 @@ import UIKit
 extension UIView {
     func shakeAnimation(duration: Double = 0.4, dampingRatio: Double = 0.2, completion: (() -> Void)? = nil) {
         self.transform = CGAffineTransform(translationX: 30, y: 0)
-        UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 0.2, initialSpringVelocity: 10, options: []) {
+        UIView.animate(
+            withDuration: 0.4,
+            delay: 0,
+            usingSpringWithDamping: 0.2,
+            initialSpringVelocity: 10,
+            options: []
+        ) {
             self.transform = .identity
         } completion: { _ in
             completion?()
