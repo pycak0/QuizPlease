@@ -24,6 +24,7 @@ protocol GameOrderViewProtocol: UIViewController, LoadingIndicator {
 
     func editEmail()
     func editPhone()
+    func editTeamName()
 
     func setPrice(_ price: Double)
     func setBackgroundImage(with path: String)
@@ -165,10 +166,12 @@ extension GameOrderVC: GameOrderViewProtocol {
     }
 
     func startLoading() {
+        view.isUserInteractionEnabled = false
         activityIndicator.enableCentered(in: view, color: .systemBlue)
     }
 
     func stopLoading() {
+        view.isUserInteractionEnabled = true
         activityIndicator.stopAnimating()
     }
 
@@ -177,8 +180,14 @@ extension GameOrderVC: GameOrderViewProtocol {
     }
 
     func editPhone() {
-        scrollToRegistrationCell { (cell) in
+        scrollToRegistrationCell { cell in
             cell?.phoneFieldView.textField.becomeFirstResponder()
+        }
+    }
+
+    func editTeamName() {
+        scrollToRegistrationCell { cell in
+            cell?.teamNameFieldView.textField.becomeFirstResponder()
         }
     }
 
