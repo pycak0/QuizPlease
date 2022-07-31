@@ -16,7 +16,7 @@ protocol GamePaymentTypeCellDelegate: AnyObject {
     func paymentTypeCell(_ cell: GamePaymentTypeCell, didChangePaymentType isOnlinePayment: Bool)
 }
 
-class GamePaymentTypeCell: UITableViewCell, GameOrderCellProtocol {
+final class GamePaymentTypeCell: UITableViewCell, GameOrderCellProtocol {
     static let identifier = "\(GamePaymentTypeCell.self)"
 
     @IBOutlet private weak var cashCheckBox: UIImageView!
@@ -41,6 +41,11 @@ class GamePaymentTypeCell: UITableViewCell, GameOrderCellProtocol {
         configureCell()
     }
 
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        setPaymentTypes()
+    }
+
     private func configureCell() {
         cashTypeView.addTapGestureRecognizer {
             self.updatePaymentType(isOnlinePayment: false)
@@ -52,7 +57,7 @@ class GamePaymentTypeCell: UITableViewCell, GameOrderCellProtocol {
 
     // MARK: - Update Payment Type
     /// Must be called only in response on user actions
-    func updatePaymentType(isOnlinePayment: Bool) {
+    private func updatePaymentType(isOnlinePayment: Bool) {
         _delegate?.paymentTypeCell(self, didChangePaymentType: isOnlinePayment)
         updateViews(isOnlinePayment: isOnlinePayment)
     }
@@ -63,14 +68,15 @@ class GamePaymentTypeCell: UITableViewCell, GameOrderCellProtocol {
     }
 
     func setPaymentTypes() {
-        guard let types = _delegate?.availablePaymentTypes(in: self) else { return }
+        guard let delegate = _delegate else { return }
+        let types = delegate.availablePaymentTypes(in: self)
         guard types.count <= 2, types.count >= 1 else {
             fatalError("Invalid count of payment types. Only online and cash (max 2, min 1) type(s) are supported now.")
         }
+        cashTypeView.isHidden = !types.contains(.cash)
+        onlineTypeView.isHidden = !types.contains(.online)
         if types.count == 1, let singleType = types.first {
-            // if the only single type is available, hide the second one
-            cashTypeView.isHidden = singleType == .online
-            onlineTypeView.isHidden = singleType == .cash
+            updateViews(isOnlinePayment: singleType == .online)
         }
     }
 }

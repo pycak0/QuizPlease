@@ -10,14 +10,20 @@ import Foundation
 import YooKassaPayments
 
 // MARK: - Presenter Protocol
+
 protocol GameOrderPresenterProtocol {
+
     var router: GameOrderRouterProtocol! { get }
     var view: GameOrderViewProtocol? { get }
     var interactor: GameOrderInteractorProtocol! { get }
 
     var game: GameInfo { get }
-    var registerForm: RegisterForm { get }
     var availablePaymentTypes: [PaymentType] { get }
+
+    var numberOfPeople: Int { get }
+    var numberOfPaidPeople: Int? { get }
+    var selectedPaymentType: PaymentType { get }
+    var isFirstTimePlaying: Bool { get set }
 
     var isOnlinePaymentDefault: Bool { get }
     var isOnlyCashAvailable: Bool { get }
@@ -31,6 +37,7 @@ protocol GameOrderPresenterProtocol {
     func didPressTermsOfUse()
     func countSumToPay(forPeople number: Int) -> Double
     func getPriceTextColor() -> UIColor?
+    func getSubmitButtonTitle() -> String?
 
     func didPressAddSpecialCondition()
     func didChangeSpecialCondition(newValue: String, at index: Int)
@@ -39,14 +46,23 @@ protocol GameOrderPresenterProtocol {
     func didPressDeleteSpecialCondition(at index: Int)
 
     func didTapOnMap()
+
+    func didChangeNumberOfPeople(_ newNumber: Int)
+    func didChangeSelectedPaymentType(isOnlinePayment: Bool)
+    func didChangeTeamName(_ name: String)
+    func didChangeCaptainName(_ name: String)
+    func didChangeEmail(_ email: String)
+    func didChangePhone(_ phone: String)
+    func didChangeComment(_ comment: String)
 }
 
 final class GameOrderPresenter: GameOrderPresenterProtocol {
+
     weak var view: GameOrderViewProtocol?
     var interactor: GameOrderInteractorProtocol!
     var router: GameOrderRouterProtocol!
 
-    let registerForm: RegisterForm
+    private let registerForm: RegisterForm
     var game: GameInfo
 
     var isPhoneNumberValid = false
@@ -55,7 +71,6 @@ final class GameOrderPresenter: GameOrderPresenterProtocol {
 
     let maximumSpecialConditionsAmount = 9
 
-//    private var discountType: CertificateDiscountType = .none
     private var priceTextColor: UIColor?
 
     private var tokenizationModule: TokenizationModuleInput?
@@ -75,8 +90,32 @@ final class GameOrderPresenter: GameOrderPresenterProtocol {
         self.registerForm.paymentType = isOnlinePaymentDefault ? .online : .cash
     }
 
+    var numberOfPeople: Int {
+        registerForm.count
+    }
+
+    var numberOfPaidPeople: Int? {
+        get { registerForm.countPaidOnline }
+        set { registerForm.countPaidOnline = newValue }
+    }
+
+    var isFirstTimePlaying: Bool {
+        get { registerForm.isFirstTime }
+        set { registerForm.isFirstTime = newValue }
+    }
+
+    var selectedPaymentType: PaymentType {
+        registerForm.paymentType
+    }
+
     var availablePaymentTypes: [PaymentType] {
+        if game.isOnlineGame {
+            return game.availablePaymentTypes
+        }
         if game.gameStatus == .reserveAvailable {
+            return [.cash]
+        }
+        if registerForm.count > game.vacantPlaces {
             return [.cash]
         }
         return game.availablePaymentTypes
@@ -99,6 +138,45 @@ final class GameOrderPresenter: GameOrderPresenterProtocol {
         } else {
             print(">>>\n>>> No background image path for game with id '\(game.id ?? -1)'\n>>>")
         }
+    }
+
+    func didChangeNumberOfPeople(_ newNumber: Int) {
+        registerForm.count = newNumber
+
+        if isOnlyCashAvailable {
+            registerForm.paymentType = .cash
+            registerForm.countPaidOnline = nil
+        }
+        view?.reloadPaymentInfo()
+    }
+
+    func didChangeSelectedPaymentType(isOnlinePayment: Bool) {
+        registerForm.paymentType = isOnlinePayment ? .online : .cash
+        view?.reloadPaymentInfo()
+    }
+
+    func didChangeTeamName(_ name: String) {
+        registerForm.teamName = name
+    }
+
+    func didChangeCaptainName(_ name: String) {
+        registerForm.captainName = name
+    }
+
+    func didChangeComment(_ comment: String) {
+        registerForm.comment = comment
+    }
+
+    func didChangePhone(_ phone: String) {
+        registerForm.phone = phone
+    }
+
+    func didChangeEmail(_ email: String) {
+        registerForm.email = email
+    }
+
+    func setIsFirstTime(_ isFirstTime: Bool) {
+        registerForm.isFirstTime = isFirstTime
     }
 
     func countSumToPay(forPeople number: Int) -> Double {
@@ -160,6 +238,12 @@ final class GameOrderPresenter: GameOrderPresenterProtocol {
 
     func getPriceTextColor() -> UIColor? {
         return priceTextColor
+    }
+
+    func getSubmitButtonTitle() -> String? {
+        return registerForm.paymentType == .online
+        ? "Оплатить игру"
+        : "Записаться на игру"
     }
 
     // MARK: - Special Conditions
@@ -446,6 +530,7 @@ extension GameOrderPresenter: GameOrderInteractorOutput {
 }
 
 // MARK: - TokenizationModuleOutput
+
 extension GameOrderPresenter: TokenizationModuleOutput {
     func didFinish(on module: TokenizationModuleInput, with error: YooKassaPaymentsError?) {
         DispatchQueue.main.async {
