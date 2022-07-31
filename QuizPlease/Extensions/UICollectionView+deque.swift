@@ -16,7 +16,8 @@ extension UICollectionView {
     ///   - kind: Cell class
     ///   - indexPath: The index path specifying the location of the cell.
     ///   For more details, see ohter `collectionView` `dequeueReusableCell` methods' documentation.
-    /// - Returns: A specified `Kind` object that inherits `UITableViewCell`. If tableView could not create an object of given type, throws `fatalError`.
+    /// - Returns: A specified `Kind` object that inherits `UITableViewCell`.
+    /// If tableView could not create an object of given type, throws `fatalError`.
     func dequeueReusableCell<Kind: UICollectionViewCell>(
         _ kind: Kind.Type,
         for indexPath: IndexPath

@@ -42,7 +42,7 @@ public class HBSegmentedControl: UIControl {
         didSet { layer.borderColor = controlBorderColor.cgColor }
     }
 
-    @IBInspectable public var font: UIFont? = UIFont.systemFont(ofSize: 12) {
+    public var font: UIFont? = UIFont.systemFont(ofSize: 12) {
         didSet { setFont() }
     }
 

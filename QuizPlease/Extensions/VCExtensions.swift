@@ -57,7 +57,13 @@ extension UIViewController {
     }
 
     // MARK: - Prepare Navigation Bar
-    func prepareNavigationBar(title: String? = nil, titleAlignment: NSTextAlignment = .left, tintColor: UIColor? = nil, barStyle: BarStyle, scrollBarStyle: BarStyle? = nil) {
+    func prepareNavigationBar(
+        title: String? = nil,
+        titleAlignment: NSTextAlignment = .left,
+        tintColor: UIColor? = nil,
+        barStyle: BarStyle,
+        scrollBarStyle: BarStyle? = nil
+    ) {
         navigationController?.navigationBar.barTintColor = barStyle.tintColor ?? view.backgroundColor
         navigationController?.navigationBar.shadowImage = UIImage()
 
