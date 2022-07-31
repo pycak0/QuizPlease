@@ -64,10 +64,18 @@ class ProfilePresenter: ProfilePresenterProtocol {
 
     // MARK: - Actions
     func didPressExitButton() {
-        view?.showTwoOptionsAlert(title: "Вы уверены, что хотите выйти из личного кабинета?", message: "", option1Title: "Да", handler1: { _ in
-            self.interactor.deleteUserInfo()
-            self.router.closeProfile()
-        }, option2Title: "Отмена", handler2: nil)
+        view?.showTwoOptionsAlert(
+            title: "Вы уверены, что хотите выйти из личного кабинета?",
+            message: nil,
+            option1: (
+                title: "Да",
+                handler: {
+                    self.interactor.deleteUserInfo()
+                    self.router.closeProfile()
+                }
+            ),
+            option2: ("Отмена", nil)
+        )
     }
 
     func didPressShowShopButton() {

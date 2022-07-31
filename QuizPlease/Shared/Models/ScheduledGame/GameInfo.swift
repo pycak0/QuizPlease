@@ -59,6 +59,9 @@ struct GameInfo: Decodable {
     private var sdk_key: String?
     private var sdk_shop_id: String?
 
+    /// Vacant places
+    private var blockOf: Int = 0
+
     init(shortInfo: GameShortInfo) {
         id = shortInfo.id
         date = shortInfo.date
@@ -178,5 +181,9 @@ extension GameInfo {
             return id
         }
         return nil
+    }
+
+    var vacantPlaces: Int {
+        blockOf
     }
 }

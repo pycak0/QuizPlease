@@ -9,7 +9,9 @@
 import UIKit
 
 // MARK: - View Protocol
+
 protocol ProfileViewProtocol: UIViewController {
+
     var presenter: ProfilePresenterProtocol! { get set }
     func configure()
     func reloadGames()
@@ -17,11 +19,23 @@ protocol ProfileViewProtocol: UIViewController {
     func setCity(_ city: String)
 }
 
-class ProfileVC: UIViewController {
+final class ProfileVC: UIViewController {
+
     var presenter: ProfilePresenterProtocol!
+
+    // MARK: - Private Properties
+
+    // `addGameButton` fading helpers
+    private var lastOffset: CGFloat = 0
+    private var startOffset: CGFloat?
+
     private let pointsFormatter: NumberFormatterProtocol = PointsDecorator(
         baseFormatter: NumberFormatter.decimalGroupingFormatter
     )
+
+    // MARK: - UI Elements
+
+    private let tableFooter = UIView()
 
     @IBOutlet private weak var infoHeader: UIView!
     @IBOutlet private weak var gamesCountLabel: UILabel!
@@ -34,14 +48,12 @@ class ProfileVC: UIViewController {
         didSet {
             tableView.delegate = self
             tableView.dataSource = self
+            tableView.tableFooterView = tableFooter
         }
     }
 
-    // `addGameButton` fading helpers
-    private var lastOffset: CGFloat = 0
-    private var startOffset: CGFloat?
-
     // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareNavigationBar(barStyle: .transcluent(tintColor: view.backgroundColor))
@@ -56,11 +68,14 @@ class ProfileVC: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         resetGradient()
+        tableFooter.frame.setHeight(addGameButton.frame.height + view.safeAreaInsets.bottom)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         presenter.router.prepare(for: segue, sender: sender)
     }
+
+    // MARK: - Private Methods
 
     @IBAction private func shopButtonPressed(_ sender: UIButton) {
         // sender.scaleOut()
@@ -92,6 +107,7 @@ class ProfileVC: UIViewController {
 }
 
 // MARK: - View Protocol Implementation
+
 extension ProfileVC: ProfileViewProtocol {
     func configure() {
         totalPointsScoredLabel.layer.cornerRadius = totalPointsScoredLabel.bounds.height / 2
@@ -116,12 +132,15 @@ extension ProfileVC: ProfileViewProtocol {
 }
 
 // MARK: - QR Scanner VC Delegate
+
 extension ProfileVC: QRScannerVCDelegate {
     func qrScanner(_ qrScanner: QRScannerVC, didFinishCodeScanningWith result: String?) {
         guard let code = result else { return }
         presenter.didScanQrCode(with: code)
     }
 }
+
+// MARK: - AddGameVCDelegate
 
 extension ProfileVC: AddGameVCDelegate {
     func didAddGameToUserProfile(_ vc: AddGameVC) {
@@ -130,6 +149,7 @@ extension ProfileVC: AddGameVCDelegate {
 }
 
 // MARK: - Data Source & Delegate
+
 extension ProfileVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return presenter.userInfo?.games?.count ?? 1
@@ -160,6 +180,7 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource {
 }
 
 // MARK: - UIScrollViewDelegate
+
 extension ProfileVC: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let currentOffset = scrollView.contentOffset.y + scrollView.safeAreaInsets.top

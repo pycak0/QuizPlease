@@ -22,10 +22,27 @@ protocol GameOrderInteractorProtocol {
         paymentMethod: PaymentMethodType?
     )
 
+    /// Check if special condition (promocode or certificate is valid
+    /// - Parameters:
+    ///   - value: promocode / certificate value
+    ///   - id: game identifier
+    ///   - name: team name
     func checkSpecialCondition(
         _ value: String,
         forGameWithId id: Int,
         selectedTeamName name: String
+    )
+
+    /// Check if team name is alrready used.
+    /// - Parameters:
+    ///   - name: provided team name
+    ///   - gameId: game identifier
+    ///   - completion: Callback that contains a boolean argument,
+    ///   whether team is registered (`true`) or not (`false`).
+    func checkForTeamName(
+        _ name: String,
+        gameId: Int,
+        completion: @escaping (_ isTeamRegistered: Bool) -> Void
     )
 }
 
@@ -51,7 +68,13 @@ protocol GameOrderInteractorOutput: AnyObject {
 // MARK: - Implementation
 
 class GameOrderInteractor: GameOrderInteractorProtocol {
+
+    private let networkService: NetworkService
     weak var output: GameOrderInteractorOutput?
+
+    init(networkService: NetworkService) {
+        self.networkService = networkService
+    }
 
     func register(
         with registerForm: RegisterForm,
@@ -86,7 +109,7 @@ class GameOrderInteractor: GameOrderInteractorProtocol {
 
         let formData: [MultipartFormDataObject] = certificates + MultipartFormDataObjects(params)
 
-        NetworkService.shared.afPost(
+        networkService.afPost(
             with: formData,
             to: "/ajax/save-record",
             responseType: GameOrderResponse.self
@@ -106,7 +129,7 @@ class GameOrderInteractor: GameOrderInteractorProtocol {
         forGameWithId id: Int,
         selectedTeamName name: String
     ) {
-        NetworkService.shared.get(
+        networkService.get(
             SpecialCondition.Response.self,
             apiPath: "/ajax/check-code",
             parameters: [
@@ -121,6 +144,26 @@ class GameOrderInteractor: GameOrderInteractorProtocol {
                 self.output?.interactor(self, errorOccured: error)
             case let .success(response):
                 self.output?.interactor(self, didCheckSpecialCondition: value, with: response)
+            }
+        }
+    }
+
+    func checkForTeamName(_ name: String, gameId: Int, completion: @escaping (Bool) -> Void) {
+        let params: [String: String] = [
+            "QpRecord[game_id]": "\(gameId)",
+            "QpRecord[teamName]": name
+        ]
+
+        networkService.afPost(
+            with: params,
+            to: "/ajax/is-record-name-exist",
+            responseType: Bool.self
+        ) { result in
+            switch result {
+            case let .failure(error):
+                self.output?.interactor(self, errorOccured: error)
+            case let .success(isTeamRegistered):
+                completion(isTeamRegistered)
             }
         }
     }

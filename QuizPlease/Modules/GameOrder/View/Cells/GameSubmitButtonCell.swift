@@ -16,7 +16,7 @@ protocol GameSubmitButtonCellDelegate: AnyObject {
     func titleForButton(in cell: GameSubmitButtonCell) -> String?
 }
 
-class GameSubmitButtonCell: UITableViewCell, GameOrderCellProtocol {
+final class GameSubmitButtonCell: UITableViewCell, GameOrderCellProtocol {
     static let identifier = "\(GameSubmitButtonCell.self)"
 
     @IBOutlet weak var submitButton: ScalingButton!
@@ -32,16 +32,21 @@ class GameSubmitButtonCell: UITableViewCell, GameOrderCellProtocol {
     }
     private weak var _delegate: GameSubmitButtonCellDelegate? {
         didSet {
-            setButtonTitle(_delegate?.titleForButton(in: self))
+            setButtonTitle()
         }
     }
 
     override func prepareForReuse() {
         super.prepareForReuse()
-        setButtonTitle(_delegate?.titleForButton(in: self))
+        setButtonTitle()
     }
 
-    func setButtonTitle(_ newTitle: String?) {
+    func resetButtonTitle() {
+        setButtonTitle()
+    }
+
+    private func setButtonTitle() {
+        let newTitle = _delegate?.titleForButton(in: self)
         submitButton.setTitle(newTitle, for: .normal)
     }
 

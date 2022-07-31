@@ -24,13 +24,16 @@ protocol GameOrderViewProtocol: UIViewController, LoadingIndicator {
 
     func editEmail()
     func editPhone()
+    func editTeamName()
 
     func setPrice(_ price: Double)
     func setBackgroundImage(with path: String)
     func endEditing()
+
+    func reloadPaymentInfo()
 }
 
-class GameOrderVC: UIViewController {
+final class GameOrderVC: UIViewController {
     var presenter: GameOrderPresenterProtocol!
 
     var shouldScrollToSignUp: Bool!
@@ -50,7 +53,7 @@ class GameOrderVC: UIViewController {
         if presenter.isOnlyCashAvailable || !presenter.isOnlinePaymentDefault {
             _items.removeAll { $0 == .onlinePayment }
         }
-        if !presenter.registerForm.isFirstTime {
+        if !presenter.isFirstTimePlaying {
             _items.removeAll { $0 == .promocode }
         }
         return _items
@@ -165,10 +168,12 @@ extension GameOrderVC: GameOrderViewProtocol {
     }
 
     func startLoading() {
+        view.isUserInteractionEnabled = false
         activityIndicator.enableCentered(in: view, color: .systemBlue)
     }
 
     func stopLoading() {
+        view.isUserInteractionEnabled = true
         activityIndicator.stopAnimating()
     }
 
@@ -177,8 +182,14 @@ extension GameOrderVC: GameOrderViewProtocol {
     }
 
     func editPhone() {
-        scrollToRegistrationCell { (cell) in
+        scrollToRegistrationCell { cell in
             cell?.phoneFieldView.textField.becomeFirstResponder()
+        }
+    }
+
+    func editTeamName() {
+        scrollToRegistrationCell { cell in
+            cell?.teamNameFieldView.textField.becomeFirstResponder()
         }
     }
 
@@ -186,6 +197,57 @@ extension GameOrderVC: GameOrderViewProtocol {
         guard let index = items.firstIndex(of: .onlinePayment) else { return }
         if let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? GameOnlinePaymentCell {
             cell.setPrice(price)
+        }
+    }
+
+    func reloadPaymentInfo() {
+        resetPaymentTypes()
+        resetSubmitButtonTitle()
+        reloadOnlinePaymentSectionIfNeeded()
+        updateMaxNumberOfPeopleOnlinePayment()
+    }
+
+    private func resetPaymentTypes() {
+        guard let index = items.firstIndex(of: .paymentType) else { return }
+        let indexPath = IndexPath(row: index, section: 0)
+        if let cell = tableView.cellForRow(at: indexPath) as? GamePaymentTypeCell {
+            cell.setPaymentTypes()
+        }
+    }
+
+    private func resetSubmitButtonTitle() {
+        if let index = items.firstIndex(of: .submit),
+            let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? GameSubmitButtonCell {
+            cell.resetButtonTitle()
+        }
+    }
+
+    private func updateMaxNumberOfPeopleOnlinePayment() {
+        guard
+            let index = items.firstIndex(where: { $0 == .onlinePayment }),
+            let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? GameOnlinePaymentCell
+        else {
+            return
+        }
+        cell.updateMaxNumberOfPeople(presenter.numberOfPeople)
+    }
+
+    private func reloadOnlinePaymentSectionIfNeeded() {
+        let isOnlinePayment = presenter.selectedPaymentType == .online
+
+        if isOnlinePayment && !presenter.isOnlyCashAvailable {
+            guard let i = items.firstIndex(of: .paymentType), i+1 < items.count,
+                  items[i+1] != .onlinePayment
+            else { return }
+            let index = i + 1
+
+            items.insert(.onlinePayment, at: index)
+            tableView.insertRows(at: [IndexPath(row: index, section: 0)], with: .fade)
+
+        } else {
+            guard let index = items.firstIndex(of: .onlinePayment) else { return }
+            items.remove(at: index)
+            tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .fade)
         }
     }
 
@@ -285,6 +347,14 @@ extension GameOrderVC: UITableViewDataSource, UITableViewDelegate {
         }
 
         return cell
+    }
+
+    func tableView(
+        _ tableView: UITableView,
+        willDisplay cell: UITableViewCell,
+        forRowAt indexPath: IndexPath
+    ) {
+        cell.layoutIfNeeded()
     }
 
     func tableView(

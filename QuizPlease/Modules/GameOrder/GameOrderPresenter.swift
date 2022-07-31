@@ -10,14 +10,20 @@ import Foundation
 import YooKassaPayments
 
 // MARK: - Presenter Protocol
+
 protocol GameOrderPresenterProtocol {
+
     var router: GameOrderRouterProtocol! { get }
     var view: GameOrderViewProtocol? { get }
     var interactor: GameOrderInteractorProtocol! { get }
 
     var game: GameInfo { get }
-    var registerForm: RegisterForm { get }
     var availablePaymentTypes: [PaymentType] { get }
+
+    var numberOfPeople: Int { get }
+    var numberOfPaidPeople: Int? { get }
+    var selectedPaymentType: PaymentType { get }
+    var isFirstTimePlaying: Bool { get set }
 
     var isOnlinePaymentDefault: Bool { get }
     var isOnlyCashAvailable: Bool { get }
@@ -31,6 +37,7 @@ protocol GameOrderPresenterProtocol {
     func didPressTermsOfUse()
     func countSumToPay(forPeople number: Int) -> Double
     func getPriceTextColor() -> UIColor?
+    func getSubmitButtonTitle() -> String?
 
     func didPressAddSpecialCondition()
     func didChangeSpecialCondition(newValue: String, at index: Int)
@@ -39,14 +46,23 @@ protocol GameOrderPresenterProtocol {
     func didPressDeleteSpecialCondition(at index: Int)
 
     func didTapOnMap()
+
+    func didChangeNumberOfPeople(_ newNumber: Int)
+    func didChangeSelectedPaymentType(isOnlinePayment: Bool)
+    func didChangeTeamName(_ name: String)
+    func didChangeCaptainName(_ name: String)
+    func didChangeEmail(_ email: String)
+    func didChangePhone(_ phone: String)
+    func didChangeComment(_ comment: String)
 }
 
-class GameOrderPresenter: GameOrderPresenterProtocol {
+final class GameOrderPresenter: GameOrderPresenterProtocol {
+
     weak var view: GameOrderViewProtocol?
     var interactor: GameOrderInteractorProtocol!
     var router: GameOrderRouterProtocol!
 
-    let registerForm: RegisterForm
+    private let registerForm: RegisterForm
     var game: GameInfo
 
     var isPhoneNumberValid = false
@@ -55,7 +71,6 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
 
     let maximumSpecialConditionsAmount = 9
 
-//    private var discountType: CertificateDiscountType = .none
     private var priceTextColor: UIColor?
 
     private var tokenizationModule: TokenizationModuleInput?
@@ -75,8 +90,32 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
         self.registerForm.paymentType = isOnlinePaymentDefault ? .online : .cash
     }
 
+    var numberOfPeople: Int {
+        registerForm.count
+    }
+
+    var numberOfPaidPeople: Int? {
+        get { registerForm.countPaidOnline }
+        set { registerForm.countPaidOnline = newValue }
+    }
+
+    var isFirstTimePlaying: Bool {
+        get { registerForm.isFirstTime }
+        set { registerForm.isFirstTime = newValue }
+    }
+
+    var selectedPaymentType: PaymentType {
+        registerForm.paymentType
+    }
+
     var availablePaymentTypes: [PaymentType] {
+        if game.isOnlineGame {
+            return game.availablePaymentTypes
+        }
         if game.gameStatus == .reserveAvailable {
+            return [.cash]
+        }
+        if registerForm.count > game.vacantPlaces {
             return [.cash]
         }
         return game.availablePaymentTypes
@@ -99,6 +138,45 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
         } else {
             print(">>>\n>>> No background image path for game with id '\(game.id ?? -1)'\n>>>")
         }
+    }
+
+    func didChangeNumberOfPeople(_ newNumber: Int) {
+        registerForm.count = newNumber
+
+        if isOnlyCashAvailable {
+            registerForm.paymentType = .cash
+            registerForm.countPaidOnline = nil
+        }
+        view?.reloadPaymentInfo()
+    }
+
+    func didChangeSelectedPaymentType(isOnlinePayment: Bool) {
+        registerForm.paymentType = isOnlinePayment ? .online : .cash
+        view?.reloadPaymentInfo()
+    }
+
+    func didChangeTeamName(_ name: String) {
+        registerForm.teamName = name
+    }
+
+    func didChangeCaptainName(_ name: String) {
+        registerForm.captainName = name
+    }
+
+    func didChangeComment(_ comment: String) {
+        registerForm.comment = comment
+    }
+
+    func didChangePhone(_ phone: String) {
+        registerForm.phone = phone
+    }
+
+    func didChangeEmail(_ email: String) {
+        registerForm.email = email
+    }
+
+    func setIsFirstTime(_ isFirstTime: Bool) {
+        registerForm.isFirstTime = isFirstTime
     }
 
     func countSumToPay(forPeople number: Int) -> Double {
@@ -162,6 +240,12 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
         return priceTextColor
     }
 
+    func getSubmitButtonTitle() -> String? {
+        return registerForm.paymentType == .online
+        ? "Оплатить игру"
+        : "Записаться на игру"
+    }
+
     // MARK: - Special Conditions
 
     func didPressAddSpecialCondition() {
@@ -184,7 +268,11 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
     func didPressCheckSpecialCondition(at index: Int) {
         guard let value = specialConditions[index].value else { return }
         view?.startLoading()
-        interactor.checkSpecialCondition(value, forGameWithId: game.id, selectedTeamName: registerForm.teamName)
+        interactor.checkSpecialCondition(
+            value,
+            forGameWithId: game.id,
+            selectedTeamName: registerForm.teamName
+        )
     }
 
     func didPressDeleteSpecialCondition(at index: Int) {
@@ -201,8 +289,6 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
         router.showMap(for: game.placeInfo)
     }
 
-    // MARK: - Submit Button Action
-
     func didPressTermsOfUse() {
         view?.openSafariVC(
             with: AppSettings.termsOfUseUrl,
@@ -211,8 +297,29 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
         )
     }
 
+    // MARK: - Submit Button Action
+
     func didPressSubmitButton() {
+        // 0. End editing
         view?.endEditing()
+
+        // 1. Validate inputs locally
+        guard validateForm() else {
+            return
+        }
+
+        // 2. Validate inputs on server
+        validateInputsOnServer { [weak self] in
+
+            // 3. Start registration if inputs are valid
+            self?.startRegistration()
+        }
+    }
+
+    /// Checks register form fields and shows alert if any troubles occur.
+    /// - Returns: `true`, if form is valid.
+    /// Otherwise, calls `view`'s methods to show an error alert and returns `false`.
+    private func validateForm() -> Bool {
         guard isPhoneNumberValid, registerForm.isValid else {
             if registerForm.email.isEmpty || registerForm.captainName.isEmpty || registerForm.teamName.isEmpty {
                 view?.showSimpleAlert(
@@ -223,7 +330,7 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
                 view?.showSimpleAlert(
                     title: "Некорректный e-mail",
                     message: "Пожалуйста, введите корректный адрес и попробуйте еще раз"
-                ) { (okAction) in
+                ) { _ in
                     self.view?.editEmail()
                 }
 
@@ -231,7 +338,7 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
                 view?.showSimpleAlert(
                     title: "Некорректный номер телефона",
                     message: "Пожалуйста, введите корректный номер и попробуйте еще раз"
-                ) { (okAction) in
+                ) { _ in
                     self.view?.editPhone()
                 }
             } else {
@@ -240,41 +347,80 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
                     message: "Error status code 40"
                 )
             }
-            return
+            return false
         }
 
-        let count = registerForm.countPaidOnline ?? 0
-        let paymentSum = Double(countSumToPay(forPeople: count))
+        return true
+    }
+
+    private func validateInputsOnServer(nextStep: @escaping () -> Void) {
+        view?.startLoading()
+        interactor.checkForTeamName(registerForm.teamName, gameId: game.id) { [weak self] isTeamRegistered in
+            guard let self = self else { return }
+            self.view?.stopLoading()
+
+            if isTeamRegistered {
+                self.view?.showSimpleAlert(
+                    title: "Команда с таким названием уже зарегистирована",
+                    message: "Пожалуйста, придумайте другое название для команды",
+                    okHandler: { _ in
+                        self.view?.editTeamName()
+                    }
+                )
+                return
+            }
+
+            nextStep()
+        }
+    }
+
+    private func startRegistration() {
+        if registerForm.paymentType == .online {
+            registerWithOnlinePayment()
+        } else {
+            register()
+        }
+    }
+
+    /// Calculates payment sum. If payment is needed, launches payment process.
+    /// If not, registers immediately.
+    private func registerWithOnlinePayment() {
+        let peopleCount = registerForm.countPaidOnline ?? 0
+        let paymentSum = countSumToPay(forPeople: peopleCount)
+        if paymentSum > 0 {
+            launchPayment(amount: paymentSum)
+        } else {
+            registerForm.paymentType = .cash
+            register()
+        }
+    }
+
+    /// Launch payment process with given amount.
+    /// - Parameter amount: payment amount.
+    private func launchPayment(amount: Double) {
         let userPhoneNumber = registerForm.phone
             .replacingOccurrences(of: "-", with: " ")
             .replacingOccurrences(of: "(", with: "")
             .replacingOccurrences(of: ")", with: "")
 
-        if registerForm.paymentType == .online && paymentSum > 0 {
-            if game.shopId?.isEmpty ?? true {
-                print("⚠️ [\(Self.self)|\(#line)] Shop id is empty. Production payment will fail")
-            }
-            if game.paymentKey?.isEmpty ?? true {
-                print("❌ [\(Self.self)|\(#line)] Payment key is empty. Payment SDK launch will fail")
-            }
-            router.showPaymentView(
-                provider: YooMoneyPaymentProvider(
-                    delegate: self
-                ),
-                withOptions: PaymentOptions(
-                    amount: paymentSum,
-                    description: createPaymentDescription(),
-                    shopId: game.shopId,
-                    transactionKey: game.paymentKey ?? "",
-                    userPhoneNumber: userPhoneNumber
-                )
-            )
-        } else if registerForm.paymentType == .online && paymentSum <= 0 {
-            registerForm.paymentType = .cash
-            register()
-        } else {
-            register()
+        if game.shopId?.isEmpty ?? true {
+            print("⚠️ [\(Self.self)|\(#line)] Shop id is empty. Production payment will fail")
         }
+        if game.paymentKey?.isEmpty ?? true {
+            print("❌ [\(Self.self)|\(#line)] Payment key is empty. Payment SDK launch will fail")
+        }
+        router.showPaymentView(
+            provider: YooMoneyPaymentProvider(
+                delegate: self
+            ),
+            withOptions: PaymentOptions(
+                amount: amount,
+                description: createPaymentDescription(),
+                shopId: game.shopId,
+                transactionKey: game.paymentKey ?? "",
+                userPhoneNumber: userPhoneNumber
+            )
+        )
     }
 
     // MARK: - Register
@@ -300,13 +446,20 @@ class GameOrderPresenter: GameOrderPresenterProtocol {
 // MARK: - GameOrderInteractorOutput
 
 extension GameOrderPresenter: GameOrderInteractorOutput {
-    func interactor(_ interactor: GameOrderInteractorProtocol?, didRegisterWithResponse response: GameOrderResponse, paymentMethod: PaymentMethodType?) {
+
+    func interactor(
+        _ interactor: GameOrderInteractorProtocol?,
+        didRegisterWithResponse response: GameOrderResponse,
+        paymentMethod: PaymentMethodType?
+    ) {
         view?.stopLoading()
         let title = "Запись на игру"
         var message: String = "Произошла ошибка при записи на игру"
 
         if response.shouldRedirect {
-            if let url = response.link, let module = tokenizationModule, let paymentMethod = paymentMethod {
+            if let url = response.link,
+                let module = tokenizationModule,
+                let paymentMethod = paymentMethod {
                 module.startConfirmationProcess(
                     confirmationUrl: url.absoluteString,
                     paymentMethodType: paymentMethod
@@ -339,12 +492,19 @@ extension GameOrderPresenter: GameOrderInteractorOutput {
         }
     }
 
-    func interactor(_ interactor: GameOrderInteractorProtocol?, errorOccured error: NetworkServiceError) {
+    func interactor(
+        _ interactor: GameOrderInteractorProtocol?,
+        errorOccured error: NetworkServiceError
+    ) {
         view?.stopLoading()
         view?.showErrorConnectingToServerAlert()
     }
 
-    func interactor(_ interactor: GameOrderInteractorProtocol?, didCheckSpecialCondition value: String, with response: SpecialCondition.Response) {
+    func interactor(
+        _ interactor: GameOrderInteractorProtocol?,
+        didCheckSpecialCondition value: String,
+        with response: SpecialCondition.Response
+    ) {
         view?.stopLoading()
         switch response.discountInfo.kind {
         case .promocode:
@@ -370,6 +530,7 @@ extension GameOrderPresenter: GameOrderInteractorOutput {
 }
 
 // MARK: - TokenizationModuleOutput
+
 extension GameOrderPresenter: TokenizationModuleOutput {
     func didFinish(on module: TokenizationModuleInput, with error: YooKassaPaymentsError?) {
         DispatchQueue.main.async {
@@ -378,7 +539,11 @@ extension GameOrderPresenter: TokenizationModuleOutput {
         print("Error:", error as Any)
     }
 
-    func tokenizationModule(_ module: TokenizationModuleInput, didTokenize token: Tokens, paymentMethodType: PaymentMethodType) {
+    func tokenizationModule(
+        _ module: TokenizationModuleInput,
+        didTokenize token: Tokens,
+        paymentMethodType: PaymentMethodType
+    ) {
         DispatchQueue.main.async {
             self.registerForm.paymentToken = token.paymentToken
             self.tokenizationModule = module

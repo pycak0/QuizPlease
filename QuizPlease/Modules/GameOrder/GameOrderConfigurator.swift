@@ -14,7 +14,7 @@ protocol GameOrderConfiguratorProtocol {
 
 class GameOrderConfigurator: GameOrderConfiguratorProtocol {
     func configure(_ viewController: GameOrderViewProtocol, with options: GameOrderPresentationOptions) {
-        let interactor = GameOrderInteractor()
+        let interactor = GameOrderInteractor(networkService: NetworkService.shared)
         let router = GameOrderRouter(viewController: viewController)
         let presenter = GameOrderPresenter(
             view: viewController,
@@ -30,6 +30,9 @@ class GameOrderConfigurator: GameOrderConfiguratorProtocol {
         interactor.output = presenter
         viewController.presenter = presenter
         viewController.shouldScrollToSignUp = options.shouldScrollToSignUp
-        viewController.prepareNavigationBar(title: options.gameInfo.fullTitle, barStyle: .transcluent(tintColor: viewController.view.backgroundColor))
+        viewController.prepareNavigationBar(
+            title: options.gameInfo.fullTitle,
+            barStyle: .transcluent(tintColor: viewController.view.backgroundColor)
+        )
     }
 }
