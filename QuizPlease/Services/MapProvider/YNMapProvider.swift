@@ -9,7 +9,7 @@
 import UIKit
 import CoreLocation
 
-class YNMapProvider: MapProvider {
+final class YNMapProvider: MapProvider {
 
     let title = "Яндекс.Навигатор"
     let urlSchema = URL(string: "yandexnavi://")!
@@ -17,7 +17,10 @@ class YNMapProvider: MapProvider {
     func openMapRoute(to coordinate: CLLocationCoordinate2D, placeName: String?) {
         guard UIApplication.shared.canOpenURL(urlSchema) else { return }
 
-        if let url = URL(string: "yandexnavi://build_route_on_map?lat_to=\(coordinate.latitude)&lon_to=\(coordinate.longitude)") {
+        let urlString = "yandexnavi://build_route_on_map?" +
+        "lat_to=\(coordinate.latitude)&lon_to=\(coordinate.longitude)"
+
+        if let url = URL(string: urlString) {
             UIApplication.shared.open(url)
         }
     }

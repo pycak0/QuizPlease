@@ -25,14 +25,16 @@ protocol QRCodeServiceProtocol {
 }
 
 // MARK: - Delegate Protocol
+
 protocol QRCodeServiceResultsDelegate: AnyObject {
     /// When the '`result`' parameter is non-`nil`, `QRCodeService` is guaranteed to stop scan session
     func didFinishCodeScanning(with result: String?)
 }
 
-class QRCodeService: NSObject, QRCodeServiceProtocol {
+final class QRCodeService: NSObject, QRCodeServiceProtocol {
 
     // MARK: - Session Error
+
     enum CaptureSessionError: Error {
         case notSupported, other(Error)
 
@@ -52,6 +54,7 @@ class QRCodeService: NSObject, QRCodeServiceProtocol {
     unowned let delegate: QRCodeServiceResultsDelegate
 
     // MARK: - Camera Flash
+
     var isFlashEnabled = false {
         didSet {
             guard captureDevice?.isTorchAvailable ?? false else { return }
@@ -73,7 +76,8 @@ class QRCodeService: NSObject, QRCodeServiceProtocol {
         captureSession?.startRunning()
     }
 
-    /// Capture Session automatically stops and calls delegate method when found something, but you can explicitly stop capture session if needed
+    /// Capture Session automatically stops and calls delegate method when found something,
+    /// but you can explicitly stop capture session if needed
     func stopCaptureSession() {
         if let session = captureSession, session.isRunning {
             session.stopRunning()
@@ -81,6 +85,7 @@ class QRCodeService: NSObject, QRCodeServiceProtocol {
     }
 
     // MARK: - Setup QR Scanner
+
     /// This method typically throws if the device does not have a camera
     func makePreviewLayer(frame: CGRect) throws -> CALayer {
         try setupCaptureSessionConfiguration(
@@ -90,6 +95,7 @@ class QRCodeService: NSObject, QRCodeServiceProtocol {
     }
 
     // MARK: - Capture Session Configuration
+
     /// This method can throw if
     private func setupCaptureSessionConfiguration(
         metadataOutputDelegate delegate: AVCaptureMetadataOutputObjectsDelegate,
@@ -130,8 +136,14 @@ class QRCodeService: NSObject, QRCodeServiceProtocol {
 }
 
 // MARK: - AVCaptureMetadataOutputObjectsDelegate
+
 extension QRCodeService: AVCaptureMetadataOutputObjectsDelegate {
-    func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
+
+    func metadataOutput(
+        _ output: AVCaptureMetadataOutput,
+        didOutput metadataObjects: [AVMetadataObject],
+        from connection: AVCaptureConnection
+    ) {
 
         guard let metadataObject = metadataObjects.first,
             let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject,

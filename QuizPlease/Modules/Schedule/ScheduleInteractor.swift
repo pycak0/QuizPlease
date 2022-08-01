@@ -24,12 +24,26 @@ protocol ScheduleInteractorProtocol: AnyObject {
 }
 
 protocol ScheduleInteractorOutput: AnyObject {
-    func interactor(_ interactor: ScheduleInteractorProtocol?, failedToOpenMapsWithError error: Error)
-    func interactor(_ interactor: ScheduleInteractorProtocol?, didGetSubscribeStatus isSubscribed: Bool, forGameWithId id: String)
-    func interactor(_ interactor: ScheduleInteractorProtocol?, failedToSubscribeForGameWith gameId: String, error: NetworkServiceError)
+
+    func interactor(
+        _ interactor: ScheduleInteractorProtocol?,
+        failedToOpenMapsWithError error: Error
+    )
+
+    func interactor(
+        _ interactor: ScheduleInteractorProtocol?,
+        didGetSubscribeStatus isSubscribed: Bool,
+        forGameWithId id: String
+    )
+
+    func interactor(
+        _ interactor: ScheduleInteractorProtocol?,
+        failedToSubscribeForGameWith gameId: String,
+        error: NetworkServiceError
+    )
 }
 
-class ScheduleInteractor: ScheduleInteractorProtocol {
+final class ScheduleInteractor: ScheduleInteractorProtocol {
     weak var output: ScheduleInteractorOutput?
 
     func loadSchedule(filter: ScheduleFilter, completion: @escaping (Result<[GameInfo], NetworkServiceError>) -> Void) {
@@ -67,7 +81,10 @@ class ScheduleInteractor: ScheduleInteractorProtocol {
             MapService.openAppleMaps(for: place.title ?? "", withCoordinate: place.coordinate)
             return
         }
-        MapService.getCoordinatesAndOpenMap(for: place.title ?? "", withAddress: place.fullAddress) { [weak self] error in
+        MapService.getCoordinatesAndOpenMap(
+            for: place.title ?? "",
+            withAddress: place.fullAddress
+        ) { [weak self] error in
             guard let self = self else { return }
             if let error = error {
                 self.output?.interactor(self, failedToOpenMapsWithError: error)

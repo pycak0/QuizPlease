@@ -8,8 +8,7 @@
 
 import UIKit
 
-class ShopItemCell: UICollectionViewCell {
-    static let identifier = "ShopItemCell"
+final class ShopItemCell: UICollectionViewCell {
 
     @IBOutlet weak var cellView: UIView!
     @IBOutlet weak var imageView: UIImageView!

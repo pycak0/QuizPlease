@@ -8,12 +8,13 @@
 
 import Foundation
 
-class Utilities {
+final class Utilities {
     private init() {}
 
     static let main = Utilities()
 
-    /// Gets saved user auth info from UserDefaults, checks token expire date. If needed, updates token and assignes a new token value in AppSettings
+    /// Gets saved user auth info from UserDefaults, checks token expire date.
+    /// If needed, updates token and assignes a new token value in AppSettings
     func updateToken(completion: (() -> Void)? = nil) {
         if let info = DefaultsManager.shared.getUserAuthInfo(),
            let expireDate = info.expireDate,

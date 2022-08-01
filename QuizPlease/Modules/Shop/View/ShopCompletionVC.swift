@@ -12,7 +12,7 @@ protocol ShopCompletionVCDelegate: AnyObject {
     func shopCompletionVC(_ vc: ShopCompletionVC, didCompletePurchaseForItem shopItem: ShopItem)
 }
 
-class ShopCompletionVC: UIViewController {
+final class ShopCompletionVC: UIViewController {
 
     // MARK: - Outlets
     @IBOutlet private weak var imageView: UIImageView!
@@ -59,7 +59,10 @@ class ShopCompletionVC: UIViewController {
     // MARK: - Confirm Button Pressed
     @IBAction func confirmButtonPressed(_ sender: Any) {
         let index = segmentControl.selectedIndex
-        let chosenDelivery: DeliveryMethod? = shopItem.isOfflineDeliveryOnly ? .game : DeliveryMethod(title: segmentControl.items[index])
+        let chosenDelivery: DeliveryMethod? = shopItem.isOfflineDeliveryOnly
+        ? .game
+        : DeliveryMethod(title: segmentControl.items[index])
+
         guard let deliveryMethod = chosenDelivery else {
             showSimpleAlert(
                 title: "Произошла ошибка",
@@ -77,11 +80,20 @@ class ShopCompletionVC: UIViewController {
     // MARK: - Purchase
     private func purchase(withDelivryMethod method: DeliveryMethod, email: String) {
         guard let itemId = shopItem.id else {
-            self.showSimpleAlert(title: "Не удалось завершить покупку", message: "Произошла ошибка, но не волнуйтесь, Ваши бонусные баллы не были списаны. (desc: product id not found)")
+            self.showSimpleAlert(
+                title: "Не удалось завершить покупку",
+                message: "Произошла ошибка, но не волнуйтесь, Ваши бонусные баллы не были списаны. " +
+                "(desc: product id not found)"
+            )
             return
         }
-        NetworkService.shared.purchaseProduct(with: "\(itemId)", deliveryMethod: method, email: email) { [weak self] (result) in
+        NetworkService.shared.purchaseProduct(
+            with: "\(itemId)",
+            deliveryMethod: method,
+            email: email
+        ) { [weak self] (result) in
             guard let self = self else { return }
+
             switch result {
             case let .failure(error):
                 self.handleError(error)
@@ -98,7 +110,8 @@ class ShopCompletionVC: UIViewController {
                 } else {
                     self.showSimpleAlert(
                         title: "Не удалось завершить покупку",
-                        message: "Произошла ошибка, но не волнуйтесь, Ваши бонусные баллы не были списаны. Можете попробовать подтвердить заказ ещё раз"
+                        message: "Произошла ошибка, но не волнуйтесь, Ваши бонусные баллы не были списаны. " +
+                        "Можете попробовать подтвердить заказ ещё раз"
                     )
                 }
             }
@@ -118,9 +131,10 @@ class ShopCompletionVC: UIViewController {
     private func configureViews() {
         imageView.loadImage(path: shopItem.imagePath, placeholderImage: .logoColoredImage)
         if shopItem.isOfflineDeliveryOnly {
-            questionLabel.numberOfLines = 0
-            questionLabel.text = "Мы доставим этот ништяк на вашу следующую игру! Наш менеджер свяжется с вами после подтверждения заказа."
             segmentControl.isHidden = true
+            questionLabel.numberOfLines = 0
+            questionLabel.text = "Мы доставим этот ништяк на вашу следующую игру! " +
+            "Наш менеджер свяжется с вами после подтверждения заказа."
         } else {
             configureSegmentControl()
         }

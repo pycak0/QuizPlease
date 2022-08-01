@@ -196,8 +196,14 @@ final class MapViewController: UIViewController {
     private func makeCloseButtonConstraints() {
         view.addSubview(closeButton)
         NSLayoutConstraint.activate([
-            closeButton.leadingAnchor.constraint(equalTo: mapView.leadingAnchor, constant: Constants.spacing),
-            closeButton.topAnchor.constraint(equalTo: mapView.layoutMarginsGuide.topAnchor, constant: Constants.spacing),
+            closeButton.leadingAnchor.constraint(
+                equalTo: mapView.leadingAnchor,
+                constant: Constants.spacing
+            ),
+            closeButton.topAnchor.constraint(
+                equalTo: mapView.layoutMarginsGuide.topAnchor,
+                constant: Constants.spacing
+            ),
             closeButton.widthAnchor.constraint(equalToConstant: Constants.buttonWidth),
             closeButton.heightAnchor.constraint(equalTo: closeButton.widthAnchor)
         ])
@@ -230,7 +236,10 @@ final class MapViewController: UIViewController {
             locationButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constants.spacing),
             locationButton.widthAnchor.constraint(equalToConstant: Constants.buttonWidth),
             locationButton.heightAnchor.constraint(equalToConstant: Constants.buttonWidth),
-            locationButton.topAnchor.constraint(equalTo: controlsStackView.bottomAnchor, constant: Constants.spacing * 5)
+            locationButton.topAnchor.constraint(
+                equalTo: controlsStackView.bottomAnchor,
+                constant: Constants.spacing * 5
+            )
         ])
     }
 
@@ -239,7 +248,10 @@ final class MapViewController: UIViewController {
         NSLayoutConstraint.activate([
             infoView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constants.infoPadding),
             infoView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constants.infoPadding),
-            infoView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -Constants.infoPadding),
+            infoView.bottomAnchor.constraint(
+                equalTo: view.layoutMarginsGuide.bottomAnchor,
+                constant: -Constants.infoPadding
+            ),
             infoView.heightAnchor.constraint(equalToConstant: infoViewHeight)
         ])
     }

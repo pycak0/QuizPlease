@@ -9,7 +9,7 @@
 import UIKit
 
 @IBDesignable
-public class HBSegmentedControl: UIControl {
+public final class HBSegmentedControl: UIControl {
 
     fileprivate var labels = [UILabel]()
     private var thumbView = UIView()

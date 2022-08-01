@@ -29,7 +29,7 @@ struct GameOrderPresentationOptions {
     let shouldScrollToSignUp: Bool
 }
 
-class ScheduleRouter: ScheduleRouterProtocol {
+final class ScheduleRouter: ScheduleRouterProtocol {
     unowned let viewController: UIViewController
 
     required init(viewController: UIViewController) {
@@ -74,14 +74,18 @@ class ScheduleRouter: ScheduleRouterProtocol {
     }
 
     func showHomeGame(popCurrent: Bool) {
-        guard let vc = viewController.storyboard?.instantiateViewController(withIdentifier: "HomeGamesListVC") as? HomeGamesListVC,
-              let navC = viewController.navigationController
-        else { return }
+        guard let homeGameListVC = viewController.storyboard?.instantiateViewController(
+            withIdentifier: "HomeGamesListVC"
+        ) as? HomeGamesListVC else {
+            return
+        }
+
+        guard let navigationController = viewController.navigationController else { return }
 
         if popCurrent {
-            navC.popViewController(animated: true)
+            navigationController.popViewController(animated: true)
         }
-        navC.pushViewController(vc, animated: true)
+        navigationController.pushViewController(homeGameListVC, animated: true)
     }
 
     func showMap(for place: Place) {

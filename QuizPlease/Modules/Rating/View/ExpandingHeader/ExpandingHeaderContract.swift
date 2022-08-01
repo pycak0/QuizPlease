@@ -9,8 +9,13 @@
 import Foundation
 
 public protocol ExpandingHeaderDelegate: AnyObject {
-    /// Delegate should provide a new selected Game Type Name string as an argument for `completion` closure for the `ExpandingHeader` to update its `selectedGameTypeLabel` text
-    func didPressGameTypeView(in expandingHeader: ExpandingHeader, completion: @escaping (_ selectedName: String?) -> Void)
+
+    /// Delegate should provide a new selected Game Type Name string as an argument for `completion` closure
+    /// for the `ExpandingHeader` to update its `selectedGameTypeLabel` text
+    func didPressGameTypeView(
+        in expandingHeader: ExpandingHeader,
+        completion: @escaping (_ selectedName: String?) -> Void
+    )
 
     func expandingHeader(_ expandingHeader: ExpandingHeader, didChangeStateTo isExpanded: Bool)
 
@@ -28,6 +33,7 @@ public protocol ExpandingHeaderDelegate: AnyObject {
 }
 
 public protocol ExpandingHeaderDataSource: AnyObject {
+
     func numberOfSegmentControlItems(in expandingHeader: ExpandingHeader) -> Int
 
     func expandingHeaderSelectedSegmentIndex(_ expandingHeader: ExpandingHeader) -> Int

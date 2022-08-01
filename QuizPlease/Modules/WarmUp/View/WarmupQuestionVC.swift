@@ -13,7 +13,7 @@ protocol WarmupQuestionVCAnswerDelegate: AnyObject {
     func questionVC(_ vc: WarmupQuestionVC, didSelectAnswer answer: String, forQuestion question: WarmupQuestion)
 }
 
-class WarmupQuestionVC: UIViewController {
+final class WarmupQuestionVC: UIViewController {
 
     // MARK: - Outlets
     @IBOutlet private weak var videoView: VideoView!
@@ -139,10 +139,6 @@ class WarmupQuestionVC: UIViewController {
             audioView.configure(with: question.soundUrl)
             audioView.delegate = self
             audioView.play()
-            break
-
-        // default: break
-
         }
     }
 
