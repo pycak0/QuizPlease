@@ -9,7 +9,7 @@
 import UIKit
 import CoreLocation
 
-class GMapsProvider: MapProvider {
+final class GMapsProvider: MapProvider {
 
     let title = "Google Maps"
     let urlSchema = URL(string: "comgooglemaps://")!
@@ -17,7 +17,10 @@ class GMapsProvider: MapProvider {
     func openMapRoute(to coordinate: CLLocationCoordinate2D, placeName: String?) {
         guard UIApplication.shared.canOpenURL(urlSchema) else { return }
 
-        if let url = URL(string: "http://maps.google.com/?daddr=\(coordinate.latitude),\(coordinate.longitude)&directionsmode=driving"),
+        let urlString = "http://maps.google.com/?" +
+        "daddr=\(coordinate.latitude),\(coordinate.longitude)&directionsmode=driving"
+
+        if let url = URL(string: urlString),
            UIApplication.shared.canOpenURL(url) {
             UIApplication.shared.open(url)
         }

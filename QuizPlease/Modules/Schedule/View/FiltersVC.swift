@@ -18,7 +18,7 @@ protocol FiltersVCDelegate: AnyObject {
     func didEndEditingFilters()
 }
 
-class FiltersVC: BottomPopupViewController {
+final class FiltersVC: BottomPopupViewController {
     let duration = 0.2
 
     // MARK: - Properties
@@ -114,16 +114,26 @@ class FiltersVC: BottomPopupViewController {
 
     // MARK: - Show Options Sheet
     /// - warning: `updateFilterWith` closure must update `filter`'s property with new value for correct work.
-    private func showOptions(for filterOptions: [ScheduleFilterOption]?, updateFilterWith: @escaping (ScheduleFilterOption?) -> Void) {
+    private func showOptions(
+        for filterOptions: [ScheduleFilterOption]?,
+        updateFilterWith: @escaping (ScheduleFilterOption?) -> Void
+    ) {
         guard let names = filterOptions?.map({ $0.title }) else { return }
         showOptions(with: names) { (selectedIndex) in
             updateFilterWith(filterOptions?[selectedIndex])
         }
     }
 
-    private func showOptions(with givenNames: [String], updateWithSelectedIndex: @escaping (Int) -> Void) {
-        showChooseItemActionSheet(itemNames: givenNames, tintColor: .darkBlueDynamic) { [weak self] (_, selectedIndex) in
+    private func showOptions(
+        with givenNames: [String],
+        updateWithSelectedIndex: @escaping (Int) -> Void
+    ) {
+        showChooseItemActionSheet(
+            itemNames: givenNames,
+            tintColor: .darkBlueDynamic
+        ) { [weak self] (_, selectedIndex) in
             guard let self = self else { return }
+
             updateWithSelectedIndex(selectedIndex)
             self.updateUI()
             self.delegate?.didChangeFilter(self.filter)
@@ -131,7 +141,11 @@ class FiltersVC: BottomPopupViewController {
     }
 
     // MARK: - Load Filters
-    private func loadFilters(_ type: ScheduleFilterType, city_id: Int? = nil, completion: @escaping ([ScheduleFilterOption]?) -> Void) {
+    private func loadFilters(
+        _ type: ScheduleFilterType,
+        city_id: Int? = nil,
+        completion: @escaping ([ScheduleFilterOption]?) -> Void
+    ) {
         NetworkService.shared.getFilterOptions(type, scopeFor: city_id) { serverResult in
             switch serverResult {
             case let .failure(error):

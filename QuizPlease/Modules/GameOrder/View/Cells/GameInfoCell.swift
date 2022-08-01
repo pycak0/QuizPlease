@@ -113,7 +113,10 @@ final class GameInfoCell: UITableViewCell, GameOrderCellProtocol {
             MapService.getLocation(from: attempt.query) { [weak self] location in
                 guard let self = self else { return }
                 if let location = location {
-                    print("[\(Self.self)] Successfully geocoded location for place \(attempt.place) from attempt #\(self.attemptsUsed)")
+                    let logMessage = "[\(Self.self)] Successfully geocoded location " +
+                    "for place \(attempt.place) from attempt #\(self.attemptsUsed)"
+                    print(logMessage)
+
                     attempt.place.coordinate = location.coordinate
                     let radius: CLLocationDistance = self.attemptsUsed == 1 ? 1_000 : 10_000
                     self.setLocation(of: attempt.place, radius: radius)

@@ -12,7 +12,7 @@ protocol AddGameVCDelegate: AnyObject {
     func didAddGameToUserProfile(_ vc: AddGameVC)
 }
 
-class AddGameVC: UIViewController {
+final class AddGameVC: UIViewController {
 
     // MARK: - Outlets
     @IBOutlet private weak var addGameButton: ScalingButton!
@@ -60,7 +60,8 @@ class AddGameVC: UIViewController {
         guard gameInfo?.placeInfo.cityName == AppSettings.defaultCity.title else {
             showSimpleAlert(
                 title: "Город игры не совпадает",
-                message: "Город, в котором проводилась игра, должен совпадать с городом, который указан на главном экране приложения"
+                message: "Город, в котором проводилась игра, должен совпадать с городом, " +
+                "который указан на главном экране приложения"
             )
             return
         }
@@ -75,7 +76,8 @@ class AddGameVC: UIViewController {
             } else {
                 self.showSimpleAlert(
                     title: "Вы находитесь слишком далеко",
-                    message: "Чтобы добавить игру в Личный кабинет и получить за неё баллы, Вам необходимо быть в месте проведения игры"
+                    message: "Чтобы добавить игру в Личный кабинет и получить за неё баллы, " +
+                    "Вам необходимо быть в месте проведения игры"
                 )
             }
         }
@@ -142,7 +144,8 @@ class AddGameVC: UIViewController {
     }
 
     // MARK: - Check User Location
-    /// - parameter isSatisfactory: `true` - user location is close to the place location, `false` - user location is too far from the place location, `nil` - unavailable to get user loaction
+    /// - parameter isSatisfactory: `true` - user location is close to the place location,
+    /// `false` - user location is too far from the place location, `nil` - unavailable to get user loaction
     private func checkUserLocation(completion: @escaping (_ isSatisfactory: Bool?) -> Void) {
         UserLocationService.shared.askUserLocation { (location) in
             guard let gameInfo = self.gameInfo else { return }

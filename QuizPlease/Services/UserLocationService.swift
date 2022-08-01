@@ -23,7 +23,7 @@ protocol UserLocationAuthorizationService {
     func requestAuthorization(completion: @escaping (_ granted: Bool) -> Void)
 }
 
-class UserLocationService: NSObject {
+final class UserLocationService: NSObject {
 
     static let shared = UserLocationService()
 
@@ -113,7 +113,8 @@ extension UserLocationService: UserLocationProvider {
 
     /// Use this method to update user location.
     ///
-    /// `completion` closure is executed after location is updated (either with success or failure). `completion` provides new location (if exists) and request status.
+    /// `completion` closure is executed after location is updated (either with success or failure).
+    /// `completion` provides new location (if exists) and request status.
     func askUserLocation(completion: @escaping (CLLocation?) -> Void) {
         locationHandler = completion
 

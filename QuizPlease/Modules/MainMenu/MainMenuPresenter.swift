@@ -10,7 +10,9 @@ import Foundation
 import UIKit
 
 // MARK: - Presenter Protocol
+
 protocol MainMenuPresenterProtocol: AnyObject {
+
     var router: MainMenuRouterProtocol! { get }
     var menuItems: [MainMenuItemProtocol]? { get set }
     var sampleShopItems: [ShopItem] { get }
@@ -32,7 +34,8 @@ protocol MainMenuPresenterProtocol: AnyObject {
     func indexPath(for menuItemKind: MainMenuItemKind) -> IndexPath?
 }
 
-class MainMenuPresenter: MainMenuPresenterProtocol {
+final class MainMenuPresenter: MainMenuPresenterProtocol {
+
     weak var view: MainMenuViewProtocol?
     var interactor: MainMenuInteractorProtocol!
     var router: MainMenuRouterProtocol!
@@ -61,6 +64,7 @@ class MainMenuPresenter: MainMenuPresenterProtocol {
     }
 
     // MARK: - Actions
+
     func didSelectMenuItem(at index: Int) {
         guard let item = menuItems?[index] else { return }
         var sender: UserInfo?
@@ -136,6 +140,7 @@ class MainMenuPresenter: MainMenuPresenterProtocol {
 }
 
 // MARK: - MainMenuInteractorOutput
+
 extension MainMenuPresenter: MainMenuInteractorOutput {
     func interactor(_ interactor: MainMenuInteractorProtocol, didLoadMenuItems items: [MainMenuItemProtocol]) {
         menuItems = items
@@ -152,15 +157,24 @@ extension MainMenuPresenter: MainMenuInteractorOutput {
         view?.reloadShopItems()
     }
 
-    func interactor(_ interactor: MainMenuInteractorProtocol, failedToLoadShopItemsWithError error: NetworkServiceError) {
+    func interactor(
+        _ interactor: MainMenuInteractorProtocol,
+        failedToLoadShopItemsWithError error: NetworkServiceError
+    ) {
         print(error)
     }
 
-    func interactor(_ interactor: MainMenuInteractorProtocol, failedToLoadMenuItemsWithError error: NetworkServiceError) {
+    func interactor(
+        _ interactor: MainMenuInteractorProtocol,
+        failedToLoadMenuItemsWithError error: NetworkServiceError
+    ) {
         view?.failureLoadingMenuItems(error)
     }
 
-    func interactor(_ interactor: MainMenuInteractorProtocol, failedToLoadUserInfoWithError error: NetworkServiceError) {
+    func interactor(
+        _ interactor: MainMenuInteractorProtocol,
+        failedToLoadUserInfoWithError error: NetworkServiceError
+    ) {
         print(error)
         switch error {
         case .invalidToken:

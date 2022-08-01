@@ -16,7 +16,7 @@ protocol AuthVCDelegate: AnyObject {
     func didCancelAuth(in authVC: AuthVC)
 }
 
-class AuthVC: UIViewController {
+final class AuthVC: UIViewController {
 
     weak var delegate: AuthVCDelegate?
 
@@ -89,7 +89,7 @@ class AuthVC: UIViewController {
 
             case let .success(response):
                 print(response)
-                /// user exists
+                // user exists
                 // if response.status == 0 {
                     self.sendCode(to: phone)
               //  }
@@ -115,8 +115,13 @@ class AuthVC: UIViewController {
     // MARK: - Auth
     private func auth(with phoneNumber: String, smsCode: String) {
         let firebaseId = ""
-        NetworkService.shared.authenticate(phoneNumber: phoneNumber, smsCode: smsCode, firebaseId: firebaseId) { [weak self] (serverResponse) in
+        NetworkService.shared.authenticate(
+            phoneNumber: phoneNumber,
+            smsCode: smsCode,
+            firebaseId: firebaseId
+        ) { [weak self] (serverResponse) in
             guard let self = self else { return }
+
             self.activityIndicator.stopAnimating()
             self.setViews(hidden: false)
 

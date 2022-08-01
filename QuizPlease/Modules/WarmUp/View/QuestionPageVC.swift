@@ -12,7 +12,7 @@ protocol QuestionPageVCDelegate: AnyObject {
     func questionsDidEnd()
 }
 
-class QuestionPageVC: UIPageViewController {
+final class QuestionPageVC: UIPageViewController {
 
     private var _viewControllers = [UIViewController]()
     private weak var questionsDelegate: QuestionPageVCDelegate?
@@ -54,11 +54,18 @@ class QuestionPageVC: UIPageViewController {
 }
 
 extension QuestionPageVC: UIPageViewControllerDataSource {
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+
+    func pageViewController(
+        _ pageViewController: UIPageViewController,
+        viewControllerBefore viewController: UIViewController
+    ) -> UIViewController? {
         return nil
     }
 
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+    func pageViewController(
+        _ pageViewController: UIPageViewController,
+        viewControllerAfter viewController: UIViewController
+    ) -> UIViewController? {
         return nil
     }
 }

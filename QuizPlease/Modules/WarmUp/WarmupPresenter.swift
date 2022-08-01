@@ -9,7 +9,9 @@
 import UIKit
 
 // MARK: - Presenter Protocol
+
 protocol WarmupPresenterProtocol {
+
     var router: WarmupRouterProtocol! { get }
     var questions: [WarmupQuestion] { get }
     var correctAnswersCount: Int { get }
@@ -23,7 +25,8 @@ protocol WarmupPresenterProtocol {
     func gameEnded()
 }
 
-class WarmupPresenter: WarmupPresenterProtocol {
+final class WarmupPresenter: WarmupPresenterProtocol {
+
     private let penaltyTime: Double = 5
 
     var router: WarmupRouterProtocol!
@@ -95,7 +98,10 @@ class WarmupPresenter: WarmupPresenterProtocol {
             view?.startGame()
             startTimer()
         } else {
-            view?.showSimpleAlert(title: "Новых вопросов пока нет", message: "Но скоро они появятся, загляните чуть позже")
+            view?.showSimpleAlert(
+                title: "Новых вопросов пока нет",
+                message: "Но скоро они появятся, загляните чуть позже"
+            )
         }
     }
 
@@ -116,14 +122,22 @@ class WarmupPresenter: WarmupPresenterProtocol {
 }
 
 // MARK: - WarmupInteractorOutput
+
 extension WarmupPresenter: WarmupInteractorOutput {
-    func interactor(_ interactor: WarmupInteractorProtocol, didLoadQuestions questions: [WarmupQuestion]) {
+
+    func interactor(
+        _ interactor: WarmupInteractorProtocol,
+        didLoadQuestions questions: [WarmupQuestion]
+    ) {
         self.questions = questions
         view?.setQuestions()
         startGame()
     }
 
-    func interactor(_ interactor: WarmupInteractorProtocol, failedToLoadQuestionsWithError error: NetworkServiceError) {
+    func interactor(
+        _ interactor: WarmupInteractorProtocol,
+        failedToLoadQuestionsWithError error: NetworkServiceError
+    ) {
         print(error)
         switch error {
         case .invalidToken:
@@ -133,7 +147,12 @@ extension WarmupPresenter: WarmupInteractorOutput {
         }
     }
 
-    func interactor(_ interactor: WarmupInteractorProtocol, isAnswerCorrect: Bool, answerId: Int, questionId: String) {
+    func interactor(
+        _ interactor: WarmupInteractorProtocol,
+        isAnswerCorrect: Bool,
+        answerId: Int,
+        questionId: String
+    ) {
         view?.stopLoading()
         view?.highlightCurrentAnswer(isCorrect: isAnswerCorrect)
         if isAnswerCorrect {
@@ -148,7 +167,12 @@ extension WarmupPresenter: WarmupInteractorOutput {
         }
     }
 
-    func interactor(_ interactor: WarmupInteractorProtocol, failedToCheckAnswer answerId: Int, questionId: String, error: NetworkServiceError) {
+    func interactor(
+        _ interactor: WarmupInteractorProtocol,
+        failedToCheckAnswer answerId: Int,
+        questionId: String,
+        error: NetworkServiceError
+    ) {
         view?.stopLoading()
         view?.showErrorConnectingToServerAlert()
     }

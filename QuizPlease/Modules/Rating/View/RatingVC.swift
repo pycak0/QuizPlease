@@ -19,7 +19,7 @@ protocol RatingViewProtocol: UIViewController, LoadingIndicator {
     func setHeaderLabelContent(city: String, leagueComment: String, ratingScopeComment: String)
 }
 
-class RatingVC: UIViewController {
+final class RatingVC: UIViewController {
     var presenter: RatingPresenterProtocol!
 
     @IBOutlet private weak var expandingHeader: ExpandingHeader!
@@ -28,7 +28,11 @@ class RatingVC: UIViewController {
             tableView.delegate = self
             tableView.dataSource = self
             tableView.allowsSelection = false
-            tableView.refreshControl = UIRefreshControl(tintColor: .lemon, target: self, action: #selector(refreshControlTriggered))
+            tableView.refreshControl = UIRefreshControl(
+                tintColor: .lemon,
+                target: self,
+                action: #selector(refreshControlTriggered)
+            )
         }
     }
 
@@ -155,10 +159,15 @@ extension RatingVC: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: RatingCell.identifier, for: indexPath) as? RatingCell else { fatalError("Invalid Cell Kind") }
-
+        let cell = tableView.dequeueReusableCell(RatingCell.self, for: indexPath)
         let team = presenter.filteredTeams[indexPath.row]
-        cell.configure(with: team.name, games: team.games, points: Int(team.pointsTotal), imagePath: team.imagePath)
+
+        cell.configure(
+            with: team.name,
+            games: team.games,
+            points: Int(team.pointsTotal),
+            imagePath: team.imagePath
+        )
 
         let teamsCount = presenter.filteredTeams.count
         if indexPath.row == teamsCount - 1 {

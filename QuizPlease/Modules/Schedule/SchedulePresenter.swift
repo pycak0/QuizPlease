@@ -35,7 +35,8 @@ protocol SchedulePresenterProtocol: AnyObject {
 }
 
 // MARK: - Presenter Implementation
-class SchedulePresenter: SchedulePresenterProtocol {
+
+final class SchedulePresenter: SchedulePresenterProtocol {
     weak var view: ScheduleViewProtocol?
     var interactor: ScheduleInteractorProtocol!
     var router: ScheduleRouterProtocol!
@@ -184,12 +185,17 @@ class SchedulePresenter: SchedulePresenterProtocol {
 
 // MARK: - ScheduleInteractorOutput
 extension SchedulePresenter: ScheduleInteractorOutput {
-    func interactor(_ interactor: ScheduleInteractorProtocol?, didGetSubscribeStatus isSubscribed: Bool, forGameWithId id: String) {
+    func interactor(
+        _ interactor: ScheduleInteractorProtocol?,
+        didGetSubscribeStatus isSubscribed: Bool,
+        forGameWithId id: String
+    ) {
         let subscirbeMessage = isSubscribed ? "подписаны на уведомления" : "отписаны от уведомлений"
         let title = isSubscribed ? "Подписка на уведомления" : "Отписка от уведомлений"
         self.view?.showSimpleAlert(
             title: title,
-            message: "Вы были успешно \(subscirbeMessage) об игре. Если хотите изменить статус подписки, нажмите на кнопку ещё раз"
+            message: "Вы были успешно \(subscirbeMessage) об игре. " +
+            "Если хотите изменить статус подписки, нажмите на кнопку ещё раз"
         )
         guard let id = Int(id), let index = games.firstIndex(where: { $0.id == id }) else { return }
         if isSubscribed {
@@ -200,11 +206,18 @@ extension SchedulePresenter: ScheduleInteractorOutput {
         self.view?.changeSubscribeStatus(forGameAt: index)
     }
 
-    func interactor(_ interactor: ScheduleInteractorProtocol?, failedToSubscribeForGameWith gameId: String, error: NetworkServiceError) {
+    func interactor(
+        _ interactor: ScheduleInteractorProtocol?,
+        failedToSubscribeForGameWith gameId: String,
+        error: NetworkServiceError
+    ) {
         print(error)
         switch error {
         case .invalidToken:
-            view?.showSimpleAlert(title: "Не удалось подписаться на уведомления", message: "Для получения напоминаний об играх Вам необходимо авторизоваться в Личном кабинете")
+            view?.showSimpleAlert(
+                title: "Не удалось подписаться на уведомления",
+                message: "Для получения напоминаний об играх Вам необходимо авторизоваться в Личном кабинете"
+            )
         default:
             view?.showErrorConnectingToServerAlert()
         }

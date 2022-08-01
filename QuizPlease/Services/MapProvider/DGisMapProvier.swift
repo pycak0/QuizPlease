@@ -9,7 +9,7 @@
 import UIKit
 import CoreLocation
 
-class DGisMapProvier: MapProvider {
+final class DGisMapProvier: MapProvider {
 
     let title = "2ГИС"
     let urlSchema = URL(string: "dgis://")!
@@ -17,9 +17,11 @@ class DGisMapProvier: MapProvider {
     func openMapRoute(to coordinate: CLLocationCoordinate2D, placeName: String?) {
         guard UIApplication.shared.canOpenURL(urlSchema) else { return }
 
-        if let url = URL(string: "dgis://2gis.ru/routeSearch/rsType/car/to/\(coordinate.longitude),\(coordinate.latitude)") {
+        let urlString = "dgis://2gis.ru/routeSearch/rsType/car/to/" +
+        "\(coordinate.longitude),\(coordinate.latitude)"
+
+        if let url = URL(string: urlString) {
             UIApplication.shared.open(url)
         }
-
     }
 }
