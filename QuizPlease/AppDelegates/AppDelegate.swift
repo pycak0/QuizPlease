@@ -77,9 +77,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate {
 
     func messaging(
         _ messaging: Messaging,
-        didReceiveRegistrationToken fcmToken: String
+        didReceiveRegistrationToken fcmToken: String?
     ) {
-        print("Registration Token: \(fcmToken)")
+        print("Registration Token: \(fcmToken ?? "NONE")")
+        guard let fcmToken = fcmToken else { return }
+
         #if !targetEnvironment(simulator)
         NetworkService.shared.sendFirebaseId(fcmToken)
         DefaultsManager.shared.saveFcmToken(fcmToken)
