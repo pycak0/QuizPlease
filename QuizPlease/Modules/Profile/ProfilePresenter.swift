@@ -6,7 +6,7 @@
 //  Copyright © 2020 Владислав. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 // MARK: - Presenter Protocol
 protocol ProfilePresenterProtocol {
@@ -19,7 +19,7 @@ protocol ProfilePresenterProtocol {
     func handleViewDidAppear()
 
     func didPerformAuth()
-    func didPressExitButton()
+    func didPressOptionsButton()
 
     func didPressShowShopButton()
     func didPressAddGameButton()
@@ -63,19 +63,20 @@ class ProfilePresenter: ProfilePresenterProtocol {
     }
 
     // MARK: - Actions
-    func didPressExitButton() {
-        view?.showTwoOptionsAlert(
-            title: "Вы уверены, что хотите выйти из личного кабинета?",
-            message: nil,
-            option1: (
-                title: "Да",
-                handler: {
-                    self.interactor.deleteUserInfo()
-                    self.router.closeProfile()
-                }
-            ),
-            option2: ("Отмена", nil)
-        )
+    func didPressOptionsButton() {
+        view?.showExitOrDeleteActionSheet(onExit: exit, onDelete: deleteAccount)
+    }
+
+    private func exit() {
+        view?.showExitAlert(onConfirm: { [weak self] in
+            self?.logOutAndClose()
+        })
+    }
+
+    private func deleteAccount() {
+        view?.showDeleteAccountAlert(onConfirm: { [weak self] in
+            self?.interactor.deleteUserAccount()
+        })
     }
 
     func didPressShowShopButton() {
@@ -99,10 +100,16 @@ class ProfilePresenter: ProfilePresenterProtocol {
         view?.reloadGames()
         view?.updateUserInfo(with: info.pointsAmount)
     }
+
+    private func logOutAndClose() {
+        interactor.logOut()
+        router.closeProfile()
+    }
 }
 
 // MARK: - Interactor Delegate
 extension ProfilePresenter: ProfileInteractorDelegate {
+
     func didFailLoadingUserInfo(with error: NetworkServiceError) {
         view?.showErrorConnectingToServerAlert()
     }
@@ -111,5 +118,13 @@ extension ProfilePresenter: ProfileInteractorDelegate {
         print(userInfo)
         self.userInfo = userInfo
         updateUserInfo()
+    }
+
+    func didSuccessfullyDeleteAccount() {
+        logOutAndClose()
+    }
+
+    func didFailDeletingAccount(with error: NetworkServiceError) {
+        view?.showErrorConnectingToServerAlert(title: "Произошла ошибка")
     }
 }

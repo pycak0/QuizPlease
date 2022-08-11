@@ -17,6 +17,14 @@ protocol ProfileViewProtocol: UIViewController {
     func reloadGames()
     func updateUserInfo(with pointsScored: Double)
     func setCity(_ city: String)
+
+    func showExitOrDeleteActionSheet(
+        onExit: @escaping () -> Void,
+        onDelete: @escaping () -> Void
+    )
+
+    func showDeleteAccountAlert(onConfirm: @escaping () -> Void)
+    func showExitAlert(onConfirm: @escaping () -> Void)
 }
 
 final class ProfileVC: UIViewController {
@@ -58,6 +66,7 @@ final class ProfileVC: UIViewController {
         super.viewDidLoad()
         prepareNavigationBar(barStyle: .transcluent(tintColor: view.backgroundColor))
         presenter.viewDidLoad(self)
+        configureBarItem()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -88,7 +97,19 @@ final class ProfileVC: UIViewController {
     }
 
     @IBAction private func exitButtonPressed(_ sender: Any) {
-        presenter.didPressExitButton()
+        presenter.didPressOptionsButton()
+    }
+
+    private func configureBarItem() {
+        let item = UIBarButtonItem(
+            image: UIImage(named: "menu"),
+            style: .plain,
+            target: self,
+            action: #selector(exitButtonPressed(_:))
+        )
+        item.tintColor = .labelAdapted
+
+        navigationItem.rightBarButtonItem = item
     }
 
     private func resetGradient() {
@@ -128,6 +149,43 @@ extension ProfileVC: ProfileViewProtocol {
 
     func setCity(_ city: String) {
         cityLabel.text = "Игры, на кототрых Вы зажигали в городе: \(city)"
+    }
+
+    func showExitOrDeleteActionSheet(onExit: @escaping () -> Void, onDelete: @escaping () -> Void) {
+        showActionSheetWithOptions(title: nil, buttons: [
+            UIAlertAction(
+                title: "Выйти из личного кабинета",
+                style: .default,
+                handler: { _ in onExit() }
+            ),
+            UIAlertAction(
+                title: "Удалить аккаунт",
+                style: .default,
+                handler: { _ in onDelete() }
+            )
+        ])
+    }
+
+    func showDeleteAccountAlert(onConfirm: @escaping () -> Void) {
+        UIAlertController(
+            title: "Удалить аккаунт?",
+            message: "Ваши баллы и игры, на которых вы были, будут удалены",
+            preferredStyle: .alert
+        )
+        .withAction(.delete(onTap: onConfirm))
+        .withAction(.cancel)
+        .show()
+    }
+
+    func showExitAlert(onConfirm: @escaping () -> Void) {
+        UIAlertController(
+            title: "Вы уверены, что хотите выйти из личного кабинета?",
+            message: nil,
+            preferredStyle: .alert
+        )
+        .withAction(title: "Да", handler: onConfirm)
+        .withAction(.cancel)
+        .show()
     }
 }
 

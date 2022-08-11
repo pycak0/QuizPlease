@@ -14,7 +14,12 @@ protocol ProfileInteractorProtocol {
     var delegate: ProfileInteractorDelegate? { get set }
 
     func loadUserInfo()
-    func deleteUserInfo()
+
+    /// Performs only LOCAL logout from app, e.g. removing user's auth info
+    func logOut()
+
+    /// Calls backend to delete user's account. Does not clear local auth info.
+    func deleteUserAccount()
 }
 
 // MARK: - Delegate Protocol
@@ -22,14 +27,25 @@ protocol ProfileInteractorDelegate: AnyObject {
     func didFailLoadingUserInfo(with error: NetworkServiceError)
 
     func didSuccessfullyLoadUserInfo(_ userInfo: UserInfo)
+
+    func didSuccessfullyDeleteAccount()
+
+    func didFailDeletingAccount(with error: NetworkServiceError)
 }
 
-class ProfileInteractor: ProfileInteractorProtocol {
+final class ProfileInteractor: ProfileInteractorProtocol {
+
+    private let networkService: NetworkService
+
     weak var delegate: ProfileInteractorDelegate?
+
+    init(networkService: NetworkService) {
+        self.networkService = networkService
+    }
 
     // MARK: - Load User Info
     func loadUserInfo() {
-        NetworkService.shared.getUserInfo { [weak self] (serverResult) in
+        networkService.getUserInfo { [weak self] (serverResult) in
             guard let self = self else { return }
             switch serverResult {
             case let .failure(error):
@@ -40,8 +56,30 @@ class ProfileInteractor: ProfileInteractorProtocol {
         }
     }
 
-    func deleteUserInfo() {
+    func logOut() {
         AppSettings.userToken = nil
         DefaultsManager.shared.removeAuthInfo()
+    }
+
+    func deleteUserAccount() {
+        networkService.afPostStandard(
+            with: [:],
+            to: "/api/users/delete",
+            responseType: DeleteResponse.self,
+            authorizationKind: .bearer
+        ) { [weak self] result in
+            guard let self = self else { return }
+
+            switch result {
+            case let .success(response):
+                if response.isSuccess {
+                    self.delegate?.didSuccessfullyDeleteAccount()
+                } else {
+                    self.delegate?.didFailDeletingAccount(with: .serverError(1000))
+                }
+            case let .failure(error):
+                self.delegate?.didFailDeletingAccount(with: error)
+            }
+        }
     }
 }
