@@ -30,7 +30,10 @@ public extension UIActivityIndicatorView {
                         color: UIColor? = nil, bgColor: UIColor? = nil,
                         isCircle: Bool = false, width: CGFloat = 50) {
 
-        self.frame = CGRect(x: (view.bounds.midX - width/2), y: (view.bounds.midY - width/2), width: width, height: width)
+        self.frame = CGRect(
+            x: (view.bounds.midX - width/2),
+            y: (view.bounds.midY - width/2), width: width, height: width
+        )
         self.clipsToBounds = true
         self.layer.cornerRadius = isCircle ? (width / 2) : 10
 

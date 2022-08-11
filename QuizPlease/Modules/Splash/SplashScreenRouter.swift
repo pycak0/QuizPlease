@@ -12,7 +12,7 @@ protocol SplashScreenRouterProtocol: Router {
     func showMainMenu()
 }
 
-class SplashScreenRouter: SplashScreenRouterProtocol {
+final class SplashScreenRouter: SplashScreenRouterProtocol {
     unowned let viewController: UIViewController
 
     required init(viewController: UIViewController) {
@@ -25,6 +25,12 @@ class SplashScreenRouter: SplashScreenRouterProtocol {
         let window = UIApplication.shared.windows.first!
         window.rootViewController = vc
         window.makeKeyAndVisible()
-        UIView.transition(with: window, duration: 0.3, options: .transitionCrossDissolve, animations: nil, completion: nil)
+        UIView.transition(
+            with: window,
+            duration: 0.3,
+            options: .transitionCrossDissolve,
+            animations: nil,
+            completion: nil
+        )
     }
 }

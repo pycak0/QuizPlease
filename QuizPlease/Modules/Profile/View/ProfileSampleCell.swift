@@ -8,8 +8,7 @@
 
 import UIKit
 
-class ProfileSampleCell: UITableViewCell, IdentifiableType {
-    static let identifier = "\(ProfileSampleCell.self)"
+final class ProfileSampleCell: UITableViewCell, IdentifiableType {
 
     @IBOutlet weak var sampleTextLabel: UILabel!
     @IBOutlet weak var cellView: UIView! {

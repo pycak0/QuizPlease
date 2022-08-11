@@ -1,6 +1,6 @@
 platform :ios, '12.0'
-# source 'https://github.com/CocoaPods/Specs.git'
-source 'https://github.com/yoomoney-tech/cocoa-pod-specs.git'
+source 'https://github.com/CocoaPods/Specs.git'
+source 'https://git.yoomoney.ru/scm/sdk/cocoa-pod-specs.git'
 
 target 'QuizPlease' do
   # Comment the next line if you don't want to use dynamic frameworks
@@ -11,8 +11,10 @@ target 'QuizPlease' do
   pod 'Firebase/Messaging'
 
   pod 'YooKassaPayments',
-    :git => 'https://github.com/yoomoney/yookassa-payments-swift.git',
-    :tag => '6.4.0'
+    :git => 'https://git.yoomoney.ru/scm/sdk/yookassa-payments-swift.git',
+    :tag => '6.8.2'
+
+  pod 'Wormholy'
 
 end
 

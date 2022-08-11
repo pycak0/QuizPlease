@@ -13,8 +13,7 @@ protocol MenuShopCellDelegate: AnyObject {
     func didPressRemindButton(in cell: MenuShopCell)
 }
 
-class MenuShopCell: UITableViewCell, MenuCellItemProtocol {
-    static let identifier: String = "\(MenuShopCell.self)"
+final class MenuShopCell: UITableViewCell, MenuCellItemProtocol {
 
     /// Assigned in the `registerCollectoinView(_:) method`
     private weak var delegate: MenuShopCellDelegate?
@@ -38,7 +37,10 @@ class MenuShopCell: UITableViewCell, MenuCellItemProtocol {
     }
 
     func configureViews() {
-        collectionView.register(UINib(nibName: ShopItemCell.identifier, bundle: nil), forCellWithReuseIdentifier: ShopItemCell.identifier)
+        collectionView.register(
+            UINib(nibName: "\(ShopItemCell.self)", bundle: nil),
+            forCellWithReuseIdentifier: "\(ShopItemCell.self)"
+        )
         accessoryStack.addTapGestureRecognizer {
             self.delegate?.didPressMoreButton(in: self)
         }

@@ -93,7 +93,9 @@ final class MapInteractor: MapInteractorInput {
         geocoder.geocodeAddress(attempt.query) { [weak self] coordinate in
             guard let self = self else { return }
             if let coordinate = coordinate {
-                print("[\(Self.self)] Successfully geocoded location for place \(self.place) from attempt #\(self.attemptsUsed)")
+                let logMessage = "[\(Self.self)] Successfully geocoded location " +
+                "for place \(self.place) from attempt #\(self.attemptsUsed)"
+                print(logMessage)
 
                 self.place.coordinate = coordinate
                 completion(self.place)

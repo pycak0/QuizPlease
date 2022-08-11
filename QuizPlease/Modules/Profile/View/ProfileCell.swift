@@ -8,8 +8,7 @@
 
 import UIKit
 
-class ProfileCell: UITableViewCell, IdentifiableType {
-    static let identifier = "\(ProfileCell.self)"
+final class ProfileCell: UITableViewCell, IdentifiableType {
 
     @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var gameNameLabel: UILabel!

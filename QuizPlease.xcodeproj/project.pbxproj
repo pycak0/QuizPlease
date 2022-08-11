@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4A383577CBE8A2A98C919C15 /* Pods_QuizPlease.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4D9180E261A72F900C4D51E /* Pods_QuizPlease.framework */; };
+		4DF0586D2E5AA5937395870F /* Pods_QuizPlease.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4D9180E261A72F900C4D51E /* Pods_QuizPlease.framework */; };
 		A400A26E269CE4C200FBF70C /* String+WordBuilding.swift in Sources */ = {isa = PBXBuildFile; fileRef = A400A26D269CE4C200FBF70C /* String+WordBuilding.swift */; };
 		A405C98724F651C900C74787 /* MainMenuShopCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A405C98624F651C900C74787 /* MainMenuShopCollectionView.swift */; };
 		A40689F924F7D11A001273B2 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40689F824F7D11A001273B2 /* City.swift */; };
@@ -79,10 +79,6 @@
 		A4283840272C8C3F00F417E6 /* QPNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A428383F272C8C3F00F417E6 /* QPNavigationController.swift */; };
 		A4317731267BEEEE0062E0E0 /* SpecialCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4317730267BEEEE0062E0E0 /* SpecialCondition.swift */; };
 		A4358951265528D400B54C89 /* LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4358950265528D400B54C89 /* LoadingIndicator.swift */; };
-		A4361BD6262A0D85002A7B55 /* TMXProfiling.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4361BD3262A0D70002A7B55 /* TMXProfiling.xcframework */; };
-		A4361BD7262A0D85002A7B55 /* TMXProfiling.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A4361BD3262A0D70002A7B55 /* TMXProfiling.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		A4361BD8262A0D87002A7B55 /* TMXProfilingConnections.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4361BD2262A0D70002A7B55 /* TMXProfilingConnections.xcframework */; };
-		A4361BD9262A0D87002A7B55 /* TMXProfilingConnections.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A4361BD2262A0D70002A7B55 /* TMXProfilingConnections.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A43DB6AF254770F8006E4569 /* ActivityIndicator+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43DB6AE254770F8006E4569 /* ActivityIndicator+Extensions.swift */; };
 		A43E0AD9258E2F3400207616 /* UIEdgeInsets+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43E0AD8258E2F3400207616 /* UIEdgeInsets+Init.swift */; };
 		A44084FA269B07E6005F2ED0 /* TwoColumnsFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44084F9269B07E6005F2ED0 /* TwoColumnsFlowLayout.swift */; };
@@ -283,21 +279,6 @@
 		A4FFA4B124F3BE2A006A1150 /* PaymentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FFA4B024F3BE2A006A1150 /* PaymentType.swift */; };
 		FF12F985D9FD6405E16CEC39 /* Pods_QuizPlease.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B96AC7846537ADF1B2E29E1 /* Pods_QuizPlease.framework */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		A4C71760254C5A6500898CA5 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				A4361BD9262A0D87002A7B55 /* TMXProfilingConnections.xcframework in Embed Frameworks */,
-				A4361BD7262A0D85002A7B55 /* TMXProfiling.xcframework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0D0A5F91BB7CF8490B968FAF /* Pods-QuizPleaseTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuizPleaseTests.release.xcconfig"; path = "Target Support Files/Pods-QuizPleaseTests/Pods-QuizPleaseTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -584,17 +565,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A4361BD8262A0D87002A7B55 /* TMXProfilingConnections.xcframework in Frameworks */,
 				A4A2647C252BC9D2005C0894 /* Alamofire in Frameworks */,
 				A468E12224FD0BE40083ADB2 /* InputMask in Frameworks */,
-				A4361BD6262A0D85002A7B55 /* TMXProfiling.xcframework in Frameworks */,
 				A445C89125436C9D003B68E8 /* Kingfisher in Frameworks */,
 				A423AC2024EEBA0600071E68 /* BottomPopup in Frameworks */,
 				A40E2A6A25294B4D00986CCA /* UICircularProgressRing in Frameworks */,
 				A4147AD524E596FC007C131F /* IQKeyboardManagerSwift in Frameworks */,
 				A4132787268F33550088DE6A /* PhoneNumberKit-Static in Frameworks */,
 				FF12F985D9FD6405E16CEC39 /* Pods_QuizPlease.framework in Frameworks */,
-				4A383577CBE8A2A98C919C15 /* Pods_QuizPlease.framework in Frameworks */,
+				4DF0586D2E5AA5937395870F /* Pods_QuizPlease.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1392,12 +1371,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A40D816A24D2C6C2006D2CE3 /* Build configuration list for PBXNativeTarget "QuizPlease" */;
 			buildPhases = (
-				A43868DA2871CC54004031AF /* ShellScript */,
 				51F5F71E4FC0FD57C8E6E086 /* [CP] Check Pods Manifest.lock */,
+				A43868DA2871CC54004031AF /* ShellScript */,
 				A40D815224D2C6C1006D2CE3 /* Sources */,
 				A40D815324D2C6C1006D2CE3 /* Frameworks */,
 				A40D815424D2C6C1006D2CE3 /* Resources */,
-				A4C71760254C5A6500898CA5 /* Embed Frameworks */,
 				1233863584D02D40269CD8C5 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
@@ -1425,7 +1403,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1220;
-				LastUpgradeCheck = 1250;
+				LastUpgradeCheck = 1340;
 				ORGANIZATIONNAME = "Владислав";
 				TargetAttributes = {
 					A40D815524D2C6C1006D2CE3 = {
@@ -1951,7 +1929,7 @@
 				CODE_SIGN_ENTITLEMENTS = QuizPlease/QuizPlease.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 25;
+				CURRENT_PROJECT_VERSION = 26;
 				DEVELOPMENT_TEAM = 5524GP5G24;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1981,7 +1959,7 @@
 				CODE_SIGN_ENTITLEMENTS = QuizPlease/QuizPlease.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 25;
+				CURRENT_PROJECT_VERSION = 26;
 				DEVELOPMENT_TEAM = 5524GP5G24;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

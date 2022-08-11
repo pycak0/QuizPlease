@@ -17,7 +17,7 @@ protocol ShopViewProtocol: UIViewController, LoadingIndicator {
     func showUserPoints(_ points: Double)
 }
 
-class ShopVC: UIViewController {
+final class ShopVC: UIViewController {
     var presenter: ShopPresenterProtocol!
 
     @IBOutlet private weak var userPointsLabel: UILabel! {
@@ -29,8 +29,14 @@ class ShopVC: UIViewController {
 
     @IBOutlet private weak var shopCollectionView: UICollectionView! {
         didSet {
-            shopCollectionView.register(UINib(nibName: ShopItemCell.identifier, bundle: nil), forCellWithReuseIdentifier: ShopItemCell.identifier)
-            shopCollectionView.refreshControl = UIRefreshControl(target: self, action: #selector(refreshControlTriggered))
+            shopCollectionView.register(
+                UINib(nibName: "\(ShopItemCell.self)", bundle: nil),
+                forCellWithReuseIdentifier: "\(ShopItemCell.self)"
+            )
+            shopCollectionView.refreshControl = UIRefreshControl(
+                target: self,
+                action: #selector(refreshControlTriggered)
+            )
             shopCollectionView.collectionViewLayout = TwoColumnsFlowLayout(cellAspectRatio: 3 / 4)
             shopCollectionView.delegate = self
             shopCollectionView.dataSource = self
@@ -108,11 +114,13 @@ extension ShopVC: UICollectionViewDataSource {
         return presenter.items.count
     }
 
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ShopItemCell.identifier, for: indexPath) as? ShopItemCell else {
-            fatalError("Invalid Cell Kind")
-        }
+    func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath
+    ) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(ShopItemCell.self, for: indexPath)
         let item = presenter.items[indexPath.item]
+
         cell.configureCell(imagePath: item.imagePath, price: item.priceNumber)
 
         let index = indexPath.row % gradients.count
