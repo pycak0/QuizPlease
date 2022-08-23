@@ -8,12 +8,17 @@
 
 import UIKit
 
-class MenuHomeGameCell: UITableViewCell, MenuCellItemProtocol {
-    static let identifier = "MenuHomeGameCell"
+final class MenuHomeGameCell: UITableViewCell, MenuCellItemProtocol {
 
     @IBOutlet weak var cellView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var accessoryLabel: UILabel!
+    @IBOutlet weak var newGamesLabel: UILabel! {
+        didSet {
+            // сейчас плашка всегда спрятана
+            newGamesLabel.isHidden = true
+        }
+    }
 
     @IBOutlet weak var playLabel: UILabel!
 
@@ -24,7 +29,7 @@ class MenuHomeGameCell: UITableViewCell, MenuCellItemProtocol {
 
     func configureViews() {
         cellView.layer.cornerRadius = cellViewCornerRadius
-        accessoryLabel.layer.cornerRadius = accessoryLabel.frame.height / 2
+        newGamesLabel.layer.cornerRadius = newGamesLabel.frame.height / 2
         playLabel.layer.cornerRadius = playLabel.frame.height / 2
     }
 
@@ -32,5 +37,4 @@ class MenuHomeGameCell: UITableViewCell, MenuCellItemProtocol {
         titleLabel.text = model.title
         accessoryLabel.text = model.supplementaryText
     }
-
 }
