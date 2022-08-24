@@ -60,6 +60,7 @@
 		A40F035D24D412D700C381F2 /* ShopItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40F035B24D412D700C381F2 /* ShopItemCell.swift */; };
 		A40F036224D4187800C381F2 /* UIKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40F036124D4187800C381F2 /* UIKitExtensions.swift */; };
 		A40F036424D419D200C381F2 /* MenuCellItemProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40F036324D419D200C381F2 /* MenuCellItemProtocol.swift */; };
+		A4112D5B28B6883F0097ED97 /* DeleteResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4112D5A28B6883F0097ED97 /* DeleteResponse.swift */; };
 		A4132787268F33550088DE6A /* PhoneNumberKit-Static in Frameworks */ = {isa = PBXBuildFile; productRef = A4132786268F33550088DE6A /* PhoneNumberKit-Static */; };
 		A4147AD524E596FC007C131F /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = A4147AD424E596FC007C131F /* IQKeyboardManagerSwift */; };
 		A4147AD724E5B92D007C131F /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4147AD624E5B92D007C131F /* Place.swift */; };
@@ -78,6 +79,7 @@
 		A428383E272B221100F417E6 /* UIApplication+getKeyWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A428383D272B221100F417E6 /* UIApplication+getKeyWindow.swift */; };
 		A4283840272C8C3F00F417E6 /* QPNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A428383F272C8C3F00F417E6 /* QPNavigationController.swift */; };
 		A4317731267BEEEE0062E0E0 /* SpecialCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4317730267BEEEE0062E0E0 /* SpecialCondition.swift */; };
+		A4323FC828A01A8E001D1C4B /* UIAlertController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4323FC728A01A8E001D1C4B /* UIAlertController+Extensions.swift */; };
 		A4358951265528D400B54C89 /* LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4358950265528D400B54C89 /* LoadingIndicator.swift */; };
 		A43DB6AF254770F8006E4569 /* ActivityIndicator+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43DB6AE254770F8006E4569 /* ActivityIndicator+Extensions.swift */; };
 		A43E0AD9258E2F3400207616 /* UIEdgeInsets+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43E0AD8258E2F3400207616 /* UIEdgeInsets+Init.swift */; };
@@ -271,7 +273,7 @@
 		A4FEB055273739F10052AD7B /* DGisMapProvier.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FEB04F273739F10052AD7B /* DGisMapProvier.swift */; };
 		A4FEB056273739F10052AD7B /* YNMapProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FEB050273739F10052AD7B /* YNMapProvider.swift */; };
 		A4FEB057273739F10052AD7B /* MapProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FEB051273739F10052AD7B /* MapProvider.swift */; };
-		A4FEB059273749010052AD7B /* UIAlertAction+Cancel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FEB058273749010052AD7B /* UIAlertAction+Cancel.swift */; };
+		A4FEB059273749010052AD7B /* UIAlertAction+Static.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FEB058273749010052AD7B /* UIAlertAction+Static.swift */; };
 		A4FFA4A924F39F26006A1150 /* GameOrderCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FFA4A824F39F26006A1150 /* GameOrderCellProtocol.swift */; };
 		A4FFA4AB24F3AB1A006A1150 /* GameOrderCellDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FFA4AA24F3AB1A006A1150 /* GameOrderCellDelegates.swift */; };
 		A4FFA4AD24F3AE78006A1150 /* MKMapView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FFA4AC24F3AE78006A1150 /* MKMapView+Extensions.swift */; };
@@ -338,6 +340,7 @@
 		A40F035B24D412D700C381F2 /* ShopItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopItemCell.swift; sourceTree = "<group>"; };
 		A40F036124D4187800C381F2 /* UIKitExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitExtensions.swift; sourceTree = "<group>"; };
 		A40F036324D419D200C381F2 /* MenuCellItemProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCellItemProtocol.swift; sourceTree = "<group>"; };
+		A4112D5A28B6883F0097ED97 /* DeleteResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteResponse.swift; sourceTree = "<group>"; };
 		A4147AD624E5B92D007C131F /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		A4147AD824E5BAF9007C131F /* MapService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapService.swift; sourceTree = "<group>"; };
 		A4162020270A5C030050CBD8 /* BarStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarStyle.swift; sourceTree = "<group>"; };
@@ -353,6 +356,7 @@
 		A428383D272B221100F417E6 /* UIApplication+getKeyWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+getKeyWindow.swift"; sourceTree = "<group>"; };
 		A428383F272C8C3F00F417E6 /* QPNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QPNavigationController.swift; sourceTree = "<group>"; };
 		A4317730267BEEEE0062E0E0 /* SpecialCondition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialCondition.swift; sourceTree = "<group>"; };
+		A4323FC728A01A8E001D1C4B /* UIAlertController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extensions.swift"; sourceTree = "<group>"; };
 		A4358950265528D400B54C89 /* LoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicator.swift; sourceTree = "<group>"; };
 		A4361BD2262A0D70002A7B55 /* TMXProfilingConnections.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = TMXProfilingConnections.xcframework; path = Frameworks/TMXProfilingConnections.xcframework; sourceTree = "<group>"; };
 		A4361BD3262A0D70002A7B55 /* TMXProfiling.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = TMXProfiling.xcframework; path = Frameworks/TMXProfiling.xcframework; sourceTree = "<group>"; };
@@ -550,7 +554,7 @@
 		A4FEB04F273739F10052AD7B /* DGisMapProvier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DGisMapProvier.swift; sourceTree = "<group>"; };
 		A4FEB050273739F10052AD7B /* YNMapProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YNMapProvider.swift; sourceTree = "<group>"; };
 		A4FEB051273739F10052AD7B /* MapProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapProvider.swift; sourceTree = "<group>"; };
-		A4FEB058273749010052AD7B /* UIAlertAction+Cancel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertAction+Cancel.swift"; sourceTree = "<group>"; };
+		A4FEB058273749010052AD7B /* UIAlertAction+Static.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertAction+Static.swift"; sourceTree = "<group>"; };
 		A4FFA4A824F39F26006A1150 /* GameOrderCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOrderCellProtocol.swift; sourceTree = "<group>"; };
 		A4FFA4AA24F3AB1A006A1150 /* GameOrderCellDelegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOrderCellDelegates.swift; sourceTree = "<group>"; };
 		A4FFA4AC24F3AE78006A1150 /* MKMapView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKMapView+Extensions.swift"; sourceTree = "<group>"; };
@@ -700,6 +704,7 @@
 		A40D817424D2C96B006D2CE3 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				A4112D5928B6880F0097ED97 /* Model */,
 				A423AC1924EE860200071E68 /* View */,
 				A40B759324D9A845006DB7D1 /* ProfileInteractor.swift */,
 				A40B759524D9A84C006DB7D1 /* ProfilePresenter.swift */,
@@ -803,12 +808,21 @@
 				A45241DF26547A060058285C /* UITextField+Extensions.swift */,
 				A4E91EBB26C30D5C008C13A7 /* UIWindow+topViewController.swift */,
 				A4A4ED372775D8D000DAA945 /* Bundle+version.swift */,
-				A4FEB058273749010052AD7B /* UIAlertAction+Cancel.swift */,
+				A4FEB058273749010052AD7B /* UIAlertAction+Static.swift */,
 				A490ACD427A6A0E300DEF87B /* UIBarButtonItem+swizzleMenu.swift */,
 				A48E303C2871E549000704B2 /* UITableView+deque.swift */,
 				A48E303E287220A0000704B2 /* UICollectionView+deque.swift */,
+				A4323FC728A01A8E001D1C4B /* UIAlertController+Extensions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		A4112D5928B6880F0097ED97 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A4112D5A28B6883F0097ED97 /* DeleteResponse.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		A423AC1924EE860200071E68 /* View */ = {
@@ -1638,7 +1652,7 @@
 				A40B759224D9A836006DB7D1 /* HomeGameConfigurator.swift in Sources */,
 				A472D2B325291F0200AA9906 /* UserRegisterData.swift in Sources */,
 				A4DAF73924DD987F00963C15 /* MenuProfileCell.swift in Sources */,
-				A4FEB059273749010052AD7B /* UIAlertAction+Cancel.swift in Sources */,
+				A4FEB059273749010052AD7B /* UIAlertAction+Static.swift in Sources */,
 				A450E39A24E564A900C49AEE /* GameCertificateCell.swift in Sources */,
 				A48E303F287220A0000704B2 /* UICollectionView+deque.swift in Sources */,
 				A40F036424D419D200C381F2 /* MenuCellItemProtocol.swift in Sources */,
@@ -1702,6 +1716,7 @@
 				A445E34824DE02BC0070B9FC /* TitleLabel.swift in Sources */,
 				A4768C94268E72650085B622 /* PhoneTextFieldView.swift in Sources */,
 				A4283840272C8C3F00F417E6 /* QPNavigationController.swift in Sources */,
+				A4323FC828A01A8E001D1C4B /* UIAlertController+Extensions.swift in Sources */,
 				A40B758C24D9A81A006DB7D1 /* HomeGameInteractor.swift in Sources */,
 				A4F234802685E0D200E6FC68 /* AnyCodable.swift in Sources */,
 				A4F0B9D426246EB100E4E2A5 /* NetworkConfiguration.swift in Sources */,
@@ -1757,6 +1772,7 @@
 				A423AC2224EEBCD600071E68 /* FiltersVC.swift in Sources */,
 				A48E2FBC253330D900CD6BE6 /* DeliveryMethod.swift in Sources */,
 				A4CC5FC724DACE2D0042B41C /* ShopConfigurator.swift in Sources */,
+				A4112D5B28B6883F0097ED97 /* DeleteResponse.swift in Sources */,
 				A472D2AD2528A89100AA9906 /* AuthVC.swift in Sources */,
 				A4837BD12636086D00517EC6 /* SecurityHelper.swift in Sources */,
 				A428383E272B221100F417E6 /* UIApplication+getKeyWindow.swift in Sources */,
