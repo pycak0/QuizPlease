@@ -699,15 +699,40 @@ class NetworkService {
     func afPostStandard<Response: Decodable>(
         with parameters: [String: String?],
         and headers: [String: String]? = nil,
+        to apiPath: String,
+        responseType: Response.Type,
+        authorizationKind: AuthorizationKind = .none,
+        completion: @escaping ((Result<Response, NetworkServiceError>) -> Void)
+    ) {
+        var urlComponents = baseUrlComponents
+        urlComponents.path = apiPath
+        afPostStandard(
+            with: parameters,
+            and: headers,
+            to: urlComponents,
+            responseType: responseType,
+            authorizationKind: authorizationKind,
+            completion: completion
+        )
+    }
+
+    /// Makes POST request with afPost method,
+    /// then wraps server reponse into the `ServerResponse<Response>` struct,
+    /// where `Response` type is passed via `responseType` parameter.
+    func afPostStandard<Response: Decodable>(
+        with parameters: [String: String?],
+        and headers: [String: String]? = nil,
         to urlComponents: URLComponents,
         responseType: Response.Type,
+        authorizationKind: AuthorizationKind = .none,
         completion: @escaping ((Result<Response, NetworkServiceError>) -> Void)
     ) {
         afPost(
             with: parameters,
             and: headers,
             to: urlComponents,
-            responseType: ServerResponse<Response>.self
+            responseType: ServerResponse<Response>.self,
+            authorizationKind: authorizationKind
         ) { postResult in
             switch postResult {
             case let .failure(error):

@@ -12,9 +12,9 @@ protocol ProfileConfiguratorProtocol {
     func configure(_ view: ProfileViewProtocol, userInfo: UserInfo?)
 }
 
-class ProfileConfigurator: ProfileConfiguratorProtocol {
+final class ProfileConfigurator: ProfileConfiguratorProtocol {
     func configure(_ view: ProfileViewProtocol, userInfo: UserInfo?) {
-        let interactor = ProfileInteractor()
+        let interactor = ProfileInteractor(networkService: NetworkService.shared)
         let router = ProfileRouter(viewController: view)
         let presenter = ProfilePresenter(view: view, interactor: interactor, router: router)
         presenter.userInfo = userInfo

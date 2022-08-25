@@ -19,19 +19,19 @@ final class YooMoneyPaymentProvider: PaymentProvider {
     }
 
     func showPaymentView(presentationController: UIViewController, options: PaymentOptions) {
+
         let paymentAmount = Amount(value: Decimal(options.amount), currency: .rub)
 
-        // MARK: - ❗️replace `"client_id"` with real client id value
         let tokenizationModuleInputData = TokenizationModuleInputData(
             clientApplicationKey: options.transactionKey,
             shopName: options.shopName,
             purchaseDescription: options.description,
             amount: paymentAmount,
-            gatewayId: options.shopId,
+            gatewayId: nil,
             isLoggingEnabled: AppSettings.isDebug,
             userPhoneNumber: options.userPhoneNumber,
             savePaymentMethod: .userSelects,
-            moneyAuthClientId: "client_id",
+            moneyAuthClientId: nil,
             applicationScheme: "quizplease://"
         )
 
