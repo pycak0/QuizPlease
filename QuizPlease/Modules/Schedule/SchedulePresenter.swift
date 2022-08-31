@@ -13,7 +13,7 @@ protocol SchedulePresenterProtocol: AnyObject {
     var router: ScheduleRouterProtocol! { get }
     init(view: ScheduleViewProtocol, interactor: ScheduleInteractorProtocol, router: ScheduleRouterProtocol)
 
-    var games: [GameInfo] { get set }
+    var gamesCount: Int { get }
     var scheduleFilter: ScheduleFilter { get set }
 
     func viewDidLoad(_ view: ScheduleViewProtocol)
@@ -31,7 +31,8 @@ protocol SchedulePresenterProtocol: AnyObject {
 
     func handleRefreshControl()
     func updateDetailInfoIfNeeded(at index: Int)
-    func isSubscribedOnGame(with id: Int) -> Bool
+
+    func viewModel(forGameAt index: Int) -> ScheduleGameCellViewModel
 }
 
 // MARK: - Presenter Implementation
@@ -41,7 +42,11 @@ final class SchedulePresenter: SchedulePresenterProtocol {
     var interactor: ScheduleInteractorProtocol!
     var router: ScheduleRouterProtocol!
 
-    var games: [GameInfo] = []
+    private var games: [GameInfo] = []
+
+    var gamesCount: Int {
+        games.count
+    }
 
     var scheduleFilter = ScheduleFilter()
 
@@ -63,11 +68,29 @@ final class SchedulePresenter: SchedulePresenterProtocol {
         updateSchedule()
     }
 
-    func isSubscribedOnGame(with id: Int) -> Bool {
+    func viewModel(forGameAt index: Int) -> ScheduleGameCellViewModel {
+        let game = games[index]
+        let isSubscribed = isSubscribedOnGame(with: game.id)
+
+        let subscribeButtonModel = SubscribeButtonViewModel(
+            isPresented: AppSettings.isProfileEnabled,
+            tintColor: isSubscribed ? .black : .white,
+            backgroundColor: isSubscribed ? .lemon : .themePurple,
+            title: isSubscribed ? "Напомним" : "Напомнить"
+        )
+
+        return ScheduleGameCellViewModel(
+            gameInfo: game,
+            subscribeButtonViewModel: subscribeButtonModel
+        )
+    }
+
+    private func isSubscribedOnGame(with id: Int) -> Bool {
         return subscribedGameIds.contains(id)
     }
 
     // MARK: - Actions
+
     func didSignUp(forGameAt index: Int) {
         let game = games[index]
         router.showGameInfo(
@@ -184,19 +207,25 @@ final class SchedulePresenter: SchedulePresenterProtocol {
 }
 
 // MARK: - ScheduleInteractorOutput
+
 extension SchedulePresenter: ScheduleInteractorOutput {
+
     func interactor(
         _ interactor: ScheduleInteractorProtocol?,
         didGetSubscribeStatus isSubscribed: Bool,
         forGameWithId id: String
     ) {
-        let subscirbeMessage = isSubscribed ? "подписаны на уведомления" : "отписаны от уведомлений"
-        let title = isSubscribed ? "Подписка на уведомления" : "Отписка от уведомлений"
+        let title = isSubscribed ? "Мы напомним об игре" : "Отписка от уведомлений"
+        let message = isSubscribed
+            ? "За два дня до начала или когда места для регистрации начнут заканчиваться"
+            : "Вы были успешно отписаны от уведомлений об игре. " +
+        "Если хотите снова подписаться, нажмите на кнопку еще раз"
+
         self.view?.showSimpleAlert(
             title: title,
-            message: "Вы были успешно \(subscirbeMessage) об игре. " +
-            "Если хотите изменить статус подписки, нажмите на кнопку ещё раз"
+            message: message
         )
+
         guard let id = Int(id), let index = games.firstIndex(where: { $0.id == id }) else { return }
         if isSubscribed {
             self.subscribedGameIds.append(id)
