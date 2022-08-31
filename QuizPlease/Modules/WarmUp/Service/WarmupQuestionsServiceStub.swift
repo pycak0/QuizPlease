@@ -1,27 +1,14 @@
 //
-//  WarmupQuestionsService.swift
+//  WarmupQuestionsServiceStub.swift
 //  QuizPlease
 //
-//  Created by Владислав on 10.08.2021.
-//  Copyright © 2021 Владислав. All rights reserved.
+//  Created by Владислав on 01.09.2022.
+//  Copyright © 2022 Владислав. All rights reserved.
 //
 
 import Foundation
 
-protocol WarmupQuestionsService {
-
-    func getWarmupQuestions(completion: @escaping (Result<[WarmupQuestion], NetworkServiceError>) -> Void)
-
-    func sendWarmupAnswer(
-        questionId: String,
-        answerId: Int,
-        completion: @escaping (Result<WarmupAnswerResponse, NetworkServiceError>) -> Void
-    )
-}
-
-extension NetworkService: WarmupQuestionsService {}
-
-final class WarmupQuestionsServiceMock: WarmupQuestionsService {
+final class WarmupQuestionsServiceStub: WarmupQuestionsService {
 
     let numberOfQuestions: Int
 
