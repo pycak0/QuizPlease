@@ -12,8 +12,12 @@ class WarmupConfigurator: Configurator {
 
     func configure(_ view: WarmupViewProtocol) {
         let interactor = WarmupInteractor(
-            questionsService: AppSettings.isDebug ?
-                WarmupQuestionsServiceMock(maxNumberOfQuestions: 3) : NetworkService.shared
+            questionsService: AppSettings.isDebug
+            ? WarmupQuestionsServiceStub(maxNumberOfQuestions: 3)
+            : WarmupQuestionsServiceImpl(
+                networkService: .shared,
+                deviceIdProvider: DeviceIdProviderImpl()
+            )
         )
         let router = WarmupRouter(
             viewController: view,
