@@ -63,7 +63,7 @@ final class ProfileInteractor: ProfileInteractorProtocol {
 
     func deleteUserAccount() {
         networkService.afPostStandard(
-            with: [:],
+            bodyParameters: [:],
             to: "/api/users/delete",
             responseType: DeleteResponse.self,
             authorizationKind: .bearer

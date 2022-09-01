@@ -121,12 +121,9 @@ extension ScheduleVC: ScheduleViewProtocol {
     }
 
     func reloadGame(at index: Int) {
-//        tableView.isHidden = false
         if let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? ScheduleGameCell {
-            let game = presenter.games[index]
-            cell.fill(model: game, isSubscribed: presenter.isSubscribedOnGame(with: game.id))
+            cell.fill(viewModel: presenter.viewModel(forGameAt: index))
         }
-//        tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .none)
     }
 
     func stopLoading() {
@@ -177,23 +174,18 @@ extension ScheduleVC: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        presenter.games.count
+        presenter.gamesCount
     }
 
     func tableView(
         _ tableView: UITableView,
         cellForRowAt indexPath: IndexPath
     ) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: ScheduleGameCell.identifier,
-            for: indexPath
-        ) as? ScheduleGameCell else {
-            fatalError("❌ Invalid cell kind!")
-        }
+        let cell = tableView.dequeueReusableCell(ScheduleGameCell.self, for: indexPath)
 
-        let game = presenter.games[indexPath.row]
+        let viewModel = presenter.viewModel(forGameAt: indexPath.row)
         cell.delegate = self
-        cell.fill(model: game, isSubscribed: presenter.isSubscribedOnGame(with: game.id))
+        cell.fill(viewModel: viewModel)
         presenter.updateDetailInfoIfNeeded(at: indexPath.row)
 
         return cell

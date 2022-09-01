@@ -102,18 +102,6 @@ class NetworkService {
         }
     }
 
-    // MARK: - Get Warmup Questions
-    func getWarmupQuestions(completion: @escaping (Result<[WarmupQuestion], NetworkServiceError>) -> Void) {
-        guard let auth = createBearerAuthHeader() else {
-            completion(.failure(.invalidToken))
-            return
-        }
-        let headers = [auth.key: auth.value]
-        var warmupUrlComps = baseUrlComponents
-        warmupUrlComps.path = "/api/warmup-question"
-        getStandard([WarmupQuestion].self, with: warmupUrlComps, headers: headers, completion: completion)
-    }
-
     // MARK: - Get Rating
     // swiftlint:disable:next function_parameter_count
     func getRating(
@@ -273,6 +261,33 @@ class NetworkService {
     @discardableResult
     func getStandard<T: Decodable>(
         _ type: T.Type,
+        apiPath: String,
+        parameters: [String: String?],
+        headers: [String: String]? = nil,
+        authorizationKind: AuthorizationKind = .none,
+        completion: @escaping ((Result<T, NetworkServiceError>) -> Void)
+    ) -> Cancellable? {
+        return get(
+            ServerResponse<T>.self,
+            apiPath: apiPath,
+            parameters: parameters,
+            headers: headers,
+            authorizationKind: authorizationKind
+        ) { getResult in
+            switch getResult {
+            case let .failure(error):
+                completion(.failure(error))
+            case let .success(response):
+                completion(.success(response.data))
+            }
+        }
+    }
+
+    /// A get request for standard server response containing requested object in `data` field.
+    /// You should mostly use this method rather than simple `get(:urlComponents:completion:)`.
+    @discardableResult
+    func getStandard<T: Decodable>(
+        _ type: T.Type,
         with urlComponents: URLComponents,
         headers: [String: String]? = nil,
         authorizationKind: AuthorizationKind = .none,
@@ -293,6 +308,7 @@ class NetworkService {
         }
     }
 
+    @discardableResult
     func get<T: Decodable>(
         _ type: T.Type,
         apiPath: String,
@@ -300,11 +316,11 @@ class NetworkService {
         headers: [String: String]? = nil,
         authorizationKind: AuthorizationKind = .none,
         completion: @escaping ((Result<T, NetworkServiceError>) -> Void)
-    ) {
+    ) -> Cancellable? {
         var urlComponents = baseUrlComponents
         urlComponents.path = apiPath
         urlComponents.queryItems = parameters.map { URLQueryItem(name: $0, value: $1) }
-        get(
+        return get(
             type,
             with: urlComponents,
             headers: headers,
@@ -436,35 +452,6 @@ class NetworkService {
                 completion(.success(response.message == .subscribe))
             }
         }
-    }
-
-    // MARK: - Send Warmup Answer
-
-    func sendWarmupAnswer(
-        questionId: String,
-        answerId: Int,
-        completion: @escaping (Result<WarmupAnswerResponse, NetworkServiceError>) -> Void
-    ) {
-        guard let auth = createBearerAuthHeader() else {
-            completion(.failure(.invalidToken))
-            return
-        }
-        let headers = [auth.key: auth.value]
-        var warmupUrlComps = baseUrlComponents
-        warmupUrlComps.path = "/api/warmup-question/send-answer"
-        warmupUrlComps.queryItems = [
-            URLQueryItem(name: "question_id", value: questionId)
-        ]
-        let parameters = [
-            "answer": "\(answerId)"
-        ]
-        afPostStandard(
-            with: parameters,
-            and: headers,
-            to: warmupUrlComps,
-            responseType: WarmupAnswerResponse.self,
-            completion: completion
-        )
     }
 
     // MARK: - Purchase Product
@@ -697,17 +684,19 @@ class NetworkService {
     /// then wraps server reponse into the `ServerResponse<Response>` struct,
     /// where `Response` type is passed via `responseType` parameter.
     func afPostStandard<Response: Decodable>(
-        with parameters: [String: String?],
+        bodyParameters: [String: String?],
         and headers: [String: String]? = nil,
         to apiPath: String,
+        queryParameters: [String: String?]? = nil,
         responseType: Response.Type,
         authorizationKind: AuthorizationKind = .none,
         completion: @escaping ((Result<Response, NetworkServiceError>) -> Void)
     ) {
         var urlComponents = baseUrlComponents
         urlComponents.path = apiPath
+        urlComponents.queryItems = queryParameters?.map { URLQueryItem(name: $0, value: $1) }
         afPostStandard(
-            with: parameters,
+            with: bodyParameters,
             and: headers,
             to: urlComponents,
             responseType: responseType,
