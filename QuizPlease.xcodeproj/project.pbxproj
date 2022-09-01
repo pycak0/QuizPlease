@@ -95,6 +95,8 @@
 		A44A463024F901ED00C81F82 /* WarmupQuestionVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = A44A462E24F901ED00C81F82 /* WarmupQuestionVC.xib */; };
 		A44B2E0428C006B900C1BC2F /* WarmupQuestionsServiceStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44B2E0328C006B900C1BC2F /* WarmupQuestionsServiceStub.swift */; };
 		A44B2E0728C00B5F00C1BC2F /* DeviceIdProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44B2E0628C00B5F00C1BC2F /* DeviceIdProvider.swift */; };
+		A44B2E0A28C01FA300C1BC2F /* SubscribeButtonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44B2E0928C01FA300C1BC2F /* SubscribeButtonViewModel.swift */; };
+		A44B2E0C28C0204E00C1BC2F /* ScheduleGameCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44B2E0B28C0204E00C1BC2F /* ScheduleGameCellViewModel.swift */; };
 		A44B2FD525841D9100B5B52C /* CertificateResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44B2FD425841D9100B5B52C /* CertificateResponse.swift */; };
 		A44C697624EFD45300AB3BC9 /* QRCodeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44C697524EFD45300AB3BC9 /* QRCodeService.swift */; };
 		A44C697824EFE06000AB3BC9 /* QRScannerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44C697724EFE06000AB3BC9 /* QRScannerVC.swift */; };
@@ -375,6 +377,8 @@
 		A44A462E24F901ED00C81F82 /* WarmupQuestionVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WarmupQuestionVC.xib; sourceTree = "<group>"; };
 		A44B2E0328C006B900C1BC2F /* WarmupQuestionsServiceStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarmupQuestionsServiceStub.swift; sourceTree = "<group>"; };
 		A44B2E0628C00B5F00C1BC2F /* DeviceIdProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceIdProvider.swift; sourceTree = "<group>"; };
+		A44B2E0928C01FA300C1BC2F /* SubscribeButtonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeButtonViewModel.swift; sourceTree = "<group>"; };
+		A44B2E0B28C0204E00C1BC2F /* ScheduleGameCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleGameCellViewModel.swift; sourceTree = "<group>"; };
 		A44B2FD425841D9100B5B52C /* CertificateResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateResponse.swift; sourceTree = "<group>"; };
 		A44C697524EFD45300AB3BC9 /* QRCodeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeService.swift; sourceTree = "<group>"; };
 		A44C697724EFE06000AB3BC9 /* QRScannerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerVC.swift; sourceTree = "<group>"; };
@@ -733,6 +737,7 @@
 		A40D817624D2C97E006D2CE3 /* Schedule */ = {
 			isa = PBXGroup;
 			children = (
+				A44B2E0828C01F8400C1BC2F /* ViewModel */,
 				A4B0753024DFDB33007778A2 /* View */,
 				A40B757B24D9A744006DB7D1 /* ScheduleInteractor.swift */,
 				A40B757D24D9A750006DB7D1 /* SchedulePresenter.swift */,
@@ -891,6 +896,15 @@
 				A44B2E0328C006B900C1BC2F /* WarmupQuestionsServiceStub.swift */,
 			);
 			path = Service;
+			sourceTree = "<group>";
+		};
+		A44B2E0828C01F8400C1BC2F /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				A44B2E0B28C0204E00C1BC2F /* ScheduleGameCellViewModel.swift */,
+				A44B2E0928C01FA300C1BC2F /* SubscribeButtonViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		A44C697924EFE6E000AB3BC9 /* Protocols */ = {
@@ -1612,6 +1626,7 @@
 				A4B129252739E1B20035C041 /* UIImage+Configuration.swift in Sources */,
 				A4779C7F251618C90064F863 /* GameOrderCompletionVC.swift in Sources */,
 				A4A296C224F6DC2800347EB2 /* AddGameVC.swift in Sources */,
+				A44B2E0C28C0204E00C1BC2F /* ScheduleGameCellViewModel.swift in Sources */,
 				A40D817C24D2CA04006D2CE3 /* ScheduleVC.swift in Sources */,
 				A44C697624EFD45300AB3BC9 /* QRCodeService.swift in Sources */,
 				A40E2A6D25295B4400986CCA /* Snapshotting.swift in Sources */,
@@ -1711,6 +1726,7 @@
 				A4BA1CF024D835DE00D32ADC /* MainMenuRouter.swift in Sources */,
 				A46436ED24EAD24F0033F23A /* HBSegmentedControl.swift in Sources */,
 				A40E2A7025295B7400986CCA /* ShareSheet.swift in Sources */,
+				A44B2E0A28C01FA300C1BC2F /* SubscribeButtonViewModel.swift in Sources */,
 				A405C98724F651C900C74787 /* MainMenuShopCollectionView.swift in Sources */,
 				A44B2E0428C006B900C1BC2F /* WarmupQuestionsServiceStub.swift in Sources */,
 				A40D818624D2CA44006D2CE3 /* ShopVC.swift in Sources */,

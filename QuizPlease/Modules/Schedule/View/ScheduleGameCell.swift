@@ -89,46 +89,43 @@ class ScheduleGameCell: UITableViewCell {
 
     // MARK: - Configure Cell Data
 
-    func fill(model: GameInfo, isSubscribed: Bool) {
-        nameLabel.text = model.nameGame
-        numberLabel.text = model.gameNumber
-        placeNameLabel.text = model.placeInfo.title
-        placeAddressLabel.text = model.placeInfo.shortAddress
-        timeLabel.text = "в \(model.time)"
-        priceLabel.text = model.priceDetails
-        dateLabel.text = model.formattedDate
+    func fill(viewModel: ScheduleGameCellViewModel) {
+        let gameInfo = viewModel.gameInfo
+        nameLabel.text = gameInfo.nameGame
+        numberLabel.text = gameInfo.gameNumber
+        placeNameLabel.text = gameInfo.placeInfo.title
+        placeAddressLabel.text = gameInfo.placeInfo.shortAddress
+        timeLabel.text = "в \(gameInfo.time)"
+        priceLabel.text = gameInfo.priceDetails
+        dateLabel.text = gameInfo.formattedDate
 
-        gameStatusLabel.text = model.gameStatus?.comment ?? ""
-        signUpButton.setTitle(model.gameStatus?.buttonTitle ?? "Запись недоступна", for: .normal)
+        gameStatusLabel.text = gameInfo.gameStatus?.comment ?? ""
+        signUpButton.setTitle(gameInfo.gameStatus?.buttonTitle ?? "Запись недоступна", for: .normal)
 
-        let cellAccentColor = model.gameStatus?.accentColor ?? .themeGray
+        let cellAccentColor = gameInfo.gameStatus?.accentColor ?? .themeGray
         cellView.layer.borderColor = cellAccentColor.cgColor
         signUpButton.backgroundColor = cellAccentColor
 
-        statusImageView.image = model.gameStatus?.image
+        statusImageView.image = gameInfo.gameStatus?.image
 
-        switch model.gameStatus {
+        switch gameInfo.gameStatus {
         case .placesAvailable, .reserveAvailable, .fewPlaces:
             setButtons(enabled: true)
         default:
             setButtons(enabled: false)
         }
 
-        let remindTintColor: UIColor = isSubscribed ? .black : .white
-        remindButton.tintColor = remindTintColor
-        remindButton.setTitleColor(remindTintColor, for: .normal)
-        remindButton.backgroundColor = isSubscribed ? .lemon : .themePurple
-        remindButton.setTitle(isSubscribed ? "Напомним" : "Напомнить", for: .normal)
+        let subscribeButton = viewModel.subscribeButtonViewModel
 
-        if let path = model.imageData?.pathProof {
+        remindButton.isHidden = !subscribeButton.isPresented
+        remindButton.tintColor = subscribeButton.tintColor
+        remindButton.setTitleColor(subscribeButton.tintColor, for: .normal)
+        remindButton.backgroundColor = subscribeButton.backgroundColor
+        remindButton.setTitle(subscribeButton.title, for: .normal)
+
+        if let path = gameInfo.imageData?.pathProof {
             backgroundImageView.loadImage(path: path)
         }
-
-        if model.gameStatus != nil {
-        //    animateDataFilling()
-        }
-
-        // setNeedsLayout()
     }
 
     private func onReuseActions() {
