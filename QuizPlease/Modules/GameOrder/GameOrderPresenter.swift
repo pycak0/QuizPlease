@@ -387,6 +387,11 @@ final class GameOrderPresenter: GameOrderPresenterProtocol {
     private func registerWithOnlinePayment() {
         let peopleCount = registerForm.countPaidOnline ?? 0
         let paymentSum = countSumToPay(forPeople: peopleCount)
+        if game.isOnlineGame {
+            // В онлайн-играх оплата производится всегда за команду,
+            // отдельно количество оплаченных участников не указывается
+            registerForm.countPaidOnline = nil
+        }
         if paymentSum > 0 {
             launchPayment(amount: paymentSum)
         } else {
