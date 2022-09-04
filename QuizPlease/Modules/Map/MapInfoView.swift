@@ -43,6 +43,14 @@ final class MapInfoView: UIView {
 
     // MARK: - Private Properties
 
+    private var bottomSafeAreaInset: CGFloat {
+        window?.safeAreaInsets.bottom ?? 0
+    }
+
+    private var verticalOffset: CGFloat {
+        bounds.height + bottomSafeAreaInset + MapViewController.Constants.infoPadding
+    }
+
     private let distanceFormatter = MKDistanceFormatter()
 
     private let titleLabel: UILabel = {
@@ -56,7 +64,7 @@ final class MapInfoView: UIView {
         let label = CopyableLabel()
         label.font = .gilroy(.medium, size: 14)
         label.textColor = .lightGray
-        label.numberOfLines = 2
+        label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -99,6 +107,7 @@ final class MapInfoView: UIView {
     init() {
         super.init(frame: .zero)
         backgroundColor = .systemBackgroundAdapted
+        isHidden = true
         configureViews()
         updateText()
     }
@@ -113,21 +122,18 @@ final class MapInfoView: UIView {
     func show(animated: Bool, completion: (() -> Void)? = nil) {
         guard animated else {
             transform = .identity
-            alpha = 1
             isHidden = false
             completion?()
             return
         }
 
         isHidden = false
-        alpha = 0
-        transform = CGAffineTransform(translationX: 0, y: bounds.height + 20)
+        transform = CGAffineTransform(translationX: 0, y: verticalOffset)
         UIView.animate(
             withDuration: 0.3,
             dampingRatio: 0.8,
             animations: { [self] in
                 transform = .identity
-                alpha = 1
             },
             completion: { _ in
                 completion?()
@@ -137,18 +143,16 @@ final class MapInfoView: UIView {
 
     func hide(animated: Bool, completion: (() -> Void)?) {
         guard animated else {
-            transform = .identity
-            alpha = 0
             isHidden = true
+            transform = .identity
             completion?()
             return
         }
 
         UIView.animate(withDuration: 0.15) { [self] in
-            transform = CGAffineTransform(translationX: 0, y: bounds.height + 20)
+            transform = CGAffineTransform(translationX: 0, y: verticalOffset)
         } completion: { [self] _ in
             transform = .identity
-            alpha = 0
             isHidden = true
             completion?()
         }
@@ -165,14 +169,12 @@ final class MapInfoView: UIView {
         ])
 
         let stackView = UIStackView()
-        stackView.spacing = 8
+        stackView.spacing = 16
         stackView.axis = .vertical
         stackView.translatesAutoresizingMaskIntoConstraints = false
         [
-           titleLabel,
-           addressLabel,
-           Spacer(),
-           makeHorizontalStack()
+            makeLabelStack(),
+            makeHorizontalStack()
         ].forEach {
             stackView.addArrangedSubview($0)
         }
@@ -188,6 +190,20 @@ final class MapInfoView: UIView {
 
         let gestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(didPan(_:)))
         addGestureRecognizer(gestureRecognizer)
+    }
+
+    private func makeLabelStack() -> UIView {
+        let labelStack = UIStackView()
+        labelStack.spacing = 8
+        labelStack.axis = .vertical
+        labelStack.translatesAutoresizingMaskIntoConstraints = false
+        [
+           titleLabel,
+           addressLabel
+        ].forEach {
+            labelStack.addArrangedSubview($0)
+        }
+        return labelStack
     }
 
     private func makeHorizontalStack() -> UIView {
@@ -237,7 +253,7 @@ final class MapInfoView: UIView {
     @objc private func didPan(_ sender: UIPanGestureRecognizer) {
         guard let view = sender.view else { return }
         let offsetY = sender.translation(in: view).y
-        let translationY = offsetY > 0 ? offsetY : -sqrt(-offsetY)
+        let translationY = offsetY > 0 ? offsetY / 3 : -sqrt(-offsetY)
 
         switch sender.state {
         case .began, .changed:
