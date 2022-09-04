@@ -8,7 +8,10 @@
 
 import UIKit
 
+/// QuestionPageVC delegate protocol.
 protocol QuestionPageVCDelegate: AnyObject {
+
+    /// Tells the delegate that questions are over.
     func questionsDidEnd()
 }
 
@@ -23,6 +26,7 @@ final class QuestionPageVC: UIPageViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        isPagingEnabled = false
     }
 
     func configure(with items: [WarmupQuestion], delegate: (QuestionPageVCDelegate & WarmupQuestionVCAnswerDelegate)?) {
@@ -37,8 +41,7 @@ final class QuestionPageVC: UIPageViewController {
     }
 
     func start() {
-        let vc = _viewControllers.removeFirst()
-        setViewControllers([vc], direction: .forward, animated: true, completion: nil)
+        next()
     }
 
     func next() {
@@ -47,9 +50,8 @@ final class QuestionPageVC: UIPageViewController {
             return
         }
         isPagingEnabled = false
-        setViewControllers([_viewControllers.removeFirst()], direction: .forward, animated: true) { _ in
-            self.isPagingEnabled = true
-        }
+        let nextViewController = _viewControllers.removeFirst()
+        setViewControllers([nextViewController], direction: .forward, animated: true)
     }
 }
 
