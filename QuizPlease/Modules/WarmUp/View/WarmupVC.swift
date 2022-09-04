@@ -128,7 +128,6 @@ final class WarmupVC: UIViewController {
         minutesLabel.layer.cornerRadius = cRadius
         secondsLabel.layer.cornerRadius = cRadius
         secondPartsLabel.layer.cornerRadius = cRadius
-
     }
 
     // MARK: - Set Results
