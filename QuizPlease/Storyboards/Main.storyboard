@@ -1108,6 +1108,7 @@
                     <navigationItem key="navigationItem" id="ts0-9H-xLu"/>
                     <connections>
                         <outlet property="gameImageView" destination="FKI-MS-LTd" id="JxS-99-I7O"/>
+                        <outlet property="gameImageViewHeightConstraint" destination="cNX-GV-dAh" id="B1j-Qa-H9m"/>
                         <outlet property="imageDarkeningView" destination="OF9-qh-Dyj" id="mhu-FG-faY"/>
                         <outlet property="tableView" destination="zWG-FS-gI7" id="Emk-d8-6RH"/>
                         <segue destination="aTk-QU-tXA" kind="presentation" identifier="ShowGameOrderCompletionScreen" modalPresentationStyle="overFullScreen" id="T8Y-vv-sYG"/>
@@ -2446,13 +2447,13 @@
     </scenes>
     <designables>
         <designable name="Ozp-8d-wSt">
-            <size key="intrinsicContentSize" width="56" height="22"/>
+            <size key="intrinsicContentSize" width="76" height="22"/>
         </designable>
         <designable name="v7Q-1I-FH4">
-            <size key="intrinsicContentSize" width="36" height="17"/>
+            <size key="intrinsicContentSize" width="56" height="17"/>
         </designable>
         <designable name="zbv-jy-ImX">
-            <size key="intrinsicContentSize" width="7.333333333333333" height="17"/>
+            <size key="intrinsicContentSize" width="27.333333333333332" height="17"/>
         </designable>
     </designables>
     <inferredMetricsTieBreakers>
