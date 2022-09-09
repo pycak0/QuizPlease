@@ -128,7 +128,6 @@ final class WarmupVC: UIViewController {
         minutesLabel.layer.cornerRadius = cRadius
         secondsLabel.layer.cornerRadius = cRadius
         secondPartsLabel.layer.cornerRadius = cRadius
-
     }
 
     // MARK: - Set Results
@@ -137,8 +136,8 @@ final class WarmupVC: UIViewController {
         let count = presenter.questions.count
         let correct = presenter.correctAnswersCount
         let correctQuestionsPrompt = correct.string(withAssociatedMaleWord: "вопрос")
-        resultTextLabel.text = "Я прошел разминку Квиз, плиз! и ответил правильно на " +
-        "\(correctQuestionsPrompt) из \(count)"
+        resultTextLabel.text = "Я прошел разминку Квиз,\(String.nonBreakingSpace)плиз! "
+        + "и ответил правильно на \(correctQuestionsPrompt) из \(count)"
 
         let passedTime = totalTimePassed
         minutesLabel.text = String(format: "%02d", Int(passedTime) / 60)

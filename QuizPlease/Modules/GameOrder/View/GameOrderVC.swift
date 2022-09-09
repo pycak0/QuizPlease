@@ -34,11 +34,18 @@ protocol GameOrderViewProtocol: UIViewController, LoadingIndicator {
 }
 
 final class GameOrderVC: UIViewController {
+
     var presenter: GameOrderPresenterProtocol!
 
     var shouldScrollToSignUp: Bool!
 
-    lazy var items: [GameInfoItemKind] = {
+    private var imageBaseHeight: CGFloat = 270 {
+        didSet {
+            gameImageViewHeightConstraint.constant = imageBaseHeight
+        }
+    }
+
+    private lazy var items: [GameInfoItemKind] = {
         var _items = GameInfoItemKind.allCases
         let specialConditionsAmount = presenter.specialConditions.count
         if specialConditionsAmount > 1 {
@@ -67,6 +74,7 @@ final class GameOrderVC: UIViewController {
 
     private let activityIndicator = UIActivityIndicatorView()
 
+    @IBOutlet private weak var gameImageViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet private weak var gameImageView: UIImageView!
     @IBOutlet private weak var imageDarkeningView: UIView!
     @IBOutlet weak var tableView: UITableView! {
@@ -108,6 +116,11 @@ final class GameOrderVC: UIViewController {
         }
     }
 
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        updateImageHeight()
+    }
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         presenter.router.prepare(for: segue, sender: sender)
     }
@@ -145,6 +158,13 @@ final class GameOrderVC: UIViewController {
     func indexOfCertificateForPresenter(from indexPath: IndexPath) -> Int? {
         guard let indexOfFirstCertificate = indexOfFirstCertificate else { return nil }
         return indexPath.row - indexOfFirstCertificate
+    }
+
+    private func updateImageHeight() {
+        if let index = items.firstIndex(of: .info),
+           let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? GameInfoCell {
+            imageBaseHeight = cell.frame.origin.y + 60
+        }
     }
 }
 
@@ -316,6 +336,7 @@ extension GameOrderVC: GameOrderViewProtocol {
 // MARK: - Data Source & Delegate
 
 extension GameOrderVC: UITableViewDataSource, UITableViewDelegate {
+
     func tableView(
         _ tableView: UITableView,
         numberOfRowsInSection section: Int
@@ -394,20 +415,19 @@ extension GameOrderVC: UITableViewDataSource, UITableViewDelegate {
 // MARK: - UIScrollViewDelegate
 
 extension GameOrderVC: UIScrollViewDelegate {
+
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard scrollView.isKind(of: UITableView.self) else { return }
+
         let offset = scrollView.contentOffset.y + scrollView.safeAreaInsets.top
 
         gameImageView.isHidden = offset > 700
         imageDarkeningView.isHidden = offset > 700
 
-        guard offset < 0, scrollView.isKind(of: UITableView.self) else {
-            gameImageView.transform = .identity
-            imageDarkeningView.transform = .identity
-            return
+        if offset <= 0 {
+            gameImageViewHeightConstraint.constant = imageBaseHeight - offset
+        } else {
+            gameImageViewHeightConstraint.constant = imageBaseHeight - offset * 0.2
         }
-        let scale = (1 + abs(offset) / 300)
-        let transform = CGAffineTransform(scaleX: scale, y: scale)
-        gameImageView.transform = transform
-        imageDarkeningView.transform = transform
     }
 }

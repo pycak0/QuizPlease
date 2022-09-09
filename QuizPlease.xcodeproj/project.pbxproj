@@ -127,6 +127,7 @@
 		A46436ED24EAD24F0033F23A /* HBSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46436EC24EAD24F0033F23A /* HBSegmentedControl.swift */; };
 		A464370324EB37DB0033F23A /* ExpandingHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = A464370024EB37DB0033F23A /* ExpandingHeader.xib */; };
 		A464370424EB37DB0033F23A /* ExpandingHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A464370124EB37DB0033F23A /* ExpandingHeader.swift */; };
+		A468C55328C5541E00962930 /* String+nonBreakingSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = A468C55228C5541E00962930 /* String+nonBreakingSpace.swift */; };
 		A468E12224FD0BE40083ADB2 /* InputMask in Frameworks */ = {isa = PBXBuildFile; productRef = A468E12124FD0BE40083ADB2 /* InputMask */; };
 		A468E12424FD37390083ADB2 /* RatingFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A468E12324FD37390083ADB2 /* RatingFilter.swift */; };
 		A469F75924E3084D007FB332 /* ScheduleGameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A469F75824E3084D007FB332 /* ScheduleGameCell.swift */; };
@@ -409,6 +410,7 @@
 		A46436EC24EAD24F0033F23A /* HBSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HBSegmentedControl.swift; sourceTree = "<group>"; };
 		A464370024EB37DB0033F23A /* ExpandingHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExpandingHeader.xib; sourceTree = "<group>"; };
 		A464370124EB37DB0033F23A /* ExpandingHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpandingHeader.swift; sourceTree = "<group>"; };
+		A468C55228C5541E00962930 /* String+nonBreakingSpace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+nonBreakingSpace.swift"; sourceTree = "<group>"; };
 		A468E12324FD37390083ADB2 /* RatingFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingFilter.swift; sourceTree = "<group>"; };
 		A469F75824E3084D007FB332 /* ScheduleGameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleGameCell.swift; sourceTree = "<group>"; };
 		A46ADA3026EFF9E800C5EC75 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -1346,6 +1348,7 @@
 				A41A506D253783DF00EBFA69 /* String+Formatting.swift */,
 				A400A26D269CE4C200FBF70C /* String+WordBuilding.swift */,
 				A4E675F6255DB4AB0011A801 /* String+Validating.swift */,
+				A468C55228C5541E00962930 /* String+nonBreakingSpace.swift */,
 			);
 			path = String;
 			sourceTree = "<group>";
@@ -1598,6 +1601,7 @@
 				A45488C52513719800992261 /* UIPageViewController+PagingToggle.swift in Sources */,
 				A40D815A24D2C6C1006D2CE3 /* AppDelegate.swift in Sources */,
 				A472D29B25288F1100AA9906 /* RegisterResponse.swift in Sources */,
+				A468C55328C5541E00962930 /* String+nonBreakingSpace.swift in Sources */,
 				A40B758024D9A75A006DB7D1 /* ScheduleRouter.swift in Sources */,
 				A4068A0124F7DAE2001273B2 /* ServerResponse.swift in Sources */,
 				A4E91EBC26C30D5C008C13A7 /* UIWindow+topViewController.swift in Sources */,
@@ -1977,7 +1981,7 @@
 				CODE_SIGN_ENTITLEMENTS = QuizPlease/QuizPlease.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 28;
+				CURRENT_PROJECT_VERSION = 29;
 				DEVELOPMENT_TEAM = 5524GP5G24;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2007,7 +2011,7 @@
 				CODE_SIGN_ENTITLEMENTS = QuizPlease/QuizPlease.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 28;
+				CURRENT_PROJECT_VERSION = 29;
 				DEVELOPMENT_TEAM = 5524GP5G24;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

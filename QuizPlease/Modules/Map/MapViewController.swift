@@ -138,7 +138,6 @@ final class MapViewController: UIViewController {
     private lazy var infoView: MapInfoView = {
         let infoView = MapInfoView()
         infoView.delegate = self
-        infoView.alpha = 0
         infoView.layer.cornerRadius = 12
         infoView.translatesAutoresizingMaskIntoConstraints = false
         return infoView
@@ -235,7 +234,7 @@ final class MapViewController: UIViewController {
         NSLayoutConstraint.activate([
             locationButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constants.spacing),
             locationButton.widthAnchor.constraint(equalToConstant: Constants.buttonWidth),
-            locationButton.heightAnchor.constraint(equalToConstant: Constants.buttonWidth),
+            locationButton.heightAnchor.constraint(equalTo: locationButton.widthAnchor),
             locationButton.topAnchor.constraint(
                 equalTo: controlsStackView.bottomAnchor,
                 constant: Constants.spacing * 5
@@ -251,8 +250,7 @@ final class MapViewController: UIViewController {
             infoView.bottomAnchor.constraint(
                 equalTo: view.layoutMarginsGuide.bottomAnchor,
                 constant: -Constants.infoPadding
-            ),
-            infoView.heightAnchor.constraint(equalToConstant: infoViewHeight)
+            )
         ])
     }
 
