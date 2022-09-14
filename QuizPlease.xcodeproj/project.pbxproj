@@ -678,20 +678,16 @@
 		A40D815824D2C6C1006D2CE3 /* QuizPlease */ = {
 			isa = PBXGroup;
 			children = (
-				A40D816224D2C6C2006D2CE3 /* Assets.xcassets */,
 				A4A7E6AB2533C82A00F86947 /* QuizPlease.entitlements */,
-				A46ADA3026EFF9E800C5EC75 /* GoogleService-Info.plist */,
-				A40D816724D2C6C2006D2CE3 /* Info.plist */,
-				A4837BCE2636065F00517EC6 /* Keys.plist */,
-				A4711674269F6F7700F90099 /* Localizable.strings */,
 				A40D816D24D2C73D006D2CE3 /* AppDelegates */,
-				A40D816F24D2C767006D2CE3 /* Storyboards */,
-				A4D44A2328D13956004703B4 /* Core */,
+				A4BA1CF124D83A6900D32ADC /* Modules */,
 				A40D818C24D2E3DB006D2CE3 /* Services */,
 				A4CC5FEC24DAEA6C0042B41C /* Shared */,
-				A4BA1CF124D83A6900D32ADC /* Modules */,
+				A4D44A2328D13956004703B4 /* Core */,
 				A40F036024D4186200C381F2 /* Extensions */,
-				A4DAF73424DD861800963C15 /* Fonts */,
+				A40D816F24D2C767006D2CE3 /* Storyboards */,
+				A4BEF46E28D26C680099DCDB /* Resources */,
+				A4BEF46D28D26B900099DCDB /* PropertyLists */,
 			);
 			path = QuizPlease;
 			sourceTree = "<group>";
@@ -756,6 +752,7 @@
 		A40D817524D2C974006D2CE3 /* Rating */ = {
 			isa = PBXGroup;
 			children = (
+				A4BEF47228D26E2F0099DCDB /* Model */,
 				A4C9D81124EA78AA00523688 /* View */,
 				A40B759B24D9A868006DB7D1 /* RatingInteractor.swift */,
 				A40B759D24D9A86E006DB7D1 /* RatingPresenter.swift */,
@@ -781,6 +778,7 @@
 		A40D817724D2C98A006D2CE3 /* HomeGame */ = {
 			isa = PBXGroup;
 			children = (
+				A4BEF47328D26E8E0099DCDB /* Model */,
 				A4A5370524EC7706004A10D4 /* View */,
 				A40B758B24D9A81A006DB7D1 /* HomeGameInteractor.swift */,
 				A40B758D24D9A820006DB7D1 /* HomeGamePresenter.swift */,
@@ -807,11 +805,11 @@
 		A40D818C24D2E3DB006D2CE3 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				A4BEF46F28D26D8C0099DCDB /* Network */,
 				A4147AD824E5BAF9007C131F /* MapService.swift */,
 				A4FEB04B273739F10052AD7B /* MapProvider */,
 				A4632E90262EFE2D00012BBF /* UserLocationService.swift */,
 				A44C697524EFD45300AB3BC9 /* QRCodeService.swift */,
-				A40689FA24F7D86F001273B2 /* NetworkService.swift */,
 				A40E2A6F25295B7400986CCA /* ShareSheet.swift */,
 				A40C807A252E7E7900CE40D8 /* DefaultsManager.swift */,
 				A48E2FB52530E23800CD6BE6 /* Utilities.swift */,
@@ -1209,22 +1207,14 @@
 			isa = PBXGroup;
 			children = (
 				A40689FE24F7D94B001273B2 /* AppSettings.swift */,
-				A4F0B9D326246EB100E4E2A5 /* NetworkConfiguration.swift */,
 				A4F0B9D1262469B000E4E2A5 /* ClientSettings.swift */,
-				A4F2347B2685E0D200E6FC68 /* AnyCodable */,
 				A4D498CA2502648D00CB70EE /* ScheduledGame */,
 				A4B2C3E125013DC3008D5175 /* ScheduleFilters */,
 				A4B2C3E225013DD5008D5175 /* City */,
 				A472D29125288D4400AA9906 /* Auth */,
 				A472D2A4252897BA00AA9906 /* CheckIn */,
 				A48E2FB12530DC2F00CD6BE6 /* UserInfo */,
-				A4068A0024F7DAE2001273B2 /* ServerResponse.swift */,
-				A40689FC24F7D913001273B2 /* NetworkServiceError.swift */,
-				A471166C269DB61200F90099 /* MultipartFormDataObject.swift */,
 				A4147AD624E5B92D007C131F /* Place.swift */,
-				A46436E824EA7E590033F23A /* RatingItem.swift */,
-				A48DFF7A24F4070200E47095 /* HomeGame.swift */,
-				A468E12324FD37390083ADB2 /* RatingFilter.swift */,
 				A472D29D2528962A00AA9906 /* TeamInfo.swift */,
 				A47003C7253A4CD0002E8EA2 /* PushSubscribeResponse.swift */,
 				A4162020270A5C030050CBD8 /* BarStyle.swift */,
@@ -1266,6 +1256,71 @@
 			path = NumberFormatter;
 			sourceTree = "<group>";
 		};
+		A4BEF46D28D26B900099DCDB /* PropertyLists */ = {
+			isa = PBXGroup;
+			children = (
+				A46ADA3026EFF9E800C5EC75 /* GoogleService-Info.plist */,
+				A40D816724D2C6C2006D2CE3 /* Info.plist */,
+				A4837BCE2636065F00517EC6 /* Keys.plist */,
+			);
+			path = PropertyLists;
+			sourceTree = "<group>";
+		};
+		A4BEF46E28D26C680099DCDB /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A40D816224D2C6C2006D2CE3 /* Assets.xcassets */,
+				A4711674269F6F7700F90099 /* Localizable.strings */,
+				A4DAF73424DD861800963C15 /* Fonts */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		A4BEF46F28D26D8C0099DCDB /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				A4BEF47128D26DEA0099DCDB /* Configuration */,
+				A4BEF47028D26DB20099DCDB /* Model */,
+				A40689FA24F7D86F001273B2 /* NetworkService.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		A4BEF47028D26DB20099DCDB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A40689FC24F7D913001273B2 /* NetworkServiceError.swift */,
+				A4068A0024F7DAE2001273B2 /* ServerResponse.swift */,
+				A471166C269DB61200F90099 /* MultipartFormDataObject.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		A4BEF47128D26DEA0099DCDB /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				A4F0B9D326246EB100E4E2A5 /* NetworkConfiguration.swift */,
+			);
+			path = Configuration;
+			sourceTree = "<group>";
+		};
+		A4BEF47228D26E2F0099DCDB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A46436E824EA7E590033F23A /* RatingItem.swift */,
+				A468E12324FD37390083ADB2 /* RatingFilter.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		A4BEF47328D26E8E0099DCDB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A48DFF7A24F4070200E47095 /* HomeGame.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		A4C71767254E014E00898CA5 /* PaymentProvider */ = {
 			isa = PBXGroup;
 			children = (
@@ -1291,7 +1346,6 @@
 			children = (
 				A445E34624DE02A20070B9FC /* View */,
 				A4B828E224D8322B00D77E67 /* Models */,
-				A44C697924EFE6E000AB3BC9 /* Protocols */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -1354,6 +1408,8 @@
 		A4D44A2328D13956004703B4 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				A44C697924EFE6E000AB3BC9 /* Protocols */,
+				A4F2347B2685E0D200E6FC68 /* AnyCodable */,
 				A4D44A2428D1397B004703B4 /* JsonDecoder.swift */,
 				A4D44A2628D139EF004703B4 /* AsyncExecutor.swift */,
 			);
@@ -2084,7 +2140,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Frameworks",
 				);
-				INFOPLIST_FILE = QuizPlease/Info.plist;
+				INFOPLIST_FILE = QuizPlease/PropertyLists/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2114,7 +2170,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Frameworks",
 				);
-				INFOPLIST_FILE = QuizPlease/Info.plist;
+				INFOPLIST_FILE = QuizPlease/PropertyLists/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
