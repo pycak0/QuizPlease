@@ -1443,7 +1443,7 @@
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="USv-2b-9dT"/>
-                        <color key="backgroundColor" name="plum"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="mYM-dG-6pj" firstAttribute="top" secondItem="ZUv-Ce-YwZ" secondAttribute="top" id="0W9-i7-cCg"/>
                             <constraint firstItem="USv-2b-9dT" firstAttribute="trailing" secondItem="mYM-dG-6pj" secondAttribute="trailing" id="hei-yX-6Od"/>
@@ -2497,9 +2497,6 @@
         </namedColor>
         <namedColor name="lightGreen">
             <color red="0.14900000393390656" green="0.87099999189376831" blue="0.60000002384185791" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="plum">
-            <color red="0.22745098039215686" green="0.10196078431372549" blue="0.41568627450980394" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="themeGray">
             <color red="0.93333333333333335" green="0.93333333333333335" blue="0.95294117647058818" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
