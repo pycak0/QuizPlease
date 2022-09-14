@@ -39,6 +39,7 @@ final class RatingVC: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .ripePlum
         RatingConfigurator().configure(self)
         presenter.viewDidLoad(self)
     }
