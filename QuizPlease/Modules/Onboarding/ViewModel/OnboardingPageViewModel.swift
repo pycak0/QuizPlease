@@ -14,7 +14,7 @@ struct OnboardingPageViewModel {
     let title: String
     let subtitle: String
 
-    init(data: OnboardingData) {
+    init(data: OnboardingPageData) {
         self.image = UIImage(named: data.image)
         self.title = data.title
         self.subtitle = data.subtitle

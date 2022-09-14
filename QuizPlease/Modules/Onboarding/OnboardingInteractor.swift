@@ -11,7 +11,7 @@ import Foundation
 /// Onboarding Interactor
 protocol OnboardingInteractorProtocol {
 
-    func getOnboardingItems(completion: @escaping ([OnboardingData]) -> Void)
+    func getOnboardingItems(completion: @escaping ([OnboardingPageData]) -> Void)
 }
 
 final class OnboardingInteractor: OnboardingInteractorProtocol {
@@ -27,7 +27,7 @@ final class OnboardingInteractor: OnboardingInteractorProtocol {
         self.concurrentExecutor = concurrentExecutor
     }
 
-    func getOnboardingItems(completion: @escaping ([OnboardingData]) -> Void) {
+    func getOnboardingItems(completion: @escaping ([OnboardingPageData]) -> Void) {
         concurrentExecutor.async { [jsonDecoder] in
             guard let path = Bundle.main.path(forResource: "onboarding", ofType: "json") else {
                 completion([])
@@ -38,7 +38,7 @@ final class OnboardingInteractor: OnboardingInteractorProtocol {
 
             do {
                 let data = try Data(contentsOf: url)
-                let items = try jsonDecoder.decode([OnboardingData].self, from: data)
+                let items = try jsonDecoder.decode([OnboardingPageData].self, from: data)
                 completion(items)
 
             } catch {

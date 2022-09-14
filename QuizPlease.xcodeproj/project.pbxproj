@@ -243,7 +243,7 @@
 		A4D44A1A28D12D82004703B4 /* OnboardingPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D44A1928D12D82004703B4 /* OnboardingPresenter.swift */; };
 		A4D44A1D28D13262004703B4 /* onboarding.json in Resources */ = {isa = PBXBuildFile; fileRef = A4D44A1C28D13262004703B4 /* onboarding.json */; };
 		A4D44A1F28D132BB004703B4 /* OnboardingInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D44A1E28D132BB004703B4 /* OnboardingInteractor.swift */; };
-		A4D44A2228D1336D004703B4 /* OnboardingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D44A2128D1336D004703B4 /* OnboardingData.swift */; };
+		A4D44A2228D1336D004703B4 /* OnboardingPageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D44A2128D1336D004703B4 /* OnboardingPageData.swift */; };
 		A4D44A2528D1397B004703B4 /* JsonDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D44A2428D1397B004703B4 /* JsonDecoder.swift */; };
 		A4D44A2728D139EF004703B4 /* AsyncExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D44A2628D139EF004703B4 /* AsyncExecutor.swift */; };
 		A4D44A2928D13BF0004703B4 /* OnboardingRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D44A2828D13BF0004703B4 /* OnboardingRouter.swift */; };
@@ -542,7 +542,7 @@
 		A4D44A1928D12D82004703B4 /* OnboardingPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPresenter.swift; sourceTree = "<group>"; };
 		A4D44A1C28D13262004703B4 /* onboarding.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = onboarding.json; sourceTree = "<group>"; };
 		A4D44A1E28D132BB004703B4 /* OnboardingInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingInteractor.swift; sourceTree = "<group>"; };
-		A4D44A2128D1336D004703B4 /* OnboardingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingData.swift; sourceTree = "<group>"; };
+		A4D44A2128D1336D004703B4 /* OnboardingPageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPageData.swift; sourceTree = "<group>"; };
 		A4D44A2428D1397B004703B4 /* JsonDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonDecoder.swift; sourceTree = "<group>"; };
 		A4D44A2628D139EF004703B4 /* AsyncExecutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncExecutor.swift; sourceTree = "<group>"; };
 		A4D44A2828D13BF0004703B4 /* OnboardingRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingRouter.swift; sourceTree = "<group>"; };
@@ -1399,7 +1399,7 @@
 		A4D44A1B28D13262004703B4 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				A4D44A2128D1336D004703B4 /* OnboardingData.swift */,
+				A4D44A2128D1336D004703B4 /* OnboardingPageData.swift */,
 				A4D44A1C28D13262004703B4 /* onboarding.json */,
 			);
 			path = Data;
@@ -1970,7 +1970,7 @@
 				A4E675F7255DB4AB0011A801 /* String+Validating.swift in Sources */,
 				A450E39D24E571C900C49AEE /* GameOrderPresenter.swift in Sources */,
 				A4CDC34A27308ABE00282EC2 /* MapAssembly.swift in Sources */,
-				A4D44A2228D1336D004703B4 /* OnboardingData.swift in Sources */,
+				A4D44A2228D1336D004703B4 /* OnboardingPageData.swift in Sources */,
 				A40B759824D9A852006DB7D1 /* ProfileRouter.swift in Sources */,
 				A4D44A2528D1397B004703B4 /* JsonDecoder.swift in Sources */,
 				A472D28F25288C0F00AA9906 /* UserAuthData.swift in Sources */,
