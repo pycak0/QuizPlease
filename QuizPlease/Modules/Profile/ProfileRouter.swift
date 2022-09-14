@@ -16,13 +16,20 @@ protocol ProfileRouterProtocol: SegueRouter {
 
     func showAuthScreen()
     func closeProfile()
+    func showOnboarding(delegate: OnboardingScreenDelegate?)
 }
 
 class ProfileRouter: ProfileRouterProtocol {
-    unowned let viewController: UIViewController
 
-    required init(viewController: UIViewController) {
+    unowned let viewController: UIViewController
+    private let onboardingAssembly: OnboardingAssembly
+
+    required init(
+        viewController: UIViewController,
+        onboardingAssembly: OnboardingAssembly
+    ) {
         self.viewController = viewController
+        self.onboardingAssembly = onboardingAssembly
     }
 
     // MARK: - Prepare for Segue
@@ -74,6 +81,11 @@ class ProfileRouter: ProfileRouterProtocol {
 
     func showAuthScreen() {
         viewController.performSegue(withIdentifier: "ProfileAuthVC", sender: nil)
+    }
+
+    func showOnboarding(delegate: OnboardingScreenDelegate?) {
+        let onboardingViewController = onboardingAssembly.makeViewController(delegate: delegate)
+        viewController.present(onboardingViewController, animated: true)
     }
 
     func closeProfile() {

@@ -22,6 +22,7 @@ class DefaultsManager {
     private let fcmTokenKey = "fcm-token-key"
     private let answeredQuestionsKey = "answered-questions-key"
     private let clientSettingsKey = "client-settings"
+    private let profileOnboardingMarker = "profile.onboarding"
 
     // MARK: - Auth Info
     func getUserAuthInfo() -> SavedAuthInfo? {
@@ -113,5 +114,16 @@ class DefaultsManager {
 
     func removeClientSettings() {
         defaults.removeObject(forKey: clientSettingsKey)
+    }
+
+    // MARK: - Profile Onboarding
+
+    func wasProfileOnboardingPresented() -> Bool {
+        let wasLaunchedBefore = defaults.bool(forKey: profileOnboardingMarker)
+        return wasLaunchedBefore
+    }
+
+    func setProfileOnboardingWasPresented() {
+        defaults.set(true, forKey: profileOnboardingMarker)
     }
 }

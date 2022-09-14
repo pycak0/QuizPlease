@@ -13,21 +13,21 @@ extension UITableView {
     /// Dequeues a reusable cell object located by its class name.
     ///
     /// - Parameters:
-    ///   - kind: Cell class
+    ///   - cellClass: Cell class
     ///   - indexPath: The index path specifying the location of the cell.
     ///   For more details, see ohter tableView `dequeueReusableCell` methods' documentation.
-    /// - Returns: A specified `Kind` object that inherits `UITableViewCell`.
+    /// - Returns: A specified `CellClass` object that inherits `UITableViewCell`.
     /// If tableView could not create an object of given type, throws `fatalError`.
-    func dequeueReusableCell<Kind: UITableViewCell>(
-        _ kind: Kind.Type,
+    func dequeueReusableCell<CellClass: UITableViewCell>(
+        _ cellClass: CellClass.Type,
         for indexPath: IndexPath
-    ) -> Kind {
+    ) -> CellClass {
         guard let cell = dequeueReusableCell(
-            withIdentifier: "\(Kind.self)",
+            withIdentifier: "\(CellClass.self)",
             for: indexPath
-        ) as? Kind else {
+        ) as? CellClass else {
             assertionFailure("❌ Invalid cell kind!")
-            return Kind.init()
+            return CellClass.init()
         }
         return cell
     }

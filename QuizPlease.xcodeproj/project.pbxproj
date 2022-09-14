@@ -194,7 +194,7 @@
 		A4A296C224F6DC2800347EB2 /* AddGameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A296C124F6DC2800347EB2 /* AddGameVC.swift */; };
 		A4A296C424F6E1A700347EB2 /* MainMenuQRDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A296C324F6E1A700347EB2 /* MainMenuQRDelegate.swift */; };
 		A4A4ED382775D8D000DAA945 /* Bundle+version.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A4ED372775D8D000DAA945 /* Bundle+version.swift */; };
-		A4A5370424EC7691004A10D4 /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A5370324EC7691004A10D4 /* UIColorExtensions.swift */; };
+		A4A5370424EC7691004A10D4 /* UIColor+Static.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A5370324EC7691004A10D4 /* UIColor+Static.swift */; };
 		A4A5370824EC7AA6004A10D4 /* HomeGameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A5370624EC7AA6004A10D4 /* HomeGameCell.swift */; };
 		A4A5370924EC7AA6004A10D4 /* HomeGameCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4A5370724EC7AA6004A10D4 /* HomeGameCell.xib */; };
 		A4A5DE912501907300EBC408 /* GameFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A5DE902501907300EBC408 /* GameFormat.swift */; };
@@ -235,6 +235,20 @@
 		A4D230A624F91F0100524A01 /* QuestionPageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D230A524F91F0100524A01 /* QuestionPageVC.swift */; };
 		A4D230A824F9203500524A01 /* WarmupQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D230A724F9203500524A01 /* WarmupQuestion.swift */; };
 		A4D230AA24F9219D00524A01 /* UIImageView+LoadImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D230A924F9219D00524A01 /* UIImageView+LoadImage.swift */; };
+		A4D44A0E28CFC9A9004703B4 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D44A0D28CFC9A9004703B4 /* OnboardingViewController.swift */; };
+		A4D44A1028CFD182004703B4 /* BigButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D44A0F28CFD182004703B4 /* BigButton.swift */; };
+		A4D44A1328D0B4FE004703B4 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D44A1228D0B4FE004703B4 /* OnboardingView.swift */; };
+		A4D44A1528D0E220004703B4 /* OnboardingViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D44A1428D0E220004703B4 /* OnboardingViewCell.swift */; };
+		A4D44A1828D108D5004703B4 /* OnboardingPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D44A1728D108D5004703B4 /* OnboardingPageViewModel.swift */; };
+		A4D44A1A28D12D82004703B4 /* OnboardingPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D44A1928D12D82004703B4 /* OnboardingPresenter.swift */; };
+		A4D44A1D28D13262004703B4 /* onboarding.json in Resources */ = {isa = PBXBuildFile; fileRef = A4D44A1C28D13262004703B4 /* onboarding.json */; };
+		A4D44A1F28D132BB004703B4 /* OnboardingInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D44A1E28D132BB004703B4 /* OnboardingInteractor.swift */; };
+		A4D44A2228D1336D004703B4 /* OnboardingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D44A2128D1336D004703B4 /* OnboardingData.swift */; };
+		A4D44A2528D1397B004703B4 /* JsonDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D44A2428D1397B004703B4 /* JsonDecoder.swift */; };
+		A4D44A2728D139EF004703B4 /* AsyncExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D44A2628D139EF004703B4 /* AsyncExecutor.swift */; };
+		A4D44A2928D13BF0004703B4 /* OnboardingRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D44A2828D13BF0004703B4 /* OnboardingRouter.swift */; };
+		A4D44A2B28D141B1004703B4 /* OnboardingAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D44A2A28D141B1004703B4 /* OnboardingAssembly.swift */; };
+		A4D44A2D28D14AC7004703B4 /* OnboardingScreenDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D44A2C28D14AC7004703B4 /* OnboardingScreenDelegate.swift */; };
 		A4D498CC250264AC00CB70EE /* GameShortInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D498CB250264AC00CB70EE /* GameShortInfo.swift */; };
 		A4D498CE25026AA100CB70EE /* ScheduledGamesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D498CD25026AA100CB70EE /* ScheduledGamesResponse.swift */; };
 		A4D5A395263C72340075ECF3 /* WarmupAnswerResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D5A394263C72340075ECF3 /* WarmupAnswerResponse.swift */; };
@@ -478,7 +492,7 @@
 		A4A296C124F6DC2800347EB2 /* AddGameVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGameVC.swift; sourceTree = "<group>"; };
 		A4A296C324F6E1A700347EB2 /* MainMenuQRDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuQRDelegate.swift; sourceTree = "<group>"; };
 		A4A4ED372775D8D000DAA945 /* Bundle+version.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+version.swift"; sourceTree = "<group>"; };
-		A4A5370324EC7691004A10D4 /* UIColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtensions.swift; sourceTree = "<group>"; };
+		A4A5370324EC7691004A10D4 /* UIColor+Static.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Static.swift"; sourceTree = "<group>"; };
 		A4A5370624EC7AA6004A10D4 /* HomeGameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeGameCell.swift; sourceTree = "<group>"; };
 		A4A5370724EC7AA6004A10D4 /* HomeGameCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeGameCell.xib; sourceTree = "<group>"; };
 		A4A5DE902501907300EBC408 /* GameFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameFormat.swift; sourceTree = "<group>"; };
@@ -520,6 +534,20 @@
 		A4D230A524F91F0100524A01 /* QuestionPageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionPageVC.swift; sourceTree = "<group>"; };
 		A4D230A724F9203500524A01 /* WarmupQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarmupQuestion.swift; sourceTree = "<group>"; };
 		A4D230A924F9219D00524A01 /* UIImageView+LoadImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+LoadImage.swift"; sourceTree = "<group>"; };
+		A4D44A0D28CFC9A9004703B4 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		A4D44A0F28CFD182004703B4 /* BigButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigButton.swift; sourceTree = "<group>"; };
+		A4D44A1228D0B4FE004703B4 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		A4D44A1428D0E220004703B4 /* OnboardingViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewCell.swift; sourceTree = "<group>"; };
+		A4D44A1728D108D5004703B4 /* OnboardingPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPageViewModel.swift; sourceTree = "<group>"; };
+		A4D44A1928D12D82004703B4 /* OnboardingPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPresenter.swift; sourceTree = "<group>"; };
+		A4D44A1C28D13262004703B4 /* onboarding.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = onboarding.json; sourceTree = "<group>"; };
+		A4D44A1E28D132BB004703B4 /* OnboardingInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingInteractor.swift; sourceTree = "<group>"; };
+		A4D44A2128D1336D004703B4 /* OnboardingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingData.swift; sourceTree = "<group>"; };
+		A4D44A2428D1397B004703B4 /* JsonDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonDecoder.swift; sourceTree = "<group>"; };
+		A4D44A2628D139EF004703B4 /* AsyncExecutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncExecutor.swift; sourceTree = "<group>"; };
+		A4D44A2828D13BF0004703B4 /* OnboardingRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingRouter.swift; sourceTree = "<group>"; };
+		A4D44A2A28D141B1004703B4 /* OnboardingAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingAssembly.swift; sourceTree = "<group>"; };
+		A4D44A2C28D14AC7004703B4 /* OnboardingScreenDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingScreenDelegate.swift; sourceTree = "<group>"; };
 		A4D498CB250264AC00CB70EE /* GameShortInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameShortInfo.swift; sourceTree = "<group>"; };
 		A4D498CD25026AA100CB70EE /* ScheduledGamesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduledGamesResponse.swift; sourceTree = "<group>"; };
 		A4D5A394263C72340075ECF3 /* WarmupAnswerResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarmupAnswerResponse.swift; sourceTree = "<group>"; };
@@ -658,6 +686,7 @@
 				A4711674269F6F7700F90099 /* Localizable.strings */,
 				A40D816D24D2C73D006D2CE3 /* AppDelegates */,
 				A40D816F24D2C767006D2CE3 /* Storyboards */,
+				A4D44A2328D13956004703B4 /* Core */,
 				A40D818C24D2E3DB006D2CE3 /* Services */,
 				A4CC5FEC24DAEA6C0042B41C /* Shared */,
 				A4BA1CF124D83A6900D32ADC /* Modules */,
@@ -802,7 +831,7 @@
 				A4A4ED362775D8A800DAA945 /* UIApplication */,
 				A4E675F5255DB49E0011A801 /* String */,
 				A4BB03482681FF5A005FE6D7 /* NumberFormatter */,
-				A4A5370324EC7691004A10D4 /* UIColorExtensions.swift */,
+				A4A5370324EC7691004A10D4 /* UIColor+Static.swift */,
 				A45241E5265489A70058285C /* UIFont+Extensions.swift */,
 				A40F036124D4187800C381F2 /* UIKitExtensions.swift */,
 				A452E3B324D431C5002EE514 /* Int+WordBuilding.swift */,
@@ -878,6 +907,7 @@
 				A428383F272C8C3F00F417E6 /* QPNavigationController.swift */,
 				A4B129202739CB170035C041 /* CopyableLabel.swift */,
 				A4B129222739DD9D0035C041 /* Spacer.swift */,
+				A4D44A0F28CFD182004703B4 /* BigButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1205,6 +1235,7 @@
 		A4BA1CF124D83A6900D32ADC /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				A4D44A0C28CFC97A004703B4 /* Onboarding */,
 				A4CDC346273067B300282EC2 /* Map */,
 				A4F3A793257E55F400D6A9C7 /* Splash */,
 				A40D817224D2C95D006D2CE3 /* MainMenu */,
@@ -1276,6 +1307,57 @@
 				A4B1291E27387ACA0035C041 /* MapInfoView.swift */,
 			);
 			path = Map;
+			sourceTree = "<group>";
+		};
+		A4D44A0C28CFC97A004703B4 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				A4D44A1B28D13262004703B4 /* Data */,
+				A4D44A1628D108AC004703B4 /* ViewModel */,
+				A4D44A1128D0B4EB004703B4 /* View */,
+				A4D44A1928D12D82004703B4 /* OnboardingPresenter.swift */,
+				A4D44A1E28D132BB004703B4 /* OnboardingInteractor.swift */,
+				A4D44A2828D13BF0004703B4 /* OnboardingRouter.swift */,
+				A4D44A2A28D141B1004703B4 /* OnboardingAssembly.swift */,
+				A4D44A2C28D14AC7004703B4 /* OnboardingScreenDelegate.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		A4D44A1128D0B4EB004703B4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A4D44A0D28CFC9A9004703B4 /* OnboardingViewController.swift */,
+				A4D44A1228D0B4FE004703B4 /* OnboardingView.swift */,
+				A4D44A1428D0E220004703B4 /* OnboardingViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		A4D44A1628D108AC004703B4 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				A4D44A1728D108D5004703B4 /* OnboardingPageViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		A4D44A1B28D13262004703B4 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				A4D44A2128D1336D004703B4 /* OnboardingData.swift */,
+				A4D44A1C28D13262004703B4 /* onboarding.json */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		A4D44A2328D13956004703B4 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				A4D44A2428D1397B004703B4 /* JsonDecoder.swift */,
+				A4D44A2628D139EF004703B4 /* AsyncExecutor.swift */,
+			);
+			path = Core;
 			sourceTree = "<group>";
 		};
 		A4D498CA2502648D00CB70EE /* ScheduledGame */ = {
@@ -1519,6 +1601,7 @@
 				A46ADA3126EFF9E800C5EC75 /* GoogleService-Info.plist in Resources */,
 				A4A0659E24E477E20080E0D8 /* GameInfoCell.xib in Resources */,
 				A4DAF74024DDABFF00963C15 /* WarmupCell.xib in Resources */,
+				A4D44A1D28D13262004703B4 /* onboarding.json in Resources */,
 				A4A5370924EC7AA6004A10D4 /* HomeGameCell.xib in Resources */,
 				A40D818B24D2D24C006D2CE3 /* ScheduleCell.xib in Resources */,
 				A498FCCD24E52ED80069F896 /* GameRegisterCell.xib in Resources */,
@@ -1602,6 +1685,7 @@
 				A40D815A24D2C6C1006D2CE3 /* AppDelegate.swift in Sources */,
 				A472D29B25288F1100AA9906 /* RegisterResponse.swift in Sources */,
 				A468C55328C5541E00962930 /* String+nonBreakingSpace.swift in Sources */,
+				A4D44A1528D0E220004703B4 /* OnboardingViewCell.swift in Sources */,
 				A40B758024D9A75A006DB7D1 /* ScheduleRouter.swift in Sources */,
 				A4068A0124F7DAE2001273B2 /* ServerResponse.swift in Sources */,
 				A4E91EBC26C30D5C008C13A7 /* UIWindow+topViewController.swift in Sources */,
@@ -1628,6 +1712,7 @@
 				A4A065A224E47D1F0080E0D8 /* GameAnnotationCell.swift in Sources */,
 				A469F75924E3084D007FB332 /* ScheduleGameCell.swift in Sources */,
 				A4B129252739E1B20035C041 /* UIImage+Configuration.swift in Sources */,
+				A4D44A2B28D141B1004703B4 /* OnboardingAssembly.swift in Sources */,
 				A4779C7F251618C90064F863 /* GameOrderCompletionVC.swift in Sources */,
 				A4A296C224F6DC2800347EB2 /* AddGameVC.swift in Sources */,
 				A44B2E0C28C0204E00C1BC2F /* ScheduleGameCellViewModel.swift in Sources */,
@@ -1672,15 +1757,17 @@
 				A40B759424D9A845006DB7D1 /* ProfileInteractor.swift in Sources */,
 				A48F64662501438D00E7A528 /* ScheduleFilterType.swift in Sources */,
 				A44A462C24F8EEC500C81F82 /* UIView+Blur.swift in Sources */,
+				A4D44A2928D13BF0004703B4 /* OnboardingRouter.swift in Sources */,
 				A40D818224D2CA30006D2CE3 /* ProfileVC.swift in Sources */,
 				A4E91EC026C32310008C13A7 /* UIApplication+debugInfo.swift in Sources */,
 				A423AC2424EEC65100071E68 /* ConfirmVC.swift in Sources */,
 				A4768C96268E72A00085B622 /* MaskedTextFieldView.swift in Sources */,
 				A44B2FD525841D9100B5B52C /* CertificateResponse.swift in Sources */,
+				A4D44A1828D108D5004703B4 /* OnboardingPageViewModel.swift in Sources */,
 				A4FFA4B124F3BE2A006A1150 /* PaymentType.swift in Sources */,
 				A4B129212739CB170035C041 /* CopyableLabel.swift in Sources */,
 				A490ACD527A6A0E300DEF87B /* UIBarButtonItem+swizzleMenu.swift in Sources */,
-				A4A5370424EC7691004A10D4 /* UIColorExtensions.swift in Sources */,
+				A4A5370424EC7691004A10D4 /* UIColor+Static.swift in Sources */,
 				A4E675F4255D78400011A801 /* AudioView.swift in Sources */,
 				A40B759224D9A836006DB7D1 /* HomeGameConfigurator.swift in Sources */,
 				A472D2B325291F0200AA9906 /* UserRegisterData.swift in Sources */,
@@ -1699,6 +1786,7 @@
 				A48E2FB62530E23800CD6BE6 /* Utilities.swift in Sources */,
 				A48E2FAA2530906200CD6BE6 /* UserInfo.swift in Sources */,
 				A40B759A24D9A85B006DB7D1 /* ProfileConfigurator.swift in Sources */,
+				A4D44A1F28D132BB004703B4 /* OnboardingInteractor.swift in Sources */,
 				A45241E226547A990058285C /* UIView+TapGestureRecognizer.swift in Sources */,
 				A48E303D2871E549000704B2 /* UITableView+deque.swift in Sources */,
 				A4CC5FC324DACE1A0042B41C /* ShopPresenter.swift in Sources */,
@@ -1725,6 +1813,7 @@
 				A4F3A795257E561800D6A9C7 /* SplashScreenVC.swift in Sources */,
 				A40B759E24D9A86E006DB7D1 /* RatingPresenter.swift in Sources */,
 				A498FCCC24E52ED80069F896 /* GameRegisterCell.swift in Sources */,
+				A4D44A0E28CFC9A9004703B4 /* OnboardingViewController.swift in Sources */,
 				A4C9D81324EA78BB00523688 /* RatingCell.swift in Sources */,
 				A48DFF7924F3EBEF00E47095 /* VideoView.swift in Sources */,
 				A4BA1CF024D835DE00D32ADC /* MainMenuRouter.swift in Sources */,
@@ -1742,6 +1831,7 @@
 				A4822F68252CF85A004E05B9 /* GameStatus.swift in Sources */,
 				A4358951265528D400B54C89 /* LoadingIndicator.swift in Sources */,
 				A40C8086252E872D00CE40D8 /* WarmupAnswer.swift in Sources */,
+				A4D44A2D28D14AC7004703B4 /* OnboardingScreenDelegate.swift in Sources */,
 				A40D818024D2CA26006D2CE3 /* HomeGamesListVC.swift in Sources */,
 				A450E39724E559CD00C49AEE /* TitledTextFieldView.swift in Sources */,
 				A4A5DE9825019DA800EBC408 /* ScheduleFilter.swift in Sources */,
@@ -1760,6 +1850,7 @@
 				A472D29825288F0800AA9906 /* AuthInfoResponse.swift in Sources */,
 				A45241DE265479A70058285C /* CGRect+setHeight.swift in Sources */,
 				A464370424EB37DB0033F23A /* ExpandingHeader.swift in Sources */,
+				A4D44A1328D0B4FE004703B4 /* OnboardingView.swift in Sources */,
 				A4F0B9E026248B6E00E4E2A5 /* SplashScreenRouter.swift in Sources */,
 				A40F035D24D412D700C381F2 /* ShopItemCell.swift in Sources */,
 				A4A5370824EC7AA6004A10D4 /* HomeGameCell.swift in Sources */,
@@ -1796,6 +1887,7 @@
 				A4088895267CC798005D0ED1 /* DiscountKind.swift in Sources */,
 				A40B759024D9A829006DB7D1 /* HomeGameRouter.swift in Sources */,
 				A4A0659D24E477E20080E0D8 /* GameInfoCell.swift in Sources */,
+				A4D44A1A28D12D82004703B4 /* OnboardingPresenter.swift in Sources */,
 				A43E0AD9258E2F3400207616 /* UIEdgeInsets+Init.swift in Sources */,
 				A44B2E0728C00B5F00C1BC2F /* DeviceIdProvider.swift in Sources */,
 				A4CDC3502732ECAC00282EC2 /* MapInteractor.swift in Sources */,
@@ -1808,6 +1900,7 @@
 				A423AC2224EEBCD600071E68 /* FiltersVC.swift in Sources */,
 				A48E2FBC253330D900CD6BE6 /* DeliveryMethod.swift in Sources */,
 				A4CC5FC724DACE2D0042B41C /* ShopConfigurator.swift in Sources */,
+				A4D44A1028CFD182004703B4 /* BigButton.swift in Sources */,
 				A4112D5B28B6883F0097ED97 /* DeleteResponse.swift in Sources */,
 				A472D2AD2528A89100AA9906 /* AuthVC.swift in Sources */,
 				A4837BD12636086D00517EC6 /* SecurityHelper.swift in Sources */,
@@ -1815,12 +1908,15 @@
 				A40C807B252E7E7900CE40D8 /* DefaultsManager.swift in Sources */,
 				A450E3A524E57A8C00C49AEE /* GameInfoItemKind.swift in Sources */,
 				A400A26E269CE4C200FBF70C /* String+WordBuilding.swift in Sources */,
+				A4D44A2728D139EF004703B4 /* AsyncExecutor.swift in Sources */,
 				A4FEB052273739F10052AD7B /* YMapsProvider.swift in Sources */,
 				A4B1291F27387ACA0035C041 /* MapInfoView.swift in Sources */,
 				A4E675F7255DB4AB0011A801 /* String+Validating.swift in Sources */,
 				A450E39D24E571C900C49AEE /* GameOrderPresenter.swift in Sources */,
 				A4CDC34A27308ABE00282EC2 /* MapAssembly.swift in Sources */,
+				A4D44A2228D1336D004703B4 /* OnboardingData.swift in Sources */,
 				A40B759824D9A852006DB7D1 /* ProfileRouter.swift in Sources */,
+				A4D44A2528D1397B004703B4 /* JsonDecoder.swift in Sources */,
 				A472D28F25288C0F00AA9906 /* UserAuthData.swift in Sources */,
 				A4CDC34C27308B1A00282EC2 /* MapRouter.swift in Sources */,
 				A4B0753224DFDBFB007778A2 /* GameInfo.swift in Sources */,
