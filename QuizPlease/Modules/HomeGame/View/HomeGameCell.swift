@@ -31,7 +31,7 @@ class HomeGameCell: UICollectionViewCell {
         // cellView.backgroundColor = UIColor.systemPurple.withAlphaComponent(0.5)
         // cellView.addBlur(color: .systemPurple, style: .regular, alpha: 0.7)
         cellView.blurView.setup(style: .regular, alpha: 0.97).enable()
-        cellView.blurView.backgroundColor = UIColor.plum.withAlphaComponent(0.7)
+        cellView.blurView.backgroundColor = UIColor.ripePlum.withAlphaComponent(0.7)
         playLabel.layer.cornerRadius = playLabel.frame.height / 2
     }
 

@@ -1,5 +1,5 @@
 //
-// MARK: RatingVC.swift
+//  RatingVC.swift
 //  QuizPlease
 //
 //  Created by Владислав on 30.07.2020.
@@ -9,7 +9,9 @@
 import UIKit
 
 // MARK: - View Protocol
+
 protocol RatingViewProtocol: UIViewController, LoadingIndicator {
+
     var presenter: RatingPresenterProtocol! { get set }
 
     func reloadRatingList()
@@ -20,9 +22,17 @@ protocol RatingViewProtocol: UIViewController, LoadingIndicator {
 }
 
 final class RatingVC: UIViewController {
+
     var presenter: RatingPresenterProtocol!
 
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        .lightContent
+    }
+
+    // MARK: - UI Elements
+
     @IBOutlet private weak var expandingHeader: ExpandingHeader!
+
     @IBOutlet private weak var tableView: UITableView! {
         didSet {
             tableView.delegate = self
@@ -37,8 +47,10 @@ final class RatingVC: UIViewController {
     }
 
     // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .ripePlum
         RatingConfigurator().configure(self)
         presenter.viewDidLoad(self)
     }
@@ -60,7 +72,8 @@ final class RatingVC: UIViewController {
     }
 }
 
-// MARK: - Protocol Implementation
+// MARK: - RatingViewProtocol
+
 extension RatingVC: RatingViewProtocol {
     func reloadRatingList() {
         tableView.reloadSections(IndexSet(integer: 0), with: .fade)
@@ -101,7 +114,9 @@ extension RatingVC: RatingViewProtocol {
 }
 
 // MARK: - ExpandingHeaderDelegate
+
 extension RatingVC: ExpandingHeaderDelegate {
+
     func didPressGameTypeView(in expandingHeader: ExpandingHeader, completion: @escaping (String?) -> Void) {
         showChooseItemActionSheet(itemNames: presenter.availableGameTypeNames) { [unowned self] (selectedName, index) in
             self.presenter.didChangeLeague(index)
@@ -134,7 +149,9 @@ extension RatingVC: ExpandingHeaderDelegate {
 }
 
 // MARK: - ExpandingHeaderDataSource
+
 extension RatingVC: ExpandingHeaderDataSource {
+
     func numberOfSegmentControlItems(in expandingHeader: ExpandingHeader) -> Int {
         return presenter.availableFilters.count
     }
@@ -153,7 +170,9 @@ extension RatingVC: ExpandingHeaderDataSource {
 }
 
 // MARK: - Data Source & Delegate
+
 extension RatingVC: UITableViewDataSource, UITableViewDelegate {
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return presenter.filteredTeams.count
     }

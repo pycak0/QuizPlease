@@ -127,9 +127,10 @@ final class ProfileVC: UIViewController {
     }
 }
 
-// MARK: - View Protocol Implementation
+// MARK: - ProfileViewProtocol
 
 extension ProfileVC: ProfileViewProtocol {
+
     func configure() {
         totalPointsScoredLabel.layer.cornerRadius = totalPointsScoredLabel.bounds.height / 2
         showShopButton.layer.cornerRadius = showShopButton.bounds.height / 2
@@ -189,7 +190,7 @@ extension ProfileVC: ProfileViewProtocol {
     }
 }
 
-// MARK: - QR Scanner VC Delegate
+// MARK: - QRScannerVCDelegate
 
 extension ProfileVC: QRScannerVCDelegate {
     func qrScanner(_ qrScanner: QRScannerVC, didFinishCodeScanningWith result: String?) {
@@ -208,7 +209,8 @@ extension ProfileVC: AddGameVCDelegate {
 
 // MARK: - Data Source & Delegate
 
-extension ProfileVC: UITableViewDelegate, UITableViewDataSource {
+extension ProfileVC: UITableViewDataSource, UITableViewDelegate {
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return presenter.userInfo?.games?.count ?? 1
     }
@@ -240,6 +242,7 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource {
 // MARK: - UIScrollViewDelegate
 
 extension ProfileVC: UIScrollViewDelegate {
+
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let currentOffset = scrollView.contentOffset.y + scrollView.safeAreaInsets.top
         let isScrollingDown = currentOffset > lastOffset

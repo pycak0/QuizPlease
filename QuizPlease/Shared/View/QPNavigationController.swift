@@ -13,13 +13,21 @@ import UIKit
 /// Key features:
 /// - full-width swipe back gesture recognizer
 /// - (maybe in the future) stylable navigation bar
-class QPNavigationController: UINavigationController {
+final class QPNavigationController: UINavigationController {
 
     let fullWidthSwipeBackGestureRecognizer = UIPanGestureRecognizer()
+
+    override var childForStatusBarStyle: UIViewController? {
+        topViewController?.childForStatusBarStyle ?? topViewController
+    }
+
+    // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
     }
+
+    // MARK: - Private Methods
 
     private func setupSwipeBackGestureRecognizer() {
         if let interactivePopGestureRecognizer = interactivePopGestureRecognizer,

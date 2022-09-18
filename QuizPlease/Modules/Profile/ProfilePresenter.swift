@@ -47,10 +47,11 @@ class ProfilePresenter: ProfilePresenterProtocol {
         view.configure()
         view.setCity(AppSettings.defaultCity.title)
 
-        if AppSettings.userToken == nil {
-            router.showAuthScreen()
+        if interactor.wasProfileOnboardingPresented() {
+            checkAuthorization()
         } else {
-            interactor.loadUserInfo()
+            router.showOnboarding(delegate: self)
+            interactor.markOnboardingPresented()
         }
     }
 
@@ -95,6 +96,14 @@ class ProfilePresenter: ProfilePresenterProtocol {
         interactor.loadUserInfo()
     }
 
+    private func checkAuthorization() {
+        if AppSettings.userToken == nil {
+            router.showAuthScreen()
+        } else {
+            interactor.loadUserInfo()
+        }
+    }
+
     private func updateUserInfo() {
         guard let info = userInfo else { return }
         view?.reloadGames()
@@ -126,5 +135,14 @@ extension ProfilePresenter: ProfileInteractorDelegate {
 
     func didFailDeletingAccount(with error: NetworkServiceError) {
         view?.showErrorConnectingToServerAlert(title: "Произошла ошибка")
+    }
+}
+
+// MARK: - OnboardingScreenDelegate
+
+extension ProfilePresenter: OnboardingScreenDelegate {
+
+    func onboardingDidClose() {
+        checkAuthorization()
     }
 }

@@ -9,6 +9,7 @@
 import UIKit
 
 public class ScalingButton: UIButton {
+
     public var scaleRate: CGFloat = 0.96
 
     /// Setting this property assigns `tintColor` to `newValue` and calls `setTitleColor(newValue, for: .normal)`

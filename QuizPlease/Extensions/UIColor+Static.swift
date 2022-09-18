@@ -1,5 +1,5 @@
 //
-//  UIColorExtensions.swift
+//  UIColor+Static.swift
 //  QuizPlease
 //
 //  Created by Владислав on 18.08.2020.
@@ -24,25 +24,30 @@ public extension UIColor {
         UIColor(named: "middleBlue")!
     }
 
-    /// Dark blue with kind of purple
+    /// Dark blue with kind of purple - Цвет спелой сливы
+    class var ripePlum: UIColor {
+        UIColor(named: "ripePlum")!
+    }
+
+    /// Purple with pink - Сливовый цвет
     class var plum: UIColor {
         UIColor(named: "plum")!
     }
 
     class var olive: UIColor {
-        return UIColor(named: "olive")!
+        UIColor(named: "olive")!
     }
 
     class var lemon: UIColor {
-        return UIColor(named: "lemon")!
+        UIColor(named: "lemon")!
     }
 
     class var lightOrange: UIColor {
-        return UIColor(named: "lightOrange")!
+        UIColor(named: "lightOrange")!
     }
 
     class var lightGreen: UIColor {
-        return UIColor(named: "lightGreen")!
+        UIColor(named: "lightGreen")!
     }
 
     class var themeGray: UIColor {

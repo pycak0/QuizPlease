@@ -16,7 +16,7 @@ protocol SplashScreenPresenterProtocol {
     func viewDidLoad(_ view: SplashScreenViewProtocol)
 }
 
-class SplashScreenPresenter: SplashScreenPresenterProtocol {
+final class SplashScreenPresenter: SplashScreenPresenterProtocol {
     weak var view: SplashScreenViewProtocol?
     var interactor: SplashScreenInteractorProtocol
     var router: SplashScreenRouterProtocol

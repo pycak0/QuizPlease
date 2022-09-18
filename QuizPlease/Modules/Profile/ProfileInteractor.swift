@@ -20,6 +20,12 @@ protocol ProfileInteractorProtocol {
 
     /// Calls backend to delete user's account. Does not clear local auth info.
     func deleteUserAccount()
+
+    /// Returns true if onboaring was already presented
+    func wasProfileOnboardingPresented() -> Bool
+
+    /// Set that onboarding was already presented on this device
+    func markOnboardingPresented()
 }
 
 // MARK: - Delegate Protocol
@@ -81,5 +87,13 @@ final class ProfileInteractor: ProfileInteractorProtocol {
                 self.delegate?.didFailDeletingAccount(with: error)
             }
         }
+    }
+
+    func wasProfileOnboardingPresented() -> Bool {
+        DefaultsManager.shared.wasProfileOnboardingPresented()
+    }
+
+    func markOnboardingPresented() {
+        DefaultsManager.shared.setProfileOnboardingWasPresented()
     }
 }

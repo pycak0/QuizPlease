@@ -32,7 +32,11 @@ final class WarmupVC: UIViewController {
     var presenter: WarmupPresenterProtocol!
     private weak var pageVC: QuestionPageVC!
 
-    // MARK: - Outlets
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        .lightContent
+    }
+
+    // MARK: - UI Elements
 
     @IBOutlet private weak var previewStack: UIStackView!
     @IBOutlet private weak var startButton: ScalingButton!
@@ -81,6 +85,8 @@ final class WarmupVC: UIViewController {
         else { return }
         pageVC = vc
     }
+
+    // MARK: - Private Methods
 
     @IBAction private func startButtonPressed(_ sender: UIButton) {
         presenter.didPressStartGame()
@@ -147,9 +153,10 @@ final class WarmupVC: UIViewController {
     }
 }
 
-// MARK: - View Protocol Implemenation
+// MARK: - WarmupViewProtocol
 
 extension WarmupVC: WarmupViewProtocol {
+
     func configure() {
         configureTimerRing()
         configureResultLabels()
@@ -210,7 +217,7 @@ extension WarmupVC: WarmupViewProtocol {
     }
 }
 
-// MARK: - Answer Delegate
+// MARK: - WarmupQuestionVCAnswerDelegate
 
 extension WarmupVC: WarmupQuestionVCAnswerDelegate {
     func questionVC(_ vc: WarmupQuestionVC, didSelectAnswer answer: String, forQuestion question: WarmupQuestion) {
@@ -218,7 +225,7 @@ extension WarmupVC: WarmupQuestionVCAnswerDelegate {
     }
 }
 
-// MARK: - Page VC Delegate
+// MARK: - QuestionPageVCDelegate
 
 extension WarmupVC: QuestionPageVCDelegate {
     func questionsDidEnd() {

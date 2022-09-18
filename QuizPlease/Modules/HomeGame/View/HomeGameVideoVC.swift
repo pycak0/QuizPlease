@@ -9,13 +9,21 @@
 import UIKit
 
 private enum Constants {
+
     static let buttonCornerRadius: CGFloat = 20
     static let videoCornerRadius: CGFloat = 30
     static let gameRulesPath = "/files/quizplease_home_rules.pdf"
 }
 
-class HomeGameVideoVC: UIViewController {
+final class HomeGameVideoVC: UIViewController {
+
     var homeGame: HomeGame! = HomeGame()
+
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        .lightContent
+    }
+
+    // MARK: - UI Elements
 
     @IBOutlet private weak var descriptionLabel: UILabel!
 
@@ -57,12 +65,15 @@ class HomeGameVideoVC: UIViewController {
         }
     }
 
-    // MARK: - Lifecycle 
+    // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareNavigationBar(title: homeGame.fullTitle, tintColor: .white, barStyle: .transparent)
         loadDetail()
     }
+
+    // MARK: - Private Methods
 
     @objc private func rulesButtonPressed(_ sender: UIButton) {
         openUrl(with: Constants.gameRulesPath, accentColor: sender.backgroundColor)
@@ -81,6 +92,7 @@ class HomeGameVideoVC: UIViewController {
     }
 
     // MARK: - Load Details
+
     private func loadDetail() {
         NetworkService.shared.getHomeGame(by: homeGame.id) { (result) in
             switch result {
@@ -95,6 +107,7 @@ class HomeGameVideoVC: UIViewController {
     }
 
     // MARK: - Update UI
+
     private func updateUI() {
         videoView.configurePlayer(url: homeGame.videoUrl, shouldAutoPlay: false)
         videoView.imageView.loadImage(path: homeGame.frontImagePath)

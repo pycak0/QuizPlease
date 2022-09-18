@@ -9,22 +9,18 @@
 import UIKit
 
 struct ShopItem: Decodable {
-    var id: Int?
-    var title: String
-    var description: String
-    private var price: Double
-    private var images: [ShopItemImage]?
-    private var offline_delivery: Int = 1
-    private var online_delivery: Int = 1
 
-    init(title: String, description: String, price: Double) {
-        self.title = title
-        self.description = description
-        self.price = price
-    }
+    let id: Int?
+    let title: String
+    let description: String
+    private let price: Double
+    private let images: [ShopItemImage]?
+    private let offline_delivery: Int
+    private let online_delivery: Int
 }
 
 extension ShopItem {
+
     var imagePath: String? {
         return images?.first?.path?.pathProof
     }

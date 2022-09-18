@@ -15,7 +15,7 @@ public class ExpandingHeader: UIView {
     static let expandedHeight: CGFloat = 320
     static let gradientExpandedHeight: CGFloat = ExpandingHeader.expandedHeight - 65
     static let itemsCornerRadius: CGFloat = 20
-    static let themeColor = UIColor.plum.withAlphaComponent(0.5)
+    static let themeColor = UIColor.ripePlum.withAlphaComponent(0.5)
 
     // MARK: - UI
     private unowned var gradientLayer: CAGradientLayer!

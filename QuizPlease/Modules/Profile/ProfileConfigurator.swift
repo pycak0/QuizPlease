@@ -15,7 +15,10 @@ protocol ProfileConfiguratorProtocol {
 final class ProfileConfigurator: ProfileConfiguratorProtocol {
     func configure(_ view: ProfileViewProtocol, userInfo: UserInfo?) {
         let interactor = ProfileInteractor(networkService: NetworkService.shared)
-        let router = ProfileRouter(viewController: view)
+        let router = ProfileRouter(
+            viewController: view,
+            onboardingAssembly: OnboardingAssembly()
+        )
         let presenter = ProfilePresenter(view: view, interactor: interactor, router: router)
         presenter.userInfo = userInfo
         interactor.delegate = presenter

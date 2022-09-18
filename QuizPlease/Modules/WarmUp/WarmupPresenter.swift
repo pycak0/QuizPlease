@@ -141,7 +141,7 @@ extension WarmupPresenter: WarmupInteractorOutput {
         print(error)
         switch error {
         case .invalidToken:
-            view?.showNeedsAuthAlert(title: "Разминка доступна только авторизованным пользователям")
+            view?.showErrorConnectingToServerAlert(title: "Произошла ошибка")
         default:
             view?.showErrorConnectingToServerAlert()
         }
