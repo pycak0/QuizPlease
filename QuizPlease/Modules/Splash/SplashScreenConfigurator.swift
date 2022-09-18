@@ -8,7 +8,8 @@
 
 import Foundation
 
-class SplashScreenConfigurator: Configurator {
+final class SplashScreenConfigurator: Configurator {
+
     func configure(_ view: SplashScreenViewProtocol) {
         let interactor = SplashScreenInteractor()
         let router = SplashScreenRouter(viewController: view)
