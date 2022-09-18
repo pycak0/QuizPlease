@@ -216,6 +216,7 @@
 		A4BB034A2681FF72005FE6D7 /* NumberDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BB03492681FF72005FE6D7 /* NumberDecorator.swift */; };
 		A4BB034C26820006005FE6D7 /* BigNumberDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BB034B26820006005FE6D7 /* BigNumberDecorator.swift */; };
 		A4BB034E26820611005FE6D7 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BB034D26820611005FE6D7 /* PaddingLabel.swift */; };
+		A4BE730228D756CE0065FA08 /* UIViewController+StatusBarStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BE730128D756CE0065FA08 /* UIViewController+StatusBarStyle.swift */; };
 		A4C71766254DE61600898CA5 /* YooMoneyPaymentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C71765254DE61600898CA5 /* YooMoneyPaymentProvider.swift */; };
 		A4C71769254E016400898CA5 /* PaymentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C71768254E016400898CA5 /* PaymentProvider.swift */; };
 		A4C9D81324EA78BB00523688 /* RatingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C9D81224EA78BB00523688 /* RatingCell.swift */; };
@@ -515,6 +516,7 @@
 		A4BB03492681FF72005FE6D7 /* NumberDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberDecorator.swift; sourceTree = "<group>"; };
 		A4BB034B26820006005FE6D7 /* BigNumberDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigNumberDecorator.swift; sourceTree = "<group>"; };
 		A4BB034D26820611005FE6D7 /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
+		A4BE730128D756CE0065FA08 /* UIViewController+StatusBarStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+StatusBarStyle.swift"; sourceTree = "<group>"; };
 		A4C71765254DE61600898CA5 /* YooMoneyPaymentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YooMoneyPaymentProvider.swift; sourceTree = "<group>"; };
 		A4C71768254E016400898CA5 /* PaymentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentProvider.swift; sourceTree = "<group>"; };
 		A4C9D81224EA78BB00523688 /* RatingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingCell.swift; sourceTree = "<group>"; };
@@ -852,6 +854,7 @@
 				A48E303C2871E549000704B2 /* UITableView+deque.swift */,
 				A48E303E287220A0000704B2 /* UICollectionView+deque.swift */,
 				A4323FC728A01A8E001D1C4B /* UIAlertController+Extensions.swift */,
+				A4BE730128D756CE0065FA08 /* UIViewController+StatusBarStyle.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1782,6 +1785,7 @@
 				A4BB034A2681FF72005FE6D7 /* NumberDecorator.swift in Sources */,
 				A48DFF7524F3EB5000E47095 /* HomeGameVideoVC.swift in Sources */,
 				A40B75A024D9A875006DB7D1 /* RatingRouter.swift in Sources */,
+				A4BE730228D756CE0065FA08 /* UIViewController+StatusBarStyle.swift in Sources */,
 				A419F2F224F003C9004A7997 /* ScalingButton.swift in Sources */,
 				A4448ED2250EA16C0020686D /* ScheduleFilterOption.swift in Sources */,
 				A4FFA4AB24F3AB1A006A1150 /* GameOrderCellDelegates.swift in Sources */,

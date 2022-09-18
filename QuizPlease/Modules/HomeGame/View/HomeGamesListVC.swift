@@ -9,13 +9,21 @@
 import UIKit
 
 // MARK: - View Protocol
+
 protocol HomeGameViewProtocol: UIViewController {
     var presenter: HomeGamePresenterProtocol! { get set }
     func reloadHomeGamesList()
 }
 
-class HomeGamesListVC: UIViewController {
+final class HomeGamesListVC: UIViewController {
+
     var presenter: HomeGamePresenterProtocol!
+
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        .lightContent
+    }
+
+    // MARK: - UI Elements
 
     @IBOutlet weak var headerView: UIView! {
         didSet {
@@ -38,6 +46,7 @@ class HomeGamesListVC: UIViewController {
     }
 
     // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         HomeGameConfigurator().configure(self)
@@ -55,15 +64,19 @@ class HomeGamesListVC: UIViewController {
     }
 }
 
-// MARK: - Protocol Implementation
+// MARK: - HomeGameViewProtocol
+
 extension HomeGamesListVC: HomeGameViewProtocol {
+
     func reloadHomeGamesList() {
         collectionView.reloadSections(IndexSet(integer: 0))
     }
 }
 
-// MARK: - Data Source & Delegate
-extension HomeGamesListVC: UICollectionViewDataSource, UICollectionViewDelegate {
+// MARK: - UICollectionViewDataSource
+
+extension HomeGamesListVC: UICollectionViewDataSource {
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         presenter.games.count
     }
@@ -77,6 +90,11 @@ extension HomeGamesListVC: UICollectionViewDataSource, UICollectionViewDelegate 
         cell.configureCell(with: game)
         return cell
     }
+}
+
+// MARK: - UICollectionViewDelegate
+
+extension HomeGamesListVC: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         presenter.didSelectHomeGame(at: indexPath.row)

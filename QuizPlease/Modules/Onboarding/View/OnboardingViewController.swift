@@ -39,6 +39,12 @@ protocol OnboardingViewProtocol: AnyObject {
 
 final class OnboardingViewController: UIViewController {
 
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        .lightContent
+    }
+
+    // MARK: - Private Properties
+
     private let output: OnboardingViewOutput
 
     private var viewMode: OnboardingViewMode = .basic {

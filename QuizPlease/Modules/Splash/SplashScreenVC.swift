@@ -9,11 +9,19 @@
 import UIKit
 
 protocol SplashScreenViewProtocol: UIViewController, LoadingIndicator {
+
     var presenter: SplashScreenPresenterProtocol! { get set }
 }
 
-class SplashScreenVC: UIViewController, SplashScreenViewProtocol {
+final class SplashScreenVC: UIViewController, SplashScreenViewProtocol {
+
     var presenter: SplashScreenPresenterProtocol!
+
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        .lightContent
+    }
+
+    // MARK: - UI Elements
 
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView! {
         didSet {
@@ -23,11 +31,15 @@ class SplashScreenVC: UIViewController, SplashScreenViewProtocol {
         }
     }
 
+    // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         SplashScreenConfigurator().configure(self)
         presenter.viewDidLoad(self)
     }
+
+    // MARK: - LoadingIndicator Protocol
 
     func startLoading() {
         activityIndicator.startAnimating()
