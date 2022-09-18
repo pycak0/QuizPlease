@@ -104,6 +104,15 @@ final class SchedulePresenter: SchedulePresenterProtocol {
 
     func didPressInfoButton(forGameAt index: Int) {
         let game = games[index]
+        let statusesAllowedForTransition = [GameStatus.placesAvailable, .reserveAvailable, .fewPlaces]
+
+        guard
+            let status = game.gameStatus,
+            statusesAllowedForTransition.contains(status)
+        else {
+            return
+        }
+
         router.showGameInfo(
             with: GameOrderPresentationOptions(
                 gameInfo: game,

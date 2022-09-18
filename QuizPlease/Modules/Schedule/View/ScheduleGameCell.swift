@@ -10,6 +10,7 @@ import UIKit
 
 // MARK: - Delegate Protocol
 protocol ScheduleGameCellDelegate: AnyObject {
+
     func signUpButtonPressed(in cell: ScheduleGameCell)
     func infoButtonPressed(in cell: ScheduleGameCell)
     func locationButtonPressed(in cell: ScheduleGameCell)
@@ -18,8 +19,7 @@ protocol ScheduleGameCellDelegate: AnyObject {
     func gameNumberPressed(in cell: ScheduleGameCell)
 }
 
-class ScheduleGameCell: UITableViewCell {
-    static let identifier = "\(ScheduleGameCell.self)"
+final class ScheduleGameCell: UITableViewCell {
 
     weak var delegate: ScheduleGameCellDelegate?
 
