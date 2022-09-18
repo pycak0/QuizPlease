@@ -8,8 +8,7 @@
 
 import UIKit
 
-class ScheduleCell: UITableViewCell, MenuCellItemProtocol {
-    static let identifier = "ScheduleCell"
+final class ScheduleCell: UITableViewCell, MenuCellItemProtocol {
 
     @IBOutlet weak var cellView: UIView!
     @IBOutlet weak var backgroundImageView: UIImageView!
@@ -35,5 +34,4 @@ class ScheduleCell: UITableViewCell, MenuCellItemProtocol {
 
         titleLabel.layer.cornerRadius = titleLabel.frame.height / 2
     }
-
 }
