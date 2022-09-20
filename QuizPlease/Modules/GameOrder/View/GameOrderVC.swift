@@ -76,7 +76,11 @@ final class GameOrderVC: UIViewController {
 
     @IBOutlet private weak var gameImageViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet private weak var gameImageView: UIImageView!
-    @IBOutlet private weak var imageDarkeningView: UIView!
+    @IBOutlet private weak var imageDarkeningView: UIView! {
+        didSet {
+            imageDarkeningView.alpha = 0.5
+        }
+    }
     @IBOutlet weak var tableView: UITableView! {
         didSet {
             tableView.delegate = self
