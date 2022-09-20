@@ -217,6 +217,8 @@
 		A4BB034C26820006005FE6D7 /* BigNumberDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BB034B26820006005FE6D7 /* BigNumberDecorator.swift */; };
 		A4BB034E26820611005FE6D7 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BB034D26820611005FE6D7 /* PaddingLabel.swift */; };
 		A4BE730228D756CE0065FA08 /* UIViewController+StatusBarStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BE730128D756CE0065FA08 /* UIViewController+StatusBarStyle.swift */; };
+		A4C0B0A028DA226D0043D579 /* MapMarkerAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C0B09F28DA226D0043D579 /* MapMarkerAnnotationView.swift */; };
+		A4C0B0A228DA23CC0043D579 /* MKMapView+deque.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C0B0A128DA23CC0043D579 /* MKMapView+deque.swift */; };
 		A4C71766254DE61600898CA5 /* YooMoneyPaymentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C71765254DE61600898CA5 /* YooMoneyPaymentProvider.swift */; };
 		A4C71769254E016400898CA5 /* PaymentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C71768254E016400898CA5 /* PaymentProvider.swift */; };
 		A4C9D81324EA78BB00523688 /* RatingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C9D81224EA78BB00523688 /* RatingCell.swift */; };
@@ -517,6 +519,8 @@
 		A4BB034B26820006005FE6D7 /* BigNumberDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigNumberDecorator.swift; sourceTree = "<group>"; };
 		A4BB034D26820611005FE6D7 /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
 		A4BE730128D756CE0065FA08 /* UIViewController+StatusBarStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+StatusBarStyle.swift"; sourceTree = "<group>"; };
+		A4C0B09F28DA226D0043D579 /* MapMarkerAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMarkerAnnotationView.swift; sourceTree = "<group>"; };
+		A4C0B0A128DA23CC0043D579 /* MKMapView+deque.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKMapView+deque.swift"; sourceTree = "<group>"; };
 		A4C71765254DE61600898CA5 /* YooMoneyPaymentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YooMoneyPaymentProvider.swift; sourceTree = "<group>"; };
 		A4C71768254E016400898CA5 /* PaymentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentProvider.swift; sourceTree = "<group>"; };
 		A4C9D81224EA78BB00523688 /* RatingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingCell.swift; sourceTree = "<group>"; };
@@ -853,6 +857,7 @@
 				A490ACD427A6A0E300DEF87B /* UIBarButtonItem+swizzleMenu.swift */,
 				A48E303C2871E549000704B2 /* UITableView+deque.swift */,
 				A48E303E287220A0000704B2 /* UICollectionView+deque.swift */,
+				A4C0B0A128DA23CC0043D579 /* MKMapView+deque.swift */,
 				A4323FC728A01A8E001D1C4B /* UIAlertController+Extensions.swift */,
 				A4BE730128D756CE0065FA08 /* UIViewController+StatusBarStyle.swift */,
 			);
@@ -1324,6 +1329,16 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		A4C0B09E28DA22570043D579 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A4B1291E27387ACA0035C041 /* MapInfoView.swift */,
+				A4CDC3472730682F00282EC2 /* MapViewController.swift */,
+				A4C0B09F28DA226D0043D579 /* MapMarkerAnnotationView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		A4C71767254E014E00898CA5 /* PaymentProvider */ = {
 			isa = PBXGroup;
 			children = (
@@ -1356,12 +1371,11 @@
 		A4CDC346273067B300282EC2 /* Map */ = {
 			isa = PBXGroup;
 			children = (
-				A4CDC3472730682F00282EC2 /* MapViewController.swift */,
+				A4C0B09E28DA22570043D579 /* View */,
 				A4CDC34F2732ECAC00282EC2 /* MapInteractor.swift */,
 				A4CDC34D27308BF000282EC2 /* MapPresenter.swift */,
 				A4CDC34B27308B1A00282EC2 /* MapRouter.swift */,
 				A4CDC34927308ABE00282EC2 /* MapAssembly.swift */,
-				A4B1291E27387ACA0035C041 /* MapInfoView.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -1761,6 +1775,7 @@
 				A4617344251763AA00B002D1 /* CountPickerView.swift in Sources */,
 				A40B758824D9A7FD006DB7D1 /* WarmupRouter.swift in Sources */,
 				A4A5DE95250197C300EBC408 /* FilterView.swift in Sources */,
+				A4C0B0A028DA226D0043D579 /* MapMarkerAnnotationView.swift in Sources */,
 				A4D498CC250264AC00CB70EE /* GameShortInfo.swift in Sources */,
 				A46F303E24F5302B0062A333 /* GameSubmitButtonCell.swift in Sources */,
 				A4F0B9D2262469B000E4E2A5 /* ClientSettings.swift in Sources */,
@@ -1854,6 +1869,7 @@
 				A4A065A524E47D460080E0D8 /* IdentifiableType.swift in Sources */,
 				A4A5DE912501907300EBC408 /* GameFormat.swift in Sources */,
 				A4DAF73F24DDABFF00963C15 /* WarmupCell.swift in Sources */,
+				A4C0B0A228DA23CC0043D579 /* MKMapView+deque.swift in Sources */,
 				A45C656F265D2136009A63BB /* Cancellable.swift in Sources */,
 				A44A462F24F901ED00C81F82 /* WarmupQuestionVC.swift in Sources */,
 				A4FCBC28263C8F1A0048D382 /* ShopPurchaseResponse.swift in Sources */,
