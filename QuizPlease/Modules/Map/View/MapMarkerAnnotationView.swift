@@ -15,6 +15,7 @@ final class MapMarkerAnnotationView: MKMarkerAnnotationView {
     override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
         markerTintColor = .themePurple
+        glyphImage = .logoTemplateImage
     }
 
     @available(*, unavailable)
