@@ -50,6 +50,10 @@ final class GameInfoCell: UITableViewCell, GameOrderCellProtocol {
 
     @IBOutlet private weak var mapView: MKMapView! {
         didSet {
+            mapView.register(
+                MapMarkerAnnotationView.self,
+                forAnnotationViewWithReuseIdentifier: "\(MapMarkerAnnotationView.self)"
+            )
             mapView.delegate = self
             mapView.addTapGestureRecognizer { [weak self] in
                 guard let self = self else { return }
@@ -139,5 +143,10 @@ extension GameInfoCell: MKMapViewDelegate {
 
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         mapView.deselectAnnotation(view.annotation, animated: true)
+    }
+
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        guard !annotation.isKind(of: MKUserLocation.self) else { return nil }
+        return mapView.dequeueReusableAnnotationView(MapMarkerAnnotationView.self, for: annotation)
     }
 }

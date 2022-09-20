@@ -85,6 +85,10 @@ final class MapViewController: UIViewController {
         mapView.showsCompass = false
         mapView.delegate = self
         mapView.translatesAutoresizingMaskIntoConstraints = false
+        mapView.register(
+            MapMarkerAnnotationView.self,
+            forAnnotationViewWithReuseIdentifier: "\(MapMarkerAnnotationView.self)"
+        )
         return mapView
     }()
 
@@ -344,6 +348,11 @@ extension MapViewController: MapViewInput {
 // MARK: - MKMapViewDelegate
 
 extension MapViewController: MKMapViewDelegate {
+
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        guard !annotation.isKind(of: MKUserLocation.self) else { return nil }
+        return mapView.dequeueReusableAnnotationView(MapMarkerAnnotationView.self, for: annotation)
+    }
 
     func mapView(_ mapView: MKMapView, didChange mode: MKUserTrackingMode, animated: Bool) {
         updateLocationButtonImage(for: mode)
