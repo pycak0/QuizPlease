@@ -14,12 +14,21 @@ final class MapMarkerAnnotationView: MKMarkerAnnotationView {
 
     override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
-        markerTintColor = .themePurple
-        glyphImage = .logoTemplateImage
+        configure()
     }
 
     @available(*, unavailable)
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        configure()
+    }
+
+    private func configure() {
+        markerTintColor = .themePurple
+        glyphImage = .logoTemplateImage
     }
 }
