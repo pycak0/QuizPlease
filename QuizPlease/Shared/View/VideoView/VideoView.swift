@@ -18,9 +18,16 @@ class VideoView: UIView {
 
     private unowned var parent: UIViewController!
     private var playerVC = AVPlayerViewController()
+
     var url: URL?
 
     // MARK: - Public
+
+    var showsPlaybackControls: Bool {
+        get { playerVC.showsPlaybackControls }
+        set { playerVC.showsPlaybackControls = newValue }
+    }
+
     func play() {
         setCategoryPlayback()
         playerVC.player?.play()
@@ -58,15 +65,8 @@ class VideoView: UIView {
         playerVC.entersFullScreenWhenPlaybackBegins = false
     }
 
-    private func setCategoryPlayback() {
-        do {
-            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [])
-        } catch {
-            print(error)
-        }
-    }
+    // MARK: - Lifecycle
 
-    // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
         xibSetup()
@@ -85,10 +85,20 @@ class VideoView: UIView {
         configurePlayer(url: url)
     }
 
+    // MARK: - Private Methods
+
     private func xibSetup() {
         Bundle.main.loadNibNamed(VideoView.nibName, owner: self, options: nil)
         self.addSubview(contentView)
         contentView.frame = self.bounds
         contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+    }
+
+    private func setCategoryPlayback() {
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [])
+        } catch {
+            print(error)
+        }
     }
 }
