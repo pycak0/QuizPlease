@@ -19,7 +19,7 @@ protocol JsonDecoder {
     ///
     /// - Returns: The decoded value of type `T`.
     /// - Throws:  Any error that occurs during decode.
-    func decode<T>(_ type: T.Type, from data: Data) throws -> T where T : Decodable
+    func decode<T>(_ type: T.Type, from data: Data) throws -> T where T: Decodable
 }
 
 extension JSONDecoder: JsonDecoder {}

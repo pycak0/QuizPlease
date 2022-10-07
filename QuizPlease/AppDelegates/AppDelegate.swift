@@ -10,11 +10,12 @@ import UIKit
 import IQKeyboardManagerSwift
 import Firebase
 import UserNotificationsUI
-import YooKassaPayments
 import PhoneNumberKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate {
+
+    private let transitionFacade = CoreAssembly.shared.transitionFacade
 
     let gcmMessageIDKey = "gcm.message_id"
 
@@ -42,7 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate {
         PhoneNumberKit.CountryCodePicker.forceModalPresentation = true
         PhoneNumberKit.CountryCodePicker.commonCountryCodes = []
 
-        return true
+        return transitionFacade.handleLaunchOptions(launchOptions)
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -93,7 +94,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate {
         open url: URL,
         options: [UIApplication.OpenURLOptionsKey: Any]
     ) -> Bool {
-        return YKSdk.shared.handleOpen(url: url, sourceApplication: options[.sourceApplication] as? String)
+        transitionFacade.handleOpenUrl(url, options: options)
+    }
+
+    func application(
+        _ application: UIApplication,
+        continue userActivity: NSUserActivity,
+        restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void
+    ) -> Bool {
+        transitionFacade.continueUserActivity(userActivity)
     }
 }
 
