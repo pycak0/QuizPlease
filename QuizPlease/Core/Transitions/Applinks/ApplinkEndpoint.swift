@@ -21,6 +21,7 @@ protocol ApplinkEndpoint {
     /// Show endpont with launch parameters
     /// - Parameters:
     ///   - parameters: launch parameters
-    /// - Returns: `true`, if the endpoint was successfully shown. If any errors occured or could not show the endpoint, returns `false`
-    func show(parameters: [String: Any]) -> Bool
+    /// - Returns: `true`, if the endpoint was successfully shown.
+    /// If any errors occured or could not show the endpoint, returns `false`
+    func show(parameters: [String: String]) -> Bool
 }

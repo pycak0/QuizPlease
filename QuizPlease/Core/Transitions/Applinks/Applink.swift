@@ -14,5 +14,5 @@ struct Applink {
     /// Link identifier
     let identifier: String
     /// Link parameters
-    let parameters: [String: Any]
+    let parameters: [String: String]
 }

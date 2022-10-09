@@ -8,13 +8,14 @@
 
 import UIKit
 
+/// Endpoint class for the Schedule screen
 final class ScheduleEndpoint: ApplinkEndpoint {
 
     // MARK: - ApplinkEndpoint
 
     static let identifier = "schedule"
 
-    func show(parameters: [String: Any]) -> Bool {
+    func show(parameters: [String: String]) -> Bool {
         print("📲 Schedule Endpoint entry")
         guard let topNavigationController = UIApplication.shared
             .getKeyWindow()?

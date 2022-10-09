@@ -16,6 +16,8 @@ protocol GameOrderRouterProtocol: SegueRouter {
     func showCompletionScreen(with gameInfo: GameInfo, numberOfPeopleInTeam number: Int)
 
     func showMap(for place: Place)
+
+    func close()
 }
 
 class GameOrderRouter: GameOrderRouterProtocol {
@@ -64,12 +66,16 @@ class GameOrderRouter: GameOrderRouterProtocol {
         let mapViewController = MapAssembly(place: place).makeViewController()
         viewController.present(mapViewController, animated: true)
     }
+
+    func close() {
+        viewController.navigationController?.popViewController(animated: true)
+    }
 }
 
 // MARK: - GameOrderCompletionDelegate
 extension GameOrderRouter: GameOrderCompletionDelegate {
     func didPressDismissButton(in vc: GameOrderCompletionVC) {
         vc.dismiss(animated: true)
-        viewController.navigationController?.popViewController(animated: true)
+        close()
     }
 }

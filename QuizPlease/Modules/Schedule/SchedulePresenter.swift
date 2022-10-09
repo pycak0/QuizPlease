@@ -92,13 +92,8 @@ final class SchedulePresenter: SchedulePresenterProtocol {
     // MARK: - Actions
 
     func didSignUp(forGameAt index: Int) {
-        let game = games[index]
         router.showGameInfo(
-            with: GameOrderPresentationOptions(
-                gameInfo: game,
-                city: scheduleFilter.city,
-                shouldScrollToSignUp: true
-            )
+            with: gameOrderPresentationOptions(gameIndex: index, scrollToSignUp: true)
         )
     }
 
@@ -114,11 +109,7 @@ final class SchedulePresenter: SchedulePresenterProtocol {
         }
 
         router.showGameInfo(
-            with: GameOrderPresentationOptions(
-                gameInfo: game,
-                city: scheduleFilter.city,
-                shouldScrollToSignUp: false
-            )
+            with: gameOrderPresentationOptions(gameIndex: index, scrollToSignUp: false)
         )
     }
 
@@ -212,6 +203,19 @@ final class SchedulePresenter: SchedulePresenterProtocol {
             guard let self = self else { return }
             self.subscribedGameIds = gameIds
         }
+    }
+
+    private func gameOrderPresentationOptions(
+        gameIndex: Int,
+        scrollToSignUp: Bool
+    ) -> GameOrderPresentationOptions {
+        let game = games[gameIndex]
+        return GameOrderPresentationOptions(
+            gameInfo: game,
+            cityId: scheduleFilter.city.id,
+            shouldScrollToSignUp: scrollToSignUp,
+            shouldLoadGameInfo: false
+        )
     }
 }
 
