@@ -85,10 +85,10 @@ final class ApplinkRouterImpl: ApplinkRouter {
 
     private func getEndpoint(with identifier: String) -> ApplinkEndpoint? {
         guard let endpointClass = endpointsDictionary[identifier] else {
-            os_log(.error, "❌ Did not found any endpoint candidate. Aborting transition")
+            print("❌ Did not found any endpoint candidate. Aborting transition")
             return nil
         }
-        os_log(.info, "👀 Found candidate for transition. Preparing for transition")
+        print("👀 Found candidate for transition: '\(endpointClass.self)'. Trying to show the endpoint...")
         return endpointClass.init()
     }
 

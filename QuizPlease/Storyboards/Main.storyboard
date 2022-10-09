@@ -234,7 +234,7 @@
         <!--Расписание игр-->
         <scene sceneID="Wkg-ye-w7i">
             <objects>
-                <viewController id="UZG-kg-EzM" customClass="ScheduleVC" customModule="QuizPlease" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ScheduleVC" id="UZG-kg-EzM" customClass="ScheduleVC" customModule="QuizPlease" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vrO-eO-2qd">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
