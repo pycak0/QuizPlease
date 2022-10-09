@@ -11,6 +11,8 @@ import UIKit
 @available(iOS 13.0, *)
 final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
+    private let transitionFacade = CoreAssembly.shared.transitionFacade
+
     var window: UIWindow?
 
     func scene(
@@ -26,6 +28,15 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // (see `application:configurationForConnectingSceneSession` instead).
 
         // guard let _ = (scene as? UIWindowScene) else { return }
+        transitionFacade.handleConnectionOptions(connectionOptions)
+    }
+
+    func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
+        transitionFacade.continueUserActivity(userActivity)
+    }
+
+    func scene(_ scene: UIScene, openURLContexts urlContexts: Set<UIOpenURLContext>) {
+        transitionFacade.handleOpenUrlContexts(urlContexts)
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

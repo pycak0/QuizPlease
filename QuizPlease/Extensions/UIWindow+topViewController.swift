@@ -9,11 +9,22 @@
 import UIKit
 
 extension UIWindow {
+
+    /// The top-most `UIViewController` in the controller hierarchy of the App
     var topViewController: UIViewController? {
         var topController = rootViewController
         while let presentedViewController = topController?.presentedViewController {
             topController = presentedViewController
         }
         return topController
+    }
+
+    /// The top-most `UINavigationController` in the controller hierarchy of the App
+    var topNavigationController: UINavigationController? {
+        var topNavigationController = rootViewController
+        while let presentedNavController = topNavigationController?.presentedViewController as? UINavigationController {
+            topNavigationController = presentedNavController
+        }
+        return topNavigationController as? UINavigationController
     }
 }
