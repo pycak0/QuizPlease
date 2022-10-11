@@ -13,10 +13,9 @@ import CoreHaptics
 protocol GameOrderViewProtocol: UIViewController, LoadingIndicator {
     var presenter: GameOrderPresenterProtocol! { get set }
 
-    var shouldScrollToSignUp: Bool! { get set }
-
+    func setTitle(_ title: String)
     func reloadInfo()
-    func configureTableView()
+    func scrollToSignUp()
 
     /// Works only if view already contains at least one certificate cell
     func addCertificateCell()
@@ -37,34 +36,13 @@ final class GameOrderVC: UIViewController {
 
     var presenter: GameOrderPresenterProtocol!
 
-    var shouldScrollToSignUp: Bool!
-
     private var imageBaseHeight: CGFloat = 270 {
         didSet {
             gameImageViewHeightConstraint.constant = imageBaseHeight
         }
     }
 
-    private lazy var items: [GameInfoItemKind] = {
-        var _items = GameInfoItemKind.allCases
-        let specialConditionsAmount = presenter.specialConditions.count
-        if specialConditionsAmount > 1 {
-            let specialConditions = Array(repeating: GameInfoItemKind.certificate, count: specialConditionsAmount)
-            _items.insert(contentsOf: specialConditions, at: _items.firstIndex(of: .certificate)!)
-        } else {
-            if specialConditionsAmount != 1 {
-                _items.removeAll(where: { $0 == .certificate })
-            }
-            _items.removeAll { $0 == .addExtraCertificate }
-        }
-        if presenter.isOnlyCashAvailable || !presenter.isOnlinePaymentDefault {
-            _items.removeAll { $0 == .onlinePayment }
-        }
-        if !presenter.isFirstTimePlaying {
-            _items.removeAll { $0 == .promocode }
-        }
-        return _items
-    }()
+    private lazy var items: [GameInfoItemKind] = makeItems()
 
     private(set) lazy var indexOfFirstCertificate: Int? = {
         items.firstIndex(of: .certificate)
@@ -103,7 +81,11 @@ final class GameOrderVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        presenter.configureViews()
+        prepareNavigationBar(
+            title: "-",
+            barStyle: .transcluent(tintColor: view.backgroundColor)
+        )
+        presenter.viewDidLoad(self)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -133,14 +115,9 @@ final class GameOrderVC: UIViewController {
         view.endEditing(true)
     }
 
-    func scrollToSignUp() {
-        let indexPath = IndexPath(row: GameInfoItemKind.registration.rawValue, section: 0)
-        tableView.scrollToRow(at: indexPath, at: .top, animated: true)
-    }
-
     /// Scroll to the top of Register section, after that calls `completion` closure,
     /// where returns a `GameRegisterCell` object (if no errors occured).
-    func scrollToRegistrationCell(animated: Bool = true, completion: ((GameRegisterCell?) -> Void)?) {
+    private func scrollToRegistrationCell(animated: Bool = true, completion: ((GameRegisterCell?) -> Void)?) {
         let indexPath = IndexPath(row: GameInfoItemKind.registration.rawValue, section: 0)
 
         if let cell = tableView.cellForRow(at: indexPath) as? GameRegisterCell {
@@ -170,25 +147,56 @@ final class GameOrderVC: UIViewController {
             imageBaseHeight = cell.frame.origin.y + 60
         }
     }
+
+    private func makeItems() -> [GameInfoItemKind] {
+        var _items = GameInfoItemKind.allCases
+        let specialConditionsAmount = presenter.specialConditions.count
+        if specialConditionsAmount > 1 {
+            let specialConditions = Array(repeating: GameInfoItemKind.certificate, count: specialConditionsAmount)
+            _items.insert(contentsOf: specialConditions, at: _items.firstIndex(of: .certificate)!)
+        } else {
+            if specialConditionsAmount != 1 {
+                _items.removeAll(where: { $0 == .certificate })
+            }
+            _items.removeAll { $0 == .addExtraCertificate }
+        }
+        if presenter.isOnlyCashAvailable || !presenter.isOnlinePaymentDefault {
+            _items.removeAll { $0 == .onlinePayment }
+        }
+        if !presenter.isFirstTimePlaying {
+            _items.removeAll { $0 == .promocode }
+        }
+        return _items
+    }
 }
 
 // MARK: - GameOrderViewProtocol
 
 extension GameOrderVC: GameOrderViewProtocol {
+
+    func setTitle(_ title: String) {
+        prepareNavigationBar(
+            title: title,
+            barStyle: .transcluent(tintColor: view.backgroundColor)
+        )
+    }
+
+    func scrollToSignUp() {
+        let indexPath = IndexPath(row: GameInfoItemKind.registration.rawValue, section: 0)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+        }
+    }
+
     func endEditing() {
         view.endEditing(true)
     }
 
     func reloadInfo() {
+        items = makeItems()
+        tableView.visibleCells.forEach { ($0 as? GameOrderCellProtocol)?.delegate = nil }
         tableView.reloadData()
-    }
-
-    func configureTableView() {
-        if shouldScrollToSignUp {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                self.scrollToSignUp()
-            }
-        }
+        updateImageHeight()
     }
 
     func startLoading() {

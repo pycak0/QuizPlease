@@ -59,14 +59,16 @@ final class DeeplinkParserImpl: DeeplinkParser {
         queryDictionary: [String: String?]
     ) -> Applink? {
 
-        var parameters = queryDictionary as [String: Any]
+        var parameters = queryDictionary as? [String: String] ?? [:]
 
         switch endpoint {
         case "schedule":
             break
 
         case "game":
-            parameters["gameId"] = pathComponents.first
+            if let gameId = pathComponents.first {
+                parameters["gameId"] = gameId
+            }
 
         default:
             return nil

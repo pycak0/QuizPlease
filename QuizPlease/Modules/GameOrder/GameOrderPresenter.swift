@@ -32,7 +32,7 @@ protocol GameOrderPresenterProtocol {
 
     var maximumSpecialConditionsAmount: Int { get }
 
-    func configureViews()
+    func viewDidLoad(_ view: GameOrderViewProtocol)
     func didPressSubmitButton()
     func didPressTermsOfUse()
     func countSumToPay(forPeople number: Int) -> Double
@@ -63,6 +63,9 @@ final class GameOrderPresenter: GameOrderPresenterProtocol {
     var router: GameOrderRouterProtocol!
 
     private let registerForm: RegisterForm
+    private let scrollToSignUp: Bool
+    private let loadGameInfo: Bool
+
     var game: GameInfo
 
     var isPhoneNumberValid = false
@@ -80,12 +83,16 @@ final class GameOrderPresenter: GameOrderPresenterProtocol {
         interactor: GameOrderInteractorProtocol,
         router: GameOrderRouterProtocol,
         registerForm: RegisterForm,
-        gameInfo: GameInfo
+        gameInfo: GameInfo,
+        scrollToSignUp: Bool,
+        loadGameInfo: Bool
     ) {
         self.view = view
         self.interactor = interactor
         self.router = router
         self.game = gameInfo
+        self.scrollToSignUp = scrollToSignUp
+        self.loadGameInfo = loadGameInfo
         self.registerForm = registerForm
         self.registerForm.paymentType = isOnlinePaymentDefault ? .online : .cash
     }
@@ -131,12 +138,14 @@ final class GameOrderPresenter: GameOrderPresenterProtocol {
         return types.count == 1 && types[0] == .cash
     }
 
-    func configureViews() {
-        view?.configureTableView()
-        if let path = game.backgroundImagePath?.pathProof {
-            view?.setBackgroundImage(with: path)
+    func viewDidLoad(_ view: GameOrderViewProtocol) {
+        if loadGameInfo {
+            interactor.loadGameInfo(id: game.id)
         } else {
-            print(">>>\n>>> No background image path for game with id '\(game.id ?? -1)'\n>>>")
+            reloadView()
+        }
+        if scrollToSignUp {
+            view.scrollToSignUp()
         }
     }
 
@@ -446,11 +455,38 @@ final class GameOrderPresenter: GameOrderPresenterProtocol {
         let name = game.fullTitle.trimmingCharacters(in: .whitespaces)
         return "Игра \"\(name)\": \(game.blockData), \(game.priceDetails)"
     }
+
+    private func reloadView() {
+        view?.setTitle(game.fullTitle)
+        if let path = game.backgroundImagePath?.pathProof {
+            view?.setBackgroundImage(with: path)
+        } else {
+            print(">>>\n>>> No background image path for game with id '\(game.id ?? -1)'\n>>>")
+        }
+        view?.reloadInfo()
+    }
 }
 
 // MARK: - GameOrderInteractorOutput
 
 extension GameOrderPresenter: GameOrderInteractorOutput {
+
+    func interactor(
+        _ interactor: GameOrderInteractorProtocol,
+        didFailLoadingGameInfo error: NetworkServiceError
+    ) {
+        view?.showSimpleAlert(
+            title: "Произошла ошибка",
+            message: "Не удалось получить информацию об игре"
+        ) { [weak self] _ in
+            self?.router.close()
+        }
+    }
+
+    func interactor(_ interactor: GameOrderInteractorProtocol, didLoad gameInfo: GameInfo) {
+        game = gameInfo
+        reloadView()
+    }
 
     func interactor(
         _ interactor: GameOrderInteractorProtocol?,

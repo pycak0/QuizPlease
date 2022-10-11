@@ -23,12 +23,6 @@ protocol ScheduleRouterProtocol: SegueRouter {
     func showMap(for place: Place)
 }
 
-struct GameOrderPresentationOptions {
-    let gameInfo: GameInfo
-    let city: City
-    let shouldScrollToSignUp: Bool
-}
-
 final class ScheduleRouter: ScheduleRouterProtocol {
     unowned let viewController: UIViewController
 

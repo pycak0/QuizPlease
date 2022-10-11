@@ -62,6 +62,8 @@ struct GameInfo: Decodable {
     /// Vacant places
     private var blockOf: Int = 0
 
+    init() { }
+
     init(shortInfo: GameShortInfo) {
         id = shortInfo.id
         date = shortInfo.date

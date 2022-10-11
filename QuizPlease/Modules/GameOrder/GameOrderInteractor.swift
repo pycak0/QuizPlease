@@ -16,6 +16,8 @@ protocol GameOrderInteractorProtocol {
     /// must be weak
     var output: GameOrderInteractorOutput? { get }
 
+    func loadGameInfo(id: Int)
+
     func register(
         with form: RegisterForm,
         specialConditions: [SpecialCondition],
@@ -50,6 +52,16 @@ protocol GameOrderInteractorProtocol {
 
 protocol GameOrderInteractorOutput: AnyObject {
 
+    func interactor(
+        _ interactor: GameOrderInteractorProtocol,
+        didFailLoadingGameInfo error: NetworkServiceError
+    )
+
+    func interactor(
+        _ interactor: GameOrderInteractorProtocol,
+        didLoad gameInfo: GameInfo
+    )
+
     func interactor(_ interactor: GameOrderInteractorProtocol?, errorOccured error: NetworkServiceError)
 
     func interactor(
@@ -67,13 +79,80 @@ protocol GameOrderInteractorOutput: AnyObject {
 
 // MARK: - Implementation
 
-class GameOrderInteractor: GameOrderInteractorProtocol {
+final class GameOrderInteractor: GameOrderInteractorProtocol {
 
     private let networkService: NetworkService
+    private let asyncExecutor: AsyncExecutor
+
     weak var output: GameOrderInteractorOutput?
 
-    init(networkService: NetworkService) {
+    /// Initializer
+    init(
+        networkService: NetworkService,
+        asyncExecutor: AsyncExecutor
+    ) {
         self.networkService = networkService
+        self.asyncExecutor = asyncExecutor
+    }
+
+    func loadGameInfo(id: Int) {
+        var shortGame: GameShortInfo?
+        var detailGame: GameInfo?
+
+        let dispatchGroup = DispatchGroup()
+        dispatchGroup.enter()
+        dispatchGroup.enter()
+
+        let whenGamesLoaded = DispatchWorkItem { [weak self] in
+            guard let self = self else { return }
+            guard
+                let shortGame = shortGame,
+                var detailGame = detailGame
+            else {
+                self.output?.interactor(self, didFailLoadingGameInfo: .serverError(500))
+                return
+            }
+            detailGame.setShortInfo(shortGame)
+            self.output?.interactor(self, didLoad: detailGame)
+        }
+        dispatchGroup.notify(queue: .main, work: whenGamesLoaded)
+
+        var detailInfoTask: DispatchWorkItem?
+        let shortInfoTask = DispatchWorkItem {
+            NetworkService.shared.getSchedule(with: ScheduleFilter()) { [weak self] result in
+                guard let self = self else { return }
+                switch result {
+                case let .success(games):
+                    shortGame = games.first { $0.id == id }
+                case let .failure(error):
+                    detailInfoTask?.cancel()
+                    whenGamesLoaded.cancel()
+                    self.output?.interactor(self, didFailLoadingGameInfo: error)
+                }
+                dispatchGroup.leave()
+            }
+        }
+
+        detailInfoTask = DispatchWorkItem {
+            NetworkService.shared.getGameInfo(by: id) { [weak self] result in
+                guard let self = self else { return }
+                switch result {
+                case let .success(gameInfo):
+                    detailGame = gameInfo
+                case let .failure(error):
+                    shortInfoTask.cancel()
+                    whenGamesLoaded.cancel()
+                    self.output?.interactor(self, didFailLoadingGameInfo: error)
+                }
+                dispatchGroup.leave()
+            }
+        }
+
+        for task in [shortInfoTask, detailInfoTask] {
+            asyncExecutor.async {
+                task?.perform()
+            }
+        }
     }
 
     func register(
