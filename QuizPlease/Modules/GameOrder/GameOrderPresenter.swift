@@ -475,6 +475,7 @@ extension GameOrderPresenter: GameOrderInteractorOutput {
         _ interactor: GameOrderInteractorProtocol,
         didFailLoadingGameInfo error: NetworkServiceError
     ) {
+        print("❌ Error: \(error) - \(error.localizedDescription)")
         view?.showSimpleAlert(
             title: "Произошла ошибка",
             message: "Не удалось получить информацию об игре"

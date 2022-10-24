@@ -96,61 +96,13 @@ final class GameOrderInteractor: GameOrderInteractorProtocol {
     }
 
     func loadGameInfo(id: Int) {
-        var shortGame: GameShortInfo?
-        var detailGame: GameInfo?
-
-        let dispatchGroup = DispatchGroup()
-        dispatchGroup.enter()
-        dispatchGroup.enter()
-
-        let whenGamesLoaded = DispatchWorkItem { [weak self] in
+        networkService.getGameInfo(by: id) { [weak self] result in
             guard let self = self else { return }
-            guard
-                let shortGame = shortGame,
-                var detailGame = detailGame
-            else {
-                self.output?.interactor(self, didFailLoadingGameInfo: .serverError(500))
-                return
-            }
-            detailGame.setShortInfo(shortGame)
-            self.output?.interactor(self, didLoad: detailGame)
-        }
-        dispatchGroup.notify(queue: .main, work: whenGamesLoaded)
-
-        var detailInfoTask: DispatchWorkItem?
-        let shortInfoTask = DispatchWorkItem {
-            NetworkService.shared.getSchedule(with: ScheduleFilter()) { [weak self] result in
-                guard let self = self else { return }
-                switch result {
-                case let .success(games):
-                    shortGame = games.first { $0.id == id }
-                case let .failure(error):
-                    detailInfoTask?.cancel()
-                    whenGamesLoaded.cancel()
-                    self.output?.interactor(self, didFailLoadingGameInfo: error)
-                }
-                dispatchGroup.leave()
-            }
-        }
-
-        detailInfoTask = DispatchWorkItem {
-            NetworkService.shared.getGameInfo(by: id) { [weak self] result in
-                guard let self = self else { return }
-                switch result {
-                case let .success(gameInfo):
-                    detailGame = gameInfo
-                case let .failure(error):
-                    shortInfoTask.cancel()
-                    whenGamesLoaded.cancel()
-                    self.output?.interactor(self, didFailLoadingGameInfo: error)
-                }
-                dispatchGroup.leave()
-            }
-        }
-
-        for task in [shortInfoTask, detailInfoTask] {
-            asyncExecutor.async {
-                task?.perform()
+            switch result {
+            case let .success(gameInfo):
+                self.output?.interactor(self, didLoad: gameInfo)
+            case let .failure(error):
+                self.output?.interactor(self, didFailLoadingGameInfo: error)
             }
         }
     }
