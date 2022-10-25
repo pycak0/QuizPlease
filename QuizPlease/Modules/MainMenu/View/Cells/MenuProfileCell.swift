@@ -19,6 +19,9 @@ class MenuProfileCell: UITableViewCell, MenuCellItemProtocol {
 
     weak var delegate: MenuProfileCellDelegate?
 
+    private let numberDecorator = BigNumberDecorator()
+    private let pointsDecorator = PointsDecorator()
+
     @IBOutlet weak var cellView: UIView!
     @IBOutlet weak var gradientView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -56,10 +59,10 @@ class MenuProfileCell: UITableViewCell, MenuCellItemProtocol {
 
     func setUserPoints(_ points: Double) {
         accessoryLabel.text = {
-            if points >= 100_000, let pointsFormatted = BigNumberDecorator().string(from: points as NSNumber) {
-                return "\(pointsFormatted) баллов"
+            if points >= 100_000 {
+                return numberDecorator.string(from: points as NSNumber).map { "\($0) баллов" }
             } else {
-                return PointsDecorator().string(from: points as NSNumber)
+                return pointsDecorator.string(from: points as NSNumber)
             }
         }()
         accessoryLabel.isHidden = false
@@ -78,11 +81,19 @@ class MenuProfileCell: UITableViewCell, MenuCellItemProtocol {
     func configureViews() {
         accessoryLabel.isHidden = true
         commentLabel.textColor = UIColor.black.withAlphaComponent(0.5)
+        commentLabel.text = "Добавляйте игры, получайте баллы и тратьте их на приятности!"
 
-        cellView.addGradient(colors: [.yellow, .lightOrange],
-                             frame: CGRect(origin: contentView.bounds.origin,
-                                           size: CGSize(width: UIScreen.main.bounds.width,
-                                                        height: contentView.bounds.height)), insertAt: 0)
+        cellView.addGradient(
+            colors: [.yellow, .lightOrange],
+            frame: CGRect(
+                origin: contentView.bounds.origin,
+                size: CGSize(
+                    width: UIScreen.main.bounds.width,
+                    height: contentView.bounds.height
+                )
+            ),
+            insertAt: 0
+        )
         // gradientView.addGradient(colors: [.yellow, .lightOrange], frame: contentView.bounds)
     }
 }
