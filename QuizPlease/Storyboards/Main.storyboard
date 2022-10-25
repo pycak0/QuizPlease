@@ -1847,7 +1847,7 @@
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Здесь все ваши игры и баллы, которые можно потратить на ништяки" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" minimumFontSize="14" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dAi-cf-yfW">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Здесь все ваши игры и баллы, которые можно потратить на приятности" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" minimumFontSize="14" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dAi-cf-yfW">
                                                     <rect key="frame" x="16" y="84.666666666666671" width="224" height="49.000000000000014"/>
                                                     <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="14"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1864,7 +1864,7 @@
                                                         <constraint firstAttribute="height" constant="40" id="f9x-Tr-pwN"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="16"/>
-                                                    <state key="normal" title="Смотреть">
+                                                    <state key="normal" title="Магазин">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </state>
                                                     <connections>
@@ -2445,13 +2445,13 @@
     </scenes>
     <designables>
         <designable name="Ozp-8d-wSt">
-            <size key="intrinsicContentSize" width="77.333333333333343" height="21"/>
+            <size key="intrinsicContentSize" width="76" height="22"/>
         </designable>
         <designable name="v7Q-1I-FH4">
-            <size key="intrinsicContentSize" width="54.333333333333336" height="16.333333333333332"/>
+            <size key="intrinsicContentSize" width="56" height="17"/>
         </designable>
         <designable name="zbv-jy-ImX">
-            <size key="intrinsicContentSize" width="25.666666666666668" height="16.333333333333332"/>
+            <size key="intrinsicContentSize" width="27.333333333333332" height="17"/>
         </designable>
     </designables>
     <inferredMetricsTieBreakers>
@@ -2488,7 +2488,7 @@
         <image name="radioImage" width="110" height="145"/>
         <image name="teapotImage" width="178" height="246"/>
         <image name="tick" width="64" height="47"/>
-        <image name="warmupPreview" width="375" height="227"/>
+        <image name="warmupPreview" width="573" height="227"/>
         <namedColor name="darkBlue">
             <color red="0.25882352941176473" green="0.16078431372549021" blue="0.46274509803921571" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

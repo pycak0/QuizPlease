@@ -149,7 +149,7 @@ extension ProfileVC: ProfileViewProtocol {
     }
 
     func setCity(_ city: String) {
-        cityLabel.text = "Игры, на кототрых Вы зажигали в городе: \(city)"
+        cityLabel.text = "Игры, на кототрых вы зажигали в городе: \(city)"
     }
 
     func showExitOrDeleteActionSheet(onExit: @escaping () -> Void, onDelete: @escaping () -> Void) {

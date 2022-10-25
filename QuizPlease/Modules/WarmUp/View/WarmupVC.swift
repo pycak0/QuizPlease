@@ -167,9 +167,11 @@ extension WarmupVC: WarmupViewProtocol {
             withAssociatedFirstCaseWord: "секунда",
             changingCase: .nominative
         )
-        infoLabel.text = "Тут будут появляться новые вопросы разминки. " +
-        "Ваша задача — ответить правильно и максимально быстро. " +
-        "В случае неправильного ответа к таймеру добавится \(secondsFormatted)."
+        infoLabel.text = """
+        Тут будут появляться новые вопросы разминки.
+        Ваша задача: ответить правильно и максимально быстро.
+        В случае неправильного ответа к таймеру добавится \(secondsFormatted).
+        """
     }
 
     func startGame() {
