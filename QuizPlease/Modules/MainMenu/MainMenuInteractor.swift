@@ -12,6 +12,8 @@ protocol MainMenuInteractorProtocol: AnyObject {
     /// must be weak
     var output: MainMenuInteractorOutput? { get }
 
+    func postMainScreenLoaded()
+
     func loadMenuItems()
     func loadUserInfo()
     func loadShopItems()
@@ -31,6 +33,10 @@ protocol MainMenuInteractorOutput: AnyObject {
 
 class MainMenuInteractor: MainMenuInteractorProtocol {
     weak var output: MainMenuInteractorOutput?
+
+    func postMainScreenLoaded() {
+        NotificationCenter.default.post(name: .mainScreenLoaded, object: nil)
+    }
 
     func loadMenuItems() {
         var items = MainMenuItemKind.allCases

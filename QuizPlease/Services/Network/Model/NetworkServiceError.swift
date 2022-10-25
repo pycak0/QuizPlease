@@ -13,4 +13,21 @@ enum NetworkServiceError: Error {
     case serverError(_ statusCode: Int)
     case decoding(Error)
     case other(Error)
+
+    var localizedDescription: String {
+        switch self {
+        case .invalidUrl:
+            return "Request URL is invalid"
+        case .jsonError:
+            return "JSON Decoding Error"
+        case .encodingError:
+            return "Encoding Error"
+        case .invalidToken:
+            return "Unauthorized"
+        case let .serverError(statusCode):
+            return "Server Side Error. Status Code: \(statusCode)"
+        case let .decoding(error), let .other(error):
+            return error.localizedDescription
+        }
+    }
 }

@@ -41,14 +41,14 @@ struct GameInfo: Decodable {
     private var text_block: String?
 
     private var status: Int?
-    private var isFewPlaces: Bool?
+    private var is_little_place: Int?
 
     private var price: String = placeholderValue
     /// Describing price e.g. "с человека". Use `priceDetails` instead of this
     private var text: String = ""
 
     private var place: String = placeholderValue
-    private var address: String = placeholderValue
+    private var address: String? = placeholderValue
     private var cityName: String = ""
     private var payment_icon: Int = 0
     private var game_type: Int = 0
@@ -62,25 +62,27 @@ struct GameInfo: Decodable {
     /// Vacant places
     private var blockOf: Int = 0
 
+    init() { }
+
     init(shortInfo: GameShortInfo) {
         id = shortInfo.id
         date = shortInfo.date
         special_mobile_banner = shortInfo.special_mobile_banner
-        isFewPlaces = (shortInfo.is_little_place ?? 0) == 1
+        is_little_place = shortInfo.is_little_place
     }
 
     mutating func setShortInfo(_ shortInfo: GameShortInfo) {
         id = shortInfo.id
         date = shortInfo.date
         special_mobile_banner = shortInfo.special_mobile_banner
-        isFewPlaces = (shortInfo.is_little_place ?? 0) == 1
+        is_little_place = shortInfo.is_little_place
     }
 
     mutating func setShortInfo(_ shortInfo: GameInfo) {
         id = shortInfo.id
         date = shortInfo.date
         special_mobile_banner = shortInfo.special_mobile_banner
-        isFewPlaces = shortInfo.isFewPlaces
+        is_little_place = shortInfo.is_little_place
     }
 }
 
@@ -95,7 +97,7 @@ extension GameInfo {
         return Place(
             name: place,
             cityName: cityName,
-            address: address,
+            address: address ?? "",
             latitude: latitude,
             longitude: longitude
         )
@@ -141,7 +143,7 @@ extension GameInfo {
 
     var gameStatus: GameStatus? {
         let realStatus = GameStatus(rawValue: self.status ?? -999)
-        let isFewPlacesFlagEnabled = isFewPlaces ?? false
+        let isFewPlacesFlagEnabled = ((is_little_place ?? 0) == 1)
         let displayStatus = (isFewPlacesFlagEnabled && realStatus == .placesAvailable)
             ? .fewPlaces
             : realStatus

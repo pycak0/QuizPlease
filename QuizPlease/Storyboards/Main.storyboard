@@ -234,7 +234,7 @@
         <!--Расписание игр-->
         <scene sceneID="Wkg-ye-w7i">
             <objects>
-                <viewController id="UZG-kg-EzM" customClass="ScheduleVC" customModule="QuizPlease" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ScheduleVC" id="UZG-kg-EzM" customClass="ScheduleVC" customModule="QuizPlease" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vrO-eO-2qd">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1056,7 +1056,7 @@
         <!--Game OrderVC-->
         <scene sceneID="iTE-1J-euP">
             <objects>
-                <viewController id="hGT-Iz-M2s" customClass="GameOrderVC" customModule="QuizPlease" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GameOrderVC" id="hGT-Iz-M2s" customClass="GameOrderVC" customModule="QuizPlease" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bSr-Tq-E4k">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1831,13 +1831,13 @@
                                             <rect key="frame" x="0.0" y="0.0" width="390" height="150"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Загрузка…" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QOB-kX-Edq">
-                                                    <rect key="frame" x="16" y="15.999999999999998" width="358" height="19.333333333333329"/>
+                                                    <rect key="frame" x="16" y="16" width="358" height="18.666666666666671"/>
                                                     <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zbv-jy-ImX" customClass="PaddingLabel" customModule="QuizPlease" customModuleProvider="target">
-                                                    <rect key="frame" x="16" y="43.333333333333336" width="110" height="30.000000000000007"/>
+                                                    <rect key="frame" x="16" y="42.666666666666664" width="110" height="29.999999999999993"/>
                                                     <color key="backgroundColor" systemColor="viewFlipsideBackgroundColor"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="110" id="qPP-EH-rVA"/>
@@ -1847,8 +1847,8 @@
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Здесь все ваши игры и баллы, которые можно потратить на ништяки" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" minimumFontSize="14" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dAi-cf-yfW">
-                                                    <rect key="frame" x="16" y="85.333333333333329" width="224" height="50.333333333333329"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Здесь все ваши игры и баллы, которые можно потратить на приятности" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" minimumFontSize="14" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dAi-cf-yfW">
+                                                    <rect key="frame" x="16" y="84.666666666666671" width="224" height="49.000000000000014"/>
                                                     <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy" pointSize="14"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
@@ -1857,14 +1857,14 @@
                                                     <rect key="frame" x="254" y="16" width="136" height="174"/>
                                                 </imageView>
                                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pOZ-Rz-FRq">
-                                                    <rect key="frame" x="254" y="90.666666666666671" width="120" height="40.000000000000014"/>
+                                                    <rect key="frame" x="254" y="89.333333333333329" width="120" height="39.999999999999986"/>
                                                     <color key="backgroundColor" name="themePurple"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="120" id="YWj-rr-zNW"/>
                                                         <constraint firstAttribute="height" constant="40" id="f9x-Tr-pwN"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="16"/>
-                                                    <state key="normal" title="Смотреть">
+                                                    <state key="normal" title="Магазин">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </state>
                                                     <connections>
@@ -1922,18 +1922,18 @@
                                                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0y9-iW-geg">
                                                     <rect key="frame" x="16" y="5" width="358" height="190"/>
                                                     <subviews>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.10000000000000001" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoSmall" translatesAutoresizingMaskIntoConstraints="NO" id="TYD-XW-cvU">
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TYD-XW-cvU">
                                                             <rect key="frame" x="0.0" y="0.0" width="358" height="190"/>
                                                             <color key="tintColor" name="lemon"/>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="[кино и музыка]" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ntf-KH-fTu">
-                                                            <rect key="frame" x="16" y="20" width="207.33333333333334" height="34"/>
+                                                            <rect key="frame" x="16" y="20" width="205.33333333333334" height="34"/>
                                                             <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="28"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#1000" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dia-4Q-MjH">
-                                                            <rect key="frame" x="260.66666666666669" y="20" width="81.333333333333314" height="34"/>
+                                                            <rect key="frame" x="264" y="20.666666666666668" width="78" height="32.666666666666657"/>
                                                             <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="28"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -2039,7 +2039,7 @@
                                                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pAP-rH-tFS">
                                                     <rect key="frame" x="16" y="5" width="358" height="190"/>
                                                     <subviews>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.10000000149011612" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoSmall" translatesAutoresizingMaskIntoConstraints="NO" id="tMs-Dw-A3H">
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tMs-Dw-A3H">
                                                             <rect key="frame" x="0.0" y="0.0" width="358" height="190"/>
                                                             <color key="tintColor" name="lemon"/>
                                                         </imageView>
@@ -2475,7 +2475,7 @@
         <image name="filter" width="42" height="42"/>
         <image name="flash" width="12" height="21"/>
         <image name="frames" width="204" height="210"/>
-        <image name="gameInfoTemplate" width="374" height="270"/>
+        <image name="gameInfoTemplate" width="125.33333587646484" height="90.666664123535156"/>
         <image name="homeGameBackground" width="375" height="650"/>
         <image name="launchScreenBackground" width="375" height="812"/>
         <image name="lock" width="12" height="16"/>
@@ -2488,7 +2488,7 @@
         <image name="radioImage" width="110" height="145"/>
         <image name="teapotImage" width="178" height="246"/>
         <image name="tick" width="64" height="47"/>
-        <image name="warmupPreview" width="375" height="227"/>
+        <image name="warmupPreview" width="573" height="227"/>
         <namedColor name="darkBlue">
             <color red="0.25882352941176473" green="0.16078431372549021" blue="0.46274509803921571" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

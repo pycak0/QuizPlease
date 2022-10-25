@@ -12,27 +12,27 @@ protocol GameOrderConfiguratorProtocol {
     func configure(_ viewController: GameOrderViewProtocol, with gameInfo: GameOrderPresentationOptions)
 }
 
-class GameOrderConfigurator: GameOrderConfiguratorProtocol {
+final class GameOrderConfigurator: GameOrderConfiguratorProtocol {
     func configure(_ viewController: GameOrderViewProtocol, with options: GameOrderPresentationOptions) {
-        let interactor = GameOrderInteractor(networkService: NetworkService.shared)
+        let interactor = GameOrderInteractor(
+            networkService: NetworkService.shared,
+            asyncExecutor: ConcurrentExecutorImpl()
+        )
         let router = GameOrderRouter(viewController: viewController)
         let presenter = GameOrderPresenter(
             view: viewController,
             interactor: interactor,
             router: router,
             registerForm: RegisterForm(
-                cityId: options.city.id,
+                cityId: options.cityId,
                 gameId: options.gameInfo.id
             ),
-            gameInfo: options.gameInfo
+            gameInfo: options.gameInfo,
+            scrollToSignUp: options.shouldScrollToSignUp,
+            loadGameInfo: options.shouldLoadGameInfo
         )
         presenter.game = options.gameInfo
         interactor.output = presenter
         viewController.presenter = presenter
-        viewController.shouldScrollToSignUp = options.shouldScrollToSignUp
-        viewController.prepareNavigationBar(
-            title: options.gameInfo.fullTitle,
-            barStyle: .transcluent(tintColor: viewController.view.backgroundColor)
-        )
     }
 }

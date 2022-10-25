@@ -61,19 +61,43 @@ final class HomeGameVideoVC: UIViewController {
     @IBOutlet private weak var videoView: VideoView! {
         didSet {
             videoView.configureVideoView(parent: self)
+            videoView.showsPlaybackControls = false
             videoView.layer.cornerRadius = Constants.videoCornerRadius
         }
     }
+
+    private lazy var playButton: UIButton = {
+        let button = ScalingButton()
+        let image = UIImage(named: "play.circle")
+        button.setImage(image, for: .normal)
+        button.setImage(image, for: .highlighted)
+        button.isHidden = true
+        button.addTarget(self, action: #selector(playButtonPressed), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.dropShadow()
+        return button
+    }()
 
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareNavigationBar(title: homeGame.fullTitle, tintColor: .white, barStyle: .transparent)
+        configure()
         loadDetail()
     }
 
     // MARK: - Private Methods
+
+    private func configure() {
+        videoView.addSubview(playButton)
+        NSLayoutConstraint.activate([
+            playButton.centerXAnchor.constraint(equalTo: videoView.centerXAnchor),
+            playButton.centerYAnchor.constraint(equalTo: videoView.centerYAnchor),
+            playButton.widthAnchor.constraint(equalToConstant: 120),
+            playButton.heightAnchor.constraint(equalTo: playButton.widthAnchor)
+        ])
+    }
 
     @objc private func rulesButtonPressed(_ sender: UIButton) {
         openUrl(with: Constants.gameRulesPath, accentColor: sender.backgroundColor)
@@ -81,6 +105,13 @@ final class HomeGameVideoVC: UIViewController {
 
     @objc private func blanksButtonPressed(_ sender: UIButton) {
         openUrl(with: homeGame.blanksPath, accentColor: sender.backgroundColor)
+    }
+
+    @objc private func playButtonPressed() {
+        videoView.play()
+        playButton.isHidden = true
+        videoView.imageView.isHidden = true
+        videoView.showsPlaybackControls = true
     }
 
     private func openUrl(with path: String?, accentColor: UIColor!) {
@@ -110,7 +141,13 @@ final class HomeGameVideoVC: UIViewController {
 
     private func updateUI() {
         videoView.configurePlayer(url: homeGame.videoUrl, shouldAutoPlay: false)
-        videoView.imageView.loadImage(path: homeGame.frontImagePath)
+        videoView.imageView.loadImage(path: homeGame.frontImagePath) { [weak self] image in
+            if image == nil {
+                self?.videoView.showsPlaybackControls = true
+            } else {
+                self?.playButton.isHidden = false
+            }
+        }
         descriptionLabel.text = homeGame.description ?? "..."
     }
 }

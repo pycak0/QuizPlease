@@ -60,7 +60,7 @@ enum MainMenuItemKind: Int, CaseIterable, MainMenuItemProtocol {
         switch self {
         case .schedule:     return "Расписание"
         case .profile:      return "Личный кабинет"
-        case .homeGame:     return "Хоум милый хоум"
+        case .homeGame:     return "Хоум, милый хоум"
         case .warmup:       return "Разминка"
         case .shop:         return "Магазин"
         case .rating:       return "Рейтинг команд"

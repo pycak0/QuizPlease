@@ -16,6 +16,8 @@ protocol GameOrderInteractorProtocol {
     /// must be weak
     var output: GameOrderInteractorOutput? { get }
 
+    func loadGameInfo(id: Int)
+
     func register(
         with form: RegisterForm,
         specialConditions: [SpecialCondition],
@@ -50,6 +52,16 @@ protocol GameOrderInteractorProtocol {
 
 protocol GameOrderInteractorOutput: AnyObject {
 
+    func interactor(
+        _ interactor: GameOrderInteractorProtocol,
+        didFailLoadingGameInfo error: NetworkServiceError
+    )
+
+    func interactor(
+        _ interactor: GameOrderInteractorProtocol,
+        didLoad gameInfo: GameInfo
+    )
+
     func interactor(_ interactor: GameOrderInteractorProtocol?, errorOccured error: NetworkServiceError)
 
     func interactor(
@@ -67,13 +79,32 @@ protocol GameOrderInteractorOutput: AnyObject {
 
 // MARK: - Implementation
 
-class GameOrderInteractor: GameOrderInteractorProtocol {
+final class GameOrderInteractor: GameOrderInteractorProtocol {
 
     private let networkService: NetworkService
+    private let asyncExecutor: AsyncExecutor
+
     weak var output: GameOrderInteractorOutput?
 
-    init(networkService: NetworkService) {
+    /// Initializer
+    init(
+        networkService: NetworkService,
+        asyncExecutor: AsyncExecutor
+    ) {
         self.networkService = networkService
+        self.asyncExecutor = asyncExecutor
+    }
+
+    func loadGameInfo(id: Int) {
+        networkService.getGameInfo(by: id) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case let .success(gameInfo):
+                self.output?.interactor(self, didLoad: gameInfo)
+            case let .failure(error):
+                self.output?.interactor(self, didFailLoadingGameInfo: error)
+            }
+        }
     }
 
     func register(

@@ -10,18 +10,24 @@ import UIKit
 
 final class ProfileCell: UITableViewCell, IdentifiableType {
 
-    @IBOutlet weak var backgroundImageView: UIImageView!
-    @IBOutlet weak var gameNameLabel: UILabel!
-    @IBOutlet weak var gameNumberLabel: UILabel!
-    @IBOutlet weak var prizeImageView: UIImageView!
-    @IBOutlet weak var placeLabel: UILabel!
-    @IBOutlet weak var teamNameLabel: UILabel!
-    @IBOutlet weak var pointsScoredLabel: PaddingLabel!
-    @IBOutlet weak var cellView: UIView! {
+    @IBOutlet private weak var gameNameLabel: UILabel!
+    @IBOutlet private weak var gameNumberLabel: UILabel!
+    @IBOutlet private weak var prizeImageView: UIImageView!
+    @IBOutlet private weak var placeLabel: UILabel!
+    @IBOutlet private weak var teamNameLabel: UILabel!
+    @IBOutlet private weak var pointsScoredLabel: PaddingLabel!
+
+    @IBOutlet private weak var cellView: UIView! {
         didSet {
             cellView.layer.cornerRadius = 20
             cellView.layer.borderWidth = 4
             cellView.layer.borderColor = UIColor.systemGray6Adapted.cgColor
+        }
+    }
+
+    @IBOutlet private weak var backgroundImageView: UIImageView! {
+        didSet {
+            backgroundImageView.image = UIImage(named: "profile.game.background")
         }
     }
 
