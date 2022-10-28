@@ -585,8 +585,8 @@ class NetworkService {
         authUrlComps.path = "/api/auth/token"
         let parameters = [
             "phone": phoneNumber,
-            "code": smsCode
-            // "device_id": firebaseId
+            "code": smsCode,
+            "device_id": firebaseId
         ]
         afPostAuth(with: parameters, to: authUrlComps, completion: completion)
     }

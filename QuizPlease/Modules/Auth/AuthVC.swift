@@ -114,7 +114,7 @@ final class AuthVC: UIViewController {
 
     // MARK: - Auth
     private func auth(with phoneNumber: String, smsCode: String) {
-        let firebaseId = ""
+        let firebaseId = DefaultsManager.shared.getFcmToken() ?? ""
         NetworkService.shared.authenticate(
             phoneNumber: phoneNumber,
             smsCode: smsCode,
