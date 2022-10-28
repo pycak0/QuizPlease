@@ -57,44 +57,28 @@ struct WarmupQuestion {
     }()
 
     lazy var type: WarmupQuestionType = {
-        guard fileUrl != nil else {
+        guard let url = fileUrl else {
             return .text
         }
-        if imageUrl != nil {
+        let mediaFormat = url.pathExtension
+
+        if MediaConfiguration.knownImageFormats.contains(mediaFormat) {
             return .imageWithText
         }
-        if videoUrl != nil {
+        if MediaConfiguration.knownVideoFormats.contains(mediaFormat) {
             return .videoWithText
         }
-        if soundUrl != nil {
+        if MediaConfiguration.knownAudioFormats.contains(mediaFormat) {
             return .soundWithText
         }
         return .text
     }()
 
-    lazy var imageUrl: URL? = {
-        if let url = fileUrl,
-           MediaConfiguration.knownImageFormats.contains(url.pathExtension) {
-            return url
-        }
-        return nil
-    }()
+    lazy var imageUrl: URL? = fileUrl
 
-    lazy var videoUrl: URL? = {
-        if let url = fileUrl,
-           MediaConfiguration.knownVideoFormats.contains(url.pathExtension) {
-            return url
-        }
-        return nil
-    }()
+    lazy var videoUrl: URL? = fileUrl
 
-    lazy var soundUrl: URL? = {
-        if let url = fileUrl,
-           MediaConfiguration.knownAudioFormats.contains(url.pathExtension) {
-            return url
-        }
-        return nil
-    }()
+    lazy var soundUrl: URL? = fileUrl
 }
 
 // MARK: - Decodable
