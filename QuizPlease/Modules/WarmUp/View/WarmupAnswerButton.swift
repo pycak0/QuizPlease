@@ -20,7 +20,7 @@ class WarmupAnswerButton: UIButton {
         let color: UIColor = isCorrect ? .lightGreen : .red
         backgroundColor = color
         if !isCorrect {
-            shakeAnimation()
+            shake()
         }
     }
 

@@ -77,6 +77,7 @@ class MainMenuVC: UIViewController {
 
     @objc private func didLongTap(_ sender: UILongPressGestureRecognizer) {
         if sender.state == .began {
+            sender.view?.bounce()
             UIImpactFeedbackGenerator().impactOccurred()
             presenter.didLongTapOnLogo()
         }

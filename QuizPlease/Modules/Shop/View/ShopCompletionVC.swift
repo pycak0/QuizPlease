@@ -71,7 +71,7 @@ final class ShopCompletionVC: UIViewController {
             return
         }
         guard let text = textFieldView.textField.text, text.isValidEmail else {
-            textFieldView.shakeAnimation()
+            textFieldView.shake()
             return
         }
         purchase(withDelivryMethod: deliveryMethod, email: text)
