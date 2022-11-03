@@ -173,7 +173,7 @@ final class AuthVC: UIViewController {
     }
 
     private func showIncorrectInputNotification() {
-        textFieldView.shakeAnimation()
+        textFieldView.shake()
     }
 }
 

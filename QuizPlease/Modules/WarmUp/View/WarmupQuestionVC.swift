@@ -42,7 +42,7 @@ final class WarmupQuestionVC: UIViewController {
         let color: UIColor = isCorrect ? .lightGreen : .red
         selectedButton?.backgroundColor = color
         if !isCorrect {
-            selectedButton?.shakeAnimation()
+            selectedButton?.shake()
         }
     }
 

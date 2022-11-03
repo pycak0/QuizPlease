@@ -598,11 +598,6 @@ extension GameOrderPresenter: TokenizationModuleOutput {
         print("Payment successfully confirmed")
     }
 
-    func didSuccessfullyPassedCardSec(on module: TokenizationModuleInput) {
-        completeAfterConfirm()
-        print("3-D Secure process successfully passed")
-    }
-
     private func completeAfterConfirm() {
         DispatchQueue.main.async {
             self.view?.dismiss(animated: true) {

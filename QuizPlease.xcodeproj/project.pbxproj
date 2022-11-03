@@ -39,7 +39,7 @@
 		A40B75A024D9A875006DB7D1 /* RatingRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40B759F24D9A875006DB7D1 /* RatingRouter.swift */; };
 		A40B75A224D9A880006DB7D1 /* RatingConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40B75A124D9A880006DB7D1 /* RatingConfigurator.swift */; };
 		A40C807B252E7E7900CE40D8 /* DefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40C807A252E7E7900CE40D8 /* DefaultsManager.swift */; };
-		A40C807E252E857000CE40D8 /* UIView+Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40C807D252E857000CE40D8 /* UIView+Animation.swift */; };
+		A40C807E252E857000CE40D8 /* UIView+Shake.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40C807D252E857000CE40D8 /* UIView+Shake.swift */; };
 		A40C8086252E872D00CE40D8 /* WarmupAnswer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40C8085252E872D00CE40D8 /* WarmupAnswer.swift */; };
 		A40D815A24D2C6C1006D2CE3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40D815924D2C6C1006D2CE3 /* AppDelegate.swift */; };
 		A40D815C24D2C6C1006D2CE3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40D815B24D2C6C1006D2CE3 /* SceneDelegate.swift */; };
@@ -303,6 +303,7 @@
 		A4FB0485251790CD00054DE4 /* GOCPeopleNumberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FB0483251790CD00054DE4 /* GOCPeopleNumberCell.swift */; };
 		A4FB0486251790CD00054DE4 /* GOCPeopleNumberCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4FB0484251790CD00054DE4 /* GOCPeopleNumberCell.xib */; };
 		A4FCBC28263C8F1A0048D382 /* ShopPurchaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FCBC27263C8F1A0048D382 /* ShopPurchaseResponse.swift */; };
+		A4FE953C29146E9400D0109A /* UIView+Bounce.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FE953B29146E9400D0109A /* UIView+Bounce.swift */; };
 		A4FEB052273739F10052AD7B /* YMapsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FEB04C273739F10052AD7B /* YMapsProvider.swift */; };
 		A4FEB053273739F10052AD7B /* AppleMapsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FEB04D273739F10052AD7B /* AppleMapsProvider.swift */; };
 		A4FEB054273739F10052AD7B /* GMapsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FEB04E273739F10052AD7B /* GMapsProvider.swift */; };
@@ -354,7 +355,7 @@
 		A40B759F24D9A875006DB7D1 /* RatingRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingRouter.swift; sourceTree = "<group>"; };
 		A40B75A124D9A880006DB7D1 /* RatingConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingConfigurator.swift; sourceTree = "<group>"; };
 		A40C807A252E7E7900CE40D8 /* DefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultsManager.swift; sourceTree = "<group>"; };
-		A40C807D252E857000CE40D8 /* UIView+Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Animation.swift"; sourceTree = "<group>"; };
+		A40C807D252E857000CE40D8 /* UIView+Shake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Shake.swift"; sourceTree = "<group>"; };
 		A40C8085252E872D00CE40D8 /* WarmupAnswer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarmupAnswer.swift; sourceTree = "<group>"; };
 		A40D815624D2C6C1006D2CE3 /* QuizPlease.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuizPlease.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A40D815924D2C6C1006D2CE3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -620,6 +621,7 @@
 		A4FB0483251790CD00054DE4 /* GOCPeopleNumberCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GOCPeopleNumberCell.swift; sourceTree = "<group>"; };
 		A4FB0484251790CD00054DE4 /* GOCPeopleNumberCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GOCPeopleNumberCell.xib; sourceTree = "<group>"; };
 		A4FCBC27263C8F1A0048D382 /* ShopPurchaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopPurchaseResponse.swift; sourceTree = "<group>"; };
+		A4FE953B29146E9400D0109A /* UIView+Bounce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Bounce.swift"; sourceTree = "<group>"; };
 		A4FEB04C273739F10052AD7B /* YMapsProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YMapsProvider.swift; sourceTree = "<group>"; };
 		A4FEB04D273739F10052AD7B /* AppleMapsProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppleMapsProvider.swift; sourceTree = "<group>"; };
 		A4FEB04E273739F10052AD7B /* GMapsProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GMapsProvider.swift; sourceTree = "<group>"; };
@@ -672,11 +674,12 @@
 			isa = PBXGroup;
 			children = (
 				A44A462B24F8EEC500C81F82 /* UIView+Blur.swift */,
-				A40C807D252E857000CE40D8 /* UIView+Animation.swift */,
+				A40C807D252E857000CE40D8 /* UIView+Shake.swift */,
 				A449B6E025C448BE00382962 /* UIView+Blurable.swift */,
 				A45241E126547A990058285C /* UIView+TapGestureRecognizer.swift */,
 				A45241E326547B660058285C /* UIView+Gradient.swift */,
 				A48290F128D9177000C87D18 /* UIView+Shadow.swift */,
+				A4FE953B29146E9400D0109A /* UIView+Bounce.swift */,
 			);
 			path = UIView;
 			sourceTree = "<group>";
@@ -1851,7 +1854,7 @@
 				A472D29E2528962A00AA9906 /* TeamInfo.swift in Sources */,
 				A48DFF7B24F4070200E47095 /* HomeGame.swift in Sources */,
 				A4E4400828E901A900514C0D /* CoreAssembly.swift in Sources */,
-				A40C807E252E857000CE40D8 /* UIView+Animation.swift in Sources */,
+				A40C807E252E857000CE40D8 /* UIView+Shake.swift in Sources */,
 				A4A065A224E47D1F0080E0D8 /* GameAnnotationCell.swift in Sources */,
 				A469F75924E3084D007FB332 /* ScheduleGameCell.swift in Sources */,
 				A4B129252739E1B20035C041 /* UIImage+Configuration.swift in Sources */,
@@ -1980,6 +1983,7 @@
 				A4FB0485251790CD00054DE4 /* GOCPeopleNumberCell.swift in Sources */,
 				A492B8752631AE6100AEC388 /* UIRefreshControl+Init.swift in Sources */,
 				A4822F68252CF85A004E05B9 /* GameStatus.swift in Sources */,
+				A4FE953C29146E9400D0109A /* UIView+Bounce.swift in Sources */,
 				A4358951265528D400B54C89 /* LoadingIndicator.swift in Sources */,
 				A40C8086252E872D00CE40D8 /* WarmupAnswer.swift in Sources */,
 				A4D44A2D28D14AC7004703B4 /* OnboardingScreenDelegate.swift in Sources */,

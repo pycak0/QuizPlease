@@ -27,9 +27,17 @@ class ConfirmVC: BottomPopupViewController {
     weak var delegate: ConfirmVCDelegate?
 
     // MARK: - Outlets
-    @IBOutlet private weak var itemImageView: UIImageView!
+    @IBOutlet private weak var itemImageView: UIImageView! {
+        didSet {
+            itemImageView.tintColor = .white
+        }
+    }
     @IBOutlet private weak var titleLabel: UILabel!
-    @IBOutlet private weak var descriptionLabel: UILabel!
+    @IBOutlet private weak var descriptionLabel: UILabel! {
+        didSet {
+            descriptionLabel.textColor = .white
+        }
+    }
     @IBOutlet private weak var confirmMessageLabel: UILabel!
     @IBOutlet private weak var cancelButton: ScalingButton!
     @IBOutlet private weak var confirmButton: ScalingButton!
@@ -56,7 +64,7 @@ class ConfirmVC: BottomPopupViewController {
     }
 
     private func setupData() {
-        itemImageView.loadImage(path: shopItem.imagePath, placeholderImage: .logoColoredImage)
+        itemImageView.loadImage(path: shopItem.imagePath, placeholderImage: .logoTemplateImage)
         descriptionLabel.text = shopItem.description
         titleLabel.text = shopItem.title
         let priceFormatted = shopItem.priceNumber.string(withAssociatedMaleWord: "балл")

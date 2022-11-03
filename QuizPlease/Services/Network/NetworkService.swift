@@ -361,8 +361,8 @@ class NetworkService {
 
         print("""
         \n=====
-        [\(Self.self).swift]
-        Request: \(url)
+        [\(Self.self).swift] REQUEST ⬆️
+        URL: \(url)
         HTTP Method: \(request.httpMethod!)
         Headers: \(request.allHTTPHeaderFields ?? [:])
         =====\n\n
@@ -379,7 +379,7 @@ class NetworkService {
 
             guard let response = response as? HTTPURLResponse else {
                 print("""
-                Error: Received Non-HTTP Response
+                🚫 Error: Received Non-HTTP Response
                 =====\n\n
                 """)
                 DispatchQueue.main.async {
@@ -390,13 +390,13 @@ class NetworkService {
 
             print("""
             \n=====
-            [\(Self.self).swift]
-            Response: \(url)
+            [\(Self.self).swift] RESPONSE ⬇️
+            URL: \(url)
             Status Code: \(response.statusCode)
             """)
             guard response.statusCode == 200, let data = data else {
                 print("""
-                Error: either status code != 200, or data is nil
+                ❌ Error: either status code != 200, or data is nil
                 =====\n\n
                 """)
                 DispatchQueue.main.async {
@@ -407,7 +407,7 @@ class NetworkService {
 
             print("""
             Body:
-            \(String(data: data, encoding: .utf8) ?? "JSON error.")
+            \(String(data: data, encoding: .utf8) ?? "❌ JSON error.")
             =====\n\n
             """)
             let result = NetworkService.mapResponse(data, to: type)
@@ -809,6 +809,7 @@ class NetworkService {
             return
         }
         let httpHeaders = headers.isEmpty ? nil : HTTPHeaders(headers)
+        let formDataMessage = "(Content-Disposition: form-data)"
         AF.upload(
             multipartFormData: { (multipartFormData) in
                 for object in multipartFormDataObjects {
@@ -823,11 +824,13 @@ class NetworkService {
             to: urlComponents,
             headers: httpHeaders
         ).responseData(queue: .global()) { (afResponse) in
+            let statusCode = afResponse.response?.statusCode.description ?? "unknown"
             print("""
             \n=====
-            [\(Self.self).swift]
-            afPost Response: \(afResponse.response?.url as Any)
-            Status Code: \(afResponse.response?.statusCode as Any)
+            [\(Self.self).swift] RESPONSE ⬇️
+            URL: \(afResponse.response?.url?.description ?? "unknown")
+            HTTP Method: \(afResponse.request?.httpMethod ?? "POST") \(formDataMessage)
+            Status Code: \(statusCode)
             """)
             switch afResponse.result {
             case let .failure(error):
@@ -847,8 +850,9 @@ class NetworkService {
         }
         print("""
         \n=====
-        [\(Self.self).swift]
-        afPost request: \(urlComponents.url as Any)
+        [\(Self.self).swift] REQUEST ⬆️
+        URL: \(urlComponents.url?.description ?? "unknown")
+        HTTP Method: POST \(formDataMessage)
         Headers: \(headers)
         Body parameters: \(multipartFormDataObjects)
         =====\n\n
@@ -912,8 +916,8 @@ class NetworkService {
         request.httpBody = data
         print("""
         \n=====
-        [\(Self.self).swift]
-        Request: \(url)
+        [\(Self.self).swift] REQUEST ⬆️
+        URL: \(url)
         HTTP Method: \(request.httpMethod!)
         Headers: \(request.allHTTPHeaderFields ?? [:])
         =====\n\n
@@ -928,7 +932,7 @@ class NetworkService {
 
             guard let response = response as? HTTPURLResponse else {
                 print("""
-                Error: Received Non-HTTP Response.
+                🚫 Error: Received Non-HTTP Response
                 =====\n\n
                 """)
                 DispatchQueue.main.async {
@@ -939,12 +943,12 @@ class NetworkService {
 
             print("""
             \n=====
-            [\(Self.self).swift]
-            Response: \(url)
+            [\(Self.self).swift] RESPONSE ⬇️
+            URL: \(url)
             Status Code: \(response.statusCode)
             """)
             guard let data = data else {
-                print("Error. HTTP Response: \(response)")
+                print("❌ Error. HTTP Response: \(response)")
                 print("=====\n\n")
                 DispatchQueue.main.async {
                     completion(.failure(.serverError(response.statusCode)))
@@ -953,7 +957,7 @@ class NetworkService {
             }
             print("""
             Body:
-            \(String(data: data, encoding: .utf8) ?? "JSON error.")
+            \(String(data: data, encoding: .utf8) ?? "❌ JSON error.")
             =====\n\n
             """)
             DispatchQueue.main.async {
