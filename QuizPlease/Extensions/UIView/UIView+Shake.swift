@@ -1,5 +1,5 @@
 //
-//  UIView+Animation.swift
+//  UIView+Shake.swift
 //  QuizPlease
 //
 //  Created by Владислав on 08.10.2020.
@@ -9,7 +9,9 @@
 import UIKit
 
 extension UIView {
-    func shakeAnimation(duration: Double = 0.4, dampingRatio: Double = 0.2, completion: (() -> Void)? = nil) {
+
+    /// Shake view horizontally with animation
+    func shake(duration: Double = 0.4, dampingRatio: Double = 0.2, completion: (() -> Void)? = nil) {
         self.transform = CGAffineTransform(translationX: 30, y: 0)
         UIView.animate(
             withDuration: 0.4,

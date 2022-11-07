@@ -6,67 +6,85 @@
 //  Copyright © 2020 Владислав. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+// MARK: - MediaConfiguration
+
+private enum MediaConfiguration {
+
+    /// Known image formats
+    static let knownImageFormats: Set<String> = {
+        let fileExtensions = (CGImageSourceCopyTypeIdentifiers() as? [String])?
+            .compactMap { URL(string: $0)?.pathExtension } ?? []
+        return Set(fileExtensions)
+    }()
+
+    /// Known audio formats
+    static let knownAudioFormats: Set<String> = {
+        return Set(["aac", "adts", "ac3",
+                   "aif", "aiff", "aifc", "caf", "mp3",
+                   "m4a", "snd", "au", "sd2", "wav"])
+    }()
+
+    /// Known video formats
+    static let knownVideoFormats: Set<String> = {
+        return Set(["mp4", "mov", ".m4v", ".3gp"])
+    }()
+}
+
+// MARK: - WarmupQuestionType
 
 enum WarmupQuestionType: Int, CaseIterable, Decodable {
     case image, imageWithText, text, soundWithText, videoWithText
 }
 
+// MARK: - WarmupQuestion
+
 struct WarmupQuestion {
-    var id: String
-    var question: String?
-    var answers: [WarmupAnswer]
+    let id: String
+    let question: String?
+    let answers: [WarmupAnswer]
 
-    private var file: String?
+    private let file: String?
 
-    var type: WarmupQuestionType {
-        guard file != nil, file != "" else {
+    private lazy var fileUrl: URL? = {
+        guard let filePath = file?.pathProof, !filePath.isEmpty else {
+            return nil
+        }
+        var urlComps = NetworkService.shared.baseUrlComponents
+        urlComps.path = filePath
+        return urlComps.url
+    }()
+
+    lazy var type: WarmupQuestionType = {
+        guard let url = fileUrl else {
             return .text
         }
-        if imageUrl != nil {
+        let mediaFormat = url.pathExtension
+
+        if MediaConfiguration.knownImageFormats.contains(mediaFormat) {
             return .imageWithText
         }
-        if soundUrl != nil {
-            return .soundWithText
-        }
-        if videoUrl != nil {
+        if MediaConfiguration.knownVideoFormats.contains(mediaFormat) {
             return .videoWithText
         }
+        if MediaConfiguration.knownAudioFormats.contains(mediaFormat) {
+            return .soundWithText
+        }
         return .text
-    }
+    }()
 
-    var imageUrl: URL? {
-        if let url = makeUrl(from: file?.pathProof),
-           url.pathExtension == "jpg" || url.pathExtension == "png" {
-            return url
-        }
-        return nil
-    }
+    lazy var imageUrl: URL? = fileUrl
 
-    var videoUrl: URL? {
-        if let url = makeUrl(from: file?.pathProof), url.pathExtension == "mp4" {
-            return url
-        }
-        return nil
-    }
+    lazy var videoUrl: URL? = fileUrl
 
-    var soundUrl: URL? {
-        if let url = makeUrl(from: file?.pathProof), url.pathExtension == "mp3" {
-            return url
-        }
-        return nil
-    }
-
-    private func makeUrl(from path: String?) -> URL? {
-        guard let path = path else { return nil }
-        var urlComps = NetworkService.shared.baseUrlComponents // URLComponents(string: NetworkConfiguration.prod.host)
-        urlComps.path = path
-        return urlComps.url
-    }
+    lazy var soundUrl: URL? = fileUrl
 }
 
 // MARK: - Decodable
+
 extension WarmupQuestion: Decodable {
+
     private enum CodingKeys: String, CodingKey {
         case question, answers, file, id
     }
@@ -77,9 +95,8 @@ extension WarmupQuestion: Decodable {
 
         let answerString = try container.decode(String.self, forKey: .answers)
         let answerArray = try JSONDecoder().decode([String].self, from: Data(answerString.utf8))
-        answers = []
-        for (index, answer) in answerArray.enumerated() {
-            answers.append(WarmupAnswer(value: answer, id: index))
+        answers = answerArray.enumerated().map { (index, answer) in
+            WarmupAnswer(value: answer, id: index)
         }
         file = try container.decode(String.self, forKey: .file)
         id = try container.decode(String.self, forKey: .id)
