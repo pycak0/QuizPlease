@@ -21,7 +21,7 @@ protocol WarmupViewProtocol: UIViewController, LoadingIndicator {
     func showNextQuestion()
     func highlightCurrentAnswer(isCorrect: Bool)
     func setQuestions()
-    func showResults(with totalTimePassed: Double)
+    func showResults(with totalTimePassed: Double, resultText: String)
     func updatePassedTime(withMinutes minutes: Int, seconds: Int)
 
     func makeResultsSnapshot() -> UIImage?
@@ -44,7 +44,11 @@ final class WarmupVC: UIViewController {
     @IBOutlet private var progressRing: UICircularProgressRing!
     @IBOutlet private weak var minutesPassedItem: UIBarButtonItem!
 
-    @IBOutlet private weak var completionView: UIView!
+    @IBOutlet private weak var completionView: UIView! {
+        didSet {
+            completionView.isHidden = true
+        }
+    }
     @IBOutlet private weak var resultsView: UIView!
     @IBOutlet private weak var resultTextLabel: UILabel!
     @IBOutlet private weak var minutesLabel: UILabel!
@@ -138,12 +142,8 @@ final class WarmupVC: UIViewController {
 
     // MARK: - Set Results
 
-    private func setResults(with totalTimePassed: Double) {
-        let count = presenter.questions.count
-        let correct = presenter.correctAnswersCount
-        let correctQuestionsPrompt = correct.string(withAssociatedMaleWord: "вопрос")
-        resultTextLabel.text = "Я прошел разминку Квиз,\(String.nonBreakingSpace)плиз! "
-        + "и ответил правильно на \(correctQuestionsPrompt) из \(count)"
+    private func setResults(with totalTimePassed: Double, resultText: String) {
+        resultTextLabel.text = resultText
 
         let passedTime = totalTimePassed
         minutesLabel.text = String(format: "%02d", Int(passedTime) / 60)
@@ -194,10 +194,10 @@ extension WarmupVC: WarmupViewProtocol {
         pageVC.configure(with: presenter.questions, delegate: self)
     }
 
-    func showResults(with totalTimePassed: Double) {
+    func showResults(with totalTimePassed: Double, resultText: String) {
         navigationItem.setRightBarButtonItems(nil, animated: true)
         completionView.isHidden = false
-        setResults(with: totalTimePassed)
+        setResults(with: totalTimePassed, resultText: resultText)
     }
 
     func updatePassedTime(withMinutes minutes: Int, seconds: Int) {
@@ -215,7 +215,11 @@ extension WarmupVC: WarmupViewProtocol {
     }
 
     func makeResultsSnapshot() -> UIImage? {
-        resultsView.makeSnapshot()
+        // to support possible image transparency, e.g. rounded corners
+        if let data = resultsView.makeSnapshot()?.pngData() {
+            return UIImage(data: data)
+        }
+        return nil
     }
 }
 
