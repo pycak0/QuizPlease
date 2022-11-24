@@ -401,9 +401,15 @@ final class GameOrderPresenter: GameOrderPresenterProtocol {
             // отдельно количество оплаченных участников не указывается
             registerForm.countPaidOnline = nil
         }
+
+        // Если выбрана оплата онлайн, и оплата действительно требуется,
+        // то поднимаем юкассу и генерируем платежный токен
         if paymentSum > 0 {
             launchPayment(amount: paymentSum)
         } else {
+            // Если платеж не требуется, то для корректной отработки бэка
+            // нужно указать тип оплаты "на игре" / "наличными"
+            // и сразу отправить запрос на регистрацию без платежного токена
             registerForm.paymentType = .cash
             register()
         }

@@ -8,11 +8,16 @@
 
 import Foundation
 
+/// Тип сертификата
 enum CertificateDiscountType {
+    /// Сертификат на всю команду (без учета количества человек)
     case allTeamFree
+    /// Сертификат на игру для определенного количества человек
     case numberOfPeopleForFree(_ number: Int)
+    /// Нет скидки (скорее всего, ошибка в данных)
     case none
 
+    /// Создать тип сертификата по его коду
     init(rawValue: Int) {
         switch rawValue {
         case 0:
