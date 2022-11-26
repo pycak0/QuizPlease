@@ -52,8 +52,8 @@ final class TransitionFacade {
     /// Handle open URL contexts (method is intended to be called in the `SceneDelegate`)
     @available(iOS 13.0, *)
     func handleOpenUrlContexts(_ urlContexts: Set<UIOpenURLContext>) {
-        logInfo("Received URL to handle")
         guard let context = urlContexts.first else { return }
+        logInfo("Received URL to handle")
 
         let url = context.url
         if handleUrl(url) {

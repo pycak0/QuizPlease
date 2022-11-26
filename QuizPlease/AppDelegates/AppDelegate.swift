@@ -173,4 +173,29 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         // Change this to your preferred presentation option
         completionHandler([.alert, .badge, .sound])
     }
+
+    func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        didReceive response: UNNotificationResponse,
+        withCompletionHandler completionHandler: @escaping () -> Void
+    ) {
+        let userInfo = response.notification.request.content.userInfo
+
+        if let messageID = userInfo[gcmMessageIDKey] {
+            print("Message ID: \(messageID)")
+        }
+
+        if let gameId = userInfo["gameId"] {
+            print(gameId)
+        }
+
+        if let deeplink = userInfo["deeplink"] as? String, let url = URL(string: deeplink) {
+            transitionFacade.handleUrl(url)
+        }
+
+        // Print full message.
+        print(userInfo)
+
+        completionHandler()
+    }
 }
