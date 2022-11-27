@@ -9,7 +9,7 @@
 import UIKit
 
 /// Endpoint class for the GameOrder screen
-final class GameOrderEndpoint: ApplinkEndpoint {
+public final class GameOrderEndpoint: ApplinkEndpoint {
 
     static let identifier = "game"
 

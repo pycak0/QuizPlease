@@ -17,8 +17,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate {
 
     private let transitionFacade = CoreAssembly.shared.transitionFacade
 
-    let gcmMessageIDKey = "gcm.message_id"
-
     var window: UIWindow?
 
     // MARK: - Application Lifecycle
@@ -120,7 +118,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         // Messaging.messaging().appDidReceiveMessage(userInfo)
 
         // Print message ID.
-        if let messageID = userInfo[gcmMessageIDKey] {
+        if let messageID = userInfo[UserNotifications.gcmMessageIDKey] {
             print("Message ID: \(messageID)")
         }
 
@@ -141,7 +139,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         // Messaging.messaging().appDidReceiveMessage(userInfo)
 
         // Print message ID.
-        if let messageID = userInfo[gcmMessageIDKey] {
+        if let messageID = userInfo[UserNotifications.gcmMessageIDKey] {
             print("Message ID: \(messageID)")
         }
 
@@ -163,7 +161,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         // With swizzling disabled you must let Messaging know about the message, for Analytics
         // Messaging.messaging().appDidReceiveMessage(userInfo)
         // Print message ID.
-        if let messageID = userInfo[gcmMessageIDKey] {
+        if let messageID = userInfo[UserNotifications.gcmMessageIDKey] {
             print("Message ID: \(messageID)")
         }
 
@@ -180,22 +178,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         withCompletionHandler completionHandler: @escaping () -> Void
     ) {
         let userInfo = response.notification.request.content.userInfo
-
-        if let messageID = userInfo[gcmMessageIDKey] {
-            print("Message ID: \(messageID)")
-        }
-
-        if let gameId = userInfo["gameId"] {
-            print(gameId)
-        }
-
-        if let deeplink = userInfo["deeplink"] as? String, let url = URL(string: deeplink) {
-            transitionFacade.handleUrl(url)
-        }
-
-        // Print full message.
-        print(userInfo)
-
+        transitionFacade.handleUserNotification(info: userInfo)
         completionHandler()
     }
 }
