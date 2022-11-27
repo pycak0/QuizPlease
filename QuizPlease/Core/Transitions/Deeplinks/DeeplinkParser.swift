@@ -72,7 +72,7 @@ final class DeeplinkParserImpl: DeeplinkParser {
             }
 
         default:
-            return nil
+            break
         }
 
         return Applink(identifier: endpoint, parameters: parameters)
