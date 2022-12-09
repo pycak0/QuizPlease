@@ -11,7 +11,6 @@ import IQKeyboardManagerSwift
 import Firebase
 import UserNotificationsUI
 import PhoneNumberKit
-import Wormholy
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate {
@@ -26,7 +25,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate {
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
 
-        Wormholy.shakeEnabled = false
         FirebaseApp.configure()
         Messaging.messaging().delegate = self
 
