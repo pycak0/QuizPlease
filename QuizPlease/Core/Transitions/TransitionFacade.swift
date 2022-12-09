@@ -14,11 +14,18 @@ import YooKassaPayments
 final class TransitionFacade {
 
     private let deeplinkService: DeeplinkService
+    private let userNotificationsService: UserNotificationsService
 
     /// Initializer
-    /// - Parameter deeplinkService: Service that handles deeplinks and universal links
-    init(deeplinkService: DeeplinkService) {
+    /// - Parameters:
+    ///   - deeplinkService: Service that handles deeplinks and universal links
+    ///   - userNotificationsService: Service that handles user notifications
+    init(
+        deeplinkService: DeeplinkService,
+        userNotificationsService: UserNotificationsService
+    ) {
         self.deeplinkService = deeplinkService
+        self.userNotificationsService = userNotificationsService
     }
 
     /// Handle Scene connection options (method is intended to be called in the `SceneDelegate`)
@@ -52,8 +59,8 @@ final class TransitionFacade {
     /// Handle open URL contexts (method is intended to be called in the `SceneDelegate`)
     @available(iOS 13.0, *)
     func handleOpenUrlContexts(_ urlContexts: Set<UIOpenURLContext>) {
-        logInfo("Received URL to handle")
         guard let context = urlContexts.first else { return }
+        logInfo("Received URL to handle")
 
         let url = context.url
         if handleUrl(url) {
@@ -77,6 +84,14 @@ final class TransitionFacade {
     @discardableResult
     func handleUrl(_ url: URL) -> Bool {
         deeplinkService.handle(url: url)
+    }
+
+    /// Handle User Notification
+    /// - Parameter info: User Info dictionary containing notification data
+    /// - Returns: Boolean value indicating whether notification was handled (true) or not (false)
+    @discardableResult
+    func handleUserNotification(info: [AnyHashable: Any]) -> Bool {
+        userNotificationsService.handle(userInfo: info)
     }
 
     private func logInfo(_ message: String, file: String = #fileID, function: String = #function) {

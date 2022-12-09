@@ -72,14 +72,15 @@ final class ApplinkRouterImpl: ApplinkRouter {
         defer { pendingLink = nil }
         os_log(.info, "Starting to perform the transition")
 
-        let didShowSuccessfully = getEndpoint(with: link.identifier)?.show(parameters: link.parameters) ?? false
+        guard let endpoint = getEndpoint(with: link.identifier) else {
+            showDebugAlert(title: "Got link but didn't find any endpoint to show")
+            return
+        }
+
+        let didShowSuccessfully = endpoint.show(parameters: link.parameters)
 
         if !didShowSuccessfully {
-            #if DEBUG
-            // present error alert
-            guard let topVc = UIApplication.shared.getKeyWindow()?.topViewController else { return }
-            topVc.showSimpleAlert(title: "Got link but didn't find any endpoint to show")
-            #endif
+            showDebugAlert(title: "Target endpoint (\(endpoint)) refused to show the link")
         }
     }
 
@@ -109,5 +110,16 @@ final class ApplinkRouterImpl: ApplinkRouter {
         allClasses.deallocate()
 
         return classes
+    }
+
+    private func showDebugAlert(title: String) {
+        #if DEBUG
+        // present error alert
+        guard let topVc = UIApplication.shared.getKeyWindow()?.topViewController else { return }
+        let linkDescription = pendingLink.map { String(describing: $0) } ?? "null"
+        let keys = endpointsDictionary.keys.map { String($0) }
+        let validEndpointsIds = "Valid enpoint identifiers: \(keys)"
+        topVc.showSimpleAlert(title: title, message: "Link: \(linkDescription),\n\n\(validEndpointsIds)")
+        #endif
     }
 }

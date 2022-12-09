@@ -17,8 +17,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate {
 
     private let transitionFacade = CoreAssembly.shared.transitionFacade
 
-    let gcmMessageIDKey = "gcm.message_id"
-
     var window: UIWindow?
 
     // MARK: - Application Lifecycle
@@ -120,7 +118,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         // Messaging.messaging().appDidReceiveMessage(userInfo)
 
         // Print message ID.
-        if let messageID = userInfo[gcmMessageIDKey] {
+        if let messageID = userInfo[UserNotifications.gcmMessageIDKey] {
             print("Message ID: \(messageID)")
         }
 
@@ -141,7 +139,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         // Messaging.messaging().appDidReceiveMessage(userInfo)
 
         // Print message ID.
-        if let messageID = userInfo[gcmMessageIDKey] {
+        if let messageID = userInfo[UserNotifications.gcmMessageIDKey] {
             print("Message ID: \(messageID)")
         }
 
@@ -163,7 +161,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         // With swizzling disabled you must let Messaging know about the message, for Analytics
         // Messaging.messaging().appDidReceiveMessage(userInfo)
         // Print message ID.
-        if let messageID = userInfo[gcmMessageIDKey] {
+        if let messageID = userInfo[UserNotifications.gcmMessageIDKey] {
             print("Message ID: \(messageID)")
         }
 
@@ -172,5 +170,15 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
 
         // Change this to your preferred presentation option
         completionHandler([.alert, .badge, .sound])
+    }
+
+    func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        didReceive response: UNNotificationResponse,
+        withCompletionHandler completionHandler: @escaping () -> Void
+    ) {
+        let userInfo = response.notification.request.content.userInfo
+        transitionFacade.handleUserNotification(info: userInfo)
+        completionHandler()
     }
 }

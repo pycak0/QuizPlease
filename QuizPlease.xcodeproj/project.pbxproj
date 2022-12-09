@@ -283,6 +283,7 @@
 		A4E675F2255D76640011A801 /* AudioView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4E675F1255D76640011A801 /* AudioView.xib */; };
 		A4E675F4255D78400011A801 /* AudioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E675F3255D78400011A801 /* AudioView.swift */; };
 		A4E675F7255DB4AB0011A801 /* String+Validating.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E675F6255DB4AB0011A801 /* String+Validating.swift */; };
+		A4E86A34293260C800DB110F /* UserNotificationsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E86A33293260C800DB110F /* UserNotificationsService.swift */; };
 		A4E91EBC26C30D5C008C13A7 /* UIWindow+topViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E91EBB26C30D5C008C13A7 /* UIWindow+topViewController.swift */; };
 		A4E91EBE26C312BA008C13A7 /* WarmupQuestionsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E91EBD26C312BA008C13A7 /* WarmupQuestionsService.swift */; };
 		A4E91EC026C32310008C13A7 /* UIApplication+debugInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E91EBF26C32310008C13A7 /* UIApplication+debugInfo.swift */; };
@@ -601,6 +602,7 @@
 		A4E675F1255D76640011A801 /* AudioView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AudioView.xib; sourceTree = "<group>"; };
 		A4E675F3255D78400011A801 /* AudioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioView.swift; sourceTree = "<group>"; };
 		A4E675F6255DB4AB0011A801 /* String+Validating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Validating.swift"; sourceTree = "<group>"; };
+		A4E86A33293260C800DB110F /* UserNotificationsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNotificationsService.swift; sourceTree = "<group>"; };
 		A4E91EBB26C30D5C008C13A7 /* UIWindow+topViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+topViewController.swift"; sourceTree = "<group>"; };
 		A4E91EBD26C312BA008C13A7 /* WarmupQuestionsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarmupQuestionsService.swift; sourceTree = "<group>"; };
 		A4E91EBF26C32310008C13A7 /* UIApplication+debugInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+debugInfo.swift"; sourceTree = "<group>"; };
@@ -1118,6 +1120,7 @@
 		A491456828F0D61600C93290 /* Transitions */ = {
 			isa = PBXGroup;
 			children = (
+				A4E86A32293260B500DB110F /* UserNotifications */,
 				A4E4400528E8FEE700514C0D /* TransitionFacade.swift */,
 				A4E4400B28E9051C00514C0D /* Deeplinks */,
 				A491456128F0C03E00C93290 /* Applinks */,
@@ -1575,6 +1578,14 @@
 				A468C55228C5541E00962930 /* String+nonBreakingSpace.swift */,
 			);
 			path = String;
+			sourceTree = "<group>";
+		};
+		A4E86A32293260B500DB110F /* UserNotifications */ = {
+			isa = PBXGroup;
+			children = (
+				A4E86A33293260C800DB110F /* UserNotificationsService.swift */,
+			);
+			path = UserNotifications;
 			sourceTree = "<group>";
 		};
 		A4F2347B2685E0D200E6FC68 /* AnyCodable */ = {
@@ -2083,6 +2094,7 @@
 				A48290F228D9177000C87D18 /* UIView+Shadow.swift in Sources */,
 				A445C88D25436497003B68E8 /* ShopItemImage.swift in Sources */,
 				A453F5C028F341CD00CE20BA /* GameOrderPresentationOptions.swift in Sources */,
+				A4E86A34293260C800DB110F /* UserNotificationsService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
