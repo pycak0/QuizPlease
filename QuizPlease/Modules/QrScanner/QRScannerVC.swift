@@ -48,7 +48,11 @@ class QRScannerVC: UIViewController {
 
     private func checkCamera() {
         CameraChecker.checkCameraAccess(presentationController: self) { isGranted in
-            isGranted ? self.qrService.startCaptureSession() : self.dismiss(animated: true)
+            if isGranted {
+                DispatchQueue.global().async { self.qrService.startCaptureSession() }
+            } else {
+                self.dismiss(animated: true)
+            }
         }
     }
 

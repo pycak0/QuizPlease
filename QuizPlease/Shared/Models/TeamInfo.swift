@@ -20,11 +20,16 @@ struct TeamInfo: Decodable {
     var comment: String? = ""
 
     private var created_at: Double?
+    private var is_confirmed: Int?
 }
 
 extension TeamInfo {
     var createdAt: Date? {
         guard let seconds = created_at else { return nil }
         return Date(timeIntervalSince1970: seconds)
+    }
+
+    var isConfirmed: Bool {
+        is_confirmed == 1
     }
 }
