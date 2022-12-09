@@ -14,7 +14,7 @@ target 'QuizPlease' do
     :git => 'https://git.yoomoney.ru/scm/sdk/yookassa-payments-swift.git',
     :tag => '6.8.2'
 
-  pod 'Wormholy'
+  pod 'Wormholy', :configurations => ['Debug']
 
 end
 
