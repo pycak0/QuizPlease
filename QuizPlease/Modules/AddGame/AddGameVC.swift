@@ -122,7 +122,7 @@ final class AddGameVC: UIViewController {
                     self.navigationController?.popViewController(animated: true)
                 }
             case let .success(teams):
-                self.teamsInfo = teams
+                self.teamsInfo = teams.filter(\.isConfirmed)
                 self.loadGameInfo(with: teams[0].game_id)
             }
         }
