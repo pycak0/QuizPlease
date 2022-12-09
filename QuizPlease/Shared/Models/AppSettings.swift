@@ -33,6 +33,11 @@ public enum AppSettings {
         URL(string: "https://docs.google.com/document/d/1r5YlaJF5PEgPRrNn0SmrnqHNyzmD_PiM")!
     }()
 
+    /// App's URL on the App Store
+    public static let appStoreUrl: URL = {
+        URL(string: "https://apps.apple.com/ru/app/id1585713090")!
+    }()
+
     public static var isDebug: Bool {
         #if DEBUG
         return true

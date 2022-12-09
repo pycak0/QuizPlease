@@ -76,19 +76,26 @@ final class WarmupPresenter: WarmupPresenterProtocol {
 
     func gameEnded() {
         stopTimer()
-        view?.showResults(with: timePassed)
+        view?.showResults(with: timePassed, resultText: makeResultText())
         isGameStarted = false
     }
 
     func shareAction() {
-        if let image = view?.makeResultsSnapshot() {
-            router.showShareSheet(with: image)
-        } else {
+        guard let image = view?.makeResultsSnapshot() else {
             view?.showSimpleAlert(
-                title: "Не удалось поделиться картинкой",
+                title: "Не удалось поделиться результатом разминки",
                 message: "Пожалуйста, попробуйте поделиться ещё раз"
             )
+            return
         }
+
+        let shareText = """
+            Хэй! Я только что прошел разминку от Квиз, плиз! и ответил \(makeResultPrompt())
+            Можете попробовать в приложении.
+            А потом го на игру в бар: \(AppSettings.appStoreUrl)
+            """
+
+        router.showShareSheet(with: [shareText, image])
     }
 
     // MARK: - Private
@@ -118,6 +125,21 @@ final class WarmupPresenter: WarmupPresenterProtocol {
         timer = nil
         let timeElapsed: Double = Date().timeIntervalSince(timestamp) + totalPenaltyTime
         timePassed = timeElapsed
+    }
+
+    private func makeResultPrompt() -> String {
+        let count = questions.count
+        let correct = correctAnswersCount
+        let correctQuestionsPrompt = correct.string(withAssociatedMaleWord: "вопрос")
+        return "правильно на \(correctQuestionsPrompt) из \(count)."
+    }
+
+    private func makeResultText() -> String {
+        """
+        Супер (или нет, вы уж там сами решите)!
+        Вы ответили \(makeResultPrompt())
+        Можно (прям щас) рассказать друзьям.
+        """
     }
 }
 

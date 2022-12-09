@@ -19,7 +19,14 @@ final class CoreAssembly {
 
     /// Object that wraps transition services of the App
     lazy var transitionFacade = TransitionFacade(
-        deeplinkService: deeplinkService
+        deeplinkService: deeplinkService,
+        userNotificationsService: userNotificationsService
+    )
+
+    /// Service that handles user notifications
+    lazy var userNotificationsService: UserNotificationsService = UserNotificationsServiceImpl(
+        deeplinkService: deeplinkService,
+        applinkRouter: applinkRouter
     )
 
     /// Service that handles deeplinks and universal links

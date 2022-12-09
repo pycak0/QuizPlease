@@ -28,7 +28,8 @@ final class DeeplinkParserImpl: DeeplinkParser {
         }
         let queryDictionary = urlComponents.queryDictionary ?? [:]
         var endpoint: String?
-        var pathComponents = url.pathComponents
+        let path = urlComponents.path
+        var pathComponents = urlComponents.path.components(separatedBy: "/").filter { !$0.isEmpty }
 
         if url.scheme == "quizplease" {
             // deeplnik, i.e. quizplease://<...>
@@ -71,7 +72,7 @@ final class DeeplinkParserImpl: DeeplinkParser {
             }
 
         default:
-            return nil
+            break
         }
 
         return Applink(identifier: endpoint, parameters: parameters)
