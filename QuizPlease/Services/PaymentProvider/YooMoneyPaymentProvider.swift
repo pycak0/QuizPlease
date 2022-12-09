@@ -30,7 +30,7 @@ final class YooMoneyPaymentProvider: PaymentProvider {
             gatewayId: nil,
             isLoggingEnabled: AppSettings.isDebug,
             userPhoneNumber: options.userPhoneNumber,
-            savePaymentMethod: .userSelects,
+            savePaymentMethod: .off,
             moneyAuthClientId: nil,
             applicationScheme: "quizplease://"
         )
