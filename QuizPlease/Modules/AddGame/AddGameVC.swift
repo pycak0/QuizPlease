@@ -45,6 +45,13 @@ final class AddGameVC: UIViewController {
         setupData()
     }
 
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        addGameButton.layer.cornerRadius = 20
+        addGameButton.layer.sublayers?.removeAll(where: { $0 is CAGradientLayer })
+        addGameButton.addGradient(colors: [.lemon, .lightOrange], insertAt: 0)
+    }
+
     private func setupData() {
         setGameData()
         gameNameLabel.text = "Загрузка…"
@@ -177,9 +184,6 @@ final class AddGameVC: UIViewController {
         infoView.layer.borderWidth = 4
         infoView.layer.cornerRadius = 20
 
-        addGameButton.layer.cornerRadius = 20
-        addGameButton.addGradient(colors: [.lemon, .lightOrange], insertAt: 0)
-
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(didPressChooseTeam))
         chooseTeamView.addGestureRecognizer(tapRecognizer)
         chooseTeamView.textField.isEnabled = false
@@ -187,7 +191,13 @@ final class AddGameVC: UIViewController {
 
     @objc
     private func didPressChooseTeam() {
-        guard teamsInfo.count > 0 else { return }
+        guard teamsInfo.count > 0 else {
+            showSimpleAlert(
+                title: "На эту игру не подтверждена ни одна команда",
+                message: "Возможно, игра еще не прошла. Попробуйте отсканировать QR-код позже"
+            )
+            return
+        }
         let names = teamsInfo.map { $0.teamName }
         showChooseItemActionSheet(itemNames: names) { [unowned self] (teamName, index) in
             self.chooseTeamView.textField.text = teamName
