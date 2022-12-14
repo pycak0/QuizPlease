@@ -163,7 +163,7 @@ final class SchedulePresenter: SchedulePresenterProtocol {
     private func updateDetailInfo(forGame game: GameInfo, at index: Int) {
         interactor.loadDetailInfo(for: game) { [weak self] (fullInfo) in
             guard let self = self else { return }
-            if let game = fullInfo {
+            if let game = fullInfo, index < self.games.count {
                 self.games[index] = game
                 self.view?.reloadGame(at: index)
             }
