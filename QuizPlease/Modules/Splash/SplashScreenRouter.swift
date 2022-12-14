@@ -22,7 +22,7 @@ final class SplashScreenRouter: SplashScreenRouterProtocol {
     func showMainMenu() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "MainMenuNavigationController")
-        let window = UIApplication.shared.windows.first!
+        guard let window = UIApplication.shared.getKeyWindow() else { return }
         window.rootViewController = vc
         window.makeKeyAndVisible()
         UIView.transition(
