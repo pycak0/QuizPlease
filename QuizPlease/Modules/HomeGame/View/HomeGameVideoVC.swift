@@ -17,6 +17,8 @@ private enum Constants {
 
 final class HomeGameVideoVC: UIViewController {
 
+    private let analyticsService = ServiceAssembly.shared.analytics
+
     var homeGame: HomeGame! = HomeGame()
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -112,6 +114,7 @@ final class HomeGameVideoVC: UIViewController {
         playButton.isHidden = true
         videoView.imageView.isHidden = true
         videoView.showsPlaybackControls = true
+        analyticsService.sendEvent(.homeGameVideoPlay)
     }
 
     private func openUrl(with path: String?, accentColor: UIColor!) {
