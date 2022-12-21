@@ -12,11 +12,9 @@ import UIKit
 
 protocol WarmupPresenterProtocol {
 
-    var router: WarmupRouterProtocol! { get }
+    var router: WarmupRouterProtocol { get }
     var questions: [WarmupQuestion] { get }
     var correctAnswersCount: Int { get }
-
-    init(view: WarmupViewProtocol, interactor: WarmupInteractorProtocol, router: WarmupRouterProtocol)
 
     func viewDidLoad(_ view: WarmupViewProtocol)
     func didPressStartGame()
@@ -29,8 +27,10 @@ final class WarmupPresenter: WarmupPresenterProtocol {
 
     private let penaltyTime: Double = 5
 
-    var router: WarmupRouterProtocol!
-    var interactor: WarmupInteractorProtocol
+    let router: WarmupRouterProtocol
+    private let interactor: WarmupInteractorProtocol
+    private let analyticsService: AnalyticsService
+
     weak var view: WarmupViewProtocol?
 
     var questions: [WarmupQuestion] = []
@@ -51,10 +51,14 @@ final class WarmupPresenter: WarmupPresenterProtocol {
         }
     }
 
-    required init(view: WarmupViewProtocol, interactor: WarmupInteractorProtocol, router: WarmupRouterProtocol) {
-        self.view = view
+    init(
+        interactor: WarmupInteractorProtocol,
+        router: WarmupRouterProtocol,
+        analyticsService: AnalyticsService
+    ) {
         self.interactor = interactor
         self.router = router
+        self.analyticsService = analyticsService
     }
 
     // MARK: - Setup
@@ -66,6 +70,7 @@ final class WarmupPresenter: WarmupPresenterProtocol {
     // MARK: - Actions
     func didPressStartGame() {
         interactor.loadQuestions()
+        analyticsService.sendEvent(.warmupStart)
     }
 
     func didAnswer(_ answer: String, for question: WarmupQuestion) {
@@ -78,6 +83,7 @@ final class WarmupPresenter: WarmupPresenterProtocol {
         stopTimer()
         view?.showResults(with: timePassed, resultText: makeResultText())
         isGameStarted = false
+        analyticsService.sendEvent(.warmupEnd)
     }
 
     func shareAction() {
@@ -95,6 +101,7 @@ final class WarmupPresenter: WarmupPresenterProtocol {
             А потом го на игру в бар: \(AppSettings.appStoreUrl)
             """
 
+        analyticsService.sendEvent(.warmupShare)
         router.showShareSheet(with: [shareText, image])
     }
 

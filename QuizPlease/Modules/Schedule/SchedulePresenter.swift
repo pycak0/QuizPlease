@@ -10,8 +10,8 @@ import Foundation
 
 // MARK: - Presenter Protocol
 protocol SchedulePresenterProtocol: AnyObject {
-    var router: ScheduleRouterProtocol! { get }
-    init(view: ScheduleViewProtocol, interactor: ScheduleInteractorProtocol, router: ScheduleRouterProtocol)
+
+    var router: ScheduleRouterProtocol { get }
 
     var gamesCount: Int { get }
     var scheduleFilter: ScheduleFilter { get set }
@@ -38,9 +38,12 @@ protocol SchedulePresenterProtocol: AnyObject {
 // MARK: - Presenter Implementation
 
 final class SchedulePresenter: SchedulePresenterProtocol {
+
     weak var view: ScheduleViewProtocol?
-    var interactor: ScheduleInteractorProtocol!
-    var router: ScheduleRouterProtocol!
+
+    let interactor: ScheduleInteractorProtocol
+    let router: ScheduleRouterProtocol
+    let analyticsService: AnalyticsService
 
     private var games: [GameInfo] = []
 
@@ -53,19 +56,20 @@ final class SchedulePresenter: SchedulePresenterProtocol {
     private var subscribedGameIds = [Int]()
 
     required init(
-        view: ScheduleViewProtocol,
         interactor: ScheduleInteractorProtocol,
-        router: ScheduleRouterProtocol
+        router: ScheduleRouterProtocol,
+        analyticsService: AnalyticsService
     ) {
-        self.view = view
         self.router = router
         self.interactor = interactor
+        self.analyticsService = analyticsService
     }
 
     func viewDidLoad(_ view: ScheduleViewProtocol) {
         view.configure()
         view.startLoading()
         updateSchedule()
+        analyticsService.sendEvent(.scheduleOpen)
     }
 
     func viewModel(forGameAt index: Int) -> ScheduleGameCellViewModel {

@@ -211,6 +211,9 @@
 		A4A5DE932501975A00EBC408 /* FilterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4A5DE922501975A00EBC408 /* FilterView.xib */; };
 		A4A5DE95250197C300EBC408 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A5DE94250197C300EBC408 /* FilterView.swift */; };
 		A4A5DE9825019DA800EBC408 /* ScheduleFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A5DE9725019DA800EBC408 /* ScheduleFilter.swift */; };
+		A4AFCD3A2953B094005F858C /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AFCD392953B094005F858C /* AnalyticsService.swift */; };
+		A4AFCD3C2953B0B9005F858C /* AnalyticsEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AFCD3B2953B0B9005F858C /* AnalyticsEvent.swift */; };
+		A4AFCD3E2953B1FA005F858C /* ServiceAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AFCD3D2953B1FA005F858C /* ServiceAssembly.swift */; };
 		A4B0753224DFDBFB007778A2 /* GameInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B0753124DFDBFB007778A2 /* GameInfo.swift */; };
 		A4B1291F27387ACA0035C041 /* MapInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B1291E27387ACA0035C041 /* MapInfoView.swift */; };
 		A4B129212739CB170035C041 /* CopyableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B129202739CB170035C041 /* CopyableLabel.swift */; };
@@ -529,6 +532,9 @@
 		A4A5DE94250197C300EBC408 /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
 		A4A5DE9725019DA800EBC408 /* ScheduleFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleFilter.swift; sourceTree = "<group>"; };
 		A4A7E6AB2533C82A00F86947 /* QuizPlease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = QuizPlease.entitlements; sourceTree = "<group>"; };
+		A4AFCD392953B094005F858C /* AnalyticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsService.swift; sourceTree = "<group>"; };
+		A4AFCD3B2953B0B9005F858C /* AnalyticsEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsEvent.swift; sourceTree = "<group>"; };
+		A4AFCD3D2953B1FA005F858C /* ServiceAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceAssembly.swift; sourceTree = "<group>"; };
 		A4B0753124DFDBFB007778A2 /* GameInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameInfo.swift; sourceTree = "<group>"; };
 		A4B1291E27387ACA0035C041 /* MapInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapInfoView.swift; sourceTree = "<group>"; };
 		A4B129202739CB170035C041 /* CopyableLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyableLabel.swift; sourceTree = "<group>"; };
@@ -846,6 +852,7 @@
 		A40D818C24D2E3DB006D2CE3 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				A4AFCD382953B081005F858C /* Analytics */,
 				A4BEF46F28D26D8C0099DCDB /* Network */,
 				A4147AD824E5BAF9007C131F /* MapService.swift */,
 				A4FEB04B273739F10052AD7B /* MapProvider */,
@@ -858,6 +865,7 @@
 				A4F3A791257D898A00D6A9C7 /* CameraChecker.swift */,
 				A4837BD02636086D00517EC6 /* SecurityHelper.swift */,
 				A44B2E0628C00B5F00C1BC2F /* DeviceIdProvider.swift */,
+				A4AFCD3D2953B1FA005F858C /* ServiceAssembly.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1208,6 +1216,15 @@
 				A4A5DE94250197C300EBC408 /* FilterView.swift */,
 			);
 			path = FilterView;
+			sourceTree = "<group>";
+		};
+		A4AFCD382953B081005F858C /* Analytics */ = {
+			isa = PBXGroup;
+			children = (
+				A4AFCD392953B094005F858C /* AnalyticsService.swift */,
+				A4AFCD3B2953B0B9005F858C /* AnalyticsEvent.swift */,
+			);
+			path = Analytics;
 			sourceTree = "<group>";
 		};
 		A4B0753024DFDB33007778A2 /* View */ = {
@@ -1852,6 +1869,7 @@
 				A471166D269DB61200F90099 /* MultipartFormDataObject.swift in Sources */,
 				A47003CB253A53C1002E8EA2 /* GameOrderResponse.swift in Sources */,
 				A4147AD924E5BAF9007C131F /* MapService.swift in Sources */,
+				A4AFCD3A2953B094005F858C /* AnalyticsService.swift in Sources */,
 				A4B129232739DD9D0035C041 /* Spacer.swift in Sources */,
 				A4DAF74724DDCCAD00963C15 /* MenuRatingCell.swift in Sources */,
 				A4617344251763AA00B002D1 /* CountPickerView.swift in Sources */,
@@ -1896,6 +1914,7 @@
 				A40B759C24D9A868006DB7D1 /* RatingInteractor.swift in Sources */,
 				A40F036224D4187800C381F2 /* UIKitExtensions.swift in Sources */,
 				A4E91EBE26C312BA008C13A7 /* WarmupQuestionsService.swift in Sources */,
+				A4AFCD3E2953B1FA005F858C /* ServiceAssembly.swift in Sources */,
 				A450E39F24E5729200C49AEE /* GameOrderConfigurator.swift in Sources */,
 				A4D5A395263C72340075ECF3 /* WarmupAnswerResponse.swift in Sources */,
 				A40B758224D9A76F006DB7D1 /* ScheduleConfigurator.swift in Sources */,
@@ -1989,6 +2008,7 @@
 				A44B2E0428C006B900C1BC2F /* WarmupQuestionsServiceStub.swift in Sources */,
 				A40D818624D2CA44006D2CE3 /* ShopVC.swift in Sources */,
 				A4FFA4AD24F3AE78006A1150 /* MKMapView+Extensions.swift in Sources */,
+				A4AFCD3C2953B0B9005F858C /* AnalyticsEvent.swift in Sources */,
 				A4F3A79C257E82A600D6A9C7 /* ProfileSampleCell.swift in Sources */,
 				A4FEB056273739F10052AD7B /* YNMapProvider.swift in Sources */,
 				A4FB0485251790CD00054DE4 /* GOCPeopleNumberCell.swift in Sources */,
@@ -2249,7 +2269,7 @@
 				CODE_SIGN_ENTITLEMENTS = QuizPlease/QuizPlease.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 37;
+				CURRENT_PROJECT_VERSION = 38;
 				DEVELOPMENT_TEAM = 5524GP5G24;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2282,7 +2302,7 @@
 				CODE_SIGN_ENTITLEMENTS = QuizPlease/QuizPlease.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 37;
+				CURRENT_PROJECT_VERSION = 38;
 				DEVELOPMENT_TEAM = 5524GP5G24;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

@@ -8,12 +8,19 @@
 
 import UIKit
 
-class HomeGameConfigurator: Configurator {
+final class HomeGameConfigurator: Configurator {
+
+    private let service = ServiceAssembly.shared
+
     func configure(_ view: HomeGameViewProtocol) {
         let interactor = HomeGameInteractor()
         let router = HomeGameRouter(viewController: view)
-        let presenter = HomeGamePresenter(view: view, interactor: interactor, router: router)
-
+        let presenter = HomeGamePresenter(
+            interactor: interactor,
+            router: router,
+            analyticsService: service.analytics
+        )
+        presenter.view = view
         view.presenter = presenter
         view.clearNavBarBackground()
         view.prepareNavigationBar(tintColor: .white, barStyle: .transparent)

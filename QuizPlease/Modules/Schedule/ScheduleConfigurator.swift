@@ -8,11 +8,19 @@
 
 import Foundation
 
-class ScheduleConfigurator: Configurator {
+final class ScheduleConfigurator: Configurator {
+
+    private let service = ServiceAssembly.shared
+
     func configure(_ view: ScheduleViewProtocol) {
         let router = ScheduleRouter(viewController: view)
         let interactor = ScheduleInteractor()
-        let presenter = SchedulePresenter(view: view, interactor: interactor, router: router)
+        let presenter = SchedulePresenter(
+            interactor: interactor,
+            router: router,
+            analyticsService: service.analytics
+        )
+        presenter.view = view
         view.prepareNavigationBar(barStyle: .transcluent(tintColor: view.view.backgroundColor))
         view.presenter = presenter
         interactor.output = presenter
