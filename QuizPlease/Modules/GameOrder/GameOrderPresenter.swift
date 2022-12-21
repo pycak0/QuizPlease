@@ -13,9 +13,7 @@ import YooKassaPayments
 
 protocol GameOrderPresenterProtocol {
 
-    var router: GameOrderRouterProtocol! { get }
-    var view: GameOrderViewProtocol? { get }
-    var interactor: GameOrderInteractorProtocol! { get }
+    var router: GameOrderRouterProtocol { get }
 
     var game: GameInfo { get }
     var availablePaymentTypes: [PaymentType] { get }
@@ -59,8 +57,10 @@ protocol GameOrderPresenterProtocol {
 final class GameOrderPresenter: GameOrderPresenterProtocol {
 
     weak var view: GameOrderViewProtocol?
-    var interactor: GameOrderInteractorProtocol!
-    var router: GameOrderRouterProtocol!
+
+    let router: GameOrderRouterProtocol
+    private let interactor: GameOrderInteractorProtocol
+    private let analyticsService: AnalyticsService
 
     private let registerForm: RegisterForm
     private let scrollToSignUp: Bool
@@ -78,18 +78,26 @@ final class GameOrderPresenter: GameOrderPresenterProtocol {
 
     private var tokenizationModule: TokenizationModuleInput?
 
-    required init(
-        view: GameOrderViewProtocol,
+    private var didFillAnyField = false {
+        willSet {
+            if newValue {
+                analyticsService.sendEvent(.filledAnyRegistrationField)
+            }
+        }
+    }
+
+    init(
         interactor: GameOrderInteractorProtocol,
         router: GameOrderRouterProtocol,
+        analyticsService: AnalyticsService,
         registerForm: RegisterForm,
         gameInfo: GameInfo,
         scrollToSignUp: Bool,
         loadGameInfo: Bool
     ) {
-        self.view = view
         self.interactor = interactor
         self.router = router
+        self.analyticsService = analyticsService
         self.game = gameInfo
         self.scrollToSignUp = scrollToSignUp
         self.loadGameInfo = loadGameInfo
@@ -147,6 +155,7 @@ final class GameOrderPresenter: GameOrderPresenterProtocol {
         if scrollToSignUp {
             view.scrollToSignUp()
         }
+        analyticsService.sendEvent(.gameOrderOpen)
     }
 
     func didChangeNumberOfPeople(_ newNumber: Int) {
@@ -157,31 +166,38 @@ final class GameOrderPresenter: GameOrderPresenterProtocol {
             registerForm.countPaidOnline = nil
         }
         view?.reloadPaymentInfo()
+        didFillAnyField = true
     }
 
     func didChangeSelectedPaymentType(isOnlinePayment: Bool) {
         registerForm.paymentType = isOnlinePayment ? .online : .cash
         view?.reloadPaymentInfo()
+        didFillAnyField = true
     }
 
     func didChangeTeamName(_ name: String) {
         registerForm.teamName = name
+        didFillAnyField = true
     }
 
     func didChangeCaptainName(_ name: String) {
         registerForm.captainName = name
+        didFillAnyField = true
     }
 
     func didChangeComment(_ comment: String) {
         registerForm.comment = comment
+        didFillAnyField = true
     }
 
     func didChangePhone(_ phone: String) {
         registerForm.phone = phone
+        didFillAnyField = true
     }
 
     func didChangeEmail(_ email: String) {
         registerForm.email = email
+        didFillAnyField = true
     }
 
     func setIsFirstTime(_ isFirstTime: Bool) {
@@ -455,6 +471,7 @@ final class GameOrderPresenter: GameOrderPresenterProtocol {
 
     private func completeOrder() {
         router.showCompletionScreen(with: game, numberOfPeopleInTeam: registerForm.count)
+        analyticsService.sendEvent(.registrationSuccess)
     }
 
     private func createPaymentDescription() -> String {

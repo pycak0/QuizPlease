@@ -8,7 +8,9 @@
 
 import Foundation
 
-class WarmupConfigurator: Configurator {
+final class WarmupConfigurator: Configurator {
+
+    private let service = ServiceAssembly.shared
 
     func configure(_ view: WarmupViewProtocol) {
         let interactor = WarmupInteractor(
@@ -23,7 +25,12 @@ class WarmupConfigurator: Configurator {
             viewController: view,
             shareSheet: ShareSheet()
         )
-        let presenter = WarmupPresenter(view: view, interactor: interactor, router: router)
+        let presenter = WarmupPresenter(
+            interactor: interactor,
+            router: router,
+            analyticsService: service.analytics
+        )
+        presenter.view = view
         interactor.output = presenter
         view.presenter = presenter
         view.prepareNavigationBar(tintColor: .white, barStyle: .opaque(tintColor: view.view.backgroundColor))

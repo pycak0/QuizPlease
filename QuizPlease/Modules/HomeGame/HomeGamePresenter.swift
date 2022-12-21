@@ -9,25 +9,31 @@
 import Foundation
 
 protocol HomeGamePresenterProtocol {
-    var router: HomeGameRouterProtocol! { get }
+    var router: HomeGameRouterProtocol { get }
     var games: [HomeGame] { get set }
-    init(view: HomeGameViewProtocol, interactor: HomeGameInteractorProtocol, router: HomeGameRouterProtocol)
 
     func viewDidLoad(_ view: HomeGameViewProtocol)
     func didSelectHomeGame(at index: Int)
 }
 
-class HomeGamePresenter: HomeGamePresenterProtocol {
-    var router: HomeGameRouterProtocol!
-    var interactor: HomeGameInteractorProtocol!
+final class HomeGamePresenter: HomeGamePresenterProtocol {
+
     weak var view: HomeGameViewProtocol?
+
+    let router: HomeGameRouterProtocol
+    private let interactor: HomeGameInteractorProtocol
+    private let analyticsService: AnalyticsService
 
     var games: [HomeGame] = []
 
-    required init(view: HomeGameViewProtocol, interactor: HomeGameInteractorProtocol, router: HomeGameRouterProtocol) {
-        self.view = view
-        self.router = router
+    init(
+        interactor: HomeGameInteractorProtocol,
+        router: HomeGameRouterProtocol,
+        analyticsService: AnalyticsService
+    ) {
         self.interactor = interactor
+        self.router = router
+        self.analyticsService = analyticsService
     }
 
     func viewDidLoad(_ view: HomeGameViewProtocol) {
@@ -42,6 +48,7 @@ class HomeGamePresenter: HomeGamePresenterProtocol {
                 self.view?.reloadHomeGamesList()
             }
         }
+        analyticsService.sendEvent(.homeGameListOpen)
     }
 
     func didSelectHomeGame(at index: Int) {

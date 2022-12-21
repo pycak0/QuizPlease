@@ -13,6 +13,9 @@ protocol GameOrderConfiguratorProtocol {
 }
 
 final class GameOrderConfigurator: GameOrderConfiguratorProtocol {
+
+    let service = ServiceAssembly.shared
+
     func configure(_ viewController: GameOrderViewProtocol, with options: GameOrderPresentationOptions) {
         let interactor = GameOrderInteractor(
             networkService: NetworkService.shared,
@@ -20,9 +23,9 @@ final class GameOrderConfigurator: GameOrderConfiguratorProtocol {
         )
         let router = GameOrderRouter(viewController: viewController)
         let presenter = GameOrderPresenter(
-            view: viewController,
             interactor: interactor,
             router: router,
+            analyticsService: service.analytics,
             registerForm: RegisterForm(
                 cityId: options.cityId,
                 gameId: options.gameInfo.id
@@ -31,6 +34,7 @@ final class GameOrderConfigurator: GameOrderConfiguratorProtocol {
             scrollToSignUp: options.shouldScrollToSignUp,
             loadGameInfo: options.shouldLoadGameInfo
         )
+        presenter.view = viewController
         presenter.game = options.gameInfo
         interactor.output = presenter
         viewController.presenter = presenter
