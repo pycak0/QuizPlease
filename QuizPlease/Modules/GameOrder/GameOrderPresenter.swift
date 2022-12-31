@@ -81,7 +81,7 @@ final class GameOrderPresenter: GameOrderPresenterProtocol {
     private var didFillAnyField = false {
         willSet {
             if !didFillAnyField {
-                analyticsService.sendEvent(.filledAnyRegistrationField)
+                // send analytics event
             }
         }
     }
@@ -325,6 +325,8 @@ final class GameOrderPresenter: GameOrderPresenterProtocol {
     // MARK: - Submit Button Action
 
     func didPressSubmitButton() {
+        analyticsService.sendEvent(.beginRegistration)
+
         // 0. End editing
         view?.endEditing()
 

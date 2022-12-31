@@ -33,7 +33,7 @@ extension AnalyticsEvent {
 
     /// Заполнение формы регистрации.
     /// Ввод данных в любое поле (название команды, имя капитана, e-mail, телефон)
-    static let filledAnyRegistrationField = AnalyticsEvent(name: "begin_registration")
+    static let beginRegistration = AnalyticsEvent(name: "begin_registration")
 
     /// Регистрация. Открытие экрана успешной регистрации
     static let registrationSuccess = AnalyticsEvent(name: "registration")
