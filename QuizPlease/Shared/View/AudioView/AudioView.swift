@@ -32,6 +32,7 @@ class AudioView: UIView {
     @IBOutlet private weak var progressView: UIProgressView! {
         didSet {
             progressView.setProgress(0, animated: false)
+            progressView.trackTintColor = UIColor.white.withAlphaComponent(0.2)
         }
     }
 
@@ -67,6 +68,12 @@ class AudioView: UIView {
         playPauseButton.setImage(playImage, for: .normal)
         stopTracking()
         shouldBePlaying = false
+    }
+
+    func stop() {
+        pause()
+        player?.stop()
+        player = nil
     }
 
     func configure(with url: URL?) {

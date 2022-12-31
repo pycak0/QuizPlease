@@ -25,3 +25,11 @@ final class DeviceIdProviderImpl: DeviceIdProvider {
         defaultsManager.getFcmToken()
     }
 }
+
+/// Stub for device unique identifier provider
+final class DeviceIdProviderStub: DeviceIdProvider {
+
+    func get() -> String? {
+        "3"
+    }
+}
