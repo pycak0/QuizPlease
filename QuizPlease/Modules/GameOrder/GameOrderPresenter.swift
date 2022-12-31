@@ -80,8 +80,8 @@ final class GameOrderPresenter: GameOrderPresenterProtocol {
 
     private var didFillAnyField = false {
         willSet {
-            if newValue {
-                analyticsService.sendEvent(.filledAnyRegistrationField)
+            if !didFillAnyField {
+                // send analytics event
             }
         }
     }
@@ -177,27 +177,27 @@ final class GameOrderPresenter: GameOrderPresenterProtocol {
 
     func didChangeTeamName(_ name: String) {
         registerForm.teamName = name
-        didFillAnyField = true
+        if !name.isEmpty { didFillAnyField = true }
     }
 
     func didChangeCaptainName(_ name: String) {
         registerForm.captainName = name
-        didFillAnyField = true
+        if !name.isEmpty { didFillAnyField = true }
     }
 
     func didChangeComment(_ comment: String) {
         registerForm.comment = comment
-        didFillAnyField = true
+        if !comment.isEmpty { didFillAnyField = true }
     }
 
     func didChangePhone(_ phone: String) {
         registerForm.phone = phone
-        didFillAnyField = true
+        if !phone.isEmpty { didFillAnyField = true }
     }
 
     func didChangeEmail(_ email: String) {
         registerForm.email = email
-        didFillAnyField = true
+        if !email.isEmpty { didFillAnyField = true }
     }
 
     func setIsFirstTime(_ isFirstTime: Bool) {
@@ -325,6 +325,8 @@ final class GameOrderPresenter: GameOrderPresenterProtocol {
     // MARK: - Submit Button Action
 
     func didPressSubmitButton() {
+        analyticsService.sendEvent(.beginRegistration)
+
         // 0. End editing
         view?.endEditing()
 
