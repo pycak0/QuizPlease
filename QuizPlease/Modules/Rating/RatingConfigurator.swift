@@ -8,11 +8,19 @@
 
 import Foundation
 
-class RatingConfigurator: Configurator {
+final class RatingConfigurator: Configurator {
+
+    private let service = ServiceAssembly.shared
+
     func configure(_ view: RatingViewProtocol) {
         let interactor = RatingInteractor()
         let router = RatingRouter(viewController: view)
-        let presenter = RatingPresenter(view: view, interactor: interactor, router: router)
+        let presenter = RatingPresenter(
+            interactor: interactor,
+            router: router,
+            analyticsService: service.analytics
+        )
+        presenter.view = view
         interactor.output = presenter
         view.presenter = presenter
         let color = view.view.backgroundColor

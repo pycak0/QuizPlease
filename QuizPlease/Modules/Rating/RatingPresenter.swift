@@ -10,8 +10,8 @@ import Foundation
 
 // MARK: - Presenter Protocol
 protocol RatingPresenterProtocol {
-    var router: RatingRouterProtocol! { get set }
-    init(view: RatingViewProtocol, interactor: RatingInteractorProtocol, router: RatingRouterProtocol)
+
+    var router: RatingRouterProtocol { get }
 
     var filter: RatingFilter { get set }
     var availableGameTypeNames: [String] { get }
@@ -36,10 +36,13 @@ protocol RatingPresenterProtocol {
     func cancelPrefetching()
 }
 
-class RatingPresenter: RatingPresenterProtocol {
-    var router: RatingRouterProtocol!
-    var interactor: RatingInteractorProtocol!
+final class RatingPresenter: RatingPresenterProtocol {
+
     weak var view: RatingViewProtocol?
+
+    let router: RatingRouterProtocol
+    private let interactor: RatingInteractorProtocol
+    private let analyticsService: AnalyticsService
 
     var teams: [RatingItem] = []
     var filteredTeams: [RatingItem] = []
@@ -54,10 +57,14 @@ class RatingPresenter: RatingPresenterProtocol {
     private let firstPageNumber = 1
     private lazy var currentPage = firstPageNumber
 
-    required init(view: RatingViewProtocol, interactor: RatingInteractorProtocol, router: RatingRouterProtocol) {
-        self.router = router
+    init(
+        interactor: RatingInteractorProtocol,
+        router: RatingRouterProtocol,
+        analyticsService: AnalyticsService
+    ) {
         self.interactor = interactor
-        self.view = view
+        self.router = router
+        self.analyticsService = analyticsService
     }
 
     // MARK: - Actions
@@ -103,6 +110,7 @@ class RatingPresenter: RatingPresenterProtocol {
         view.configure()
         updateHeaderContent()
         loadRating()
+        analyticsService.sendEvent(.ratingOpen)
     }
 
     func handleRefreshControl() {
