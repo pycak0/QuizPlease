@@ -9,6 +9,7 @@
 import UIKit
 
 // MARK: - Delegate Protocol
+
 protocol WarmupQuestionVCAnswerDelegate: AnyObject {
     func questionVC(_ vc: WarmupQuestionVC, didSelectAnswer answer: String, forQuestion question: WarmupQuestion)
 }
@@ -16,6 +17,7 @@ protocol WarmupQuestionVCAnswerDelegate: AnyObject {
 final class WarmupQuestionVC: UIViewController {
 
     // MARK: - Outlets
+
     @IBOutlet private weak var videoView: VideoView!
     @IBOutlet private weak var questionView: UIView!
     @IBOutlet private weak var imageView: UIImageView!
@@ -33,25 +35,32 @@ final class WarmupQuestionVC: UIViewController {
 
     private weak var selectedButton: WarmupAnswerButton?
 
+    private let questionTypeResolver: WarmupQuestionTypeResolver = WarmupQuestionTypeResolverImpl()
+
     // MARK: - Public
+
     var question: WarmupQuestion!
 
     weak var delegate: WarmupQuestionVCAnswerDelegate?
 
     func highlightAnswer(isCorrect: Bool) {
         let color: UIColor = isCorrect ? .lightGreen : .red
+        selectedButton?.alpha = 1
         selectedButton?.backgroundColor = color
         if !isCorrect {
             selectedButton?.shake()
+        } else {
+            selectedButton?.bounce()
         }
     }
 
     func stopMedia() {
-        audioView?.pause()
-        videoView?.pause()
+        audioView?.stop()
+        videoView?.stop()
     }
 
-    // MARK: - Init
+    // MARK: - Lifecycle
+
     private override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
@@ -65,7 +74,6 @@ final class WarmupQuestionVC: UIViewController {
         self.question = question
     }
 
-    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViews()
@@ -75,6 +83,8 @@ final class WarmupQuestionVC: UIViewController {
     private func answerButtonPressed(_ sender: WarmupAnswerButton) {
         view.isUserInteractionEnabled = false
         selectedButton = sender
+        selectedButton?.backgroundColor = UIColor.white.withAlphaComponent(0.5)
+        selectedButton?.alpha = 0.5
 
         stopMedia()
 
@@ -96,7 +106,7 @@ final class WarmupQuestionVC: UIViewController {
 
     // MARK: - Setup Question Type
     private func setupQuestionType() {
-        switch question.type {
+        switch questionTypeResolver.resolve(question: question) {
 
             // MARK: - • image
         case .image:
@@ -119,7 +129,7 @@ final class WarmupQuestionVC: UIViewController {
             imageView.isHidden = true
             videoView.isHidden = false
             videoView.configureVideoView(parent: self)
-            videoView.configurePlayer(url: question.videoUrl)
+            videoView.configurePlayer(url: question.fileUrl)
             questionLabel.text = question.question
 
             // MARK: - • text
@@ -136,7 +146,7 @@ final class WarmupQuestionVC: UIViewController {
             setBackgroundViewHeight()
             activityIndicator.startAnimating()
             audioView.isHidden = false
-            audioView.configure(with: question.soundUrl)
+            audioView.configure(with: question.fileUrl)
             audioView.delegate = self
             audioView.play()
         }
@@ -144,7 +154,7 @@ final class WarmupQuestionVC: UIViewController {
 
     private func loadImage() {
         activityIndicator.startAnimating()
-        imageView.loadImage(url: question.imageUrl) { _ in
+        imageView.loadImage(url: question.fileUrl) { _ in
             self.activityIndicator.stopAnimating()
         }
     }
