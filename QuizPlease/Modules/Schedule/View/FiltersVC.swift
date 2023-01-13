@@ -1,5 +1,5 @@
 //
-// MARK: FiltersVC.swift
+//  FiltersVC.swift
 //  QuizPlease
 //
 //  Created by Владислав on 20.08.2020.
@@ -10,11 +10,13 @@ import UIKit
 import BottomPopup
 
 // MARK: - Delegate Protocol
+
 protocol FiltersVCDelegate: AnyObject {
+
+    /// Method is called whenever a change occurs in a filter
     func didChangeFilter(_ newFilter: ScheduleFilter)
 
-    // func didResetFilter()
-
+    /// Method is called before Filter screen will close
     func didEndEditingFilters()
 }
 
@@ -22,6 +24,7 @@ final class FiltersVC: BottomPopupViewController {
     let duration = 0.2
 
     // MARK: - Properties
+
     @IBOutlet weak var topStack: UIStackView!
     @IBOutlet weak var bottomStack: UIStackView!
     @IBOutlet weak var clearFilterButton: UIButton!
@@ -48,6 +51,7 @@ final class FiltersVC: BottomPopupViewController {
     var bars: [ScheduleFilterOption]?
 
     // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         loadAllFilters()
@@ -56,18 +60,19 @@ final class FiltersVC: BottomPopupViewController {
     }
 
     // MARK: - Configure Views
+
     func configureViews() {
         let color = UIColor.darkBlue.withAlphaComponent(0.3)
         let radius: CGFloat = 20
 
-        topStack.arrangedSubviews.forEach({
+        topStack.arrangedSubviews.forEach {
             $0.backgroundColor = color
             $0.layer.cornerRadius = radius
-        })
-        bottomStack.arrangedSubviews.forEach({
+        }
+        bottomStack.arrangedSubviews.forEach {
             $0.backgroundColor = color
             $0.layer.cornerRadius = radius
-        })
+        }
 
         clearFilterButton.layer.cornerRadius = radius
         clearFilterButton.backgroundColor = UIColor.white.withAlphaComponent(0.1)
@@ -78,6 +83,7 @@ final class FiltersVC: BottomPopupViewController {
     }
 
     // MARK: - Add Actions
+
     private func addActions() {
         cityFilterView.addTapGestureRecognizer {
             self.showCityPicker()
@@ -113,6 +119,7 @@ final class FiltersVC: BottomPopupViewController {
     }
 
     // MARK: - Show Options Sheet
+
     /// - warning: `updateFilterWith` closure must update `filter`'s property with new value for correct work.
     private func showOptions(
         for filterOptions: [ScheduleFilterOption]?,
@@ -141,12 +148,14 @@ final class FiltersVC: BottomPopupViewController {
     }
 
     // MARK: - Load Filters
+
     private func loadFilters(
         _ type: ScheduleFilterType,
-        city_id: Int? = nil,
+        cityId: Int? = nil,
         completion: @escaping ([ScheduleFilterOption]?) -> Void
     ) {
-        NetworkService.shared.getFilterOptions(type, scopeFor: city_id) { serverResult in
+        let cityId = cityId ?? filter.city.id
+        NetworkService.shared.getFilterOptions(type, scopeFor: cityId) { serverResult in
             switch serverResult {
             case let .failure(error):
                 print(error)
@@ -161,10 +170,11 @@ final class FiltersVC: BottomPopupViewController {
         loadFilters(.types) { [weak self] in self?.gameTypes = $0 }
         loadFilters(.statuses) { [weak self] in self?.statuses = $0 }
         loadFilters(.months) { [weak self] in self?.dates = $0 }
-        loadFilters(.places, city_id: filter.city.id) { [weak self] in self?.bars = $0 }
+        loadFilters(.places) { [weak self] in self?.bars = $0 }
     }
 
     // MARK: - Update UI
+
     private func updateUI() {
         cityFilterView.title = filter.city.title
         dateFilterView.title = filter.date?.title ?? "Все время"
@@ -175,25 +185,27 @@ final class FiltersVC: BottomPopupViewController {
     }
 
     // MARK: - Close Button Pressed
+
     @IBAction func closeButtonPressed(_ sender: Any) {
         delegate?.didEndEditingFilters()
         dismiss(animated: true, completion: nil)
     }
 
     // MARK: - Clear Filters Button Pressed
+
     @IBAction func clearFiltersButtonPressed(_ sender: Any) {
         filter = ScheduleFilter()
         updateUI()
         delegate?.didChangeFilter(filter)
     }
-
 }
 
 // MARK: - PickCityVCDelegate
+
 extension FiltersVC: PickCityVCDelegate {
     func didPick(_ city: City) {
         filter.city = city
-        loadFilters(.places, city_id: filter.city.id) { [weak self] in self?.bars = $0 }
+        loadAllFilters()
         updateUI()
         delegate?.didChangeFilter(filter)
     }

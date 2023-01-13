@@ -8,46 +8,20 @@
 
 import UIKit
 
-// MARK: - MediaConfiguration
-
-private enum MediaConfiguration {
-
-    /// Known image formats
-    static let knownImageFormats: Set<String> = {
-        let fileExtensions = (CGImageSourceCopyTypeIdentifiers() as? [String])?
-            .compactMap { URL(string: $0)?.pathExtension } ?? []
-        return Set(fileExtensions)
-    }()
-
-    /// Known audio formats
-    static let knownAudioFormats: Set<String> = {
-        return Set(["aac", "adts", "ac3",
-                   "aif", "aiff", "aifc", "caf", "mp3",
-                   "m4a", "snd", "au", "sd2", "wav"])
-    }()
-
-    /// Known video formats
-    static let knownVideoFormats: Set<String> = {
-        return Set(["mp4", "mov", ".m4v", ".3gp"])
-    }()
-}
-
-// MARK: - WarmupQuestionType
-
-enum WarmupQuestionType: Int, CaseIterable, Decodable {
-    case image, imageWithText, text, soundWithText, videoWithText
-}
-
 // MARK: - WarmupQuestion
 
 struct WarmupQuestion {
+    /// Question identifier
     let id: String
+    /// Question text
     let question: String?
+    /// Answer options
     let answers: [WarmupAnswer]
 
     private let file: String?
 
-    private lazy var fileUrl: URL? = {
+    /// Media attachment URL
+    lazy var fileUrl: URL? = {
         guard let filePath = file?.pathProof, !filePath.isEmpty else {
             return nil
         }
@@ -56,29 +30,17 @@ struct WarmupQuestion {
         return urlComps.url
     }()
 
-    lazy var type: WarmupQuestionType = {
-        guard let url = fileUrl else {
-            return .text
-        }
-        let mediaFormat = url.pathExtension
-
-        if MediaConfiguration.knownImageFormats.contains(mediaFormat) {
-            return .imageWithText
-        }
-        if MediaConfiguration.knownVideoFormats.contains(mediaFormat) {
-            return .videoWithText
-        }
-        if MediaConfiguration.knownAudioFormats.contains(mediaFormat) {
-            return .soundWithText
-        }
-        return .text
-    }()
-
-    lazy var imageUrl: URL? = fileUrl
-
-    lazy var videoUrl: URL? = fileUrl
-
-    lazy var soundUrl: URL? = fileUrl
+    init(
+        id: String,
+        question: String?,
+        answers: [WarmupAnswer],
+        file: String?
+    ) {
+        self.id = id
+        self.question = question
+        self.answers = answers
+        self.file = file
+    }
 }
 
 // MARK: - Decodable

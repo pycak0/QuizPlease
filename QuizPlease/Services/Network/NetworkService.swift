@@ -174,7 +174,13 @@ class NetworkService {
     ) {
         var scheduleUrlComponents = baseUrlComponents
         scheduleUrlComponents.path = "/api/game"
-        var queryItems = [URLQueryItem(name: "city_id", value: "\(filter.city.id)")]
+        // Mandatory query items
+        var queryItems = [
+            URLQueryItem(name: "city_id", value: "\(filter.city.id)"),
+            URLQueryItem(name: "isMobile", value: "1")
+        ]
+
+        // Optional query items
         if let id = filter.date?.id {
             queryItems.append(URLQueryItem(name: "month", value: "\(id)"))
         }
