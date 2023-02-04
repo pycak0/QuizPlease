@@ -219,7 +219,7 @@ extension ProfileVC: UITableViewDataSource, UITableViewDelegate {
         guard let games = presenter.userInfo?.games, !games.isEmpty else {
             let cell = tableView.dequeueReusableCell(ProfileSampleCell.self, for: indexPath)
             let description = "Тут появляются игры, на которых вы зажигали! " +
-            "Чтобы добавить игру, жмите на кнопку Добавить игру и сканируйте qr-код"
+            "Чтобы добавить игру, жмите на кнопку Добавить игру и сканируйте QR-код"
 
             cell.configure(with: description)
             return cell
