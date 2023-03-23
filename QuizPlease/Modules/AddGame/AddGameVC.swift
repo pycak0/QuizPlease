@@ -15,6 +15,7 @@ protocol AddGameVCDelegate: AnyObject {
 final class AddGameVC: UIViewController {
 
     // MARK: - Outlets
+
     @IBOutlet private weak var addGameButton: ScalingButton!
     @IBOutlet private weak var infoView: UIView!
     @IBOutlet private weak var gameNameLabel: UILabel!
@@ -38,6 +39,7 @@ final class AddGameVC: UIViewController {
     }
 
     // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareNavigationBar(barStyle: .transcluent(tintColor: view.backgroundColor))
@@ -61,7 +63,10 @@ final class AddGameVC: UIViewController {
     // MARK: - Save Game
     private func saveGame() {
         guard let id = chosenTeam?.id else {
-            showSimpleAlert(title: "Команда не выбрана", message: "Пожалуйста, выберите команду, за которую Вы играли")
+            showSimpleAlert(
+                title: "Команда не выбрана",
+                message: "Пожалуйста, выберите команду, за которую Вы играли"
+            )
             return
         }
         guard gameInfo?.placeInfo.cityName == AppSettings.defaultCity.title else {
@@ -99,18 +104,26 @@ final class AddGameVC: UIViewController {
                 print(error)
                 self.showErrorConnectingToServerAlert()
             case let .success(response):
-                if response.message == "ok" {
+                self.processCheckInResponse(response)
+            }
+        }
+    }
+
+    private func processCheckInResponse(_ response: AddGameResponse) {
+        if response.success ?? false {
+            showSimpleAlert(
+                title: "Успешно",
+                message: response.message ?? "Игра успешно добавлена",
+                okHandler: { _ in
                     self.delegate?.didAddGameToUserProfile(self)
                     self.navigationController?.popViewController(animated: true)
-                } else if response.status == 400 {
-                    self.showSimpleAlert(
-                        title: "Ошибка",
-                        message: response.message ?? "Неизвестная ошибка сервера"
-                    )
-                } else {
-                    self.showErrorConnectingToServerAlert()
                 }
-            }
+            )
+        } else {
+            showSimpleAlert(
+                title: "Ошибка",
+                message: response.message ?? "Неизвестная ошибка сервера"
+            )
         }
     }
 
