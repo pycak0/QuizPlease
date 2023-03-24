@@ -8,7 +8,7 @@
 
 import Foundation
 
-class DefaultsManager {
+final class DefaultsManager {
     // singleton
     private init() {}
 
@@ -23,6 +23,7 @@ class DefaultsManager {
     private let answeredQuestionsKey = "answered-questions-key"
     private let clientSettingsKey = "client-settings"
     private let profileOnboardingMarker = "profile.onboarding"
+    private let welcomeScreenMarker = "welcome.screen.presented"
 
     // MARK: - Auth Info
     func getUserAuthInfo() -> SavedAuthInfo? {
@@ -119,11 +120,18 @@ class DefaultsManager {
     // MARK: - Profile Onboarding
 
     func wasProfileOnboardingPresented() -> Bool {
-        let wasLaunchedBefore = defaults.bool(forKey: profileOnboardingMarker)
-        return wasLaunchedBefore
+        defaults.bool(forKey: profileOnboardingMarker)
     }
 
     func setProfileOnboardingWasPresented() {
         defaults.set(true, forKey: profileOnboardingMarker)
+    }
+
+    func wasWelcomeScreenPresented() -> Bool {
+        defaults.bool(forKey: welcomeScreenMarker)
+    }
+
+    func setWelcomeScreenWasPresented() {
+        defaults.set(true, forKey: welcomeScreenMarker)
     }
 }

@@ -8,10 +8,14 @@
 
 import UIKit
 
-class MainMenuConfigurator: Configurator {
+final class MainMenuConfigurator: Configurator {
+
     func configure(_ mainMenuVC: MainMenuViewProtocol) {
         let interactor = MainMenuInteractor()
-        let router = MainMenuRouter(viewController: mainMenuVC)
+        let router = MainMenuRouter(
+            viewController: mainMenuVC,
+            pickCityAssembly: PickCityAssembly()
+        )
         let presenter = MainMenuPresenter(view: mainMenuVC, interactor: interactor, router: router)
         interactor.output = presenter
         mainMenuVC.prepareNavigationBar(barStyle: .transcluent(tintColor: .clear))

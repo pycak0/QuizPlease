@@ -8,7 +8,7 @@
 
 import UIKit
 
-enum OnboardingViewMode {
+private enum OnboardingViewMode {
 
     /// Basic mode for all pages
     case basic
@@ -37,6 +37,7 @@ protocol OnboardingViewProtocol: AnyObject {
     func set(pages: [OnboardingPageViewModel])
 }
 
+/// Onboarding view controller
 final class OnboardingViewController: UIViewController {
 
     override var preferredStatusBarStyle: UIStatusBarStyle {

@@ -8,29 +8,43 @@
 
 import UIKit
 
+/// SplashScreen router protocol
 protocol SplashScreenRouterProtocol: Router {
+
+    /// Show Main Menu
     func showMainMenu()
+
+    /// Show Welcome Screen
+    func showWelcomeScreen()
 }
 
+/// SplashScreen router
 final class SplashScreenRouter: SplashScreenRouterProtocol {
+
+    private let welcomeAssembly: WelcomeAssembly
     unowned let viewController: UIViewController
 
-    required init(viewController: UIViewController) {
+    init(
+        viewController: UIViewController,
+        welcomeAssembly: WelcomeAssembly
+    ) {
         self.viewController = viewController
+        self.welcomeAssembly = welcomeAssembly
+    }
+
+    func showWelcomeScreen() {
+        let welcomeViewController = welcomeAssembly.makeViewController()
+        UIApplication.shared
+            .getKeyWindow()?
+            .setRootViewControllerWithAnimation(rootViewController: welcomeViewController)
     }
 
     func showMainMenu() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "MainMenuNavigationController")
-        guard let window = UIApplication.shared.getKeyWindow() else { return }
-        window.rootViewController = vc
-        window.makeKeyAndVisible()
-        UIView.transition(
-            with: window,
-            duration: 0.3,
-            options: .transitionCrossDissolve,
-            animations: nil,
-            completion: nil
+        let mainMenuViewController = UIStoryboard.main.instantiateViewController(
+            withIdentifier: "MainMenuNavigationController"
         )
+        UIApplication.shared
+            .getKeyWindow()?
+            .setRootViewControllerWithAnimation(rootViewController: mainMenuViewController)
     }
 }

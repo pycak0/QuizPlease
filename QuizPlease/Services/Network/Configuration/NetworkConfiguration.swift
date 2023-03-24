@@ -11,7 +11,7 @@ import Foundation
 public enum NetworkConfiguration: CustomStringConvertible {
     case dev, prod
 
-    public static let standard: NetworkConfiguration = .prod
+    public static let standard: NetworkConfiguration = .dev
 
     var host: String {
         switch self {

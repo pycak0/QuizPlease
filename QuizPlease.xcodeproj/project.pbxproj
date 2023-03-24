@@ -234,6 +234,13 @@
 		A4BE730228D756CE0065FA08 /* UIViewController+StatusBarStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BE730128D756CE0065FA08 /* UIViewController+StatusBarStyle.swift */; };
 		A4C0B0A028DA226D0043D579 /* MapMarkerAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C0B09F28DA226D0043D579 /* MapMarkerAnnotationView.swift */; };
 		A4C0B0A228DA23CC0043D579 /* MKMapView+deque.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C0B0A128DA23CC0043D579 /* MKMapView+deque.swift */; };
+		A4C3C43D29CCDC5B00DB0364 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C3C43C29CCDC5B00DB0364 /* WelcomeViewController.swift */; };
+		A4C3C43F29CCE00E00DB0364 /* PickCityAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C3C43E29CCE00E00DB0364 /* PickCityAssembly.swift */; };
+		A4C3C44329CCE28C00DB0364 /* WelcomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C3C44229CCE28C00DB0364 /* WelcomePresenter.swift */; };
+		A4C3C44529CCE9B200DB0364 /* WelcomeAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C3C44429CCE9B200DB0364 /* WelcomeAssembly.swift */; };
+		A4C3C44729CCECD800DB0364 /* WelcomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C3C44629CCECD800DB0364 /* WelcomeRouter.swift */; };
+		A4C3C44929CD03CB00DB0364 /* UIStoryboard+Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C3C44829CD03CB00DB0364 /* UIStoryboard+Main.swift */; };
+		A4C3C44B29CD061F00DB0364 /* UIWindow+SetRootController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C3C44A29CD061F00DB0364 /* UIWindow+SetRootController.swift */; };
 		A4C71766254DE61600898CA5 /* YooMoneyPaymentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C71765254DE61600898CA5 /* YooMoneyPaymentProvider.swift */; };
 		A4C71769254E016400898CA5 /* PaymentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C71768254E016400898CA5 /* PaymentProvider.swift */; };
 		A4C9D81324EA78BB00523688 /* RatingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C9D81224EA78BB00523688 /* RatingCell.swift */; };
@@ -568,6 +575,13 @@
 		A4BE730128D756CE0065FA08 /* UIViewController+StatusBarStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+StatusBarStyle.swift"; sourceTree = "<group>"; };
 		A4C0B09F28DA226D0043D579 /* MapMarkerAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMarkerAnnotationView.swift; sourceTree = "<group>"; };
 		A4C0B0A128DA23CC0043D579 /* MKMapView+deque.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKMapView+deque.swift"; sourceTree = "<group>"; };
+		A4C3C43C29CCDC5B00DB0364 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		A4C3C43E29CCE00E00DB0364 /* PickCityAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickCityAssembly.swift; sourceTree = "<group>"; };
+		A4C3C44229CCE28C00DB0364 /* WelcomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomePresenter.swift; sourceTree = "<group>"; };
+		A4C3C44429CCE9B200DB0364 /* WelcomeAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeAssembly.swift; sourceTree = "<group>"; };
+		A4C3C44629CCECD800DB0364 /* WelcomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeRouter.swift; sourceTree = "<group>"; };
+		A4C3C44829CD03CB00DB0364 /* UIStoryboard+Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+Main.swift"; sourceTree = "<group>"; };
+		A4C3C44A29CD061F00DB0364 /* UIWindow+SetRootController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+SetRootController.swift"; sourceTree = "<group>"; };
 		A4C71765254DE61600898CA5 /* YooMoneyPaymentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YooMoneyPaymentProvider.swift; sourceTree = "<group>"; };
 		A4C71768254E016400898CA5 /* PaymentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentProvider.swift; sourceTree = "<group>"; };
 		A4C9D81224EA78BB00523688 /* RatingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingCell.swift; sourceTree = "<group>"; };
@@ -930,6 +944,8 @@
 				A4BE730128D756CE0065FA08 /* UIViewController+StatusBarStyle.swift */,
 				A42F00DD28F192E200184E54 /* Notification.Name+Constants.swift */,
 				A42F00DF28F237A300184E54 /* URLComponents+QueryDictionary.swift */,
+				A4C3C44829CD03CB00DB0364 /* UIStoryboard+Main.swift */,
+				A4C3C44A29CD061F00DB0364 /* UIWindow+SetRootController.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1149,6 +1165,7 @@
 			children = (
 				A45A072024FFED6D00137637 /* PickCityVC.swift */,
 				A4F47EE126C997E300590FBD /* PickCityCell.swift */,
+				A4C3C43E29CCE00E00DB0364 /* PickCityAssembly.swift */,
 			);
 			path = PickCity;
 			sourceTree = "<group>";
@@ -1372,6 +1389,7 @@
 				A4D44A0C28CFC97A004703B4 /* Onboarding */,
 				A4CDC346273067B300282EC2 /* Map */,
 				A4F3A793257E55F400D6A9C7 /* Splash */,
+				A4C3C43B29CCAFA800DB0364 /* Welcome */,
 				A40D817224D2C95D006D2CE3 /* MainMenu */,
 				A40D817624D2C97E006D2CE3 /* Schedule */,
 				A4A0659524E4775E0080E0D8 /* GameOrder */,
@@ -1472,6 +1490,17 @@
 				A4C0B09F28DA226D0043D579 /* MapMarkerAnnotationView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		A4C3C43B29CCAFA800DB0364 /* Welcome */ = {
+			isa = PBXGroup;
+			children = (
+				A4C3C43C29CCDC5B00DB0364 /* WelcomeViewController.swift */,
+				A4C3C44229CCE28C00DB0364 /* WelcomePresenter.swift */,
+				A4C3C44429CCE9B200DB0364 /* WelcomeAssembly.swift */,
+				A4C3C44629CCECD800DB0364 /* WelcomeRouter.swift */,
+			);
+			path = Welcome;
 			sourceTree = "<group>";
 		};
 		A4C71767254E014E00898CA5 /* PaymentProvider */ = {
@@ -1933,6 +1962,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A472D2A12528975900AA9906 /* CheckInTeamsInfo.swift in Sources */,
+				A4C3C44329CCE28C00DB0364 /* WelcomePresenter.swift in Sources */,
 				A47E06DA261095EC008EBACE /* PromocodeResponse.swift in Sources */,
 				A4BA1CEA24D832D600D32ADC /* MainMenuConfigurator.swift in Sources */,
 				A4A0659824E477860080E0D8 /* GameOrderVC.swift in Sources */,
@@ -1943,6 +1973,7 @@
 				A40D815A24D2C6C1006D2CE3 /* AppDelegate.swift in Sources */,
 				A472D29B25288F1100AA9906 /* RegisterResponse.swift in Sources */,
 				A44E5EEE295F85F800402B97 /* WarmupQuestionTypeResolver.swift in Sources */,
+				A4C3C43F29CCE00E00DB0364 /* PickCityAssembly.swift in Sources */,
 				A468C55328C5541E00962930 /* String+nonBreakingSpace.swift in Sources */,
 				A4D44A1528D0E220004703B4 /* OnboardingViewCell.swift in Sources */,
 				A40B758024D9A75A006DB7D1 /* ScheduleRouter.swift in Sources */,
@@ -2041,6 +2072,7 @@
 				A4FEB059273749010052AD7B /* UIAlertAction+Static.swift in Sources */,
 				A450E39A24E564A900C49AEE /* GameCertificateCell.swift in Sources */,
 				A48E303F287220A0000704B2 /* UICollectionView+deque.swift in Sources */,
+				A4C3C44529CCE9B200DB0364 /* WelcomeAssembly.swift in Sources */,
 				A40F036424D419D200C381F2 /* MenuCellItemProtocol.swift in Sources */,
 				A4F3A79A257E7A1700D6A9C7 /* UIImage+Static.swift in Sources */,
 				A4A4ED382775D8D000DAA945 /* Bundle+version.swift in Sources */,
@@ -2063,6 +2095,7 @@
 				A4A5DE912501907300EBC408 /* GameFormat.swift in Sources */,
 				A4E4400A28E9050C00514C0D /* DeeplinkParser.swift in Sources */,
 				A4DAF73F24DDABFF00963C15 /* WarmupCell.swift in Sources */,
+				A4C3C44B29CD061F00DB0364 /* UIWindow+SetRootController.swift in Sources */,
 				A4C0B0A228DA23CC0043D579 /* MKMapView+deque.swift in Sources */,
 				A45C656F265D2136009A63BB /* Cancellable.swift in Sources */,
 				A44A462F24F901ED00C81F82 /* WarmupQuestionVC.swift in Sources */,
@@ -2076,6 +2109,7 @@
 				A40B757C24D9A744006DB7D1 /* ScheduleInteractor.swift in Sources */,
 				A4A13E6C2698754800B3A499 /* PaymentOptions.swift in Sources */,
 				A4C71766254DE61600898CA5 /* YooMoneyPaymentProvider.swift in Sources */,
+				A4C3C44729CCECD800DB0364 /* WelcomeRouter.swift in Sources */,
 				A40D818A24D2D24C006D2CE3 /* ScheduleCell.swift in Sources */,
 				A46F303A24F52CAE0062A333 /* GameOnlinePaymentCell.swift in Sources */,
 				A4FEB057273739F10052AD7B /* MapProvider.swift in Sources */,
@@ -2124,6 +2158,7 @@
 				A45241DE265479A70058285C /* CGRect+setHeight.swift in Sources */,
 				A464370424EB37DB0033F23A /* ExpandingHeader.swift in Sources */,
 				A4D44A1328D0B4FE004703B4 /* OnboardingView.swift in Sources */,
+				A4C3C44929CD03CB00DB0364 /* UIStoryboard+Main.swift in Sources */,
 				A4F0B9E026248B6E00E4E2A5 /* SplashScreenRouter.swift in Sources */,
 				A40F035D24D412D700C381F2 /* ShopItemCell.swift in Sources */,
 				A4A5370824EC7AA6004A10D4 /* HomeGameCell.swift in Sources */,
@@ -2141,6 +2176,7 @@
 				A40B758624D9A7F6006DB7D1 /* WarmupPresenter.swift in Sources */,
 				A40D817A24D2C9E6006D2CE3 /* MainMenuVC.swift in Sources */,
 				A4CC5FF224DAFECF0042B41C /* VCExtensions.swift in Sources */,
+				A4C3C43D29CCDC5B00DB0364 /* WelcomeViewController.swift in Sources */,
 				A40D818424D2CA39006D2CE3 /* RatingVC.swift in Sources */,
 				A40689FF24F7D94B001273B2 /* AppSettings.swift in Sources */,
 				A4F0B9E226248BD600E4E2A5 /* SplashScreenConfigurator.swift in Sources */,

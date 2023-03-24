@@ -39,7 +39,7 @@ final class SplashScreenPresenter: SplashScreenPresenterProtocol {
         updateUserToken()
         setTimer()
         dispatchGroup.notify(queue: .main) {
-            self.router.showMainMenu()
+            self.showNextScreen()
         }
     }
 
@@ -53,6 +53,14 @@ final class SplashScreenPresenter: SplashScreenPresenterProtocol {
         Timer.scheduledTimer(withTimeInterval: timeout, repeats: false) { [self] _ in
             dispatchGroup.leave()
             view?.startLoading()
+        }
+    }
+
+    private func showNextScreen() {
+        if DefaultsManager.shared.wasWelcomeScreenPresented() {
+            router.showMainMenu()
+        } else {
+            router.showWelcomeScreen()
         }
     }
 }
