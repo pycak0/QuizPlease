@@ -189,15 +189,20 @@ final class SchedulePresenter: SchedulePresenterProtocol {
                 print(error)
                 switch error {
                 case .other, .serverError, .invalidUrl:
-                    self.view?.showErrorConnectingToServerAlert()
+                    self.view?.showErrorConnectingToServerAlert { [weak self] _ in
+                        self?.router.close()
+                    }
                 default:
                     self.games.removeAll()
                     self.view?.reloadScheduleList()
-                    self.view?.showNoGamesScheduled()
+                    self.showNoGamesInSchedule()
                 }
             case .success(let schedule):
                 self.games = schedule
                 self.view?.reloadScheduleList()
+                if schedule.isEmpty {
+                    self.showNoGamesInSchedule()
+                }
             }
         }
     }
@@ -220,6 +225,29 @@ final class SchedulePresenter: SchedulePresenterProtocol {
             shouldScrollToSignUp: scrollToSignUp,
             shouldLoadGameInfo: false
         )
+    }
+
+    private func showNoGamesInSchedule() {
+        let links: [TextLink]
+        let text: String
+        if scheduleFilter.status?.id == "6" {
+            text = "Упс! А прошедших игр еще нет. Чтобы посмотреть предстоящие игры, " +
+            "перейдите в раздел Расписание игр"
+            links = [TextLink(text: "Расписание игр", action: { [weak self] in
+                guard let self = self else { return }
+                self.scheduleFilter = ScheduleFilter()
+                self.updateSchedule()
+            })]
+
+        } else {
+            text = "Упс! Кажется, сейчас нет игр, на которые открыта регистрация, " +
+            "поэтому пока вы можете размяться или сыграть в наши игры Хоум"
+            links = [
+                TextLink(text: "игры Хоум", action: { [weak self] in self?.homeGameAction() }),
+                TextLink(text: "размяться", action: { [weak self] in self?.warmupAction() })
+            ]
+        }
+        self.view?.showNoGamesInSchedule(text: text, links: links)
     }
 }
 
