@@ -38,6 +38,13 @@ class HomeGameCell: UICollectionViewCell {
     func configureCell(with game: HomeGame) {
         gameNameLabel.text = game.fullTitle
         timeLabel.text = game.duration
-        priceLabel.text = game.price == 0 ? "Бесплатно" : "\(game.price)"
+
+        let priceText: String = {
+            if let price = game.price, price != 0 {
+                return "\(price)"
+            }
+            return "Бесплатно"
+        }()
+        priceLabel.text = priceText
     }
 }

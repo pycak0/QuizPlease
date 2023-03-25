@@ -14,7 +14,7 @@ struct HomeGame: Decodable {
     var description: String?
     var duration: String
     var number: String
-    var price: Int
+    var price: Int?
 
     private var videos_link: String?
     private var front_image: String?
