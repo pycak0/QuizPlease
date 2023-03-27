@@ -40,6 +40,9 @@ protocol WelcomeViewProtocol: AnyObject {
 
     /// Animate transition to main menu
     func animateTransitionToMainMenu()
+
+    /// Show an alert that client settings were not loaded
+    func showErrorLoadingClientSettings()
 }
 
 /// Welcome View Controller
@@ -343,5 +346,13 @@ extension WelcomeViewController: WelcomeViewProtocol {
             view.setNeedsLayout()
             view.layoutIfNeeded()
         }
+    }
+
+    func showErrorLoadingClientSettings() {
+        showErrorConnectingToServerAlert(
+            title: "Ошибка",
+            message: "Не удалось загрузить настройки выбранного города. " +
+            "Пожалуйста, попробуйте повторить попытку позже или выберите другой город"
+        )
     }
 }

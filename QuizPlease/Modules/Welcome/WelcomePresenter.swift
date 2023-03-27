@@ -11,13 +11,34 @@ import Foundation
 /// Welcome screen presenter
 final class WelcomePresenter {
 
-    weak var view: WelcomeViewProtocol?
+    // MARK: - Private Properties
+
     private let router: WelcomeRouterProtocol
+    private let interactor: WelcomeInteractorProtocol
+
+    private var isLoadingSettings = false
+
+    weak var view: WelcomeViewProtocol?
 
     /// Initialize WelcomePresenter
-    /// - Parameter router: Welcome screen router protocol
-    init(router: WelcomeRouterProtocol) {
+    /// - Parameters:
+    ///   - router: Welcome screen router
+    ///   - interactor: Welcome screen interactor
+    init(
+        router: WelcomeRouterProtocol,
+        interactor: WelcomeInteractorProtocol
+    ) {
         self.router = router
+        self.interactor = interactor
+    }
+
+    // MARK: - Private Methods
+
+    private func showMainMenu() {
+        view?.animateTransitionToMainMenu()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.router.showMainMenu()
+        }
     }
 }
 
@@ -26,7 +47,7 @@ final class WelcomePresenter {
 extension WelcomePresenter: WelcomeViewOutput {
 
     func viewDidLoad() {
-        DefaultsManager.shared.setWelcomeScreenWasPresented()
+        interactor.setWelcomeScreenWasPresented()
     }
 
     func didTapPickCity() {
@@ -34,10 +55,9 @@ extension WelcomePresenter: WelcomeViewOutput {
     }
 
     func didTapContinue() {
-        view?.animateTransitionToMainMenu()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            self.router.showMainMenu()
-        }
+        guard !isLoadingSettings else { return }
+        isLoadingSettings = true
+        interactor.fetchClientSettings()
     }
 }
 
@@ -49,5 +69,20 @@ extension WelcomePresenter: PickCityVCDelegate {
         AppSettings.defaultCity = city
         view?.setSelectedCity(title: city.title)
         view?.setContinueButton(hidden: false)
+    }
+}
+
+// MARK: - WelcomeInteractorOutput
+
+extension WelcomePresenter: WelcomeInteractorOutput {
+
+    func didFetchClientSettings() {
+        isLoadingSettings = false
+        showMainMenu()
+    }
+
+    func failedToFetchClientSettings(error: Error) {
+        isLoadingSettings = false
+        view?.showErrorLoadingClientSettings()
     }
 }

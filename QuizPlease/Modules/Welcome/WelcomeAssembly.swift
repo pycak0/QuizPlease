@@ -14,10 +14,17 @@ final class WelcomeAssembly {
     /// Make Welcome view controller
     func makeViewController() -> UIViewController {
         let router = WelcomeRouter(pickCityAssembly: PickCityAssembly())
-        let presenter = WelcomePresenter(router: router)
+        let interactor = WelcomeInteractor()
+        let presenter = WelcomePresenter(
+            router: router,
+            interactor: interactor
+        )
         let viewController = WelcomeViewController(output: presenter)
+
+        interactor.output = presenter
         presenter.view = viewController
         router.viewController = viewController
+
         return viewController
     }
 }
