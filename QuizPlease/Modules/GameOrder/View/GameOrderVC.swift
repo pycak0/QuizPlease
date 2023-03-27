@@ -149,6 +149,10 @@ final class GameOrderVC: UIViewController {
     }
 
     private func makeItems() -> [GameInfoItemKind] {
+        if !(presenter.game.gameStatus?.isRegistrationAvailable ?? false) {
+            return [.annotation, .info, .description]
+        }
+
         var _items = GameInfoItemKind.allCases
         let specialConditionsAmount = presenter.specialConditions.count
         if specialConditionsAmount > 1 {

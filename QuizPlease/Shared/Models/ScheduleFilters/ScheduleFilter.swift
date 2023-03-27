@@ -14,5 +14,6 @@ struct ScheduleFilter {
     var format: GameFormat?
     var type: ScheduleFilterOption?
     var place: ScheduleFilterOption?
+    /// See `GameStatus` for possible options
     var status: ScheduleFilterOption?
 }

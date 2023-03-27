@@ -18,6 +18,15 @@ extension GameOrderVC: GameAnnotationCellDelegate {
     func signUpButtonPressed(in cell: GameAnnotationCell) {
         scrollToSignUp()
     }
+
+    func registerButtonOpptions(for cell: GameAnnotationCell) -> GameAnnotationRegisterButtonOptions? {
+        guard let gameStatus = presenter.game.gameStatus else { return nil }
+        return GameAnnotationRegisterButtonOptions(
+            color: gameStatus.accentColor,
+            title: gameStatus.buttonTitle,
+            isEnabled: gameStatus.isRegistrationAvailable
+        )
+    }
 }
 
 // MARK: - Game Info

@@ -108,12 +108,8 @@ final class ScheduleGameCell: UITableViewCell {
 
         statusImageView.image = gameInfo.gameStatus?.image
 
-        switch gameInfo.gameStatus {
-        case .placesAvailable, .reserveAvailable, .fewPlaces:
-            setButtons(enabled: true)
-        default:
-            setButtons(enabled: false)
-        }
+        infoButton.isEnabled = true
+        signUpButton.isEnabled = gameInfo.gameStatus?.isRegistrationAvailable ?? false
 
         let subscribeButton = viewModel.subscribeButtonViewModel
 

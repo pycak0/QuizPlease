@@ -193,6 +193,7 @@
 		A492B8752631AE6100AEC388 /* UIRefreshControl+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = A492B8742631AE6100AEC388 /* UIRefreshControl+Init.swift */; };
 		A498FCCC24E52ED80069F896 /* GameRegisterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A498FCCA24E52ED80069F896 /* GameRegisterCell.swift */; };
 		A498FCCD24E52ED80069F896 /* GameRegisterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A498FCCB24E52ED80069F896 /* GameRegisterCell.xib */; };
+		A4A0519029D1A79400D32E19 /* GameAnnotationRegisterButtonOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A0518F29D1A79400D32E19 /* GameAnnotationRegisterButtonOptions.swift */; };
 		A4A0519229D2459000D32E19 /* WelcomeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A0519129D2459000D32E19 /* WelcomeInteractor.swift */; };
 		A4A0659824E477860080E0D8 /* GameOrderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A0659724E477860080E0D8 /* GameOrderVC.swift */; };
 		A4A0659D24E477E20080E0D8 /* GameInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A0659B24E477E20080E0D8 /* GameInfoCell.swift */; };
@@ -537,6 +538,7 @@
 		A498FCCA24E52ED80069F896 /* GameRegisterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRegisterCell.swift; sourceTree = "<group>"; };
 		A498FCCB24E52ED80069F896 /* GameRegisterCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameRegisterCell.xib; sourceTree = "<group>"; };
 		A4A0519129D2459000D32E19 /* WelcomeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeInteractor.swift; sourceTree = "<group>"; };
+		A4A0518F29D1A79400D32E19 /* GameAnnotationRegisterButtonOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameAnnotationRegisterButtonOptions.swift; sourceTree = "<group>"; };
 		A4A0659724E477860080E0D8 /* GameOrderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOrderVC.swift; sourceTree = "<group>"; };
 		A4A0659B24E477E20080E0D8 /* GameInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameInfoCell.swift; sourceTree = "<group>"; };
 		A4A0659C24E477E20080E0D8 /* GameInfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameInfoCell.xib; sourceTree = "<group>"; };
@@ -1216,9 +1218,18 @@
 			path = Transitions;
 			sourceTree = "<group>";
 		};
+		A4A0518E29D1A75300D32E19 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				A4A0518F29D1A79400D32E19 /* GameAnnotationRegisterButtonOptions.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		A4A0659524E4775E0080E0D8 /* GameOrder */ = {
 			isa = PBXGroup;
 			children = (
+				A4A0518E29D1A75300D32E19 /* ViewModel */,
 				A431772F267BEEDF0062E0E0 /* Entity */,
 				A4A0659624E477720080E0D8 /* View */,
 				A450E3A424E57A8C00C49AEE /* GameInfoItemKind.swift */,
@@ -2077,6 +2088,7 @@
 				A472D2B325291F0200AA9906 /* UserRegisterData.swift in Sources */,
 				A4DAF73924DD987F00963C15 /* MenuProfileCell.swift in Sources */,
 				A4FEB059273749010052AD7B /* UIAlertAction+Static.swift in Sources */,
+				A4A0519029D1A79400D32E19 /* GameAnnotationRegisterButtonOptions.swift in Sources */,
 				A450E39A24E564A900C49AEE /* GameCertificateCell.swift in Sources */,
 				A48E303F287220A0000704B2 /* UICollectionView+deque.swift in Sources */,
 				A4C3C44529CCE9B200DB0364 /* WelcomeAssembly.swift in Sources */,

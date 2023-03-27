@@ -32,7 +32,7 @@ struct GameInfo: Decodable {
     /// Background Image path on server
     private var special_mobile_banner: String?
 
-    /// background image for cell in Schedule
+    /// Background image for cell in Schedule
     var imageData: String?
 
     var time: String = placeholderValue
@@ -40,7 +40,9 @@ struct GameInfo: Decodable {
 
     private var text_block: String?
 
+    /// See `GameStatus` for description
     private var status: Int?
+    /// Special marketing flag "few places left!!"
     private var is_little_place: Int?
 
     private var price: String = placeholderValue
@@ -51,6 +53,7 @@ struct GameInfo: Decodable {
     private var address: String? = placeholderValue
     private var cityName: String = ""
     private var payment_icon: Int = 0
+    /// Online game = 1; offline game = 0
     private var game_type: Int = 0
 
     private var latitude: String?

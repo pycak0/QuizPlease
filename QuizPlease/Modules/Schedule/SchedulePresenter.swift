@@ -9,21 +9,18 @@
 import Foundation
 
 // MARK: - Presenter Protocol
+
 protocol SchedulePresenterProtocol: AnyObject {
 
     var router: ScheduleRouterProtocol { get }
 
     var gamesCount: Int { get }
-    var scheduleFilter: ScheduleFilter { get set }
 
     func viewDidLoad(_ view: ScheduleViewProtocol)
     func didSignUp(forGameAt index: Int)
     func didPressInfoButton(forGameAt index: Int)
     func didAskNotification(forGameAt index: Int)
     func didAskLocation(forGameAt index: Int)
-
-    func homeGameAction()
-    func warmupAction()
 
     func didPressFilterButton()
     func didChangeScheduleFilter(newFilter: ScheduleFilter)
@@ -41,19 +38,19 @@ final class SchedulePresenter: SchedulePresenterProtocol {
 
     weak var view: ScheduleViewProtocol?
 
-    let interactor: ScheduleInteractorProtocol
     let router: ScheduleRouterProtocol
-    let analyticsService: AnalyticsService
+    private let interactor: ScheduleInteractorProtocol
+    private let analyticsService: AnalyticsService
 
     private var games: [GameInfo] = []
+    private var scheduleFilter = ScheduleFilter()
+    private var subscribedGameIds = [Int]()
 
     var gamesCount: Int {
         games.count
     }
 
-    var scheduleFilter = ScheduleFilter()
-
-    private var subscribedGameIds = [Int]()
+    // MARK: - Lifecycle
 
     required init(
         interactor: ScheduleInteractorProtocol,
@@ -77,7 +74,8 @@ final class SchedulePresenter: SchedulePresenterProtocol {
         let isSubscribed = isSubscribedOnGame(with: game.id)
 
         let subscribeButtonModel = SubscribeButtonViewModel(
-            isPresented: AppSettings.isProfileEnabled,
+            // Conditions to show remind button: Profile is enabled AND game allows registration
+            isPresented: AppSettings.isProfileEnabled && (game.gameStatus?.isRegistrationAvailable ?? false),
             tintColor: isSubscribed ? .black : .white,
             backgroundColor: isSubscribed ? .lemon : .themePurple,
             title: isSubscribed ? "Напомним" : "Напомнить"
@@ -103,7 +101,14 @@ final class SchedulePresenter: SchedulePresenterProtocol {
 
     func didPressInfoButton(forGameAt index: Int) {
         let game = games[index]
-        let statusesAllowedForTransition = [GameStatus.placesAvailable, .reserveAvailable, .fewPlaces]
+        let statusesAllowedForTransition = Set([
+            GameStatus.placesAvailable,
+            .reserveAvailable,
+            .fewPlaces,
+            .noPlaces,
+            .ended,
+            .invite
+        ])
 
         guard
             let status = game.gameStatus,
@@ -136,26 +141,23 @@ final class SchedulePresenter: SchedulePresenterProtocol {
     func didChangeScheduleFilter(newFilter: ScheduleFilter) {
         scheduleFilter = newFilter
         updateSchedule()
+        if newFilter.status?.id == "\(GameStatus.ended)" {
+            view?.setTitle("Прошедшие игры")
+        }
     }
 
     func didPressScheduleRemindButton() {
         //
     }
 
-    func homeGameAction() {
-        router.showHomeGame(popCurrent: true)
-    }
-
-    func warmupAction() {
-        router.showWarmup(popCurrent: true)
-    }
-
     // MARK: - Handle Refresh Control
+
     func handleRefreshControl() {
         updateSchedule()
     }
 
     // MARK: - Loading
+
     func updateDetailInfoIfNeeded(at index: Int) {
         guard index < games.count else { return }
         let game = games[index]
@@ -175,6 +177,7 @@ final class SchedulePresenter: SchedulePresenterProtocol {
     }
 
     // MARK: - Load
+
     private func updateSchedule() {
         loadSchedule()
         updateSubscribedGames()
@@ -208,7 +211,7 @@ final class SchedulePresenter: SchedulePresenterProtocol {
     }
 
     private func updateSubscribedGames() {
-        interactor.getSubscribedGameIds { [weak self] (gameIds) in
+        interactor.getSubscribedGameIds { [weak self] gameIds in
             guard let self = self else { return }
             self.subscribedGameIds = gameIds
         }
@@ -230,24 +233,36 @@ final class SchedulePresenter: SchedulePresenterProtocol {
     private func showNoGamesInSchedule() {
         let links: [TextLink]
         let text: String
-        if scheduleFilter.status?.id == "6" {
+        if scheduleFilter.status?.id == "\(GameStatus.ended.rawValue)" {
             text = "Упс! А прошедших игр еще нет. Чтобы посмотреть предстоящие игры, " +
             "перейдите в раздел Расписание игр"
-            links = [TextLink(text: "Расписание игр", action: { [weak self] in
-                guard let self = self else { return }
-                self.scheduleFilter = ScheduleFilter()
-                self.updateSchedule()
-            })]
+            links = [
+                TextLink(text: "Расписание игр", action: { [weak self] in self?.resetFilterAndUpdateSchedule() })
+            ]
 
         } else {
             text = "Упс! Кажется, сейчас нет игр, на которые открыта регистрация, " +
             "поэтому пока вы можете размяться или сыграть в наши игры Хоум"
             links = [
-                TextLink(text: "игры Хоум", action: { [weak self] in self?.homeGameAction() }),
-                TextLink(text: "размяться", action: { [weak self] in self?.warmupAction() })
+                TextLink(text: "игры Хоум", action: { [weak self] in self?.showHomeGame() }),
+                TextLink(text: "размяться", action: { [weak self] in self?.showWarmup() })
             ]
         }
         self.view?.showNoGamesInSchedule(text: text, links: links)
+    }
+
+    private func resetFilterAndUpdateSchedule() {
+        scheduleFilter = ScheduleFilter()
+        updateSchedule()
+        view?.setTitle("Расписание игр")
+    }
+
+    private func showHomeGame() {
+        router.showHomeGame(popCurrent: true)
+    }
+
+    private func showWarmup() {
+        router.showWarmup(popCurrent: true)
     }
 }
 

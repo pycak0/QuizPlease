@@ -20,6 +20,9 @@ protocol ScheduleViewProtocol: UIViewController, LoadingIndicator {
     func configure()
 
     func changeSubscribeStatus(forGameAt index: Int)
+
+    /// Set screen title
+    func setTitle(_ title: String)
 }
 
 /// Schedule view controller
@@ -40,6 +43,7 @@ final class ScheduleVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        prepareNavigationBar(barStyle: .transcluent(tintColor: view.backgroundColor))
         ScheduleConfigurator().configure(self)
         presenter.viewDidLoad(self)
 
@@ -170,6 +174,17 @@ extension ScheduleVC: ScheduleViewProtocol {
 
     func changeSubscribeStatus(forGameAt index: Int) {
         tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+    }
+
+    func setTitle(_ title: String) {
+        UIView.animate(withDuration: 0.1) {
+            self.navigationItem.titleView?.alpha = 0
+        } completion: { _ in
+            self.navigationItem.titleView = TitleLabel(title: title)
+            UIView.animate(withDuration: 0.1) {
+                self.navigationItem.titleView?.alpha = 1
+            }
+        }
     }
 }
 
