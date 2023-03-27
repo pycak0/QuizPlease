@@ -17,6 +17,10 @@ extension UIImage {
         UIImage(named: "logoSmall")?.withRenderingMode(.alwaysTemplate)
     }
 
+    class var logoScreenBackground: UIImage? {
+        UIImage(named: "launchScreenBackground")
+    }
+
     class var backButton: UIImage {
         UIImage(imageLiteralResourceName: "backButton")
     }
@@ -47,5 +51,9 @@ extension UIImage {
             return UIImage(systemName: "location")
         }
         return UIImage(named: "compass")
+    }
+
+    class var arrowDown: UIImage? {
+        return UIImage(named: "arrowDown")
     }
 }

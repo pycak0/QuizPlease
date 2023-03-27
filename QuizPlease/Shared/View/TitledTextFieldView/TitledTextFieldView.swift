@@ -37,7 +37,7 @@ class TitledTextFieldView: UIView {
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = .gilroy(.semibold, size: 12)
-        label.textColor = .darkGray
+        label.textColor = titleColor
         label.contentMode = .left
         label.text = self.title
         label.setContentHuggingPriority(.defaultHigh, for: .vertical)
@@ -106,6 +106,13 @@ class TitledTextFieldView: UIView {
     var viewCornerRadius: CGFloat = 20 {
         didSet {
             updateAppearance()
+        }
+    }
+
+    @IBInspectable
+    var titleColor: UIColor = .darkGray {
+        didSet {
+            titleLabel.textColor = titleColor
         }
     }
 

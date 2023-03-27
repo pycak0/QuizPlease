@@ -15,15 +15,22 @@ protocol MainMenuRouterProtocol: SegueRouter {
     func showAddGameScreen(_ info: String)
 }
 
-class MainMenuRouter: MainMenuRouterProtocol {
+final class MainMenuRouter: MainMenuRouterProtocol {
+
     unowned let viewController: UIViewController
     private unowned let storyboard: UIStoryboard
+    private let pickCityAssembly: PickCityAssembly
+
     private var navigationController: UINavigationController {
         viewController.navigationController!
     }
 
-    required init(viewController: UIViewController) {
+    init(
+        viewController: UIViewController,
+        pickCityAssembly: PickCityAssembly
+    ) {
         self.viewController = viewController
+        self.pickCityAssembly = pickCityAssembly
         self.storyboard = viewController.storyboard ?? UIStoryboard(name: "Main", bundle: .main)
     }
 
@@ -66,12 +73,11 @@ class MainMenuRouter: MainMenuRouterProtocol {
     }
 
     func showChooseCityScreen(selectedCity: City) {
-        let pickCityVc = PickCityVC(
+        let pickCityViewController = pickCityAssembly.makePickCityViewController(
             selectedCity: selectedCity,
             delegate: viewController as? PickCityVCDelegate
         )
-        let navC = UINavigationController(rootViewController: pickCityVc)
-        viewController.present(navC, animated: true)
+        viewController.present(pickCityViewController, animated: true)
     }
 
     func showQRScanner() {
