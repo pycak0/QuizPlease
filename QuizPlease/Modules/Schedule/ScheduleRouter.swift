@@ -20,10 +20,15 @@ protocol ScheduleRouterProtocol: SegueRouter {
     /// Pop current screen and push HomeGame Screen onto the navigation stack
     func showHomeGame(popCurrent: Bool)
 
+    /// Present map screen for the given Place
     func showMap(for place: Place)
+
+    /// Close Schedule screen
+    func close()
 }
 
 final class ScheduleRouter: ScheduleRouterProtocol {
+
     unowned let viewController: UIViewController
 
     required init(viewController: UIViewController) {
@@ -31,6 +36,7 @@ final class ScheduleRouter: ScheduleRouterProtocol {
     }
 
     // MARK: - Prepare for Segue
+
     func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case "ShowGameInfo":
@@ -48,6 +54,7 @@ final class ScheduleRouter: ScheduleRouterProtocol {
     }
 
     // MARK: - Segues
+
     func showGameInfo(with options: GameOrderPresentationOptions) {
         viewController.performSegue(withIdentifier: "ShowGameInfo", sender: options)
     }
@@ -85,5 +92,9 @@ final class ScheduleRouter: ScheduleRouterProtocol {
     func showMap(for place: Place) {
         let mapViewController = MapAssembly(place: place).makeViewController()
         viewController.present(mapViewController, animated: true)
+    }
+
+    func close() {
+        viewController.navigationController?.popViewController(animated: true)
     }
 }

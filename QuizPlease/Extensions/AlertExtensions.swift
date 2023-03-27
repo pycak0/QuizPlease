@@ -117,13 +117,16 @@ extension UIViewController {
     /// Not as good as 'simple alert' but is very easy to call specially for internet issues
     func showErrorConnectingToServerAlert(
         title: String = "Не удалось связаться с сервером",
-        message: String = "Повторите попытку позже"
+        message: String = "Повторите попытку позже",
+        okHandler: ((UIAlertAction) -> Void)? = nil
     ) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        // alert.view.tintColor = tintColor
-        let okBtn = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-        alert.addAction(okBtn)
-        present(alert, animated: true, completion: nil)
+        showSimpleAlert(
+            title: title,
+            message: message,
+            okButtonTitle: "OK",
+            okButtonStyle: .cancel,
+            okHandler: okHandler
+        )
     }
 
     func showNeedsAuthAlert(
