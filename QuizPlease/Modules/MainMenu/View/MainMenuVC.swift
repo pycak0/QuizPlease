@@ -87,7 +87,9 @@ class MainMenuVC: UIViewController {
 // MARK: - MainMenuViewProtocol
 
 extension MainMenuVC: MainMenuViewProtocol {
+
     func configureTableView() {
+        tableView.showsVerticalScrollIndicator = false
         tableView.delegate = self
         tableView.dataSource = self
 
