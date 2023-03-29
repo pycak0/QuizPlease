@@ -8,13 +8,25 @@
 
 import UIKit
 
+/// GameAnnotationCell delegate protocol
 protocol GameAnnotationCellDelegate: AnyObject {
+
+    /// Did press sign up button
     func signUpButtonPressed(in cell: GameAnnotationCell)
+
+    /// Asks `delegate` to provide game annotation text
     func gameAnnotation(for cell: GameAnnotationCell) -> String
+
+    /// Asks `delegate` to provide game annotation register button options
+    func registerButtonOpptions(for cell: GameAnnotationCell) -> GameAnnotationRegisterButtonOptions?
 }
 
-class GameAnnotationCell: UITableViewCell, GameOrderCellProtocol {
-    static let identifier = "GameAnnotationCell"
+/// Cell containing an annotation of the game and a register button
+final class GameAnnotationCell: UITableViewCell, GameOrderCellProtocol {
+
+    static let identifier = "\(GameAnnotationCell.self)"
+
+    // MARK: - UI Elements
 
     @IBOutlet weak var annotationLabel: UILabel!
     @IBOutlet weak var signUpButton: ScalingButton!
@@ -28,8 +40,15 @@ class GameAnnotationCell: UITableViewCell, GameOrderCellProtocol {
             if let text = _delegate?.gameAnnotation(for: self) {
                 annotationLabel.text = text
             }
+            if let options = _delegate?.registerButtonOpptions(for: self) {
+                signUpButton.isEnabled = options.isEnabled
+                signUpButton.setTitle(options.title, for: .normal)
+                signUpButton.backgroundColor = options.color
+            }
         }
     }
+
+    // MARK: - Lifecycle
 
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -43,5 +62,4 @@ class GameAnnotationCell: UITableViewCell, GameOrderCellProtocol {
     func configureViews() {
         signUpButton.layer.cornerRadius = signUpButton.frame.height / 2
     }
-
 }

@@ -8,9 +8,16 @@
 
 import UIKit
 
+/// Status of the game
 enum GameStatus: Int, Decodable {
-    case placesAvailable = 1, reserveAvailable = 2, noPlaces = 3, invite = 4, ended = 6
 
+    case placesAvailable = 1,
+         reserveAvailable = 2,
+         noPlaces = 3,
+         invite = 4,
+         ended = 6
+
+    /// A special status that comes from the backend in a separate field
     case fewPlaces = 100
 
     var comment: String {
@@ -62,6 +69,15 @@ enum GameStatus: Int, Decodable {
             return UIImage(named: "fire")
         default:
             return UIImage(named: "lock")
+        }
+    }
+
+    var isRegistrationAvailable: Bool {
+        switch self {
+        case .placesAvailable, .reserveAvailable, .fewPlaces:
+            return true
+        default:
+            return false
         }
     }
 }

@@ -21,7 +21,6 @@ final class ScheduleConfigurator: Configurator {
             analyticsService: service.analytics
         )
         presenter.view = view
-        view.prepareNavigationBar(barStyle: .transcluent(tintColor: view.view.backgroundColor))
         view.presenter = presenter
         interactor.output = presenter
     }
