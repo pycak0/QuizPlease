@@ -101,9 +101,9 @@ final class FiltersVC: BottomPopupViewController {
             self.showOptions(for: self.bars) { self.filter.place = $0 }
         }
         formatFilterView.addTapGestureRecognizer {
-            let formats = GameFormat.allCases.map { $0.title }
-            self.showOptions(with: formats) { (selectedIndex) in
-                let newFormat = GameFormat.allCases[selectedIndex]
+            let formats = GameFormat.allCases.sorted { $0.title < $1.title }
+            self.showOptions(with: formats.map { $0.title }) { selectedIndex in
+                let newFormat = formats[selectedIndex]
                 self.filter.format = newFormat == .all ? nil : newFormat
             }
         }

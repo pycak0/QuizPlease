@@ -136,9 +136,10 @@ final class ScheduleVC: UIViewController {
 // MARK: - ScheduleViewProtocol
 
 extension ScheduleVC: ScheduleViewProtocol {
+
     func reloadScheduleList() {
         noGamesView.isHidden = true
-        tableView.reloadData()
+        tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
     }
 
     func reloadGame(at index: Int) {
@@ -177,12 +178,17 @@ extension ScheduleVC: ScheduleViewProtocol {
     }
 
     func setTitle(_ title: String) {
+        // No need to change if the title is already the same
+        guard (navigationItem.titleView as? TitleLabel)?.text != title else { return }
+
         UIView.animate(withDuration: 0.1) {
             self.navigationItem.titleView?.alpha = 0
         } completion: { _ in
-            self.navigationItem.titleView = TitleLabel(title: title)
+            let newTitle = TitleLabel(title: title)
+            self.navigationItem.titleView = newTitle
+            newTitle.alpha = 0
             UIView.animate(withDuration: 0.1) {
-                self.navigationItem.titleView?.alpha = 1
+                newTitle.alpha = 1
             }
         }
     }

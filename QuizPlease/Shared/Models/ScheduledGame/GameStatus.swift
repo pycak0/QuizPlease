@@ -20,6 +20,11 @@ enum GameStatus: Int, Decodable {
     /// A special status that comes from the backend in a separate field
     case fewPlaces = 100
 
+    /// String representation of `rawValue`
+    var identifier: String {
+        "\(rawValue)"
+    }
+
     var comment: String {
         switch self {
         case .placesAvailable:

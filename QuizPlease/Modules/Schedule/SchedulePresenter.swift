@@ -8,6 +8,13 @@
 
 import Foundation
 
+private enum Constants {
+    /// Basic Schedule title
+    static let scheduleSectionTitle = "Расписание игр"
+    /// Schedule title for ended games
+    static let endedGamesTitle = "Прошедшие игры"
+}
+
 // MARK: - Presenter Protocol
 
 protocol SchedulePresenterProtocol: AnyObject {
@@ -141,8 +148,10 @@ final class SchedulePresenter: SchedulePresenterProtocol {
     func didChangeScheduleFilter(newFilter: ScheduleFilter) {
         scheduleFilter = newFilter
         updateSchedule()
-        if newFilter.status?.id == "\(GameStatus.ended)" {
-            view?.setTitle("Прошедшие игры")
+        if newFilter.status?.id == GameStatus.ended.identifier {
+            view?.setTitle(Constants.endedGamesTitle)
+        } else {
+            view?.setTitle(Constants.scheduleSectionTitle)
         }
     }
 
@@ -233,11 +242,11 @@ final class SchedulePresenter: SchedulePresenterProtocol {
     private func showNoGamesInSchedule() {
         let links: [TextLink]
         let text: String
-        if scheduleFilter.status?.id == "\(GameStatus.ended.rawValue)" {
+        if scheduleFilter.status?.id == GameStatus.ended.identifier {
             text = "Упс! А прошедших игр еще нет. Чтобы посмотреть предстоящие игры, " +
-            "перейдите в раздел Расписание игр"
+            "перейдите в раздел \(Constants.scheduleSectionTitle)"
             links = [
-                TextLink(text: "Расписание игр", action: { [weak self] in self?.resetFilterAndUpdateSchedule() })
+                TextLink(text: Constants.scheduleSectionTitle, action: { [weak self] in self?.resetFilterAndUpdateSchedule() })
             ]
 
         } else {
@@ -254,7 +263,7 @@ final class SchedulePresenter: SchedulePresenterProtocol {
     private func resetFilterAndUpdateSchedule() {
         scheduleFilter = ScheduleFilter()
         updateSchedule()
-        view?.setTitle("Расписание игр")
+        view?.setTitle(Constants.scheduleSectionTitle)
     }
 
     private func showHomeGame() {
