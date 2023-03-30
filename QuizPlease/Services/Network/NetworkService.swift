@@ -184,7 +184,7 @@ class NetworkService {
         if let id = filter.date?.id {
             queryItems.append(URLQueryItem(name: "month", value: "\(id)"))
         }
-        if let id = filter.format?.rawValue {
+        if let id = filter.format?.id {
             queryItems.append(URLQueryItem(name: "format", value: "\(id)"))
         }
         if let id = filter.place?.id {

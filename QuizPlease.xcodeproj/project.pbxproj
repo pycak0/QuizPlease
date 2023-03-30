@@ -212,7 +212,6 @@
 		A4A5370424EC7691004A10D4 /* UIColor+Static.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A5370324EC7691004A10D4 /* UIColor+Static.swift */; };
 		A4A5370824EC7AA6004A10D4 /* HomeGameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A5370624EC7AA6004A10D4 /* HomeGameCell.swift */; };
 		A4A5370924EC7AA6004A10D4 /* HomeGameCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4A5370724EC7AA6004A10D4 /* HomeGameCell.xib */; };
-		A4A5DE912501907300EBC408 /* GameFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A5DE902501907300EBC408 /* GameFormat.swift */; };
 		A4A5DE932501975A00EBC408 /* FilterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4A5DE922501975A00EBC408 /* FilterView.xib */; };
 		A4A5DE95250197C300EBC408 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A5DE94250197C300EBC408 /* FilterView.swift */; };
 		A4A5DE9825019DA800EBC408 /* ScheduleFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A5DE9725019DA800EBC408 /* ScheduleFilter.swift */; };
@@ -537,8 +536,8 @@
 		A492B8742631AE6100AEC388 /* UIRefreshControl+Init.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIRefreshControl+Init.swift"; sourceTree = "<group>"; };
 		A498FCCA24E52ED80069F896 /* GameRegisterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRegisterCell.swift; sourceTree = "<group>"; };
 		A498FCCB24E52ED80069F896 /* GameRegisterCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameRegisterCell.xib; sourceTree = "<group>"; };
-		A4A0519129D2459000D32E19 /* WelcomeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeInteractor.swift; sourceTree = "<group>"; };
 		A4A0518F29D1A79400D32E19 /* GameAnnotationRegisterButtonOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameAnnotationRegisterButtonOptions.swift; sourceTree = "<group>"; };
+		A4A0519129D2459000D32E19 /* WelcomeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeInteractor.swift; sourceTree = "<group>"; };
 		A4A0659724E477860080E0D8 /* GameOrderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOrderVC.swift; sourceTree = "<group>"; };
 		A4A0659B24E477E20080E0D8 /* GameInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameInfoCell.swift; sourceTree = "<group>"; };
 		A4A0659C24E477E20080E0D8 /* GameInfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameInfoCell.xib; sourceTree = "<group>"; };
@@ -555,7 +554,6 @@
 		A4A5370324EC7691004A10D4 /* UIColor+Static.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Static.swift"; sourceTree = "<group>"; };
 		A4A5370624EC7AA6004A10D4 /* HomeGameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeGameCell.swift; sourceTree = "<group>"; };
 		A4A5370724EC7AA6004A10D4 /* HomeGameCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeGameCell.xib; sourceTree = "<group>"; };
-		A4A5DE902501907300EBC408 /* GameFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameFormat.swift; sourceTree = "<group>"; };
 		A4A5DE922501975A00EBC408 /* FilterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterView.xib; sourceTree = "<group>"; };
 		A4A5DE94250197C300EBC408 /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
 		A4A5DE9725019DA800EBC408 /* ScheduleFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleFilter.swift; sourceTree = "<group>"; };
@@ -1344,7 +1342,6 @@
 				A48F64652501438D00E7A528 /* ScheduleFilterType.swift */,
 				A48F64632501416300E7A528 /* ScheduleFilterProtocol.swift */,
 				A4448ED1250EA16C0020686D /* ScheduleFilterOption.swift */,
-				A4A5DE902501907300EBC408 /* GameFormat.swift */,
 				A4A5DE9725019DA800EBC408 /* ScheduleFilter.swift */,
 			);
 			path = ScheduleFilters;
@@ -2111,7 +2108,6 @@
 				A42F00E028F237A300184E54 /* URLComponents+QueryDictionary.swift in Sources */,
 				A4FEB055273739F10052AD7B /* DGisMapProvier.swift in Sources */,
 				A4A065A524E47D460080E0D8 /* IdentifiableType.swift in Sources */,
-				A4A5DE912501907300EBC408 /* GameFormat.swift in Sources */,
 				A4E4400A28E9050C00514C0D /* DeeplinkParser.swift in Sources */,
 				A4DAF73F24DDABFF00963C15 /* WarmupCell.swift in Sources */,
 				A4C3C44B29CD061F00DB0364 /* UIWindow+SetRootController.swift in Sources */,

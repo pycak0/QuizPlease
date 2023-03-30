@@ -11,7 +11,7 @@ import Foundation
 struct ScheduleFilter {
     var city: City = AppSettings.defaultCity
     var date: ScheduleFilterOption?
-    var format: GameFormat?
+    var format: ScheduleFilterOption?
     var type: ScheduleFilterOption?
     var place: ScheduleFilterOption?
     /// See `GameStatus` for possible options
