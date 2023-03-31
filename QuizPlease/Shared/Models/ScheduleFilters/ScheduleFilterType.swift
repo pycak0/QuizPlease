@@ -9,6 +9,6 @@
 import Foundation
 
 enum ScheduleFilterType: String {
-    case places, statuses, types, months, format
+    case places, statuses, types, months, formats
     case city
 }
