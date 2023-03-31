@@ -8,37 +8,33 @@
 
 import UIKit
 
-extension GameOrderVC {
-    enum GameInfoItemKind: Int, CaseIterable {
-        case annotation, info, description,
-             registration, certificate, addExtraCertificate, firstPlay, promocode,
-             paymentType, onlinePayment, submit
+enum GameInfoItemKind: Int, CaseIterable {
+    case annotation, info, description,
+         registration, certificate, addExtraCertificate, firstPlay,
+         paymentType, onlinePayment, submit
 
-        var identifier: String {
-            switch self {
-            case .annotation:
-                return GameAnnotationCell.identifier
-            case .info:
-                return GameInfoCell.identifier
-            case .description:
-                return GameGeneralDescriptionCell.identifier
-            case .registration:
-                return GameRegisterCell.identifier
-            case .certificate:
-                return GameCertificateCell.identifier
-            case .addExtraCertificate:
-                return GameAddExtraCertificateCell.identifier
-            case .firstPlay:
-                return GameFirstPlayCell.identifier
-            case .paymentType:
-                return GamePaymentTypeCell.identifier
-            case .onlinePayment:
-                return GameOnlinePaymentCell.identifier
-            case .submit:
-                return GameSubmitButtonCell.identifier
-            case .promocode:
-                return GameCertificateCell.identifier
-            }
+    var identifier: String {
+        switch self {
+        case .annotation:
+            return GameAnnotationCell.identifier
+        case .info:
+            return GameInfoCell.identifier
+        case .description:
+            return GameGeneralDescriptionCell.identifier
+        case .registration:
+            return GameRegisterCell.identifier
+        case .certificate:
+            return GameCertificateCell.identifier
+        case .addExtraCertificate:
+            return GameAddExtraCertificateCell.identifier
+        case .firstPlay:
+            return GameFirstPlayCell.identifier
+        case .paymentType:
+            return GamePaymentTypeCell.identifier
+        case .onlinePayment:
+            return GameOnlinePaymentCell.identifier
+        case .submit:
+            return GameSubmitButtonCell.identifier
         }
     }
 }

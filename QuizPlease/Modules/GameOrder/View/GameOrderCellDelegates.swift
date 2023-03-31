@@ -86,12 +86,8 @@ extension GameOrderVC: GameRegisterCellDelegate {
 
 extension GameOrderVC: GameCertificateCellDelegate {
     func titleForCell(_ certificateCell: GameCertificateCell) -> String {
-        if certificateCell.associatedItemKind == .certificate {
-            certificateCell.fieldView.title = "Введите номер сертификата/промокода"
-            return "У вас есть промокод / сертификат Квиз, плиз! ?"
-        }
-        certificateCell.fieldView.title = "Введите промокод"
-        return "У вас есть промокод?"
+        certificateCell.fieldView.title = "Введите номер сертификата/промокода"
+        return "У вас есть промокод / сертификат Квиз, плиз! ?"
     }
 
     func accessoryText(for certificateCell: GameCertificateCell) -> String {
@@ -110,14 +106,6 @@ extension GameOrderVC: GameCertificateCellDelegate {
         view.endEditing(true)
         guard let index = indexForPresenter(of: certificateCell) else { return }
         presenter.didPressCheckSpecialCondition(at: index)
-//        switch certificateCell.associatedItemKind {
-//        case .certificate:
-//            presenter.checkCertificate()
-//        case .promocode:
-//            presenter.checkPromocode()
-//        default:
-//            break
-//        }
     }
 
     func certificateCellDidEndEditing(_ certificateCell: GameCertificateCell) {
