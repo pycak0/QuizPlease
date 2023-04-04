@@ -7,5 +7,6 @@ Pods
 *.xcscheme
 *.xcbkptlist
 QuizPlease.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
-QuizPlease.xcworkspace/xcuserdata/pycak.xcuserdatad/IDEFindNavigatorScopes.plist
+QuizPlease.xcworkspace/xcuserdata/*
+QuizPlease.xcodeproj/xcuserdata/*
 QuizPlease.xcworkspace
