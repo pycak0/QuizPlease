@@ -488,7 +488,29 @@ final class GameOrderPresenter: GameOrderPresenterProtocol {
         } else {
             print(">>>\n>>> No background image path for game with id '\(game.id ?? -1)'\n>>>")
         }
-        view?.reloadInfo()
+        view?.setItems(makeItems())
+    }
+
+    private func makeItems() -> [GameInfoItemKind] {
+        if !(game.gameStatus?.isRegistrationAvailable ?? false) {
+            return [.annotation, .info, .description]
+        }
+
+        var _items = GameInfoItemKind.allCases
+        let specialConditionsAmount = specialConditions.count
+        if specialConditionsAmount > 1 {
+            let specialConditions = Array(repeating: GameInfoItemKind.certificate, count: specialConditionsAmount)
+            _items.insert(contentsOf: specialConditions, at: _items.firstIndex(of: .certificate)!)
+        } else {
+            if specialConditionsAmount != 1 {
+                _items.removeAll(where: { $0 == .certificate })
+            }
+            _items.removeAll { $0 == .addExtraCertificate }
+        }
+        if isOnlyCashAvailable || !isOnlinePaymentDefault {
+            _items.removeAll { $0 == .onlinePayment }
+        }
+        return _items
     }
 }
 

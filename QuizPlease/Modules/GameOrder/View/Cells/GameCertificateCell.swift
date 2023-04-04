@@ -47,8 +47,6 @@ class GameCertificateCell: UITableViewCell, GameOrderCellProtocol {
         }
     }
 
-    var associatedItemKind: GameOrderVC.GameInfoItemKind?
-
     override func awakeFromNib() {
         super.awakeFromNib()
         configureViews()

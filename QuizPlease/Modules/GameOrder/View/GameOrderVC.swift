@@ -14,7 +14,7 @@ protocol GameOrderViewProtocol: UIViewController, LoadingIndicator {
     var presenter: GameOrderPresenterProtocol! { get set }
 
     func setTitle(_ title: String)
-    func reloadInfo()
+    func setItems(_ items: [GameInfoItemKind])
     func scrollToSignUp()
 
     /// Works only if view already contains at least one certificate cell
@@ -42,7 +42,7 @@ final class GameOrderVC: UIViewController {
         }
     }
 
-    private lazy var items: [GameInfoItemKind] = makeItems()
+    private lazy var items: [GameInfoItemKind] = []
 
     private(set) lazy var indexOfFirstCertificate: Int? = {
         items.firstIndex(of: .certificate)
@@ -147,31 +147,6 @@ final class GameOrderVC: UIViewController {
             imageBaseHeight = cell.frame.origin.y + 60
         }
     }
-
-    private func makeItems() -> [GameInfoItemKind] {
-        if !(presenter.game.gameStatus?.isRegistrationAvailable ?? false) {
-            return [.annotation, .info, .description]
-        }
-
-        var _items = GameInfoItemKind.allCases
-        let specialConditionsAmount = presenter.specialConditions.count
-        if specialConditionsAmount > 1 {
-            let specialConditions = Array(repeating: GameInfoItemKind.certificate, count: specialConditionsAmount)
-            _items.insert(contentsOf: specialConditions, at: _items.firstIndex(of: .certificate)!)
-        } else {
-            if specialConditionsAmount != 1 {
-                _items.removeAll(where: { $0 == .certificate })
-            }
-            _items.removeAll { $0 == .addExtraCertificate }
-        }
-        if presenter.isOnlyCashAvailable || !presenter.isOnlinePaymentDefault {
-            _items.removeAll { $0 == .onlinePayment }
-        }
-        if !presenter.isFirstTimePlaying {
-            _items.removeAll { $0 == .promocode }
-        }
-        return _items
-    }
 }
 
 // MARK: - GameOrderViewProtocol
@@ -196,8 +171,8 @@ extension GameOrderVC: GameOrderViewProtocol {
         view.endEditing(true)
     }
 
-    func reloadInfo() {
-        items = makeItems()
+    func setItems(_ items: [GameInfoItemKind]) {
+        self.items = items
         tableView.visibleCells.forEach { ($0 as? GameOrderCellProtocol)?.delegate = nil }
         tableView.reloadData()
         updateImageHeight()
@@ -372,11 +347,9 @@ extension GameOrderVC: UITableViewDataSource, UITableViewDelegate {
             fatalError("❌ Invalid Cell Kind!")
         }
 
-        if let cell = cell as? GameCertificateCell {
-            cell.associatedItemKind = kind
-            if let index = indexOfCertificateForPresenter(from: indexPath) {
-                cell.fieldView.textField.text = presenter.specialConditions[index].value
-            }
+        if let cell = cell as? GameCertificateCell,
+           let index = indexOfCertificateForPresenter(from: indexPath) {
+            cell.fieldView.textField.text = presenter.specialConditions[index].value
         }
 
         if (cell.delegate as? GameOrderVC) == nil {
