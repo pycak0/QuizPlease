@@ -54,6 +54,7 @@ protocol GameOrderPresenterProtocol {
     func didChangeComment(_ comment: String)
 }
 
+// swiftlint:disable type_body_length
 final class GameOrderPresenter: GameOrderPresenterProtocol {
 
     weak var view: GameOrderViewProtocol?
@@ -513,6 +514,7 @@ final class GameOrderPresenter: GameOrderPresenterProtocol {
         return _items
     }
 }
+// swiftlint:enable type_body_length
 
 // MARK: - GameOrderInteractorOutput
 
