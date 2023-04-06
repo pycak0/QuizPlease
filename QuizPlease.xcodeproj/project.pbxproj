@@ -382,7 +382,7 @@
 		A40C807A252E7E7900CE40D8 /* DefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultsManager.swift; sourceTree = "<group>"; };
 		A40C807D252E857000CE40D8 /* UIView+Shake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Shake.swift"; sourceTree = "<group>"; };
 		A40C8085252E872D00CE40D8 /* WarmupAnswer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarmupAnswer.swift; sourceTree = "<group>"; };
-		A40D815624D2C6C1006D2CE3 /* Квиз, плиз!.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Квиз, плиз!.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A40D815624D2C6C1006D2CE3 /* QuizPlease.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuizPlease.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A40D815924D2C6C1006D2CE3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A40D815B24D2C6C1006D2CE3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		A40D816224D2C6C2006D2CE3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -757,7 +757,7 @@
 		A40D815724D2C6C1006D2CE3 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A40D815624D2C6C1006D2CE3 /* Квиз, плиз!.app */,
+				A40D815624D2C6C1006D2CE3 /* QuizPlease.app */,
 				A44E5EE2295EFCA700402B97 /* QuizPleaseTests.xctest */,
 			);
 			name = Products;
@@ -1790,7 +1790,7 @@
 				A4132786268F33550088DE6A /* PhoneNumberKit-Static */,
 			);
 			productName = QuizPlease;
-			productReference = A40D815624D2C6C1006D2CE3 /* Квиз, плиз!.app */;
+			productReference = A40D815624D2C6C1006D2CE3 /* QuizPlease.app */;
 			productType = "com.apple.product-type.application";
 		};
 		A44E5EE1295EFCA700402B97 /* QuizPleaseTests */ = {
@@ -2440,7 +2440,7 @@
 				);
 				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.quizplease.app;
-				PRODUCT_NAME = "Квиз, плиз!";
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -2474,7 +2474,7 @@
 				MARKETING_VERSION = 1.0.2;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.quizplease.app;
-				PRODUCT_NAME = "Квиз, плиз!";
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
