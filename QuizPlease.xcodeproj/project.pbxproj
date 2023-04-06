@@ -79,6 +79,7 @@
 		A42527C424F06E9300E3FBD4 /* GameFirstPlayCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A42527C224F06E9300E3FBD4 /* GameFirstPlayCell.xib */; };
 		A428383E272B221100F417E6 /* UIApplication+getKeyWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A428383D272B221100F417E6 /* UIApplication+getKeyWindow.swift */; };
 		A4283840272C8C3F00F417E6 /* QPNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A428383F272C8C3F00F417E6 /* QPNavigationController.swift */; };
+		A429533229DCAFF700A76AD9 /* GamePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A429533129DCAFF700A76AD9 /* GamePageViewController.swift */; };
 		A42F00DE28F192E200184E54 /* Notification.Name+Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A42F00DD28F192E200184E54 /* Notification.Name+Constants.swift */; };
 		A42F00E028F237A300184E54 /* URLComponents+QueryDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = A42F00DF28F237A300184E54 /* URLComponents+QueryDictionary.swift */; };
 		A4317731267BEEEE0062E0E0 /* SpecialCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4317730267BEEEE0062E0E0 /* SpecialCondition.swift */; };
@@ -425,6 +426,7 @@
 		A42527C224F06E9300E3FBD4 /* GameFirstPlayCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameFirstPlayCell.xib; sourceTree = "<group>"; };
 		A428383D272B221100F417E6 /* UIApplication+getKeyWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+getKeyWindow.swift"; sourceTree = "<group>"; };
 		A428383F272C8C3F00F417E6 /* QPNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QPNavigationController.swift; sourceTree = "<group>"; };
+		A429533129DCAFF700A76AD9 /* GamePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageViewController.swift; sourceTree = "<group>"; };
 		A42F00DD28F192E200184E54 /* Notification.Name+Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification.Name+Constants.swift"; sourceTree = "<group>"; };
 		A42F00DF28F237A300184E54 /* URLComponents+QueryDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLComponents+QueryDictionary.swift"; sourceTree = "<group>"; };
 		A4317730267BEEEE0062E0E0 /* SpecialCondition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialCondition.swift; sourceTree = "<group>"; };
@@ -991,6 +993,22 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		A429532F29DCAF9500A76AD9 /* GamePage */ = {
+			isa = PBXGroup;
+			children = (
+				A429533029DCAFD500A76AD9 /* View */,
+			);
+			path = GamePage;
+			sourceTree = "<group>";
+		};
+		A429533029DCAFD500A76AD9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A429533129DCAFF700A76AD9 /* GamePageViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		A431772F267BEEDF0062E0E0 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
@@ -1436,6 +1454,7 @@
 				A40D817224D2C95D006D2CE3 /* MainMenu */,
 				A40D817624D2C97E006D2CE3 /* Schedule */,
 				A4A0659524E4775E0080E0D8 /* GameOrder */,
+				A429532F29DCAF9500A76AD9 /* GamePage */,
 				A4FB047C25178B3400054DE4 /* GameOrderCompletion */,
 				A40D817724D2C98A006D2CE3 /* HomeGame */,
 				A40D817424D2C96B006D2CE3 /* Profile */,
@@ -2300,6 +2319,7 @@
 				A44B2E0728C00B5F00C1BC2F /* DeviceIdProvider.swift in Sources */,
 				A4CDC3502732ECAC00282EC2 /* MapInteractor.swift in Sources */,
 				A48A11F124F56D6900F91B9C /* MenuShopCell.swift in Sources */,
+				A429533229DCAFF700A76AD9 /* GamePageViewController.swift in Sources */,
 				A4147AD724E5B92D007C131F /* Place.swift in Sources */,
 				A4632E91262EFE2D00012BBF /* UserLocationService.swift in Sources */,
 				A417FA5325711C210064C467 /* UIViewController+SafariVC.swift in Sources */,
