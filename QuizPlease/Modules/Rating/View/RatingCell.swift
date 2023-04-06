@@ -31,6 +31,6 @@ final class RatingCell: UITableViewCell, IdentifiableType {
         teamNameLabel.text = team
         gamesPlayedLabel.text = games.string(withAssociatedFirstCaseWord: "игра", changingCase: .nominative)
         pointsScoredLabel.text = points.string(withAssociatedMaleWord: "балл")
-        teamImageView.loadImage(using: .prod, path: imagePath)
+        teamImageView.loadImage(using: .production, path: imagePath)
     }
 }

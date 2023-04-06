@@ -9,23 +9,30 @@
 import Foundation
 
 public enum NetworkConfiguration: CustomStringConvertible {
-    case dev, prod
+    case staging, production
 
-    public static let standard: NetworkConfiguration = .dev
+    public static let standard: NetworkConfiguration = {
+        switch Configuration.current {
+        case .debug, .staging:
+            return .staging
+        case .production:
+            return .production
+        }
+    }()
 
     var host: String {
         switch self {
-        case .dev:
+        case .staging:
             return "https://staging.quizplease.ru:81/"
-        case .prod:
+        case .production:
             return "https://quizplease.ru/"
         }
     }
 
     private var identifier: String {
         switch self {
-        case .dev: return "dev"
-        case .prod: return "prod"
+        case .staging: return "staging"
+        case .production: return "production"
         }
     }
 

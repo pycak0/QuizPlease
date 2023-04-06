@@ -21,7 +21,7 @@ protocol AnalyticsService {
 final class AnalyticsServiceImpl: AnalyticsService {
 
     func sendEvent(_ event: AnalyticsEvent) {
-        guard !AppSettings.isDebug else { return }
+        guard !Configuration.current.isDebug else { return }
         Analytics.logEvent(event.name, parameters: event.parameters)
     }
 }

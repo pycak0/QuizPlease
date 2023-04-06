@@ -113,13 +113,12 @@ final class ApplinkRouterImpl: ApplinkRouter {
     }
 
     private func showDebugAlert(title: String) {
-        #if DEBUG
+        guard !Configuration.current.isProduction else { return }
         // present error alert
         guard let topVc = UIApplication.shared.getKeyWindow()?.topViewController else { return }
         let linkDescription = pendingLink.map { String(describing: $0) } ?? "null"
         let keys = endpointsDictionary.keys.map { String($0) }
         let validEndpointsIds = "Valid enpoint identifiers: \(keys)"
         topVc.showSimpleAlert(title: title, message: "Link: \(linkDescription),\n\n\(validEndpointsIds)")
-        #endif
     }
 }

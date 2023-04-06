@@ -107,7 +107,7 @@ final class MainMenuPresenter: MainMenuPresenterProtocol {
     }
 
     func didLongTapOnLogo() {
-        guard AppSettings.isDebug else { return }
+        guard !Configuration.current.isProduction else { return }
         let pStyle = NSMutableParagraphStyle()
         pStyle.alignment = .left
         let font: UIFont

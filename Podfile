@@ -14,9 +14,20 @@ target 'QuizPlease' do
     :git => 'https://git.yoomoney.ru/scm/sdk/yookassa-payments-swift.git',
     :tag => '6.8.2'
 
-  pod 'Wormholy', :configurations => ['Debug']
+  pod 'Wormholy', :configurations => ['Staging', 'Debug']
+
+  target 'QuizPleaseTests' do
+    inherit! :complete
+    # Pods for testing
+  end
 
 end
+
+project 'QuizPlease', {
+  'Production' => :release, 
+  'Staging' => :release,
+  'Debug' => :debug
+}
 
 post_install do |installer|
   installer.pods_project.targets.each do |target|
