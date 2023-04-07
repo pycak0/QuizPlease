@@ -43,7 +43,7 @@ final class UserNotificationsServiceImpl: UserNotificationsService {
         self.applinkRouter = applinkRouter
     }
 
-    func handle(userInfo: [AnyHashable : Any]) -> Bool {
+    func handle(userInfo: [AnyHashable: Any]) -> Bool {
         // Print message ID.
         if let messageID = userInfo[UserNotifications.gcmMessageIDKey] {
             print("Message ID: \(messageID)")

@@ -9,7 +9,7 @@
 import UIKit
 
 public extension UIView {
-    ///
+
     // MARK: - • With Custom Transform
     /// Deletes existing view background color and makes a gradient one.
     /// This implementation is useful when working with auto-generated gradients

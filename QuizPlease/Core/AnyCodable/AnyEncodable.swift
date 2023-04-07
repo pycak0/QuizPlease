@@ -270,3 +270,4 @@ extension _AnyEncodable {
         self.init([AnyHashable: Any](elements, uniquingKeysWith: { first, _ in first }))
     }
 }
+// swiftlint:enable all
