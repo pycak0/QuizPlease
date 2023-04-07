@@ -253,11 +253,12 @@ class NetworkService {
     ) {
         var filterUrlComponents = baseUrlComponents
         filterUrlComponents.path = "/api/game/\(type.rawValue)"
+        var queryItems = [URLQueryItem(name: "isMobile", value: "1")]
+
         if let id = cityId {
-            filterUrlComponents.queryItems = [
-                URLQueryItem(name: "city_id", value: "\(id)")
-            ]
+            queryItems.append(URLQueryItem(name: "city_id", value: "\(id)"))
         }
+        filterUrlComponents.queryItems = queryItems
         getStandard([ScheduleFilterOption].self, with: filterUrlComponents, completion: completion)
     }
 
