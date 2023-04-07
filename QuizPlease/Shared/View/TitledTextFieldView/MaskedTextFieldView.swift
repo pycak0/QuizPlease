@@ -43,7 +43,7 @@ class MaskedTextFieldView: TitledTextFieldView {
     private let maskDelegate = NotifyingMaskedTextFieldDelegate()
 
     /// Make sure that mask satisfies the syntax described here:
-    ///https://github.com/RedMadRobot/input-mask-ios/wiki/1.-Mask-Syntax
+    /// https://github.com/RedMadRobot/input-mask-ios/wiki/1.-Mask-Syntax
     @IBInspectable
     var inputMask: String = MaskedTextFieldView.noMask {
         didSet {

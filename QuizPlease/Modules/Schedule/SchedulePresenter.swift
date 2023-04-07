@@ -246,15 +246,24 @@ final class SchedulePresenter: SchedulePresenterProtocol {
             text = "Упс! А прошедших игр еще нет. Чтобы посмотреть предстоящие игры, " +
             "перейдите в раздел \(Constants.scheduleSectionTitle)"
             links = [
-                TextLink(text: Constants.scheduleSectionTitle, action: { [weak self] in self?.resetFilterAndUpdateSchedule() })
+                TextLink(
+                    text: Constants.scheduleSectionTitle,
+                    action: { [weak self] in self?.resetFilterAndUpdateSchedule() }
+                )
             ]
 
         } else {
             text = "Упс! Кажется, сейчас нет игр, на которые открыта регистрация, " +
             "поэтому пока вы можете размяться или сыграть в наши игры Хоум"
             links = [
-                TextLink(text: "игры Хоум", action: { [weak self] in self?.showHomeGame() }),
-                TextLink(text: "размяться", action: { [weak self] in self?.showWarmup() })
+                TextLink(
+                    text: "игры Хоум",
+                    action: { [weak self] in self?.showHomeGame() }
+                ),
+                TextLink(
+                    text: "размяться",
+                    action: { [weak self] in self?.showWarmup() }
+                )
             ]
         }
         self.view?.showNoGamesInSchedule(text: text, links: links)

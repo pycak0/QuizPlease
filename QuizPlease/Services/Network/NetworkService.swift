@@ -57,10 +57,10 @@ class NetworkService {
         }
     }
 
-    ///
+    //
     // MARK: - GET REQUESTS =======
-    ///
-    ///
+    //
+    //
 
     // MARK: - User Info
     func getUserInfo(completion: @escaping ((Result<UserInfo, NetworkServiceError>) -> Void)) {
@@ -426,10 +426,10 @@ class NetworkService {
         return task
     }
 
-    ///
+    //
     // MARK: - POST REQUESTS =======
-    ///
-    ///
+    //
+    //
 
     // MARK: - Push Subscribe
 
@@ -798,6 +798,7 @@ class NetworkService {
     }
 
     // MARK: - Alamofire POST
+
     // swiftlint:disable:next function_body_length
     func afPost<Response: Decodable>(
         with multipartFormDataObjects: MultipartFormDataObjects,
@@ -904,7 +905,7 @@ class NetworkService {
     }
 
     // MARK: - POST Request
-    /// Completion is performed on the main queue
+
     // swiftlint:disable:next function_body_length
     func post(
         _ data: Data,
@@ -972,3 +973,4 @@ class NetworkService {
         }.resume()
     }
 }
+// swiftlint:enable type_body_length

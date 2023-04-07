@@ -162,3 +162,4 @@ extension AnyDecodable: CustomDebugStringConvertible {
         }
     }
 }
+// swiftlint:enable all

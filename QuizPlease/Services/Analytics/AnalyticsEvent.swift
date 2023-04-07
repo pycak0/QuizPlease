@@ -15,7 +15,7 @@ struct AnalyticsEvent {
     /// Additional parameters
     let parameters: [String: Any]?
 
-    init(name: String, parameters: [String : Any]? = nil) {
+    init(name: String, parameters: [String: Any]? = nil) {
         self.name = name
         self.parameters = parameters
     }
