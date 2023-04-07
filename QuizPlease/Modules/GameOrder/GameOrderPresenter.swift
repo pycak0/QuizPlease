@@ -54,6 +54,7 @@ protocol GameOrderPresenterProtocol {
     func didChangeComment(_ comment: String)
 }
 
+// MARK: ❗️ TODO: Fix type body length
 // swiftlint:disable type_body_length
 final class GameOrderPresenter: GameOrderPresenterProtocol {
 

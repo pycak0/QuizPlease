@@ -12,9 +12,8 @@ extension UIApplication {
 
     var debugInfo: String {
         let appVersionString = Bundle.main.version
-        let buildKind = AppSettings.isDebug ? "Debug" : "Release"
         return """
-        AppVersion: \(buildKind) \(appVersionString)
+        AppVersion: \(Configuration.current) \(appVersionString)
         \(AppSettings.description)
         \(NetworkConfiguration.standard)
         """

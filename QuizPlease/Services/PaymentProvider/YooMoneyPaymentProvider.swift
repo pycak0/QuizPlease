@@ -28,7 +28,7 @@ final class YooMoneyPaymentProvider: PaymentProvider {
             purchaseDescription: options.description,
             amount: paymentAmount,
             gatewayId: nil,
-            isLoggingEnabled: AppSettings.isDebug,
+            isLoggingEnabled: Configuration.current.isDebug,
             userPhoneNumber: options.userPhoneNumber,
             savePaymentMethod: .off,
             moneyAuthClientId: nil,

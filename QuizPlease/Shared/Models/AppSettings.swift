@@ -38,14 +38,6 @@ public enum AppSettings {
         URL(string: "https://apps.apple.com/ru/app/id1585713090")!
     }()
 
-    public static var isDebug: Bool {
-        #if DEBUG
-        return true
-        #else
-        return false
-        #endif
-    }
-
     public static var description: String {
         """
         AppSettings: {
@@ -53,7 +45,7 @@ public enum AppSettings {
             defaultCity: \(defaultCity)
             isShopEnabled: \(isShopEnabled)
             isProfileEnabled: \(isProfileEnabled)
-            isDebug: \(isDebug)
+            configuration: \(Configuration.current)
         }
         """
     }

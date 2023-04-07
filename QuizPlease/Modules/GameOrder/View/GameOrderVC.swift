@@ -270,7 +270,7 @@ extension GameOrderVC: GameOrderViewProtocol {
         ) { [weak self] image in
             guard let self = self else { return }
             if image == nil {
-                self.gameImageView.loadImage(using: .prod, path: path, placeholderImage: placeholder)
+                self.gameImageView.loadImage(using: .production, path: path, placeholderImage: placeholder)
             }
         }
     }
