@@ -11,15 +11,32 @@ import UIKit
 /// Game page screen view output protocol
 protocol GamePageViewOutput {
 
+    /// GamePage view did load
+    func viewDidLoad()
 }
 
 /// Game page screen view protocol
 protocol GamePageViewInput: AnyObject {
 
+    /// Set items to display in `GamePageView`
+    /// - Parameter items: an array of items implementing `GamePageItemProtocol`
+    func setItems(_ items: [GamePageItemProtocol])
+
+    /// Set GamePage title
+    /// - Parameter title: Title text
+    func setTitle(_ title: String)
 }
 
 /// Game page screen view controller
 final class GamePageViewController: UIViewController {
+
+    // MARK: - UI Elements
+
+    private let gamePageView: GamePageView = {
+        let gamePageView = GamePageView()
+        gamePageView.translatesAutoresizingMaskIntoConstraints = false
+        return gamePageView
+    }()
 
     // MARK: - Private Properties
 
@@ -37,5 +54,30 @@ final class GamePageViewController: UIViewController {
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override func loadView() {
+        view = gamePageView
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        output.viewDidLoad()
+    }
+}
+
+// MARK: - GamePageViewInput
+
+extension GamePageViewController: GamePageViewInput {
+
+    func setItems(_ items: [GamePageItemProtocol]) {
+        gamePageView.setItems(items)
+    }
+
+    func setTitle(_ title: String) {
+        prepareNavigationBar(
+            title: title,
+            barStyle: .transcluent(tintColor: view.backgroundColor)
+        )
     }
 }

@@ -309,6 +309,10 @@
 		A4EE9E9229E492CC00DDFC50 /* GamePageItemProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EE9E9129E492CC00DDFC50 /* GamePageItemProtocol.swift */; };
 		A4EE9E9429E4933000DDFC50 /* GamePageViewContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EE9E9329E4933000DDFC50 /* GamePageViewContext.swift */; };
 		A4EE9E9729E493DE00DDFC50 /* GamePageCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EE9E9629E493DE00DDFC50 /* GamePageCellProtocol.swift */; };
+		A4EE9E9929E4A57400DDFC50 /* GamePagePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EE9E9829E4A57400DDFC50 /* GamePagePresenter.swift */; };
+		A4EE9E9B29E4A5EC00DDFC50 /* GamePageItemFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EE9E9A29E4A5EC00DDFC50 /* GamePageItemFactory.swift */; };
+		A4EE9E9D29E4A77300DDFC50 /* GamePageAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EE9E9C29E4A77200DDFC50 /* GamePageAssembly.swift */; };
+		A4EE9E9F29E4AC2500DDFC50 /* GamePageInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EE9E9E29E4AC2500DDFC50 /* GamePageInteractor.swift */; };
 		A4F0B9D2262469B000E4E2A5 /* ClientSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F0B9D1262469B000E4E2A5 /* ClientSettings.swift */; };
 		A4F0B9D426246EB100E4E2A5 /* NetworkConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F0B9D326246EB100E4E2A5 /* NetworkConfiguration.swift */; };
 		A4F0B9DC26248B5A00E4E2A5 /* SplashScreenPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F0B9DB26248B5A00E4E2A5 /* SplashScreenPresenter.swift */; };
@@ -669,6 +673,10 @@
 		A4EE9E9129E492CC00DDFC50 /* GamePageItemProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageItemProtocol.swift; sourceTree = "<group>"; };
 		A4EE9E9329E4933000DDFC50 /* GamePageViewContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageViewContext.swift; sourceTree = "<group>"; };
 		A4EE9E9629E493DE00DDFC50 /* GamePageCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageCellProtocol.swift; sourceTree = "<group>"; };
+		A4EE9E9829E4A57400DDFC50 /* GamePagePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePagePresenter.swift; sourceTree = "<group>"; };
+		A4EE9E9A29E4A5EC00DDFC50 /* GamePageItemFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageItemFactory.swift; sourceTree = "<group>"; };
+		A4EE9E9C29E4A77200DDFC50 /* GamePageAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageAssembly.swift; sourceTree = "<group>"; };
+		A4EE9E9E29E4AC2500DDFC50 /* GamePageInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageInteractor.swift; sourceTree = "<group>"; };
 		A4F0B9D1262469B000E4E2A5 /* ClientSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientSettings.swift; sourceTree = "<group>"; };
 		A4F0B9D326246EB100E4E2A5 /* NetworkConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConfiguration.swift; sourceTree = "<group>"; };
 		A4F0B9DB26248B5A00E4E2A5 /* SplashScreenPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenPresenter.swift; sourceTree = "<group>"; };
@@ -1006,6 +1014,10 @@
 			children = (
 				A4EE9E9029E492B800DDFC50 /* Item */,
 				A429533029DCAFD500A76AD9 /* View */,
+				A4EE9E9E29E4AC2500DDFC50 /* GamePageInteractor.swift */,
+				A4EE9E9829E4A57400DDFC50 /* GamePagePresenter.swift */,
+				A4EE9E9A29E4A5EC00DDFC50 /* GamePageItemFactory.swift */,
+				A4EE9E9C29E4A77200DDFC50 /* GamePageAssembly.swift */,
 			);
 			path = GamePage;
 			sourceTree = "<group>";
@@ -2292,6 +2304,7 @@
 				A4283840272C8C3F00F417E6 /* QPNavigationController.swift in Sources */,
 				A4323FC828A01A8E001D1C4B /* UIAlertController+Extensions.swift in Sources */,
 				A40B758C24D9A81A006DB7D1 /* HomeGameInteractor.swift in Sources */,
+				A4EE9E9929E4A57400DDFC50 /* GamePagePresenter.swift in Sources */,
 				A4F234802685E0D200E6FC68 /* AnyCodable.swift in Sources */,
 				A4F0B9D426246EB100E4E2A5 /* NetworkConfiguration.swift in Sources */,
 				A48E2FC425335A9500CD6BE6 /* SavedAuthInfo.swift in Sources */,
@@ -2355,6 +2368,7 @@
 				A4EE9E9729E493DE00DDFC50 /* GamePageCellProtocol.swift in Sources */,
 				A4632E91262EFE2D00012BBF /* UserLocationService.swift in Sources */,
 				A417FA5325711C210064C467 /* UIViewController+SafariVC.swift in Sources */,
+				A4EE9E9F29E4AC2500DDFC50 /* GamePageInteractor.swift in Sources */,
 				A4FEB054273739F10052AD7B /* GMapsProvider.swift in Sources */,
 				A4F0B9DE26248B6900E4E2A5 /* SplashScreenInteractor.swift in Sources */,
 				A423AC2224EEBCD600071E68 /* FiltersVC.swift in Sources */,
@@ -2378,6 +2392,7 @@
 				A40B759824D9A852006DB7D1 /* ProfileRouter.swift in Sources */,
 				A4D44A2528D1397B004703B4 /* JsonDecoder.swift in Sources */,
 				A472D28F25288C0F00AA9906 /* UserAuthData.swift in Sources */,
+				A4EE9E9D29E4A77300DDFC50 /* GamePageAssembly.swift in Sources */,
 				A4CDC34C27308B1A00282EC2 /* MapRouter.swift in Sources */,
 				A4B0753224DFDBFB007778A2 /* GameInfo.swift in Sources */,
 				A449B6E125C448BE00382962 /* UIView+Blurable.swift in Sources */,
@@ -2385,6 +2400,7 @@
 				A48290F228D9177000C87D18 /* UIView+Shadow.swift in Sources */,
 				A445C88D25436497003B68E8 /* ShopItemImage.swift in Sources */,
 				A453F5C028F341CD00CE20BA /* GameOrderPresentationOptions.swift in Sources */,
+				A4EE9E9B29E4A5EC00DDFC50 /* GamePageItemFactory.swift in Sources */,
 				A4E86A34293260C800DB110F /* UserNotificationsService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
