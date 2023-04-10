@@ -313,6 +313,7 @@
 		A4EE9E9B29E4A5EC00DDFC50 /* GamePageItemFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EE9E9A29E4A5EC00DDFC50 /* GamePageItemFactory.swift */; };
 		A4EE9E9D29E4A77300DDFC50 /* GamePageAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EE9E9C29E4A77200DDFC50 /* GamePageAssembly.swift */; };
 		A4EE9E9F29E4AC2500DDFC50 /* GamePageInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EE9E9E29E4AC2500DDFC50 /* GamePageInteractor.swift */; };
+		A4EE9EA129E4B0E700DDFC50 /* GamePageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EE9EA029E4B0E700DDFC50 /* GamePageHeaderView.swift */; };
 		A4F0B9D2262469B000E4E2A5 /* ClientSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F0B9D1262469B000E4E2A5 /* ClientSettings.swift */; };
 		A4F0B9D426246EB100E4E2A5 /* NetworkConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F0B9D326246EB100E4E2A5 /* NetworkConfiguration.swift */; };
 		A4F0B9DC26248B5A00E4E2A5 /* SplashScreenPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F0B9DB26248B5A00E4E2A5 /* SplashScreenPresenter.swift */; };
@@ -677,6 +678,7 @@
 		A4EE9E9A29E4A5EC00DDFC50 /* GamePageItemFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageItemFactory.swift; sourceTree = "<group>"; };
 		A4EE9E9C29E4A77200DDFC50 /* GamePageAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageAssembly.swift; sourceTree = "<group>"; };
 		A4EE9E9E29E4AC2500DDFC50 /* GamePageInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageInteractor.swift; sourceTree = "<group>"; };
+		A4EE9EA029E4B0E700DDFC50 /* GamePageHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageHeaderView.swift; sourceTree = "<group>"; };
 		A4F0B9D1262469B000E4E2A5 /* ClientSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientSettings.swift; sourceTree = "<group>"; };
 		A4F0B9D326246EB100E4E2A5 /* NetworkConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConfiguration.swift; sourceTree = "<group>"; };
 		A4F0B9DB26248B5A00E4E2A5 /* SplashScreenPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenPresenter.swift; sourceTree = "<group>"; };
@@ -1029,6 +1031,7 @@
 				A429533129DCAFF700A76AD9 /* GamePageViewController.swift */,
 				A4EE9E8E29E490CE00DDFC50 /* GamePageView.swift */,
 				A4EE9E9329E4933000DDFC50 /* GamePageViewContext.swift */,
+				A4EE9EA029E4B0E700DDFC50 /* GamePageHeaderView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2153,6 +2156,7 @@
 				A48DFF7B24F4070200E47095 /* HomeGame.swift in Sources */,
 				A4E4400828E901A900514C0D /* CoreAssembly.swift in Sources */,
 				A40C807E252E857000CE40D8 /* UIView+Shake.swift in Sources */,
+				A4EE9EA129E4B0E700DDFC50 /* GamePageHeaderView.swift in Sources */,
 				A4A065A224E47D1F0080E0D8 /* GameAnnotationCell.swift in Sources */,
 				A469F75924E3084D007FB332 /* ScheduleGameCell.swift in Sources */,
 				A4B129252739E1B20035C041 /* UIImage+Configuration.swift in Sources */,

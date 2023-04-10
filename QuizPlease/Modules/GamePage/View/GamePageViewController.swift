@@ -25,6 +25,10 @@ protocol GamePageViewInput: AnyObject {
     /// Set GamePage title
     /// - Parameter title: Title text
     func setTitle(_ title: String)
+
+    /// Set the image with given path to the header view
+    /// - Parameter path: image location on a server
+    func setHeaderImage(path: String)
 }
 
 /// Game page screen view controller
@@ -77,7 +81,11 @@ extension GamePageViewController: GamePageViewInput {
     func setTitle(_ title: String) {
         prepareNavigationBar(
             title: title,
-            barStyle: .transcluent(tintColor: view.backgroundColor)
+            barStyle: .transcluent(tintColor: .systemBackgroundAdapted)
         )
+    }
+
+    func setHeaderImage(path: String) {
+        gamePageView.setHeaderImage(path: path)
     }
 }

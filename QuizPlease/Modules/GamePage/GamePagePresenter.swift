@@ -38,5 +38,6 @@ extension GamePagePresenter: GamePageViewOutput {
     func viewDidLoad() {
         view?.setTitle(interactor.getGameTitle())
         view?.setItems(itemFactory.makeItems())
+        view?.setHeaderImage(path: "/")
     }
 }

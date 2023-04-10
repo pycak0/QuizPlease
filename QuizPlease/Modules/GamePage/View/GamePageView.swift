@@ -22,7 +22,17 @@ final class GamePageView: UIView {
 
     private lazy var context = GamePageViewContext(tableView: tableView, view: self)
 
+    private lazy var headerViewHeightConstraint: NSLayoutConstraint = {
+        headerView.heightAnchor.constraint(equalToConstant: 270)
+    }()
+
     // MARK: - UI Elements
+
+    private let headerView: GamePageHeaderView = {
+        let headerView = GamePageHeaderView()
+        headerView.translatesAutoresizingMaskIntoConstraints = false
+        return headerView
+    }()
 
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
@@ -36,7 +46,7 @@ final class GamePageView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .systemBackgroundAdapted
+        backgroundColor = .systemGray6Adapted
     }
 
     @available(*, unavailable)
@@ -44,10 +54,23 @@ final class GamePageView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        configure()
+    }
+
+    // MARK: - Internal Methods
+
     /// Set items to display in `GamePageView`
     /// - Parameter items: an array of items implementing `GamePageItemProtocol`
     func setItems(_ items: [GamePageItemProtocol]) {
         self.items = items
+    }
+
+    /// Set the image with given path to the header view
+    /// - Parameter path: image location on a server
+    func setHeaderImage(path: String) {
+        headerView.setImage(path: path)
     }
 
     // MARK: - Private Methods
@@ -59,6 +82,14 @@ final class GamePageView: UIView {
             tableView.topAnchor.constraint(equalTo: self.topAnchor),
             tableView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+        ])
+
+        addSubview(headerView)
+        NSLayoutConstraint.activate([
+            headerView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            headerView.topAnchor.constraint(equalTo: self.layoutMarginsGuide.topAnchor),
+            headerView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            headerViewHeightConstraint
         ])
     }
 
