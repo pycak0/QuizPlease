@@ -305,6 +305,10 @@
 		A4E91EBC26C30D5C008C13A7 /* UIWindow+topViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E91EBB26C30D5C008C13A7 /* UIWindow+topViewController.swift */; };
 		A4E91EBE26C312BA008C13A7 /* WarmupQuestionsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E91EBD26C312BA008C13A7 /* WarmupQuestionsService.swift */; };
 		A4E91EC026C32310008C13A7 /* UIApplication+debugInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E91EBF26C32310008C13A7 /* UIApplication+debugInfo.swift */; };
+		A4EE9E8F29E490CE00DDFC50 /* GamePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EE9E8E29E490CE00DDFC50 /* GamePageView.swift */; };
+		A4EE9E9229E492CC00DDFC50 /* GamePageItemProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EE9E9129E492CC00DDFC50 /* GamePageItemProtocol.swift */; };
+		A4EE9E9429E4933000DDFC50 /* GamePageViewContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EE9E9329E4933000DDFC50 /* GamePageViewContext.swift */; };
+		A4EE9E9729E493DE00DDFC50 /* GamePageCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EE9E9629E493DE00DDFC50 /* GamePageCellProtocol.swift */; };
 		A4F0B9D2262469B000E4E2A5 /* ClientSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F0B9D1262469B000E4E2A5 /* ClientSettings.swift */; };
 		A4F0B9D426246EB100E4E2A5 /* NetworkConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F0B9D326246EB100E4E2A5 /* NetworkConfiguration.swift */; };
 		A4F0B9DC26248B5A00E4E2A5 /* SplashScreenPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F0B9DB26248B5A00E4E2A5 /* SplashScreenPresenter.swift */; };
@@ -661,6 +665,10 @@
 		A4E91EBB26C30D5C008C13A7 /* UIWindow+topViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+topViewController.swift"; sourceTree = "<group>"; };
 		A4E91EBD26C312BA008C13A7 /* WarmupQuestionsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarmupQuestionsService.swift; sourceTree = "<group>"; };
 		A4E91EBF26C32310008C13A7 /* UIApplication+debugInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+debugInfo.swift"; sourceTree = "<group>"; };
+		A4EE9E8E29E490CE00DDFC50 /* GamePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageView.swift; sourceTree = "<group>"; };
+		A4EE9E9129E492CC00DDFC50 /* GamePageItemProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageItemProtocol.swift; sourceTree = "<group>"; };
+		A4EE9E9329E4933000DDFC50 /* GamePageViewContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageViewContext.swift; sourceTree = "<group>"; };
+		A4EE9E9629E493DE00DDFC50 /* GamePageCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageCellProtocol.swift; sourceTree = "<group>"; };
 		A4F0B9D1262469B000E4E2A5 /* ClientSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientSettings.swift; sourceTree = "<group>"; };
 		A4F0B9D326246EB100E4E2A5 /* NetworkConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConfiguration.swift; sourceTree = "<group>"; };
 		A4F0B9DB26248B5A00E4E2A5 /* SplashScreenPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenPresenter.swift; sourceTree = "<group>"; };
@@ -996,6 +1004,7 @@
 		A429532F29DCAF9500A76AD9 /* GamePage */ = {
 			isa = PBXGroup;
 			children = (
+				A4EE9E9029E492B800DDFC50 /* Item */,
 				A429533029DCAFD500A76AD9 /* View */,
 			);
 			path = GamePage;
@@ -1004,7 +1013,10 @@
 		A429533029DCAFD500A76AD9 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				A4EE9E9529E493D000DDFC50 /* Cells */,
 				A429533129DCAFF700A76AD9 /* GamePageViewController.swift */,
+				A4EE9E8E29E490CE00DDFC50 /* GamePageView.swift */,
+				A4EE9E9329E4933000DDFC50 /* GamePageViewContext.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1755,6 +1767,22 @@
 			path = UserNotifications;
 			sourceTree = "<group>";
 		};
+		A4EE9E9029E492B800DDFC50 /* Item */ = {
+			isa = PBXGroup;
+			children = (
+				A4EE9E9129E492CC00DDFC50 /* GamePageItemProtocol.swift */,
+			);
+			path = Item;
+			sourceTree = "<group>";
+		};
+		A4EE9E9529E493D000DDFC50 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				A4EE9E9629E493DE00DDFC50 /* GamePageCellProtocol.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		A4F2347B2685E0D200E6FC68 /* AnyCodable */ = {
 			isa = PBXGroup;
 			children = (
@@ -2108,6 +2136,7 @@
 				A46F303E24F5302B0062A333 /* GameSubmitButtonCell.swift in Sources */,
 				A4F0B9D2262469B000E4E2A5 /* ClientSettings.swift in Sources */,
 				A4CC5FF024DAF7300042B41C /* NavigationBar.swift in Sources */,
+				A4EE9E9429E4933000DDFC50 /* GamePageViewContext.swift in Sources */,
 				A472D29E2528962A00AA9906 /* TeamInfo.swift in Sources */,
 				A48DFF7B24F4070200E47095 /* HomeGame.swift in Sources */,
 				A4E4400828E901A900514C0D /* CoreAssembly.swift in Sources */,
@@ -2170,6 +2199,7 @@
 				A4E91EC026C32310008C13A7 /* UIApplication+debugInfo.swift in Sources */,
 				A423AC2424EEC65100071E68 /* ConfirmVC.swift in Sources */,
 				A4768C96268E72A00085B622 /* MaskedTextFieldView.swift in Sources */,
+				A4EE9E8F29E490CE00DDFC50 /* GamePageView.swift in Sources */,
 				A44B2FD525841D9100B5B52C /* CertificateResponse.swift in Sources */,
 				A4D44A1828D108D5004703B4 /* OnboardingPageViewModel.swift in Sources */,
 				A4FFA4B124F3BE2A006A1150 /* PaymentType.swift in Sources */,
@@ -2311,6 +2341,7 @@
 				A4088895267CC798005D0ED1 /* DiscountKind.swift in Sources */,
 				A40B759024D9A829006DB7D1 /* HomeGameRouter.swift in Sources */,
 				A491456528F0C0A000C93290 /* Applink.swift in Sources */,
+				A4EE9E9229E492CC00DDFC50 /* GamePageItemProtocol.swift in Sources */,
 				A4A0659D24E477E20080E0D8 /* GameInfoCell.swift in Sources */,
 				A4D44A1A28D12D82004703B4 /* OnboardingPresenter.swift in Sources */,
 				A453F5BC28F33B6800CE20BA /* GameOrderEndpoint.swift in Sources */,
@@ -2321,6 +2352,7 @@
 				A48A11F124F56D6900F91B9C /* MenuShopCell.swift in Sources */,
 				A429533229DCAFF700A76AD9 /* GamePageViewController.swift in Sources */,
 				A4147AD724E5B92D007C131F /* Place.swift in Sources */,
+				A4EE9E9729E493DE00DDFC50 /* GamePageCellProtocol.swift in Sources */,
 				A4632E91262EFE2D00012BBF /* UserLocationService.swift in Sources */,
 				A417FA5325711C210064C467 /* UIViewController+SafariVC.swift in Sources */,
 				A4FEB054273739F10052AD7B /* GMapsProvider.swift in Sources */,

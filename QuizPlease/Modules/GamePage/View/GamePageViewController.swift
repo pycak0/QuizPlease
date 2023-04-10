@@ -11,12 +11,10 @@ import UIKit
 /// Game page screen view output protocol
 protocol GamePageViewOutput {
 
-
 }
 
 /// Game page screen view protocol
-protocol GamePageView: AnyObject {
-
+protocol GamePageViewInput: AnyObject {
 
 }
 
