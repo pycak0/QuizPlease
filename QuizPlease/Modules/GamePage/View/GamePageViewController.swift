@@ -38,7 +38,6 @@ final class GamePageViewController: UIViewController {
 
     private let gamePageView: GamePageView = {
         let gamePageView = GamePageView()
-        gamePageView.translatesAutoresizingMaskIntoConstraints = false
         return gamePageView
     }()
 

@@ -15,8 +15,8 @@ final class GamePageHeaderView: UIView {
 
     private let imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "gameInfoTemplate")
         imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -44,13 +44,13 @@ final class GamePageHeaderView: UIView {
     /// Loads the image with given path and sets to the header view
     /// - Parameter path: image location on a server
     func setImage(path: String) {
-//        loadImage(path: path) { [weak self] image in
-//            if image == nil && Configuration.current != .production {
-//                // When running on a staging server, image may not be located there,
-//                // so try to force-load it from the production
-//                self?.loadImage(path: path, configuration: .production)
-//            }
-//        }
+        loadImage(path: path) { [weak self] image in
+            if image == nil && Configuration.current != .production {
+                // When running on a staging server, image may not be located there,
+                // so try to force-load it from the production
+                self?.loadImage(path: path, configuration: .production)
+            }
+        }
     }
 
     // MARK: - Private Methods

@@ -13,6 +13,9 @@ protocol GamePageInteractorProtocol {
 
     /// Get Game full title
     func getGameTitle() -> String
+
+    /// Path of backgorund image in the header of GamePage
+    func getHeaderImagePath() -> String
 }
 
 /// GamePage interactor
@@ -33,5 +36,9 @@ extension GamePageInteractor: GamePageInteractorProtocol {
 
     func getGameTitle() -> String {
         return gameInfo.fullTitle
+    }
+
+    func getHeaderImagePath() -> String {
+        return gameInfo.backgroundImagePath?.pathProof ?? ""
     }
 }

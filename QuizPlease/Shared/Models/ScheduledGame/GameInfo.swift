@@ -144,6 +144,7 @@ extension GameInfo {
         return game_type == 1
     }
 
+    /// Status of the game
     var gameStatus: GameStatus? {
         let realStatus = GameStatus(rawValue: self.status ?? -999)
         let isFewPlacesFlagEnabled = ((is_little_place ?? 0) == 1)
@@ -153,6 +154,7 @@ extension GameInfo {
         return displayStatus
     }
 
+    /// Path of backgorund image in the header of game detail page
     var backgroundImagePath: String? {
         get { special_mobile_banner }
         set { special_mobile_banner = newValue }
