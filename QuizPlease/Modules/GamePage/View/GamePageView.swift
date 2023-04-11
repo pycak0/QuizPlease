@@ -36,11 +36,11 @@ final class GamePageView: UIView {
 
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
-        tableView.dataSource = self
-        tableView.delegate = self
         tableView.backgroundColor = .clear
         tableView.separatorStyle = .none
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.dataSource = self
+        tableView.delegate = self
         return tableView
     }()
 
@@ -49,16 +49,12 @@ final class GamePageView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .systemGray6Adapted
+        makeLayout()
     }
 
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        makeLayout()
     }
 
     // MARK: - Internal Methods

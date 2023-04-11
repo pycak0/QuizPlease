@@ -27,6 +27,7 @@ final class GamePageRegisterButtonCell: UITableViewCell {
 
     private lazy var registerButton: ScalingButton = {
         let button = ScalingButton()
+        button.layer.cornerRadius = Constants.height / 2
         button.backgroundColor = .lightGreen
         button.titleLabel?.font = .gilroy(.bold, size: 16)
         button.setTitleColor(.black, for: .normal)
@@ -47,11 +48,6 @@ final class GamePageRegisterButtonCell: UITableViewCell {
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        registerButton.layer.cornerRadius = registerButton.bounds.height / 2
     }
 
     // MARK: - Private Methods
