@@ -36,6 +36,7 @@ struct GameInfo: Decodable {
     var imageData: String?
 
     var time: String = placeholderValue
+    /// Game annotation
     var description: String = placeholderValue
 
     private var text_block: String?

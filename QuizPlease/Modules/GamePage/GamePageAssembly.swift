@@ -24,10 +24,14 @@ extension GamePageAssembly: ViewAssembly {
 
     func makeViewController() -> UIViewController {
         let interactor = GamePageInteractor(gameInfo: gameInfo)
+        let annotationBuilder = GamePageAnnotationBuilder(
+            annotationProvider: interactor
+        )
         let registerButtonBuilder = GamePageRegisterButtonBuilder(
             gameStatusProvider: interactor
         )
         let itemFactory = GamePageItemFactory(
+            annotationBuilder: annotationBuilder,
             registerButtonBuilder: registerButtonBuilder
         )
         let presenter = GamePagePresenter(

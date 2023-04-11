@@ -18,9 +18,14 @@ protocol GamePageItemFactoryProtocol {
 /// Class that creates items for GamePage
 final class GamePageItemFactory {
 
+    private let annotationBuilder: GamePageItemBuilderProtocol
     private let registerButtonBuilder: GamePageItemBuilderProtocol
 
-    init(registerButtonBuilder: GamePageItemBuilderProtocol) {
+    init(
+        annotationBuilder: GamePageItemBuilderProtocol,
+        registerButtonBuilder: GamePageItemBuilderProtocol
+    ) {
+        self.annotationBuilder = annotationBuilder
         self.registerButtonBuilder = registerButtonBuilder
     }
 }
@@ -29,18 +34,8 @@ final class GamePageItemFactory {
 
 extension GamePageItemFactory: GamePageItemFactoryProtocol {
 
-    // MARK: - GamePageItemFactoryProtocol
-
     func makeItems() -> [GamePageItemProtocol] {
-        return [
-            GamePageAnnotationItem(text: """
-            текст текст текст текст текст текст текст текст текст текст
-            текст текст текст текст текст текст текст текст текст текст
-            текст текст текст текст текст текст текст текст текст текст
-            текст текст текст текст текст текст текст текст текст текст
-            текст текст текст текст текст
-            """)
-        ]
+        return annotationBuilder.makeItems()
         + registerButtonBuilder.makeItems()
     }
 }

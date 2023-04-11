@@ -9,7 +9,8 @@
 import Foundation
 
 /// GamePage interactor protocol
-protocol GamePageInteractorProtocol: GameStatusProvider {
+protocol GamePageInteractorProtocol: GameStatusProvider,
+                                     GamePageAnnotationProvider {
 
     /// Get Game full title
     func getGameTitle() -> String
@@ -49,5 +50,14 @@ extension GamePageInteractor: GameStatusProvider {
 
     func getGameStatus() -> GameStatus {
         gameInfo.gameStatus ?? .noPlaces
+    }
+}
+
+// MARK: - GamePageAnnotationProvider
+
+extension GamePageInteractor: GamePageAnnotationProvider {
+
+    func getAnnotation() -> String {
+        gameInfo.description
     }
 }
