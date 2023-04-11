@@ -10,6 +10,8 @@
 		44461018673EE50E25492D87 /* Pods_QuizPlease_QuizPleaseTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CDEF38011787C6A59A13C3C /* Pods_QuizPlease_QuizPleaseTests.framework */; };
 		4CDB228529E559CD00DD9E7C /* GamePageAnnotationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDB228429E559CD00DD9E7C /* GamePageAnnotationCell.swift */; };
 		4CDB228729E56E3100DD9E7C /* GamePageAnnotationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDB228629E56E3100DD9E7C /* GamePageAnnotationItem.swift */; };
+		4CDB228929E593D400DD9E7C /* GamePageRegisterButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDB228829E593D400DD9E7C /* GamePageRegisterButtonCell.swift */; };
+		4CDB228B29E5988100DD9E7C /* GamePageRegisterButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDB228A29E5988100DD9E7C /* GamePageRegisterButtonItem.swift */; };
 		4DF0586D2E5AA5937395870F /* Pods_QuizPlease.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4D9180E261A72F900C4D51E /* Pods_QuizPlease.framework */; };
 		A400A26E269CE4C200FBF70C /* String+WordBuilding.swift in Sources */ = {isa = PBXBuildFile; fileRef = A400A26D269CE4C200FBF70C /* String+WordBuilding.swift */; };
 		A405C98724F651C900C74787 /* MainMenuShopCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A405C98624F651C900C74787 /* MainMenuShopCollectionView.swift */; };
@@ -368,6 +370,8 @@
 		4B96AC7846537ADF1B2E29E1 /* Pods_QuizPlease.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QuizPlease.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CDB228429E559CD00DD9E7C /* GamePageAnnotationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageAnnotationCell.swift; sourceTree = "<group>"; };
 		4CDB228629E56E3100DD9E7C /* GamePageAnnotationItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageAnnotationItem.swift; sourceTree = "<group>"; };
+		4CDB228829E593D400DD9E7C /* GamePageRegisterButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageRegisterButtonCell.swift; sourceTree = "<group>"; };
+		4CDB228A29E5988100DD9E7C /* GamePageRegisterButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageRegisterButtonItem.swift; sourceTree = "<group>"; };
 		5B0D3BDCD9BD4D8A2792F64D /* Pods-QuizPlease-QuizPleaseTests.production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuizPlease-QuizPleaseTests.production.xcconfig"; path = "Target Support Files/Pods-QuizPlease-QuizPleaseTests/Pods-QuizPlease-QuizPleaseTests.production.xcconfig"; sourceTree = "<group>"; };
 		6637A838D525920CEAF0884D /* Pods-QuizPlease.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuizPlease.staging.xcconfig"; path = "Target Support Files/Pods-QuizPlease/Pods-QuizPlease.staging.xcconfig"; sourceTree = "<group>"; };
 		7CDEF38011787C6A59A13C3C /* Pods_QuizPlease_QuizPleaseTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QuizPlease_QuizPleaseTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1791,6 +1795,7 @@
 			children = (
 				A4EE9E9129E492CC00DDFC50 /* GamePageItemProtocol.swift */,
 				4CDB228629E56E3100DD9E7C /* GamePageAnnotationItem.swift */,
+				4CDB228A29E5988100DD9E7C /* GamePageRegisterButtonItem.swift */,
 			);
 			path = Item;
 			sourceTree = "<group>";
@@ -1800,6 +1805,7 @@
 			children = (
 				A4EE9E9629E493DE00DDFC50 /* GamePageCellProtocol.swift */,
 				4CDB228429E559CD00DD9E7C /* GamePageAnnotationCell.swift */,
+				4CDB228829E593D400DD9E7C /* GamePageRegisterButtonCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -2140,6 +2146,7 @@
 				A4E91EBC26C30D5C008C13A7 /* UIWindow+topViewController.swift in Sources */,
 				A4C71769254E016400898CA5 /* PaymentProvider.swift in Sources */,
 				A40B758424D9A7CD006DB7D1 /* WarmupInteractor.swift in Sources */,
+				4CDB228B29E5988100DD9E7C /* GamePageRegisterButtonItem.swift in Sources */,
 				A48F64642501416300E7A528 /* ScheduleFilterProtocol.swift in Sources */,
 				A450E3A124E5732200C49AEE /* GameOrderInteractor.swift in Sources */,
 				A4D230AA24F9219D00524A01 /* UIImageView+LoadImage.swift in Sources */,
@@ -2193,6 +2200,7 @@
 				A40689FB24F7D86F001273B2 /* NetworkService.swift in Sources */,
 				A40B759C24D9A868006DB7D1 /* RatingInteractor.swift in Sources */,
 				A40F036224D4187800C381F2 /* UIKitExtensions.swift in Sources */,
+				4CDB228929E593D400DD9E7C /* GamePageRegisterButtonCell.swift in Sources */,
 				A4E91EBE26C312BA008C13A7 /* WarmupQuestionsService.swift in Sources */,
 				A4AFCD3E2953B1FA005F858C /* ServiceAssembly.swift in Sources */,
 				A450E39F24E5729200C49AEE /* GameOrderConfigurator.swift in Sources */,

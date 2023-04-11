@@ -28,7 +28,13 @@ final class GamePageItemFactory: GamePageItemFactoryProtocol {
             текст текст текст текст текст текст текст текст текст текст
             текст текст текст текст текст текст текст текст текст текст
             текст текст текст текст текст
-            """)
+            """),
+            GamePageRegisterButtonItem(
+                color: <#T##UIColor#>,
+                title: <#T##String#>,
+                isEnabled: <#T##Bool#>,
+                tapAction: <#T##(() -> Void)?##(() -> Void)?##() -> Void#>
+            )
         ]
     }
 }
