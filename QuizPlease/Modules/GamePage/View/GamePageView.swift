@@ -38,6 +38,7 @@ final class GamePageView: UIView {
         let tableView = UITableView()
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.backgroundColor = .clear
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
@@ -56,7 +57,7 @@ final class GamePageView: UIView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        configure()
+        makeLayout()
     }
 
     // MARK: - Internal Methods
@@ -75,21 +76,19 @@ final class GamePageView: UIView {
 
     // MARK: - Private Methods
 
-    private func configure() {
-        addSubview(tableView)
-        NSLayoutConstraint.activate([
-            tableView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            tableView.topAnchor.constraint(equalTo: self.topAnchor),
-            tableView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
-        ])
-
+    private func makeLayout() {
         addSubview(headerView)
+        addSubview(tableView)
         NSLayoutConstraint.activate([
             headerView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             headerView.topAnchor.constraint(equalTo: self.layoutMarginsGuide.topAnchor),
             headerView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            headerViewHeightConstraint
+            headerViewHeightConstraint,
+
+            tableView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            tableView.topAnchor.constraint(equalTo: self.topAnchor),
+            tableView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
     }
 

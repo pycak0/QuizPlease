@@ -33,7 +33,7 @@ final class GamePageHeaderView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        configure()
+        makeLayout()
     }
 
     @available(*, unavailable)
@@ -69,7 +69,7 @@ final class GamePageHeaderView: UIView {
         )
     }
 
-    private func configure() {
+    private func makeLayout() {
         addSubview(imageView)
         NSLayoutConstraint.activate([
             imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor),

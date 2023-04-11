@@ -21,6 +21,14 @@ final class GamePageItemFactory: GamePageItemFactoryProtocol {
     // MARK: - GamePageItemFactoryProtocol
 
     func makeItems() -> [GamePageItemProtocol] {
-        []
+        return [
+            GamePageAnnotationItem(text: """
+            текст текст текст текст текст текст текст текст текст текст
+            текст текст текст текст текст текст текст текст текст текст
+            текст текст текст текст текст текст текст текст текст текст
+            текст текст текст текст текст текст текст текст текст текст
+            текст текст текст текст текст
+            """)
+        ]
     }
 }

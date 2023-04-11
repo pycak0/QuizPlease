@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Class containing the surrounding context of the GamePageView
 final class GamePageViewContext {
 
     let tableView: UITableView
