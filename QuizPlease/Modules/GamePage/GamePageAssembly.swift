@@ -23,14 +23,20 @@ final class GamePageAssembly {
 extension GamePageAssembly: ViewAssembly {
 
     func makeViewController() -> UIViewController {
-        let itemFactory = GamePageItemFactory()
         let interactor = GamePageInteractor(gameInfo: gameInfo)
+        let registerButtonBuilder = GamePageRegisterButtonBuilder(
+            gameStatusProvider: interactor
+        )
+        let itemFactory = GamePageItemFactory(
+            registerButtonBuilder: registerButtonBuilder
+        )
         let presenter = GamePagePresenter(
             itemFactory: itemFactory,
             interactor: interactor
         )
         let viewController = GamePageViewController(output: presenter)
 
+        registerButtonBuilder.output = presenter
         presenter.view = viewController
 
         return viewController

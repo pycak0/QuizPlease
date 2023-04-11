@@ -15,8 +15,19 @@ protocol GamePageItemFactoryProtocol {
     func makeItems() -> [GamePageItemProtocol]
 }
 
-/// Class that creates itms for GamePage
-final class GamePageItemFactory: GamePageItemFactoryProtocol {
+/// Class that creates items for GamePage
+final class GamePageItemFactory {
+
+    private let registerButtonBuilder: GamePageItemBuilderProtocol
+
+    init(registerButtonBuilder: GamePageItemBuilderProtocol) {
+        self.registerButtonBuilder = registerButtonBuilder
+    }
+}
+
+// MARK: - GamePageItemFactoryProtocol
+
+extension GamePageItemFactory: GamePageItemFactoryProtocol {
 
     // MARK: - GamePageItemFactoryProtocol
 
@@ -28,13 +39,8 @@ final class GamePageItemFactory: GamePageItemFactoryProtocol {
             текст текст текст текст текст текст текст текст текст текст
             текст текст текст текст текст текст текст текст текст текст
             текст текст текст текст текст
-            """),
-            GamePageRegisterButtonItem(
-                color: <#T##UIColor#>,
-                title: <#T##String#>,
-                isEnabled: <#T##Bool#>,
-                tapAction: <#T##(() -> Void)?##(() -> Void)?##() -> Void#>
-            )
+            """)
         ]
+        + registerButtonBuilder.makeItems()
     }
 }

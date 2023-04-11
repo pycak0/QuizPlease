@@ -318,6 +318,9 @@
 		A4EE9E9D29E4A77300DDFC50 /* GamePageAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EE9E9C29E4A77200DDFC50 /* GamePageAssembly.swift */; };
 		A4EE9E9F29E4AC2500DDFC50 /* GamePageInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EE9E9E29E4AC2500DDFC50 /* GamePageInteractor.swift */; };
 		A4EE9EA129E4B0E700DDFC50 /* GamePageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EE9EA029E4B0E700DDFC50 /* GamePageHeaderView.swift */; };
+		A4EE9EA329E5E0D300DDFC50 /* GamePageRegisterButtonBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EE9EA229E5E0D300DDFC50 /* GamePageRegisterButtonBuilder.swift */; };
+		A4EE9EA529E5EEBD00DDFC50 /* GameStatusProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EE9EA429E5EEBD00DDFC50 /* GameStatusProvider.swift */; };
+		A4EE9EA829E5F15900DDFC50 /* GamePageItemBuilderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EE9EA729E5F15900DDFC50 /* GamePageItemBuilderProtocol.swift */; };
 		A4F0B9D2262469B000E4E2A5 /* ClientSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F0B9D1262469B000E4E2A5 /* ClientSettings.swift */; };
 		A4F0B9D426246EB100E4E2A5 /* NetworkConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F0B9D326246EB100E4E2A5 /* NetworkConfiguration.swift */; };
 		A4F0B9DC26248B5A00E4E2A5 /* SplashScreenPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F0B9DB26248B5A00E4E2A5 /* SplashScreenPresenter.swift */; };
@@ -687,6 +690,9 @@
 		A4EE9E9C29E4A77200DDFC50 /* GamePageAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageAssembly.swift; sourceTree = "<group>"; };
 		A4EE9E9E29E4AC2500DDFC50 /* GamePageInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageInteractor.swift; sourceTree = "<group>"; };
 		A4EE9EA029E4B0E700DDFC50 /* GamePageHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageHeaderView.swift; sourceTree = "<group>"; };
+		A4EE9EA229E5E0D300DDFC50 /* GamePageRegisterButtonBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageRegisterButtonBuilder.swift; sourceTree = "<group>"; };
+		A4EE9EA429E5EEBD00DDFC50 /* GameStatusProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStatusProvider.swift; sourceTree = "<group>"; };
+		A4EE9EA729E5F15900DDFC50 /* GamePageItemBuilderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageItemBuilderProtocol.swift; sourceTree = "<group>"; };
 		A4F0B9D1262469B000E4E2A5 /* ClientSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientSettings.swift; sourceTree = "<group>"; };
 		A4F0B9D326246EB100E4E2A5 /* NetworkConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConfiguration.swift; sourceTree = "<group>"; };
 		A4F0B9DB26248B5A00E4E2A5 /* SplashScreenPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenPresenter.swift; sourceTree = "<group>"; };
@@ -1022,12 +1028,13 @@
 		A429532F29DCAF9500A76AD9 /* GamePage */ = {
 			isa = PBXGroup;
 			children = (
+				A4EE9EA629E5EF8600DDFC50 /* Factory */,
 				A4EE9E9029E492B800DDFC50 /* Item */,
 				A429533029DCAFD500A76AD9 /* View */,
 				A4EE9E9E29E4AC2500DDFC50 /* GamePageInteractor.swift */,
 				A4EE9E9829E4A57400DDFC50 /* GamePagePresenter.swift */,
-				A4EE9E9A29E4A5EC00DDFC50 /* GamePageItemFactory.swift */,
 				A4EE9E9C29E4A77200DDFC50 /* GamePageAssembly.swift */,
+				A4EE9EA429E5EEBD00DDFC50 /* GameStatusProvider.swift */,
 			);
 			path = GamePage;
 			sourceTree = "<group>";
@@ -1810,6 +1817,16 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		A4EE9EA629E5EF8600DDFC50 /* Factory */ = {
+			isa = PBXGroup;
+			children = (
+				A4EE9E9A29E4A5EC00DDFC50 /* GamePageItemFactory.swift */,
+				A4EE9EA229E5E0D300DDFC50 /* GamePageRegisterButtonBuilder.swift */,
+				A4EE9EA729E5F15900DDFC50 /* GamePageItemBuilderProtocol.swift */,
+			);
+			path = Factory;
+			sourceTree = "<group>";
+		};
 		A4F2347B2685E0D200E6FC68 /* AnyCodable */ = {
 			isa = PBXGroup;
 			children = (
@@ -2200,6 +2217,7 @@
 				A40689FB24F7D86F001273B2 /* NetworkService.swift in Sources */,
 				A40B759C24D9A868006DB7D1 /* RatingInteractor.swift in Sources */,
 				A40F036224D4187800C381F2 /* UIKitExtensions.swift in Sources */,
+				A4EE9EA529E5EEBD00DDFC50 /* GameStatusProvider.swift in Sources */,
 				4CDB228929E593D400DD9E7C /* GamePageRegisterButtonCell.swift in Sources */,
 				A4E91EBE26C312BA008C13A7 /* WarmupQuestionsService.swift in Sources */,
 				A4AFCD3E2953B1FA005F858C /* ServiceAssembly.swift in Sources */,
@@ -2343,6 +2361,7 @@
 				A4BA1CEE24D8347300D32ADC /* MainMenuInteractor.swift in Sources */,
 				A45241E6265489A70058285C /* UIFont+Extensions.swift in Sources */,
 				A47003C8253A4CD0002E8EA2 /* PushSubscribeResponse.swift in Sources */,
+				A4EE9EA329E5E0D300DDFC50 /* GamePageRegisterButtonBuilder.swift in Sources */,
 				A46F303624F5284E0062A333 /* GamePaymentTypeCell.swift in Sources */,
 				A40D817E24D2CA1A006D2CE3 /* WarmupVC.swift in Sources */,
 				A4F234812685E0D200E6FC68 /* AnyEncodable.swift in Sources */,
@@ -2384,6 +2403,7 @@
 				A48A11F124F56D6900F91B9C /* MenuShopCell.swift in Sources */,
 				A429533229DCAFF700A76AD9 /* GamePageViewController.swift in Sources */,
 				A4147AD724E5B92D007C131F /* Place.swift in Sources */,
+				A4EE9EA829E5F15900DDFC50 /* GamePageItemBuilderProtocol.swift in Sources */,
 				A4EE9E9729E493DE00DDFC50 /* GamePageCellProtocol.swift in Sources */,
 				A4632E91262EFE2D00012BBF /* UserLocationService.swift in Sources */,
 				A417FA5325711C210064C467 /* UIViewController+SafariVC.swift in Sources */,

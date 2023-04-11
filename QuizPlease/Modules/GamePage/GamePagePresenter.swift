@@ -41,3 +41,12 @@ extension GamePagePresenter: GamePageViewOutput {
         view?.setHeaderImage(path: interactor.getHeaderImagePath())
     }
 }
+
+// MARK: - GamePageRegisterButtonItemOutput
+
+extension GamePagePresenter: GamePageRegisterButtonItemOutput {
+
+    func didPressRegisterButton() {
+        print("pressed!")
+    }
+}

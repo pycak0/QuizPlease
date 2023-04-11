@@ -9,7 +9,7 @@
 import Foundation
 
 /// GamePage interactor protocol
-protocol GamePageInteractorProtocol {
+protocol GamePageInteractorProtocol: GameStatusProvider {
 
     /// Get Game full title
     func getGameTitle() -> String
@@ -40,5 +40,14 @@ extension GamePageInteractor: GamePageInteractorProtocol {
 
     func getHeaderImagePath() -> String {
         return gameInfo.backgroundImagePath?.pathProof ?? ""
+    }
+}
+
+// MARK: - GameStatusProvider
+
+extension GamePageInteractor: GameStatusProvider {
+
+    func getGameStatus() -> GameStatus {
+        gameInfo.gameStatus ?? .noPlaces
     }
 }

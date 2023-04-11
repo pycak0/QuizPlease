@@ -19,6 +19,8 @@ private enum Constants {
 /// GamePage cell with register button
 final class GamePageRegisterButtonCell: UITableViewCell {
 
+    // MARK: - Private Properties
+
     private var tapHandler: (() -> Void)?
 
     // MARK: - UI Elements
@@ -27,7 +29,7 @@ final class GamePageRegisterButtonCell: UITableViewCell {
         let button = ScalingButton()
         button.backgroundColor = .lightGreen
         button.titleLabel?.font = .gilroy(.bold, size: 16)
-        button.titleLabel?.textColor = .black
+        button.setTitleColor(.black, for: .normal)
         button.addTarget(self, action: #selector(registerButtonPressed), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -45,6 +47,11 @@ final class GamePageRegisterButtonCell: UITableViewCell {
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        registerButton.layer.cornerRadius = registerButton.bounds.height / 2
     }
 
     // MARK: - Private Methods
