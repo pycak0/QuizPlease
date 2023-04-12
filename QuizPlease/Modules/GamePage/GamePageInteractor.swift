@@ -10,7 +10,8 @@ import Foundation
 
 /// GamePage interactor protocol
 protocol GamePageInteractorProtocol: GameStatusProvider,
-                                     GamePageAnnotationProvider {
+                                     GamePageAnnotationProvider,
+                                     GamePageInfoProvider {
 
     /// Get Game full title
     func getGameTitle() -> String
@@ -20,13 +21,15 @@ protocol GamePageInteractorProtocol: GameStatusProvider,
 }
 
 /// GamePage interactor
-final class GamePageInteractor {
+final class GamePageInteractor: GamePageInteractorProtocol {
 
     private let gameInfo: GameInfo
     private let placeAnnotationProvider: PlaceAnnotationProviderProtocol
 
     /// GamePage interactor initializer
-    /// - Parameter gameInfo: Game information
+    /// - Parameters:
+    ///   - gameInfo: Game information
+    ///   - placeAnnotationProvider: Service that provides Place annotation with coordinates
     init(
         gameInfo: GameInfo,
         placeAnnotationProvider: PlaceAnnotationProviderProtocol
@@ -34,11 +37,8 @@ final class GamePageInteractor {
         self.gameInfo = gameInfo
         self.placeAnnotationProvider = placeAnnotationProvider
     }
-}
 
-// MARK: - GamePageInteractorProtocol
-
-extension GamePageInteractor: GamePageInteractorProtocol {
+    // MARK: - GamePageInteractorProtocol
 
     func getGameTitle() -> String {
         return gameInfo.fullTitle
@@ -47,29 +47,24 @@ extension GamePageInteractor: GamePageInteractorProtocol {
     func getHeaderImagePath() -> String {
         return gameInfo.backgroundImagePath?.pathProof ?? ""
     }
-}
 
-// MARK: - GameStatusProvider
-
-extension GamePageInteractor: GameStatusProvider {
+    // MARK: - GameStatusProvider
 
     func getGameStatus() -> GameStatus {
         gameInfo.gameStatus ?? .noPlaces
     }
-}
 
-// MARK: - GamePageAnnotationProvider
-
-extension GamePageInteractor: GamePageAnnotationProvider {
+    // MARK: - GamePageAnnotationProvider
 
     func getAnnotation() -> String {
         gameInfo.description
     }
-}
 
-// MARK: - GamePageInfoPlaceProvider
+    // MARK: - GamePageInfoProvider
 
-extension GamePageInteractor: GamePageInfoPlaceProvider {
+    func getInfo() -> GamePageInfoModel {
+        GamePageInfoModel(game: gameInfo)
+    }
 
     func getPlace(completion: @escaping (Place) -> Void) {
         placeAnnotationProvider.getPlace(initialPlace: gameInfo.placeInfo, completion: completion)

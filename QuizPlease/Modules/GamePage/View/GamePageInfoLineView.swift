@@ -36,6 +36,11 @@ final class GamePageInfoLineView: UIView {
 
     // MARK: - Lifecycle
 
+    convenience init(viewModel: GamePageInfoLineViewModel) {
+        self.init()
+        setViewModel(viewModel)
+    }
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         makeLayout()

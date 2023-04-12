@@ -64,7 +64,7 @@ enum GameStatus: Int, Decodable {
         }
     }
 
-    var imageName: String? {
+    var imageName: String {
         switch self {
         case .placesAvailable:
             return "tick"
@@ -78,10 +78,7 @@ enum GameStatus: Int, Decodable {
     }
 
     var image: UIImage? {
-        if let imageName {
-            return UIImage(named: imageName)
-        }
-        return nil
+        UIImage(named: imageName)
     }
 
     var isRegistrationAvailable: Bool {

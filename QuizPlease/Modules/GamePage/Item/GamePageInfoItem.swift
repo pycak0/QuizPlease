@@ -9,12 +9,17 @@
 import Foundation
 
 /// Item with basic info of the game
-struct GamePageInfoItem {
+final class GamePageInfoItem {
 
     /// Information lines
     let infoLines: [GamePageInfoLineViewModel]
     /// Place annotation provider for the map
     let placeProvider: GamePageInfoPlaceProvider
+
+    init(infoLines: [GamePageInfoLineViewModel], placeProvider: GamePageInfoPlaceProvider) {
+        self.infoLines = infoLines
+        self.placeProvider = placeProvider
+    }
 }
 
 // MARK: - GamePageItemProtocol

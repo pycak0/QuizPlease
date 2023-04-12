@@ -12,18 +12,19 @@ import Foundation
 protocol GamePageInfoBuilderProtocol {
 
     /// Make Info item with given Game info
-    func makeItem(game: GameInfo) -> GamePageItemProtocol
+    func makeItem() -> GamePageItemProtocol
 }
 
 /// GamePage Info item builder
 final class GamePageInfoBuilder {
 
-    private let placeProvider: GamePageInfoPlaceProvider
+    private let infoProvider: GamePageInfoProvider
 
     /// Initialize `GamePageInfoBuilder`
-    /// - Parameter placeProvider: Service that provides Place annotation with coordinates for GamePage
-    init(placeProvider: GamePageInfoPlaceProvider) {
-        self.placeProvider = placeProvider
+    /// - Parameters:
+    ///   - infoProvider: GamePage game info provider
+    init(infoProvider: GamePageInfoProvider) {
+        self.infoProvider = infoProvider
     }
 }
 
@@ -31,24 +32,25 @@ final class GamePageInfoBuilder {
 
 extension GamePageInfoBuilder: GamePageInfoBuilderProtocol {
 
-    func makeItem(game: GameInfo) -> GamePageItemProtocol {
+    func makeItem() -> GamePageItemProtocol {
+        let gameInfo = infoProvider.getInfo()
         let infoLines = [
             // price
-            GamePageInfoLineViewModel(title: game.priceDetails, subtitle: nil,
+            GamePageInfoLineViewModel(title: gameInfo.priceDetails, subtitle: nil,
                                       iconName: "banknoteIcon"),
             // date & time
-            GamePageInfoLineViewModel(title: game.blockData, subtitle: "в \(game.time)",
+            GamePageInfoLineViewModel(title: gameInfo.dateFormatted, subtitle: gameInfo.timeFormatted,
                                       iconName: "clockIcon"),
             // place
-            GamePageInfoLineViewModel(title: game.placeInfo.title, subtitle: game.placeInfo.shortAddress,
+            GamePageInfoLineViewModel(title: gameInfo.placeTitle, subtitle: gameInfo.placeAddress,
                                       iconName: "mapPointIcon"),
             // status
-            GamePageInfoLineViewModel(title: game.gameStatus?.comment, subtitle: nil,
-                                      iconName: game.gameStatus?.imageName)
+            GamePageInfoLineViewModel(title: gameInfo.status.comment, subtitle: nil,
+                                      iconName: gameInfo.status.imageName)
         ]
         return GamePageInfoItem(
             infoLines: infoLines,
-            placeProvider: placeProvider
+            placeProvider: infoProvider
         )
     }
 }

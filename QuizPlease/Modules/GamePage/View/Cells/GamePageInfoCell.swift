@@ -52,6 +52,7 @@ final class GamePageInfoCell: UITableViewCell {
         }
         mapView.translatesAutoresizingMaskIntoConstraints = false
         mapView.delegate = self
+
         setMapInteractions(enabled: false)
         return mapView
     }()
@@ -116,6 +117,13 @@ final class GamePageInfoCell: UITableViewCell {
         mapView.setCenter(place.coordinate, regionRadius: radius, animated: false)
         mapView.addAnnotation(place)
     }
+
+    private func addInfo(items: [GamePageInfoLineViewModel]) {
+        infoStackView.arrangedSubviews.forEach(infoStackView.removeArrangedSubview(_:))
+        for item in items {
+            infoStackView.addArrangedSubview(GamePageInfoLineView(viewModel: item))
+        }
+    }
 }
 
 // MARK: - MKMapViewDelegate
@@ -139,5 +147,6 @@ extension GamePageInfoCell: GamePageCellProtocol {
     func configure(with item: GamePageItemProtocol) {
         guard let item = item as? GamePageInfoItem else { return }
         configureMapView(placeProvider: item.placeProvider)
+        addInfo(items: item.infoLines)
     }
 }

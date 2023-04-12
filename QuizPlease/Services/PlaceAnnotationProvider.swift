@@ -48,23 +48,26 @@ final class PlaceAnnotationProvider: PlaceAnnotationProviderProtocol {
     // MARK: - Private Methods
 
     private func evaluateAttempts(completion: @escaping (Place) -> Void) {
-        if !searchAttempts.isEmpty {
-            let attempt = searchAttempts.removeFirst()
-            attemptsUsed += 1
-            print("[\(Self.self)] Trying to geocode location for place (attempt #\(attemptsUsed)): \(attempt.place)...")
-            MapService.getLocation(from: attempt.query) { [weak self] location in
-                guard let self = self else { return }
-                if let location = location {
-                    let logMessage = "[\(Self.self)] Successfully geocoded location " +
-                    "for place \(attempt.place) from attempt #\(self.attemptsUsed)"
-                    print(logMessage)
-
-                    attempt.place.coordinate = location.coordinate
+        guard !searchAttempts.isEmpty else { return }
+        let attempt = searchAttempts.removeFirst()
+        attemptsUsed += 1
+        print("[\(Self.self)] Trying to geocode location for place (attempt #\(attemptsUsed)): \(attempt.place)...")
+        MapService.getLocation(from: attempt.query) { [weak self] location in
+            guard let self = self else { return }
+            guard let location = location else {
+                if self.searchAttempts.isEmpty {
                     completion(attempt.place)
                 } else {
                     self.evaluateAttempts(completion: completion)
                 }
+                return
             }
+            let logMessage = "[\(Self.self)] Successfully geocoded location " +
+            "for place \(attempt.place) from attempt #\(self.attemptsUsed)"
+            print(logMessage)
+
+            attempt.place.coordinate = location.coordinate
+            completion(attempt.place)
         }
     }
 }

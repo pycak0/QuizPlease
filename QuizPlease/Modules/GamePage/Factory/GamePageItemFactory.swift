@@ -11,8 +11,8 @@ import Foundation
 /// Factory protocol for GamePage items
 protocol GamePageItemFactoryProtocol {
 
-    /// Create items for GamePage with given GameInfo
-    func makeItems(game: GameInfo) -> [GamePageItemProtocol]
+    /// Create items for GamePage
+    func makeItems() -> [GamePageItemProtocol]
 }
 
 /// Class that creates items for GamePage
@@ -37,9 +37,9 @@ final class GamePageItemFactory {
 
 extension GamePageItemFactory: GamePageItemFactoryProtocol {
 
-    func makeItems(game: GameInfo) -> [GamePageItemProtocol] {
+    func makeItems() -> [GamePageItemProtocol] {
         return annotationBuilder.makeItems()
         + registerButtonBuilder.makeItems()
-        + [infoBuilder.makeItem(game: game)]
+        + [infoBuilder.makeItem()]
     }
 }
