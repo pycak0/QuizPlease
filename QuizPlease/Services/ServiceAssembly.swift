@@ -11,9 +11,11 @@ import Foundation
 /// Service layer assembly
 final class ServiceAssembly {
 
+    /// Service assembly shared instance
     static let shared = ServiceAssembly(core: .shared)
 
-    private let core: CoreAssembly
+    /// Object that assembles Core tools of the App
+    let core: CoreAssembly
 
     /// Initialize with core services
     /// - Parameter core: Object that assembles Core tools of the App
@@ -23,4 +25,7 @@ final class ServiceAssembly {
 
     /// Service that sends analytic events
     lazy var analytics: AnalyticsService = AnalyticsServiceImpl()
+
+    /// Service that provides `Place` annotation with coordinates
+    lazy var placeAnnotationProvider: PlaceAnnotationProviderProtocol = PlaceAnnotationProvider()
 }

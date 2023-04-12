@@ -26,10 +26,3 @@ extension GamePageAnnotationBuilder: GamePageItemBuilderProtocol {
         return [item]
     }
 }
-
-/// GamePage Annotation text provider
-protocol GamePageAnnotationProvider {
-
-    /// Get annotation text for the game
-    func getAnnotation() -> String
-}

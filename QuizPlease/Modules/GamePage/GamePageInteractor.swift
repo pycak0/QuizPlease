@@ -23,11 +23,16 @@ protocol GamePageInteractorProtocol: GameStatusProvider,
 final class GamePageInteractor {
 
     private let gameInfo: GameInfo
+    private let placeAnnotationProvider: PlaceAnnotationProviderProtocol
 
     /// GamePage interactor initializer
     /// - Parameter gameInfo: Game information
-    init(gameInfo: GameInfo) {
+    init(
+        gameInfo: GameInfo,
+        placeAnnotationProvider: PlaceAnnotationProviderProtocol
+    ) {
         self.gameInfo = gameInfo
+        self.placeAnnotationProvider = placeAnnotationProvider
     }
 }
 
@@ -59,5 +64,14 @@ extension GamePageInteractor: GamePageAnnotationProvider {
 
     func getAnnotation() -> String {
         gameInfo.description
+    }
+}
+
+// MARK: - GamePageInfoPlaceProvider
+
+extension GamePageInteractor: GamePageInfoPlaceProvider {
+
+    func getPlace(completion: @escaping (Place) -> Void) {
+        placeAnnotationProvider.getPlace(initialPlace: gameInfo.placeInfo, completion: completion)
     }
 }

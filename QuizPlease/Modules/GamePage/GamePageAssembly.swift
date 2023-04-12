@@ -11,6 +11,7 @@ import UIKit
 /// GamePage screen assembly
 final class GamePageAssembly {
 
+    private let services: ServiceAssembly = ServiceAssembly.shared
     private let gameInfo: GameInfo
 
     init(gameInfo: GameInfo) {
@@ -23,16 +24,17 @@ final class GamePageAssembly {
 extension GamePageAssembly: ViewAssembly {
 
     func makeViewController() -> UIViewController {
-        let interactor = GamePageInteractor(gameInfo: gameInfo)
-        let annotationBuilder = GamePageAnnotationBuilder(
-            annotationProvider: interactor
+        let interactor = GamePageInteractor(
+            gameInfo: gameInfo,
+            placeAnnotationProvider: services.placeAnnotationProvider
         )
-        let registerButtonBuilder = GamePageRegisterButtonBuilder(
-            gameStatusProvider: interactor
-        )
+        let annotationBuilder = GamePageAnnotationBuilder(annotationProvider: interactor)
+        let registerButtonBuilder = GamePageRegisterButtonBuilder(gameStatusProvider: interactor)
+        let infoBuilder = GamePageInfoBuilder(placeProvider: interactor)
         let itemFactory = GamePageItemFactory(
             annotationBuilder: annotationBuilder,
-            registerButtonBuilder: registerButtonBuilder
+            registerButtonBuilder: registerButtonBuilder,
+            infoBuilder: infoBuilder
         )
         let presenter = GamePagePresenter(
             itemFactory: itemFactory,
