@@ -8,6 +8,13 @@
 
 import UIKit
 
+private enum Constants {
+
+    /// spacing between icon and text
+    static let horizontalSpacing: CGFloat = 8
+    static let iconWidth: CGFloat = 20
+}
+
 /// A line of information of the game
 final class GamePageInfoLineView: UIView {
 
@@ -17,6 +24,8 @@ final class GamePageInfoLineView: UIView {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.tintColor = .systemGray5Adapted
+        imageView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        imageView.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -24,6 +33,7 @@ final class GamePageInfoLineView: UIView {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .gilroy(.bold, size: 12)
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
@@ -31,6 +41,7 @@ final class GamePageInfoLineView: UIView {
         let label = UILabel()
         label.font = .gilroy(.bold, size: 12)
         label.textColor = .placeholderTextAdapted
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
@@ -77,7 +88,7 @@ final class GamePageInfoLineView: UIView {
 
         let horizontalStack = UIStackView()
         horizontalStack.axis = .horizontal
-        horizontalStack.spacing = 8
+        horizontalStack.spacing = Constants.horizontalSpacing
         horizontalStack.translatesAutoresizingMaskIntoConstraints = false
         [
             iconImageView,
@@ -86,6 +97,8 @@ final class GamePageInfoLineView: UIView {
 
         addSubview(horizontalStack)
         NSLayoutConstraint.activate([
+            iconImageView.widthAnchor.constraint(equalToConstant: Constants.iconWidth),
+
             horizontalStack.leadingAnchor.constraint(equalTo: leadingAnchor),
             horizontalStack.trailingAnchor.constraint(equalTo: trailingAnchor),
             horizontalStack.topAnchor.constraint(equalTo: topAnchor),
