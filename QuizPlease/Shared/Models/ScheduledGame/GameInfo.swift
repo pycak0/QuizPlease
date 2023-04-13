@@ -177,7 +177,7 @@ extension GameInfo {
     }
 
     var optionalDescription: String? {
-        text_block?.removingAngleBrackets(replaceWith: " ")
+        text_block
     }
 
     var paymentKey: String? {

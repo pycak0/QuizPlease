@@ -31,10 +31,12 @@ extension GamePageAssembly: ViewAssembly {
         let annotationBuilder = GamePageAnnotationBuilder(annotationProvider: interactor)
         let registerButtonBuilder = GamePageRegisterButtonBuilder(gameStatusProvider: interactor)
         let infoBuilder = GamePageInfoBuilder(infoProvider: interactor)
+        let descriptionBuilder = GamePageDescriptionBuilder(descriptionProvider: interactor)
         let itemFactory = GamePageItemFactory(
             annotationBuilder: annotationBuilder,
             registerButtonBuilder: registerButtonBuilder,
-            infoBuilder: infoBuilder
+            infoBuilder: infoBuilder,
+            descriptionBuilder: descriptionBuilder
         )
         let router = GamePageRouter()
         let presenter = GamePagePresenter(

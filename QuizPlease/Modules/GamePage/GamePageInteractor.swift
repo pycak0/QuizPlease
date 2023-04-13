@@ -11,7 +11,8 @@ import Foundation
 /// GamePage interactor protocol
 protocol GamePageInteractorProtocol: GameStatusProvider,
                                      GamePageAnnotationProvider,
-                                     GamePageInfoProvider {
+                                     GamePageInfoProvider,
+                                     GamePageDescriptionProvider {
 
     /// Get Game full title
     func getGameTitle() -> String
@@ -80,5 +81,11 @@ final class GamePageInteractor: GamePageInteractorProtocol {
             place.coordinate = coordinate
             completion(place)
         }
+    }
+
+    // MARK: - GamePageDescriptionProvider
+
+    func getDescription() -> String? {
+        gameInfo.optionalDescription
     }
 }

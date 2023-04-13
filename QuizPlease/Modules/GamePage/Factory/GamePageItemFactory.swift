@@ -21,15 +21,18 @@ final class GamePageItemFactory {
     private let annotationBuilder: GamePageItemBuilderProtocol
     private let registerButtonBuilder: GamePageItemBuilderProtocol
     private let infoBuilder: GamePageInfoBuilderProtocol
+    private let descriptionBuilder: GamePageItemBuilderProtocol
 
     init(
         annotationBuilder: GamePageItemBuilderProtocol,
         registerButtonBuilder: GamePageItemBuilderProtocol,
-        infoBuilder: GamePageInfoBuilderProtocol
+        infoBuilder: GamePageInfoBuilderProtocol,
+        descriptionBuilder: GamePageItemBuilderProtocol
     ) {
         self.annotationBuilder = annotationBuilder
         self.registerButtonBuilder = registerButtonBuilder
         self.infoBuilder = infoBuilder
+        self.descriptionBuilder = descriptionBuilder
     }
 }
 
@@ -41,5 +44,6 @@ extension GamePageItemFactory: GamePageItemFactoryProtocol {
         return annotationBuilder.makeItems()
         + registerButtonBuilder.makeItems()
         + [infoBuilder.makeItem()]
+        + descriptionBuilder.makeItems()
     }
 }

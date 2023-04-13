@@ -45,6 +45,8 @@ final class GamePageView: UIView {
         let tableView = UITableView()
         tableView.backgroundColor = .clear
         tableView.separatorStyle = .none
+        tableView.estimatedRowHeight = 600
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.dataSource = self
         tableView.delegate = self
@@ -151,6 +153,10 @@ extension GamePageView: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 
 extension GamePageView: UITableViewDelegate {
+
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.layoutIfNeeded()
+    }
 }
 
 // MARK: - UIScrollViewDelegate
