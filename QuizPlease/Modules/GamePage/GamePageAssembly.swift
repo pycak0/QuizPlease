@@ -26,7 +26,7 @@ extension GamePageAssembly: ViewAssembly {
     func makeViewController() -> UIViewController {
         let interactor = GamePageInteractor(
             gameInfo: gameInfo,
-            placeAnnotationProvider: services.placeAnnotationProvider
+            placeGeocoder: services.placeGeocoder
         )
         let annotationBuilder = GamePageAnnotationBuilder(annotationProvider: interactor)
         let registerButtonBuilder = GamePageRegisterButtonBuilder(gameStatusProvider: interactor)
@@ -36,14 +36,18 @@ extension GamePageAssembly: ViewAssembly {
             registerButtonBuilder: registerButtonBuilder,
             infoBuilder: infoBuilder
         )
+        let router = GamePageRouter()
         let presenter = GamePagePresenter(
             itemFactory: itemFactory,
-            interactor: interactor
+            interactor: interactor,
+            router: router
         )
         let viewController = GamePageViewController(output: presenter)
 
+        infoBuilder.output = presenter
         registerButtonBuilder.output = presenter
         presenter.view = viewController
+        router.viewController = viewController
 
         return viewController
     }

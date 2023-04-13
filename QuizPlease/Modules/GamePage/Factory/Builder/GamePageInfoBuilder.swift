@@ -8,6 +8,13 @@
 
 import Foundation
 
+/// Info item output protocol
+protocol GamePageInfoOutput: AnyObject {
+
+    /// Tells the delegate that user did tap on map
+    func didTapOnMap()
+}
+
 /// GamePage Info item builder protocol
 protocol GamePageInfoBuilderProtocol {
 
@@ -17,6 +24,9 @@ protocol GamePageInfoBuilderProtocol {
 
 /// GamePage Info item builder
 final class GamePageInfoBuilder {
+
+    /// Info item output
+    weak var output: GamePageInfoOutput?
 
     private let infoProvider: GamePageInfoProvider
 
@@ -50,7 +60,10 @@ extension GamePageInfoBuilder: GamePageInfoBuilderProtocol {
         ]
         return GamePageInfoItem(
             infoLines: infoLines,
-            placeProvider: infoProvider
+            placeProvider: infoProvider,
+            tapOnMapAction: { [weak self] in
+                self?.output?.didTapOnMap()
+            }
         )
     }
 }

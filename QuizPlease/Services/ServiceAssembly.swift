@@ -26,6 +26,18 @@ final class ServiceAssembly {
     /// Service that sends analytic events
     lazy var analytics: AnalyticsService = AnalyticsServiceImpl()
 
-    /// Service that provides `Place` annotation with coordinates
-    lazy var placeAnnotationProvider: PlaceAnnotationProviderProtocol = PlaceAnnotationProvider()
+    /// A geocoder that uses Core Location’s CLGeocoder
+    lazy var defaultGeocoder: Geocoder = DefaultGeocoder()
+
+    /// Service that provides `Place` coordinates
+    lazy var placeGeocoder: PlaceGeocoderProtocol = {
+        PlaceGeocoder(geocoder: defaultGeocoder)
+    }()
+
+    /// Object that can one-time provide the user’s current geolocation
+    lazy var userLocationProvider: UserLocationProvider = UserLocationService.shared
+
+    /// Service that requests for tracking uesr location
+    lazy var userLocationAuthorizationService: UserLocationAuthorizationService
+        = UserLocationService.shared
 }

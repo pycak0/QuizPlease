@@ -16,9 +16,6 @@ protocol ScheduleInteractorProtocol: AnyObject {
     func loadSchedule(filter: ScheduleFilter, completion: @escaping (Result<[GameInfo], NetworkServiceError>) -> Void)
     func loadDetailInfo(for game: GameInfo, completion: @escaping (GameInfo?) -> Void)
 
-    func openInMaps(placeName: String, withLongitutde lon: Double, andLatitude lat: Double)
-    func openInMaps(place: Place)
-
     func getSubscribeStatus(gameId: String)
     func getSubscribedGameIds(completion: @escaping ((Array<Int>) -> Void))
 }
@@ -68,26 +65,6 @@ final class ScheduleInteractor: ScheduleInteractorProtocol {
                 var fullInfo = gameInfo
                 fullInfo.setShortInfo(game)
                 completion(fullInfo)
-            }
-        }
-    }
-
-    func openInMaps(placeName: String, withLongitutde lon: Double, andLatitude lat: Double) {
-        MapService.openAppleMaps(for: placeName, withLongitude: lon, andLatitude: lat)
-    }
-
-    func openInMaps(place: Place) {
-        guard !place.isZeroCoordinate else {
-            MapService.openAppleMaps(for: place.title ?? "", withCoordinate: place.coordinate)
-            return
-        }
-        MapService.getCoordinatesAndOpenMap(
-            for: place.title ?? "",
-            withAddress: place.fullAddress
-        ) { [weak self] error in
-            guard let self = self else { return }
-            if let error = error {
-                self.output?.interactor(self, failedToOpenMapsWithError: error)
             }
         }
     }

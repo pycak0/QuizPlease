@@ -16,6 +16,7 @@ protocol UserLocationProvider {
     func askUserLocation(completion: @escaping (CLLocation?) -> Void)
 }
 
+/// Service that requests for tracking uesr location
 protocol UserLocationAuthorizationService {
 
     /// Requests 'When in use' authorization for tracking user location (if needed)

@@ -15,10 +15,17 @@ final class GamePageInfoItem {
     let infoLines: [GamePageInfoLineViewModel]
     /// Place annotation provider for the map
     let placeProvider: GamePageInfoPlaceProvider
+    /// Block that is executed when map was tapped
+    let tapOnMapAction: (() -> Void)?
 
-    init(infoLines: [GamePageInfoLineViewModel], placeProvider: GamePageInfoPlaceProvider) {
+    init(
+        infoLines: [GamePageInfoLineViewModel],
+        placeProvider: GamePageInfoPlaceProvider,
+        tapOnMapAction: (() -> Void)?
+    ) {
         self.infoLines = infoLines
         self.placeProvider = placeProvider
+        self.tapOnMapAction = tapOnMapAction
     }
 }
 

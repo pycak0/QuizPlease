@@ -9,7 +9,7 @@
 import Foundation
 
 /// Output protocol of GamePage Register button item
-protocol GamePageRegisterButtonItemOutput: AnyObject {
+protocol GamePageRegisterButtonOutput: AnyObject {
 
     /// Tells the delegate that user did press register button
     func didPressRegisterButton()
@@ -18,7 +18,8 @@ protocol GamePageRegisterButtonItemOutput: AnyObject {
 /// GamePage Register button item builder
 final class GamePageRegisterButtonBuilder {
 
-    weak var output: GamePageRegisterButtonItemOutput?
+    /// GamePage Register button item output
+    weak var output: GamePageRegisterButtonOutput?
 
     private let gameStatusProvider: GameStatusProvider
 

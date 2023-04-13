@@ -13,7 +13,7 @@
 		4C553C0629E696F40066E2CA /* GamePageInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C553C0529E696F40066E2CA /* GamePageInfoCell.swift */; };
 		4C553C0829E6A1150066E2CA /* GamePageInfoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C553C0729E6A1150066E2CA /* GamePageInfoItem.swift */; };
 		4C553C0D29E6BE570066E2CA /* GamePageAnnotationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C553C0C29E6BE570066E2CA /* GamePageAnnotationProvider.swift */; };
-		4C553C0F29E6C18D0066E2CA /* PlaceAnnotationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C553C0E29E6C18D0066E2CA /* PlaceAnnotationProvider.swift */; };
+		4C553C0F29E6C18D0066E2CA /* PlaceGeocoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C553C0E29E6C18D0066E2CA /* PlaceGeocoder.swift */; };
 		4C553C1229E6C2ED0066E2CA /* GamePageInfoBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C553C1129E6C2ED0066E2CA /* GamePageInfoBuilder.swift */; };
 		4C553C1429E755A90066E2CA /* GamePageInfoProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C553C1329E755A90066E2CA /* GamePageInfoProvider.swift */; };
 		4C553C1729E756410066E2CA /* GamePageInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C553C1629E756410066E2CA /* GamePageInfoModel.swift */; };
@@ -78,7 +78,6 @@
 		A4132787268F33550088DE6A /* PhoneNumberKit-Static in Frameworks */ = {isa = PBXBuildFile; productRef = A4132786268F33550088DE6A /* PhoneNumberKit-Static */; };
 		A4147AD524E596FC007C131F /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = A4147AD424E596FC007C131F /* IQKeyboardManagerSwift */; };
 		A4147AD724E5B92D007C131F /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4147AD624E5B92D007C131F /* Place.swift */; };
-		A4147AD924E5BAF9007C131F /* MapService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4147AD824E5BAF9007C131F /* MapService.swift */; };
 		A4162021270A5C030050CBD8 /* BarStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4162020270A5C030050CBD8 /* BarStyle.swift */; };
 		A417FA5325711C210064C467 /* UIViewController+SafariVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A417FA5225711C210064C467 /* UIViewController+SafariVC.swift */; };
 		A419F2F224F003C9004A7997 /* ScalingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A419F2F124F003C9004A7997 /* ScalingButton.swift */; };
@@ -306,6 +305,14 @@
 		A4DAF74424DDBAFE00963C15 /* MenuHomeGameCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4DAF74224DDBAFE00963C15 /* MenuHomeGameCell.xib */; };
 		A4DAF74724DDCCAD00963C15 /* MenuRatingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DAF74524DDCCAD00963C15 /* MenuRatingCell.swift */; };
 		A4DAF74824DDCCAD00963C15 /* MenuRatingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4DAF74624DDCCAD00963C15 /* MenuRatingCell.xib */; };
+		A4E06B4729E7FFF40005C57B /* GamePageRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E06B4629E7FFF40005C57B /* GamePageRouter.swift */; };
+		A4E06B4A29E805440005C57B /* Geocoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E06B4929E805440005C57B /* Geocoder.swift */; };
+		A4E06B4C29E805610005C57B /* DefaultGeocoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E06B4B29E805610005C57B /* DefaultGeocoder.swift */; };
+		A4E06B4E29E807060005C57B /* MapService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E06B4D29E807060005C57B /* MapService.swift */; };
+		A4E06B5229E80E720005C57B /* PlaceGeocoderTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E06B5129E80E720005C57B /* PlaceGeocoderTest.swift */; };
+		A4E06B5729E816C20005C57B /* GeocoderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E06B5629E816C20005C57B /* GeocoderMock.swift */; };
+		A4E06B5929E817010005C57B /* Place+TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E06B5829E817010005C57B /* Place+TestData.swift */; };
+		A4E06B5C29E823AF0005C57B /* CLLocationCoordinate2D+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E06B5B29E823AF0005C57B /* CLLocationCoordinate2D+Equatable.swift */; };
 		A4E4400428E8E19D00514C0D /* DeeplinkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E4400328E8E19D00514C0D /* DeeplinkService.swift */; };
 		A4E4400628E8FEE700514C0D /* TransitionFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E4400528E8FEE700514C0D /* TransitionFacade.swift */; };
 		A4E4400828E901A900514C0D /* CoreAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E4400728E901A900514C0D /* CoreAssembly.swift */; };
@@ -387,7 +394,7 @@
 		4C553C0529E696F40066E2CA /* GamePageInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageInfoCell.swift; sourceTree = "<group>"; };
 		4C553C0729E6A1150066E2CA /* GamePageInfoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageInfoItem.swift; sourceTree = "<group>"; };
 		4C553C0C29E6BE570066E2CA /* GamePageAnnotationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageAnnotationProvider.swift; sourceTree = "<group>"; };
-		4C553C0E29E6C18D0066E2CA /* PlaceAnnotationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceAnnotationProvider.swift; sourceTree = "<group>"; };
+		4C553C0E29E6C18D0066E2CA /* PlaceGeocoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceGeocoder.swift; sourceTree = "<group>"; };
 		4C553C1129E6C2ED0066E2CA /* GamePageInfoBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageInfoBuilder.swift; sourceTree = "<group>"; };
 		4C553C1329E755A90066E2CA /* GamePageInfoProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageInfoProvider.swift; sourceTree = "<group>"; };
 		4C553C1629E756410066E2CA /* GamePageInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageInfoModel.swift; sourceTree = "<group>"; };
@@ -453,7 +460,6 @@
 		A40F036324D419D200C381F2 /* MenuCellItemProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCellItemProtocol.swift; sourceTree = "<group>"; };
 		A4112D5A28B6883F0097ED97 /* DeleteResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteResponse.swift; sourceTree = "<group>"; };
 		A4147AD624E5B92D007C131F /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
-		A4147AD824E5BAF9007C131F /* MapService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapService.swift; sourceTree = "<group>"; };
 		A4162020270A5C030050CBD8 /* BarStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarStyle.swift; sourceTree = "<group>"; };
 		A417FA5225711C210064C467 /* UIViewController+SafariVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+SafariVC.swift"; sourceTree = "<group>"; };
 		A419F2F124F003C9004A7997 /* ScalingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScalingButton.swift; sourceTree = "<group>"; };
@@ -689,6 +695,14 @@
 		A4DAF74224DDBAFE00963C15 /* MenuHomeGameCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuHomeGameCell.xib; sourceTree = "<group>"; };
 		A4DAF74524DDCCAD00963C15 /* MenuRatingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuRatingCell.swift; sourceTree = "<group>"; };
 		A4DAF74624DDCCAD00963C15 /* MenuRatingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuRatingCell.xib; sourceTree = "<group>"; };
+		A4E06B4629E7FFF40005C57B /* GamePageRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageRouter.swift; sourceTree = "<group>"; };
+		A4E06B4929E805440005C57B /* Geocoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Geocoder.swift; sourceTree = "<group>"; };
+		A4E06B4B29E805610005C57B /* DefaultGeocoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultGeocoder.swift; sourceTree = "<group>"; };
+		A4E06B4D29E807060005C57B /* MapService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapService.swift; sourceTree = "<group>"; };
+		A4E06B5129E80E720005C57B /* PlaceGeocoderTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceGeocoderTest.swift; sourceTree = "<group>"; };
+		A4E06B5629E816C20005C57B /* GeocoderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeocoderMock.swift; sourceTree = "<group>"; };
+		A4E06B5829E817010005C57B /* Place+TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Place+TestData.swift"; sourceTree = "<group>"; };
+		A4E06B5B29E823AF0005C57B /* CLLocationCoordinate2D+Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D+Equatable.swift"; sourceTree = "<group>"; };
 		A4E4400328E8E19D00514C0D /* DeeplinkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeeplinkService.swift; sourceTree = "<group>"; };
 		A4E4400528E8FEE700514C0D /* TransitionFacade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionFacade.swift; sourceTree = "<group>"; };
 		A4E4400728E901A900514C0D /* CoreAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreAssembly.swift; sourceTree = "<group>"; };
@@ -1008,20 +1022,21 @@
 			isa = PBXGroup;
 			children = (
 				A4AFCD382953B081005F858C /* Analytics */,
-				A4BEF46F28D26D8C0099DCDB /* Network */,
-				A4147AD824E5BAF9007C131F /* MapService.swift */,
+				A4E06B4829E8053C0005C57B /* Geocoder */,
 				A4FEB04B273739F10052AD7B /* MapProvider */,
-				A4632E90262EFE2D00012BBF /* UserLocationService.swift */,
-				A44C697524EFD45300AB3BC9 /* QRCodeService.swift */,
-				A40E2A6F25295B7400986CCA /* ShareSheet.swift */,
-				A40C807A252E7E7900CE40D8 /* DefaultsManager.swift */,
-				A48E2FB52530E23800CD6BE6 /* Utilities.swift */,
+				A4BEF46F28D26D8C0099DCDB /* Network */,
 				A4C71767254E014E00898CA5 /* PaymentProvider */,
 				A4F3A791257D898A00D6A9C7 /* CameraChecker.swift */,
-				A4837BD02636086D00517EC6 /* SecurityHelper.swift */,
+				A40C807A252E7E7900CE40D8 /* DefaultsManager.swift */,
 				A44B2E0628C00B5F00C1BC2F /* DeviceIdProvider.swift */,
+				A4E06B4D29E807060005C57B /* MapService.swift */,
+				4C553C0E29E6C18D0066E2CA /* PlaceGeocoder.swift */,
+				A44C697524EFD45300AB3BC9 /* QRCodeService.swift */,
+				A4837BD02636086D00517EC6 /* SecurityHelper.swift */,
 				A4AFCD3D2953B1FA005F858C /* ServiceAssembly.swift */,
-				4C553C0E29E6C18D0066E2CA /* PlaceAnnotationProvider.swift */,
+				A40E2A6F25295B7400986CCA /* ShareSheet.swift */,
+				A4632E90262EFE2D00012BBF /* UserLocationService.swift */,
+				A48E2FB52530E23800CD6BE6 /* Utilities.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1040,6 +1055,7 @@
 				A42F00DD28F192E200184E54 /* Notification.Name+Constants.swift */,
 				A42F00DF28F237A300184E54 /* URLComponents+QueryDictionary.swift */,
 				A43249F429DF888100DEE6C1 /* Configuration+ConvenientProperties.swift */,
+				A4E06B5B29E823AF0005C57B /* CLLocationCoordinate2D+Equatable.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1073,6 +1089,7 @@
 				A429533029DCAFD500A76AD9 /* View */,
 				A4EE9E9E29E4AC2500DDFC50 /* GamePageInteractor.swift */,
 				A4EE9E9829E4A57400DDFC50 /* GamePagePresenter.swift */,
+				A4E06B4629E7FFF40005C57B /* GamePageRouter.swift */,
 				A4EE9E9C29E4A77200DDFC50 /* GamePageAssembly.swift */,
 			);
 			path = GamePage;
@@ -1190,7 +1207,9 @@
 		A44E5EE3295EFCA700402B97 /* QuizPleaseTests */ = {
 			isa = PBXGroup;
 			children = (
-				A44E5EEB295F716700402B97 /* WarmUp */,
+				A4E06B5429E816AE0005C57B /* Mocks */,
+				A4E06B5329E816A80005C57B /* TestData */,
+				A4E06B5A29E817500005C57B /* Unit Tests */,
 			);
 			path = QuizPleaseTests;
 			sourceTree = "<group>";
@@ -1788,6 +1807,64 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		A4E06B4829E8053C0005C57B /* Geocoder */ = {
+			isa = PBXGroup;
+			children = (
+				A4E06B4929E805440005C57B /* Geocoder.swift */,
+				A4E06B4B29E805610005C57B /* DefaultGeocoder.swift */,
+			);
+			path = Geocoder;
+			sourceTree = "<group>";
+		};
+		A4E06B4F29E80E500005C57B /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				A4E06B5129E80E720005C57B /* PlaceGeocoderTest.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		A4E06B5029E80E5C0005C57B /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				A44E5EEB295F716700402B97 /* WarmUp */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		A4E06B5329E816A80005C57B /* TestData */ = {
+			isa = PBXGroup;
+			children = (
+				A4E06B5829E817010005C57B /* Place+TestData.swift */,
+			);
+			path = TestData;
+			sourceTree = "<group>";
+		};
+		A4E06B5429E816AE0005C57B /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				A4E06B5529E816BC0005C57B /* Service */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		A4E06B5529E816BC0005C57B /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				A4E06B5629E816C20005C57B /* GeocoderMock.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		A4E06B5A29E817500005C57B /* Unit Tests */ = {
+			isa = PBXGroup;
+			children = (
+				A4E06B5029E80E5C0005C57B /* Modules */,
+				A4E06B4F29E80E500005C57B /* Services */,
+			);
+			path = "Unit Tests";
+			sourceTree = "<group>";
+		};
 		A4E1CFF424F14CF5000F0B22 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -2223,6 +2300,7 @@
 				A4A0659824E477860080E0D8 /* GameOrderVC.swift in Sources */,
 				A4E4400628E8FEE700514C0D /* TransitionFacade.swift in Sources */,
 				A4D498CE25026AA100CB70EE /* ScheduledGamesResponse.swift in Sources */,
+				A4E06B4A29E805440005C57B /* Geocoder.swift in Sources */,
 				A491456728F0C0DD00C93290 /* ApplinkRouter.swift in Sources */,
 				A45488C52513719800992261 /* UIPageViewController+IsPagingEnabled.swift in Sources */,
 				A40D815A24D2C6C1006D2CE3 /* AppDelegate.swift in Sources */,
@@ -2242,7 +2320,6 @@
 				A4D230AA24F9219D00524A01 /* UIImageView+LoadImage.swift in Sources */,
 				A471166D269DB61200F90099 /* MultipartFormDataObject.swift in Sources */,
 				A47003CB253A53C1002E8EA2 /* GameOrderResponse.swift in Sources */,
-				A4147AD924E5BAF9007C131F /* MapService.swift in Sources */,
 				4C553C0429E68B4A0066E2CA /* GamePageInfoLineViewModel.swift in Sources */,
 				A4AFCD3A2953B094005F858C /* AnalyticsService.swift in Sources */,
 				A4B129232739DD9D0035C041 /* Spacer.swift in Sources */,
@@ -2286,6 +2363,7 @@
 				A4448ED2250EA16C0020686D /* ScheduleFilterOption.swift in Sources */,
 				A4FFA4AB24F3AB1A006A1150 /* GameOrderCellDelegates.swift in Sources */,
 				A468E12424FD37390083ADB2 /* RatingFilter.swift in Sources */,
+				A4E06B4E29E807060005C57B /* MapService.swift in Sources */,
 				A4D230A824F9203500524A01 /* WarmupQuestion.swift in Sources */,
 				A48E2FAD2530916800CD6BE6 /* PassedGame.swift in Sources */,
 				A4F2347F2685E0D200E6FC68 /* AnyDecodable.swift in Sources */,
@@ -2297,6 +2375,7 @@
 				4CDB228929E593D400DD9E7C /* GamePageRegisterButtonCell.swift in Sources */,
 				A4E91EBE26C312BA008C13A7 /* WarmupQuestionsService.swift in Sources */,
 				A4AFCD3E2953B1FA005F858C /* ServiceAssembly.swift in Sources */,
+				A4E06B5C29E823AF0005C57B /* CLLocationCoordinate2D+Equatable.swift in Sources */,
 				A450E39F24E5729200C49AEE /* GameOrderConfigurator.swift in Sources */,
 				A4D5A395263C72340075ECF3 /* WarmupAnswerResponse.swift in Sources */,
 				A40B758224D9A76F006DB7D1 /* ScheduleConfigurator.swift in Sources */,
@@ -2438,6 +2517,7 @@
 				A4A5370824EC7AA6004A10D4 /* HomeGameCell.swift in Sources */,
 				A4A065AA24E4812F0080E0D8 /* GameGeneralDescriptionCell.swift in Sources */,
 				A450E3A324E5735400C49AEE /* GameOrderRouter.swift in Sources */,
+				A4E06B4729E7FFF40005C57B /* GamePageRouter.swift in Sources */,
 				A423AC1B24EE864000071E68 /* ProfileCell.swift in Sources */,
 				A4BA1CEE24D8347300D32ADC /* MainMenuInteractor.swift in Sources */,
 				A45241E6265489A70058285C /* UIFont+Extensions.swift in Sources */,
@@ -2483,7 +2563,7 @@
 				A44B2E0728C00B5F00C1BC2F /* DeviceIdProvider.swift in Sources */,
 				A4CDC3502732ECAC00282EC2 /* MapInteractor.swift in Sources */,
 				A48A11F124F56D6900F91B9C /* MenuShopCell.swift in Sources */,
-				4C553C0F29E6C18D0066E2CA /* PlaceAnnotationProvider.swift in Sources */,
+				4C553C0F29E6C18D0066E2CA /* PlaceGeocoder.swift in Sources */,
 				A429533229DCAFF700A76AD9 /* GamePageViewController.swift in Sources */,
 				A4147AD724E5B92D007C131F /* Place.swift in Sources */,
 				A4EE9EA829E5F15900DDFC50 /* GamePageItemBuilderProtocol.swift in Sources */,
@@ -2508,6 +2588,7 @@
 				A4FEB052273739F10052AD7B /* YMapsProvider.swift in Sources */,
 				A4B1291F27387ACA0035C041 /* MapInfoView.swift in Sources */,
 				A4E675F7255DB4AB0011A801 /* String+Validating.swift in Sources */,
+				A4E06B4C29E805610005C57B /* DefaultGeocoder.swift in Sources */,
 				A450E39D24E571C900C49AEE /* GameOrderPresenter.swift in Sources */,
 				A4CDC34A27308ABE00282EC2 /* MapAssembly.swift in Sources */,
 				A4D44A2228D1336D004703B4 /* OnboardingPageData.swift in Sources */,
@@ -2534,6 +2615,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				A44E5EF2295F9DFD00402B97 /* WarmupQuestionTypeResolverTest.swift in Sources */,
+				A4E06B5229E80E720005C57B /* PlaceGeocoderTest.swift in Sources */,
+				A4E06B5729E816C20005C57B /* GeocoderMock.swift in Sources */,
+				A4E06B5929E817010005C57B /* Place+TestData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

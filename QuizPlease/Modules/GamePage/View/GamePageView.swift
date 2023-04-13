@@ -17,14 +17,21 @@ final class GamePageView: UIView {
         didSet {
             registerCells()
             tableView.reloadData()
+            updateImageHeight()
         }
     }
 
     private lazy var context = GamePageViewContext(tableView: tableView, view: self)
 
     private lazy var headerViewHeightConstraint: NSLayoutConstraint = {
-        headerView.heightAnchor.constraint(equalToConstant: 270)
+        headerView.heightAnchor.constraint(equalToConstant: imageBaseHeight)
     }()
+
+    private var imageBaseHeight: CGFloat = 270 {
+        didSet {
+            headerViewHeightConstraint.constant = imageBaseHeight
+        }
+    }
 
     // MARK: - UI Elements
 
@@ -55,6 +62,11 @@ final class GamePageView: UIView {
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        updateImageHeight()
     }
 
     // MARK: - Internal Methods
@@ -99,6 +111,17 @@ final class GamePageView: UIView {
     private func makeReuseIdentifier(_ cellClass: AnyClass) -> String {
         "\(Self.self)Cell_\(cellClass)"
     }
+
+    private func updateImageHeight() {
+        guard
+            imageBaseHeight == 270,
+            let index = items.firstIndex(where: { ($0 as? GamePageInfoItem) != nil }),
+            let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0))
+        else {
+            return
+        }
+        imageBaseHeight = cell.frame.origin.y + 60
+    }
 }
 
 // MARK: - UITableViewDataSource
@@ -128,8 +151,22 @@ extension GamePageView: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 
 extension GamePageView: UITableViewDelegate {
+}
 
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
+// MARK: - UIScrollViewDelegate
+
+extension GamePageView: UIScrollViewDelegate {
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard scrollView.isKind(of: UITableView.self) else { return }
+
+        let offset = scrollView.contentOffset.y + scrollView.safeAreaInsets.top
+        headerView.isHidden = offset > 700
+
+        if offset <= 0 {
+            headerViewHeightConstraint.constant = imageBaseHeight - offset
+        } else {
+            headerViewHeightConstraint.constant = imageBaseHeight - offset * 0.2
+        }
     }
 }

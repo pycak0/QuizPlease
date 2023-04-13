@@ -18,24 +18,27 @@ protocol GamePageInteractorProtocol: GameStatusProvider,
 
     /// Path of backgorund image in the header of GamePage
     func getHeaderImagePath() -> String
+
+    /// Get Place information
+    func getPlaceInfo() -> Place
 }
 
 /// GamePage interactor
 final class GamePageInteractor: GamePageInteractorProtocol {
 
     private let gameInfo: GameInfo
-    private let placeAnnotationProvider: PlaceAnnotationProviderProtocol
+    private let placeGeocoder: PlaceGeocoderProtocol
 
     /// GamePage interactor initializer
     /// - Parameters:
     ///   - gameInfo: Game information
-    ///   - placeAnnotationProvider: Service that provides Place annotation with coordinates
+    ///   - placeGeocoder: Service that provides `Place` coordinates
     init(
         gameInfo: GameInfo,
-        placeAnnotationProvider: PlaceAnnotationProviderProtocol
+        placeGeocoder: PlaceGeocoderProtocol
     ) {
         self.gameInfo = gameInfo
-        self.placeAnnotationProvider = placeAnnotationProvider
+        self.placeGeocoder = placeGeocoder
     }
 
     // MARK: - GamePageInteractorProtocol
@@ -46,6 +49,10 @@ final class GamePageInteractor: GamePageInteractorProtocol {
 
     func getHeaderImagePath() -> String {
         return gameInfo.backgroundImagePath?.pathProof ?? ""
+    }
+
+    func getPlaceInfo() -> Place {
+        return gameInfo.placeInfo
     }
 
     // MARK: - GameStatusProvider
@@ -66,7 +73,12 @@ final class GamePageInteractor: GamePageInteractorProtocol {
         GamePageInfoModel(game: gameInfo)
     }
 
-    func getPlace(completion: @escaping (Place) -> Void) {
-        placeAnnotationProvider.getPlace(initialPlace: gameInfo.placeInfo, completion: completion)
+    func getPlaceAnnotation(completion: @escaping (Place) -> Void) {
+        let place = gameInfo.placeInfo
+        placeGeocoder.getCoordinate(place) { [weak place] coordinate in
+            guard let place else { return }
+            place.coordinate = coordinate
+            completion(place)
+        }
     }
 }

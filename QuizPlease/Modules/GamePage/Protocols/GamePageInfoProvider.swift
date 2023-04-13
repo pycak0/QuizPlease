@@ -18,7 +18,9 @@ protocol GamePageInfoProvider: GamePageInfoPlaceProvider {
 /// Service that provides `Place` annotation with coordinates
 protocol GamePageInfoPlaceProvider {
 
-    /// Get place annotation to put on the map
+    /// Get place annotation to put on the map.
+    /// The method asynchronously geocodes Place coordinate, if needed,
+    /// and returns the annotation in completion closure.
     /// - Parameter completion: closure that contains a `Place` instance
-    func getPlace(completion: @escaping (Place) -> Void)
+    func getPlaceAnnotation(completion: @escaping (Place) -> Void)
 }

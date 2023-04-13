@@ -8,8 +8,9 @@
 
 import UIKit
 
-class MapAssembly: ViewAssembly {
+final class MapAssembly: ViewAssembly {
 
+    private let services = ServiceAssembly.shared
     let place: Place
 
     init(place: Place) {
@@ -20,8 +21,8 @@ class MapAssembly: ViewAssembly {
     func makeViewController() -> UIViewController {
         let interactor = MapInteractor(
             place: place,
-            geocoder: DefaultGeocoder(),
-            locationAuthService: UserLocationService.shared
+            placeGeocoder: services.placeGeocoder,
+            locationAuthService: services.userLocationAuthorizationService
         )
         let router = MapRouter(
             providers: [

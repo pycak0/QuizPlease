@@ -28,7 +28,7 @@ final class GamePageInfoCell: UITableViewCell {
         let view = UIView()
         view.clipsToBounds = true
         view.layer.cornerRadius = 20
-        view.backgroundColor = .systemGroupedBackgroundAdapted
+        view.backgroundColor = .systemBackgroundAdapted
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -81,12 +81,7 @@ final class GamePageInfoCell: UITableViewCell {
     private func makeLayout() {
         contentView.addSubview(containerView)
         containerView.addSubview(infoStackView)
-        let mapContainer = UIView()
-        mapContainer.translatesAutoresizingMaskIntoConstraints = false
-        mapContainer.backgroundColor = .lightGray
-        mapContainer.addSubview(mapView)
-        mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        containerView.addSubview(mapContainer)
+        containerView.addSubview(mapView)
 
         NSLayoutConstraint.activate([
             containerView.leadingAnchor.constraint(
@@ -105,26 +100,17 @@ final class GamePageInfoCell: UITableViewCell {
             infoStackView.trailingAnchor.constraint(
                 equalTo: containerView.trailingAnchor, constant: -Constants.infoStackSpacing),
 
-            infoStackView.bottomAnchor.constraint(
-                equalTo: mapContainer.topAnchor, constant: -Constants.infoStackSpacing),
-
-            mapContainer.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-            mapContainer.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-            mapContainer.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
-            mapContainer.heightAnchor.constraint(equalToConstant: Constants.mapHeight)
-
-//            infoStackView.bottomAnchor.constraint(
-//                equalTo: mapView.topAnchor, constant: -Constants.infoStackSpacing),
-//
-//            infoStackView.bottomAnchor.constraint(
-//                equalTo: containerView.bottomAnchor, constant: -Constants.infoStackSpacing)
-
-//            mapView.topAnchor.constraint(equalTo: infoStackView.bottomAnchor, constant: Constants.infoStackSpacing),
+            mapView.topAnchor.constraint(
+                equalTo: infoStackView.bottomAnchor, constant: Constants.infoStackSpacing),
+            mapView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            mapView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            mapView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
+            mapView.heightAnchor.constraint(equalToConstant: Constants.mapHeight)
         ])
     }
 
     private func configureMapView(placeProvider: GamePageInfoPlaceProvider) {
-        placeProvider.getPlace { [weak self] place in
+        placeProvider.getPlaceAnnotation { [weak self] place in
             self?.setLocation(of: place)
         }
     }
@@ -162,7 +148,8 @@ extension GamePageInfoCell: GamePageCellProtocol {
 
     func configure(with item: GamePageItemProtocol) {
         guard let item = item as? GamePageInfoItem else { return }
-//        configureMapView(placeProvider: item.placeProvider)
+        configureMapView(placeProvider: item.placeProvider)
         addInfo(items: item.infoLines)
+        tapOnMapAction = item.tapOnMapAction
     }
 }
