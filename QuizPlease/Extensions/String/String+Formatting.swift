@@ -28,13 +28,15 @@ extension String {
     }
 
     /// Be careful when using this method because some HTML attributes may be parsed slowly
-    func htmlFormatted() -> NSMutableAttributedString? {
+    func htmlFormatted() -> NSAttributedString? {
         guard let htmlData = self
                 .trimmingCharacters(in: .whitespacesAndNewlines)
                 .data(using: .unicode) else { return nil }
 
-        return try? NSMutableAttributedString(data: htmlData,
-                                              options: [.documentType: NSAttributedString.DocumentType.html],
-                                              documentAttributes: nil)
+        return try? NSAttributedString(
+            data: htmlData,
+            options: [.documentType: NSAttributedString.DocumentType.html],
+            documentAttributes: nil
+        )
     }
 }

@@ -10,8 +10,8 @@ import UIKit
 
 private enum Constants {
 
-    /// Description label spacing from cell edges
-    static let spacing: CGFloat = 16
+    static let horizaontalSpacing: CGFloat = 16
+    static let verticalSpacing: CGFloat = 16
 }
 
 /// GamePage cell with game description
@@ -25,6 +25,7 @@ final class GamePageDescriptionCell: UITableViewCell {
         textView.font = .gilroy(.medium, size: 14)
         textView.isEditable = false
         textView.isScrollEnabled = false
+        textView.textContainer.lineFragmentPadding = 0
         textView.textContainerInset = .zero
         textView.delegate = self
         textView.translatesAutoresizingMaskIntoConstraints = false
@@ -53,31 +54,35 @@ final class GamePageDescriptionCell: UITableViewCell {
         contentView.addSubview(descriptionTextView)
         NSLayoutConstraint.activate([
             descriptionTextView.leadingAnchor.constraint(
-                equalTo: contentView.leadingAnchor, constant: Constants.spacing),
+                equalTo: contentView.leadingAnchor, constant: Constants.horizaontalSpacing),
             descriptionTextView.topAnchor.constraint(
-                equalTo: contentView.topAnchor, constant: Constants.spacing),
+                equalTo: contentView.topAnchor, constant: Constants.verticalSpacing),
             descriptionTextView.trailingAnchor.constraint(
-                equalTo: contentView.trailingAnchor, constant: -Constants.spacing),
+                equalTo: contentView.trailingAnchor, constant: -Constants.horizaontalSpacing),
             descriptionTextView.bottomAnchor.constraint(
-                equalTo: contentView.bottomAnchor, constant: -Constants.spacing)
+                equalTo: contentView.bottomAnchor, constant: -Constants.verticalSpacing)
         ])
     }
 
     private func setDescription(_ text: String) {
         DispatchQueue.global().async { [weak self] in
-            if let attrString = text.htmlFormatted() {
-                let range = (attrString.string as NSString).range(of: attrString.string)
-                attrString.addAttributes([
-                    .font: UIFont.gilroy(.medium, size: 14),
-                    .foregroundColor: UIColor.labelAdapted
-                ], range: range)
-                DispatchQueue.main.async {
-                    guard let self else { return }
-                    self.descriptionTextView.attributedText = attrString
-                    self.invalidateIntrinsicContentSize()
-                    self.setNeedsLayout()
-                    self.layoutIfNeeded()
-                }
+            guard let attrString = text.htmlFormatted()?.trimmingWhitespacesAndNewlines() else {
+                return
+            }
+
+            let mutableAttrString = NSMutableAttributedString(attributedString: attrString)
+            let range = (mutableAttrString.string as NSString).range(of: mutableAttrString.string)
+            mutableAttrString.addAttributes([
+                .font: UIFont.gilroy(.medium, size: 14),
+                .foregroundColor: UIColor.labelAdapted
+            ], range: range)
+
+            DispatchQueue.main.async {
+                guard let self else { return }
+                self.descriptionTextView.attributedText = mutableAttrString
+                self.invalidateIntrinsicContentSize()
+                self.setNeedsLayout()
+                self.layoutIfNeeded()
             }
         }
     }
@@ -104,7 +109,7 @@ extension GamePageDescriptionCell: GamePageCellProtocol {
 
     func configure(with item: GamePageItemProtocol) {
         guard let item = item as? GamePageDescriptionItem else { return }
+        descriptionTextView.text = item.description
         setDescription(item.description)
-//        descriptionTextView.text = item.description
     }
 }

@@ -11,7 +11,7 @@ import MapKit
 
 private enum Constants {
 
-    static let verticalSpacing: CGFloat = 8
+    static let verticalSpacing: CGFloat = 16
     static let horizontalSpacing: CGFloat = 16
     static let infoStackSpacing: CGFloat = 16
     static let mapHeight: CGFloat = 132
