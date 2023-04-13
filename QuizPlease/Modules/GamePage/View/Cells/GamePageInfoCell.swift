@@ -54,8 +54,11 @@ final class GamePageInfoCell: UITableViewCell {
         mapView.translatesAutoresizingMaskIntoConstraints = false
         mapView.delegate = self
         mapView.showsCompass = false
+        mapView.isZoomEnabled = false
+        mapView.isRotateEnabled = false
+        mapView.isScrollEnabled = false
+        mapView.isPitchEnabled = false
 
-        setMapInteractions(enabled: false)
         return mapView
     }()
 
@@ -81,8 +84,8 @@ final class GamePageInfoCell: UITableViewCell {
         let mapContainer = UIView()
         mapContainer.translatesAutoresizingMaskIntoConstraints = false
         mapContainer.backgroundColor = .lightGray
-//        mapContainer.addSubview(mapView)
-//        mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        mapContainer.addSubview(mapView)
+        mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         containerView.addSubview(mapContainer)
 
         NSLayoutConstraint.activate([
@@ -108,7 +111,7 @@ final class GamePageInfoCell: UITableViewCell {
             mapContainer.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
             mapContainer.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
             mapContainer.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
-            mapContainer.heightAnchor.constraint(equalToConstant: Constants.mapHeight),
+            mapContainer.heightAnchor.constraint(equalToConstant: Constants.mapHeight)
 
 //            infoStackView.bottomAnchor.constraint(
 //                equalTo: mapView.topAnchor, constant: -Constants.infoStackSpacing),
@@ -118,13 +121,6 @@ final class GamePageInfoCell: UITableViewCell {
 
 //            mapView.topAnchor.constraint(equalTo: infoStackView.bottomAnchor, constant: Constants.infoStackSpacing),
         ])
-    }
-
-    private func setMapInteractions(enabled isEnabled: Bool) {
-        mapView.isZoomEnabled = isEnabled
-        mapView.isRotateEnabled = isEnabled
-        mapView.isScrollEnabled = isEnabled
-        mapView.isPitchEnabled = isEnabled
     }
 
     private func configureMapView(placeProvider: GamePageInfoPlaceProvider) {
