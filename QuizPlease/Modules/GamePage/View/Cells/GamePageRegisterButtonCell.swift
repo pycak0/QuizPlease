@@ -11,7 +11,7 @@ import UIKit
 private enum Constants {
 
     static let topSpacing: CGFloat = 8
-    static let bottomSpacing: CGFloat = 10
+    static let bottomSpacing: CGFloat = 20
     static let height: CGFloat = 40
     static let widthFraction: CGFloat = 2 / 3
 }

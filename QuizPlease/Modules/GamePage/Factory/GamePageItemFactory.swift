@@ -18,10 +18,14 @@ protocol GamePageItemFactoryProtocol {
 /// Class that creates items for GamePage
 final class GamePageItemFactory {
 
+    // MARK: - Private Properties
+
     private let annotationBuilder: GamePageItemBuilderProtocol
     private let registerButtonBuilder: GamePageItemBuilderProtocol
     private let infoBuilder: GamePageInfoBuilderProtocol
     private let descriptionBuilder: GamePageItemBuilderProtocol
+
+    // MARK: - Lifecycle
 
     init(
         annotationBuilder: GamePageItemBuilderProtocol,
@@ -34,6 +38,25 @@ final class GamePageItemFactory {
         self.infoBuilder = infoBuilder
         self.descriptionBuilder = descriptionBuilder
     }
+
+    // MARK: - Private Methods
+
+    private func makeTitleAndSubtitle() -> [GamePageItemProtocol] {
+        return [
+            GamePageTextItem(
+                text: "Запись на игру",
+                style: .title,
+                topInset: 16,
+                bottomInset: 8
+            ),
+            GamePageTextItem(
+                text: "Введите ваши данные и нажмите на кнопку «Записаться на игру»",
+                style: .subtitle,
+                topInset: 0,
+                bottomInset: 16
+            )
+        ]
+    }
 }
 
 // MARK: - GamePageItemFactoryProtocol
@@ -45,5 +68,6 @@ extension GamePageItemFactory: GamePageItemFactoryProtocol {
         + registerButtonBuilder.makeItems()
         + [infoBuilder.makeItem()]
         + descriptionBuilder.makeItems()
+        + makeTitleAndSubtitle()
     }
 }
