@@ -11,8 +11,8 @@ import UIKit
 /// Class containing the surrounding context of the GamePageView
 final class GamePageViewContext {
 
-    let tableView: UITableView
-    let view: GamePageView
+    unowned let tableView: UITableView
+    unowned let view: GamePageView
 
     /// Game page view context
     /// - Parameters:

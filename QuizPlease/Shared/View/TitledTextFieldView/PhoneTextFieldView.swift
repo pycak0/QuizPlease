@@ -9,6 +9,10 @@
 import UIKit
 import PhoneNumberKit
 
+enum PhoneNumberKitInstance {
+    static let shared = PhoneNumberKit()
+}
+
 @IBDesignable
 class PhoneTextFieldView: TitledTextFieldView {
 
@@ -28,7 +32,7 @@ class PhoneTextFieldView: TitledTextFieldView {
     }
 
     private let phoneTextField: PhoneNumberTextField = {
-        let textField = PhoneNumberTextField()
+        let textField = PhoneNumberTextField(withPhoneNumberKit: PhoneNumberKitInstance.shared)
         textField.withFlag = true
         textField.withPrefix = true
         textField.withExamplePlaceholder = true
@@ -78,6 +82,14 @@ class PhoneTextFieldView: TitledTextFieldView {
             guard !phoneTextField.withExamplePlaceholder else { return }
             super.placeholder = newValue
         }
+    }
+
+    override func textFieldDidBeginEditing(_ textField: UITextField) {
+        let code = phoneTextField.phoneNumberKit.countryCode(for: phoneTextField.currentRegion) ?? 1
+        if textField.text == "+\(code)" {
+            textField.text = nil
+        }
+        super.textFieldDidBeginEditing(textField)
     }
 
     override func textFieldDidChange(_ textField: UITextField) {

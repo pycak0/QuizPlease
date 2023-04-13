@@ -12,7 +12,8 @@ import Foundation
 protocol GamePageInteractorProtocol: GameStatusProvider,
                                      GamePageAnnotationProvider,
                                      GamePageInfoProvider,
-                                     GamePageDescriptionProvider {
+                                     GamePageDescriptionProvider,
+                                     GamePageRegisterFormProvider {
 
     /// Get Game full title
     func getGameTitle() -> String
@@ -29,17 +30,21 @@ final class GamePageInteractor: GamePageInteractorProtocol {
 
     private let gameInfo: GameInfo
     private let placeGeocoder: PlaceGeocoderProtocol
+    private let registrationService: RegistrationServiceProtocol
 
     /// GamePage interactor initializer
     /// - Parameters:
     ///   - gameInfo: Game information
     ///   - placeGeocoder: Service that provides `Place` coordinates
+    ///   - registrationService: Service that manages register form
     init(
         gameInfo: GameInfo,
-        placeGeocoder: PlaceGeocoderProtocol
+        placeGeocoder: PlaceGeocoderProtocol,
+        registrationService: RegistrationServiceProtocol
     ) {
         self.gameInfo = gameInfo
         self.placeGeocoder = placeGeocoder
+        self.registrationService = registrationService
     }
 
     // MARK: - GamePageInteractorProtocol
@@ -87,5 +92,11 @@ final class GamePageInteractor: GamePageInteractorProtocol {
 
     func getDescription() -> String? {
         gameInfo.optionalDescription
+    }
+
+    // MARK: - GamePageRegisterFormProvider
+
+    func getRegisterForm() -> RegisterForm {
+        registrationService.getRegisterForm()
     }
 }

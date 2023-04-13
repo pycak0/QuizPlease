@@ -98,8 +98,8 @@ extension GamePageDescriptionCell: UITextViewDelegate {
         in characterRange: NSRange,
         interaction: UITextItemInteraction
     ) -> Bool {
-        UIApplication.shared.open(url)
-        return false
+//        UIApplication.shared.open(url)
+        return true
     }
 }
 
@@ -109,7 +109,7 @@ extension GamePageDescriptionCell: GamePageCellProtocol {
 
     func configure(with item: GamePageItemProtocol) {
         guard let item = item as? GamePageDescriptionItem else { return }
-        descriptionTextView.text = item.description
+        descriptionTextView.text = item.description.removingAngleBrackets(replaceWith: " ")
         setDescription(item.description)
     }
 }
