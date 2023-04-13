@@ -38,6 +38,9 @@ public enum AppSettings {
         URL(string: "https://apps.apple.com/ru/app/id1585713090")!
     }()
 
+    /// Whether the new GamePage is enabled or not
+    public static let isGamePageEnabled = false
+
     public static var description: String {
         """
         AppSettings: {

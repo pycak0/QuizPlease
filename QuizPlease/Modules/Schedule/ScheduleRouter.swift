@@ -60,9 +60,12 @@ final class ScheduleRouter: ScheduleRouterProtocol {
     // MARK: - Segues
 
     func showGameInfo(with options: GameOrderPresentationOptions) {
-        let assembly = GamePageAssembly(gameInfo: options.gameInfo)
-        navigationController?.pushViewController(assembly.makeViewController(), animated: true)
-//        viewController.performSegue(withIdentifier: "ShowGameInfo", sender: options)
+        if AppSettings.isGamePageEnabled {
+            let assembly = GamePageAssembly(gameInfo: options.gameInfo)
+            navigationController?.pushViewController(assembly.makeViewController(), animated: true)
+            return
+        }
+        viewController.performSegue(withIdentifier: "ShowGameInfo", sender: options)
     }
 
     func showScheduleFilters(with filterInfo: ScheduleFilter) {
