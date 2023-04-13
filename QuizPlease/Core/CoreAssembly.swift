@@ -40,4 +40,7 @@ final class CoreAssembly {
 
     /// Object that manages routing with Applinks
     lazy var applinkRouter: ApplinkRouter = ApplinkRouterImpl()
+
+    /// Service that opens web pages with in-app browser
+    lazy var webPageRouter: WebPageRouter = WebPageRouterImpl()
 }

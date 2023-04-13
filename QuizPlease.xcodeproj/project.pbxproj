@@ -317,6 +317,8 @@
 		A4E06B6029E8451E0005C57B /* GamePageDescriptionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E06B5F29E8451E0005C57B /* GamePageDescriptionItem.swift */; };
 		A4E06B6229E845D30005C57B /* GamePageDescriptionBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E06B6129E845D30005C57B /* GamePageDescriptionBuilder.swift */; };
 		A4E06B6429E8467E0005C57B /* GamePageDescriptionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E06B6329E8467E0005C57B /* GamePageDescriptionProvider.swift */; };
+		A4E06B6729E8907A0005C57B /* WebPageRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E06B6629E8907A0005C57B /* WebPageRouter.swift */; };
+		A4E06B6929E893740005C57B /* WepPageBrowserOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E06B6829E893740005C57B /* WepPageBrowserOptions.swift */; };
 		A4E4400428E8E19D00514C0D /* DeeplinkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E4400328E8E19D00514C0D /* DeeplinkService.swift */; };
 		A4E4400628E8FEE700514C0D /* TransitionFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E4400528E8FEE700514C0D /* TransitionFacade.swift */; };
 		A4E4400828E901A900514C0D /* CoreAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E4400728E901A900514C0D /* CoreAssembly.swift */; };
@@ -711,6 +713,8 @@
 		A4E06B5F29E8451E0005C57B /* GamePageDescriptionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageDescriptionItem.swift; sourceTree = "<group>"; };
 		A4E06B6129E845D30005C57B /* GamePageDescriptionBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageDescriptionBuilder.swift; sourceTree = "<group>"; };
 		A4E06B6329E8467E0005C57B /* GamePageDescriptionProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageDescriptionProvider.swift; sourceTree = "<group>"; };
+		A4E06B6629E8907A0005C57B /* WebPageRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebPageRouter.swift; sourceTree = "<group>"; };
+		A4E06B6829E893740005C57B /* WepPageBrowserOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WepPageBrowserOptions.swift; sourceTree = "<group>"; };
 		A4E4400328E8E19D00514C0D /* DeeplinkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeeplinkService.swift; sourceTree = "<group>"; };
 		A4E4400528E8FEE700514C0D /* TransitionFacade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionFacade.swift; sourceTree = "<group>"; };
 		A4E4400728E901A900514C0D /* CoreAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreAssembly.swift; sourceTree = "<group>"; };
@@ -1367,10 +1371,11 @@
 		A491456828F0D61600C93290 /* Transitions */ = {
 			isa = PBXGroup;
 			children = (
-				A4E86A32293260B500DB110F /* UserNotifications */,
-				A4E4400528E8FEE700514C0D /* TransitionFacade.swift */,
-				A4E4400B28E9051C00514C0D /* Deeplinks */,
 				A491456128F0C03E00C93290 /* Applinks */,
+				A4E4400B28E9051C00514C0D /* Deeplinks */,
+				A4E86A32293260B500DB110F /* UserNotifications */,
+				A4E06B6529E8905F0005C57B /* WebPages */,
+				A4E4400528E8FEE700514C0D /* TransitionFacade.swift */,
 			);
 			path = Transitions;
 			sourceTree = "<group>";
@@ -1873,6 +1878,15 @@
 				A4E06B4F29E80E500005C57B /* Services */,
 			);
 			path = "Unit Tests";
+			sourceTree = "<group>";
+		};
+		A4E06B6529E8905F0005C57B /* WebPages */ = {
+			isa = PBXGroup;
+			children = (
+				A4E06B6629E8907A0005C57B /* WebPageRouter.swift */,
+				A4E06B6829E893740005C57B /* WepPageBrowserOptions.swift */,
+			);
+			path = WebPages;
 			sourceTree = "<group>";
 		};
 		A4E1CFF424F14CF5000F0B22 /* View */ = {
@@ -2444,6 +2458,7 @@
 				A452E3B424D431C5002EE514 /* Int+WordBuilding.swift in Sources */,
 				A45241E026547A060058285C /* UITextField+Extensions.swift in Sources */,
 				A4317731267BEEEE0062E0E0 /* SpecialCondition.swift in Sources */,
+				A4E06B6929E893740005C57B /* WepPageBrowserOptions.swift in Sources */,
 				A48E2FB62530E23800CD6BE6 /* Utilities.swift in Sources */,
 				A48E2FAA2530906200CD6BE6 /* UserInfo.swift in Sources */,
 				A40B759A24D9A85B006DB7D1 /* ProfileConfigurator.swift in Sources */,
@@ -2603,6 +2618,7 @@
 				A4D44A2728D139EF004703B4 /* AsyncExecutor.swift in Sources */,
 				A4FEB052273739F10052AD7B /* YMapsProvider.swift in Sources */,
 				A4B1291F27387ACA0035C041 /* MapInfoView.swift in Sources */,
+				A4E06B6729E8907A0005C57B /* WebPageRouter.swift in Sources */,
 				A4E675F7255DB4AB0011A801 /* String+Validating.swift in Sources */,
 				A4E06B4C29E805610005C57B /* DefaultGeocoder.swift in Sources */,
 				A450E39D24E571C900C49AEE /* GameOrderPresenter.swift in Sources */,
