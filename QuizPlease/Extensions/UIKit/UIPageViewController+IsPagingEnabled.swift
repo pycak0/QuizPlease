@@ -1,9 +1,9 @@
 //
-//  UIPageViewController+PagingToggle.swift
-//  mvd
+//  UIPageViewController+IsPagingEnabled.swift
+//  QuizPlease
 //
 //  Created by Владислав on 17.09.2020.
-//  Copyright © 2020 AMG-BS. All rights reserved.
+//  Copyright © 2020 Владислав. All rights reserved.
 //
 
 import UIKit

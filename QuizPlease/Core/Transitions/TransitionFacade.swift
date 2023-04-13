@@ -15,17 +15,21 @@ final class TransitionFacade {
 
     private let deeplinkService: DeeplinkService
     private let userNotificationsService: UserNotificationsService
+    private let webPageRouter: WebPageRouter
 
     /// Initializer
     /// - Parameters:
     ///   - deeplinkService: Service that handles deeplinks and universal links
     ///   - userNotificationsService: Service that handles user notifications
+    ///   - webPageRouter: Service that opens web pages with in-app browser
     init(
         deeplinkService: DeeplinkService,
-        userNotificationsService: UserNotificationsService
+        userNotificationsService: UserNotificationsService,
+        webPageRouter: WebPageRouter
     ) {
         self.deeplinkService = deeplinkService
         self.userNotificationsService = userNotificationsService
+        self.webPageRouter = webPageRouter
     }
 
     /// Handle Scene connection options (method is intended to be called in the `SceneDelegate`)
@@ -50,10 +54,7 @@ final class TransitionFacade {
     /// Handle open URL with options (method is intended to be called in the `AppDelegate`)
     func handleOpenUrl(_ url: URL, options: [UIApplication.OpenURLOptionsKey: Any]) -> Bool {
         logInfo("Received URL to handle")
-        if handleUrl(url) {
-            return true
-        }
-        return YKSdk.shared.handleOpen(url: url, sourceApplication: options[.sourceApplication] as? String)
+        return handleUrl(url, sourceApplication: options[.sourceApplication] as? String)
     }
 
     /// Handle open URL contexts (method is intended to be called in the `SceneDelegate`)
@@ -61,12 +62,7 @@ final class TransitionFacade {
     func handleOpenUrlContexts(_ urlContexts: Set<UIOpenURLContext>) {
         guard let context = urlContexts.first else { return }
         logInfo("Received URL to handle")
-
-        let url = context.url
-        if handleUrl(url) {
-            return
-        }
-        _ = YKSdk.shared.handleOpen(url: url, sourceApplication: context.options.sourceApplication)
+        handleUrl(context.url, sourceApplication: context.options.sourceApplication)
     }
 
     /// Handle "continue user activity" (in `AppDelegate` or `SceneDelegate`)
@@ -79,11 +75,19 @@ final class TransitionFacade {
     }
 
     /// Handle URL transition
-    /// - Parameter url: URL of the transition, e.g. deeplink or universal link
+    /// - Parameters:
+    ///   - url: URL of the transition, e.g. deeplink or universal link
+    ///   - sourceApplication: The bundle ID of the app that originated the request.
     /// - Returns: `true`, if url was handled. Otherwise, returns `false`
     @discardableResult
-    func handleUrl(_ url: URL) -> Bool {
-        deeplinkService.handle(url: url)
+    func handleUrl(_ url: URL, sourceApplication: String? = nil) -> Bool {
+        if deeplinkService.handle(url: url) {
+            return true
+        }
+        if YKSdk.shared.handleOpen(url: url, sourceApplication: sourceApplication) {
+            return true
+        }
+        return webPageRouter.open(url: url)
     }
 
     /// Handle User Notification

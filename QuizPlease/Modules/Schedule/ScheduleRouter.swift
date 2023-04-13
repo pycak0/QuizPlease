@@ -31,6 +31,10 @@ final class ScheduleRouter: ScheduleRouterProtocol {
 
     unowned let viewController: UIViewController
 
+    private var navigationController: UINavigationController? {
+        viewController.navigationController
+    }
+
     required init(viewController: UIViewController) {
         self.viewController = viewController
     }
@@ -56,6 +60,11 @@ final class ScheduleRouter: ScheduleRouterProtocol {
     // MARK: - Segues
 
     func showGameInfo(with options: GameOrderPresentationOptions) {
+        if AppSettings.isGamePageEnabled {
+            let assembly = GamePageAssembly(gameInfo: options.gameInfo)
+            navigationController?.pushViewController(assembly.makeViewController(), animated: true)
+            return
+        }
         viewController.performSegue(withIdentifier: "ShowGameInfo", sender: options)
     }
 

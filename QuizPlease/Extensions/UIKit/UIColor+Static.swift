@@ -128,8 +128,21 @@ public extension UIColor {
     class var opaqueSeparatorAdapted: UIColor {
         if #available(iOS 13.0, *) {
             return .opaqueSeparator
-        } else {
-            return UIColor.lightGray.withAlphaComponent(0.7)
         }
+        return UIColor.lightGray.withAlphaComponent(0.7)
+    }
+
+    class var placeholderTextAdapted: UIColor {
+        if #available(iOS 13.0, *) {
+            return .placeholderText
+        }
+        return UIColor.lightGray.withAlphaComponent(0.7)
+    }
+
+    class var systemGroupedBackgroundAdapted: UIColor {
+        if #available(iOS 13.0, *) {
+            return .systemGroupedBackground
+        }
+        return .white
     }
 }

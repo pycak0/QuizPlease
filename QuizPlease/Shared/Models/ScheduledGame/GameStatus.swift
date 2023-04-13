@@ -64,17 +64,21 @@ enum GameStatus: Int, Decodable {
         }
     }
 
-    var image: UIImage? {
+    var imageName: String {
         switch self {
         case .placesAvailable:
-            return UIImage(named: "tick")
+            return "tick"
         case .reserveAvailable:
-            return UIImage(named: "soldOut")
+            return "soldOut"
         case .fewPlaces:
-            return UIImage(named: "fire")
+            return "fire"
         default:
-            return UIImage(named: "lock")
+            return "lock"
         }
+    }
+
+    var image: UIImage? {
+        UIImage(named: imageName)
     }
 
     var isRegistrationAvailable: Bool {

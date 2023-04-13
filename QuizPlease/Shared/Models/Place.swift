@@ -56,4 +56,24 @@ class Place: NSObject, MKAnnotation, Decodable {
     func isCloseToLocation(_ location: CLLocation) -> Bool {
         return location.distance(from: self.location) <= PlaceConstants.deviationLimit
     }
+
+    // MARK: - Overrides
+
+    override var hash: Int {
+        var hasher = Hasher()
+        hasher.combine(title)
+        hasher.combine(shortAddress)
+        hasher.combine(cityName)
+        hasher.combine(longitude)
+        hasher.combine(latitude)
+        return hasher.finalize()
+    }
+
+    override func isEqual(_ object: Any?) -> Bool {
+        guard let object = object as? Place else { return false }
+        return title == object.title
+            && shortAddress == object.shortAddress
+            && cityName == object.cityName
+            && coordinate == object.coordinate
+    }
 }

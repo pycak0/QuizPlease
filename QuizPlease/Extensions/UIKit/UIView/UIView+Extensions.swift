@@ -1,5 +1,5 @@
 //
-//  UIKitExtensions.swift
+//  UIView+Extensions.swift
 //  QuizPlease
 //
 //  Created by Владислав on 31.07.2020.
