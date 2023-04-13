@@ -170,13 +170,3 @@ extension GamePageInfoCell: GamePageCellProtocol {
         addInfo(items: item.infoLines)
     }
 }
-
-private extension UIStackView {
-
-    func removeArrangedSubviews() {
-        arrangedSubviews.forEach {
-            removeArrangedSubview($0)
-            $0.removeFromSuperview()
-        }
-    }
-}

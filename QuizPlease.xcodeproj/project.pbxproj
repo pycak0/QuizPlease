@@ -72,7 +72,7 @@
 		A40E2A6D25295B4400986CCA /* Snapshotting.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40E2A6C25295B4400986CCA /* Snapshotting.swift */; };
 		A40E2A7025295B7400986CCA /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40E2A6F25295B7400986CCA /* ShareSheet.swift */; };
 		A40F035D24D412D700C381F2 /* ShopItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40F035B24D412D700C381F2 /* ShopItemCell.swift */; };
-		A40F036224D4187800C381F2 /* UIKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40F036124D4187800C381F2 /* UIKitExtensions.swift */; };
+		A40F036224D4187800C381F2 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40F036124D4187800C381F2 /* UIView+Extensions.swift */; };
 		A40F036424D419D200C381F2 /* MenuCellItemProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40F036324D419D200C381F2 /* MenuCellItemProtocol.swift */; };
 		A4112D5B28B6883F0097ED97 /* DeleteResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4112D5A28B6883F0097ED97 /* DeleteResponse.swift */; };
 		A4132787268F33550088DE6A /* PhoneNumberKit-Static in Frameworks */ = {isa = PBXBuildFile; productRef = A4132786268F33550088DE6A /* PhoneNumberKit-Static */; };
@@ -143,7 +143,7 @@
 		A453F5BC28F33B6800CE20BA /* GameOrderEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A453F5BB28F33B6800CE20BA /* GameOrderEndpoint.swift */; };
 		A453F5BE28F33EA700CE20BA /* GameOrderAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = A453F5BD28F33EA700CE20BA /* GameOrderAssembly.swift */; };
 		A453F5C028F341CD00CE20BA /* GameOrderPresentationOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A453F5BF28F341CD00CE20BA /* GameOrderPresentationOptions.swift */; };
-		A45488C52513719800992261 /* UIPageViewController+PagingToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45488C42513719700992261 /* UIPageViewController+PagingToggle.swift */; };
+		A45488C52513719800992261 /* UIPageViewController+IsPagingEnabled.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45488C42513719700992261 /* UIPageViewController+IsPagingEnabled.swift */; };
 		A45A072124FFED6D00137637 /* PickCityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45A072024FFED6D00137637 /* PickCityVC.swift */; };
 		A45C656F265D2136009A63BB /* Cancellable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45C656E265D2136009A63BB /* Cancellable.swift */; };
 		A4617344251763AA00B002D1 /* CountPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4617343251763AA00B002D1 /* CountPickerView.swift */; };
@@ -331,6 +331,7 @@
 		A4EE9EA529E5EEBD00DDFC50 /* GameStatusProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EE9EA429E5EEBD00DDFC50 /* GameStatusProvider.swift */; };
 		A4EE9EA829E5F15900DDFC50 /* GamePageItemBuilderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EE9EA729E5F15900DDFC50 /* GamePageItemBuilderProtocol.swift */; };
 		A4EE9EAA29E5F8AD00DDFC50 /* GamePageAnnotationBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EE9EA929E5F8AD00DDFC50 /* GamePageAnnotationBuilder.swift */; };
+		A4EE9EAD29E7DFC300DDFC50 /* UIStackView+RemoveArrangedSubviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EE9EAC29E7DFC300DDFC50 /* UIStackView+RemoveArrangedSubviews.swift */; };
 		A4F0B9D2262469B000E4E2A5 /* ClientSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F0B9D1262469B000E4E2A5 /* ClientSettings.swift */; };
 		A4F0B9D426246EB100E4E2A5 /* NetworkConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F0B9D326246EB100E4E2A5 /* NetworkConfiguration.swift */; };
 		A4F0B9DC26248B5A00E4E2A5 /* SplashScreenPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F0B9DB26248B5A00E4E2A5 /* SplashScreenPresenter.swift */; };
@@ -448,7 +449,7 @@
 		A40E2A6C25295B4400986CCA /* Snapshotting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snapshotting.swift; sourceTree = "<group>"; };
 		A40E2A6F25295B7400986CCA /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
 		A40F035B24D412D700C381F2 /* ShopItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopItemCell.swift; sourceTree = "<group>"; };
-		A40F036124D4187800C381F2 /* UIKitExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitExtensions.swift; sourceTree = "<group>"; };
+		A40F036124D4187800C381F2 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		A40F036324D419D200C381F2 /* MenuCellItemProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCellItemProtocol.swift; sourceTree = "<group>"; };
 		A4112D5A28B6883F0097ED97 /* DeleteResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteResponse.swift; sourceTree = "<group>"; };
 		A4147AD624E5B92D007C131F /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
@@ -521,7 +522,7 @@
 		A453F5BB28F33B6800CE20BA /* GameOrderEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOrderEndpoint.swift; sourceTree = "<group>"; };
 		A453F5BD28F33EA700CE20BA /* GameOrderAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOrderAssembly.swift; sourceTree = "<group>"; };
 		A453F5BF28F341CD00CE20BA /* GameOrderPresentationOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOrderPresentationOptions.swift; sourceTree = "<group>"; };
-		A45488C42513719700992261 /* UIPageViewController+PagingToggle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIPageViewController+PagingToggle.swift"; sourceTree = "<group>"; };
+		A45488C42513719700992261 /* UIPageViewController+IsPagingEnabled.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIPageViewController+IsPagingEnabled.swift"; sourceTree = "<group>"; };
 		A45A072024FFED6D00137637 /* PickCityVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickCityVC.swift; sourceTree = "<group>"; };
 		A45C656E265D2136009A63BB /* Cancellable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cancellable.swift; sourceTree = "<group>"; };
 		A4617343251763AA00B002D1 /* CountPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountPickerView.swift; sourceTree = "<group>"; };
@@ -713,6 +714,7 @@
 		A4EE9EA429E5EEBD00DDFC50 /* GameStatusProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStatusProvider.swift; sourceTree = "<group>"; };
 		A4EE9EA729E5F15900DDFC50 /* GamePageItemBuilderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageItemBuilderProtocol.swift; sourceTree = "<group>"; };
 		A4EE9EA929E5F8AD00DDFC50 /* GamePageAnnotationBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageAnnotationBuilder.swift; sourceTree = "<group>"; };
+		A4EE9EAC29E7DFC300DDFC50 /* UIStackView+RemoveArrangedSubviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+RemoveArrangedSubviews.swift"; sourceTree = "<group>"; };
 		A4F0B9D1262469B000E4E2A5 /* ClientSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientSettings.swift; sourceTree = "<group>"; };
 		A4F0B9D326246EB100E4E2A5 /* NetworkConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConfiguration.swift; sourceTree = "<group>"; };
 		A4F0B9DB26248B5A00E4E2A5 /* SplashScreenPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenPresenter.swift; sourceTree = "<group>"; };
@@ -836,6 +838,7 @@
 				A45241E326547B660058285C /* UIView+Gradient.swift */,
 				A48290F128D9177000C87D18 /* UIView+Shadow.swift */,
 				A4FE953B29146E9400D0109A /* UIView+Bounce.swift */,
+				A40F036124D4187800C381F2 /* UIView+Extensions.swift */,
 			);
 			path = UIView;
 			sourceTree = "<group>";
@@ -1026,40 +1029,16 @@
 		A40F036024D4186200C381F2 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				A40C8080252E857500CE40D8 /* UIView */,
-				A4B129262739E1D40035C041 /* UIImage */,
-				A4A4ED362775D8A800DAA945 /* UIApplication */,
+				A4EE9EAB29E7DE0D00DDFC50 /* UIKit */,
 				A4E675F5255DB49E0011A801 /* String */,
 				A4BB03482681FF5A005FE6D7 /* NumberFormatter */,
-				A4A5370324EC7691004A10D4 /* UIColor+Static.swift */,
-				A45241E5265489A70058285C /* UIFont+Extensions.swift */,
-				A40F036124D4187800C381F2 /* UIKitExtensions.swift */,
 				A452E3B324D431C5002EE514 /* Int+WordBuilding.swift */,
-				A4BA1CF424D8874C00D32ADC /* AlertExtensions.swift */,
-				A4CC5FF124DAFECF0042B41C /* VCExtensions.swift */,
 				A4FFA4AC24F3AE78006A1150 /* MKMapView+Extensions.swift */,
-				A4D230A924F9219D00524A01 /* UIImageView+LoadImage.swift */,
-				A45488C42513719700992261 /* UIPageViewController+PagingToggle.swift */,
-				A40E2A6C25295B4400986CCA /* Snapshotting.swift */,
-				A43DB6AE254770F8006E4569 /* ActivityIndicator+Extensions.swift */,
-				A417FA5225711C210064C467 /* UIViewController+SafariVC.swift */,
-				A43E0AD8258E2F3400207616 /* UIEdgeInsets+Init.swift */,
-				A492B8742631AE6100AEC388 /* UIRefreshControl+Init.swift */,
 				A45241DD265479A70058285C /* CGRect+setHeight.swift */,
-				A45241DF26547A060058285C /* UITextField+Extensions.swift */,
-				A4E91EBB26C30D5C008C13A7 /* UIWindow+topViewController.swift */,
 				A4A4ED372775D8D000DAA945 /* Bundle+version.swift */,
-				A4FEB058273749010052AD7B /* UIAlertAction+Static.swift */,
-				A490ACD427A6A0E300DEF87B /* UIBarButtonItem+swizzleMenu.swift */,
-				A48E303C2871E549000704B2 /* UITableView+deque.swift */,
-				A48E303E287220A0000704B2 /* UICollectionView+deque.swift */,
 				A4C0B0A128DA23CC0043D579 /* MKMapView+deque.swift */,
-				A4323FC728A01A8E001D1C4B /* UIAlertController+Extensions.swift */,
-				A4BE730128D756CE0065FA08 /* UIViewController+StatusBarStyle.swift */,
 				A42F00DD28F192E200184E54 /* Notification.Name+Constants.swift */,
 				A42F00DF28F237A300184E54 /* URLComponents+QueryDictionary.swift */,
-				A4C3C44829CD03CB00DB0364 /* UIStoryboard+Main.swift */,
-				A4C3C44A29CD061F00DB0364 /* UIWindow+SetRootController.swift */,
 				A43249F429DF888100DEE6C1 /* Configuration+ConvenientProperties.swift */,
 			);
 			path = Extensions;
@@ -1889,6 +1868,38 @@
 			path = Factory;
 			sourceTree = "<group>";
 		};
+		A4EE9EAB29E7DE0D00DDFC50 /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				A40C8080252E857500CE40D8 /* UIView */,
+				A4B129262739E1D40035C041 /* UIImage */,
+				A4A4ED362775D8A800DAA945 /* UIApplication */,
+				A4A5370324EC7691004A10D4 /* UIColor+Static.swift */,
+				A45241E5265489A70058285C /* UIFont+Extensions.swift */,
+				A4D230A924F9219D00524A01 /* UIImageView+LoadImage.swift */,
+				A45488C42513719700992261 /* UIPageViewController+IsPagingEnabled.swift */,
+				A417FA5225711C210064C467 /* UIViewController+SafariVC.swift */,
+				A43E0AD8258E2F3400207616 /* UIEdgeInsets+Init.swift */,
+				A492B8742631AE6100AEC388 /* UIRefreshControl+Init.swift */,
+				A45241DF26547A060058285C /* UITextField+Extensions.swift */,
+				A4E91EBB26C30D5C008C13A7 /* UIWindow+topViewController.swift */,
+				A4FEB058273749010052AD7B /* UIAlertAction+Static.swift */,
+				A490ACD427A6A0E300DEF87B /* UIBarButtonItem+swizzleMenu.swift */,
+				A48E303C2871E549000704B2 /* UITableView+deque.swift */,
+				A48E303E287220A0000704B2 /* UICollectionView+deque.swift */,
+				A4323FC728A01A8E001D1C4B /* UIAlertController+Extensions.swift */,
+				A4BE730128D756CE0065FA08 /* UIViewController+StatusBarStyle.swift */,
+				A4C3C44A29CD061F00DB0364 /* UIWindow+SetRootController.swift */,
+				A4C3C44829CD03CB00DB0364 /* UIStoryboard+Main.swift */,
+				A4CC5FF124DAFECF0042B41C /* VCExtensions.swift */,
+				A4BA1CF424D8874C00D32ADC /* AlertExtensions.swift */,
+				A40E2A6C25295B4400986CCA /* Snapshotting.swift */,
+				A43DB6AE254770F8006E4569 /* ActivityIndicator+Extensions.swift */,
+				A4EE9EAC29E7DFC300DDFC50 /* UIStackView+RemoveArrangedSubviews.swift */,
+			);
+			path = UIKit;
+			sourceTree = "<group>";
+		};
 		A4F2347B2685E0D200E6FC68 /* AnyCodable */ = {
 			isa = PBXGroup;
 			children = (
@@ -2213,7 +2224,7 @@
 				A4E4400628E8FEE700514C0D /* TransitionFacade.swift in Sources */,
 				A4D498CE25026AA100CB70EE /* ScheduledGamesResponse.swift in Sources */,
 				A491456728F0C0DD00C93290 /* ApplinkRouter.swift in Sources */,
-				A45488C52513719800992261 /* UIPageViewController+PagingToggle.swift in Sources */,
+				A45488C52513719800992261 /* UIPageViewController+IsPagingEnabled.swift in Sources */,
 				A40D815A24D2C6C1006D2CE3 /* AppDelegate.swift in Sources */,
 				A472D29B25288F1100AA9906 /* RegisterResponse.swift in Sources */,
 				A44E5EEE295F85F800402B97 /* WarmupQuestionTypeResolver.swift in Sources */,
@@ -2238,6 +2249,7 @@
 				4C553C1729E756410066E2CA /* GamePageInfoModel.swift in Sources */,
 				4CDB228729E56E3100DD9E7C /* GamePageAnnotationItem.swift in Sources */,
 				A4DAF74724DDCCAD00963C15 /* MenuRatingCell.swift in Sources */,
+				A4EE9EAD29E7DFC300DDFC50 /* UIStackView+RemoveArrangedSubviews.swift in Sources */,
 				A4617344251763AA00B002D1 /* CountPickerView.swift in Sources */,
 				A40B758824D9A7FD006DB7D1 /* WarmupRouter.swift in Sources */,
 				A4A5DE95250197C300EBC408 /* FilterView.swift in Sources */,
@@ -2280,7 +2292,7 @@
 				A492B8732631A42600AEC388 /* ExpandingHeaderContract.swift in Sources */,
 				A40689FB24F7D86F001273B2 /* NetworkService.swift in Sources */,
 				A40B759C24D9A868006DB7D1 /* RatingInteractor.swift in Sources */,
-				A40F036224D4187800C381F2 /* UIKitExtensions.swift in Sources */,
+				A40F036224D4187800C381F2 /* UIView+Extensions.swift in Sources */,
 				A4EE9EA529E5EEBD00DDFC50 /* GameStatusProvider.swift in Sources */,
 				4CDB228929E593D400DD9E7C /* GamePageRegisterButtonCell.swift in Sources */,
 				A4E91EBE26C312BA008C13A7 /* WarmupQuestionsService.swift in Sources */,
