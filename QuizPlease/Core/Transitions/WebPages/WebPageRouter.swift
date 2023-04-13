@@ -8,7 +8,7 @@
 
 import SafariServices
 
-/// Web page links router protocol
+/// Service that opens web pages with in-app browser
 protocol WebPageRouter {
 
     /// Open url via in-app browser
@@ -16,7 +16,18 @@ protocol WebPageRouter {
     ///   - url: web page url
     ///   - options: Options to open url in browser
     /// - Returns: `true`, if the url was opened. Otherwise, returns `false`
-    func open(url: URL, options: WepPageBrowserOptions) -> Bool
+    func open(url: URL, options: WepPageBrowserOptions?) -> Bool
+}
+
+extension WebPageRouter {
+
+    /// Open url via in-app browser
+    /// - Parameters:
+    ///   - url: web page url
+    /// - Returns: `true`, if the url was opened. Otherwise, returns `false`
+    func open(url: URL) -> Bool {
+        open(url: url, options: nil)
+    }
 }
 
 /// Service that opens web pages with in-app browser
@@ -24,7 +35,7 @@ final class WebPageRouterImpl: NSObject, WebPageRouter {
 
     // MARK: - WebPageRouter
 
-    func open(url: URL, options: WepPageBrowserOptions) -> Bool {
+    func open(url: URL, options: WepPageBrowserOptions?) -> Bool {
         guard let viewController = UIApplication.shared
             .getKeyWindow()?
             .topViewController
@@ -33,12 +44,12 @@ final class WebPageRouterImpl: NSObject, WebPageRouter {
         }
 
         let config = SFSafariViewController.Configuration()
-        config.entersReaderIfAvailable = options.autoReaderView
+        config.entersReaderIfAvailable = options?.autoReaderView ?? false
 
         let safariViewController = SFSafariViewController(url: url, configuration: config)
         safariViewController.delegate = self
-        safariViewController.preferredControlTintColor = options.controlsColor
-        safariViewController.preferredBarTintColor = options.barsColor
+        safariViewController.preferredControlTintColor = options?.controlsColor
+        safariViewController.preferredBarTintColor = options?.barsColor
 
         if #available(iOS 13.0, *) {
             safariViewController.modalPresentationStyle = .automatic
