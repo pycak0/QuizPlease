@@ -15,13 +15,6 @@ protocol GamePageInfoOutput: AnyObject {
     func didTapOnMap()
 }
 
-/// GamePage Info item builder protocol
-protocol GamePageInfoBuilderProtocol {
-
-    /// Make Info item with given Game info
-    func makeItem() -> GamePageItemProtocol
-}
-
 /// GamePage Info item builder
 final class GamePageInfoBuilder {
 
@@ -40,9 +33,9 @@ final class GamePageInfoBuilder {
 
 // MARK: - GamePageInfoBuilderProtocol
 
-extension GamePageInfoBuilder: GamePageInfoBuilderProtocol {
+extension GamePageInfoBuilder: GamePageItemBuilderProtocol {
 
-    func makeItem() -> GamePageItemProtocol {
+    func makeItems() -> [GamePageItemProtocol] {
         let gameInfo = infoProvider.getInfo()
         let infoLines = [
             // price
@@ -58,12 +51,13 @@ extension GamePageInfoBuilder: GamePageInfoBuilderProtocol {
             GamePageInfoLineViewModel(title: gameInfo.status.comment, subtitle: nil,
                                       iconName: gameInfo.status.imageName)
         ]
-        return GamePageInfoItem(
+        let item = GamePageInfoItem(
             infoLines: infoLines,
             placeProvider: infoProvider,
             tapOnMapAction: { [weak self] in
                 self?.output?.didTapOnMap()
             }
         )
+        return [item]
     }
 }

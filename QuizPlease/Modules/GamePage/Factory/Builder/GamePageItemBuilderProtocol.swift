@@ -12,3 +12,12 @@ protocol GamePageItemBuilderProtocol {
     /// Create GamePage items
     func makeItems() -> [GamePageItemProtocol]
 }
+
+extension Array where Element == GamePageItemBuilderProtocol {
+
+    func makeItems() -> [GamePageItemProtocol] {
+        flatMap {
+            $0.makeItems()
+        }
+    }
+}

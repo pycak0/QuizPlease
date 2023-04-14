@@ -24,19 +24,24 @@ final class GamePageAssembly {
 extension GamePageAssembly: ViewAssembly {
 
     func makeViewController() -> UIViewController {
+        let registrationService = RegistrationService(gameId: gameInfo.id)
         let interactor = GamePageInteractor(
             gameInfo: gameInfo,
-            placeGeocoder: services.placeGeocoder
+            placeGeocoder: services.placeGeocoder,
+            registrationService: registrationService
         )
         let annotationBuilder = GamePageAnnotationBuilder(annotationProvider: interactor)
         let registerButtonBuilder = GamePageRegisterButtonBuilder(gameStatusProvider: interactor)
         let infoBuilder = GamePageInfoBuilder(infoProvider: interactor)
         let descriptionBuilder = GamePageDescriptionBuilder(descriptionProvider: interactor)
+        let basicFieldBuilder = GamePageBasicFieldBuilder(registerFormProvider: interactor)
+
         let itemFactory = GamePageItemFactory(
             annotationBuilder: annotationBuilder,
             registerButtonBuilder: registerButtonBuilder,
             infoBuilder: infoBuilder,
-            descriptionBuilder: descriptionBuilder
+            descriptionBuilder: descriptionBuilder,
+            basicFieldBuilder: basicFieldBuilder
         )
         let router = GamePageRouter()
         let presenter = GamePagePresenter(

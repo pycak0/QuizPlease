@@ -322,6 +322,11 @@
 		A4E06B6B29E8A1800005C57B /* GamePageTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E06B6A29E8A1800005C57B /* GamePageTextCell.swift */; };
 		A4E06B6D29E8A6920005C57B /* GamePageTextItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E06B6C29E8A6920005C57B /* GamePageTextItem.swift */; };
 		A4E06B6F29E8AF590005C57B /* NSAttributedString+TrimmingWhitespacesAndNewlines.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E06B6E29E8AF590005C57B /* NSAttributedString+TrimmingWhitespacesAndNewlines.swift */; };
+		A4E06B7129E8B1B70005C57B /* GamePageFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E06B7029E8B1B70005C57B /* GamePageFieldCell.swift */; };
+		A4E06B7329E8B7B30005C57B /* GamePageFieldItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E06B7229E8B7B30005C57B /* GamePageFieldItem.swift */; };
+		A4E06B7529E9A21E0005C57B /* GamePageRegisterFormProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E06B7429E9A21E0005C57B /* GamePageRegisterFormProvider.swift */; };
+		A4E06B7729E9A23A0005C57B /* GamePageBasicFieldBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E06B7629E9A23A0005C57B /* GamePageBasicFieldBuilder.swift */; };
+		A4E06B7929E9A5850005C57B /* RegistrationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E06B7829E9A5850005C57B /* RegistrationService.swift */; };
 		A4E4400428E8E19D00514C0D /* DeeplinkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E4400328E8E19D00514C0D /* DeeplinkService.swift */; };
 		A4E4400628E8FEE700514C0D /* TransitionFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E4400528E8FEE700514C0D /* TransitionFacade.swift */; };
 		A4E4400828E901A900514C0D /* CoreAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E4400728E901A900514C0D /* CoreAssembly.swift */; };
@@ -721,6 +726,11 @@
 		A4E06B6A29E8A1800005C57B /* GamePageTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageTextCell.swift; sourceTree = "<group>"; };
 		A4E06B6C29E8A6920005C57B /* GamePageTextItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageTextItem.swift; sourceTree = "<group>"; };
 		A4E06B6E29E8AF590005C57B /* NSAttributedString+TrimmingWhitespacesAndNewlines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+TrimmingWhitespacesAndNewlines.swift"; sourceTree = "<group>"; };
+		A4E06B7029E8B1B70005C57B /* GamePageFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageFieldCell.swift; sourceTree = "<group>"; };
+		A4E06B7229E8B7B30005C57B /* GamePageFieldItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageFieldItem.swift; sourceTree = "<group>"; };
+		A4E06B7429E9A21E0005C57B /* GamePageRegisterFormProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageRegisterFormProvider.swift; sourceTree = "<group>"; };
+		A4E06B7629E9A23A0005C57B /* GamePageBasicFieldBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageBasicFieldBuilder.swift; sourceTree = "<group>"; };
+		A4E06B7829E9A5850005C57B /* RegistrationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationService.swift; sourceTree = "<group>"; };
 		A4E4400328E8E19D00514C0D /* DeeplinkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeeplinkService.swift; sourceTree = "<group>"; };
 		A4E4400528E8FEE700514C0D /* TransitionFacade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionFacade.swift; sourceTree = "<group>"; };
 		A4E4400728E901A900514C0D /* CoreAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreAssembly.swift; sourceTree = "<group>"; };
@@ -838,6 +848,7 @@
 				4C553C0C29E6BE570066E2CA /* GamePageAnnotationProvider.swift */,
 				4C553C1329E755A90066E2CA /* GamePageInfoProvider.swift */,
 				A4E06B6329E8467E0005C57B /* GamePageDescriptionProvider.swift */,
+				A4E06B7429E9A21E0005C57B /* GamePageRegisterFormProvider.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -850,6 +861,7 @@
 				A4EE9EA229E5E0D300DDFC50 /* GamePageRegisterButtonBuilder.swift */,
 				4C553C1129E6C2ED0066E2CA /* GamePageInfoBuilder.swift */,
 				A4E06B6129E845D30005C57B /* GamePageDescriptionBuilder.swift */,
+				A4E06B7629E9A23A0005C57B /* GamePageBasicFieldBuilder.swift */,
 			);
 			path = Builder;
 			sourceTree = "<group>";
@@ -1108,6 +1120,7 @@
 				A4EE9EA629E5EF8600DDFC50 /* Factory */,
 				A4EE9E9029E492B800DDFC50 /* Item */,
 				A429533029DCAFD500A76AD9 /* View */,
+				A4E06B7A29E9A62B0005C57B /* Service */,
 				A4EE9E9E29E4AC2500DDFC50 /* GamePageInteractor.swift */,
 				A4EE9E9829E4A57400DDFC50 /* GamePagePresenter.swift */,
 				A4E06B4629E7FFF40005C57B /* GamePageRouter.swift */,
@@ -1896,6 +1909,14 @@
 			path = WebPages;
 			sourceTree = "<group>";
 		};
+		A4E06B7A29E9A62B0005C57B /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				A4E06B7829E9A5850005C57B /* RegistrationService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 		A4E1CFF424F14CF5000F0B22 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -1954,6 +1975,7 @@
 				4C553C0729E6A1150066E2CA /* GamePageInfoItem.swift */,
 				A4E06B5F29E8451E0005C57B /* GamePageDescriptionItem.swift */,
 				A4E06B6C29E8A6920005C57B /* GamePageTextItem.swift */,
+				A4E06B7229E8B7B30005C57B /* GamePageFieldItem.swift */,
 			);
 			path = Item;
 			sourceTree = "<group>";
@@ -1967,6 +1989,7 @@
 				4C553C0529E696F40066E2CA /* GamePageInfoCell.swift */,
 				A4E06B5D29E8430E0005C57B /* GamePageDescriptionCell.swift */,
 				A4E06B6A29E8A1800005C57B /* GamePageTextCell.swift */,
+				A4E06B7029E8B1B70005C57B /* GamePageFieldCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -2379,10 +2402,12 @@
 				A4A065A224E47D1F0080E0D8 /* GameAnnotationCell.swift in Sources */,
 				A469F75924E3084D007FB332 /* ScheduleGameCell.swift in Sources */,
 				A4B129252739E1B20035C041 /* UIImage+Configuration.swift in Sources */,
+				A4E06B7729E9A23A0005C57B /* GamePageBasicFieldBuilder.swift in Sources */,
 				A4D44A2B28D141B1004703B4 /* OnboardingAssembly.swift in Sources */,
 				A4779C7F251618C90064F863 /* GameOrderCompletionVC.swift in Sources */,
 				A4A296C224F6DC2800347EB2 /* AddGameVC.swift in Sources */,
 				A44B2E0C28C0204E00C1BC2F /* ScheduleGameCellViewModel.swift in Sources */,
+				A4E06B7529E9A21E0005C57B /* GamePageRegisterFormProvider.swift in Sources */,
 				A40D817C24D2CA04006D2CE3 /* ScheduleVC.swift in Sources */,
 				A44C697624EFD45300AB3BC9 /* QRCodeService.swift in Sources */,
 				A4E06B6229E845D30005C57B /* GamePageDescriptionBuilder.swift in Sources */,
@@ -2545,6 +2570,7 @@
 				A48E2FC425335A9500CD6BE6 /* SavedAuthInfo.swift in Sources */,
 				A43249F329DF844800DEE6C1 /* Configuration.swift in Sources */,
 				A40689F924F7D11A001273B2 /* City.swift in Sources */,
+				A4E06B7129E8B1B70005C57B /* GamePageFieldCell.swift in Sources */,
 				A472D29825288F0800AA9906 /* AuthInfoResponse.swift in Sources */,
 				A45241DE265479A70058285C /* CGRect+setHeight.swift in Sources */,
 				A464370424EB37DB0033F23A /* ExpandingHeader.swift in Sources */,
@@ -2552,6 +2578,7 @@
 				A4C3C44929CD03CB00DB0364 /* UIStoryboard+Main.swift in Sources */,
 				A4E06B6429E8467E0005C57B /* GamePageDescriptionProvider.swift in Sources */,
 				A4F0B9E026248B6E00E4E2A5 /* SplashScreenRouter.swift in Sources */,
+				A4E06B7329E8B7B30005C57B /* GamePageFieldItem.swift in Sources */,
 				4C553C0629E696F40066E2CA /* GamePageInfoCell.swift in Sources */,
 				A40F035D24D412D700C381F2 /* ShopItemCell.swift in Sources */,
 				A4A5370824EC7AA6004A10D4 /* HomeGameCell.swift in Sources */,
@@ -2628,6 +2655,7 @@
 				A450E3A524E57A8C00C49AEE /* GameInfoItemKind.swift in Sources */,
 				A400A26E269CE4C200FBF70C /* String+WordBuilding.swift in Sources */,
 				A4D44A2728D139EF004703B4 /* AsyncExecutor.swift in Sources */,
+				A4E06B7929E9A5850005C57B /* RegistrationService.swift in Sources */,
 				A4FEB052273739F10052AD7B /* YMapsProvider.swift in Sources */,
 				A4B1291F27387ACA0035C041 /* MapInfoView.swift in Sources */,
 				A4E06B6729E8907A0005C57B /* WebPageRouter.swift in Sources */,

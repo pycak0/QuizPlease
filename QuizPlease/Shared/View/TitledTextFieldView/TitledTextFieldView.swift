@@ -116,6 +116,13 @@ class TitledTextFieldView: UIView {
         }
     }
 
+    override var intrinsicContentSize: CGSize {
+        CGSize(
+            width: UIView.noIntrinsicMetric,
+            height: 70
+        )
+    }
+
     // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)

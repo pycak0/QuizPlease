@@ -38,7 +38,6 @@ final class GamePageTextCell: UITableViewCell {
     private let label: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-//        label.backgroundColor = .clear
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -47,8 +46,8 @@ final class GamePageTextCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        backgroundColor = .clear
         selectionStyle = .none
+        backgroundColor = .systemGray6Adapted
         makeLayout()
     }
 
