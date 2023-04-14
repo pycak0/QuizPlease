@@ -327,6 +327,8 @@
 		A4E06B7529E9A21E0005C57B /* GamePageRegisterFormProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E06B7429E9A21E0005C57B /* GamePageRegisterFormProvider.swift */; };
 		A4E06B7729E9A23A0005C57B /* GamePageBasicFieldBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E06B7629E9A23A0005C57B /* GamePageBasicFieldBuilder.swift */; };
 		A4E06B7929E9A5850005C57B /* RegistrationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E06B7829E9A5850005C57B /* RegistrationService.swift */; };
+		A4E06B7C29E9B3410005C57B /* GamePageTeamCountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E06B7B29E9B3410005C57B /* GamePageTeamCountCell.swift */; };
+		A4E06B7E29E9B6270005C57B /* GamePageTeamCountItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E06B7D29E9B6270005C57B /* GamePageTeamCountItem.swift */; };
 		A4E4400428E8E19D00514C0D /* DeeplinkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E4400328E8E19D00514C0D /* DeeplinkService.swift */; };
 		A4E4400628E8FEE700514C0D /* TransitionFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E4400528E8FEE700514C0D /* TransitionFacade.swift */; };
 		A4E4400828E901A900514C0D /* CoreAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E4400728E901A900514C0D /* CoreAssembly.swift */; };
@@ -731,6 +733,8 @@
 		A4E06B7429E9A21E0005C57B /* GamePageRegisterFormProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageRegisterFormProvider.swift; sourceTree = "<group>"; };
 		A4E06B7629E9A23A0005C57B /* GamePageBasicFieldBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageBasicFieldBuilder.swift; sourceTree = "<group>"; };
 		A4E06B7829E9A5850005C57B /* RegistrationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationService.swift; sourceTree = "<group>"; };
+		A4E06B7B29E9B3410005C57B /* GamePageTeamCountCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageTeamCountCell.swift; sourceTree = "<group>"; };
+		A4E06B7D29E9B6270005C57B /* GamePageTeamCountItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageTeamCountItem.swift; sourceTree = "<group>"; };
 		A4E4400328E8E19D00514C0D /* DeeplinkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeeplinkService.swift; sourceTree = "<group>"; };
 		A4E4400528E8FEE700514C0D /* TransitionFacade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionFacade.swift; sourceTree = "<group>"; };
 		A4E4400728E901A900514C0D /* CoreAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreAssembly.swift; sourceTree = "<group>"; };
@@ -1976,6 +1980,7 @@
 				A4E06B5F29E8451E0005C57B /* GamePageDescriptionItem.swift */,
 				A4E06B6C29E8A6920005C57B /* GamePageTextItem.swift */,
 				A4E06B7229E8B7B30005C57B /* GamePageFieldItem.swift */,
+				A4E06B7D29E9B6270005C57B /* GamePageTeamCountItem.swift */,
 			);
 			path = Item;
 			sourceTree = "<group>";
@@ -1990,6 +1995,7 @@
 				A4E06B5D29E8430E0005C57B /* GamePageDescriptionCell.swift */,
 				A4E06B6A29E8A1800005C57B /* GamePageTextCell.swift */,
 				A4E06B7029E8B1B70005C57B /* GamePageFieldCell.swift */,
+				A4E06B7B29E9B3410005C57B /* GamePageTeamCountCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -2504,6 +2510,7 @@
 				A4FEB055273739F10052AD7B /* DGisMapProvier.swift in Sources */,
 				A4A065A524E47D460080E0D8 /* IdentifiableType.swift in Sources */,
 				A4E4400A28E9050C00514C0D /* DeeplinkParser.swift in Sources */,
+				A4E06B7C29E9B3410005C57B /* GamePageTeamCountCell.swift in Sources */,
 				A4DAF73F24DDABFF00963C15 /* WarmupCell.swift in Sources */,
 				A4C3C44B29CD061F00DB0364 /* UIWindow+SetRootController.swift in Sources */,
 				A4C0B0A228DA23CC0043D579 /* MKMapView+deque.swift in Sources */,
@@ -2537,6 +2544,7 @@
 				A46436ED24EAD24F0033F23A /* HBSegmentedControl.swift in Sources */,
 				A40E2A7025295B7400986CCA /* ShareSheet.swift in Sources */,
 				A453F5B528F329EF00CE20BA /* ScheduleEndpoint.swift in Sources */,
+				A4E06B7E29E9B6270005C57B /* GamePageTeamCountItem.swift in Sources */,
 				A44B2E0A28C01FA300C1BC2F /* SubscribeButtonViewModel.swift in Sources */,
 				A405C98724F651C900C74787 /* MainMenuShopCollectionView.swift in Sources */,
 				A44B2E0428C006B900C1BC2F /* WarmupQuestionsServiceStub.swift in Sources */,

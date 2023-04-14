@@ -58,6 +58,11 @@ extension GamePageBasicFieldBuilder: GamePageItemBuilderProtocol {
                 valueProvider: registerForm.phone,
                 onValueChange: { [weak registerForm] newValue in
                     registerForm?.phone = newValue
+            }),
+            GamePageTeamCountItem(
+                getSelectedTeamCount: registerForm.count,
+                changeHandler: { [weak registerForm] newValue in
+                    registerForm?.count = newValue
             })
         ]
     }
