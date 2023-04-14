@@ -329,6 +329,8 @@
 		A4E06B7929E9A5850005C57B /* RegistrationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E06B7829E9A5850005C57B /* RegistrationService.swift */; };
 		A4E06B7C29E9B3410005C57B /* GamePageTeamCountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E06B7B29E9B3410005C57B /* GamePageTeamCountCell.swift */; };
 		A4E06B7E29E9B6270005C57B /* GamePageTeamCountItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E06B7D29E9B6270005C57B /* GamePageTeamCountItem.swift */; };
+		A4E06B8029E9D9CB0005C57B /* CustomFieldData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E06B7F29E9D9CB0005C57B /* CustomFieldData.swift */; };
+		A4E06B8229E9DB400005C57B /* CustomFieldModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E06B8129E9DB400005C57B /* CustomFieldModel.swift */; };
 		A4E4400428E8E19D00514C0D /* DeeplinkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E4400328E8E19D00514C0D /* DeeplinkService.swift */; };
 		A4E4400628E8FEE700514C0D /* TransitionFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E4400528E8FEE700514C0D /* TransitionFacade.swift */; };
 		A4E4400828E901A900514C0D /* CoreAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E4400728E901A900514C0D /* CoreAssembly.swift */; };
@@ -735,6 +737,8 @@
 		A4E06B7829E9A5850005C57B /* RegistrationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationService.swift; sourceTree = "<group>"; };
 		A4E06B7B29E9B3410005C57B /* GamePageTeamCountCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageTeamCountCell.swift; sourceTree = "<group>"; };
 		A4E06B7D29E9B6270005C57B /* GamePageTeamCountItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageTeamCountItem.swift; sourceTree = "<group>"; };
+		A4E06B7F29E9D9CB0005C57B /* CustomFieldData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFieldData.swift; sourceTree = "<group>"; };
+		A4E06B8129E9DB400005C57B /* CustomFieldModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFieldModel.swift; sourceTree = "<group>"; };
 		A4E4400328E8E19D00514C0D /* DeeplinkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeeplinkService.swift; sourceTree = "<group>"; };
 		A4E4400528E8FEE700514C0D /* TransitionFacade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionFacade.swift; sourceTree = "<group>"; };
 		A4E4400728E901A900514C0D /* CoreAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreAssembly.swift; sourceTree = "<group>"; };
@@ -874,6 +878,7 @@
 			isa = PBXGroup;
 			children = (
 				4C553C1629E756410066E2CA /* GamePageInfoModel.swift */,
+				A4E06B8129E9DB400005C57B /* CustomFieldModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1811,6 +1816,7 @@
 				A4D498CB250264AC00CB70EE /* GameShortInfo.swift */,
 				A4822F67252CF85A004E05B9 /* GameStatus.swift */,
 				A477164E261B3D580037A69A /* PaymentOption.swift */,
+				A4E06B7F29E9D9CB0005C57B /* CustomFieldData.swift */,
 			);
 			path = ScheduledGame;
 			sourceTree = "<group>";
@@ -2594,6 +2600,7 @@
 				A450E3A324E5735400C49AEE /* GameOrderRouter.swift in Sources */,
 				A4E06B4729E7FFF40005C57B /* GamePageRouter.swift in Sources */,
 				A423AC1B24EE864000071E68 /* ProfileCell.swift in Sources */,
+				A4E06B8229E9DB400005C57B /* CustomFieldModel.swift in Sources */,
 				A4BA1CEE24D8347300D32ADC /* MainMenuInteractor.swift in Sources */,
 				A45241E6265489A70058285C /* UIFont+Extensions.swift in Sources */,
 				A47003C8253A4CD0002E8EA2 /* PushSubscribeResponse.swift in Sources */,
@@ -2621,6 +2628,7 @@
 				A4088897267CF5D6005D0ED1 /* NumberFormatter+DecimalStyle.swift in Sources */,
 				A4CDC3482730682F00282EC2 /* MapViewController.swift in Sources */,
 				A40B758A24D9A806006DB7D1 /* WarmupConfigurator.swift in Sources */,
+				A4E06B8029E9D9CB0005C57B /* CustomFieldData.swift in Sources */,
 				A423AC1D24EE971100071E68 /* ShopItem.swift in Sources */,
 				A4D230A624F91F0100524A01 /* QuestionPageVC.swift in Sources */,
 				A4CDC34E27308BF000282EC2 /* MapPresenter.swift in Sources */,
