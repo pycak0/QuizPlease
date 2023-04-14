@@ -27,18 +27,8 @@ final class GamePageRegistrationFieldsBuilder {
 
     private func makeTitleAndSubtitle() -> [GamePageItemProtocol] {
         return [
-            GamePageTextItem(
-                text: "Запись на игру",
-                style: .title,
-                topInset: 16,
-                bottomInset: 8
-            ),
-            GamePageTextItem(
-                text: "Введите ваши данные и нажмите на кнопку «Записаться на игру»",
-                style: .subtitle,
-                topInset: 0,
-                bottomInset: 10
-            )
+            GamePageTextItem.title("Запись на игру"),
+            GamePageTextItem.subtitle("Введите ваши данные и нажмите на кнопку «Записаться на игру»")
         ]
     }
 
@@ -87,7 +77,7 @@ final class GamePageRegistrationFieldsBuilder {
 
     private func makeCustomFields() -> [GamePageItemProtocol] {
         let customFields = registerFormProvider.getCustomFields()
-        return customFields.filter({ $0.data.type == .text })
+        var items = customFields.filter({ $0.data.type == .text })
             .map { customField in
                 GamePageFieldItem(
                     title: customField.data.label,
@@ -98,6 +88,32 @@ final class GamePageRegistrationFieldsBuilder {
                     customField?.inputValue = newValue
                 }
             }
+        if !items.isEmpty {
+            items[items.count - 1].bottomInset = 20
+        }
+        return items
+    }
+
+    private func makeSpecialConditions() -> [GamePageItemProtocol] {
+        return [
+            GamePageTextItem(
+                text: "У вас есть промокод / сертификат\nКвиз, плиз! ?",
+                topInset: 16,
+                bottomInset: 6,
+                backgroundColor: .lightGreen.withAlphaComponent(0.2),
+                font: .gilroy(.semibold, size: 16),
+                textColor: .labelAdapted
+            ),
+            GamePageTextItem(
+                text: "Для активации сертификатов от наших\nпартнеров свяжитесь с нами",
+                topInset: 16,
+                bottomInset: 16,
+                backgroundColor: .lightGreen.withAlphaComponent(0.2),
+                font: .gilroy(.semibold, size: 12),
+                textColor: .lightGray,
+                textAlignment: .center
+            )
+        ]
     }
 }
 
@@ -109,5 +125,6 @@ extension GamePageRegistrationFieldsBuilder: GamePageItemBuilderProtocol {
         return makeTitleAndSubtitle()
         + makeBasicFields()
         + makeCustomFields()
+        + makeSpecialConditions()
     }
 }

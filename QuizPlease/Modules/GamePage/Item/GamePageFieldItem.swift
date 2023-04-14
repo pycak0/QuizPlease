@@ -13,6 +13,7 @@ struct GamePageFieldItem {
     let title: String
     let placeholder: String
     let options: Options
+    var bottomInset: CGFloat
     let valueProvider: () -> String?
     let onValueChange: ((String) -> Void)?
 
@@ -20,13 +21,15 @@ struct GamePageFieldItem {
         title: String,
         placeholder: String,
         options: GamePageFieldItem.Options,
+        bottomInset: CGFloat = 0,
         valueProvider: @autoclosure @escaping () -> String?,
         onValueChange: ((String) -> Void)? = nil
     ) {
         self.title = title
         self.placeholder = placeholder
-        self.valueProvider = valueProvider
         self.options = options
+        self.bottomInset = bottomInset
+        self.valueProvider = valueProvider
         self.onValueChange = onValueChange
     }
 }

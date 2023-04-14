@@ -17,7 +17,26 @@ private enum Constants {
 /// GamePage cell with a text field
 final class GamePageFieldCell: UITableViewCell {
 
+    // MARK: - Private Properties
+
     private var onTextChange: ((String) -> Void)?
+
+    // MARK: - Private Properties
+
+    private var topInset: CGFloat = 10 {
+        didSet { topConstraint.constant = topInset }
+    }
+    private var bottomInset: CGFloat = 0 {
+        didSet { bottomConstraint.constant = -bottomInset }
+    }
+
+    private lazy var topConstraint: NSLayoutConstraint = {
+        textFieldView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: topInset)
+    }()
+
+    private lazy var bottomConstraint: NSLayoutConstraint = {
+        textFieldView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -bottomInset)
+    }()
 
     // MARK: - UI Elements
 
@@ -52,9 +71,8 @@ final class GamePageFieldCell: UITableViewCell {
                 equalTo: contentView.leadingAnchor, constant: Constants.horizontalSpacing),
             textFieldView.trailingAnchor.constraint(
                 equalTo: contentView.trailingAnchor, constant: -Constants.horizontalSpacing),
-            textFieldView.topAnchor.constraint(
-                equalTo: contentView.topAnchor, constant: Constants.topInset),
-            textFieldView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            topConstraint,
+            bottomConstraint
         ])
     }
 }
@@ -74,6 +92,8 @@ extension GamePageFieldCell: GamePageCellProtocol {
 
     func configure(with item: GamePageItemProtocol) {
         guard let item = item as? GamePageFieldItem else { return }
+
+        bottomInset = item.bottomInset
 
         textFieldView.isPhoneMaskEnabled = item.options.isPhoneMode
 

@@ -43,6 +43,7 @@ extension GamePageAssembly: ViewAssembly {
         )
 
         let itemFactory = GamePageItemFactory(
+            gameStatusProvider: interactor,
             annotationBuilder: annotationBuilder,
             registerButtonBuilder: registerButtonBuilder,
             infoBuilder: infoBuilder,

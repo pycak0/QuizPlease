@@ -8,39 +8,73 @@
 
 import UIKit
 
+extension GamePageTextItem {
+
+    static func title(
+        _ text: String,
+        topInset: CGFloat = 16,
+        bottomInset: CGFloat = 8
+    ) -> GamePageTextItem {
+        GamePageTextItem(
+            text: text,
+            topInset: topInset,
+            bottomInset: bottomInset,
+            backgroundColor: .systemGray6Adapted,
+            font: .gilroy(.bold, size: 28),
+            textColor: .labelAdapted
+        )
+    }
+
+    static func subtitle(
+        _ text: String,
+        topInset: CGFloat = 0,
+        bottomInset: CGFloat = 10
+    ) -> GamePageTextItem {
+        GamePageTextItem(
+            text: text,
+            topInset: topInset,
+            bottomInset: bottomInset,
+            backgroundColor: .systemGray6Adapted,
+            font: .gilroy(.bold, size: 16),
+            textColor: .lightGray
+        )
+    }
+}
+
 /// GamePage Text item
 struct GamePageTextItem {
 
     /// Text of the item
     let text: String
-    /// Text style
-    let style: Style
     /// Text inset from the top
     let topInset: CGFloat
     /// Text inset from the bottom
     let bottomInset: CGFloat
+    /// Cell background color
+    let backgroundColor: UIColor
+    /// Text font
+    let font: UIFont
+    /// Text color
+    let textColor: UIColor
+    /// Text alignment
+    let textAlignment: NSTextAlignment
 
-    /// Text style
-    enum Style {
-        case title, subtitle
-
-        var font: UIFont {
-            switch self {
-            case .title:
-                return .gilroy(.bold, size: 28)
-            case .subtitle:
-                return .gilroy(.semibold, size: 16)
-            }
-        }
-
-        var color: UIColor {
-            switch self {
-            case .title:
-                return .labelAdapted
-            case .subtitle:
-                return .lightGray
-            }
-        }
+    init(
+        text: String,
+        topInset: CGFloat,
+        bottomInset: CGFloat,
+        backgroundColor: UIColor,
+        font: UIFont,
+        textColor: UIColor,
+        textAlignment: NSTextAlignment = .left
+    ) {
+        self.text = text
+        self.topInset = topInset
+        self.bottomInset = bottomInset
+        self.backgroundColor = backgroundColor
+        self.font = font
+        self.textColor = textColor
+        self.textAlignment = textAlignment
     }
 }
 

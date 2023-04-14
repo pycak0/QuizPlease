@@ -12,7 +12,7 @@ private enum Constants {
 
     static let topSpacing: CGFloat = 16
     static let horizontalSpacing: CGFloat = 16
-    static let bottomSpacing: CGFloat = 6
+    static let bottomSpacing: CGFloat = 20
     static let pickerHeight: CGFloat = 75
 }
 

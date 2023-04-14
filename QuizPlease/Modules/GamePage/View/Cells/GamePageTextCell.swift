@@ -78,9 +78,11 @@ extension GamePageTextCell: GamePageCellProtocol {
     func configure(with item: GamePageItemProtocol) {
         guard let item = item as? GamePageTextItem else { return }
         label.text = item.text
-        label.font = item.style.font
-        label.textColor = item.style.color
+        label.font = item.font
+        label.textColor = item.textColor
+        label.textAlignment = item.textAlignment
         topInset = item.topInset
         bottomInset = item.bottomInset
+        backgroundColor = item.backgroundColor
     }
 }

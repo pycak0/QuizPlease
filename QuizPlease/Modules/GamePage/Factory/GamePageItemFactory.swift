@@ -20,6 +20,7 @@ final class GamePageItemFactory {
 
     // MARK: - Private Properties
 
+    private let gameStatusProvider: GameStatusProvider
     private let annotationBuilder: GamePageItemBuilderProtocol
     private let registerButtonBuilder: GamePageItemBuilderProtocol
     private let infoBuilder: GamePageItemBuilderProtocol
@@ -33,12 +34,14 @@ final class GamePageItemFactory {
     // MARK: - Lifecycle
 
     init(
+        gameStatusProvider: GameStatusProvider,
         annotationBuilder: GamePageItemBuilderProtocol,
         registerButtonBuilder: GamePageItemBuilderProtocol,
         infoBuilder: GamePageItemBuilderProtocol,
         descriptionBuilder: GamePageItemBuilderProtocol,
         registrationFieldsBuilder: GamePageItemBuilderProtocol
     ) {
+        self.gameStatusProvider = gameStatusProvider
         self.annotationBuilder = annotationBuilder
         self.registerButtonBuilder = registerButtonBuilder
         self.infoBuilder = infoBuilder
@@ -59,6 +62,9 @@ final class GamePageItemFactory {
 extension GamePageItemFactory: GamePageItemFactoryProtocol {
 
     func makeItems() -> [GamePageItemProtocol] {
-        makeAllItems()
+        if !gameStatusProvider.getGameStatus().isRegistrationAvailable {
+            return info.makeItems()
+        }
+        return makeAllItems()
     }
 }
