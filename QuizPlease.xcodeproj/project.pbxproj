@@ -331,6 +331,14 @@
 		A4E06B7E29E9B6270005C57B /* GamePageTeamCountItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E06B7D29E9B6270005C57B /* GamePageTeamCountItem.swift */; };
 		A4E06B8029E9D9CB0005C57B /* CustomFieldData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E06B7F29E9D9CB0005C57B /* CustomFieldData.swift */; };
 		A4E06B8229E9DB400005C57B /* CustomFieldModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E06B8129E9DB400005C57B /* CustomFieldModel.swift */; };
+		A4E06B8529E9DE140005C57B /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E06B8429E9DE140005C57B /* Cache.swift */; };
+		A4E06B8729E9DFF90005C57B /* InMemoryCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E06B8629E9DFF90005C57B /* InMemoryCache.swift */; };
+		A4E06B8929E9EC950005C57B /* GameInfoLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E06B8829E9EC950005C57B /* GameInfoLoader.swift */; };
+		A4E06B8B29E9F0240005C57B /* GameInfoLoaderTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E06B8A29E9F0240005C57B /* GameInfoLoaderTest.swift */; };
+		A4E06B8E29E9F0A30005C57B /* InMemoryCacheMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E06B8D29E9F0A30005C57B /* InMemoryCacheMock.swift */; };
+		A4E06B9029E9F19F0005C57B /* NetworkServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E06B8F29E9F19F0005C57B /* NetworkServiceProtocol.swift */; };
+		A4E06B9329E9F2CE0005C57B /* NetworkServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E06B9229E9F2CE0005C57B /* NetworkServiceMock.swift */; };
+		A4E06B9529E9F8F80005C57B /* GameInfo+TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E06B9429E9F8F80005C57B /* GameInfo+TestData.swift */; };
 		A4E4400428E8E19D00514C0D /* DeeplinkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E4400328E8E19D00514C0D /* DeeplinkService.swift */; };
 		A4E4400628E8FEE700514C0D /* TransitionFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E4400528E8FEE700514C0D /* TransitionFacade.swift */; };
 		A4E4400828E901A900514C0D /* CoreAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E4400728E901A900514C0D /* CoreAssembly.swift */; };
@@ -739,6 +747,14 @@
 		A4E06B7D29E9B6270005C57B /* GamePageTeamCountItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageTeamCountItem.swift; sourceTree = "<group>"; };
 		A4E06B7F29E9D9CB0005C57B /* CustomFieldData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFieldData.swift; sourceTree = "<group>"; };
 		A4E06B8129E9DB400005C57B /* CustomFieldModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFieldModel.swift; sourceTree = "<group>"; };
+		A4E06B8429E9DE140005C57B /* Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
+		A4E06B8629E9DFF90005C57B /* InMemoryCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryCache.swift; sourceTree = "<group>"; };
+		A4E06B8829E9EC950005C57B /* GameInfoLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameInfoLoader.swift; sourceTree = "<group>"; };
+		A4E06B8A29E9F0240005C57B /* GameInfoLoaderTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameInfoLoaderTest.swift; sourceTree = "<group>"; };
+		A4E06B8D29E9F0A30005C57B /* InMemoryCacheMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryCacheMock.swift; sourceTree = "<group>"; };
+		A4E06B8F29E9F19F0005C57B /* NetworkServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceProtocol.swift; sourceTree = "<group>"; };
+		A4E06B9229E9F2CE0005C57B /* NetworkServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceMock.swift; sourceTree = "<group>"; };
+		A4E06B9429E9F8F80005C57B /* GameInfo+TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameInfo+TestData.swift"; sourceTree = "<group>"; };
 		A4E4400328E8E19D00514C0D /* DeeplinkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeeplinkService.swift; sourceTree = "<group>"; };
 		A4E4400528E8FEE700514C0D /* TransitionFacade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionFacade.swift; sourceTree = "<group>"; };
 		A4E4400728E901A900514C0D /* CoreAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreAssembly.swift; sourceTree = "<group>"; };
@@ -1067,6 +1083,7 @@
 				A4FEB04B273739F10052AD7B /* MapProvider */,
 				A4BEF46F28D26D8C0099DCDB /* Network */,
 				A4C71767254E014E00898CA5 /* PaymentProvider */,
+				A4E06B8829E9EC950005C57B /* GameInfoLoader.swift */,
 				A4F3A791257D898A00D6A9C7 /* CameraChecker.swift */,
 				A40C807A252E7E7900CE40D8 /* DefaultsManager.swift */,
 				A44B2E0628C00B5F00C1BC2F /* DeviceIdProvider.swift */,
@@ -1650,6 +1667,7 @@
 				A4BEF47128D26DEA0099DCDB /* Configuration */,
 				A4BEF47028D26DB20099DCDB /* Model */,
 				A40689FA24F7D86F001273B2 /* NetworkService.swift */,
+				A4E06B8F29E9F19F0005C57B /* NetworkServiceProtocol.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -1797,6 +1815,7 @@
 		A4D44A2328D13956004703B4 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				A4E06B8329E9DE050005C57B /* Cache */,
 				A44C697924EFE6E000AB3BC9 /* Protocols */,
 				A4F2347B2685E0D200E6FC68 /* AnyCodable */,
 				A491456828F0D61600C93290 /* Transitions */,
@@ -1865,6 +1884,7 @@
 			isa = PBXGroup;
 			children = (
 				A4E06B5129E80E720005C57B /* PlaceGeocoderTest.swift */,
+				A4E06B8A29E9F0240005C57B /* GameInfoLoaderTest.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1881,6 +1901,7 @@
 			isa = PBXGroup;
 			children = (
 				A4E06B5829E817010005C57B /* Place+TestData.swift */,
+				A4E06B9429E9F8F80005C57B /* GameInfo+TestData.swift */,
 			);
 			path = TestData;
 			sourceTree = "<group>";
@@ -1889,6 +1910,7 @@
 			isa = PBXGroup;
 			children = (
 				A4E06B5529E816BC0005C57B /* Service */,
+				A4E06B8C29E9F0900005C57B /* Core */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -1897,6 +1919,7 @@
 			isa = PBXGroup;
 			children = (
 				A4E06B5629E816C20005C57B /* GeocoderMock.swift */,
+				A4E06B9229E9F2CE0005C57B /* NetworkServiceMock.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -1925,6 +1948,23 @@
 				A4E06B7829E9A5850005C57B /* RegistrationService.swift */,
 			);
 			path = Service;
+			sourceTree = "<group>";
+		};
+		A4E06B8329E9DE050005C57B /* Cache */ = {
+			isa = PBXGroup;
+			children = (
+				A4E06B8429E9DE140005C57B /* Cache.swift */,
+				A4E06B8629E9DFF90005C57B /* InMemoryCache.swift */,
+			);
+			path = Cache;
+			sourceTree = "<group>";
+		};
+		A4E06B8C29E9F0900005C57B /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				A4E06B8D29E9F0A30005C57B /* InMemoryCacheMock.swift */,
+			);
+			path = Core;
 			sourceTree = "<group>";
 		};
 		A4E1CFF424F14CF5000F0B22 /* View */ = {
@@ -2445,6 +2485,7 @@
 				A40B759C24D9A868006DB7D1 /* RatingInteractor.swift in Sources */,
 				A40F036224D4187800C381F2 /* UIView+Extensions.swift in Sources */,
 				A4EE9EA529E5EEBD00DDFC50 /* GameStatusProvider.swift in Sources */,
+				A4E06B8929E9EC950005C57B /* GameInfoLoader.swift in Sources */,
 				4CDB228929E593D400DD9E7C /* GamePageRegisterButtonCell.swift in Sources */,
 				A4E91EBE26C312BA008C13A7 /* WarmupQuestionsService.swift in Sources */,
 				A4AFCD3E2953B1FA005F858C /* ServiceAssembly.swift in Sources */,
@@ -2505,6 +2546,7 @@
 				A45241E026547A060058285C /* UITextField+Extensions.swift in Sources */,
 				A4317731267BEEEE0062E0E0 /* SpecialCondition.swift in Sources */,
 				A4E06B6929E893740005C57B /* WepPageBrowserOptions.swift in Sources */,
+				A4E06B8529E9DE140005C57B /* Cache.swift in Sources */,
 				A48E2FB62530E23800CD6BE6 /* Utilities.swift in Sources */,
 				A48E2FAA2530906200CD6BE6 /* UserInfo.swift in Sources */,
 				A40B759A24D9A85B006DB7D1 /* ProfileConfigurator.swift in Sources */,
@@ -2525,6 +2567,7 @@
 				A4FCBC28263C8F1A0048D382 /* ShopPurchaseResponse.swift in Sources */,
 				A4D0C2662684EBF60012E05C /* PointsDecorator.swift in Sources */,
 				A43DB6AF254770F8006E4569 /* ActivityIndicator+Extensions.swift in Sources */,
+				A4E06B9029E9F19F0005C57B /* NetworkServiceProtocol.swift in Sources */,
 				A40689FD24F7D913001273B2 /* NetworkServiceError.swift in Sources */,
 				A45241E8265497370058285C /* AddGameResponse.swift in Sources */,
 				A4BB034C26820006005FE6D7 /* BigNumberDecorator.swift in Sources */,
@@ -2670,6 +2713,7 @@
 				A40C807B252E7E7900CE40D8 /* DefaultsManager.swift in Sources */,
 				A450E3A524E57A8C00C49AEE /* GameInfoItemKind.swift in Sources */,
 				A400A26E269CE4C200FBF70C /* String+WordBuilding.swift in Sources */,
+				A4E06B8729E9DFF90005C57B /* InMemoryCache.swift in Sources */,
 				A4D44A2728D139EF004703B4 /* AsyncExecutor.swift in Sources */,
 				A4E06B7929E9A5850005C57B /* RegistrationService.swift in Sources */,
 				A4FEB052273739F10052AD7B /* YMapsProvider.swift in Sources */,
@@ -2704,7 +2748,11 @@
 			files = (
 				A44E5EF2295F9DFD00402B97 /* WarmupQuestionTypeResolverTest.swift in Sources */,
 				A4E06B5229E80E720005C57B /* PlaceGeocoderTest.swift in Sources */,
+				A4E06B8E29E9F0A30005C57B /* InMemoryCacheMock.swift in Sources */,
+				A4E06B8B29E9F0240005C57B /* GameInfoLoaderTest.swift in Sources */,
 				A4E06B5729E816C20005C57B /* GeocoderMock.swift in Sources */,
+				A4E06B9529E9F8F80005C57B /* GameInfo+TestData.swift in Sources */,
+				A4E06B9329E9F2CE0005C57B /* NetworkServiceMock.swift in Sources */,
 				A4E06B5929E817010005C57B /* Place+TestData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

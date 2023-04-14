@@ -43,6 +43,12 @@ protocol ScheduleInteractorOutput: AnyObject {
 final class ScheduleInteractor: ScheduleInteractorProtocol {
     weak var output: ScheduleInteractorOutput?
 
+    private let gameInfoLoader: GameInfoLoader
+
+    init(gameInfoLoader: GameInfoLoader) {
+        self.gameInfoLoader = gameInfoLoader
+    }
+
     func loadSchedule(filter: ScheduleFilter, completion: @escaping (Result<[GameInfo], NetworkServiceError>) -> Void) {
         NetworkService.shared.getSchedule(with: filter) { (serverResult) in
             switch serverResult {
@@ -56,7 +62,7 @@ final class ScheduleInteractor: ScheduleInteractorProtocol {
     }
 
     func loadDetailInfo(for game: GameInfo, completion: @escaping (GameInfo?) -> Void) {
-        NetworkService.shared.getGameInfo(by: game.id) { (result) in
+        gameInfoLoader.load(gameId: game.id) { result in
             switch result {
             case let .failure(error):
                 print(error)

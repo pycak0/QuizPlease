@@ -40,4 +40,9 @@ final class ServiceAssembly {
     /// Service that requests for tracking uesr location
     lazy var userLocationAuthorizationService: UserLocationAuthorizationService
         = UserLocationService.shared
+
+    /// Service that loads Game info
+    lazy var gameInfoLoader: GameInfoLoader = {
+        GameInfoLoaderImpl(networkService: NetworkService.shared)
+    }()
 }

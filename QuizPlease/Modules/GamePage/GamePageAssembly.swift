@@ -12,10 +12,10 @@ import UIKit
 final class GamePageAssembly {
 
     private let services: ServiceAssembly = ServiceAssembly.shared
-    private let gameInfo: GameInfo
+    private let gameId: Int
 
-    init(gameInfo: GameInfo) {
-        self.gameInfo = gameInfo
+    init(gameId: Int) {
+        self.gameId = gameId
     }
 }
 
@@ -24,9 +24,10 @@ final class GamePageAssembly {
 extension GamePageAssembly: ViewAssembly {
 
     func makeViewController() -> UIViewController {
-        let registrationService = RegistrationService(gameId: gameInfo.id)
+        let registrationService = RegistrationService(gameId: gameId)
         let interactor = GamePageInteractor(
-            gameInfo: gameInfo,
+            gameId: gameId,
+            gameInfoLoader: services.gameInfoLoader,
             placeGeocoder: services.placeGeocoder,
             registrationService: registrationService
         )
