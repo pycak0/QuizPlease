@@ -12,8 +12,7 @@ import Foundation
 protocol GamePageInteractorProtocol: GameStatusProvider,
                                      GamePageAnnotationProvider,
                                      GamePageInfoProvider,
-                                     GamePageDescriptionProvider,
-                                     GamePageRegisterFormProvider {
+                                     GamePageDescriptionProvider {
 
     func loadGame(complpetion: @escaping (Error?) -> Void)
 
@@ -63,6 +62,7 @@ final class GamePageInteractor: GamePageInteractorProtocol {
             var error: Error?
             switch result {
             case .success(let game):
+                self.registrationService.loadData()
                 self.gameInfo = game
             case .failure(let failure):
                 error = failure
@@ -116,9 +116,9 @@ final class GamePageInteractor: GamePageInteractorProtocol {
         gameInfo.optionalDescription
     }
 
-    // MARK: - GamePageRegisterFormProvider
-
-    func getRegisterForm() -> RegisterForm {
-        registrationService.getRegisterForm()
-    }
+//    // MARK: - GamePageRegisterFormProvider
+//
+//    func getRegisterForm() -> RegisterForm {
+//        registrationService.getRegisterForm()
+//    }
 }

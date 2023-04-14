@@ -325,7 +325,7 @@
 		A4E06B7129E8B1B70005C57B /* GamePageFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E06B7029E8B1B70005C57B /* GamePageFieldCell.swift */; };
 		A4E06B7329E8B7B30005C57B /* GamePageFieldItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E06B7229E8B7B30005C57B /* GamePageFieldItem.swift */; };
 		A4E06B7529E9A21E0005C57B /* GamePageRegisterFormProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E06B7429E9A21E0005C57B /* GamePageRegisterFormProvider.swift */; };
-		A4E06B7729E9A23A0005C57B /* GamePageBasicFieldBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E06B7629E9A23A0005C57B /* GamePageBasicFieldBuilder.swift */; };
+		A4E06B7729E9A23A0005C57B /* GamePageRegistrationFieldsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E06B7629E9A23A0005C57B /* GamePageRegistrationFieldsBuilder.swift */; };
 		A4E06B7929E9A5850005C57B /* RegistrationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E06B7829E9A5850005C57B /* RegistrationService.swift */; };
 		A4E06B7C29E9B3410005C57B /* GamePageTeamCountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E06B7B29E9B3410005C57B /* GamePageTeamCountCell.swift */; };
 		A4E06B7E29E9B6270005C57B /* GamePageTeamCountItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E06B7D29E9B6270005C57B /* GamePageTeamCountItem.swift */; };
@@ -741,7 +741,7 @@
 		A4E06B7029E8B1B70005C57B /* GamePageFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageFieldCell.swift; sourceTree = "<group>"; };
 		A4E06B7229E8B7B30005C57B /* GamePageFieldItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageFieldItem.swift; sourceTree = "<group>"; };
 		A4E06B7429E9A21E0005C57B /* GamePageRegisterFormProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageRegisterFormProvider.swift; sourceTree = "<group>"; };
-		A4E06B7629E9A23A0005C57B /* GamePageBasicFieldBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageBasicFieldBuilder.swift; sourceTree = "<group>"; };
+		A4E06B7629E9A23A0005C57B /* GamePageRegistrationFieldsBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageRegistrationFieldsBuilder.swift; sourceTree = "<group>"; };
 		A4E06B7829E9A5850005C57B /* RegistrationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationService.swift; sourceTree = "<group>"; };
 		A4E06B7B29E9B3410005C57B /* GamePageTeamCountCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageTeamCountCell.swift; sourceTree = "<group>"; };
 		A4E06B7D29E9B6270005C57B /* GamePageTeamCountItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageTeamCountItem.swift; sourceTree = "<group>"; };
@@ -885,7 +885,7 @@
 				A4EE9EA229E5E0D300DDFC50 /* GamePageRegisterButtonBuilder.swift */,
 				4C553C1129E6C2ED0066E2CA /* GamePageInfoBuilder.swift */,
 				A4E06B6129E845D30005C57B /* GamePageDescriptionBuilder.swift */,
-				A4E06B7629E9A23A0005C57B /* GamePageBasicFieldBuilder.swift */,
+				A4E06B7629E9A23A0005C57B /* GamePageRegistrationFieldsBuilder.swift */,
 			);
 			path = Builder;
 			sourceTree = "<group>";
@@ -2454,7 +2454,7 @@
 				A4A065A224E47D1F0080E0D8 /* GameAnnotationCell.swift in Sources */,
 				A469F75924E3084D007FB332 /* ScheduleGameCell.swift in Sources */,
 				A4B129252739E1B20035C041 /* UIImage+Configuration.swift in Sources */,
-				A4E06B7729E9A23A0005C57B /* GamePageBasicFieldBuilder.swift in Sources */,
+				A4E06B7729E9A23A0005C57B /* GamePageRegistrationFieldsBuilder.swift in Sources */,
 				A4D44A2B28D141B1004703B4 /* OnboardingAssembly.swift in Sources */,
 				A4779C7F251618C90064F863 /* GameOrderCompletionVC.swift in Sources */,
 				A4A296C224F6DC2800347EB2 /* AddGameVC.swift in Sources */,

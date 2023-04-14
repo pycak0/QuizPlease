@@ -9,7 +9,7 @@
 import Foundation
 
 /// Custom field in Game info
-struct CustomFieldData: Decodable {
+struct CustomFieldData: Codable {
 
     /// Field title
     let label: String
@@ -25,7 +25,7 @@ struct CustomFieldData: Decodable {
     let values: [String]
 
     /// Describes possible types of `CustomFieldData`
-    enum Kind: String, Decodable {
+    enum Kind: String, Codable {
         /// Single-line text
         case text
         /// Multiline text
