@@ -12,8 +12,9 @@ import Foundation
 protocol GamePageInteractorProtocol: GameStatusProvider,
                                      GamePageAnnotationProvider,
                                      GamePageInfoProvider,
-                                     GamePageDescriptionProvider,
-                                     GamePageRegisterFormProvider {
+                                     GamePageDescriptionProvider {
+
+    func loadGame(complpetion: @escaping (Error?) -> Void)
 
     /// Get Game full title
     func getGameTitle() -> String
@@ -28,26 +29,47 @@ protocol GamePageInteractorProtocol: GameStatusProvider,
 /// GamePage interactor
 final class GamePageInteractor: GamePageInteractorProtocol {
 
-    private let gameInfo: GameInfo
+    private var gameInfo: GameInfo
+    private let gameInfoLoader: GameInfoLoader
     private let placeGeocoder: PlaceGeocoderProtocol
     private let registrationService: RegistrationServiceProtocol
 
     /// GamePage interactor initializer
     /// - Parameters:
-    ///   - gameInfo: Game information
+    ///   - gameId: Game identifier
+    ///   - gameInfoLoader: Service that loads Game info
     ///   - placeGeocoder: Service that provides `Place` coordinates
     ///   - registrationService: Service that manages register form
     init(
-        gameInfo: GameInfo,
+        gameId: Int,
+        gameInfoLoader: GameInfoLoader,
         placeGeocoder: PlaceGeocoderProtocol,
         registrationService: RegistrationServiceProtocol
     ) {
+        var gameInfo = GameInfo()
+        gameInfo.id = gameId
         self.gameInfo = gameInfo
+        self.gameInfoLoader = gameInfoLoader
         self.placeGeocoder = placeGeocoder
         self.registrationService = registrationService
     }
 
     // MARK: - GamePageInteractorProtocol
+
+    func loadGame(complpetion: @escaping (Error?) -> Void) {
+        gameInfoLoader.load(gameId: gameInfo.id) { [weak self] result in
+            guard let self else { return }
+            var error: Error?
+            switch result {
+            case .success(let game):
+                self.registrationService.loadData()
+                self.gameInfo = game
+            case .failure(let failure):
+                error = failure
+            }
+            complpetion(error)
+        }
+    }
 
     func getGameTitle() -> String {
         return gameInfo.fullTitle
@@ -94,9 +116,9 @@ final class GamePageInteractor: GamePageInteractorProtocol {
         gameInfo.optionalDescription
     }
 
-    // MARK: - GamePageRegisterFormProvider
-
-    func getRegisterForm() -> RegisterForm {
-        registrationService.getRegisterForm()
-    }
+//    // MARK: - GamePageRegisterFormProvider
+//
+//    func getRegisterForm() -> RegisterForm {
+//        registrationService.getRegisterForm()
+//    }
 }

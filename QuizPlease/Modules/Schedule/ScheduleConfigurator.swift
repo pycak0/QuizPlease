@@ -10,15 +10,15 @@ import Foundation
 
 final class ScheduleConfigurator: Configurator {
 
-    private let service = ServiceAssembly.shared
+    private let services = ServiceAssembly.shared
 
     func configure(_ view: ScheduleViewProtocol) {
         let router = ScheduleRouter(viewController: view)
-        let interactor = ScheduleInteractor()
+        let interactor = ScheduleInteractor(gameInfoLoader: services.gameInfoLoader)
         let presenter = SchedulePresenter(
             interactor: interactor,
             router: router,
-            analyticsService: service.analytics
+            analyticsService: services.analytics
         )
         presenter.view = view
         view.presenter = presenter

@@ -16,7 +16,7 @@ protocol GamePageViewOutput {
 }
 
 /// Game page screen view protocol
-protocol GamePageViewInput: AnyObject {
+protocol GamePageViewInput: AnyObject, LoadingIndicator {
 
     /// Set items to display in `GamePageView`
     /// - Parameter items: an array of items implementing `GamePageItemProtocol`
@@ -29,12 +29,17 @@ protocol GamePageViewInput: AnyObject {
     /// Set the image with given path to the header view
     /// - Parameter path: image location on a server
     func setHeaderImage(path: String)
+
+    /// Show error alert
+    func showAlert(_ error: Error, handler: (() -> Void)?)
 }
 
 /// Game page screen view controller
 final class GamePageViewController: UIViewController {
 
     // MARK: - UI Elements
+
+    private let activityIndicator = UIActivityIndicatorView()
 
     private let gamePageView: GamePageView = {
         let gamePageView = GamePageView()
@@ -86,5 +91,21 @@ extension GamePageViewController: GamePageViewInput {
 
     func setHeaderImage(path: String) {
         gamePageView.setHeaderImage(path: path)
+    }
+
+    func startLoading() {
+        view.isUserInteractionEnabled = false
+        activityIndicator.enableCentered(in: view, color: .systemBlue)
+    }
+
+    func stopLoading() {
+        view.isUserInteractionEnabled = true
+        activityIndicator.stopAnimating()
+    }
+
+    func showAlert(_ error: Error, handler: (() -> Void)?) {
+        showErrorConnectingToServerAlert { _ in
+            handler?()
+        }
     }
 }

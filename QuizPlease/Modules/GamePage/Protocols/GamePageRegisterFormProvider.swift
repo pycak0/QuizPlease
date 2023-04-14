@@ -13,4 +13,7 @@ protocol GamePageRegisterFormProvider {
 
     /// Provides a reference to the shared register form
     func getRegisterForm() -> RegisterForm
+
+    /// Provides a custom fields array with editable user input properties
+    func getCustomFields() -> [CustomFieldModel]
 }

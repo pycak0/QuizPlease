@@ -66,6 +66,8 @@ struct GameInfo: Decodable {
     /// Vacant places
     private var blockOf: Int = 0
 
+    private var custom_fields: [CustomFieldData]?
+
     init() { }
 
     init(shortInfo: GameShortInfo) {
@@ -193,5 +195,9 @@ extension GameInfo {
 
     var vacantPlaces: Int {
         blockOf
+    }
+
+    var customFields: [CustomFieldData]? {
+        custom_fields
     }
 }

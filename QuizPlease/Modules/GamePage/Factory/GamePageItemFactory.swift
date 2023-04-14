@@ -24,7 +24,7 @@ final class GamePageItemFactory {
     private let registerButtonBuilder: GamePageItemBuilderProtocol
     private let infoBuilder: GamePageItemBuilderProtocol
     private let descriptionBuilder: GamePageItemBuilderProtocol
-    private let basicFieldBuilder: GamePageItemBuilderProtocol
+    private let registrationFieldsBuilder: GamePageItemBuilderProtocol
 
     private var info: [GamePageItemBuilderProtocol] {
         [annotationBuilder, registerButtonBuilder, infoBuilder, descriptionBuilder]
@@ -37,38 +37,20 @@ final class GamePageItemFactory {
         registerButtonBuilder: GamePageItemBuilderProtocol,
         infoBuilder: GamePageItemBuilderProtocol,
         descriptionBuilder: GamePageItemBuilderProtocol,
-        basicFieldBuilder: GamePageItemBuilderProtocol
+        registrationFieldsBuilder: GamePageItemBuilderProtocol
     ) {
         self.annotationBuilder = annotationBuilder
         self.registerButtonBuilder = registerButtonBuilder
         self.infoBuilder = infoBuilder
         self.descriptionBuilder = descriptionBuilder
-        self.basicFieldBuilder = basicFieldBuilder
+        self.registrationFieldsBuilder = registrationFieldsBuilder
     }
 
     // MARK: - Private Methods
 
     private func makeAllItems() -> [GamePageItemProtocol] {
         return info.makeItems()
-        + makeTitleAndSubtitle()
-        + basicFieldBuilder.makeItems()
-    }
-
-    private func makeTitleAndSubtitle() -> [GamePageItemProtocol] {
-        return [
-            GamePageTextItem(
-                text: "Запись на игру",
-                style: .title,
-                topInset: 16,
-                bottomInset: 8
-            ),
-            GamePageTextItem(
-                text: "Введите ваши данные и нажмите на кнопку «Записаться на игру»",
-                style: .subtitle,
-                topInset: 0,
-                bottomInset: 10
-            )
-        ]
+        + registrationFieldsBuilder.makeItems()
     }
 }
 

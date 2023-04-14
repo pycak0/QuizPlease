@@ -42,6 +42,21 @@ extension GamePagePresenter: GamePageViewOutput,
                              GamePageInfoOutput {
 
     func viewDidLoad() {
+        view?.startLoading()
+        interactor.loadGame { [weak self] error in
+            guard let self else { return }
+            self.view?.stopLoading()
+            if let error {
+                self.view?.showAlert(error) {
+                    self.router.close()
+                }
+                return
+            }
+            self.setGameInfo()
+        }
+    }
+
+    private func setGameInfo() {
         view?.setTitle(interactor.getGameTitle())
         view?.setItems(itemFactory.makeItems())
         view?.setHeaderImage(path: interactor.getHeaderImagePath())
