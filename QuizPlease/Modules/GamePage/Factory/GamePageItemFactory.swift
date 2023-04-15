@@ -26,9 +26,18 @@ final class GamePageItemFactory {
     private let infoBuilder: GamePageItemBuilderProtocol
     private let descriptionBuilder: GamePageItemBuilderProtocol
     private let registrationFieldsBuilder: GamePageItemBuilderProtocol
+    private let specialConditionsBuilder: GamePageItemBuilderProtocol
 
     private var info: [GamePageItemBuilderProtocol] {
         [annotationBuilder, registerButtonBuilder, infoBuilder, descriptionBuilder]
+    }
+
+    private var registration: [GamePageItemBuilderProtocol] {
+        [registrationFieldsBuilder, specialConditionsBuilder]
+    }
+
+    private var all: [GamePageItemBuilderProtocol] {
+        info + registration
     }
 
     // MARK: - Lifecycle
@@ -39,7 +48,8 @@ final class GamePageItemFactory {
         registerButtonBuilder: GamePageItemBuilderProtocol,
         infoBuilder: GamePageItemBuilderProtocol,
         descriptionBuilder: GamePageItemBuilderProtocol,
-        registrationFieldsBuilder: GamePageItemBuilderProtocol
+        registrationFieldsBuilder: GamePageItemBuilderProtocol,
+        specialConditionsBuilder: GamePageItemBuilderProtocol
     ) {
         self.gameStatusProvider = gameStatusProvider
         self.annotationBuilder = annotationBuilder
@@ -47,13 +57,7 @@ final class GamePageItemFactory {
         self.infoBuilder = infoBuilder
         self.descriptionBuilder = descriptionBuilder
         self.registrationFieldsBuilder = registrationFieldsBuilder
-    }
-
-    // MARK: - Private Methods
-
-    private func makeAllItems() -> [GamePageItemProtocol] {
-        return info.makeItems()
-        + registrationFieldsBuilder.makeItems()
+        self.specialConditionsBuilder = specialConditionsBuilder
     }
 }
 
@@ -65,6 +69,6 @@ extension GamePageItemFactory: GamePageItemFactoryProtocol {
         if !gameStatusProvider.getGameStatus().isRegistrationAvailable {
             return info.makeItems()
         }
-        return makeAllItems()
+        return all.makeItems()
     }
 }

@@ -47,7 +47,6 @@ final class GamePageTextCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         selectionStyle = .none
-        backgroundColor = .systemGray6Adapted
         makeLayout()
     }
 
@@ -83,6 +82,6 @@ extension GamePageTextCell: GamePageCellProtocol {
         label.textAlignment = item.textAlignment
         topInset = item.topInset
         bottomInset = item.bottomInset
-        backgroundColor = item.backgroundColor
+        contentView.backgroundColor = item.backgroundColor
     }
 }

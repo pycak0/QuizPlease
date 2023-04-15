@@ -53,7 +53,6 @@ final class GamePageFieldCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         selectionStyle = .none
-        backgroundColor = .systemGray6Adapted
         makeLayout()
     }
 
@@ -104,7 +103,7 @@ extension GamePageFieldCell: GamePageCellProtocol {
         }
 
         textFieldView.backgroundColor = item.fieldColor
-        backgroundColor = item.backgroundColor
+        contentView.backgroundColor = item.backgroundColor
         textFieldView.textField.textContentType = item.options.contentType
         textFieldView.textField.autocapitalizationType = item.options.capitalizationType
         textFieldView.textField.keyboardType = item.options.keyboardType

@@ -8,8 +8,14 @@
 
 import Foundation
 
+protocol SpecialConditionsProvider {
+
+    func getSpecialConditions() -> [SpecialCondition]
+}
+
 /// Service that manages register form
-protocol RegistrationServiceProtocol: GamePageRegisterFormProvider {
+protocol RegistrationServiceProtocol: GamePageRegisterFormProvider,
+                                      SpecialConditionsProvider {
 
     /// Loads necessary registration data about the game
     func loadData()
@@ -24,9 +30,16 @@ protocol RegistrationServiceProtocol: GamePageRegisterFormProvider {
 /// Service that manages register form
 final class RegistrationService {
 
+    private let specialConditionsLimit = 9
+
     private let gameInfoLoader: GameInfoLoader
     private let registerForm: RegisterForm
     private var customFields: [CustomFieldModel] = []
+    private var specialConditions: [SpecialCondition] = {
+        let condition = SpecialCondition()
+        condition.value = "TEST"
+        return [condition]
+    }()
 
     /// Initialize `RegistrationService`
     /// - Parameters:
@@ -60,5 +73,9 @@ extension RegistrationService: RegistrationServiceProtocol {
 
     func getCustomFields() -> [CustomFieldModel] {
         customFields
+    }
+
+    func getSpecialConditions() -> [SpecialCondition] {
+        specialConditions
     }
 }

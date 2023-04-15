@@ -93,36 +93,6 @@ final class GamePageRegistrationFieldsBuilder {
         }
         return items
     }
-
-    private func makeSpecialConditions() -> [GamePageItemProtocol] {
-        return [
-            GamePageTextItem(
-                text: "У вас есть промокод / сертификат\nКвиз, плиз! ?",
-                topInset: 16,
-                bottomInset: 6,
-                backgroundColor: .lightGreen.withAlphaComponent(0.2),
-                font: .gilroy(.semibold, size: 16),
-                textColor: .labelAdapted
-            ),
-            GamePageFieldItem(
-                title: "Введите номер сертификата/промокода",
-                placeholder: "XXXXXXX",
-                options: .basic,
-                valueProvider: nil,
-                fieldColor: .systemBackgroundAdapted,
-                backgroundColor: .lightGreen.withAlphaComponent(0.2)
-            ),
-            GamePageTextItem(
-                text: "Для активации сертификатов от наших\nпартнеров свяжитесь с нами",
-                topInset: 16,
-                bottomInset: 16,
-                backgroundColor: .lightGreen.withAlphaComponent(0.2),
-                font: .gilroy(.semibold, size: 12),
-                textColor: .lightGray,
-                textAlignment: .center
-            )
-        ]
-    }
 }
 
 // MARK: - GamePageItemBuilderProtocol
@@ -133,6 +103,5 @@ extension GamePageRegistrationFieldsBuilder: GamePageItemBuilderProtocol {
         return makeTitleAndSubtitle()
         + makeBasicFields()
         + makeCustomFields()
-        + makeSpecialConditions()
     }
 }

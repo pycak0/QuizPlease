@@ -339,6 +339,9 @@
 		A4E06B9029E9F19F0005C57B /* NetworkServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E06B8F29E9F19F0005C57B /* NetworkServiceProtocol.swift */; };
 		A4E06B9329E9F2CE0005C57B /* NetworkServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E06B9229E9F2CE0005C57B /* NetworkServiceMock.swift */; };
 		A4E06B9529E9F8F80005C57B /* GameInfo+TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E06B9429E9F8F80005C57B /* GameInfo+TestData.swift */; };
+		A4E06B9B29EA27C80005C57B /* GamePageSpecialConditionsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E06B9A29EA27C80005C57B /* GamePageSpecialConditionsBuilder.swift */; };
+		A4E06B9D29EA29110005C57B /* GamePageAddSpecialConditionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E06B9C29EA29110005C57B /* GamePageAddSpecialConditionCell.swift */; };
+		A4E06B9F29EA2A1B0005C57B /* GamePageAddSpecialConditionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E06B9E29EA2A1B0005C57B /* GamePageAddSpecialConditionItem.swift */; };
 		A4E4400428E8E19D00514C0D /* DeeplinkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E4400328E8E19D00514C0D /* DeeplinkService.swift */; };
 		A4E4400628E8FEE700514C0D /* TransitionFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E4400528E8FEE700514C0D /* TransitionFacade.swift */; };
 		A4E4400828E901A900514C0D /* CoreAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E4400728E901A900514C0D /* CoreAssembly.swift */; };
@@ -755,6 +758,9 @@
 		A4E06B8F29E9F19F0005C57B /* NetworkServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceProtocol.swift; sourceTree = "<group>"; };
 		A4E06B9229E9F2CE0005C57B /* NetworkServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceMock.swift; sourceTree = "<group>"; };
 		A4E06B9429E9F8F80005C57B /* GameInfo+TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameInfo+TestData.swift"; sourceTree = "<group>"; };
+		A4E06B9A29EA27C80005C57B /* GamePageSpecialConditionsBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageSpecialConditionsBuilder.swift; sourceTree = "<group>"; };
+		A4E06B9C29EA29110005C57B /* GamePageAddSpecialConditionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageAddSpecialConditionCell.swift; sourceTree = "<group>"; };
+		A4E06B9E29EA2A1B0005C57B /* GamePageAddSpecialConditionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageAddSpecialConditionItem.swift; sourceTree = "<group>"; };
 		A4E4400328E8E19D00514C0D /* DeeplinkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeeplinkService.swift; sourceTree = "<group>"; };
 		A4E4400528E8FEE700514C0D /* TransitionFacade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionFacade.swift; sourceTree = "<group>"; };
 		A4E4400728E901A900514C0D /* CoreAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreAssembly.swift; sourceTree = "<group>"; };
@@ -886,6 +892,7 @@
 				4C553C1129E6C2ED0066E2CA /* GamePageInfoBuilder.swift */,
 				A4E06B6129E845D30005C57B /* GamePageDescriptionBuilder.swift */,
 				A4E06B7629E9A23A0005C57B /* GamePageRegistrationFieldsBuilder.swift */,
+				A4E06B9A29EA27C80005C57B /* GamePageSpecialConditionsBuilder.swift */,
 			);
 			path = Builder;
 			sourceTree = "<group>";
@@ -2027,6 +2034,7 @@
 				A4E06B6C29E8A6920005C57B /* GamePageTextItem.swift */,
 				A4E06B7229E8B7B30005C57B /* GamePageFieldItem.swift */,
 				A4E06B7D29E9B6270005C57B /* GamePageTeamCountItem.swift */,
+				A4E06B9E29EA2A1B0005C57B /* GamePageAddSpecialConditionItem.swift */,
 			);
 			path = Item;
 			sourceTree = "<group>";
@@ -2042,6 +2050,7 @@
 				A4E06B6A29E8A1800005C57B /* GamePageTextCell.swift */,
 				A4E06B7029E8B1B70005C57B /* GamePageFieldCell.swift */,
 				A4E06B7B29E9B3410005C57B /* GamePageTeamCountCell.swift */,
+				A4E06B9C29EA29110005C57B /* GamePageAddSpecialConditionCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -2581,6 +2590,7 @@
 				A40D818A24D2D24C006D2CE3 /* ScheduleCell.swift in Sources */,
 				A46F303A24F52CAE0062A333 /* GameOnlinePaymentCell.swift in Sources */,
 				A4FEB057273739F10052AD7B /* MapProvider.swift in Sources */,
+				A4E06B9B29EA27C80005C57B /* GamePageSpecialConditionsBuilder.swift in Sources */,
 				A4FEB053273739F10052AD7B /* AppleMapsProvider.swift in Sources */,
 				A4F3A795257E561800D6A9C7 /* SplashScreenVC.swift in Sources */,
 				A40B759E24D9A86E006DB7D1 /* RatingPresenter.swift in Sources */,
@@ -2694,11 +2704,13 @@
 				A429533229DCAFF700A76AD9 /* GamePageViewController.swift in Sources */,
 				A4147AD724E5B92D007C131F /* Place.swift in Sources */,
 				A4E06B6029E8451E0005C57B /* GamePageDescriptionItem.swift in Sources */,
+				A4E06B9D29EA29110005C57B /* GamePageAddSpecialConditionCell.swift in Sources */,
 				A4EE9EA829E5F15900DDFC50 /* GamePageItemBuilderProtocol.swift in Sources */,
 				A4EE9E9729E493DE00DDFC50 /* GamePageCellProtocol.swift in Sources */,
 				A4632E91262EFE2D00012BBF /* UserLocationService.swift in Sources */,
 				A417FA5325711C210064C467 /* UIViewController+SafariVC.swift in Sources */,
 				A4EE9E9F29E4AC2500DDFC50 /* GamePageInteractor.swift in Sources */,
+				A4E06B9F29EA2A1B0005C57B /* GamePageAddSpecialConditionItem.swift in Sources */,
 				A4FEB054273739F10052AD7B /* GMapsProvider.swift in Sources */,
 				A4F0B9DE26248B6900E4E2A5 /* SplashScreenInteractor.swift in Sources */,
 				A423AC2224EEBCD600071E68 /* FiltersVC.swift in Sources */,
