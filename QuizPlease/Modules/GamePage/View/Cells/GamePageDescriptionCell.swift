@@ -64,27 +64,18 @@ final class GamePageDescriptionCell: UITableViewCell {
         ])
     }
 
-    private func setDescription(_ text: String) {
-        DispatchQueue.global().async { [weak self] in
-            guard let attrString = text.htmlFormatted()?.trimmingWhitespacesAndNewlines() else {
-                return
-            }
+    private func setDescription(_ attrString: NSAttributedString) {
+        let mutableAttrString = NSMutableAttributedString(attributedString: attrString)
+        let range = (mutableAttrString.string as NSString).range(of: mutableAttrString.string)
+        mutableAttrString.addAttributes([
+            .font: UIFont.gilroy(.medium, size: 14),
+            .foregroundColor: UIColor.labelAdapted
+        ], range: range)
 
-            let mutableAttrString = NSMutableAttributedString(attributedString: attrString)
-            let range = (mutableAttrString.string as NSString).range(of: mutableAttrString.string)
-            mutableAttrString.addAttributes([
-                .font: UIFont.gilroy(.medium, size: 14),
-                .foregroundColor: UIColor.labelAdapted
-            ], range: range)
-
-            DispatchQueue.main.async {
-                guard let self else { return }
-                self.descriptionTextView.attributedText = mutableAttrString
-                self.invalidateIntrinsicContentSize()
-                self.setNeedsLayout()
-                self.layoutIfNeeded()
-            }
-        }
+        self.descriptionTextView.attributedText = mutableAttrString
+//        self.invalidateIntrinsicContentSize()
+//        self.setNeedsLayout()
+//        self.layoutIfNeeded()
     }
 }
 
@@ -109,7 +100,6 @@ extension GamePageDescriptionCell: GamePageCellProtocol {
 
     func configure(with item: GamePageItemProtocol) {
         guard let item = item as? GamePageDescriptionItem else { return }
-        descriptionTextView.text = item.description.removingAngleBrackets(replaceWith: " ")
         setDescription(item.description)
     }
 }

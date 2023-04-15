@@ -12,7 +12,7 @@ import Foundation
 struct GamePageDescriptionItem {
 
     /// Game description
-    let description: String
+    let description: NSAttributedString
 }
 
 // MARK: - GamePageItemProtocol

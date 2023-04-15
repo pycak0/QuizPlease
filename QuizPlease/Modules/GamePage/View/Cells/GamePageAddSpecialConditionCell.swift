@@ -11,7 +11,7 @@ import UIKit
 /// GamePage cell with "add" button for special conditions
 final class GamePageAddSpecialConditionCell: UITableViewCell {
 
-    var tapAction: (() -> Void)?
+    private var tapAction: (() -> Void)?
 
     // MARK: - UI Elements
 
@@ -69,6 +69,7 @@ final class GamePageAddSpecialConditionCell: UITableViewCell {
 extension GamePageAddSpecialConditionCell: GamePageCellProtocol {
 
     func configure(with item: GamePageItemProtocol) {
-        // TODO
+        guard let item = item as? GamePageAddSpecialConditionItem else { return }
+        tapAction = item.tapAction
     }
 }
