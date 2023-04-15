@@ -179,7 +179,7 @@ final class CountPickerView: UIView {
     private func selectButton(with touches: Set<UITouch>) {
         guard let location = touches.first?.location(in: pickerStack) else { return }
         for (index, item) in buttons.enumerated() {
-            if item.frame.contains(location) {
+            if item.frame.minX <= location.x && location.x <= item.frame.maxX {
                 if selectedIndex != index {
                     pickerButtonPressed(at: index)
                 }
