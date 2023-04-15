@@ -170,9 +170,11 @@ extension GamePageView: UIScrollViewDelegate {
         headerView.isHidden = offset > 700
 
         if offset <= 0 {
+            // scrolls up -> image goes down
             headerViewHeightConstraint.constant = imageBaseHeight - offset
         } else {
-            headerViewHeightConstraint.constant = imageBaseHeight - offset * 0.2
+            // scrolls down -> image goes up
+            headerViewHeightConstraint.constant = max(0, imageBaseHeight - offset * 0.2)
         }
     }
 }
