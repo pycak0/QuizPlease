@@ -103,6 +103,8 @@ extension GamePageFieldCell: GamePageCellProtocol {
             textFieldView.textField.placeholder = item.placeholder
         }
 
+        textFieldView.backgroundColor = item.fieldColor
+        backgroundColor = item.backgroundColor
         textFieldView.textField.textContentType = item.options.contentType
         textFieldView.textField.autocapitalizationType = item.options.capitalizationType
         textFieldView.textField.keyboardType = item.options.keyboardType

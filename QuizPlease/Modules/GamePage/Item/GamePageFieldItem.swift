@@ -14,6 +14,9 @@ struct GamePageFieldItem {
     let placeholder: String
     let options: Options
     var bottomInset: CGFloat
+    let fieldColor: UIColor
+    let backgroundColor: UIColor
+
     let valueProvider: () -> String?
     let onValueChange: ((String) -> Void)?
 
@@ -23,12 +26,17 @@ struct GamePageFieldItem {
         options: GamePageFieldItem.Options,
         bottomInset: CGFloat = 0,
         valueProvider: @autoclosure @escaping () -> String?,
+        fieldColor: UIColor = .clear,
+        backgroundColor: UIColor = .systemGray6Adapted,
         onValueChange: ((String) -> Void)? = nil
     ) {
         self.title = title
         self.placeholder = placeholder
         self.options = options
         self.bottomInset = bottomInset
+        self.fieldColor = fieldColor
+        self.backgroundColor = backgroundColor
+
         self.valueProvider = valueProvider
         self.onValueChange = onValueChange
     }
