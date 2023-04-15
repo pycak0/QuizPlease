@@ -36,7 +36,7 @@ final class GamePageRegistrationFieldsBuilder {
         let registerForm = registerFormProvider.getRegisterForm()
         return [
             GamePageFieldItem(
-                title: "Название команды",
+                title: "Название команды *",
                 placeholder: "Введите название",
                 options: .team,
                 valueProvider: registerForm.teamName,
@@ -44,7 +44,7 @@ final class GamePageRegistrationFieldsBuilder {
                     registerForm?.teamName = newValue
             }),
             GamePageFieldItem(
-                title: "Имя капитана",
+                title: "Имя капитана *",
                 placeholder: "Введите имя",
                 options: .captain,
                 valueProvider: registerForm.captainName,
@@ -52,7 +52,7 @@ final class GamePageRegistrationFieldsBuilder {
                     registerForm?.captainName = newValue
             }),
             GamePageFieldItem(
-                title: "E-mail",
+                title: "E-mail *",
                 placeholder: "Введите почту",
                 options: .email,
                 valueProvider: registerForm.email,
@@ -60,7 +60,7 @@ final class GamePageRegistrationFieldsBuilder {
                     registerForm?.email = newValue
             }),
             GamePageFieldItem(
-                title: "Телефон капитана",
+                title: "Телефон капитана *",
                 placeholder: "",
                 options: .phone,
                 valueProvider: registerForm.phone,
