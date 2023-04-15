@@ -39,7 +39,8 @@ final class GamePagePresenter {
 
 extension GamePagePresenter: GamePageViewOutput,
                              GamePageRegisterButtonOutput,
-                             GamePageInfoOutput {
+                             GamePageInfoOutput,
+                             GamePageSpecialConditionsOutput {
 
     func viewDidLoad() {
         view?.startLoading()
@@ -72,5 +73,16 @@ extension GamePagePresenter: GamePageViewOutput,
 
     func didTapOnMap() {
         router.showMap(for: interactor.getPlaceInfo())
+    }
+
+    // MARK: - GamePageSpecialConditionsOutput
+
+    func didChangeSpecialCondition() {
+        // TODO
+    }
+
+    func didPressAddSpecialCondition() {
+        interactor.addSpecialCondition()
+        view?.setItems(itemFactory.makeItems())
     }
 }

@@ -11,6 +11,8 @@ import Foundation
 protocol SpecialConditionsProvider {
 
     func getSpecialConditions() -> [SpecialCondition]
+
+    func addSpecialCondition()
 }
 
 /// Service that manages register form
@@ -77,5 +79,10 @@ extension RegistrationService: RegistrationServiceProtocol {
 
     func getSpecialConditions() -> [SpecialCondition] {
         specialConditions
+    }
+
+    func addSpecialCondition() {
+        guard specialConditions.count < specialConditionsLimit else { return }
+        specialConditions.append(SpecialCondition())
     }
 }

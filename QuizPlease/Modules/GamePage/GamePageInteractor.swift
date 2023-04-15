@@ -25,6 +25,8 @@ protocol GamePageInteractorProtocol: GameStatusProvider,
 
     /// Get Place information
     func getPlaceInfo() -> Place
+
+    func addSpecialCondition() 
 }
 
 /// GamePage interactor
@@ -100,6 +102,10 @@ final class GamePageInteractor: GamePageInteractorProtocol {
 
     func getPlaceInfo() -> Place {
         return gameInfo.placeInfo
+    }
+
+    func addSpecialCondition() {
+        registrationService.addSpecialCondition()
     }
 
     // MARK: - GameStatusProvider
