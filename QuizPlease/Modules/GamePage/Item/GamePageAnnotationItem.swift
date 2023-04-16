@@ -19,6 +19,8 @@ struct GamePageAnnotationItem {
 
 extension GamePageAnnotationItem: GamePageItemProtocol {
 
+    var kind: GamePageItemKind { .annotation }
+
     func cellClass(with context: GamePageViewContext) -> AnyClass {
         GamePageAnnotationCell.self
     }

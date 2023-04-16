@@ -29,6 +29,8 @@ struct GamePageTeamCountItem {
 
 extension GamePageTeamCountItem: GamePageItemProtocol {
 
+    var kind: GamePageItemKind { .basicField }
+
     func cellClass(with context: GamePageViewContext) -> AnyClass {
         GamePageTeamCountCell.self
     }

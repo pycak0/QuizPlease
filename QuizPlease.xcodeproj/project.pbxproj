@@ -239,6 +239,7 @@
 		A4B129212739CB170035C041 /* CopyableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B129202739CB170035C041 /* CopyableLabel.swift */; };
 		A4B129232739DD9D0035C041 /* Spacer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B129222739DD9D0035C041 /* Spacer.swift */; };
 		A4B129252739E1B20035C041 /* UIImage+Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B129242739E1B20035C041 /* UIImage+Configuration.swift */; };
+		A4B3BE3929EC9B2A00644A3D /* UIContextualAction+delete.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B3BE3829EC9B2A00644A3D /* UIContextualAction+delete.swift */; };
 		A4B3F8A0266BF46F001A35A1 /* GameAddExtraCertificateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B3F89F266BF46F001A35A1 /* GameAddExtraCertificateCell.swift */; };
 		A4BA1CEA24D832D600D32ADC /* MainMenuConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BA1CE924D832D600D32ADC /* MainMenuConfigurator.swift */; };
 		A4BA1CEC24D8338B00D32ADC /* MainMenuPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BA1CEB24D8338B00D32ADC /* MainMenuPresenter.swift */; };
@@ -656,6 +657,7 @@
 		A4B129202739CB170035C041 /* CopyableLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyableLabel.swift; sourceTree = "<group>"; };
 		A4B129222739DD9D0035C041 /* Spacer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spacer.swift; sourceTree = "<group>"; };
 		A4B129242739E1B20035C041 /* UIImage+Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Configuration.swift"; sourceTree = "<group>"; };
+		A4B3BE3829EC9B2A00644A3D /* UIContextualAction+delete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIContextualAction+delete.swift"; sourceTree = "<group>"; };
 		A4B3F89F266BF46F001A35A1 /* GameAddExtraCertificateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameAddExtraCertificateCell.swift; sourceTree = "<group>"; };
 		A4BA1CE924D832D600D32ADC /* MainMenuConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuConfigurator.swift; sourceTree = "<group>"; };
 		A4BA1CEB24D8338B00D32ADC /* MainMenuPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuPresenter.swift; sourceTree = "<group>"; };
@@ -2092,6 +2094,7 @@
 				A40E2A6C25295B4400986CCA /* Snapshotting.swift */,
 				A43DB6AE254770F8006E4569 /* ActivityIndicator+Extensions.swift */,
 				A4EE9EAC29E7DFC300DDFC50 /* UIStackView+RemoveArrangedSubviews.swift */,
+				A4B3BE3829EC9B2A00644A3D /* UIContextualAction+delete.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -2539,6 +2542,7 @@
 				4C553C0829E6A1150066E2CA /* GamePageInfoItem.swift in Sources */,
 				A40B759224D9A836006DB7D1 /* HomeGameConfigurator.swift in Sources */,
 				A472D2B325291F0200AA9906 /* UserRegisterData.swift in Sources */,
+				A4B3BE3929EC9B2A00644A3D /* UIContextualAction+delete.swift in Sources */,
 				A4DAF73924DD987F00963C15 /* MenuProfileCell.swift in Sources */,
 				A4FEB059273749010052AD7B /* UIAlertAction+Static.swift in Sources */,
 				A4A0519029D1A79400D32E19 /* GameAnnotationRegisterButtonOptions.swift in Sources */,

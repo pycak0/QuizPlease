@@ -19,6 +19,8 @@ struct GamePageDescriptionItem {
 
 extension GamePageDescriptionItem: GamePageItemProtocol {
 
+    var kind: GamePageItemKind { .info }
+
     func cellClass(with context: GamePageViewContext) -> AnyClass {
         GamePageDescriptionCell.self
     }

@@ -10,6 +10,7 @@ import UIKit
 
 struct GamePageFieldItem {
 
+    let kind: GamePageItemKind
     let title: String
     let placeholder: String
     let options: Options
@@ -20,7 +21,11 @@ struct GamePageFieldItem {
     let valueProvider: () -> String?
     let onValueChange: ((String) -> Void)?
 
+    private let canBeEdited: (() -> Bool)?
+    private let swipeActions: [UIContextualAction]
+
     init(
+        kind: GamePageItemKind,
         title: String,
         placeholder: String,
         options: GamePageFieldItem.Options,
@@ -28,8 +33,11 @@ struct GamePageFieldItem {
         valueProvider: @autoclosure @escaping () -> String?,
         fieldColor: UIColor = .clear,
         backgroundColor: UIColor = .systemGray6Adapted,
-        onValueChange: ((String) -> Void)? = nil
+        onValueChange: ((String) -> Void)? = nil,
+        canBeEdited: (() -> Bool)? = nil,
+        swipeActions: [UIContextualAction] = []
     ) {
+        self.kind = kind
         self.title = title
         self.placeholder = placeholder
         self.options = options
@@ -39,6 +47,8 @@ struct GamePageFieldItem {
 
         self.valueProvider = valueProvider
         self.onValueChange = onValueChange
+        self.canBeEdited = canBeEdited
+        self.swipeActions = swipeActions
     }
 }
 
@@ -48,6 +58,14 @@ extension GamePageFieldItem: GamePageItemProtocol {
 
     func cellClass(with context: GamePageViewContext) -> AnyClass {
         GamePageFieldCell.self
+    }
+
+    func isEditable() -> Bool {
+        canBeEdited?() ?? false
+    }
+
+    func trailingSwipeActions() -> [UIContextualAction] {
+        swipeActions
     }
 }
 

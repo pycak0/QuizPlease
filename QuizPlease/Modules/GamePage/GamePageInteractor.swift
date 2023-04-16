@@ -25,8 +25,6 @@ protocol GamePageInteractorProtocol: GameStatusProvider,
 
     /// Get Place information
     func getPlaceInfo() -> Place
-
-    func addSpecialCondition() 
 }
 
 /// GamePage interactor
@@ -104,10 +102,6 @@ final class GamePageInteractor: GamePageInteractorProtocol {
         return gameInfo.placeInfo
     }
 
-    func addSpecialCondition() {
-        registrationService.addSpecialCondition()
-    }
-
     // MARK: - GameStatusProvider
 
     func getGameStatus() -> GameStatus {
@@ -139,6 +133,16 @@ final class GamePageInteractor: GamePageInteractorProtocol {
 
     func getDescription() -> NSAttributedString? {
         parsedHtmlDescription ?? gameInfo.optionalDescription.map { NSAttributedString(string: $0) }
+    }
+
+    // MARK: - SpecialConditionsProvider
+
+    var canAddSpecialCondition: Bool {
+        registrationService.canAddSpecialCondition
+    }
+
+    func addSpecialCondition() -> SpecialCondition? {
+        registrationService.addSpecialCondition()
     }
 
 //    // MARK: - GamePageRegisterFormProvider

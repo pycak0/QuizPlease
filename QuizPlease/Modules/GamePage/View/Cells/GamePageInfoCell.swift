@@ -116,6 +116,10 @@ final class GamePageInfoCell: UITableViewCell {
     }
 
     private func setLocation(of place: Place, radius: CLLocationDistance = 1000) {
+        guard !mapView.annotations.contains(where: { place.isEqual($0) }) else {
+            return
+        }
+        mapView.removeAnnotations(mapView.annotations)
         mapView.setCenter(place.coordinate, regionRadius: radius, animated: false)
         mapView.addAnnotation(place)
     }

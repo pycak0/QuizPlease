@@ -65,6 +65,9 @@ final class GamePageDescriptionCell: UITableViewCell {
     }
 
     private func setDescription(_ attrString: NSAttributedString) {
+        if descriptionTextView.attributedText.string == attrString.string {
+            return
+        }
         let mutableAttrString = NSMutableAttributedString(attributedString: attrString)
         let range = (mutableAttrString.string as NSString).range(of: mutableAttrString.string)
         mutableAttrString.addAttributes([

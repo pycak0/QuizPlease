@@ -19,6 +19,8 @@ struct GamePageAddSpecialConditionItem {
 
 extension GamePageAddSpecialConditionItem: GamePageItemProtocol {
 
+    var kind: GamePageItemKind { .addSpecialCondition }
+
     func cellClass(with context: GamePageViewContext) -> AnyClass {
         GamePageAddSpecialConditionCell.self
     }

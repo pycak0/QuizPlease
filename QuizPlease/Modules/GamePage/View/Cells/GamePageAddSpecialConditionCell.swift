@@ -51,10 +51,10 @@ final class GamePageAddSpecialConditionCell: UITableViewCell {
         contentView.addSubview(addButton)
         NSLayoutConstraint.activate([
             addButton.heightAnchor.constraint(equalToConstant: 40),
-            addButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+            addButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
             addButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            addButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            addButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
+            addButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            addButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
         ])
     }
 

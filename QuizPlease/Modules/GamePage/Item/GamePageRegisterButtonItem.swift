@@ -25,6 +25,8 @@ struct GamePageRegisterButtonItem {
 
 extension GamePageRegisterButtonItem: GamePageItemProtocol {
 
+    var kind: GamePageItemKind { .annotation }
+
     func cellClass(with context: GamePageViewContext) -> AnyClass {
         GamePageRegisterButtonCell.self
     }

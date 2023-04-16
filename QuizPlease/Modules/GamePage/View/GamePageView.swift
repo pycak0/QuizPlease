@@ -8,30 +8,29 @@
 
 import UIKit
 
+private enum Constants {
+
+    static let initialImageHeight: CGFloat = 270
+}
+
 /// GamePage view
 final class GamePageView: UIView {
 
     // MARK: - Private Properties
 
-    private var items: [GamePageItemProtocol] = [] {
-        didSet {
-            registerCells()
-            tableView.reloadData()
-            updateImageHeight()
-        }
-    }
+    private var items: [GamePageItemProtocol] = []
 
     private lazy var context = GamePageViewContext(tableView: tableView, view: self)
 
-    private lazy var headerViewHeightConstraint: NSLayoutConstraint = {
-        headerView.heightAnchor.constraint(equalToConstant: imageBaseHeight)
-    }()
-
-    private var imageBaseHeight: CGFloat = 270 {
+    private var imageBaseHeight: CGFloat = Constants.initialImageHeight {
         didSet {
             headerViewHeightConstraint.constant = imageBaseHeight
         }
     }
+
+    private lazy var headerViewHeightConstraint: NSLayoutConstraint = {
+        headerView.heightAnchor.constraint(equalToConstant: imageBaseHeight)
+    }()
 
     // MARK: - UI Elements
 
@@ -45,6 +44,7 @@ final class GamePageView: UIView {
         let tableView = UITableView()
         tableView.backgroundColor = .clear
         tableView.separatorStyle = .none
+        tableView.showsVerticalScrollIndicator = false
         tableView.estimatedRowHeight = 600
         tableView.rowHeight = UITableView.automaticDimension
         tableView.canCancelContentTouches = false
@@ -72,12 +72,60 @@ final class GamePageView: UIView {
         updateImageHeight()
     }
 
+    override func endEditing(_ force: Bool) -> Bool {
+        print("ended")
+        return super.endEditing(force)
+    }
+
     // MARK: - Internal Methods
 
     /// Set items to display in `GamePageView`
     /// - Parameter items: an array of items implementing `GamePageItemProtocol`
     func setItems(_ items: [GamePageItemProtocol]) {
         self.items = items
+        imageBaseHeight = Constants.initialImageHeight
+        registerCells()
+        tableView.reloadData()
+    }
+
+    func addSpecialCondition(_ item: GamePageItemProtocol) {
+        guard let index = items.lastIndex(where: { $0.kind == .specialCondition }) else { return }
+        let newIndex = index + 1
+        items.insert(item, at: newIndex)
+        tableView.insertRows(at: [IndexPath(row: newIndex, section: 0)], with: .fade)
+    }
+
+    func removeSpecialCondition(at conditionIndex: Int) {
+        guard let firstItemIndex = items.firstIndex(where: { $0.kind == .specialCondition }) else { return }
+        let actualItemIndex = firstItemIndex + conditionIndex
+        let indexPath = IndexPath(row: actualItemIndex, section: 0)
+        items.remove(at: indexPath.row)
+        tableView.deleteRows(at: [indexPath], with: .fade)
+    }
+
+    func showAddButton(item: GamePageItemProtocol) {
+        guard
+            items.first(where: { $0.kind == .addSpecialCondition }) == nil,
+            let index = items.lastIndex(where: { $0.kind == .specialCondition })
+        else {
+            return
+        }
+        register(item: item)
+
+        let newIndex = index + 1
+        items.insert(item, at: newIndex)
+        tableView.insertRows(at: [IndexPath(row: newIndex, section: 0)], with: .fade)
+    }
+
+    func hideAddButton() {
+        guard let index = items.firstIndex(where: { $0.kind == .addSpecialCondition }) else { return }
+        items.remove(at: index)
+        tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .fade)
+    }
+
+    func scrollToRegistration() {
+        guard let index = items.firstIndex(where: { $0.kind == .registrationHeader }) else { return }
+        tableView.scrollToRow(at: IndexPath(row: index, section: 0), at: .top, animated: true)
     }
 
     /// Set the image with given path to the header view
@@ -105,10 +153,12 @@ final class GamePageView: UIView {
     }
 
     private func registerCells() {
-        items.forEach {
-            let cellClass: AnyClass = $0.cellClass(with: context)
-            tableView.register(cellClass, forCellReuseIdentifier: makeReuseIdentifier(cellClass))
-        }
+        items.forEach(register(item:))
+    }
+
+    private func register(item: GamePageItemProtocol) {
+        let cellClass: AnyClass = item.cellClass(with: context)
+        tableView.register(cellClass, forCellReuseIdentifier: makeReuseIdentifier(cellClass))
     }
 
     private func makeReuseIdentifier(_ cellClass: AnyClass) -> String {
@@ -117,8 +167,8 @@ final class GamePageView: UIView {
 
     private func updateImageHeight() {
         guard
-            imageBaseHeight == 270,
-            let index = items.firstIndex(where: { ($0 as? GamePageInfoItem) != nil }),
+            imageBaseHeight == Constants.initialImageHeight,
+            let index = items.firstIndex(where: { $0.kind == .info }),
             let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0))
         else {
             return
@@ -149,6 +199,10 @@ extension GamePageView: UITableViewDataSource {
         cell.configure(with: model)
         return cell
     }
+
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        items[indexPath.row].isEditable()
+    }
 }
 
 // MARK: - UITableViewDelegate
@@ -156,7 +210,15 @@ extension GamePageView: UITableViewDataSource {
 extension GamePageView: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        cell.layoutIfNeeded()
+//        cell.layoutIfNeeded()
+    }
+
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let actions = items[indexPath.row].trailingSwipeActions()
+        if actions.isEmpty {
+            return nil
+        }
+        return UISwipeActionsConfiguration(actions: actions)
     }
 }
 

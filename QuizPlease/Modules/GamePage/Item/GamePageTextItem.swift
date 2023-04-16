@@ -16,6 +16,7 @@ extension GamePageTextItem {
         bottomInset: CGFloat = 8
     ) -> GamePageTextItem {
         GamePageTextItem(
+            kind: .registrationHeader,
             text: text,
             topInset: topInset,
             bottomInset: bottomInset,
@@ -31,6 +32,7 @@ extension GamePageTextItem {
         bottomInset: CGFloat = 10
     ) -> GamePageTextItem {
         GamePageTextItem(
+            kind: .registrationHeader,
             text: text,
             topInset: topInset,
             bottomInset: bottomInset,
@@ -44,6 +46,7 @@ extension GamePageTextItem {
 /// GamePage Text item
 struct GamePageTextItem {
 
+    let kind: GamePageItemKind
     /// Text of the item
     let text: String
     /// Text inset from the top
@@ -60,6 +63,7 @@ struct GamePageTextItem {
     let textAlignment: NSTextAlignment
 
     init(
+        kind: GamePageItemKind,
         text: String,
         topInset: CGFloat,
         bottomInset: CGFloat,
@@ -68,6 +72,7 @@ struct GamePageTextItem {
         textColor: UIColor,
         textAlignment: NSTextAlignment = .left
     ) {
+        self.kind = kind
         self.text = text
         self.topInset = topInset
         self.bottomInset = bottomInset

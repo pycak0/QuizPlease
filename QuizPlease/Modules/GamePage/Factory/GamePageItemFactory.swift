@@ -71,4 +71,8 @@ extension GamePageItemFactory: GamePageItemFactoryProtocol {
         }
         return all.makeItems()
     }
+//
+//    func makeSpecialConditionItem(with model: SpecialCondition) -> GamePageItemProtocol {
+//        specialConditionsBuilder.makeSpecialConditionItem(with: model)
+//    }
 }
