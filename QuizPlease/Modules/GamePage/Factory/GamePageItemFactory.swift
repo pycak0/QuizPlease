@@ -27,6 +27,7 @@ final class GamePageItemFactory {
     private let descriptionBuilder: GamePageItemBuilderProtocol
     private let registrationFieldsBuilder: GamePageItemBuilderProtocol
     private let specialConditionsBuilder: GamePageItemBuilderProtocol
+    private let firstPlayBuilder: GamePageItemBuilderProtocol
 
     private var info: [GamePageItemBuilderProtocol] {
         [annotationBuilder, registerButtonBuilder, infoBuilder, descriptionBuilder]
@@ -37,7 +38,7 @@ final class GamePageItemFactory {
     }
 
     private var all: [GamePageItemBuilderProtocol] {
-        info + registration
+        info + registration + [firstPlayBuilder]
     }
 
     // MARK: - Lifecycle
@@ -49,7 +50,8 @@ final class GamePageItemFactory {
         infoBuilder: GamePageItemBuilderProtocol,
         descriptionBuilder: GamePageItemBuilderProtocol,
         registrationFieldsBuilder: GamePageItemBuilderProtocol,
-        specialConditionsBuilder: GamePageItemBuilderProtocol
+        specialConditionsBuilder: GamePageItemBuilderProtocol,
+        firstPlayBuilder: GamePageItemBuilderProtocol
     ) {
         self.gameStatusProvider = gameStatusProvider
         self.annotationBuilder = annotationBuilder
@@ -58,6 +60,7 @@ final class GamePageItemFactory {
         self.descriptionBuilder = descriptionBuilder
         self.registrationFieldsBuilder = registrationFieldsBuilder
         self.specialConditionsBuilder = specialConditionsBuilder
+        self.firstPlayBuilder = firstPlayBuilder
     }
 }
 
