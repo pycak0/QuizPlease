@@ -27,7 +27,7 @@ extension GamePageFirstPlayBuilder: GamePageItemBuilderProtocol {
         return [
             GamePageCheckboxItem(
                 kind: .firstPlay,
-                title: "Мы играем в первый раз",
+                title: "Мы играем первый раз",
                 getIsSelected: registerForm.isFirstTime,
                 onValueChange: { [weak registerForm] newValue in
                     registerForm?.isFirstTime = newValue
