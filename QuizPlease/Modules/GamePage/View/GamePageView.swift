@@ -45,7 +45,7 @@ final class GamePageView: UIView {
         tableView.backgroundColor = .clear
         tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = false
-        tableView.estimatedRowHeight = 600
+        tableView.estimatedRowHeight = UITableView.automaticDimension
         tableView.rowHeight = UITableView.automaticDimension
         tableView.canCancelContentTouches = false
         tableView.keyboardDismissMode = .interactiveWithAccessory
