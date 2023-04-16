@@ -239,6 +239,6 @@ extension TitledTextFieldView: UITextFieldDelegate {
     /// but make sure to call `super.textFieldShouldReturn(_:)`
     /// at the end of your implementation to preserve correct behavior.
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.endEditing(true)
+        return true
     }
 }

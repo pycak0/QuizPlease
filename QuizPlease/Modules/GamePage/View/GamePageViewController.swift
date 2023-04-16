@@ -8,11 +8,6 @@
 
 import UIKit
 
-protocol SpecialConditionsViewOutput {
-
-    func didPressRemoveSpecialCondition(at index: Int)
-}
-
 protocol SpecialConditionsView: AnyObject {
 
     func addSpecialCondition(_ item: GamePageItemProtocol)

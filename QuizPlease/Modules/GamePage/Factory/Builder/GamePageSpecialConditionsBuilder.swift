@@ -111,27 +111,22 @@ final class GamePageSpecialConditionsBuilder {
                 }
             },
             canBeEdited: { [weak self] in
-                guard let self else { return }
-                return self.specialConditionsProvider.getSpecialConditions().count > 1
+                guard let self else { return false }
+                let currentConditions = self.specialConditionsProvider.getSpecialConditions()
+                return currentConditions.count > 1
             },
             swipeActions: [.delete { [weak self, weak model] in
                 guard let self, let model else { return }
                 let currentConditions = self.specialConditionsProvider.getSpecialConditions()
                 if currentConditions.count > 1,
-                   let index = currentConditions.firstIndex(where: { $0.value == nil }) {
-                    self.specialConditionsProvider.removeSpecialCondition(at: index)
-                    self.view?.removeSpecialCondition(at: index)
+                   let index = currentConditions.firstIndex(where: { $0 === model }) {
+                    self.removeSpecialCondition(at: index)
                 }
             }]
         )
     }
-}
 
-// MARK: - SpecialConditionsViewOutput
-
-extension GamePageSpecialConditionsBuilder: SpecialConditionsViewOutput {
-
-    func didPressRemoveSpecialCondition(at index: Int) {
+    private func removeSpecialCondition(at index: Int) {
         specialConditionsProvider.removeSpecialCondition(at: index)
         view?.removeSpecialCondition(at: index)
         let currentConditions = specialConditionsProvider.getSpecialConditions()
