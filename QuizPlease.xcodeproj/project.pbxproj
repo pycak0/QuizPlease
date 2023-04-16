@@ -275,6 +275,11 @@
 		A4CDC34C27308B1A00282EC2 /* MapRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CDC34B27308B1A00282EC2 /* MapRouter.swift */; };
 		A4CDC34E27308BF000282EC2 /* MapPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CDC34D27308BF000282EC2 /* MapPresenter.swift */; };
 		A4CDC3502732ECAC00282EC2 /* MapInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CDC34F2732ECAC00282EC2 /* MapInteractor.swift */; };
+		A4CFCE4D29ECA95B004F3523 /* GamePageCheckboxCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CFCE4C29ECA95B004F3523 /* GamePageCheckboxCell.swift */; };
+		A4CFCE4F29ECA98C004F3523 /* CheckboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CFCE4E29ECA98C004F3523 /* CheckboxView.swift */; };
+		A4CFCE5129ECAED4004F3523 /* GamePageCheckboxItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CFCE5029ECAED3004F3523 /* GamePageCheckboxItem.swift */; };
+		A4CFCE5329ECAFB4004F3523 /* GamePageItemKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CFCE5229ECAFB4004F3523 /* GamePageItemKind.swift */; };
+		A4CFCE5529ECAFDD004F3523 /* GamePageFirstPlayBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CFCE5429ECAFDD004F3523 /* GamePageFirstPlayBuilder.swift */; };
 		A4D0C2662684EBF60012E05C /* PointsDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D0C2652684EBF60012E05C /* PointsDecorator.swift */; };
 		A4D230A624F91F0100524A01 /* QuestionPageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D230A524F91F0100524A01 /* QuestionPageVC.swift */; };
 		A4D230A824F9203500524A01 /* WarmupQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D230A724F9203500524A01 /* WarmupQuestion.swift */; };
@@ -694,6 +699,11 @@
 		A4CDC34B27308B1A00282EC2 /* MapRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRouter.swift; sourceTree = "<group>"; };
 		A4CDC34D27308BF000282EC2 /* MapPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPresenter.swift; sourceTree = "<group>"; };
 		A4CDC34F2732ECAC00282EC2 /* MapInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapInteractor.swift; sourceTree = "<group>"; };
+		A4CFCE4C29ECA95B004F3523 /* GamePageCheckboxCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageCheckboxCell.swift; sourceTree = "<group>"; };
+		A4CFCE4E29ECA98C004F3523 /* CheckboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxView.swift; sourceTree = "<group>"; };
+		A4CFCE5029ECAED3004F3523 /* GamePageCheckboxItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageCheckboxItem.swift; sourceTree = "<group>"; };
+		A4CFCE5229ECAFB4004F3523 /* GamePageItemKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageItemKind.swift; sourceTree = "<group>"; };
+		A4CFCE5429ECAFDD004F3523 /* GamePageFirstPlayBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageFirstPlayBuilder.swift; sourceTree = "<group>"; };
 		A4D0C2652684EBF60012E05C /* PointsDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointsDecorator.swift; sourceTree = "<group>"; };
 		A4D230A524F91F0100524A01 /* QuestionPageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionPageVC.swift; sourceTree = "<group>"; };
 		A4D230A724F9203500524A01 /* WarmupQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarmupQuestion.swift; sourceTree = "<group>"; };
@@ -895,6 +905,7 @@
 				A4E06B6129E845D30005C57B /* GamePageDescriptionBuilder.swift */,
 				A4E06B7629E9A23A0005C57B /* GamePageRegistrationFieldsBuilder.swift */,
 				A4E06B9A29EA27C80005C57B /* GamePageSpecialConditionsBuilder.swift */,
+				A4CFCE5429ECAFDD004F3523 /* GamePageFirstPlayBuilder.swift */,
 			);
 			path = Builder;
 			sourceTree = "<group>";
@@ -904,6 +915,7 @@
 			children = (
 				4C553C1629E756410066E2CA /* GamePageInfoModel.swift */,
 				A4E06B8129E9DB400005C57B /* CustomFieldModel.swift */,
+				A4CFCE5229ECAFB4004F3523 /* GamePageItemKind.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1221,6 +1233,7 @@
 				A4B129202739CB170035C041 /* CopyableLabel.swift */,
 				A4B129222739DD9D0035C041 /* Spacer.swift */,
 				A4D44A0F28CFD182004703B4 /* BigButton.swift */,
+				A4CFCE4E29ECA98C004F3523 /* CheckboxView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2037,6 +2050,7 @@
 				A4E06B7229E8B7B30005C57B /* GamePageFieldItem.swift */,
 				A4E06B7D29E9B6270005C57B /* GamePageTeamCountItem.swift */,
 				A4E06B9E29EA2A1B0005C57B /* GamePageAddSpecialConditionItem.swift */,
+				A4CFCE5029ECAED3004F3523 /* GamePageCheckboxItem.swift */,
 			);
 			path = Item;
 			sourceTree = "<group>";
@@ -2053,6 +2067,7 @@
 				A4E06B7029E8B1B70005C57B /* GamePageFieldCell.swift */,
 				A4E06B7B29E9B3410005C57B /* GamePageTeamCountCell.swift */,
 				A4E06B9C29EA29110005C57B /* GamePageAddSpecialConditionCell.swift */,
+				A4CFCE4C29ECA95B004F3523 /* GamePageCheckboxCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -2434,6 +2449,7 @@
 				A40B758024D9A75A006DB7D1 /* ScheduleRouter.swift in Sources */,
 				A4068A0124F7DAE2001273B2 /* ServerResponse.swift in Sources */,
 				A4E91EBC26C30D5C008C13A7 /* UIWindow+topViewController.swift in Sources */,
+				A4CFCE5129ECAED4004F3523 /* GamePageCheckboxItem.swift in Sources */,
 				A4C71769254E016400898CA5 /* PaymentProvider.swift in Sources */,
 				A40B758424D9A7CD006DB7D1 /* WarmupInteractor.swift in Sources */,
 				4CDB228B29E5988100DD9E7C /* GamePageRegisterButtonItem.swift in Sources */,
@@ -2447,6 +2463,7 @@
 				A4B129232739DD9D0035C041 /* Spacer.swift in Sources */,
 				4C553C1729E756410066E2CA /* GamePageInfoModel.swift in Sources */,
 				4CDB228729E56E3100DD9E7C /* GamePageAnnotationItem.swift in Sources */,
+				A4CFCE4D29ECA95B004F3523 /* GamePageCheckboxCell.swift in Sources */,
 				A4DAF74724DDCCAD00963C15 /* MenuRatingCell.swift in Sources */,
 				A4EE9EAD29E7DFC300DDFC50 /* UIStackView+RemoveArrangedSubviews.swift in Sources */,
 				A4617344251763AA00B002D1 /* CountPickerView.swift in Sources */,
@@ -2639,6 +2656,7 @@
 				A4F0B9D426246EB100E4E2A5 /* NetworkConfiguration.swift in Sources */,
 				A4E06B6B29E8A1800005C57B /* GamePageTextCell.swift in Sources */,
 				A48E2FC425335A9500CD6BE6 /* SavedAuthInfo.swift in Sources */,
+				A4CFCE4F29ECA98C004F3523 /* CheckboxView.swift in Sources */,
 				A43249F329DF844800DEE6C1 /* Configuration.swift in Sources */,
 				A40689F924F7D11A001273B2 /* City.swift in Sources */,
 				A4E06B7129E8B1B70005C57B /* GamePageFieldCell.swift in Sources */,
@@ -2665,6 +2683,7 @@
 				A46F303624F5284E0062A333 /* GamePaymentTypeCell.swift in Sources */,
 				4C553C0D29E6BE570066E2CA /* GamePageAnnotationProvider.swift in Sources */,
 				A40D817E24D2CA1A006D2CE3 /* WarmupVC.swift in Sources */,
+				A4CFCE5329ECAFB4004F3523 /* GamePageItemKind.swift in Sources */,
 				A4F234812685E0D200E6FC68 /* AnyEncodable.swift in Sources */,
 				A4BA1CF524D8874C00D32ADC /* AlertExtensions.swift in Sources */,
 				A4E06B6D29E8A6920005C57B /* GamePageTextItem.swift in Sources */,
@@ -2704,6 +2723,7 @@
 				A44B2E0728C00B5F00C1BC2F /* DeviceIdProvider.swift in Sources */,
 				A4CDC3502732ECAC00282EC2 /* MapInteractor.swift in Sources */,
 				A48A11F124F56D6900F91B9C /* MenuShopCell.swift in Sources */,
+				A4CFCE5529ECAFDD004F3523 /* GamePageFirstPlayBuilder.swift in Sources */,
 				4C553C0F29E6C18D0066E2CA /* PlaceGeocoder.swift in Sources */,
 				A429533229DCAFF700A76AD9 /* GamePageViewController.swift in Sources */,
 				A4147AD724E5B92D007C131F /* Place.swift in Sources */,

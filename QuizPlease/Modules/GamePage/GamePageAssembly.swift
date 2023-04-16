@@ -44,6 +44,9 @@ extension GamePageAssembly: ViewAssembly {
         let specialConditionsBuilder = GamePageSpecialConditionsBuilder(
             specialConditionsProvider: registrationService
         )
+        let firstPlayBuilder = GamePageFirstPlayBuilder(
+            registerFormProvider: registrationService
+        )
         let itemFactory = GamePageItemFactory(
             gameStatusProvider: interactor,
             annotationBuilder: annotationBuilder,
@@ -51,7 +54,8 @@ extension GamePageAssembly: ViewAssembly {
             infoBuilder: infoBuilder,
             descriptionBuilder: descriptionBuilder,
             registrationFieldsBuilder: registrationFieldsBuilder,
-            specialConditionsBuilder: specialConditionsBuilder
+            specialConditionsBuilder: specialConditionsBuilder,
+            firstPlayBuilder: firstPlayBuilder
         )
         let router = GamePageRouter()
         let presenter = GamePagePresenter(
