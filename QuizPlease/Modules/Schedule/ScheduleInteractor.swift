@@ -70,7 +70,11 @@ final class ScheduleInteractor: ScheduleInteractorProtocol {
             case let .success(gameInfo):
                 var fullInfo = gameInfo
                 fullInfo.setShortInfo(game)
-                completion(fullInfo)
+                /// cells don't have time to update the content when the game is loaded from cache
+                /// временный костыль из-за того, что ячейка почему-то не обновляется второй раз 
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+                    completion(fullInfo)
+                }
             }
         }
     }

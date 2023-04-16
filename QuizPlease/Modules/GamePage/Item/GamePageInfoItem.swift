@@ -33,6 +33,8 @@ final class GamePageInfoItem {
 
 extension GamePageInfoItem: GamePageItemProtocol {
 
+    var kind: GamePageItemKind { .info }
+
     func cellClass(with context: GamePageViewContext) -> AnyClass {
         GamePageInfoCell.self
     }

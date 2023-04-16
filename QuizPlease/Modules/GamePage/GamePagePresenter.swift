@@ -19,6 +19,8 @@ final class GamePagePresenter {
     private let interactor: GamePageInteractorProtocol
     private let router: GamePageRouterProtocol
 
+    private var items: [GamePageItemProtocol] = []
+
     /// `GamePagePresenter` initializer
     /// - Parameters:
     ///   - itemFactory: Factory that creates GamePage items
@@ -39,7 +41,8 @@ final class GamePagePresenter {
 
 extension GamePagePresenter: GamePageViewOutput,
                              GamePageRegisterButtonOutput,
-                             GamePageInfoOutput {
+                             GamePageInfoOutput,
+                             GamePageSpecialConditionsOutput {
 
     func viewDidLoad() {
         view?.startLoading()
@@ -58,19 +61,30 @@ extension GamePagePresenter: GamePageViewOutput,
 
     private func setGameInfo() {
         view?.setTitle(interactor.getGameTitle())
-        view?.setItems(itemFactory.makeItems())
+        self.items = itemFactory.makeItems()
+        view?.setItems(items)
         view?.setHeaderImage(path: interactor.getHeaderImagePath())
     }
 
     // MARK: - GamePageRegisterButtonOutput
 
     func didPressRegisterButton() {
-        print("pressed!")
+        view?.scrollToRegistration()
     }
 
     // MARK: - GamePageInfoOutput
 
     func didTapOnMap() {
         router.showMap(for: interactor.getPlaceInfo())
+    }
+
+    // MARK: - GamePageSpecialConditionsOutput
+
+    func didChangeSpecialCondition() {
+        // TODO
+    }
+
+    func didPressAddSpecialCondition() {
+        // TODO
     }
 }

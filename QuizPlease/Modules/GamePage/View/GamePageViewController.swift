@@ -8,6 +8,17 @@
 
 import UIKit
 
+protocol SpecialConditionsView: AnyObject {
+
+    func addSpecialCondition(_ item: GamePageItemProtocol)
+
+    func removeSpecialCondition(at index: Int)
+
+    func showAddButton(item: GamePageItemProtocol)
+
+    func hideAddButton()
+}
+
 /// Game page screen view output protocol
 protocol GamePageViewOutput {
 
@@ -16,7 +27,9 @@ protocol GamePageViewOutput {
 }
 
 /// Game page screen view protocol
-protocol GamePageViewInput: AnyObject, LoadingIndicator {
+protocol GamePageViewInput: AnyObject,
+                            LoadingIndicator,
+                            SpecialConditionsView {
 
     /// Set items to display in `GamePageView`
     /// - Parameter items: an array of items implementing `GamePageItemProtocol`
@@ -32,6 +45,8 @@ protocol GamePageViewInput: AnyObject, LoadingIndicator {
 
     /// Show error alert
     func showAlert(_ error: Error, handler: (() -> Void)?)
+
+    func scrollToRegistration()
 }
 
 /// Game page screen view controller
@@ -107,5 +122,27 @@ extension GamePageViewController: GamePageViewInput {
         showErrorConnectingToServerAlert { _ in
             handler?()
         }
+    }
+
+    func scrollToRegistration() {
+        gamePageView.scrollToRegistration()
+    }
+
+    // MARK: - SpecialConditionsView
+
+    func addSpecialCondition(_ item: GamePageItemProtocol) {
+        gamePageView.addSpecialCondition(item)
+    }
+
+    func removeSpecialCondition(at index: Int) {
+        gamePageView.removeSpecialCondition(at: index)
+    }
+
+    func showAddButton(item: GamePageItemProtocol) {
+        gamePageView.showAddButton(item: item)
+    }
+
+    func hideAddButton() {
+        gamePageView.hideAddButton()
     }
 }

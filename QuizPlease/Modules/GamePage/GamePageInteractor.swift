@@ -14,6 +14,7 @@ protocol GamePageInteractorProtocol: GameStatusProvider,
                                      GamePageInfoProvider,
                                      GamePageDescriptionProvider {
 
+    /// Load game info
     func loadGame(complpetion: @escaping (Error?) -> Void)
 
     /// Get Game full title
@@ -29,10 +30,15 @@ protocol GamePageInteractorProtocol: GameStatusProvider,
 /// GamePage interactor
 final class GamePageInteractor: GamePageInteractorProtocol {
 
+    // MARK: - Private Properties
+
     private var gameInfo: GameInfo
+    private var parsedHtmlDescription: NSAttributedString?
     private let gameInfoLoader: GameInfoLoader
     private let placeGeocoder: PlaceGeocoderProtocol
     private let registrationService: RegistrationServiceProtocol
+
+    // MARK: - Lifecycle
 
     /// GamePage interactor initializer
     /// - Parameters:
@@ -54,20 +60,33 @@ final class GamePageInteractor: GamePageInteractorProtocol {
         self.registrationService = registrationService
     }
 
+    // MARK: - Private Methods
+
+    private func parseHtmlDescription(text: String?, completion: @escaping () -> Void) {
+        DispatchQueue.global().async { [weak self] in
+            self?.parsedHtmlDescription = text?.htmlFormatted()?.trimmingWhitespacesAndNewlines()
+            DispatchQueue.main.async {
+                completion()
+            }
+        }
+    }
+
     // MARK: - GamePageInteractorProtocol
 
     func loadGame(complpetion: @escaping (Error?) -> Void) {
         gameInfoLoader.load(gameId: gameInfo.id) { [weak self] result in
             guard let self else { return }
-            var error: Error?
             switch result {
             case .success(let game):
                 self.registrationService.loadData()
                 self.gameInfo = game
-            case .failure(let failure):
-                error = failure
+                self.parseHtmlDescription(text: game.optionalDescription) {
+                    complpetion(nil)
+                }
+                return
+            case .failure(let error):
+                complpetion(error)
             }
-            complpetion(error)
         }
     }
 
@@ -112,8 +131,18 @@ final class GamePageInteractor: GamePageInteractorProtocol {
 
     // MARK: - GamePageDescriptionProvider
 
-    func getDescription() -> String? {
-        gameInfo.optionalDescription
+    func getDescription() -> NSAttributedString? {
+        parsedHtmlDescription ?? gameInfo.optionalDescription.map { NSAttributedString(string: $0) }
+    }
+
+    // MARK: - SpecialConditionsProvider
+
+    var canAddSpecialCondition: Bool {
+        registrationService.canAddSpecialCondition
+    }
+
+    func addSpecialCondition() -> SpecialCondition? {
+        registrationService.addSpecialCondition()
     }
 
 //    // MARK: - GamePageRegisterFormProvider

@@ -6,7 +6,7 @@
 //  Copyright © 2021 Владислав. All rights reserved.
 //
 
-struct SpecialCondition {
+final class SpecialCondition {
     var value: String?
     var discountInfo: DiscountInfo?
 }

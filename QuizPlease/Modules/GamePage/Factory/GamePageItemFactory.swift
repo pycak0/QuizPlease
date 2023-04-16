@@ -20,37 +20,44 @@ final class GamePageItemFactory {
 
     // MARK: - Private Properties
 
+    private let gameStatusProvider: GameStatusProvider
     private let annotationBuilder: GamePageItemBuilderProtocol
     private let registerButtonBuilder: GamePageItemBuilderProtocol
     private let infoBuilder: GamePageItemBuilderProtocol
     private let descriptionBuilder: GamePageItemBuilderProtocol
     private let registrationFieldsBuilder: GamePageItemBuilderProtocol
+    private let specialConditionsBuilder: GamePageItemBuilderProtocol
 
     private var info: [GamePageItemBuilderProtocol] {
         [annotationBuilder, registerButtonBuilder, infoBuilder, descriptionBuilder]
     }
 
+    private var registration: [GamePageItemBuilderProtocol] {
+        [registrationFieldsBuilder, specialConditionsBuilder]
+    }
+
+    private var all: [GamePageItemBuilderProtocol] {
+        info + registration
+    }
+
     // MARK: - Lifecycle
 
     init(
+        gameStatusProvider: GameStatusProvider,
         annotationBuilder: GamePageItemBuilderProtocol,
         registerButtonBuilder: GamePageItemBuilderProtocol,
         infoBuilder: GamePageItemBuilderProtocol,
         descriptionBuilder: GamePageItemBuilderProtocol,
-        registrationFieldsBuilder: GamePageItemBuilderProtocol
+        registrationFieldsBuilder: GamePageItemBuilderProtocol,
+        specialConditionsBuilder: GamePageItemBuilderProtocol
     ) {
+        self.gameStatusProvider = gameStatusProvider
         self.annotationBuilder = annotationBuilder
         self.registerButtonBuilder = registerButtonBuilder
         self.infoBuilder = infoBuilder
         self.descriptionBuilder = descriptionBuilder
         self.registrationFieldsBuilder = registrationFieldsBuilder
-    }
-
-    // MARK: - Private Methods
-
-    private func makeAllItems() -> [GamePageItemProtocol] {
-        return info.makeItems()
-        + registrationFieldsBuilder.makeItems()
+        self.specialConditionsBuilder = specialConditionsBuilder
     }
 }
 
@@ -59,6 +66,13 @@ final class GamePageItemFactory {
 extension GamePageItemFactory: GamePageItemFactoryProtocol {
 
     func makeItems() -> [GamePageItemProtocol] {
-        makeAllItems()
+        if !gameStatusProvider.getGameStatus().isRegistrationAvailable {
+            return info.makeItems()
+        }
+        return all.makeItems()
     }
+//
+//    func makeSpecialConditionItem(with model: SpecialCondition) -> GamePageItemProtocol {
+//        specialConditionsBuilder.makeSpecialConditionItem(with: model)
+//    }
 }

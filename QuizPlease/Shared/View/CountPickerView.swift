@@ -155,7 +155,6 @@ final class CountPickerView: UIView {
     // MARK: - Touches
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        setScrollEnabled(false)
         selectButton(with: touches)
     }
 
@@ -174,32 +173,18 @@ final class CountPickerView: UIView {
     // MARK: - Private Methods
 
     private func didEndEditing() {
-        setScrollEnabled(true)
         delegate?.countPickerDidEndEditing(self)
     }
 
     private func selectButton(with touches: Set<UITouch>) {
         guard let location = touches.first?.location(in: pickerStack) else { return }
         for (index, item) in buttons.enumerated() {
-            if item.frame.contains(location) {
+            if item.frame.minX <= location.x && location.x <= item.frame.maxX {
                 if selectedIndex != index {
                     pickerButtonPressed(at: index)
                 }
                 break
             }
-        }
-    }
-
-    private func setScrollEnabled(_ isEnabled: Bool) {
-        var superview = superview
-        while superview != nil {
-            if let scrollView = superview as? UIScrollView,
-               !scrollView.isDecelerating,
-               !scrollView.isDragging {
-                scrollView.contentInsetAdjustmentBehavior = .always
-                scrollView.isScrollEnabled = isEnabled
-            }
-            superview = superview?.superview
         }
     }
 

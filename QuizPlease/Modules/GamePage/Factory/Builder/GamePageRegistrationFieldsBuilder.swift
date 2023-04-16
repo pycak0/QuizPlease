@@ -27,18 +27,8 @@ final class GamePageRegistrationFieldsBuilder {
 
     private func makeTitleAndSubtitle() -> [GamePageItemProtocol] {
         return [
-            GamePageTextItem(
-                text: "Запись на игру",
-                style: .title,
-                topInset: 16,
-                bottomInset: 8
-            ),
-            GamePageTextItem(
-                text: "Введите ваши данные и нажмите на кнопку «Записаться на игру»",
-                style: .subtitle,
-                topInset: 0,
-                bottomInset: 10
-            )
+            GamePageTextItem.title("Запись на игру"),
+            GamePageTextItem.subtitle("Введите ваши данные и нажмите на кнопку «Записаться на игру»")
         ]
     }
 
@@ -46,7 +36,8 @@ final class GamePageRegistrationFieldsBuilder {
         let registerForm = registerFormProvider.getRegisterForm()
         return [
             GamePageFieldItem(
-                title: "Название команды",
+                kind: .basicField,
+                title: "Название команды *",
                 placeholder: "Введите название",
                 options: .team,
                 valueProvider: registerForm.teamName,
@@ -54,7 +45,8 @@ final class GamePageRegistrationFieldsBuilder {
                     registerForm?.teamName = newValue
             }),
             GamePageFieldItem(
-                title: "Имя капитана",
+                kind: .basicField,
+                title: "Имя капитана *",
                 placeholder: "Введите имя",
                 options: .captain,
                 valueProvider: registerForm.captainName,
@@ -62,7 +54,8 @@ final class GamePageRegistrationFieldsBuilder {
                     registerForm?.captainName = newValue
             }),
             GamePageFieldItem(
-                title: "E-mail",
+                kind: .basicField,
+                title: "E-mail *",
                 placeholder: "Введите почту",
                 options: .email,
                 valueProvider: registerForm.email,
@@ -70,7 +63,8 @@ final class GamePageRegistrationFieldsBuilder {
                     registerForm?.email = newValue
             }),
             GamePageFieldItem(
-                title: "Телефон капитана",
+                kind: .basicField,
+                title: "Телефон капитана *",
                 placeholder: "",
                 options: .phone,
                 valueProvider: registerForm.phone,
@@ -87,9 +81,10 @@ final class GamePageRegistrationFieldsBuilder {
 
     private func makeCustomFields() -> [GamePageItemProtocol] {
         let customFields = registerFormProvider.getCustomFields()
-        return customFields.filter({ $0.data.type == .text })
+        var items = customFields.filter({ $0.data.type == .text })
             .map { customField in
                 GamePageFieldItem(
+                    kind: .customField,
                     title: customField.data.label,
                     placeholder: customField.data.placeholder,
                     options: .basic,
@@ -98,6 +93,10 @@ final class GamePageRegistrationFieldsBuilder {
                     customField?.inputValue = newValue
                 }
             }
+        if !items.isEmpty {
+            items[items.count - 1].bottomInset = 20
+        }
+        return items
     }
 }
 

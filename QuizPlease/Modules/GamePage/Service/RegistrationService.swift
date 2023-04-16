@@ -8,8 +8,22 @@
 
 import Foundation
 
+protocol SpecialConditionsProvider: AnyObject {
+
+    var canAddSpecialCondition: Bool { get }
+
+    func getSpecialConditions() -> [SpecialCondition]
+
+    /// If can make a new one, returns it. Otherwise, returns nil
+    func addSpecialCondition() -> SpecialCondition?
+
+    func removeSpecialCondition(at index: Int)
+}
+
 /// Service that manages register form
-protocol RegistrationServiceProtocol: GamePageRegisterFormProvider {
+protocol RegistrationServiceProtocol: AnyObject,
+                                      GamePageRegisterFormProvider,
+                                      SpecialConditionsProvider {
 
     /// Loads necessary registration data about the game
     func loadData()
@@ -24,9 +38,12 @@ protocol RegistrationServiceProtocol: GamePageRegisterFormProvider {
 /// Service that manages register form
 final class RegistrationService {
 
+    private let specialConditionsLimit = 9
+
     private let gameInfoLoader: GameInfoLoader
     private let registerForm: RegisterForm
     private var customFields: [CustomFieldModel] = []
+    private var specialConditions: [SpecialCondition] = [SpecialCondition()]
 
     /// Initialize `RegistrationService`
     /// - Parameters:
@@ -47,6 +64,10 @@ final class RegistrationService {
 
 extension RegistrationService: RegistrationServiceProtocol {
 
+    var canAddSpecialCondition: Bool {
+        specialConditions.count < specialConditionsLimit
+    }
+
     func loadData() {
         gameInfoLoader.load(gameId: registerForm.gameId) { [weak self] result in
             guard let self, let gameInfo = try? result.get() else { return }
@@ -60,5 +81,20 @@ extension RegistrationService: RegistrationServiceProtocol {
 
     func getCustomFields() -> [CustomFieldModel] {
         customFields
+    }
+
+    func getSpecialConditions() -> [SpecialCondition] {
+        specialConditions
+    }
+
+    func addSpecialCondition() -> SpecialCondition? {
+        guard specialConditions.count < specialConditionsLimit else { return nil }
+        let newCondition = SpecialCondition()
+        specialConditions.append(newCondition)
+        return newCondition
+    }
+
+    func removeSpecialCondition(at index: Int) {
+        specialConditions.remove(at: index)
     }
 }

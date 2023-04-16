@@ -12,5 +12,5 @@ import Foundation
 protocol GamePageDescriptionProvider {
 
     /// Get game description text
-    func getDescription() -> String?
+    func getDescription() -> NSAttributedString?
 }

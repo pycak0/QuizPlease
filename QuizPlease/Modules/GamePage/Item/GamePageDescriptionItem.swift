@@ -12,12 +12,14 @@ import Foundation
 struct GamePageDescriptionItem {
 
     /// Game description
-    let description: String
+    let description: NSAttributedString
 }
 
 // MARK: - GamePageItemProtocol
 
 extension GamePageDescriptionItem: GamePageItemProtocol {
+
+    var kind: GamePageItemKind { .info }
 
     func cellClass(with context: GamePageViewContext) -> AnyClass {
         GamePageDescriptionCell.self
