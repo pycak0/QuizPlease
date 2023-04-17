@@ -37,7 +37,7 @@ struct GamePageCheckboxItem {
 
 extension GamePageCheckboxItem: GamePageItemProtocol {
 
-    func cellClass(with context: GamePageViewContext) -> AnyClass {
+    func cellClass(with context: GamePageViewContext) -> GamePageCellProtocol.Type {
         GamePageCheckboxCell.self
     }
 }

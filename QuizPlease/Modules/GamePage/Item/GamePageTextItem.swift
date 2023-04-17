@@ -87,7 +87,7 @@ struct GamePageTextItem {
 
 extension GamePageTextItem: GamePageItemProtocol {
 
-    func cellClass(with context: GamePageViewContext) -> AnyClass {
+    func cellClass(with context: GamePageViewContext) -> GamePageCellProtocol.Type {
         GamePageTextCell.self
     }
 }

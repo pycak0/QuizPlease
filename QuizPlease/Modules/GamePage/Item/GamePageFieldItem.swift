@@ -56,7 +56,7 @@ struct GamePageFieldItem {
 
 extension GamePageFieldItem: GamePageItemProtocol {
 
-    func cellClass(with context: GamePageViewContext) -> AnyClass {
+    func cellClass(with context: GamePageViewContext) -> GamePageCellProtocol.Type {
         GamePageFieldCell.self
     }
 

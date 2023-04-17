@@ -18,6 +18,7 @@ final class GamePagePresenter {
     private let itemFactory: GamePageItemFactoryProtocol
     private let interactor: GamePageInteractorProtocol
     private let router: GamePageRouterProtocol
+    private let shouldScrollToRegistrationOnLoad: Bool
 
     private var items: [GamePageItemProtocol] = []
 
@@ -29,11 +30,13 @@ final class GamePagePresenter {
     init(
         itemFactory: GamePageItemFactoryProtocol,
         interactor: GamePageInteractorProtocol,
-        router: GamePageRouterProtocol
+        router: GamePageRouterProtocol,
+        shouldScrollToRegistrationOnLoad: Bool
     ) {
         self.itemFactory = itemFactory
         self.interactor = interactor
         self.router = router
+        self.shouldScrollToRegistrationOnLoad = shouldScrollToRegistrationOnLoad
     }
 }
 
@@ -42,7 +45,7 @@ final class GamePagePresenter {
 extension GamePagePresenter: GamePageViewOutput,
                              GamePageRegisterButtonOutput,
                              GamePageInfoOutput,
-                             GamePageSpecialConditionsOutput {
+                             GamePageSubmitOutput {
 
     func viewDidLoad() {
         view?.startLoading()
@@ -64,6 +67,9 @@ extension GamePagePresenter: GamePageViewOutput,
         self.items = itemFactory.makeItems()
         view?.setItems(items)
         view?.setHeaderImage(path: interactor.getHeaderImagePath())
+        if shouldScrollToRegistrationOnLoad {
+            view?.scrollToRegistration()
+        }
     }
 
     // MARK: - GamePageRegisterButtonOutput
@@ -78,13 +84,13 @@ extension GamePagePresenter: GamePageViewOutput,
         router.showMap(for: interactor.getPlaceInfo())
     }
 
-    // MARK: - GamePageSpecialConditionsOutput
+    // MARK: - GamePageSubmitOutput
 
-    func didChangeSpecialCondition() {
-        // TODO
+    func submitButtonPressed() {
+        print("Submit!")
     }
 
-    func didPressAddSpecialCondition() {
-        // TODO
+    func agreementButtonPressed() {
+        router.showUserAgreementScreen()
     }
 }

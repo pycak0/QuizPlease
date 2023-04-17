@@ -61,7 +61,11 @@ final class ScheduleRouter: ScheduleRouterProtocol {
 
     func showGameInfo(with options: GameOrderPresentationOptions) {
         if AppSettings.isGamePageEnabled {
-            let assembly = GamePageAssembly(gameId: options.gameInfo.id)
+            let launchOptions = GamePageLaunchOptions(
+                gameId: options.gameInfo.id,
+                shouldScrollToRegistration: options.shouldScrollToSignUp
+            )
+            let assembly = GamePageAssembly(launchOptions: launchOptions)
             navigationController?.pushViewController(assembly.makeViewController(), animated: true)
             return
         }

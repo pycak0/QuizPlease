@@ -21,7 +21,7 @@ extension GamePageAnnotationItem: GamePageItemProtocol {
 
     var kind: GamePageItemKind { .annotation }
 
-    func cellClass(with context: GamePageViewContext) -> AnyClass {
+    func cellClass(with context: GamePageViewContext) -> GamePageCellProtocol.Type {
         GamePageAnnotationCell.self
     }
 }

@@ -21,7 +21,7 @@ extension GamePageAddSpecialConditionItem: GamePageItemProtocol {
 
     var kind: GamePageItemKind { .addSpecialCondition }
 
-    func cellClass(with context: GamePageViewContext) -> AnyClass {
+    func cellClass(with context: GamePageViewContext) -> GamePageCellProtocol.Type {
         GamePageAddSpecialConditionCell.self
     }
 }
