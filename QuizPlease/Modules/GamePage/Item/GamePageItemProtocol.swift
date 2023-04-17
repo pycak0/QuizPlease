@@ -13,7 +13,7 @@ protocol GamePageItemProtocol {
 
     var kind: GamePageItemKind { get }
 
-    func cellClass(with context: GamePageViewContext) -> AnyClass
+    func cellClass(with context: GamePageViewContext) -> GamePageCellProtocol.Type
 
     func isEditable() -> Bool
 

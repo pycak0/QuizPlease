@@ -35,7 +35,7 @@ extension GamePageInfoItem: GamePageItemProtocol {
 
     var kind: GamePageItemKind { .info }
 
-    func cellClass(with context: GamePageViewContext) -> AnyClass {
+    func cellClass(with context: GamePageViewContext) -> GamePageCellProtocol.Type {
         GamePageInfoCell.self
     }
 }

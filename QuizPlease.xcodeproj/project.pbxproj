@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		44461018673EE50E25492D87 /* Pods_QuizPlease_QuizPleaseTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CDEF38011787C6A59A13C3C /* Pods_QuizPlease_QuizPleaseTests.framework */; };
+		4C00220129ED4CD70030B1FD /* GamePageSubmitButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C00220029ED4CD70030B1FD /* GamePageSubmitButtonCell.swift */; };
+		4C00220329ED4F950030B1FD /* GamePageSubmitButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C00220229ED4F950030B1FD /* GamePageSubmitButtonItem.swift */; };
+		4C00220529ED53020030B1FD /* GamePageAgreementCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C00220429ED53020030B1FD /* GamePageAgreementCell.swift */; };
+		4C00220729ED5C310030B1FD /* GamePageAgreementItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C00220629ED5C310030B1FD /* GamePageAgreementItem.swift */; };
+		4C00220929ED5D520030B1FD /* GamePageSubmitBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C00220829ED5D520030B1FD /* GamePageSubmitBuilder.swift */; };
 		4C553C0129E688400066E2CA /* GamePageInfoLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C553C0029E688400066E2CA /* GamePageInfoLineView.swift */; };
 		4C553C0429E68B4A0066E2CA /* GamePageInfoLineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C553C0329E68B4A0066E2CA /* GamePageInfoLineViewModel.swift */; };
 		4C553C0629E696F40066E2CA /* GamePageInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C553C0529E696F40066E2CA /* GamePageInfoCell.swift */; };
@@ -424,6 +429,11 @@
 		30D99B3DFBAFE3F6A1C9CBD5 /* Pods-QuizPlease.production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuizPlease.production.xcconfig"; path = "Target Support Files/Pods-QuizPlease/Pods-QuizPlease.production.xcconfig"; sourceTree = "<group>"; };
 		463DA29CC431986A33D73FEE /* Pods-QuizPlease.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuizPlease.debug.xcconfig"; path = "Target Support Files/Pods-QuizPlease/Pods-QuizPlease.debug.xcconfig"; sourceTree = "<group>"; };
 		4B96AC7846537ADF1B2E29E1 /* Pods_QuizPlease.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QuizPlease.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C00220029ED4CD70030B1FD /* GamePageSubmitButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageSubmitButtonCell.swift; sourceTree = "<group>"; };
+		4C00220229ED4F950030B1FD /* GamePageSubmitButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageSubmitButtonItem.swift; sourceTree = "<group>"; };
+		4C00220429ED53020030B1FD /* GamePageAgreementCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageAgreementCell.swift; sourceTree = "<group>"; };
+		4C00220629ED5C310030B1FD /* GamePageAgreementItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageAgreementItem.swift; sourceTree = "<group>"; };
+		4C00220829ED5D520030B1FD /* GamePageSubmitBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageSubmitBuilder.swift; sourceTree = "<group>"; };
 		4C553C0029E688400066E2CA /* GamePageInfoLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageInfoLineView.swift; sourceTree = "<group>"; };
 		4C553C0329E68B4A0066E2CA /* GamePageInfoLineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageInfoLineViewModel.swift; sourceTree = "<group>"; };
 		4C553C0529E696F40066E2CA /* GamePageInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageInfoCell.swift; sourceTree = "<group>"; };
@@ -906,6 +916,7 @@
 				A4E06B7629E9A23A0005C57B /* GamePageRegistrationFieldsBuilder.swift */,
 				A4E06B9A29EA27C80005C57B /* GamePageSpecialConditionsBuilder.swift */,
 				A4CFCE5429ECAFDD004F3523 /* GamePageFirstPlayBuilder.swift */,
+				4C00220829ED5D520030B1FD /* GamePageSubmitBuilder.swift */,
 			);
 			path = Builder;
 			sourceTree = "<group>";
@@ -2051,6 +2062,8 @@
 				A4E06B7D29E9B6270005C57B /* GamePageTeamCountItem.swift */,
 				A4E06B9E29EA2A1B0005C57B /* GamePageAddSpecialConditionItem.swift */,
 				A4CFCE5029ECAED3004F3523 /* GamePageCheckboxItem.swift */,
+				4C00220229ED4F950030B1FD /* GamePageSubmitButtonItem.swift */,
+				4C00220629ED5C310030B1FD /* GamePageAgreementItem.swift */,
 			);
 			path = Item;
 			sourceTree = "<group>";
@@ -2068,6 +2081,8 @@
 				A4E06B7B29E9B3410005C57B /* GamePageTeamCountCell.swift */,
 				A4E06B9C29EA29110005C57B /* GamePageAddSpecialConditionCell.swift */,
 				A4CFCE4C29ECA95B004F3523 /* GamePageCheckboxCell.swift */,
+				4C00220029ED4CD70030B1FD /* GamePageSubmitButtonCell.swift */,
+				4C00220429ED53020030B1FD /* GamePageAgreementCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -2556,6 +2571,7 @@
 				A4A5370424EC7691004A10D4 /* UIColor+Static.swift in Sources */,
 				4C553C1229E6C2ED0066E2CA /* GamePageInfoBuilder.swift in Sources */,
 				A4E675F4255D78400011A801 /* AudioView.swift in Sources */,
+				4C00220729ED5C310030B1FD /* GamePageAgreementItem.swift in Sources */,
 				4C553C0829E6A1150066E2CA /* GamePageInfoItem.swift in Sources */,
 				A40B759224D9A836006DB7D1 /* HomeGameConfigurator.swift in Sources */,
 				A472D2B325291F0200AA9906 /* UserRegisterData.swift in Sources */,
@@ -2616,6 +2632,7 @@
 				A4F3A795257E561800D6A9C7 /* SplashScreenVC.swift in Sources */,
 				A40B759E24D9A86E006DB7D1 /* RatingPresenter.swift in Sources */,
 				4C553C1429E755A90066E2CA /* GamePageInfoProvider.swift in Sources */,
+				4C00220329ED4F950030B1FD /* GamePageSubmitButtonItem.swift in Sources */,
 				A498FCCC24E52ED80069F896 /* GameRegisterCell.swift in Sources */,
 				A4D44A0E28CFC9A9004703B4 /* OnboardingViewController.swift in Sources */,
 				A4C9D81324EA78BB00523688 /* RatingCell.swift in Sources */,
@@ -2630,6 +2647,7 @@
 				A44B2E0428C006B900C1BC2F /* WarmupQuestionsServiceStub.swift in Sources */,
 				A40D818624D2CA44006D2CE3 /* ShopVC.swift in Sources */,
 				A4FFA4AD24F3AE78006A1150 /* MKMapView+Extensions.swift in Sources */,
+				4C00220129ED4CD70030B1FD /* GamePageSubmitButtonCell.swift in Sources */,
 				A4AFCD3C2953B0B9005F858C /* AnalyticsEvent.swift in Sources */,
 				A4F3A79C257E82A600D6A9C7 /* ProfileSampleCell.swift in Sources */,
 				A4FEB056273739F10052AD7B /* YNMapProvider.swift in Sources */,
@@ -2737,6 +2755,7 @@
 				A4E06B9F29EA2A1B0005C57B /* GamePageAddSpecialConditionItem.swift in Sources */,
 				A4FEB054273739F10052AD7B /* GMapsProvider.swift in Sources */,
 				A4F0B9DE26248B6900E4E2A5 /* SplashScreenInteractor.swift in Sources */,
+				4C00220529ED53020030B1FD /* GamePageAgreementCell.swift in Sources */,
 				A423AC2224EEBCD600071E68 /* FiltersVC.swift in Sources */,
 				A48E2FBC253330D900CD6BE6 /* DeliveryMethod.swift in Sources */,
 				A4CC5FC724DACE2D0042B41C /* ShopConfigurator.swift in Sources */,
@@ -2744,6 +2763,7 @@
 				A4E06B6F29E8AF590005C57B /* NSAttributedString+TrimmingWhitespacesAndNewlines.swift in Sources */,
 				A4112D5B28B6883F0097ED97 /* DeleteResponse.swift in Sources */,
 				A472D2AD2528A89100AA9906 /* AuthVC.swift in Sources */,
+				4C00220929ED5D520030B1FD /* GamePageSubmitBuilder.swift in Sources */,
 				A4837BD12636086D00517EC6 /* SecurityHelper.swift in Sources */,
 				A428383E272B221100F417E6 /* UIApplication+getKeyWindow.swift in Sources */,
 				A40C807B252E7E7900CE40D8 /* DefaultsManager.swift in Sources */,

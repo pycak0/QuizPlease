@@ -8,11 +8,11 @@
 
 import Foundation
 
-protocol GamePageSpecialConditionsOutput: AnyObject {
-
-    func didChangeSpecialCondition()
-    func didPressAddSpecialCondition()
-}
+//protocol GamePageSpecialConditionsOutput: AnyObject {
+//
+//    func didChangeSpecialCondition()
+//    func didPressAddSpecialCondition()
+//}
 
 //protocol GamePageSpecialConditionsBuilderProtocol: GamePageItemBuilderProtocol {
 //
@@ -23,7 +23,6 @@ protocol GamePageSpecialConditionsOutput: AnyObject {
 final class GamePageSpecialConditionsBuilder {
 
     weak var view: SpecialConditionsView?
-    weak var output: GamePageSpecialConditionsOutput?
 
     // MARK: - Private Properties
 

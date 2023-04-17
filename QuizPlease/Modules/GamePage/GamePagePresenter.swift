@@ -42,7 +42,7 @@ final class GamePagePresenter {
 extension GamePagePresenter: GamePageViewOutput,
                              GamePageRegisterButtonOutput,
                              GamePageInfoOutput,
-                             GamePageSpecialConditionsOutput {
+                             GamePageSubmitOutput {
 
     func viewDidLoad() {
         view?.startLoading()
@@ -78,13 +78,13 @@ extension GamePagePresenter: GamePageViewOutput,
         router.showMap(for: interactor.getPlaceInfo())
     }
 
-    // MARK: - GamePageSpecialConditionsOutput
+    // MARK: - GamePageSubmitOutput
 
-    func didChangeSpecialCondition() {
-        // TODO
+    func submitButtonPressed() {
+        print("Submit!")
     }
 
-    func didPressAddSpecialCondition() {
-        // TODO
+    func agreementButtonPressed() {
+        print("agreement!")
     }
 }

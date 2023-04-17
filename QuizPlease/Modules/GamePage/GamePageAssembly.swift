@@ -47,6 +47,9 @@ extension GamePageAssembly: ViewAssembly {
         let firstPlayBuilder = GamePageFirstPlayBuilder(
             registerFormProvider: registrationService
         )
+        let submitBuilder = GamePageSubmitBuilder(
+            registerFormProvider: registrationService
+        )
         let itemFactory = GamePageItemFactory(
             gameStatusProvider: interactor,
             annotationBuilder: annotationBuilder,
@@ -55,7 +58,8 @@ extension GamePageAssembly: ViewAssembly {
             descriptionBuilder: descriptionBuilder,
             registrationFieldsBuilder: registrationFieldsBuilder,
             specialConditionsBuilder: specialConditionsBuilder,
-            firstPlayBuilder: firstPlayBuilder
+            firstPlayBuilder: firstPlayBuilder,
+            submitBuilder: submitBuilder
         )
         let router = GamePageRouter()
         let presenter = GamePagePresenter(
@@ -67,8 +71,8 @@ extension GamePageAssembly: ViewAssembly {
 
         infoBuilder.output = presenter
         registerButtonBuilder.output = presenter
-        specialConditionsBuilder.output = presenter
         specialConditionsBuilder.view = viewController
+        submitBuilder.output = presenter
         presenter.view = viewController
         router.viewController = viewController
 

@@ -31,7 +31,7 @@ extension GamePageTeamCountItem: GamePageItemProtocol {
 
     var kind: GamePageItemKind { .basicField }
 
-    func cellClass(with context: GamePageViewContext) -> AnyClass {
+    func cellClass(with context: GamePageViewContext) -> GamePageCellProtocol.Type {
         GamePageTeamCountCell.self
     }
 }
