@@ -46,6 +46,8 @@ protocol GamePageViewInput: AnyObject,
     /// Show error alert
     func showAlert(_ error: Error, handler: (() -> Void)?)
 
+    func showAlert(title: String, message: String)
+
     func scrollToRegistration()
 }
 
@@ -122,6 +124,10 @@ extension GamePageViewController: GamePageViewInput {
         showErrorConnectingToServerAlert { _ in
             handler?()
         }
+    }
+
+    func showAlert(title: String, message: String) {
+        showSimpleAlert(title: title, message: message)
     }
 
     func scrollToRegistration() {

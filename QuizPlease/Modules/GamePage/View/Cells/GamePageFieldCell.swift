@@ -12,12 +12,15 @@ private enum Constants {
 
     static let horizontalSpacing: CGFloat = 16
     static let topInset: CGFloat = 10
+    static let buttonInset: CGFloat = 8
 }
 
 /// GamePage cell with a text field
 final class GamePageFieldCell: UITableViewCell {
 
     // MARK: - Private Properties
+
+    private var buttonTapAction: (() -> Void)?
 
     private var onTextChange: ((String) -> Void)?
 
@@ -48,6 +51,18 @@ final class GamePageFieldCell: UITableViewCell {
         return textFieldView
     }()
 
+    private lazy var accessoryButton: ScalingButton = {
+        let button = ScalingButton()
+        button.backgroundColor = .lightGreen
+        button.tintColor = .black
+        button.layer.cornerRadius = 10
+        button.titleLabel?.font = .gilroy(.semibold, size: 16)
+        button.setTitle("OK", for: .normal)
+        button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+
     // MARK: - Lifecycle
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -65,14 +80,29 @@ final class GamePageFieldCell: UITableViewCell {
 
     private func makeLayout() {
         contentView.addSubview(textFieldView)
+        contentView.addSubview(accessoryButton)
         NSLayoutConstraint.activate([
             textFieldView.leadingAnchor.constraint(
                 equalTo: contentView.leadingAnchor, constant: Constants.horizontalSpacing),
             textFieldView.trailingAnchor.constraint(
                 equalTo: contentView.trailingAnchor, constant: -Constants.horizontalSpacing),
             topConstraint,
-            bottomConstraint
+            bottomConstraint,
+
+            accessoryButton.trailingAnchor.constraint(
+                equalTo: textFieldView.trailingAnchor, constant: -Constants.buttonInset),
+            accessoryButton.topAnchor.constraint(
+                equalTo: textFieldView.topAnchor, constant: Constants.buttonInset),
+            accessoryButton.bottomAnchor.constraint(
+                equalTo: textFieldView.bottomAnchor, constant: -Constants.buttonInset),
+            accessoryButton.widthAnchor.constraint(
+                equalTo: accessoryButton.heightAnchor)
         ])
+    }
+
+    @objc
+    private func buttonPressed() {
+        buttonTapAction?()
     }
 }
 
@@ -111,5 +141,8 @@ extension GamePageFieldCell: GamePageCellProtocol {
         onTextChange = item.onValueChange
 
         textFieldView.textField.text = item.valueProvider()
+
+        accessoryButton.isHidden = !item.showsOkButton
+        buttonTapAction = item.okButtonAction
     }
 }
