@@ -16,6 +16,7 @@ protocol WebPageRouter {
     ///   - url: web page url
     ///   - options: Options to open url in browser
     /// - Returns: `true`, if the url was opened. Otherwise, returns `false`
+    @discardableResult
     func open(url: URL, options: WepPageBrowserOptions?) -> Bool
 }
 
@@ -25,6 +26,7 @@ extension WebPageRouter {
     /// - Parameters:
     ///   - url: web page url
     /// - Returns: `true`, if the url was opened. Otherwise, returns `false`
+    @discardableResult
     func open(url: URL) -> Bool {
         open(url: url, options: nil)
     }
@@ -35,6 +37,7 @@ final class WebPageRouterImpl: NSObject, WebPageRouter {
 
     // MARK: - WebPageRouter
 
+    @discardableResult
     func open(url: URL, options: WepPageBrowserOptions?) -> Bool {
         guard let viewController = UIApplication.shared
             .getKeyWindow()?

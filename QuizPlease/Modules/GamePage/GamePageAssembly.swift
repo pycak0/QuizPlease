@@ -61,7 +61,9 @@ extension GamePageAssembly: ViewAssembly {
             firstPlayBuilder: firstPlayBuilder,
             submitBuilder: submitBuilder
         )
-        let router = GamePageRouter()
+        let router = GamePageRouter(
+            webPageRouter: services.core.webPageRouter
+        )
         let presenter = GamePagePresenter(
             itemFactory: itemFactory,
             interactor: interactor,

@@ -25,8 +25,9 @@ final class GamePageAgreementCell: UITableViewCell {
     private let agreementButton: UIButton = {
         let button = UIButton()
         button.titleLabel?.numberOfLines = 0
-        button.tintColor = .opaqueSeparatorAdapted
-        button.setTitleColor(.opaqueSeparatorAdapted, for: .normal)
+        let color = UIColor.opaqueSeparatorAdapted
+        button.tintColor = color
+        button.setTitleColor(color, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -62,6 +63,16 @@ final class GamePageAgreementCell: UITableViewCell {
         ])
     }
 
+    @objc
+    private func highlighted() {
+        agreementButton.alpha = 0.5
+    }
+
+    @objc
+    private func released() {
+        agreementButton.alpha = 1
+    }
+
     private func setupAgreementButton() {
         let text = "Записываясь на игру, вы соглашаетесь c условиями пользовательского соглашения"
         let attrText = NSMutableAttributedString(string: text)
@@ -84,6 +95,22 @@ final class GamePageAgreementCell: UITableViewCell {
 
         agreementButton.setAttributedTitle(attrText, for: .normal)
         agreementButton.addTarget(self, action: #selector(agreementButtonPressed), for: .touchUpInside)
+
+        let highlightControlEvents: UIControl.Event = [
+            .touchDown,
+            .touchDragEnter,
+            .touchDragInside
+        ]
+        agreementButton.addTarget(self, action: #selector(highlighted), for: highlightControlEvents)
+
+        let releaseControlEvents: UIControl.Event = [
+            .touchCancel,
+            .touchDragExit,
+            .touchUpOutside,
+            .touchDragOutside,
+            .touchUpInside
+        ]
+        agreementButton.addTarget(self, action: #selector(released), for: releaseControlEvents)
     }
 
     @objc

@@ -33,3 +33,11 @@ struct WepPageBrowserOptions {
         self.controlsColor = controlsColor
     }
 }
+
+extension WepPageBrowserOptions {
+
+    /// Options with `autoReaderView` property enabled
+    static let autoReaderView: WepPageBrowserOptions = {
+        WepPageBrowserOptions(autoReaderView: true)
+    }()
+}

@@ -85,6 +85,6 @@ extension GamePagePresenter: GamePageViewOutput,
     }
 
     func agreementButtonPressed() {
-        print("agreement!")
+        router.showUserAgreementScreen()
     }
 }
