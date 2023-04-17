@@ -25,14 +25,14 @@ protocol RegistrationServiceProtocol: AnyObject,
                                       GamePageRegisterFormProvider,
                                       SpecialConditionsProvider {
 
-    /// Loads necessary registration data about the game
-    func loadData()
-
     /// Provides a reference to the managed register form
     func getRegisterForm() -> RegisterForm
 
     /// Provides a custom fields array with editable user input properties
     func getCustomFields() -> [CustomFieldModel]
+
+    /// Sets a new list of custom fields replacing the old ones
+    func setCustomFields(_ newFields: [CustomFieldModel])
 
     func checkSpecialCondition(
         _ value: String,
@@ -45,7 +45,6 @@ final class RegistrationService {
 
     private let specialConditionsLimit = 9
 
-    private let gameInfoLoader: GameInfoLoader
     private let networkService: NetworkServiceProtocol
     private let registerForm: RegisterForm
     private var customFields: [CustomFieldModel] = []
@@ -59,14 +58,12 @@ final class RegistrationService {
     /// Creates a new register form
     init(
         gameId: Int,
-        gameInfoLoader: GameInfoLoader,
         networkService: NetworkServiceProtocol
     ) {
         self.registerForm = RegisterForm(
             cityId: AppSettings.defaultCity.id,
             gameId: gameId
         )
-        self.gameInfoLoader = gameInfoLoader
         self.networkService = networkService
     }
 }
@@ -79,19 +76,16 @@ extension RegistrationService: RegistrationServiceProtocol {
         specialConditions.count < specialConditionsLimit
     }
 
-    func loadData() {
-        gameInfoLoader.load(gameId: registerForm.gameId) { [weak self] result in
-            guard let self, let gameInfo = try? result.get() else { return }
-            self.customFields = gameInfo.customFields?.map { CustomFieldModel(data: $0) } ?? []
-        }
-    }
-
     func getRegisterForm() -> RegisterForm {
         registerForm
     }
 
     func getCustomFields() -> [CustomFieldModel] {
         customFields
+    }
+
+    func setCustomFields(_ newFields: [CustomFieldModel]) {
+        customFields = newFields
     }
 
     func getSpecialConditions() -> [SpecialCondition] {
