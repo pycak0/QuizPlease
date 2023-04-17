@@ -98,8 +98,10 @@ final class GamePageSpecialConditionsBuilder {
             fieldColor: .systemBackgroundAdapted,
             backgroundColor: .lightGreen.withAlphaComponent(0.2),
             onValueChange: { [weak model, weak self] newValue in
-                guard let self else { return }
-                model?.value = newValue
+                guard let self, let model else { return }
+                model.value = newValue
+                /// If the value was chagned, we can't guarantee that the new condition is still valid
+                model.discountInfo = nil
                 let currentConditions = self.specialConditionsProvider.getSpecialConditions()
                 if currentConditions.count == 1 {
                     if newValue.isEmpty {
