@@ -19,7 +19,7 @@ struct GamePageSubmitButtonItem {
     let tapAction: (() -> Void)?
 
     init(
-        getTitle: @autoclosure @escaping () -> String,
+        getTitle: @escaping () -> String,
         tapAction: (() -> Void)?
     ) {
         self.getTitle = getTitle

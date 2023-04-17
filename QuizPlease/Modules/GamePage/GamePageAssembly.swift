@@ -48,7 +48,7 @@ extension GamePageAssembly: ViewAssembly {
             registerFormProvider: registrationService
         )
         let submitBuilder = GamePageSubmitBuilder(
-            registerFormProvider: registrationService
+            titleProvider: interactor
         )
         let itemFactory = GamePageItemFactory(
             gameStatusProvider: interactor,

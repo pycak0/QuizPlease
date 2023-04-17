@@ -9,10 +9,12 @@
 import Foundation
 
 /// GamePage interactor protocol
-protocol GamePageInteractorProtocol: GameStatusProvider,
+protocol GamePageInteractorProtocol: AnyObject,
+                                     GameStatusProvider,
                                      GamePageAnnotationProvider,
                                      GamePageInfoProvider,
-                                     GamePageDescriptionProvider {
+                                     GamePageDescriptionProvider,
+                                     GamePageSubmitButtonTitleProvider {
 
     /// Load game info
     func loadGame(complpetion: @escaping (Error?) -> Void)
@@ -150,4 +152,11 @@ final class GamePageInteractor: GamePageInteractorProtocol {
 //    func getRegisterForm() -> RegisterForm {
 //        registrationService.getRegisterForm()
 //    }
+
+    // MARK: - GamePageSubmitButtonTitleProvider
+
+    func getSubmitButtonTitle() -> String {
+        let registerForm = registrationService.getRegisterForm()
+        return registerForm.paymentType == .online ? "Оплатить игру" : "Записаться на игру"
+    }
 }

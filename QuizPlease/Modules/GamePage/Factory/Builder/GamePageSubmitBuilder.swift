@@ -25,20 +25,21 @@ final class GamePageSubmitBuilder {
 
     // MARK: - Private Properties
 
-    private let registerFormProvider: GamePageRegisterFormProvider
+    private let titleProvider: GamePageSubmitButtonTitleProvider
 
     // MARK: - Lifecycle
 
-    init(registerFormProvider: GamePageRegisterFormProvider) {
-        self.registerFormProvider = registerFormProvider
+    init(titleProvider: GamePageSubmitButtonTitleProvider) {
+        self.titleProvider = titleProvider
     }
 
     // MARK: - Private Methods
 
     private func makeSubmitItem() -> GamePageItemProtocol {
-        let registerForm = registerFormProvider.getRegisterForm()
-        return GamePageSubmitButtonItem(
-            getTitle: registerForm.paymentType == .online ? "Оплатить игру" : "Записаться на игру",
+        GamePageSubmitButtonItem(
+            getTitle: { [weak titleProvider] in
+                titleProvider?.getSubmitButtonTitle() ?? "Записаться на игру"
+            },
             tapAction: { [weak output] in
                 output?.submitButtonPressed()
             }
