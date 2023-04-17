@@ -26,7 +26,8 @@ extension GamePageAssembly: ViewAssembly {
     func makeViewController() -> UIViewController {
         let registrationService = RegistrationService(
             gameId: launchOptions.gameId,
-            gameInfoLoader: services.gameInfoLoader
+            gameInfoLoader: services.gameInfoLoader,
+            networkService: services.networkService
         )
         let interactor = GamePageInteractor(
             gameId: launchOptions.gameId,
@@ -75,6 +76,7 @@ extension GamePageAssembly: ViewAssembly {
         infoBuilder.output = presenter
         registerButtonBuilder.output = presenter
         specialConditionsBuilder.view = viewController
+        specialConditionsBuilder.output = presenter
         submitBuilder.output = presenter
         presenter.view = viewController
         router.viewController = viewController

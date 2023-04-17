@@ -43,6 +43,9 @@ final class ServiceAssembly {
 
     /// Service that loads Game info
     lazy var gameInfoLoader: GameInfoLoader = {
-        GameInfoLoaderImpl(networkService: NetworkService.shared)
+        GameInfoLoaderImpl(networkService: networkService)
     }()
+
+    /// Network service
+    lazy var networkService: NetworkServiceProtocol = NetworkService.shared
 }

@@ -45,6 +45,7 @@ final class GamePagePresenter {
 extension GamePagePresenter: GamePageViewOutput,
                              GamePageRegisterButtonOutput,
                              GamePageInfoOutput,
+                             GamePageSpecialConditionsOutput,
                              GamePageSubmitOutput {
 
     func viewDidLoad() {
@@ -82,6 +83,18 @@ extension GamePagePresenter: GamePageViewOutput,
 
     func didTapOnMap() {
         router.showMap(for: interactor.getPlaceInfo())
+    }
+
+    // MARK: - GamePageSpecialConditionsOutput
+
+    func didPressCheckSpecialCondition(value: String?) {
+        guard let value else { return }
+        view?.startLoading()
+        interactor.checkSpecialCondition(value) { [weak view] isSuccess, message in
+            view?.stopLoading()
+            let title = isSuccess ? "Успешно" : "Ошибка"
+            view?.showAlert(title: title, message: message)
+        }
     }
 
     // MARK: - GamePageSubmitOutput

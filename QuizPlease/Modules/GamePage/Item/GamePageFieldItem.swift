@@ -20,6 +20,8 @@ struct GamePageFieldItem {
 
     let valueProvider: () -> String?
     let onValueChange: ((String) -> Void)?
+    let showsOkButton: Bool
+    let okButtonAction: (() -> Void)?
 
     private let canBeEdited: (() -> Bool)?
     private let swipeActions: [UIContextualAction]
@@ -34,6 +36,8 @@ struct GamePageFieldItem {
         fieldColor: UIColor = .clear,
         backgroundColor: UIColor = .systemGray6Adapted,
         onValueChange: ((String) -> Void)? = nil,
+        showsOkButton: Bool = false,
+        okButtonAction: (() -> Void)? = nil,
         canBeEdited: (() -> Bool)? = nil,
         swipeActions: [UIContextualAction] = []
     ) {
@@ -47,6 +51,10 @@ struct GamePageFieldItem {
 
         self.valueProvider = valueProvider
         self.onValueChange = onValueChange
+
+        self.showsOkButton = showsOkButton
+        self.okButtonAction = okButtonAction
+
         self.canBeEdited = canBeEdited
         self.swipeActions = swipeActions
     }

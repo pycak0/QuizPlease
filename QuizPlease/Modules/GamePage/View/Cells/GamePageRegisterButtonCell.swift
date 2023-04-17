@@ -30,7 +30,7 @@ final class GamePageRegisterButtonCell: UITableViewCell {
         button.layer.cornerRadius = Constants.height / 2
         button.backgroundColor = .lightGreen
         button.titleLabel?.font = .gilroy(.bold, size: 16)
-        button.setTitleColor(.black, for: .normal)
+        button.tintColor = .black
         button.addTarget(self, action: #selector(registerButtonPressed), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button

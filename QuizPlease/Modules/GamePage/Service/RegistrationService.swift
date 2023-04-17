@@ -33,6 +33,11 @@ protocol RegistrationServiceProtocol: AnyObject,
 
     /// Provides a custom fields array with editable user input properties
     func getCustomFields() -> [CustomFieldModel]
+
+    func checkSpecialCondition(
+        _ value: String,
+        completion: @escaping (_ success: Bool, _ message: String) -> Void
+    )
 }
 
 /// Service that manages register form
@@ -41,6 +46,7 @@ final class RegistrationService {
     private let specialConditionsLimit = 9
 
     private let gameInfoLoader: GameInfoLoader
+    private let networkService: NetworkServiceProtocol
     private let registerForm: RegisterForm
     private var customFields: [CustomFieldModel] = []
     private var specialConditions: [SpecialCondition] = [SpecialCondition()]
@@ -51,12 +57,17 @@ final class RegistrationService {
     ///   - gameInfoLoader: Service that loads Game info
     ///
     /// Creates a new register form
-    init(gameId: Int, gameInfoLoader: GameInfoLoader) {
+    init(
+        gameId: Int,
+        gameInfoLoader: GameInfoLoader,
+        networkService: NetworkServiceProtocol
+    ) {
         self.registerForm = RegisterForm(
             cityId: AppSettings.defaultCity.id,
             gameId: gameId
         )
         self.gameInfoLoader = gameInfoLoader
+        self.networkService = networkService
     }
 }
 
@@ -96,5 +107,38 @@ extension RegistrationService: RegistrationServiceProtocol {
 
     func removeSpecialCondition(at index: Int) {
         specialConditions.remove(at: index)
+    }
+
+    func checkSpecialCondition(_ value: String, completion: @escaping (_ success: Bool, _ message: String) -> Void) {
+        networkService.get(
+            SpecialCondition.Response.self,
+            apiPath: "/ajax/check-code",
+            parameters: [
+                "game_id": "\(registerForm.gameId)",
+                "code": value,
+                "name": registerForm.teamName
+            ]
+        ) { [weak self] serverResult in
+            guard let self = self else { return }
+            switch serverResult {
+            case let .failure(error):
+                completion(false, error.localizedDescription)
+            case let .success(response):
+                switch response.discountInfo.kind {
+                case .promocode:
+                    if self.specialConditions.filter({ $0.discountInfo?.kind == .promocode }).count > 0 {
+                        completion(false, "На одну игру возможно использовать только один промокод")
+                        return
+                    }
+                default:
+                    break
+                }
+                if let index = self.specialConditions.firstIndex(where: { $0.value == value }) {
+                    self.specialConditions[index].discountInfo = response.discountInfo
+                }
+
+                completion(response.success, response.message)
+            }
+        }
     }
 }

@@ -8,11 +8,10 @@
 
 import Foundation
 
-//protocol GamePageSpecialConditionsOutput: AnyObject {
-//
-//    func didChangeSpecialCondition()
-//    func didPressAddSpecialCondition()
-//}
+protocol GamePageSpecialConditionsOutput: AnyObject {
+
+    func didPressCheckSpecialCondition(value: String?)
+}
 
 //protocol GamePageSpecialConditionsBuilderProtocol: GamePageItemBuilderProtocol {
 //
@@ -22,6 +21,7 @@ import Foundation
 /// GamePage special condition items builder
 final class GamePageSpecialConditionsBuilder {
 
+    weak var output: GamePageSpecialConditionsOutput?
     weak var view: SpecialConditionsView?
 
     // MARK: - Private Properties
@@ -108,6 +108,11 @@ final class GamePageSpecialConditionsBuilder {
                         self.view?.showAddButton(item: self.makeAddSpecialConditionItem())
                     }
                 }
+            },
+            showsOkButton: true,
+            okButtonAction: { [weak output, weak model] in
+                guard let model else { return }
+                output?.didPressCheckSpecialCondition(value: model.value)
             },
             canBeEdited: { [weak self] in
                 guard let self else { return false }

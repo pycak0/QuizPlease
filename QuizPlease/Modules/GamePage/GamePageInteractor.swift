@@ -27,6 +27,9 @@ protocol GamePageInteractorProtocol: AnyObject,
 
     /// Get Place information
     func getPlaceInfo() -> Place
+
+    /// Check special condition for discount
+    func checkSpecialCondition(_ value: String, completion: @escaping (Bool, String) -> Void)
 }
 
 /// GamePage interactor
@@ -102,6 +105,10 @@ final class GamePageInteractor: GamePageInteractorProtocol {
 
     func getPlaceInfo() -> Place {
         return gameInfo.placeInfo
+    }
+
+    func checkSpecialCondition(_ value: String, completion: @escaping (Bool, String) -> Void) {
+        registrationService.checkSpecialCondition(value, completion: completion)
     }
 
     // MARK: - GameStatusProvider
