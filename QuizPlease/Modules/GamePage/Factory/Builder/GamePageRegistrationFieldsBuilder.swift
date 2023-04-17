@@ -32,6 +32,8 @@ final class GamePageRegistrationFieldsBuilder {
         ]
     }
 
+    // MARK: - Basic Fields
+
     private func makeBasicFields() -> [GamePageItemProtocol] {
         let registerForm = registerFormProvider.getRegisterForm()
         return [
@@ -79,6 +81,8 @@ final class GamePageRegistrationFieldsBuilder {
         ]
     }
 
+    // MARK: - Custom Fields
+
     private func makeCustomFields() -> [GamePageItemProtocol] {
         let customFields = registerFormProvider.getCustomFields()
         var items = customFields.filter({ $0.data.type == .text })
@@ -93,10 +97,24 @@ final class GamePageRegistrationFieldsBuilder {
                     customField?.inputValue = newValue
                 }
             }
-        if !items.isEmpty {
-            items[items.count - 1].bottomInset = 20
-        }
         return items
+    }
+
+    // MARK: - Feedback Field
+
+    private func makeFeedbackField() -> GamePageItemProtocol {
+        let registerForm = registerFormProvider.getRegisterForm()
+        return GamePageFieldItem(
+            kind: .customField,
+            title: "Откуда вы узнали о нас?",
+            placeholder: "Расскажите",
+            options: .basic,
+            bottomInset: 20,
+            valueProvider: registerForm.comment,
+            onValueChange: { [weak registerForm] newValue in
+                registerForm?.comment = newValue
+            }
+        )
     }
 }
 
@@ -108,5 +126,6 @@ extension GamePageRegistrationFieldsBuilder: GamePageItemBuilderProtocol {
         return makeTitleAndSubtitle()
         + makeBasicFields()
         + makeCustomFields()
+        + [makeFeedbackField()]
     }
 }
