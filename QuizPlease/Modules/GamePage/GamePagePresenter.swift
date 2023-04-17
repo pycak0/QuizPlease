@@ -97,6 +97,11 @@ extension GamePagePresenter: GamePageViewOutput,
         }
     }
 
+    func didEndEditingSpecialCondition() {
+        // Recalculate payment sum here
+        
+    }
+
     // MARK: - GamePageSubmitOutput
 
     func submitButtonPressed() {

@@ -11,6 +11,8 @@ import Foundation
 protocol GamePageSpecialConditionsOutput: AnyObject {
 
     func didPressCheckSpecialCondition(value: String?)
+
+    func didEndEditingSpecialCondition()
 }
 
 //protocol GamePageSpecialConditionsBuilderProtocol: GamePageItemBuilderProtocol {
@@ -110,6 +112,9 @@ final class GamePageSpecialConditionsBuilder {
                         self.view?.showAddButton(item: self.makeAddSpecialConditionItem())
                     }
                 }
+            },
+            onEndEditing: { [weak output] in
+                output?.didEndEditingSpecialCondition()
             },
             showsOkButton: true,
             okButtonAction: { [weak output, weak model] in

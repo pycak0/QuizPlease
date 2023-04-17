@@ -23,6 +23,7 @@ final class GamePageFieldCell: UITableViewCell {
     private var buttonTapAction: (() -> Void)?
 
     private var onTextChange: ((String) -> Void)?
+    private var onEndEditing: (() -> Void)?
 
     // MARK: - Private Properties
 
@@ -113,6 +114,10 @@ extension GamePageFieldCell: TitledTextFieldViewDelegate {
     func textFieldView(_ textFieldView: TitledTextFieldView, didChangeTextField text: String) {
         onTextChange?(text)
     }
+
+    func textFieldViewDidEndEditing(_ textFieldView: TitledTextFieldView) {
+        onEndEditing?()
+    }
 }
 
 // MARK: - GamePageCellProtocol
@@ -139,6 +144,7 @@ extension GamePageFieldCell: GamePageCellProtocol {
         textFieldView.textField.keyboardType = item.options.keyboardType
 
         onTextChange = item.onValueChange
+        onEndEditing = item.onEndEditing
 
         textFieldView.textField.text = item.valueProvider()
 

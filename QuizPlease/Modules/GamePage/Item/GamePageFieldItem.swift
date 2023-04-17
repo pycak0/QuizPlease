@@ -20,6 +20,7 @@ struct GamePageFieldItem {
 
     let valueProvider: () -> String?
     let onValueChange: ((String) -> Void)?
+    let onEndEditing: (() -> Void)?
     let showsOkButton: Bool
     let okButtonAction: (() -> Void)?
 
@@ -36,6 +37,7 @@ struct GamePageFieldItem {
         fieldColor: UIColor = .clear,
         backgroundColor: UIColor = .systemGray6Adapted,
         onValueChange: ((String) -> Void)? = nil,
+        onEndEditing: (() -> Void)? = nil,
         showsOkButton: Bool = false,
         okButtonAction: (() -> Void)? = nil,
         canBeEdited: (() -> Bool)? = nil,
@@ -51,6 +53,7 @@ struct GamePageFieldItem {
 
         self.valueProvider = valueProvider
         self.onValueChange = onValueChange
+        self.onEndEditing = onEndEditing
 
         self.showsOkButton = showsOkButton
         self.okButtonAction = okButtonAction
