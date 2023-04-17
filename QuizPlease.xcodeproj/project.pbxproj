@@ -14,6 +14,7 @@
 		4C00220729ED5C310030B1FD /* GamePageAgreementItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C00220629ED5C310030B1FD /* GamePageAgreementItem.swift */; };
 		4C00220929ED5D520030B1FD /* GamePageSubmitBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C00220829ED5D520030B1FD /* GamePageSubmitBuilder.swift */; };
 		4C00220B29ED682D0030B1FD /* GamePageSubmitButtonTitleProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C00220A29ED682D0030B1FD /* GamePageSubmitButtonTitleProvider.swift */; };
+		4C00220D29ED8A820030B1FD /* GamePageLaunchOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C00220C29ED8A820030B1FD /* GamePageLaunchOptions.swift */; };
 		4C553C0129E688400066E2CA /* GamePageInfoLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C553C0029E688400066E2CA /* GamePageInfoLineView.swift */; };
 		4C553C0429E68B4A0066E2CA /* GamePageInfoLineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C553C0329E68B4A0066E2CA /* GamePageInfoLineViewModel.swift */; };
 		4C553C0629E696F40066E2CA /* GamePageInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C553C0529E696F40066E2CA /* GamePageInfoCell.swift */; };
@@ -436,6 +437,7 @@
 		4C00220629ED5C310030B1FD /* GamePageAgreementItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageAgreementItem.swift; sourceTree = "<group>"; };
 		4C00220829ED5D520030B1FD /* GamePageSubmitBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageSubmitBuilder.swift; sourceTree = "<group>"; };
 		4C00220A29ED682D0030B1FD /* GamePageSubmitButtonTitleProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageSubmitButtonTitleProvider.swift; sourceTree = "<group>"; };
+		4C00220C29ED8A820030B1FD /* GamePageLaunchOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageLaunchOptions.swift; sourceTree = "<group>"; };
 		4C553C0029E688400066E2CA /* GamePageInfoLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageInfoLineView.swift; sourceTree = "<group>"; };
 		4C553C0329E68B4A0066E2CA /* GamePageInfoLineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageInfoLineViewModel.swift; sourceTree = "<group>"; };
 		4C553C0529E696F40066E2CA /* GamePageInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageInfoCell.swift; sourceTree = "<group>"; };
@@ -930,6 +932,7 @@
 				4C553C1629E756410066E2CA /* GamePageInfoModel.swift */,
 				A4E06B8129E9DB400005C57B /* CustomFieldModel.swift */,
 				A4CFCE5229ECAFB4004F3523 /* GamePageItemKind.swift */,
+				4C00220C29ED8A820030B1FD /* GamePageLaunchOptions.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2468,6 +2471,7 @@
 				A4068A0124F7DAE2001273B2 /* ServerResponse.swift in Sources */,
 				A4E91EBC26C30D5C008C13A7 /* UIWindow+topViewController.swift in Sources */,
 				A4CFCE5129ECAED4004F3523 /* GamePageCheckboxItem.swift in Sources */,
+				4C00220D29ED8A820030B1FD /* GamePageLaunchOptions.swift in Sources */,
 				A4C71769254E016400898CA5 /* PaymentProvider.swift in Sources */,
 				A40B758424D9A7CD006DB7D1 /* WarmupInteractor.swift in Sources */,
 				4CDB228B29E5988100DD9E7C /* GamePageRegisterButtonItem.swift in Sources */,

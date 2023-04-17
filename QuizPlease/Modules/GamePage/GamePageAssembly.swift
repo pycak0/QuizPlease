@@ -12,10 +12,10 @@ import UIKit
 final class GamePageAssembly {
 
     private let services: ServiceAssembly = ServiceAssembly.shared
-    private let gameId: Int
+    private let launchOptions: GamePageLaunchOptions
 
-    init(gameId: Int) {
-        self.gameId = gameId
+    init(launchOptions: GamePageLaunchOptions) {
+        self.launchOptions = launchOptions
     }
 }
 
@@ -25,11 +25,11 @@ extension GamePageAssembly: ViewAssembly {
 
     func makeViewController() -> UIViewController {
         let registrationService = RegistrationService(
-            gameId: gameId,
+            gameId: launchOptions.gameId,
             gameInfoLoader: services.gameInfoLoader
         )
         let interactor = GamePageInteractor(
-            gameId: gameId,
+            gameId: launchOptions.gameId,
             gameInfoLoader: services.gameInfoLoader,
             placeGeocoder: services.placeGeocoder,
             registrationService: registrationService
@@ -67,7 +67,8 @@ extension GamePageAssembly: ViewAssembly {
         let presenter = GamePagePresenter(
             itemFactory: itemFactory,
             interactor: interactor,
-            router: router
+            router: router,
+            shouldScrollToRegistrationOnLoad: launchOptions.shouldScrollToRegistration
         )
         let viewController = GamePageViewController(output: presenter)
 
