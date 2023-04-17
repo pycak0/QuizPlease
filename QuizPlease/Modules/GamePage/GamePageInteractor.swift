@@ -14,7 +14,8 @@ protocol GamePageInteractorProtocol: AnyObject,
                                      GamePageAnnotationProvider,
                                      GamePageInfoProvider,
                                      GamePageDescriptionProvider,
-                                     GamePageSubmitButtonTitleProvider {
+                                     GamePageSubmitButtonTitleProvider,
+                                     GamePagePaymentInfoProvider {
 
     /// Load game info
     func loadGame(complpetion: @escaping (Error?) -> Void)
@@ -42,6 +43,19 @@ final class GamePageInteractor: GamePageInteractorProtocol {
     private let gameInfoLoader: GameInfoLoader
     private let placeGeocoder: PlaceGeocoderProtocol
     private let registrationService: RegistrationServiceProtocol
+
+    var availablePaymentTypes: [PaymentType] {
+        if gameInfo.isOnlineGame {
+            return gameInfo.availablePaymentTypes
+        }
+        if gameInfo.gameStatus == .reserveAvailable {
+            return [.cash]
+        }
+        if registrationService.getRegisterForm().count > gameInfo.vacantPlaces {
+            return [.cash]
+        }
+        return gameInfo.availablePaymentTypes
+    }
 
     // MARK: - Lifecycle
 
@@ -83,8 +97,10 @@ final class GamePageInteractor: GamePageInteractorProtocol {
             guard let self else { return }
             switch result {
             case .success(let game):
-                self.registrationService.loadData()
                 self.gameInfo = game
+                let customFieldModels = game.customFields?.map { CustomFieldModel(data: $0) } ?? []
+                self.registrationService.setCustomFields(customFieldModels)
+                self.registrationService.getRegisterForm().paymentType = self.availablePaymentTypes.first ?? .cash
                 self.parseHtmlDescription(text: game.optionalDescription) {
                     complpetion(nil)
                 }
@@ -165,5 +181,42 @@ final class GamePageInteractor: GamePageInteractorProtocol {
     func getSubmitButtonTitle() -> String {
         let registerForm = registrationService.getRegisterForm()
         return registerForm.paymentType == .online ? "Оплатить игру" : "Записаться на игру"
+    }
+
+    // MARK: - GamePagePaymentInfoProvider
+
+    func getAvailablePaymentTypeNames() -> [String] {
+        availablePaymentTypes.map(\.name)
+    }
+
+    func getSelectedPaymentTypeName() -> String {
+        registrationService.getRegisterForm().paymentType.name
+    }
+
+    func setPaymentType(_ name: String) {
+        guard let type = PaymentType(name: name) else { return }
+        registrationService.getRegisterForm().paymentType = type
+    }
+}
+
+// MARK: - PaymentType + Name
+
+private extension PaymentType {
+
+    var name: String {
+        switch self {
+        case .online:
+            return "Онлайн\nоплата"
+        case .cash:
+            return "Оплата\nна игре"
+        }
+    }
+
+    init?(name: String) {
+        for type in [PaymentType.online, .cash] where name == type.name {
+            self = type
+            return
+        }
+        return nil
     }
 }

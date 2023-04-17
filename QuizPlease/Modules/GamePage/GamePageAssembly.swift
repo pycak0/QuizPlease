@@ -23,10 +23,10 @@ final class GamePageAssembly {
 
 extension GamePageAssembly: ViewAssembly {
 
+    // swiftlint:disable:next function_body_length
     func makeViewController() -> UIViewController {
         let registrationService = RegistrationService(
             gameId: launchOptions.gameId,
-            gameInfoLoader: services.gameInfoLoader,
             networkService: services.networkService
         )
         let interactor = GamePageInteractor(
@@ -48,6 +48,7 @@ extension GamePageAssembly: ViewAssembly {
         let firstPlayBuilder = GamePageFirstPlayBuilder(
             registerFormProvider: registrationService
         )
+        let paymentBuilder = GamePagePaymentSectionBuilder(paymentInfoProvider: interactor)
         let submitBuilder = GamePageSubmitBuilder(
             titleProvider: interactor
         )
@@ -60,6 +61,7 @@ extension GamePageAssembly: ViewAssembly {
             registrationFieldsBuilder: registrationFieldsBuilder,
             specialConditionsBuilder: specialConditionsBuilder,
             firstPlayBuilder: firstPlayBuilder,
+            paymentBuilder: paymentBuilder,
             submitBuilder: submitBuilder
         )
         let router = GamePageRouter(

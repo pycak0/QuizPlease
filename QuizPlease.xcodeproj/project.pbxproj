@@ -105,6 +105,10 @@
 		A4323FC828A01A8E001D1C4B /* UIAlertController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4323FC728A01A8E001D1C4B /* UIAlertController+Extensions.swift */; };
 		A43249F329DF844800DEE6C1 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43249F229DF844800DEE6C1 /* Configuration.swift */; };
 		A43249F529DF888100DEE6C1 /* Configuration+ConvenientProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43249F429DF888100DEE6C1 /* Configuration+ConvenientProperties.swift */; };
+		A434503129EDCDCB00E49B7E /* GamePagePaymentTypeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A434503029EDCDCB00E49B7E /* GamePagePaymentTypeCell.swift */; };
+		A434503329EDD31800E49B7E /* GamePagePaymentTypeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A434503229EDD31800E49B7E /* GamePagePaymentTypeItem.swift */; };
+		A434503529EDD7B400E49B7E /* GamePagePaymentSectionBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A434503429EDD7B400E49B7E /* GamePagePaymentSectionBuilder.swift */; };
+		A434503729EDED9100E49B7E /* GamePagePaymentInfoProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A434503629EDED9100E49B7E /* GamePagePaymentInfoProvider.swift */; };
 		A4358951265528D400B54C89 /* LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4358950265528D400B54C89 /* LoadingIndicator.swift */; };
 		A43DB6AF254770F8006E4569 /* ActivityIndicator+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43DB6AE254770F8006E4569 /* ActivityIndicator+Extensions.swift */; };
 		A43E0AD9258E2F3400207616 /* UIEdgeInsets+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43E0AD8258E2F3400207616 /* UIEdgeInsets+Init.swift */; };
@@ -528,6 +532,10 @@
 		A4323FC728A01A8E001D1C4B /* UIAlertController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extensions.swift"; sourceTree = "<group>"; };
 		A43249F229DF844800DEE6C1 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		A43249F429DF888100DEE6C1 /* Configuration+ConvenientProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Configuration+ConvenientProperties.swift"; sourceTree = "<group>"; };
+		A434503029EDCDCB00E49B7E /* GamePagePaymentTypeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePagePaymentTypeCell.swift; sourceTree = "<group>"; };
+		A434503229EDD31800E49B7E /* GamePagePaymentTypeItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePagePaymentTypeItem.swift; sourceTree = "<group>"; };
+		A434503429EDD7B400E49B7E /* GamePagePaymentSectionBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePagePaymentSectionBuilder.swift; sourceTree = "<group>"; };
+		A434503629EDED9100E49B7E /* GamePagePaymentInfoProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePagePaymentInfoProvider.swift; sourceTree = "<group>"; };
 		A4358950265528D400B54C89 /* LoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicator.swift; sourceTree = "<group>"; };
 		A4361BD2262A0D70002A7B55 /* TMXProfilingConnections.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = TMXProfilingConnections.xcframework; path = Frameworks/TMXProfilingConnections.xcframework; sourceTree = "<group>"; };
 		A4361BD3262A0D70002A7B55 /* TMXProfiling.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = TMXProfiling.xcframework; path = Frameworks/TMXProfiling.xcframework; sourceTree = "<group>"; };
@@ -906,6 +914,7 @@
 				A4E06B6329E8467E0005C57B /* GamePageDescriptionProvider.swift */,
 				A4E06B7429E9A21E0005C57B /* GamePageRegisterFormProvider.swift */,
 				4C00220A29ED682D0030B1FD /* GamePageSubmitButtonTitleProvider.swift */,
+				A434503629EDED9100E49B7E /* GamePagePaymentInfoProvider.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -922,6 +931,7 @@
 				A4E06B9A29EA27C80005C57B /* GamePageSpecialConditionsBuilder.swift */,
 				A4CFCE5429ECAFDD004F3523 /* GamePageFirstPlayBuilder.swift */,
 				4C00220829ED5D520030B1FD /* GamePageSubmitBuilder.swift */,
+				A434503429EDD7B400E49B7E /* GamePagePaymentSectionBuilder.swift */,
 			);
 			path = Builder;
 			sourceTree = "<group>";
@@ -2070,6 +2080,7 @@
 				A4CFCE5029ECAED3004F3523 /* GamePageCheckboxItem.swift */,
 				4C00220229ED4F950030B1FD /* GamePageSubmitButtonItem.swift */,
 				4C00220629ED5C310030B1FD /* GamePageAgreementItem.swift */,
+				A434503229EDD31800E49B7E /* GamePagePaymentTypeItem.swift */,
 			);
 			path = Item;
 			sourceTree = "<group>";
@@ -2089,6 +2100,7 @@
 				A4CFCE4C29ECA95B004F3523 /* GamePageCheckboxCell.swift */,
 				4C00220029ED4CD70030B1FD /* GamePageSubmitButtonCell.swift */,
 				4C00220429ED53020030B1FD /* GamePageAgreementCell.swift */,
+				A434503029EDCDCB00E49B7E /* GamePagePaymentTypeCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -2714,6 +2726,7 @@
 				A4E06B6D29E8A6920005C57B /* GamePageTextItem.swift in Sources */,
 				A42F00DE28F192E200184E54 /* Notification.Name+Constants.swift in Sources */,
 				A40B758624D9A7F6006DB7D1 /* WarmupPresenter.swift in Sources */,
+				A434503529EDD7B400E49B7E /* GamePagePaymentSectionBuilder.swift in Sources */,
 				A40D817A24D2C9E6006D2CE3 /* MainMenuVC.swift in Sources */,
 				A4CC5FF224DAFECF0042B41C /* VCExtensions.swift in Sources */,
 				A4C3C43D29CCDC5B00DB0364 /* WelcomeViewController.swift in Sources */,
@@ -2763,6 +2776,7 @@
 				A4FEB054273739F10052AD7B /* GMapsProvider.swift in Sources */,
 				A4F0B9DE26248B6900E4E2A5 /* SplashScreenInteractor.swift in Sources */,
 				4C00220529ED53020030B1FD /* GamePageAgreementCell.swift in Sources */,
+				A434503329EDD31800E49B7E /* GamePagePaymentTypeItem.swift in Sources */,
 				A423AC2224EEBCD600071E68 /* FiltersVC.swift in Sources */,
 				A48E2FBC253330D900CD6BE6 /* DeliveryMethod.swift in Sources */,
 				A4CC5FC724DACE2D0042B41C /* ShopConfigurator.swift in Sources */,
@@ -2775,6 +2789,7 @@
 				A4837BD12636086D00517EC6 /* SecurityHelper.swift in Sources */,
 				A428383E272B221100F417E6 /* UIApplication+getKeyWindow.swift in Sources */,
 				A40C807B252E7E7900CE40D8 /* DefaultsManager.swift in Sources */,
+				A434503129EDCDCB00E49B7E /* GamePagePaymentTypeCell.swift in Sources */,
 				A450E3A524E57A8C00C49AEE /* GameInfoItemKind.swift in Sources */,
 				A400A26E269CE4C200FBF70C /* String+WordBuilding.swift in Sources */,
 				A4E06B8729E9DFF90005C57B /* InMemoryCache.swift in Sources */,
@@ -2796,6 +2811,7 @@
 				4CDB228529E559CD00DD9E7C /* GamePageAnnotationCell.swift in Sources */,
 				A4EE9EAA29E5F8AD00DDFC50 /* GamePageAnnotationBuilder.swift in Sources */,
 				A4B0753224DFDBFB007778A2 /* GameInfo.swift in Sources */,
+				A434503729EDED9100E49B7E /* GamePagePaymentInfoProvider.swift in Sources */,
 				A449B6E125C448BE00382962 /* UIView+Blurable.swift in Sources */,
 				A4E675EF255D66640011A801 /* WarmupAnswerButton.swift in Sources */,
 				A48290F228D9177000C87D18 /* UIView+Shadow.swift in Sources */,

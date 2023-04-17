@@ -25,6 +25,13 @@ final class CheckboxView: UIControl {
     /// Haptics can be enabled only when user presses the checkbox
     var isHapticsEnabled: Bool = true
 
+    /// Determines if the user can deselect the checkbox once it was selected.
+    /// The default value is `true`.
+    ///
+    /// Changing this property does not affect the ability
+    /// to select/delect the checkbox programmatically
+    var canDeselect: Bool = true
+
     // MARK: - Private Properties
 
     private let hapticsGenerator = UIImpactFeedbackGenerator(style: .medium)
@@ -80,12 +87,7 @@ final class CheckboxView: UIControl {
         super.init(frame: frame)
         makeLayout()
         addTapGestureRecognizer { [weak self] in
-            guard let self else { return }
-            self._isSelected.toggle()
-            if self.isHapticsEnabled {
-                self.hapticsGenerator.impactOccurred()
-            }
-            self.sendActions(for: .valueChanged)
+            self?.userDidSelect()
         }
     }
 
@@ -116,5 +118,23 @@ final class CheckboxView: UIControl {
             imageView.heightAnchor.constraint(equalToConstant: Constants.imageSide),
             imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor)
         ])
+    }
+
+    private func userDidSelect() {
+        let previousValue = _isSelected
+
+        if canDeselect {
+            _isSelected.toggle()
+        } else {
+            _isSelected = true
+        }
+
+        if previousValue != _isSelected {
+            sendActions(for: .valueChanged)
+        }
+
+        if isHapticsEnabled {
+            hapticsGenerator.impactOccurred()
+        }
     }
 }
