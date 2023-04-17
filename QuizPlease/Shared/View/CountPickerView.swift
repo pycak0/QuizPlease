@@ -215,7 +215,7 @@ final class CountPickerView: UIView {
             button.addTarget(self, action: #selector(pickerButtonPressed(_:)), for: [.touchUpInside])
             buttons.append(button)
             pickerStack.addArrangedSubview(button)
-            button.layer.cornerRadius = pickerStack.frame.height / 2
+            button.layer.cornerRadius = buttonsCornerRadius
         }
     }
 

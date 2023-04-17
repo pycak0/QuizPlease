@@ -8,10 +8,6 @@
 
 import Foundation
 
-extension GamePageItemKind {
-    static let paymentType = GamePageItemKind()
-}
-
 /// GamePage payment type selection
 struct GamePagePaymentTypeItem {
 

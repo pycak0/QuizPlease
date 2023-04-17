@@ -197,6 +197,19 @@ final class GamePageInteractor: GamePageInteractorProtocol {
         guard let type = PaymentType(name: name) else { return }
         registrationService.getRegisterForm().paymentType = type
     }
+
+    func getNumberOfPeopleInTeam() -> Int {
+        registrationService.getRegisterForm().count
+    }
+
+    func getSelectedNumberOfPeopleToPay() -> Int {
+        let registerForm = registrationService.getRegisterForm()
+        return registerForm.countPaidOnline ?? registerForm.count
+    }
+
+    func setNumberOfPeopleToPay(_ number: Int) {
+        registrationService.getRegisterForm().countPaidOnline = number
+    }
 }
 
 // MARK: - PaymentType + Name

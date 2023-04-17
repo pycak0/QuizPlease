@@ -26,7 +26,6 @@ final class GamePageTeamCountCell: UITableViewCell {
     private lazy var countPickerView: CountPickerView = {
         let countPickerView = CountPickerView()
         countPickerView.buttonsCornerRadius = 15
-        countPickerView.title = "Количество человек в команде"
         countPickerView.pickerBackgroundColor = .systemGray5Adapted
         countPickerView.tintColor = .labelAdapted
         countPickerView.delegate = self
@@ -90,7 +89,11 @@ extension GamePageTeamCountCell: GamePageCellProtocol {
     func configure(with item: GamePageItemProtocol) {
         guard let item = item as? GamePageTeamCountItem else { return }
         onCountChange = item.changeHandler
-        let index = item.getSelectedTeamCount() - countPickerView.startCount
+        countPickerView.title = item.title ?? ""
+        let minCount = item.getMinCount()
+        countPickerView.startCount = minCount
+        countPickerView.maxButtonsCount = item.getMaxCount() - minCount + 1
+        let index = item.getSelectedTeamCount() - minCount
         countPickerView.setSelectedButton(at: index, animated: true)
     }
 }

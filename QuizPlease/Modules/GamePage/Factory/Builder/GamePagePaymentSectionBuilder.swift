@@ -8,6 +8,11 @@
 
 import Foundation
 
+extension GamePageItemKind {
+    static let paymentType = GamePageItemKind()
+    static let paymentCount = GamePageItemKind()
+}
+
 /// GamePage payment section items builder
 final class GamePagePaymentSectionBuilder {
 
@@ -37,6 +42,22 @@ final class GamePagePaymentSectionBuilder {
             )
         ]
     }
+
+    private func makePaymentCountItems() -> [GamePageItemProtocol] {
+        return [
+            GamePageTeamCountItem(
+                kind: .paymentCount,
+                title: nil,
+                getMinCount: 1,
+                getMaxCount: self.paymentInfoProvider.getNumberOfPeopleInTeam(),
+                getSelectedTeamCount: self.paymentInfoProvider.getSelectedNumberOfPeopleToPay(),
+                changeHandler: { [weak paymentInfoProvider] newValue in
+                    paymentInfoProvider?.setNumberOfPeopleToPay(newValue)
+                }
+            ),
+            GamePageTextItem.paymenCountFooter
+        ]
+    }
 }
 
 // MARK: - GamePageItemBuilderProtocol
@@ -59,6 +80,20 @@ private extension GamePageTextItem {
             backgroundColor: .systemGray5Adapted,
             font: .gilroy(.semibold, size: 16),
             textColor: .labelAdapted
+        )
+    }
+
+    static var paymenCountFooter: GamePageTextItem {
+        GamePageTextItem(
+            kind: .paymentCount,
+            text: "* Доплатить за оставшихся участников можно " +
+            "будет позже по ссылке из письма или прямо на игре.",
+            topInset: 16,
+            bottomInset: 16,
+            backgroundColor: .systemGray5Adapted,
+            font: .gilroy(.semibold, size: 12),
+            textColor: .lightGray,
+            textAlignment: .center
         )
     }
 }

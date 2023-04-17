@@ -74,6 +74,10 @@ final class GamePageRegistrationFieldsBuilder {
                     registerForm?.phone = newValue
             }),
             GamePageTeamCountItem(
+                kind: .basicField,
+                title: "Количество человек в команде",
+                getMinCount: 2,
+                getMaxCount: 9,
                 getSelectedTeamCount: registerForm.count,
                 changeHandler: { [weak registerForm] newValue in
                     registerForm?.count = newValue
@@ -85,7 +89,7 @@ final class GamePageRegistrationFieldsBuilder {
 
     private func makeCustomFields() -> [GamePageItemProtocol] {
         let customFields = registerFormProvider.getCustomFields()
-        var items = customFields.filter({ $0.data.type == .text })
+        return customFields.filter({ $0.data.type == .text })
             .map { customField in
                 GamePageFieldItem(
                     kind: .customField,
@@ -97,7 +101,6 @@ final class GamePageRegistrationFieldsBuilder {
                     customField?.inputValue = newValue
                 }
             }
-        return items
     }
 
     // MARK: - Feedback Field
