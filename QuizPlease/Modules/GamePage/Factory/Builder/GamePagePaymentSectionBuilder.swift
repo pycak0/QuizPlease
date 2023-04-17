@@ -13,8 +13,16 @@ extension GamePageItemKind {
     static let paymentCount = GamePageItemKind()
 }
 
+protocol PaymentSectionViewUpdater: AnyObject {
+
+    /// If `items` is empty, should remove any payment count items, if any existing
+    func updatePaymentCountItems(with items: [GamePageItemProtocol])
+}
+
 /// GamePage payment section items builder
 final class GamePagePaymentSectionBuilder {
+
+    weak var viewUpdater: PaymentSectionViewUpdater?
 
     // MARK: - Private Properties
 
@@ -29,25 +37,38 @@ final class GamePagePaymentSectionBuilder {
     // MARK: - Private Methods
 
     private func makePaymentTypeItems() -> [GamePageItemProtocol] {
+        let paymentTypeNames = paymentInfoProvider.getAvailablePaymentTypes().map(\.name)
         return [
             GamePageTextItem.paymentTypeHeader,
             GamePagePaymentTypeItem(
-                paymentTypeNames: paymentInfoProvider.getAvailablePaymentTypeNames(),
+                paymentTypeNames: paymentTypeNames,
                 getSelectedPaymentType: { [weak paymentInfoProvider] in
-                    paymentInfoProvider?.getSelectedPaymentTypeName() ?? ""
+                    paymentInfoProvider?.getSelectedPaymentType().name ?? PaymentType.cash.name
                 },
-                onSelectionChange: { [weak paymentInfoProvider] newValue in
-                    paymentInfoProvider?.setPaymentType(newValue)
+                onSelectionChange: { [weak self] newValue in
+                    guard let self else { return }
+                    if let type = PaymentType(name: newValue) {
+                        self.paymentInfoProvider.setPaymentType(type)
+                        self.viewUpdater?.updatePaymentCountItems(with: self.makePaymentCountItems())
+                    }
                 }
             )
         ]
     }
 
     private func makePaymentCountItems() -> [GamePageItemProtocol] {
+        guard
+            paymentInfoProvider.supportsSelectPaidPeopleCount(),
+            paymentInfoProvider.getSelectedPaymentType() == .online
+        else {
+            return []
+        }
         return [
             GamePageTeamCountItem(
                 kind: .paymentCount,
                 title: nil,
+                pickerColor: .systemBackgroundAdapted,
+                backgroundColor: .systemGray5Adapted,
                 getMinCount: 1,
                 getMaxCount: self.paymentInfoProvider.getNumberOfPeopleInTeam(),
                 getSelectedTeamCount: self.paymentInfoProvider.getSelectedNumberOfPeopleToPay(),
@@ -65,7 +86,8 @@ final class GamePagePaymentSectionBuilder {
 extension GamePagePaymentSectionBuilder: GamePageItemBuilderProtocol {
 
     func makeItems() -> [GamePageItemProtocol] {
-        makePaymentTypeItems()
+        return makePaymentTypeItems()
+        + makePaymentCountItems()
     }
 }
 

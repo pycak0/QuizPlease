@@ -6,7 +6,7 @@
 //  Copyright © 2023 Владислав. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 /// GamePage team count item
 struct GamePageTeamCountItem {
@@ -15,6 +15,10 @@ struct GamePageTeamCountItem {
     let kind: GamePageItemKind
     /// Count picker title. If `nil`, title will be hidden
     let title: String?
+    /// Picker unselected color
+    let pickerColor: UIColor
+    /// Background color if the picker cell
+    let backgroundColor: UIColor
     /// Minimal counter value
     let getMinCount: () -> Int
     /// Maximal counter value
@@ -27,6 +31,8 @@ struct GamePageTeamCountItem {
     init(
         kind: GamePageItemKind,
         title: String?,
+        pickerColor: UIColor,
+        backgroundColor: UIColor,
         getMinCount: @autoclosure @escaping () -> Int,
         getMaxCount: @autoclosure @escaping () -> Int,
         getSelectedTeamCount: @autoclosure @escaping () -> Int,
@@ -34,6 +40,8 @@ struct GamePageTeamCountItem {
     ) {
         self.kind = kind
         self.title = title
+        self.pickerColor = pickerColor
+        self.backgroundColor = backgroundColor
         self.getMinCount = getMinCount
         self.getMaxCount = getMaxCount
         self.getSelectedTeamCount = getSelectedTeamCount

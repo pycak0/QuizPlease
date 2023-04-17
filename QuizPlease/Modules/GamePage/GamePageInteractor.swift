@@ -185,17 +185,20 @@ final class GamePageInteractor: GamePageInteractorProtocol {
 
     // MARK: - GamePagePaymentInfoProvider
 
-    func getAvailablePaymentTypeNames() -> [String] {
-        availablePaymentTypes.map(\.name)
+    func getAvailablePaymentTypes() -> [PaymentType] {
+        availablePaymentTypes
     }
 
-    func getSelectedPaymentTypeName() -> String {
-        registrationService.getRegisterForm().paymentType.name
+    func getSelectedPaymentType() -> PaymentType {
+        registrationService.getRegisterForm().paymentType
     }
 
-    func setPaymentType(_ name: String) {
-        guard let type = PaymentType(name: name) else { return }
+    func setPaymentType(_ type: PaymentType) {
         registrationService.getRegisterForm().paymentType = type
+    }
+
+    func supportsSelectPaidPeopleCount() -> Bool {
+        !gameInfo.isOnlineGame
     }
 
     func getNumberOfPeopleInTeam() -> Int {
@@ -209,27 +212,5 @@ final class GamePageInteractor: GamePageInteractorProtocol {
 
     func setNumberOfPeopleToPay(_ number: Int) {
         registrationService.getRegisterForm().countPaidOnline = number
-    }
-}
-
-// MARK: - PaymentType + Name
-
-private extension PaymentType {
-
-    var name: String {
-        switch self {
-        case .online:
-            return "Онлайн\nоплата"
-        case .cash:
-            return "Оплата\nна игре"
-        }
-    }
-
-    init?(name: String) {
-        for type in [PaymentType.online, .cash] where name == type.name {
-            self = type
-            return
-        }
-        return nil
     }
 }

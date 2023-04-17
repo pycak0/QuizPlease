@@ -29,7 +29,8 @@ protocol GamePageViewOutput {
 /// Game page screen view protocol
 protocol GamePageViewInput: AnyObject,
                             LoadingIndicator,
-                            SpecialConditionsView {
+                            SpecialConditionsView,
+                            PaymentSectionViewUpdater {
 
     /// Set items to display in `GamePageView`
     /// - Parameter items: an array of items implementing `GamePageItemProtocol`
@@ -150,5 +151,11 @@ extension GamePageViewController: GamePageViewInput {
 
     func hideAddButton() {
         gamePageView.hideAddButton()
+    }
+
+    // MARK: - PaymentSectionViewUpdater
+
+    func updatePaymentCountItems(with newItems: [GamePageItemProtocol]) {
+        gamePageView.updatePaymentCountItems(with: newItems)
     }
 }

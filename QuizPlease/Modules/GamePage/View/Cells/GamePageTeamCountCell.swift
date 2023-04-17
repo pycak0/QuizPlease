@@ -26,7 +26,6 @@ final class GamePageTeamCountCell: UITableViewCell {
     private lazy var countPickerView: CountPickerView = {
         let countPickerView = CountPickerView()
         countPickerView.buttonsCornerRadius = 15
-        countPickerView.pickerBackgroundColor = .systemGray5Adapted
         countPickerView.tintColor = .labelAdapted
         countPickerView.delegate = self
         let font: UIFont = .gilroy(.semibold, size: 16)
@@ -41,7 +40,6 @@ final class GamePageTeamCountCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         selectionStyle = .none
-        backgroundColor = .systemGray6Adapted
         makeLayout()
     }
 
@@ -67,8 +65,8 @@ final class GamePageTeamCountCell: UITableViewCell {
             countPickerView.topAnchor.constraint(
                 equalTo: contentView.topAnchor, constant: Constants.topSpacing),
             countPickerView.bottomAnchor.constraint(
-                equalTo: contentView.bottomAnchor, constant: -Constants.bottomSpacing),
-            countPickerView.heightAnchor.constraint(equalToConstant: Constants.pickerHeight)
+                equalTo: contentView.bottomAnchor, constant: -Constants.bottomSpacing)
+//            countPickerView.heightAnchor.constraint(equalToConstant: Constants.pickerHeight)
         ])
     }
 }
@@ -88,12 +86,14 @@ extension GamePageTeamCountCell: GamePageCellProtocol {
 
     func configure(with item: GamePageItemProtocol) {
         guard let item = item as? GamePageTeamCountItem else { return }
+        backgroundColor = item.backgroundColor
+        countPickerView.pickerBackgroundColor = item.pickerColor
         onCountChange = item.changeHandler
         countPickerView.title = item.title ?? ""
         let minCount = item.getMinCount()
         countPickerView.startCount = minCount
         countPickerView.maxButtonsCount = item.getMaxCount() - minCount + 1
         let index = item.getSelectedTeamCount() - minCount
-        countPickerView.setSelectedButton(at: index, animated: true)
+        countPickerView.setSelectedButton(at: index, animated: false)
     }
 }

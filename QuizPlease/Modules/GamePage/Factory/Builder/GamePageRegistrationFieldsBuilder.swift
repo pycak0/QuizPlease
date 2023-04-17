@@ -76,6 +76,8 @@ final class GamePageRegistrationFieldsBuilder {
             GamePageTeamCountItem(
                 kind: .basicField,
                 title: "Количество человек в команде",
+                pickerColor: .systemGray5Adapted,
+                backgroundColor: .systemGray6Adapted,
                 getMinCount: 2,
                 getMaxCount: 9,
                 getSelectedTeamCount: registerForm.count,
