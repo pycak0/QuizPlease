@@ -102,17 +102,22 @@ extension GamePagePresenter: GamePageViewOutput,
             view?.stopLoading()
             let title = isSuccess ? "Успешно" : "Ошибка"
             view?.showAlert(title: title, message: message)
+            view?.updateFirstItem(kind: .paymentSum)
         }
     }
 
     func didEndEditingSpecialCondition() {
-        // TODO: Recalculate payment sum here
+        view?.updateFirstItem(kind: .paymentSum)
     }
 
     // MARK: - GamePagePaymentSectionOutput
 
     func didChangePaymentType() {
         view?.updateFirstItem(kind: .submit)
+    }
+
+    func didChangePaymentCount() {
+        view?.updateFirstItem(kind: .paymentSum)
     }
 
     // MARK: - GamePageSubmitOutput

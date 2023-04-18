@@ -31,4 +31,10 @@ protocol GamePagePaymentInfoProvider: AnyObject {
 
     /// Set the new value of paid people
     func setNumberOfPeopleToPay(_ number: Int)
+
+    /// Calculates payment sum
+    func calculatePaymentSum() -> Double
+
+    /// Return whether any discounts were applied or not
+    func hasAnyDiscounts() -> Bool
 }

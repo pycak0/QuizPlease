@@ -25,6 +25,7 @@ extension GamePageAssembly: ViewAssembly {
 
     // swiftlint:disable:next function_body_length
     func makeViewController() -> UIViewController {
+        let paymentSumCalculator = PaymentSumCalculatorImpl()
         let registrationService = RegistrationService(
             gameId: launchOptions.gameId,
             networkService: services.networkService
@@ -33,7 +34,8 @@ extension GamePageAssembly: ViewAssembly {
             gameId: launchOptions.gameId,
             gameInfoLoader: services.gameInfoLoader,
             placeGeocoder: services.placeGeocoder,
-            registrationService: registrationService
+            registrationService: registrationService,
+            paymentSumCalculator: paymentSumCalculator
         )
         let annotationBuilder = GamePageAnnotationBuilder(annotationProvider: interactor)
         let registerButtonBuilder = GamePageRegisterButtonBuilder(gameStatusProvider: interactor)
