@@ -134,6 +134,6 @@ extension GamePageFieldItem.Options {
     static let email = GamePageFieldItem.Options(
         contentType: .emailAddress,
         keyboardType: .emailAddress,
-        capitalizationType: .words
+        capitalizationType: .none
     )
 }

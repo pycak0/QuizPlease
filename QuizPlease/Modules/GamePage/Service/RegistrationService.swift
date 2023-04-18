@@ -40,6 +40,10 @@ protocol RegistrationServiceProtocol: AnyObject,
         _ value: String,
         completion: @escaping (_ success: Bool, _ message: String) -> Void
     )
+
+    func sendRegistrationRequest(
+        completion: @escaping (Result<GameOrderResponse, NetworkServiceError>) -> Void
+    )
 }
 
 /// Service that manages register form
@@ -202,5 +206,44 @@ extension RegistrationService: RegistrationServiceProtocol {
         validateFormOnServer { errors in
             completion(RegisterFormValidationResult(isValid: errors.isEmpty, errors: errors))
         }
+    }
+
+    func sendRegistrationRequest(
+        completion: @escaping (Result<GameOrderResponse, NetworkServiceError>) -> Void
+    ) {
+        let certificates: [MultipartFormDataObject] = specialConditions
+            .lazy
+            .filter { $0.discountInfo?.kind == .certificate }
+            .compactMap { MultipartFormDataObject(name: "certificates[]", optionalStringData: $0.value) }
+
+        let promocode = specialConditions.first(where: { $0.discountInfo?.kind == .promocode })?.value
+
+        // swiftlint:disable colon
+        let params: [String: String?] = [
+            /// 2 - регистрация через мобильное приложение
+            "QpRecord[registration_type]":  "2",
+            "QpRecord[captainName]":        registerForm.captainName,
+            "QpRecord[email]":              registerForm.email,
+            "QpRecord[phone]":              registerForm.phone,
+            "QpRecord[comment]":            registerForm.comment ?? "",
+            "QpRecord[game_id]":            "\(registerForm.gameId)",
+            "QpRecord[first_time]":         registerForm.isFirstTime ? "1" : "0",
+            "QpRecord[payment_type]":       "\(registerForm.paymentType.rawValue)",
+            "QpRecord[count]":              "\(registerForm.count)",
+            "QpRecord[teamName]":           registerForm.teamName,
+            "QpRecord[payment_token]":      registerForm.paymentToken,
+            "QpRecord[surcharge]":          registerForm.countPaidOnline.map { "\($0)" },
+            "promo_code":                   promocode
+        ]
+        // swiftlint:enable colon
+
+        let formData: [MultipartFormDataObject] = certificates + MultipartFormDataObjects(params)
+
+        networkService.afPost(
+            with: formData,
+            to: "/ajax/save-record",
+            responseType: GameOrderResponse.self,
+            completion: completion
+        )
     }
 }

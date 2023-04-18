@@ -9,7 +9,7 @@
 import UIKit
 
 /// GamePage screen router protocol
-protocol GamePageRouterProtocol {
+protocol GamePageRouterProtocol: AnyObject {
 
     /// Show Map screen with given Place annotation
     /// - Parameter place: Place annotation
@@ -17,6 +17,11 @@ protocol GamePageRouterProtocol {
 
     /// Show user agreement screen
     func showUserAgreementScreen()
+
+    func showCompletionScreen(
+        options: GameRegistrationResult.Options,
+        delegate: GameOrderCompletionDelegate
+    )
 
     /// Close GamePage screen
     func close()
@@ -48,6 +53,24 @@ final class GamePageRouter: GamePageRouterProtocol {
 
     func showUserAgreementScreen() {
         webPageRouter.open(url: AppSettings.termsOfUseUrl, options: .autoReaderView)
+    }
+
+    func showCompletionScreen(
+        options: GameRegistrationResult.Options,
+        delegate: GameOrderCompletionDelegate
+    ) {
+        guard let completionViewController = UIStoryboard.main.instantiateViewController(
+            withIdentifier: "\(GameOrderCompletionVC.self)"
+        ) as? GameOrderCompletionVC else {
+            return
+        }
+        completionViewController.gameInfo = options.gameInfo
+        completionViewController.numberOfPeopleInTeam = options.teamCount
+        completionViewController.delegate = delegate
+
+        let navigationController = UINavigationController(rootViewController: completionViewController)
+        navigationController.modalPresentationStyle = .fullScreen
+        viewController?.present(navigationController, animated: true)
     }
 
     func close() {

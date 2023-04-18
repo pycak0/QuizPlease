@@ -2279,7 +2279,7 @@
         <!--[Game Name]-->
         <scene sceneID="kLd-U1-iMA">
             <objects>
-                <viewController id="Biu-cA-03G" customClass="GameOrderCompletionVC" customModule="QuizPlease" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GameOrderCompletionVC" id="Biu-cA-03G" customClass="GameOrderCompletionVC" customModule="QuizPlease" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Tda-HK-gwT">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

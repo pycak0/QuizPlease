@@ -45,8 +45,9 @@ protocol GamePageViewInput: AnyObject,
     func setHeaderImage(path: String)
 
     /// Show error alert
-    func showAlert(_ error: Error, handler: (() -> Void)?)
+    func showErrorConnectingToServerAlert(handler: (() -> Void)?)
 
+    /// Show custom alert 
     func showAlert(title: String, message: String, handler: (() -> Void)?)
 
     func scrollToItem(kind: GamePageItemKind)
@@ -133,7 +134,7 @@ extension GamePageViewController: GamePageViewInput {
         activityIndicator.stopAnimating()
     }
 
-    func showAlert(_ error: Error, handler: (() -> Void)?) {
+    func showErrorConnectingToServerAlert(handler: (() -> Void)?) {
         showErrorConnectingToServerAlert { _ in
             handler?()
         }
