@@ -120,11 +120,6 @@ final class GamePageView: UIView {
         removeItem(at: index)
     }
 
-    func scrollToRegistration() {
-        guard let index = items.firstIndex(where: { $0.kind == .registrationHeader }) else { return }
-        tableView.scrollToRow(at: IndexPath(row: index, section: 0), at: .top, animated: true)
-    }
-
     func updatePaymentCountAndSumItems(with newItems: [GamePageItemProtocol]) {
         if let firstIndex = items.firstIndex(where: { $0.kind == .paymentCount || $0.kind == .paymentSum }),
            let lastIndex = items.lastIndex(where: { $0.kind == .paymentCount || $0.kind == .paymentSum }) {
@@ -162,6 +157,19 @@ final class GamePageView: UIView {
     func updateLastItem(kind: GamePageItemKind) {
         guard let index = items.lastIndex(where: { $0.kind == kind }) else { return }
         updateItem(at: index)
+    }
+
+    func editItem(kind: GamePageItemKind) {
+        guard let index = items.firstIndex(where: { $0.kind == kind }) else { return }
+        let indexPath = IndexPath(row: index, section: 0)
+        if let cell = tableView.cellForRow(at: indexPath) {
+            cell.becomeFirstResponder()
+        }
+    }
+
+    func scrollToItem(kind: GamePageItemKind) {
+        guard let index = items.firstIndex(where: { $0.kind == kind }) else { return }
+        tableView.scrollToRow(at: IndexPath(row: index, section: 0), at: .top, animated: true)
     }
 
     /// Set the image with given path to the header view

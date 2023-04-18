@@ -22,6 +22,8 @@ final class GamePagePresenter {
 
     private var items: [GamePageItemProtocol] = []
 
+    // MARK: - Lifecycle
+
     /// `GamePagePresenter` initializer
     /// - Parameters:
     ///   - itemFactory: Factory that creates GamePage items
@@ -37,6 +39,38 @@ final class GamePagePresenter {
         self.interactor = interactor
         self.router = router
         self.shouldScrollToRegistrationOnLoad = shouldScrollToRegistrationOnLoad
+    }
+
+    // MARK: - Private Methods
+
+    private func setGameInfo() {
+        view?.setTitle(interactor.getGameTitle())
+        self.items = itemFactory.makeItems()
+        view?.setItems(items)
+        view?.setHeaderImage(path: interactor.getHeaderImagePath())
+        if shouldScrollToRegistrationOnLoad {
+            view?.scrollToItem(kind: .registrationHeader)
+        }
+    }
+
+    private func processErrors(_ errors: [RegisterFormValidationResult.Error]) {
+        guard let error = errors.first else { return }
+        view?.showAlert(title: error.title, message: error.message) { [weak self] in
+            self?.alertTapActionOnError(error)
+        }
+    }
+
+    private func alertTapActionOnError(_ error: RegisterFormValidationResult.Error) {
+        switch error {
+        case .email:
+            view?.editItem(kind: .email)
+        case .phone:
+            view?.editItem(kind: .phone)
+        case .invalidTeamName:
+            view?.editItem(kind: .teamName)
+        case .unknown, .network, .someFieldsEmpty:
+            break
+        }
     }
 }
 
@@ -65,20 +99,10 @@ extension GamePagePresenter: GamePageViewOutput,
         }
     }
 
-    private func setGameInfo() {
-        view?.setTitle(interactor.getGameTitle())
-        self.items = itemFactory.makeItems()
-        view?.setItems(items)
-        view?.setHeaderImage(path: interactor.getHeaderImagePath())
-        if shouldScrollToRegistrationOnLoad {
-            view?.scrollToRegistration()
-        }
-    }
-
     // MARK: - GamePageRegisterButtonOutput
 
     func didPressRegisterButton() {
-        view?.scrollToRegistration()
+        view?.scrollToItem(kind: .registrationHeader)
     }
 
     // MARK: - GamePageInfoOutput
@@ -101,7 +125,7 @@ extension GamePagePresenter: GamePageViewOutput,
         interactor.checkSpecialCondition(value) { [weak view] isSuccess, message in
             view?.stopLoading()
             let title = isSuccess ? "Успешно" : "Ошибка"
-            view?.showAlert(title: title, message: message)
+            view?.showAlert(title: title, message: message, handler: nil)
             view?.updateFirstItem(kind: .paymentSum)
         }
     }
@@ -123,7 +147,15 @@ extension GamePagePresenter: GamePageViewOutput,
     // MARK: - GamePageSubmitOutput
 
     func submitButtonPressed() {
-        print("Submit!")
+        view?.startLoading()
+        interactor.validateRegisterForm { [weak self] result in
+            guard let self else { return }
+            guard result.isValid else {
+                self.view?.stopLoading()
+                self.processErrors(result.errors)
+                return
+            }
+        }
     }
 
     func agreementButtonPressed() {

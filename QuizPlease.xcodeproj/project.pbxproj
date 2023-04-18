@@ -18,6 +18,8 @@
 		4C1272A729EE8F73008DA2E0 /* GamePagePaymentSumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1272A629EE8F73008DA2E0 /* GamePagePaymentSumCell.swift */; };
 		4C1272A929EEAB5E008DA2E0 /* GamePagePaymentSumItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1272A829EEAB5E008DA2E0 /* GamePagePaymentSumItem.swift */; };
 		4C1272AB29EEB5A0008DA2E0 /* PaymentSumCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1272AA29EEB5A0008DA2E0 /* PaymentSumCalculator.swift */; };
+		4C1272AD29EED342008DA2E0 /* RegisterFormValidationResult+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1272AC29EED342008DA2E0 /* RegisterFormValidationResult+Error.swift */; };
+		4C1272AF29EED9CD008DA2E0 /* RegisterFormValidationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1272AE29EED9CD008DA2E0 /* RegisterFormValidationResult.swift */; };
 		4C553C0129E688400066E2CA /* GamePageInfoLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C553C0029E688400066E2CA /* GamePageInfoLineView.swift */; };
 		4C553C0429E68B4A0066E2CA /* GamePageInfoLineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C553C0329E68B4A0066E2CA /* GamePageInfoLineViewModel.swift */; };
 		4C553C0629E696F40066E2CA /* GamePageInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C553C0529E696F40066E2CA /* GamePageInfoCell.swift */; };
@@ -448,6 +450,8 @@
 		4C1272A629EE8F73008DA2E0 /* GamePagePaymentSumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePagePaymentSumCell.swift; sourceTree = "<group>"; };
 		4C1272A829EEAB5E008DA2E0 /* GamePagePaymentSumItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePagePaymentSumItem.swift; sourceTree = "<group>"; };
 		4C1272AA29EEB5A0008DA2E0 /* PaymentSumCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentSumCalculator.swift; sourceTree = "<group>"; };
+		4C1272AC29EED342008DA2E0 /* RegisterFormValidationResult+Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RegisterFormValidationResult+Error.swift"; sourceTree = "<group>"; };
+		4C1272AE29EED9CD008DA2E0 /* RegisterFormValidationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterFormValidationResult.swift; sourceTree = "<group>"; };
 		4C553C0029E688400066E2CA /* GamePageInfoLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageInfoLineView.swift; sourceTree = "<group>"; };
 		4C553C0329E68B4A0066E2CA /* GamePageInfoLineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageInfoLineViewModel.swift; sourceTree = "<group>"; };
 		4C553C0529E696F40066E2CA /* GamePageInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageInfoCell.swift; sourceTree = "<group>"; };
@@ -949,6 +953,8 @@
 				A4E06B8129E9DB400005C57B /* CustomFieldModel.swift */,
 				A4CFCE5229ECAFB4004F3523 /* GamePageItemKind.swift */,
 				4C00220C29ED8A820030B1FD /* GamePageLaunchOptions.swift */,
+				4C1272AE29EED9CD008DA2E0 /* RegisterFormValidationResult.swift */,
+				4C1272AC29EED342008DA2E0 /* RegisterFormValidationResult+Error.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2755,6 +2761,7 @@
 				A4CDC3482730682F00282EC2 /* MapViewController.swift in Sources */,
 				A40B758A24D9A806006DB7D1 /* WarmupConfigurator.swift in Sources */,
 				A4E06B8029E9D9CB0005C57B /* CustomFieldData.swift in Sources */,
+				4C1272AF29EED9CD008DA2E0 /* RegisterFormValidationResult.swift in Sources */,
 				A423AC1D24EE971100071E68 /* ShopItem.swift in Sources */,
 				A4D230A624F91F0100524A01 /* QuestionPageVC.swift in Sources */,
 				A4CDC34E27308BF000282EC2 /* MapPresenter.swift in Sources */,
@@ -2782,6 +2789,7 @@
 				A4EE9EA829E5F15900DDFC50 /* GamePageItemBuilderProtocol.swift in Sources */,
 				A4EE9E9729E493DE00DDFC50 /* GamePageCellProtocol.swift in Sources */,
 				A4632E91262EFE2D00012BBF /* UserLocationService.swift in Sources */,
+				4C1272AD29EED342008DA2E0 /* RegisterFormValidationResult+Error.swift in Sources */,
 				A417FA5325711C210064C467 /* UIViewController+SafariVC.swift in Sources */,
 				A4EE9E9F29E4AC2500DDFC50 /* GamePageInteractor.swift in Sources */,
 				A4E06B9F29EA2A1B0005C57B /* GamePageAddSpecialConditionItem.swift in Sources */,

@@ -8,6 +8,15 @@
 
 import Foundation
 
+extension GamePageItemKind {
+
+    static let teamName = GamePageItemKind()
+    static let captainName = GamePageItemKind()
+    static let email = GamePageItemKind()
+    static let phone = GamePageItemKind()
+    static let teamCount = GamePageItemKind()
+}
+
 protocol GamePageRegistrationFieldsOutput: AnyObject {
 
     func didChangeTeamCount()
@@ -45,7 +54,7 @@ final class GamePageRegistrationFieldsBuilder {
         let registerForm = registerFormProvider.getRegisterForm()
         return [
             GamePageFieldItem(
-                kind: .basicField,
+                kind: .teamName,
                 title: "Название команды *",
                 placeholder: "Введите название",
                 options: .team,
@@ -54,7 +63,7 @@ final class GamePageRegistrationFieldsBuilder {
                     registerForm?.teamName = newValue
             }),
             GamePageFieldItem(
-                kind: .basicField,
+                kind: .captainName,
                 title: "Имя капитана *",
                 placeholder: "Введите имя",
                 options: .captain,
@@ -63,7 +72,7 @@ final class GamePageRegistrationFieldsBuilder {
                     registerForm?.captainName = newValue
             }),
             GamePageFieldItem(
-                kind: .basicField,
+                kind: .email,
                 title: "E-mail *",
                 placeholder: "Введите почту",
                 options: .email,
@@ -72,7 +81,7 @@ final class GamePageRegistrationFieldsBuilder {
                     registerForm?.email = newValue
             }),
             GamePageFieldItem(
-                kind: .basicField,
+                kind: .phone,
                 title: "Телефон капитана *",
                 placeholder: "",
                 options: .phone,
@@ -81,7 +90,7 @@ final class GamePageRegistrationFieldsBuilder {
                     registerForm?.phone = newValue
             }),
             GamePageTeamCountItem(
-                kind: .basicField,
+                kind: .teamCount,
                 title: "Количество человек в команде",
                 pickerColor: .systemGray5Adapted,
                 backgroundColor: .systemGray6Adapted,
