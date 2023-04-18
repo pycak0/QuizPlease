@@ -17,6 +17,7 @@ final class GamePagePresenter {
 
     private let itemFactory: GamePageItemFactoryProtocol
     private let interactor: GamePageInteractorProtocol
+    private let analyticsService: AnalyticsService
     private let router: GamePageRouterProtocol
     private let shouldScrollToRegistrationOnLoad: Bool
 
@@ -28,15 +29,20 @@ final class GamePagePresenter {
     /// - Parameters:
     ///   - itemFactory: Factory that creates GamePage items
     ///   - interactor: GamePage interactor
+    ///   - analyticsService: Service that sends analytic events
     ///   - router: GamePage screen router
+    ///   - shouldScrollToRegistrationOnLoad: should scroll to registration section
+    ///   after screen was loaded
     init(
         itemFactory: GamePageItemFactoryProtocol,
         interactor: GamePageInteractorProtocol,
+        analyticsService: AnalyticsService,
         router: GamePageRouterProtocol,
         shouldScrollToRegistrationOnLoad: Bool
     ) {
         self.itemFactory = itemFactory
         self.interactor = interactor
+        self.analyticsService = analyticsService
         self.router = router
         self.shouldScrollToRegistrationOnLoad = shouldScrollToRegistrationOnLoad
     }
@@ -85,6 +91,7 @@ extension GamePagePresenter: GamePageViewOutput,
                              GamePageSubmitOutput {
 
     func viewDidLoad() {
+        analyticsService.sendEvent(.gamePageOpen)
         view?.startLoading()
         interactor.loadGame { [weak self] error in
             guard let self else { return }
@@ -147,6 +154,7 @@ extension GamePagePresenter: GamePageViewOutput,
     // MARK: - GamePageSubmitOutput
 
     func submitButtonPressed() {
+        analyticsService.sendEvent(.beginRegistration)
         view?.startLoading()
 
         // 1. Validate
@@ -174,9 +182,11 @@ extension GamePagePresenter: GamePageInteractorOutput {
 
     func didRegisterWithResult(_ result: GameRegistrationResult) {
         view?.stopLoading()
-        let completion = { [weak router, result] in
+        let completion = { [weak self, result] in
+            guard let self else { return }
             if result.isSuccess {
-                router?.showCompletionScreen(options: result.options, delegate: self)
+                self.analyticsService.sendEvent(.registrationSuccess)
+                self.router.showCompletionScreen(options: result.options, delegate: self)
             }
         }
         guard let message = result.message else {

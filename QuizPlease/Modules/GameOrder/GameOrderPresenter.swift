@@ -157,7 +157,7 @@ final class GameOrderPresenter: GameOrderPresenterProtocol {
         if scrollToSignUp {
             view.scrollToSignUp()
         }
-        analyticsService.sendEvent(.gameOrderOpen)
+        analyticsService.sendEvent(.gamePageOpen)
     }
 
     func didChangeNumberOfPeople(_ newNumber: Int) {
