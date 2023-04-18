@@ -157,8 +157,17 @@ final class GamePageView: UIView {
         }
     }
 
-    func updateMaxPaymentCount() {
-        guard let index = items.firstIndex(where: { $0.kind == .paymentCount }) else { return }
+    func updateFirstItem(kind: GamePageItemKind) {
+        guard let index = items.firstIndex(where: { $0.kind == kind }) else { return }
+        updateItem(at: index)
+    }
+
+    func updateLastItem(kind: GamePageItemKind) {
+        guard let index = items.lastIndex(where: { $0.kind == kind }) else { return }
+        updateItem(at: index)
+    }
+
+    private func updateItem(at index: Int) {
         let indexPath = IndexPath(row: index, section: 0)
         if let cell = tableView.cellForRow(at: indexPath) as? GamePageCellProtocol {
             cell.configure(with: items[index])

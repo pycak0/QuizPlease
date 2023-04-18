@@ -19,10 +19,18 @@ protocol PaymentSectionViewUpdater: AnyObject {
     func updatePaymentCountItems(with items: [GamePageItemProtocol])
 }
 
+/// GamePage payment section output protocol
+protocol GamePagePaymentSectionOutput: AnyObject {
+
+    /// Notifies that payment type has been changed
+    func didChangePaymentType()
+}
+
 /// GamePage payment section items builder
 final class GamePagePaymentSectionBuilder {
 
     weak var viewUpdater: PaymentSectionViewUpdater?
+    weak var output: GamePagePaymentSectionOutput?
 
     // MARK: - Private Properties
 
@@ -50,6 +58,7 @@ final class GamePagePaymentSectionBuilder {
                     if let type = PaymentType(name: newValue) {
                         self.paymentInfoProvider.setPaymentType(type)
                         self.viewUpdater?.updatePaymentCountItems(with: self.makePaymentCountItems())
+                        self.output?.didChangePaymentType()
                     }
                 }
             )
