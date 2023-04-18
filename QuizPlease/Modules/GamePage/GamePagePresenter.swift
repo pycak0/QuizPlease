@@ -47,6 +47,7 @@ extension GamePagePresenter: GamePageViewOutput,
                              GamePageInfoOutput,
                              GamePageRegistrationFieldsOutput,
                              GamePageSpecialConditionsOutput,
+                             GamePagePaymentSectionOutput,
                              GamePageSubmitOutput {
 
     func viewDidLoad() {
@@ -89,7 +90,7 @@ extension GamePagePresenter: GamePageViewOutput,
     // MARK: - GamePageRegistrationFieldsOutput
 
     func didChangeTeamCount() {
-        view?.updateMaxPaymentCount()
+        view?.updateFirstItem(kind: .paymentCount)
     }
 
     // MARK: - GamePageSpecialConditionsOutput
@@ -105,8 +106,13 @@ extension GamePagePresenter: GamePageViewOutput,
     }
 
     func didEndEditingSpecialCondition() {
-        // Recalculate payment sum here
-        
+        // TODO: Recalculate payment sum here
+    }
+
+    // MARK: - GamePagePaymentSectionOutput
+
+    func didChangePaymentType() {
+        view?.updateFirstItem(kind: .submit)
     }
 
     // MARK: - GamePageSubmitOutput

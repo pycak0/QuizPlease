@@ -51,7 +51,11 @@ protocol GamePageViewInput: AnyObject,
 
     func scrollToRegistration()
 
-    func updateMaxPaymentCount()
+    /// Reconfigures the first item of given kind
+    func updateFirstItem(kind: GamePageItemKind)
+
+    /// Reconfigures the last item of given kind
+    func updateLastItem(kind: GamePageItemKind)
 }
 
 /// Game page screen view controller
@@ -137,8 +141,12 @@ extension GamePageViewController: GamePageViewInput {
         gamePageView.scrollToRegistration()
     }
 
-    func updateMaxPaymentCount() {
-        gamePageView.updateMaxPaymentCount()
+    func updateFirstItem(kind: GamePageItemKind) {
+        gamePageView.updateFirstItem(kind: kind)
+    }
+
+    func updateLastItem(kind: GamePageItemKind) {
+        gamePageView.updateLastItem(kind: kind)
     }
 
     // MARK: - SpecialConditionsView

@@ -79,6 +79,7 @@ extension GamePageAssembly: ViewAssembly {
         infoBuilder.output = presenter
         registrationFieldsBuilder.output = presenter
         specialConditionsBuilder.output = presenter
+        paymentBuilder.output = presenter
         submitBuilder.output = presenter
 
         specialConditionsBuilder.view = viewController

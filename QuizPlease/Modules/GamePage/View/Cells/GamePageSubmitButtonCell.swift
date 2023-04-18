@@ -65,6 +65,23 @@ final class GamePageSubmitButtonCell: UITableViewCell {
     private func buttonPressed() {
         tapAction?()
     }
+
+    private func setButtonTitle(_ title: String, animated: Bool) {
+        guard animated else {
+            submitButton.setTitle(title, for: .normal)
+            return
+        }
+        UIView.animate(withDuration: 0.1) { [self] in
+            submitButton.alpha = 0.5
+            submitButton.titleLabel?.alpha = 0
+        } completion: { _ in
+            UIView.animate(withDuration: 0.1) { [self] in
+                submitButton.alpha = 1
+                submitButton.setTitle(title, for: .normal)
+                submitButton.titleLabel?.alpha = 1
+            }
+        }
+    }
 }
 
 // MARK: - GamePageCellProtocol
@@ -73,7 +90,10 @@ extension GamePageSubmitButtonCell: GamePageCellProtocol {
 
     func configure(with item: GamePageItemProtocol) {
         guard let item = item as? GamePageSubmitButtonItem else { return }
-        submitButton.setTitle(item.getTitle(), for: .normal)
+        let newTitle = item.getTitle()
+        if newTitle != submitButton.title(for: .normal) {
+            setButtonTitle(newTitle, animated: true)
+        }
         tapAction = item.tapAction
     }
 }
