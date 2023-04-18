@@ -20,6 +20,16 @@ protocol NetworkServiceProtocol {
         authorizationKind: NetworkService.AuthorizationKind,
         completion: @escaping ((Result<T, NetworkServiceError>) -> Void)
     ) -> Cancellable?
+
+    /// - parameter apiPath: used to constructs URLComponents using `baseUrlComponents` and given path
+    func afPost<Response: Decodable>(
+        with bodyParameters: [String: String?],
+        and headers: [String: String]?,
+        to apiPath: String,
+        responseType: Response.Type,
+        authorizationKind: NetworkService.AuthorizationKind,
+        completion: @escaping (Result<Response, NetworkServiceError>) -> Void
+    )
 }
 
 extension NetworkServiceProtocol {
@@ -36,6 +46,23 @@ extension NetworkServiceProtocol {
             apiPath: apiPath,
             parameters: parameters,
             headers: nil,
+            authorizationKind: .none,
+            completion: completion
+        )
+    }
+
+    /// - parameter apiPath: used to constructs URLComponents using `baseUrlComponents` and given path
+    func afPost<Response: Decodable>(
+        with bodyParameters: [String: String?],
+        to apiPath: String,
+        responseType: Response.Type,
+        completion: @escaping (Result<Response, NetworkServiceError>) -> Void
+    ) {
+        afPost(
+            with: bodyParameters,
+            and: nil,
+            to: apiPath,
+            responseType: responseType,
             authorizationKind: .none,
             completion: completion
         )

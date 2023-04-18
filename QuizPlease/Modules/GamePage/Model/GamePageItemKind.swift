@@ -25,7 +25,6 @@ extension GamePageItemKind {
     static let annotation = GamePageItemKind()
     static let info = GamePageItemKind()
     static let registrationHeader = GamePageItemKind()
-    static let basicField = GamePageItemKind()
     static let customField = GamePageItemKind()
     static let specialConditionHeader = GamePageItemKind()
     static let specialCondition = GamePageItemKind()

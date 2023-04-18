@@ -18,6 +18,8 @@ protocol SpecialConditionsProvider: AnyObject {
     func addSpecialCondition() -> SpecialCondition?
 
     func removeSpecialCondition(at index: Int)
+
+    func validateRegisterForm(completion: @escaping (RegisterFormValidationResult) -> Void)
 }
 
 /// Service that manages register form
@@ -43,12 +45,16 @@ protocol RegistrationServiceProtocol: AnyObject,
 /// Service that manages register form
 final class RegistrationService {
 
+    // MARK: - Private Properties
+
     private let specialConditionsLimit = 9
 
     private let networkService: NetworkServiceProtocol
     private let registerForm: RegisterForm
     private var customFields: [CustomFieldModel] = []
     private var specialConditions: [SpecialCondition] = [SpecialCondition()]
+
+    // MARK: - Lifecycle
 
     /// Initialize `RegistrationService`
     /// - Parameters:
@@ -65,6 +71,54 @@ final class RegistrationService {
             gameId: gameId
         )
         self.networkService = networkService
+    }
+
+    // MARK: - Private Methods
+
+    private func validateForm() -> [RegisterFormValidationResult.Error] {
+        var errors = [RegisterFormValidationResult.Error]()
+
+        if registerForm.email.isEmpty || registerForm.captainName.isEmpty || registerForm.teamName.isEmpty {
+            errors.append(.someFieldsEmpty)
+        }
+
+        if !registerForm.email.isValidEmail {
+            errors.append(.email)
+        }
+
+        if !PhoneNumberKitInstance.shared.isValidPhoneNumber(registerForm.phone) {
+            errors.append(.phone)
+        }
+
+        if errors.isEmpty && !registerForm.isValid {
+            errors.append(.unknown)
+        }
+
+        return errors
+    }
+
+    private func validateFormOnServer(completion: @escaping ([RegisterFormValidationResult.Error]) -> Void) {
+        networkService.afPost(
+            with: [
+                "QpRecord[game_id]": "\(registerForm.gameId)",
+                "QpRecord[teamName]": registerForm.teamName
+            ],
+            to: "/ajax/is-record-name-exist",
+            responseType: Bool.self
+        ) { result in
+            var errors = [RegisterFormValidationResult.Error]()
+
+            switch result {
+            case let .failure(error):
+                errors.append(.network(error))
+            case let .success(isTeamRegistered):
+                if isTeamRegistered {
+                    errors.append(.invalidTeamName)
+                }
+            }
+
+            completion(errors)
+        }
     }
 }
 
@@ -133,6 +187,20 @@ extension RegistrationService: RegistrationServiceProtocol {
 
                 completion(response.success, response.message)
             }
+        }
+    }
+
+    func validateRegisterForm(completion: @escaping (RegisterFormValidationResult) -> Void) {
+        // 1. Local validations
+        let localErrors = validateForm()
+        guard localErrors.isEmpty else {
+            completion(RegisterFormValidationResult(isValid: false, errors: localErrors))
+            return
+        }
+
+        // 2. Server Validations
+        validateFormOnServer { errors in
+            completion(RegisterFormValidationResult(isValid: errors.isEmpty, errors: errors))
         }
     }
 }

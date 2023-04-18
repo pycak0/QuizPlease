@@ -47,15 +47,21 @@ protocol GamePageViewInput: AnyObject,
     /// Show error alert
     func showAlert(_ error: Error, handler: (() -> Void)?)
 
-    func showAlert(title: String, message: String)
+    func showAlert(title: String, message: String, handler: (() -> Void)?)
 
-    func scrollToRegistration()
+    func scrollToItem(kind: GamePageItemKind)
 
     /// Reconfigures the first item of given kind
     func updateFirstItem(kind: GamePageItemKind)
 
     /// Reconfigures the last item of given kind
     func updateLastItem(kind: GamePageItemKind)
+
+    /// Hides keyboard and ends editing
+    func endEditing()
+
+    /// Scroll to item with given kind and ask to edit it 
+    func editItem(kind: GamePageItemKind)
 }
 
 /// Game page screen view controller
@@ -133,12 +139,10 @@ extension GamePageViewController: GamePageViewInput {
         }
     }
 
-    func showAlert(title: String, message: String) {
-        showSimpleAlert(title: title, message: message)
-    }
-
-    func scrollToRegistration() {
-        gamePageView.scrollToRegistration()
+    func showAlert(title: String, message: String, handler: (() -> Void)?) {
+        showSimpleAlert(title: title, message: message) { _ in
+            handler?()
+        }
     }
 
     func updateFirstItem(kind: GamePageItemKind) {
@@ -147,6 +151,21 @@ extension GamePageViewController: GamePageViewInput {
 
     func updateLastItem(kind: GamePageItemKind) {
         gamePageView.updateLastItem(kind: kind)
+    }
+
+    func endEditing() {
+        view.endEditing(true)
+    }
+
+    func editItem(kind: GamePageItemKind) {
+        gamePageView.scrollToItem(kind: .registrationHeader)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.gamePageView.editItem(kind: kind)
+        }
+    }
+
+    func scrollToItem(kind: GamePageItemKind) {
+        gamePageView.scrollToItem(kind: kind)
     }
 
     // MARK: - SpecialConditionsView

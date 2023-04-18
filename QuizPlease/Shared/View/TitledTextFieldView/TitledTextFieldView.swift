@@ -193,10 +193,15 @@ class TitledTextFieldView: UIView {
             ?? .systemFont(ofSize: textFontSize, weight: .semibold)
     }
 
+    override func becomeFirstResponder() -> Bool {
+        startEditing()
+    }
+
+    @discardableResult
     @objc
-    private func startEditing() {
-        guard !textField.isFirstResponder else { return }
-        textField.becomeFirstResponder()
+    private func startEditing() -> Bool {
+        guard !textField.isFirstResponder else { return true }
+        return textField.becomeFirstResponder()
     }
 
     private func updateEditingAppearance() {

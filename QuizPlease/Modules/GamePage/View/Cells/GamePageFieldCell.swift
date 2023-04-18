@@ -77,6 +77,10 @@ final class GamePageFieldCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
+    override func becomeFirstResponder() -> Bool {
+        return textFieldView.becomeFirstResponder()
+    }
+
     // MARK: - Private Methods
 
     private func makeLayout() {

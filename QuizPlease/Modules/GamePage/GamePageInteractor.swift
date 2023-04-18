@@ -31,6 +31,9 @@ protocol GamePageInteractorProtocol: AnyObject,
 
     /// Check special condition for discount
     func checkSpecialCondition(_ value: String, completion: @escaping (Bool, String) -> Void)
+
+    /// Check whether register form is valid
+    func validateRegisterForm(completion: @escaping (RegisterFormValidationResult) -> Void)
 }
 
 /// GamePage interactor
@@ -129,6 +132,10 @@ final class GamePageInteractor: GamePageInteractorProtocol {
 
     func checkSpecialCondition(_ value: String, completion: @escaping (Bool, String) -> Void) {
         registrationService.checkSpecialCondition(value, completion: completion)
+    }
+
+    func validateRegisterForm(completion: @escaping (RegisterFormValidationResult) -> Void) {
+        registrationService.validateRegisterForm(completion: completion)
     }
 
     // MARK: - GameStatusProvider
