@@ -29,7 +29,8 @@ protocol GamePageViewOutput {
 /// Game page screen view protocol
 protocol GamePageViewInput: AnyObject,
                             LoadingIndicator,
-                            SpecialConditionsView {
+                            SpecialConditionsView,
+                            PaymentSectionViewUpdater {
 
     /// Set items to display in `GamePageView`
     /// - Parameter items: an array of items implementing `GamePageItemProtocol`
@@ -49,6 +50,8 @@ protocol GamePageViewInput: AnyObject,
     func showAlert(title: String, message: String)
 
     func scrollToRegistration()
+
+    func updateMaxPaymentCount()
 }
 
 /// Game page screen view controller
@@ -134,6 +137,10 @@ extension GamePageViewController: GamePageViewInput {
         gamePageView.scrollToRegistration()
     }
 
+    func updateMaxPaymentCount() {
+        gamePageView.updateMaxPaymentCount()
+    }
+
     // MARK: - SpecialConditionsView
 
     func addSpecialCondition(_ item: GamePageItemProtocol) {
@@ -150,5 +157,11 @@ extension GamePageViewController: GamePageViewInput {
 
     func hideAddButton() {
         gamePageView.hideAddButton()
+    }
+
+    // MARK: - PaymentSectionViewUpdater
+
+    func updatePaymentCountItems(with newItems: [GamePageItemProtocol]) {
+        gamePageView.updatePaymentCountItems(with: newItems)
     }
 }

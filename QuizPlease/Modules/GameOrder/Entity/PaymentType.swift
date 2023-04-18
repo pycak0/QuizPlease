@@ -16,3 +16,25 @@ enum PaymentType: Int, CaseIterable, Encodable {
     /// Payment type not available in app
     case cash
 }
+
+// MARK: - PaymentType + Name
+
+extension PaymentType {
+
+    var name: String {
+        switch self {
+        case .online:
+            return "Онлайн\nоплата"
+        case .cash:
+            return "Оплата\nна игре"
+        }
+    }
+
+    init?(name: String) {
+        for type in [PaymentType.online, .cash] where name == type.name {
+            self = type
+            return
+        }
+        return nil
+    }
+}

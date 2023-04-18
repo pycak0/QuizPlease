@@ -12,11 +12,23 @@ import Foundation
 protocol GamePagePaymentInfoProvider: AnyObject {
 
     /// Get available payment type names
-    func getAvailablePaymentTypeNames() -> [String]
+    func getAvailablePaymentTypes() -> [PaymentType]
 
     /// Get currently selected payment type
-    func getSelectedPaymentTypeName() -> String
+    func getSelectedPaymentType() -> PaymentType
 
     /// Select new payment type by name 
-    func setPaymentType(_ name: String)
+    func setPaymentType(_ type: PaymentType)
+
+    /// Can we choose the amount of people to pay for or not. 
+    func supportsSelectPaidPeopleCount() -> Bool
+
+    /// Get total number of people in team
+    func getNumberOfPeopleInTeam() -> Int
+
+    /// Get number of people who will be paid for
+    func getSelectedNumberOfPeopleToPay() -> Int
+
+    /// Set the new value of paid people
+    func setNumberOfPeopleToPay(_ number: Int)
 }

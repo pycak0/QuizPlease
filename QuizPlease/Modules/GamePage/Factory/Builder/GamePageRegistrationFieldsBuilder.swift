@@ -8,8 +8,15 @@
 
 import Foundation
 
+protocol GamePageRegistrationFieldsOutput: AnyObject {
+
+    func didChangeTeamCount()
+}
+
 /// Basic register fields builder
 final class GamePageRegistrationFieldsBuilder {
+
+    weak var output: GamePageRegistrationFieldsOutput?
 
     // MARK: - Private Properties
 
@@ -74,9 +81,16 @@ final class GamePageRegistrationFieldsBuilder {
                     registerForm?.phone = newValue
             }),
             GamePageTeamCountItem(
+                kind: .basicField,
+                title: "Количество человек в команде",
+                pickerColor: .systemGray5Adapted,
+                backgroundColor: .systemGray6Adapted,
+                getMinCount: 2,
+                getMaxCount: 9,
                 getSelectedTeamCount: registerForm.count,
-                changeHandler: { [weak registerForm] newValue in
+                changeHandler: { [weak registerForm, weak output] newValue in
                     registerForm?.count = newValue
+                    output?.didChangeTeamCount()
             })
         ]
     }
@@ -85,7 +99,7 @@ final class GamePageRegistrationFieldsBuilder {
 
     private func makeCustomFields() -> [GamePageItemProtocol] {
         let customFields = registerFormProvider.getCustomFields()
-        var items = customFields.filter({ $0.data.type == .text })
+        return customFields.filter({ $0.data.type == .text })
             .map { customField in
                 GamePageFieldItem(
                     kind: .customField,
@@ -97,7 +111,6 @@ final class GamePageRegistrationFieldsBuilder {
                     customField?.inputValue = newValue
                 }
             }
-        return items
     }
 
     // MARK: - Feedback Field

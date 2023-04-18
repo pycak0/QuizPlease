@@ -129,6 +129,42 @@ final class GamePageView: UIView {
         tableView.scrollToRow(at: IndexPath(row: index, section: 0), at: .top, animated: true)
     }
 
+    func updatePaymentCountItems(with newItems: [GamePageItemProtocol]) {
+        if let firstIndex = items.firstIndex(where: { $0.kind == .paymentCount }),
+           let lastIndex = items.lastIndex(where: { $0.kind == .paymentCount }) {
+            // replace or remove existing items, if any
+            let range = firstIndex...lastIndex
+            let indexPaths = range.map { IndexPath(row: $0, section: 0) }
+
+            if newItems.isEmpty {
+                items.removeSubrange(range)
+                tableView.deleteRows(at: indexPaths, with: .fade)
+            } else {
+                items.replaceSubrange(range, with: newItems)
+                tableView.reloadRows(at: indexPaths, with: .fade)
+            }
+
+            return
+        }
+
+        if let index = items.lastIndex(where: { $0.kind == .paymentType }) {
+            // add new items
+            let newFirstIndex = index + 1
+            let newLastIndex = newFirstIndex + newItems.count - 1
+            let indexPaths = (newFirstIndex...newLastIndex).map { IndexPath(row: $0, section: 0) }
+            items.insert(contentsOf: newItems, at: newFirstIndex)
+            tableView.insertRows(at: indexPaths, with: .fade)
+        }
+    }
+
+    func updateMaxPaymentCount() {
+        guard let index = items.firstIndex(where: { $0.kind == .paymentCount }) else { return }
+        let indexPath = IndexPath(row: index, section: 0)
+        if let cell = tableView.cellForRow(at: indexPath) as? GamePageCellProtocol {
+            cell.configure(with: items[index])
+        }
+    }
+
     /// Set the image with given path to the header view
     /// - Parameter path: image location on a server
     func setHeaderImage(path: String) {
