@@ -29,7 +29,7 @@ extension AnalyticsEvent {
     static let scheduleOpen = AnalyticsEvent(name: "page_view_schedule")
 
     /// Просмотр экрана игры
-    static let gameOrderOpen = AnalyticsEvent(name: "page_view_game")
+    static let gamePageOpen = AnalyticsEvent(name: "page_view_game")
 
     /// Заполнение формы регистрации.
     /// Ввод данных в любое поле (название команды, имя капитана, e-mail, телефон)
