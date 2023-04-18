@@ -37,9 +37,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate {
         application.registerForRemoteNotifications()
 
         UIBarButtonItem.swizzleMenu()
-        IQKeyboardManager.shared.disabledToolbarClasses = [GamePageViewController.self]
-        IQKeyboardManager.shared.disabledTouchResignedClasses = [GamePageViewController.self]
-//        IQKeyboardManager.shared.disabledDistanceHandlingClasses = [GamePageViewController.self]
         IQKeyboardManager.shared.keyboardDistanceFromTextField = 20
         IQKeyboardManager.shared.enable = true
         PhoneNumberKit.CountryCodePicker.forceModalPresentation = true

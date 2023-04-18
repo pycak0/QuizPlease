@@ -89,8 +89,8 @@ extension GamePagePresenter: GamePageViewOutput,
         interactor.loadGame { [weak self] error in
             guard let self else { return }
             self.view?.stopLoading()
-            if let error {
-                self.view?.showAlert(error) {
+            if error != nil {
+                self.view?.showErrorConnectingToServerAlert {
                     self.router.close()
                 }
                 return
@@ -148,6 +148,8 @@ extension GamePagePresenter: GamePageViewOutput,
 
     func submitButtonPressed() {
         view?.startLoading()
+
+        // 1. Validate
         interactor.validateRegisterForm { [weak self] result in
             guard let self else { return }
             guard result.isValid else {
@@ -155,10 +157,51 @@ extension GamePagePresenter: GamePageViewOutput,
                 self.processErrors(result.errors)
                 return
             }
+
+            // 2. Start registration
+            self.interactor.submitRegistration()
         }
     }
 
     func agreementButtonPressed() {
         router.showUserAgreementScreen()
+    }
+}
+
+// MARK: - GamePageInteractorOutput
+
+extension GamePagePresenter: GamePageInteractorOutput {
+
+    func didRegisterWithResult(_ result: GameRegistrationResult) {
+        view?.stopLoading()
+        let completion = { [weak router, result] in
+            if result.isSuccess {
+                router?.showCompletionScreen(options: result.options, delegate: self)
+            }
+        }
+        guard let message = result.message else {
+            completion()
+            return
+        }
+        view?.showAlert(
+            title: "Запись на игру",
+            message: message,
+            handler: completion
+        )
+    }
+
+    func didFailWithError(_ error: NetworkServiceError) {
+        view?.stopLoading()
+        view?.showErrorConnectingToServerAlert(handler: nil)
+    }
+}
+
+// MARK: - GameOrderCompletionDelegate
+
+extension GamePagePresenter: GameOrderCompletionDelegate {
+
+    func didPressDismissButton(in vc: GameOrderCompletionVC) {
+        vc.dismiss(animated: true)
+        router.close()
     }
 }
