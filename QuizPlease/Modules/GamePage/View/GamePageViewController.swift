@@ -169,7 +169,7 @@ extension GamePageViewController: GamePageViewInput {
 
     // MARK: - PaymentSectionViewUpdater
 
-    func updatePaymentCountItems(with newItems: [GamePageItemProtocol]) {
-        gamePageView.updatePaymentCountItems(with: newItems)
+    func updatePaymentCountAndSumItems(with newItems: [GamePageItemProtocol]) {
+        gamePageView.updatePaymentCountAndSumItems(with: newItems)
     }
 }

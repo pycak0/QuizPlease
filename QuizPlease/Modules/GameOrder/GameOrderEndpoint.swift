@@ -28,15 +28,25 @@ public final class GameOrderEndpoint: ApplinkEndpoint {
             return false
         }
 
-        let assembly = GameOrderAssembly(
-            gameId: gameId,
-            cityId: AppSettings.defaultCity.id,
-            shouldScrollToSignUp: false,
-            shouldLoadGameInfo: true
-        )
+        let viewController: UIViewController
 
-        let gameOrderVC = assembly.makeViewController()
-        topNavigationController.pushViewController(gameOrderVC, animated: true)
+        if AppSettings.isGamePageEnabled {
+            viewController = GamePageAssembly(
+                launchOptions: .init(
+                    gameId: gameId,
+                    shouldScrollToRegistration: false
+                )
+            ).makeViewController()
+        } else {
+            viewController = GameOrderAssembly(
+                gameId: gameId,
+                cityId: AppSettings.defaultCity.id,
+                shouldScrollToSignUp: false,
+                shouldLoadGameInfo: true
+            ).makeViewController()
+        }
+
+        topNavigationController.pushViewController(viewController, animated: true)
         print("✅ Successful transition to Schedule Screen")
         return true
     }

@@ -43,6 +43,7 @@ final class GamePageInteractor: GamePageInteractorProtocol {
     private let gameInfoLoader: GameInfoLoader
     private let placeGeocoder: PlaceGeocoderProtocol
     private let registrationService: RegistrationServiceProtocol
+    private let paymentSumCalculator: PaymentSumCalculator
 
     var availablePaymentTypes: [PaymentType] {
         if gameInfo.isOnlineGame {
@@ -65,11 +66,13 @@ final class GamePageInteractor: GamePageInteractorProtocol {
     ///   - gameInfoLoader: Service that loads Game info
     ///   - placeGeocoder: Service that provides `Place` coordinates
     ///   - registrationService: Service that manages register form
+    ///   - paymentSumCalculator: Service that calculates payment sum for the game
     init(
         gameId: Int,
         gameInfoLoader: GameInfoLoader,
         placeGeocoder: PlaceGeocoderProtocol,
-        registrationService: RegistrationServiceProtocol
+        registrationService: RegistrationServiceProtocol,
+        paymentSumCalculator: PaymentSumCalculator
     ) {
         var gameInfo = GameInfo()
         gameInfo.id = gameId
@@ -77,6 +80,7 @@ final class GamePageInteractor: GamePageInteractorProtocol {
         self.gameInfoLoader = gameInfoLoader
         self.placeGeocoder = placeGeocoder
         self.registrationService = registrationService
+        self.paymentSumCalculator = paymentSumCalculator
     }
 
     // MARK: - Private Methods
@@ -207,10 +211,28 @@ final class GamePageInteractor: GamePageInteractorProtocol {
 
     func getSelectedNumberOfPeopleToPay() -> Int {
         let registerForm = registrationService.getRegisterForm()
-        return registerForm.countPaidOnline ?? registerForm.count
+        if let count = registerForm.countPaidOnline {
+            return count
+        }
+        registerForm.countPaidOnline = registerForm.count
+        return registerForm.count
     }
 
     func setNumberOfPeopleToPay(_ number: Int) {
         registrationService.getRegisterForm().countPaidOnline = number
+    }
+
+    func calculatePaymentSum() -> Double {
+        let registerForm = registrationService.getRegisterForm()
+        return paymentSumCalculator.calculateSumToPay(
+            forPeople: registerForm.countPaidOnline ?? registerForm.count,
+            gamePrice: gameInfo.priceNumber ?? 0,
+            isOnlineGame: gameInfo.isOnlineGame,
+            discounts: registrationService.getSpecialConditions().compactMap(\.discountInfo)
+        )
+    }
+
+    func hasAnyDiscounts() -> Bool {
+        !registrationService.getSpecialConditions().compactMap(\.discountInfo).isEmpty
     }
 }

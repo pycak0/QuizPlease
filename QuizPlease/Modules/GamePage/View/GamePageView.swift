@@ -92,16 +92,14 @@ final class GamePageView: UIView {
     func addSpecialCondition(_ item: GamePageItemProtocol) {
         guard let index = items.lastIndex(where: { $0.kind == .specialCondition }) else { return }
         let newIndex = index + 1
-        items.insert(item, at: newIndex)
-        tableView.insertRows(at: [IndexPath(row: newIndex, section: 0)], with: .fade)
+        insertItem(item, at: newIndex)
     }
 
     func removeSpecialCondition(at conditionIndex: Int) {
         guard let firstItemIndex = items.firstIndex(where: { $0.kind == .specialCondition }) else { return }
         let actualItemIndex = firstItemIndex + conditionIndex
         let indexPath = IndexPath(row: actualItemIndex, section: 0)
-        items.remove(at: indexPath.row)
-        tableView.deleteRows(at: [indexPath], with: .fade)
+        removeItem(at: actualItemIndex)
     }
 
     func showAddButton(item: GamePageItemProtocol) {
@@ -114,14 +112,12 @@ final class GamePageView: UIView {
         register(item: item)
 
         let newIndex = index + 1
-        items.insert(item, at: newIndex)
-        tableView.insertRows(at: [IndexPath(row: newIndex, section: 0)], with: .fade)
+        insertItem(item, at: newIndex)
     }
 
     func hideAddButton() {
         guard let index = items.firstIndex(where: { $0.kind == .addSpecialCondition }) else { return }
-        items.remove(at: index)
-        tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .fade)
+        removeItem(at: index)
     }
 
     func scrollToRegistration() {
@@ -129,9 +125,9 @@ final class GamePageView: UIView {
         tableView.scrollToRow(at: IndexPath(row: index, section: 0), at: .top, animated: true)
     }
 
-    func updatePaymentCountItems(with newItems: [GamePageItemProtocol]) {
-        if let firstIndex = items.firstIndex(where: { $0.kind == .paymentCount }),
-           let lastIndex = items.lastIndex(where: { $0.kind == .paymentCount }) {
+    func updatePaymentCountAndSumItems(with newItems: [GamePageItemProtocol]) {
+        if let firstIndex = items.firstIndex(where: { $0.kind == .paymentCount || $0.kind == .paymentSum }),
+           let lastIndex = items.lastIndex(where: { $0.kind == .paymentCount || $0.kind == .paymentSum }) {
             // replace or remove existing items, if any
             let range = firstIndex...lastIndex
             let indexPaths = range.map { IndexPath(row: $0, section: 0) }
@@ -152,6 +148,7 @@ final class GamePageView: UIView {
             let newFirstIndex = index + 1
             let newLastIndex = newFirstIndex + newItems.count - 1
             let indexPaths = (newFirstIndex...newLastIndex).map { IndexPath(row: $0, section: 0) }
+            newItems.forEach(register(item:))
             items.insert(contentsOf: newItems, at: newFirstIndex)
             tableView.insertRows(at: indexPaths, with: .fade)
         }
@@ -165,13 +162,6 @@ final class GamePageView: UIView {
     func updateLastItem(kind: GamePageItemKind) {
         guard let index = items.lastIndex(where: { $0.kind == kind }) else { return }
         updateItem(at: index)
-    }
-
-    private func updateItem(at index: Int) {
-        let indexPath = IndexPath(row: index, section: 0)
-        if let cell = tableView.cellForRow(at: indexPath) as? GamePageCellProtocol {
-            cell.configure(with: items[index])
-        }
     }
 
     /// Set the image with given path to the header view
@@ -205,6 +195,23 @@ final class GamePageView: UIView {
     private func register(item: GamePageItemProtocol) {
         let cellClass: AnyClass = item.cellClass(with: context)
         tableView.register(cellClass, forCellReuseIdentifier: makeReuseIdentifier(cellClass))
+    }
+
+    private func updateItem(at index: Int) {
+        let indexPath = IndexPath(row: index, section: 0)
+        if let cell = tableView.cellForRow(at: indexPath) as? GamePageCellProtocol {
+            cell.configure(with: items[index])
+        }
+    }
+
+    private func insertItem(_ item: GamePageItemProtocol, at index: Int) {
+        items.insert(item, at: index)
+        tableView.insertRows(at: [IndexPath(row: index, section: 0)], with: .fade)
+    }
+
+    private func removeItem(at index: Int) {
+        items.remove(at: index)
+        tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .fade)
     }
 
     private func makeReuseIdentifier(_ cellClass: AnyClass) -> String {
