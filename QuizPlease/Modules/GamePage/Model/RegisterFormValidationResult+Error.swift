@@ -11,9 +11,9 @@ import Foundation
 extension RegisterFormValidationResult {
 
     enum Error {
-        case someFieldsEmpty, email, phone, invalidTeamName,
-             unknown,
-             network(NetworkServiceError)
+        case someFieldsEmpty, email, phone, invalidTeamName, unknown
+        case customFieldEmpty(_ field: CustomFieldModel)
+        case network(NetworkServiceError)
     }
 }
 
@@ -33,6 +33,8 @@ extension RegisterFormValidationResult.Error {
             return "Произошла неизвестная ошибка"
         case .network:
             return "Не удалось связаться с сервером"
+        case .customFieldEmpty:
+            return "Необходимо сделать выбор"
         }
     }
 
@@ -50,6 +52,8 @@ extension RegisterFormValidationResult.Error {
             return "Error status code 40"
         case let .network(error):
             return error.localizedDescription
+        case let .customFieldEmpty(field):
+            return "Пожалуйста, заполните поле '\(field.data.label)'"
         }
     }
 }

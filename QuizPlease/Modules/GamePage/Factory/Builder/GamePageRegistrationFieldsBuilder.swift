@@ -15,6 +15,10 @@ extension GamePageItemKind {
     static let email = GamePageItemKind()
     static let phone = GamePageItemKind()
     static let teamCount = GamePageItemKind()
+
+    static func customField(_ id: String) -> GamePageItemKind {
+        GamePageItemKind(id: "CustomField_\(id)")
+    }
 }
 
 protocol GamePageRegistrationFieldsOutput: AnyObject {
@@ -108,18 +112,48 @@ final class GamePageRegistrationFieldsBuilder {
 
     private func makeCustomFields() -> [GamePageItemProtocol] {
         let customFields = registerFormProvider.getCustomFields()
-        return customFields.filter({ $0.data.type == .text })
-            .map { customField in
-                GamePageFieldItem(
-                    kind: .customField,
-                    title: customField.data.label,
-                    placeholder: customField.data.placeholder,
-                    options: .basic,
-                    valueProvider: customField.inputValue
-                ) { [weak customField] newValue in
-                    customField?.inputValue = newValue
-                }
+        return customFields.compactMap { customField in
+            switch customField.data.type {
+            case .text:
+                return makeCustomFieldTextItem(customField)
+            case .radio:
+                return makeCustomFieldPollItem(customField)
+            case .textarea:
+                return makeCustomFieldTextareaItem(customField)
             }
+        }
+    }
+
+    private func makeCustomFieldTextItem(_ customField: CustomFieldModel) -> GamePageItemProtocol {
+        GamePageFieldItem(
+            kind: .customField(customField.data.name),
+            title: customField.data.label,
+            placeholder: customField.data.placeholder,
+            options: .basic,
+            valueProvider: customField.inputValue
+        ) { [weak customField] newValue in
+            customField?.inputValue = newValue
+        }
+    }
+
+    private func makeCustomFieldPollItem(_ customField: CustomFieldModel) -> GamePageItemProtocol? {
+        GamePagePollItem(
+            kind: .customField(customField.data.name),
+            title: customField.data.label,
+            values: customField.data.values,
+            isRequired: customField.data.isRequired,
+            getSelectedValue: {
+                customField.inputValue
+            },
+            onSelectionChange: { [weak customField] newValue in
+                customField?.inputValue = newValue
+            }
+        )
+    }
+
+    private func makeCustomFieldTextareaItem(_ customField: CustomFieldModel) -> GamePageItemProtocol? {
+        // TODO: return item
+        return nil
     }
 
     // MARK: - Feedback Field
@@ -127,7 +161,7 @@ final class GamePageRegistrationFieldsBuilder {
     private func makeFeedbackField() -> GamePageItemProtocol {
         let registerForm = registerFormProvider.getRegisterForm()
         return GamePageFieldItem(
-            kind: .customField,
+            kind: .customField("Feedback"),
             title: "Откуда вы узнали о нас?",
             placeholder: "Расскажите",
             options: .basic,

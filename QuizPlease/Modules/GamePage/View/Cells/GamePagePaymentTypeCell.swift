@@ -18,6 +18,8 @@ private enum Constants {
 /// GamePage cell to select payment type
 final class GamePagePaymentTypeCell: UITableViewCell {
 
+    // MARK: - Private Properties
+
     private var didChangePaymentType: ((_ newPaymentTypeName: String) -> Void)?
 
     private var paymentTypes: [String] = [] {
