@@ -50,7 +50,11 @@ protocol GamePageViewInput: AnyObject,
     /// Show custom alert 
     func showAlert(title: String, message: String, handler: (() -> Void)?)
 
+    /// Scrolls to the given item kind
     func scrollToItem(kind: GamePageItemKind)
+
+    /// Scrolls to the given item kind and provides a handler to execute after the scroll
+    func scrollToItem(kind: GamePageItemKind, completion: (() -> Void)?)
 
     /// Reconfigures the first item of given kind
     func updateFirstItem(kind: GamePageItemKind)
@@ -159,14 +163,20 @@ extension GamePageViewController: GamePageViewInput {
     }
 
     func editItem(kind: GamePageItemKind) {
-        gamePageView.scrollToItem(kind: .registrationHeader)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.gamePageView.editItem(kind: kind)
+        scrollToItem(kind: kind) { [weak self] in
+            self?.gamePageView.editItem(kind: kind)
         }
     }
 
     func scrollToItem(kind: GamePageItemKind) {
+        scrollToItem(kind: kind, completion: nil)
+    }
+
+    func scrollToItem(kind: GamePageItemKind, completion: (() -> Void)?) {
         gamePageView.scrollToItem(kind: kind)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            completion?()
+        }
     }
 
     // MARK: - SpecialConditionsView

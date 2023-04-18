@@ -202,6 +202,8 @@
 		A4822F68252CF85A004E05B9 /* GameStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4822F67252CF85A004E05B9 /* GameStatus.swift */; };
 		A48290F228D9177000C87D18 /* UIView+Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48290F128D9177000C87D18 /* UIView+Shadow.swift */; };
 		A4837BD12636086D00517EC6 /* SecurityHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4837BD02636086D00517EC6 /* SecurityHelper.swift */; };
+		A4855DA229EF48D3001088D6 /* GamePagePollCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4855DA129EF48D3001088D6 /* GamePagePollCell.swift */; };
+		A4855DA429EF4FB6001088D6 /* GamePagePollItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4855DA329EF4FB6001088D6 /* GamePagePollItem.swift */; };
 		A48A11EE24F55F9500F91B9C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A48A11ED24F55F9500F91B9C /* Main.storyboard */; };
 		A48A11F124F56D6900F91B9C /* MenuShopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48A11EF24F56D6900F91B9C /* MenuShopCell.swift */; };
 		A48A11F224F56D6900F91B9C /* MenuShopCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A48A11F024F56D6900F91B9C /* MenuShopCell.xib */; };
@@ -643,6 +645,8 @@
 		A4822F67252CF85A004E05B9 /* GameStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStatus.swift; sourceTree = "<group>"; };
 		A48290F128D9177000C87D18 /* UIView+Shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Shadow.swift"; sourceTree = "<group>"; };
 		A4837BD02636086D00517EC6 /* SecurityHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityHelper.swift; sourceTree = "<group>"; };
+		A4855DA129EF48D3001088D6 /* GamePagePollCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePagePollCell.swift; sourceTree = "<group>"; };
+		A4855DA329EF4FB6001088D6 /* GamePagePollItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePagePollItem.swift; sourceTree = "<group>"; };
 		A48A11ED24F55F9500F91B9C /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		A48A11EF24F56D6900F91B9C /* MenuShopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuShopCell.swift; sourceTree = "<group>"; };
 		A48A11F024F56D6900F91B9C /* MenuShopCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuShopCell.xib; sourceTree = "<group>"; };
@@ -2101,6 +2105,7 @@
 				4C00220629ED5C310030B1FD /* GamePageAgreementItem.swift */,
 				A434503229EDD31800E49B7E /* GamePagePaymentTypeItem.swift */,
 				4C1272A829EEAB5E008DA2E0 /* GamePagePaymentSumItem.swift */,
+				A4855DA329EF4FB6001088D6 /* GamePagePollItem.swift */,
 			);
 			path = Item;
 			sourceTree = "<group>";
@@ -2122,6 +2127,7 @@
 				4C00220429ED53020030B1FD /* GamePageAgreementCell.swift */,
 				A434503029EDCDCB00E49B7E /* GamePagePaymentTypeCell.swift */,
 				4C1272A629EE8F73008DA2E0 /* GamePagePaymentSumCell.swift */,
+				A4855DA129EF48D3001088D6 /* GamePagePollCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -2543,6 +2549,7 @@
 				A4779C7F251618C90064F863 /* GameOrderCompletionVC.swift in Sources */,
 				A4A296C224F6DC2800347EB2 /* AddGameVC.swift in Sources */,
 				A44B2E0C28C0204E00C1BC2F /* ScheduleGameCellViewModel.swift in Sources */,
+				A4855DA229EF48D3001088D6 /* GamePagePollCell.swift in Sources */,
 				A4E06B7529E9A21E0005C57B /* GamePageRegisterFormProvider.swift in Sources */,
 				A40D817C24D2CA04006D2CE3 /* ScheduleVC.swift in Sources */,
 				A44C697624EFD45300AB3BC9 /* QRCodeService.swift in Sources */,
@@ -2730,6 +2737,7 @@
 				A4C3C44929CD03CB00DB0364 /* UIStoryboard+Main.swift in Sources */,
 				A4E06B6429E8467E0005C57B /* GamePageDescriptionProvider.swift in Sources */,
 				A4F0B9E026248B6E00E4E2A5 /* SplashScreenRouter.swift in Sources */,
+				A4855DA429EF4FB6001088D6 /* GamePagePollItem.swift in Sources */,
 				A4E06B7329E8B7B30005C57B /* GamePageFieldItem.swift in Sources */,
 				4C553C0629E696F40066E2CA /* GamePageInfoCell.swift in Sources */,
 				A40F035D24D412D700C381F2 /* ShopItemCell.swift in Sources */,

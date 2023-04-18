@@ -74,6 +74,7 @@ extension GamePageAssembly: ViewAssembly {
         let presenter = GamePagePresenter(
             itemFactory: itemFactory,
             interactor: interactor,
+            analyticsService: services.analytics,
             router: router,
             shouldScrollToRegistrationOnLoad: launchOptions.shouldScrollToRegistration
         )

@@ -101,6 +101,12 @@ final class RegistrationService {
         return errors
     }
 
+    private func validateCustomFields() -> [RegisterFormValidationResult.Error] {
+        return customFields
+            .filter { $0.data.isRequired && $0.inputValue == nil }
+            .map { .customFieldEmpty($0) }
+    }
+
     private func validateFormOnServer(completion: @escaping ([RegisterFormValidationResult.Error]) -> Void) {
         networkService.afPost(
             with: [
@@ -196,7 +202,7 @@ extension RegistrationService: RegistrationServiceProtocol {
 
     func validateRegisterForm(completion: @escaping (RegisterFormValidationResult) -> Void) {
         // 1. Local validations
-        let localErrors = validateForm()
+        let localErrors = validateForm() + validateCustomFields()
         guard localErrors.isEmpty else {
             completion(RegisterFormValidationResult(isValid: false, errors: localErrors))
             return
