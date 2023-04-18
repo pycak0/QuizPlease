@@ -110,7 +110,7 @@ private extension GamePageTextItem {
             kind: .paymentCount,
             text: "* Доплатить за оставшихся участников можно " +
             "будет позже по ссылке из письма или прямо на игре.",
-            topInset: 16,
+            topInset: 0,
             bottomInset: 16,
             backgroundColor: .systemGray5Adapted,
             font: .gilroy(.semibold, size: 12),

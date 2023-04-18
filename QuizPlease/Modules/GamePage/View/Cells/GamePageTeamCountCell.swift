@@ -91,9 +91,16 @@ extension GamePageTeamCountCell: GamePageCellProtocol {
         onCountChange = item.changeHandler
         countPickerView.title = item.title ?? ""
         let minCount = item.getMinCount()
+        let maxCount = item.getMaxCount()
+        let selectedCount = item.getSelectedTeamCount()
         countPickerView.startCount = minCount
-        countPickerView.maxButtonsCount = item.getMaxCount() - minCount + 1
-        let index = item.getSelectedTeamCount() - minCount
+        countPickerView.maxButtonsCount = maxCount - minCount + 1
+
+        let actualSelectedCount = min(max(minCount, selectedCount), maxCount)
+        let index = actualSelectedCount - minCount
         countPickerView.setSelectedButton(at: index, animated: false)
+        if actualSelectedCount != selectedCount {
+            onCountChange?(actualSelectedCount)
+        }
     }
 }

@@ -50,6 +50,8 @@ protocol GamePageViewInput: AnyObject,
     func showAlert(title: String, message: String)
 
     func scrollToRegistration()
+
+    func updateMaxPaymentCount()
 }
 
 /// Game page screen view controller
@@ -133,6 +135,10 @@ extension GamePageViewController: GamePageViewInput {
 
     func scrollToRegistration() {
         gamePageView.scrollToRegistration()
+    }
+
+    func updateMaxPaymentCount() {
+        gamePageView.updateMaxPaymentCount()
     }
 
     // MARK: - SpecialConditionsView

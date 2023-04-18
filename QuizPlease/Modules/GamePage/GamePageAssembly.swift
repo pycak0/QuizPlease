@@ -75,8 +75,9 @@ extension GamePageAssembly: ViewAssembly {
         )
         let viewController = GamePageViewController(output: presenter)
 
-        infoBuilder.output = presenter
         registerButtonBuilder.output = presenter
+        infoBuilder.output = presenter
+        registrationFieldsBuilder.output = presenter
         specialConditionsBuilder.output = presenter
         submitBuilder.output = presenter
 

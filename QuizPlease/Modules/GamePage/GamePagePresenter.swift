@@ -45,6 +45,7 @@ final class GamePagePresenter {
 extension GamePagePresenter: GamePageViewOutput,
                              GamePageRegisterButtonOutput,
                              GamePageInfoOutput,
+                             GamePageRegistrationFieldsOutput,
                              GamePageSpecialConditionsOutput,
                              GamePageSubmitOutput {
 
@@ -83,6 +84,12 @@ extension GamePagePresenter: GamePageViewOutput,
 
     func didTapOnMap() {
         router.showMap(for: interactor.getPlaceInfo())
+    }
+
+    // MARK: - GamePageRegistrationFieldsOutput
+
+    func didChangeTeamCount() {
+        view?.updateMaxPaymentCount()
     }
 
     // MARK: - GamePageSpecialConditionsOutput

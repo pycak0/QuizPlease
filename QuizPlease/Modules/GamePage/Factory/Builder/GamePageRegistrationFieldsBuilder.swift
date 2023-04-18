@@ -8,8 +8,15 @@
 
 import Foundation
 
+protocol GamePageRegistrationFieldsOutput: AnyObject {
+
+    func didChangeTeamCount()
+}
+
 /// Basic register fields builder
 final class GamePageRegistrationFieldsBuilder {
+
+    weak var output: GamePageRegistrationFieldsOutput?
 
     // MARK: - Private Properties
 
@@ -81,8 +88,9 @@ final class GamePageRegistrationFieldsBuilder {
                 getMinCount: 2,
                 getMaxCount: 9,
                 getSelectedTeamCount: registerForm.count,
-                changeHandler: { [weak registerForm] newValue in
+                changeHandler: { [weak registerForm, weak output] newValue in
                     registerForm?.count = newValue
+                    output?.didChangeTeamCount()
             })
         ]
     }

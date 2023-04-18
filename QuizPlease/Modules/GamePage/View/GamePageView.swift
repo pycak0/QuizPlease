@@ -157,6 +157,14 @@ final class GamePageView: UIView {
         }
     }
 
+    func updateMaxPaymentCount() {
+        guard let index = items.firstIndex(where: { $0.kind == .paymentCount }) else { return }
+        let indexPath = IndexPath(row: index, section: 0)
+        if let cell = tableView.cellForRow(at: indexPath) as? GamePageCellProtocol {
+            cell.configure(with: items[index])
+        }
+    }
+
     /// Set the image with given path to the header view
     /// - Parameter path: image location on a server
     func setHeaderImage(path: String) {
