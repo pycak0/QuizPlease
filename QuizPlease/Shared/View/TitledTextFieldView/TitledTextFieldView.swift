@@ -18,23 +18,19 @@ extension TitledTextFieldViewDelegate {
 }
 
 private enum Constants {
-    static let topInset: CGFloat = 14
-    static let horizontalInset: CGFloat = 14
-    static let bottomInset: CGFloat = 14
-    static let titleSpacing: CGFloat = 4
+    static let offset: CGFloat = 14
+    static let bottomInset: CGFloat = -8
 }
 
 @IBDesignable
 class TitledTextFieldView: UIView {
     weak var delegate: TitledTextFieldViewDelegate?
 
-    // MARK: - UI Elements
-
+    // MARK: - UI
     lazy var textField: UITextField = {
         let textField = UITextField()
         textField.placeholder = self.placeholder
         textField.font = .gilroy(.semibold, size: 16)
-        textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
 
@@ -46,7 +42,6 @@ class TitledTextFieldView: UIView {
         label.text = self.title
         label.setContentHuggingPriority(.defaultHigh, for: .vertical)
         label.setContentHuggingPriority(.defaultHigh, for: .horizontal)
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
@@ -148,21 +143,25 @@ class TitledTextFieldView: UIView {
 
     private func commonInit() {
         backgroundColor = .clear
+        addSubview(titleLabel)
+        addSubview(textField)
         makeConstraints()
     }
 
     private func makeConstraints() {
-        addSubview(titleLabel)
-        addSubview(textField)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: Constants.topInset),
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.horizontalInset),
+            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: Constants.offset),
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.offset)
+        ])
 
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
             textField.centerXAnchor.constraint(equalTo: centerXAnchor),
-            textField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.horizontalInset),
-            textField.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: Constants.titleSpacing),
-            textField.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constants.bottomInset)
+            textField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.offset),
+            textField.topAnchor.constraint(equalTo: titleLabel.bottomAnchor),
+            textField.bottomAnchor.constraint(equalTo: bottomAnchor, constant: Constants.bottomInset)
         ])
     }
 
