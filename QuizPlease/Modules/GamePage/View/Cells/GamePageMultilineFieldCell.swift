@@ -11,7 +11,6 @@ import UIKit
 private enum Constants {
 
     static let horizontalSpacing: CGFloat = 16
-    static let topInset: CGFloat = 10
     static let buttonInset: CGFloat = 8
 }
 
@@ -33,16 +32,16 @@ final class GamePageMultilineFieldCell: UITableViewCell {
     }
 
     private lazy var topConstraint: NSLayoutConstraint = {
-        textFieldView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: topInset)
+        titledTextView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: topInset)
     }()
 
     private lazy var bottomConstraint: NSLayoutConstraint = {
-        textFieldView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -bottomInset)
+        titledTextView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -bottomInset)
     }()
 
     // MARK: - UI Elements
 
-    private lazy var textFieldView: TitledTextView = {
+    private lazy var titledTextView: TitledTextView = {
         let textFieldView = TitledTextView()
         textFieldView.delegate = self
         textFieldView.translatesAutoresizingMaskIntoConstraints = false
@@ -63,17 +62,17 @@ final class GamePageMultilineFieldCell: UITableViewCell {
     }
 
     override func becomeFirstResponder() -> Bool {
-        return textFieldView.becomeFirstResponder()
+        return titledTextView.becomeFirstResponder()
     }
 
     // MARK: - Private Methods
 
     private func makeLayout() {
-        contentView.addSubview(textFieldView)
+        contentView.addSubview(titledTextView)
         NSLayoutConstraint.activate([
-            textFieldView.leadingAnchor.constraint(
+            titledTextView.leadingAnchor.constraint(
                 equalTo: contentView.leadingAnchor, constant: Constants.horizontalSpacing),
-            textFieldView.trailingAnchor.constraint(
+            titledTextView.trailingAnchor.constraint(
                 equalTo: contentView.trailingAnchor, constant: -Constants.horizontalSpacing),
             topConstraint,
             bottomConstraint
@@ -81,12 +80,13 @@ final class GamePageMultilineFieldCell: UITableViewCell {
     }
 }
 
-// MARK: - TitledTextFieldViewDelegate
+// MARK: - TitledTextViewDelegate
 
 extension GamePageMultilineFieldCell: TitledTextViewDelegate {
 
     func textView(_ textView: TitledTextView, didChangeText text: String) {
         onTextChange?(text)
+        invalidateIntrinsicContentSize()
     }
 
     func textViewDidEndEditing(_ textView: TitledTextView) {
@@ -103,18 +103,19 @@ extension GamePageMultilineFieldCell: GamePageCellProtocol {
 
         bottomInset = item.bottomInset
 
-        textFieldView.title = item.title
-        textFieldView.placeholder = item.placeholder
+        titledTextView.title = item.title
+        titledTextView.placeholder = item.placeholder
 
-        textFieldView.backgroundColor = item.fieldColor
+        titledTextView.backgroundColor = item.fieldColor
         contentView.backgroundColor = item.backgroundColor
-        textFieldView.textView.textContentType = item.options.contentType
-        textFieldView.textView.autocapitalizationType = item.options.capitalizationType
-        textFieldView.textView.keyboardType = item.options.keyboardType
+//        titledTextView.textView.textContentType = item.options.contentType
+        titledTextView.autocapitalizationType = item.options.capitalizationType
+        titledTextView.keyboardType = item.options.keyboardType
 
         onTextChange = item.onValueChange
         onEndEditing = item.onEndEditing
 
-        textFieldView.textView.text = item.valueProvider()
+        titledTextView.text = item.valueProvider() ?? ""
+        invalidateIntrinsicContentSize()
     }
 }

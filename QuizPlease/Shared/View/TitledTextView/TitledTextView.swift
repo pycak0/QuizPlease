@@ -30,7 +30,7 @@ class TitledTextView: UIView {
 
     // MARK: - UI Elements
 
-    lazy var textView: UITextView = {
+    private lazy var textView: UITextView = {
         let textView = UITextView()
         textView.backgroundColor = .clear
         textView.font = .gilroy(.semibold, size: 16)
@@ -69,6 +69,15 @@ class TitledTextView: UIView {
     var title: String = "Title" {
         didSet {
             updateAppearance()
+        }
+    }
+
+    @IBInspectable
+    var text: String {
+        get { textView.text }
+        set {
+            textView.text = newValue
+            updatePlaceholder()
         }
     }
 
@@ -135,6 +144,16 @@ class TitledTextView: UIView {
         }
     }
 
+    var autocapitalizationType: UITextAutocapitalizationType {
+        get { textView.autocapitalizationType }
+        set { textView.autocapitalizationType = newValue }
+    }
+
+    var keyboardType: UIKeyboardType {
+        get { textView.keyboardType }
+        set { textView.keyboardType = newValue }
+    }
+
     // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -163,11 +182,11 @@ class TitledTextView: UIView {
         addSubview(textView)
         addSubview(placeholderLabel)
         NSLayoutConstraint.activate([
-            titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.horizontalInset),
             titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: Constants.topInset),
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.horizontalInset),
 
-            textView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            textView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Constants.horizontalInset),
             textView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.horizontalInset),
             textView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: Constants.titleSpacing),
             textView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constants.bottomInset),

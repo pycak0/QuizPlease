@@ -127,15 +127,22 @@ final class GamePageRegistrationFieldsBuilder {
     }
 
     private func makeCustomFieldTextItem(_ customField: CustomFieldModel) -> GamePageItemProtocol {
-        GamePageFieldItem(
-            kind: .customField(customField.data.name),
+        let kind: GamePageItemKind = .customField(customField.data.name)
+        return GamePageFieldItem(
+            kind: kind,
             title: customField.data.label,
             placeholder: customField.data.placeholder,
             options: .basic,
-            valueProvider: customField.inputValue
-        ) { [weak customField] newValue in
-            customField?.inputValue = newValue
-        }
+            valueProvider: customField.inputValue,
+            onValueChange: { [weak customField] newValue in
+                customField?.inputValue = newValue.trimmingCharacters(in: .whitespacesAndNewlines)
+            },
+            onEndEditing: { [weak customField, weak output] in
+                if let trimmedValue = customField?.inputValue, trimmedValue.isEmpty {
+                    output?.updateField(kind: kind)
+                }
+            }
+        )
     }
 
     private func makeCustomFieldPollItem(_ customField: CustomFieldModel) -> GamePageItemProtocol? {
@@ -161,10 +168,11 @@ final class GamePageRegistrationFieldsBuilder {
             placeholder: customField.data.placeholder,
             options: .basic,
             valueProvider: customField.inputValue,
-            onValueChange: { [weak customField, weak output] newValue in
-                let trimmedValue = newValue.trimmingCharacters(in: .whitespacesAndNewlines)
-                customField?.inputValue = trimmedValue
-                if trimmedValue.isEmpty {
+            onValueChange: { [weak customField] newValue in
+                customField?.inputValue = newValue.trimmingCharacters(in: .whitespacesAndNewlines)
+            },
+            onEndEditing: { [weak customField, weak output] in
+                if let trimmedValue = customField?.inputValue, trimmedValue.isEmpty {
                     output?.updateField(kind: kind)
                 }
             }
