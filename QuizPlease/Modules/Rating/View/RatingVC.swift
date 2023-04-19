@@ -185,7 +185,8 @@ extension RatingVC: UITableViewDataSource, UITableViewDelegate {
             with: team.name,
             games: team.games,
             points: Int(team.pointsTotal),
-            imagePath: team.imagePath
+            imagePath: team.imagePath,
+            place: team.place
         )
 
         let teamsCount = presenter.filteredTeams.count
