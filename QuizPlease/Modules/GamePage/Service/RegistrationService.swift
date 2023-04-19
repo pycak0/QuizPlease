@@ -82,7 +82,15 @@ final class RegistrationService {
     private func validateForm() -> [RegisterFormValidationResult.Error] {
         var errors = [RegisterFormValidationResult.Error]()
 
-        if registerForm.email.isEmpty || registerForm.captainName.isEmpty || registerForm.teamName.isEmpty {
+        let anyRequiredFieldIsEmpty = [
+            registerForm.email,
+            registerForm.captainName,
+            registerForm.teamName
+        ].map {
+            $0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        }.contains(true)
+
+        if anyRequiredFieldIsEmpty {
             errors.append(.someFieldsEmpty)
         }
 
@@ -103,7 +111,13 @@ final class RegistrationService {
 
     private func validateCustomFields() -> [RegisterFormValidationResult.Error] {
         return customFields
-            .filter { $0.data.isRequired && $0.inputValue == nil }
+            .filter {
+                if $0.data.isRequired {
+                    let isEmpty = $0.inputValue?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+                    return isEmpty ?? true
+                }
+                return false
+            }
             .map { .customFieldEmpty($0) }
     }
 

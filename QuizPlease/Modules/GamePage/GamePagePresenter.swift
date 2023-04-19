@@ -126,6 +126,10 @@ extension GamePagePresenter: GamePageViewOutput,
         view?.updateFirstItem(kind: .paymentCount)
     }
 
+    func updateField(kind: GamePageItemKind) {
+        view?.updateFirstItem(kind: kind)
+    }
+
     // MARK: - GamePageSpecialConditionsOutput
 
     func didPressCheckSpecialCondition(value: String?) {

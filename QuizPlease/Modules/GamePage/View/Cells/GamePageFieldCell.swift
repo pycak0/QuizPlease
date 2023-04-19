@@ -11,7 +11,6 @@ import UIKit
 private enum Constants {
 
     static let horizontalSpacing: CGFloat = 16
-    static let topInset: CGFloat = 10
     static let buttonInset: CGFloat = 8
 }
 

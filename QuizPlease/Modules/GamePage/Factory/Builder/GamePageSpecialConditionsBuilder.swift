@@ -96,9 +96,9 @@ final class GamePageSpecialConditionsBuilder {
             title: "Введите номер сертификата/промокода",
             placeholder: "XXXXXXX",
             options: .basic,
-            valueProvider: model.value,
             fieldColor: .systemBackgroundAdapted,
             backgroundColor: .lightGreen.withAlphaComponent(0.2),
+            valueProvider: model.value,
             onValueChange: { [weak model, weak self] newValue in
                 guard let self, let model else { return }
                 model.value = newValue
