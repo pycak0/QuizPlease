@@ -1,8 +1,8 @@
 //
-//  GamePageFieldCell.swift
+//  GamePageMultilineFieldCell.swift
 //  QuizPlease
 //
-//  Created by Владислав on 14.04.2023.
+//  Created by Русаков Владислав Андреевич on 19.04.2023.
 //  Copyright © 2023 Владислав. All rights reserved.
 //
 
@@ -11,15 +11,14 @@ import UIKit
 private enum Constants {
 
     static let horizontalSpacing: CGFloat = 16
+    static let topInset: CGFloat = 10
     static let buttonInset: CGFloat = 8
 }
 
 /// GamePage cell with a text field
-final class GamePageFieldCell: UITableViewCell {
+final class GamePageMultilineFieldCell: UITableViewCell {
 
     // MARK: - Private Properties
-
-    private var buttonTapAction: (() -> Void)?
 
     private var onTextChange: ((String) -> Void)?
     private var onEndEditing: (() -> Void)?
@@ -43,24 +42,11 @@ final class GamePageFieldCell: UITableViewCell {
 
     // MARK: - UI Elements
 
-    private lazy var textFieldView: PhoneTextFieldView = {
-        let textFieldView = PhoneTextFieldView()
+    private lazy var textFieldView: TitledTextView = {
+        let textFieldView = TitledTextView()
         textFieldView.delegate = self
-        textFieldView.textField.returnKeyType = .done
         textFieldView.translatesAutoresizingMaskIntoConstraints = false
         return textFieldView
-    }()
-
-    private lazy var accessoryButton: ScalingButton = {
-        let button = ScalingButton()
-        button.backgroundColor = .lightGreen
-        button.tintColor = .black
-        button.layer.cornerRadius = 10
-        button.titleLabel?.font = .gilroy(.semibold, size: 16)
-        button.setTitle("OK", for: .normal)
-        button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
     }()
 
     // MARK: - Lifecycle
@@ -84,74 +70,51 @@ final class GamePageFieldCell: UITableViewCell {
 
     private func makeLayout() {
         contentView.addSubview(textFieldView)
-        contentView.addSubview(accessoryButton)
         NSLayoutConstraint.activate([
             textFieldView.leadingAnchor.constraint(
                 equalTo: contentView.leadingAnchor, constant: Constants.horizontalSpacing),
             textFieldView.trailingAnchor.constraint(
                 equalTo: contentView.trailingAnchor, constant: -Constants.horizontalSpacing),
             topConstraint,
-            bottomConstraint,
-
-            accessoryButton.trailingAnchor.constraint(
-                equalTo: textFieldView.trailingAnchor, constant: -Constants.buttonInset),
-            accessoryButton.topAnchor.constraint(
-                equalTo: textFieldView.topAnchor, constant: Constants.buttonInset),
-            accessoryButton.bottomAnchor.constraint(
-                equalTo: textFieldView.bottomAnchor, constant: -Constants.buttonInset),
-            accessoryButton.widthAnchor.constraint(
-                equalTo: accessoryButton.heightAnchor)
+            bottomConstraint
         ])
-    }
-
-    @objc
-    private func buttonPressed() {
-        buttonTapAction?()
     }
 }
 
 // MARK: - TitledTextFieldViewDelegate
 
-extension GamePageFieldCell: TitledTextFieldViewDelegate {
+extension GamePageMultilineFieldCell: TitledTextViewDelegate {
 
-    func textFieldView(_ textFieldView: TitledTextFieldView, didChangeTextField text: String) {
+    func textView(_ textView: TitledTextView, didChangeText text: String) {
         onTextChange?(text)
     }
 
-    func textFieldViewDidEndEditing(_ textFieldView: TitledTextFieldView) {
+    func textViewDidEndEditing(_ textView: TitledTextView) {
         onEndEditing?()
     }
 }
 
 // MARK: - GamePageCellProtocol
 
-extension GamePageFieldCell: GamePageCellProtocol {
+extension GamePageMultilineFieldCell: GamePageCellProtocol {
 
     func configure(with item: GamePageItemProtocol) {
-        guard let item = item as? GamePageFieldItem else { return }
+        guard let item = item as? GamePageMultilineFieldItem else { return }
 
         bottomInset = item.bottomInset
 
-        textFieldView.isPhoneMaskEnabled = item.options.isPhoneMode
-
         textFieldView.title = item.title
-
-        if !item.options.isPhoneMode {
-            textFieldView.textField.placeholder = item.placeholder
-        }
+        textFieldView.placeholder = item.placeholder
 
         textFieldView.backgroundColor = item.fieldColor
         contentView.backgroundColor = item.backgroundColor
-        textFieldView.textField.textContentType = item.options.contentType
-        textFieldView.textField.autocapitalizationType = item.options.capitalizationType
-        textFieldView.textField.keyboardType = item.options.keyboardType
+        textFieldView.textView.textContentType = item.options.contentType
+        textFieldView.textView.autocapitalizationType = item.options.capitalizationType
+        textFieldView.textView.keyboardType = item.options.keyboardType
 
         onTextChange = item.onValueChange
         onEndEditing = item.onEndEditing
 
-        textFieldView.textField.text = item.valueProvider()
-
-        accessoryButton.isHidden = !item.showsOkButton
-        buttonTapAction = item.okButtonAction
+        textFieldView.textView.text = item.valueProvider()
     }
 }

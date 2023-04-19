@@ -1,20 +1,20 @@
 //
-//  TitledTextFieldView.swift
+//  TitledTextView.swift
 //  QuizPlease
 //
-//  Created by Владислав on 13.08.2020.
-//  Copyright © 2020 Владислав. All rights reserved.
+//  Created by Русаков Владислав Андреевич on 19.04.2023.
+//  Copyright © 2023 Владислав. All rights reserved.
 //
 
 import UIKit
 
-protocol TitledTextFieldViewDelegate: AnyObject {
-    func textFieldView(_ textFieldView: TitledTextFieldView, didChangeTextField text: String)
-    func textFieldViewDidEndEditing(_ textFieldView: TitledTextFieldView)
+protocol TitledTextViewDelegate: AnyObject {
+    func textView(_ textView: TitledTextView, didChangeText text: String)
+    func textViewDidEndEditing(_ textView: TitledTextView)
 }
 
-extension TitledTextFieldViewDelegate {
-    func textFieldViewDidEndEditing(_ textFieldView: TitledTextFieldView) {}
+extension TitledTextViewDelegate {
+    func textViewDidEndEditing(_ textView: TitledTextView) {}
 }
 
 private enum Constants {
@@ -25,17 +25,21 @@ private enum Constants {
 }
 
 @IBDesignable
-class TitledTextFieldView: UIView {
-    weak var delegate: TitledTextFieldViewDelegate?
+class TitledTextView: UIView {
+    weak var delegate: TitledTextViewDelegate?
 
     // MARK: - UI Elements
 
-    lazy var textField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = self.placeholder
-        textField.font = .gilroy(.semibold, size: 16)
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        return textField
+    lazy var textView: UITextView = {
+        let textView = UITextView()
+        textView.backgroundColor = .clear
+        textView.font = .gilroy(.semibold, size: 16)
+        textView.isScrollEnabled = false
+        textView.textContainer.lineFragmentPadding = 0
+        textView.textContainerInset = .zero
+        textView.delegate = self
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        return textView
     }()
 
     lazy var titleLabel: UILabel = {
@@ -46,6 +50,16 @@ class TitledTextFieldView: UIView {
         label.text = self.title
         label.setContentHuggingPriority(.defaultHigh, for: .vertical)
         label.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
+    private lazy var placeholderLabel: UILabel = {
+        let label = UILabel()
+        label.font = .gilroy(.semibold, size: 16)
+        label.textColor = .placeholderTextAdapted
+        label.contentMode = .left
+        label.text = placeholder
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -121,24 +135,17 @@ class TitledTextFieldView: UIView {
         }
     }
 
-    override var intrinsicContentSize: CGSize {
-        CGSize(
-            width: UIView.noIntrinsicMetric,
-            height: 70
-        )
-    }
-
     // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
-        configure()
+        configureTapRecognizer()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         commonInit()
-        configure()
+        configureTapRecognizer()
     }
 
     override func prepareForInterfaceBuilder() {
@@ -153,25 +160,28 @@ class TitledTextFieldView: UIView {
 
     private func makeConstraints() {
         addSubview(titleLabel)
-        addSubview(textField)
+        addSubview(textView)
+        addSubview(placeholderLabel)
         NSLayoutConstraint.activate([
             titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: Constants.topInset),
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.horizontalInset),
 
-            textField.centerXAnchor.constraint(equalTo: centerXAnchor),
-            textField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.horizontalInset),
-            textField.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: Constants.titleSpacing),
-            textField.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constants.bottomInset)
+            textView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            textView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.horizontalInset),
+            textView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: Constants.titleSpacing),
+            textView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Constants.bottomInset),
+
+            placeholderLabel.leadingAnchor.constraint(equalTo: textView.leadingAnchor),
+            placeholderLabel.trailingAnchor.constraint(equalTo: textView.trailingAnchor),
+            placeholderLabel.topAnchor.constraint(equalTo: textView.topAnchor),
+            placeholderLabel.bottomAnchor.constraint(lessThanOrEqualTo: textView.bottomAnchor)
         ])
     }
 
-    private func configure() {
+    private func configureTapRecognizer() {
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(startEditing))
         addGestureRecognizer(tapRecognizer)
-
-        textField.delegate = self
-        textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     }
 
     // MARK: - Layout Subviews
@@ -182,7 +192,7 @@ class TitledTextFieldView: UIView {
 
     func updateAppearance() {
         titleLabel.text = title
-        textField.placeholder = placeholder
+        placeholderLabel.text = placeholder
         layer.borderColor = viewBorderColor.cgColor
         layer.borderWidth = viewBorderWidth
         layer.cornerRadius = viewCornerRadius
@@ -190,8 +200,11 @@ class TitledTextFieldView: UIView {
 
         titleLabel.font = titleFontName.map { UIFont(name: $0, size: titleFontSize) }
             ?? .systemFont(ofSize: titleFontSize, weight: .semibold)
-        textField.font = textFontName.map { UIFont(name: $0, size: textFontSize) }
+
+        let textFont = textFontName.map { UIFont(name: $0, size: textFontSize) }
             ?? .systemFont(ofSize: textFontSize, weight: .semibold)
+        placeholderLabel.font = textFont
+        textView.font = textFont
     }
 
     override func becomeFirstResponder() -> Bool {
@@ -201,51 +214,47 @@ class TitledTextFieldView: UIView {
     @discardableResult
     @objc
     private func startEditing() -> Bool {
-        guard !textField.isFirstResponder else { return true }
-        return textField.becomeFirstResponder()
+        guard !textView.isFirstResponder else { return true }
+        return textView.becomeFirstResponder()
     }
 
-    private func updateEditingAppearance() {
+    private func setEditingAppearance(enabled: Bool) {
         UIView.transition(with: titleLabel, duration: 0.2, options: .transitionCrossDissolve) { [self] in
-            titleLabel.textColor = textField.isEditing ? nil : .darkGray
+            titleLabel.textColor = enabled ? nil : .darkGray
         } completion: { _ in }
+    }
+
+    private func updatePlaceholder() {
+        placeholderLabel.isHidden = !textView.text.isEmpty
     }
 }
 
-// MARK: - UITextFieldDelegate
-extension TitledTextFieldView: UITextFieldDelegate {
+// MARK: - UITextViewDelegate
+
+extension TitledTextView: UITextViewDelegate {
+
     /// You can override this method to provide custom delegate calls,
-    /// but make sure to call `super.textFieldDidEndEditing(_:)`
+    /// but make sure to call `super.textViewDidBeginEditing(_:)`
     /// at the end of your implementation to preserve correct behavior.
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        updateEditingAppearance()
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        setEditingAppearance(enabled: true)
     }
 
     /// You can override this method to provide custom delegate calls,
-    /// but make sure to call `super.textFieldDidEndEditing(_:)`
+    /// but make sure to call `super.textViewDidEndEditing(_:)`
     /// at the end of your implementation to preserve correct behavior.
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        updateEditingAppearance()
-        delegate?.textFieldViewDidEndEditing(self)
+    func textViewDidEndEditing(_ textView: UITextView) {
+        setEditingAppearance(enabled: false)
+        delegate?.textViewDidEndEditing(self)
     }
 
     /// You can override this method to provide custom delegate calls.
     ///
-    /// Default implementation of this method calls
-    /// `textFieldView(_:didChangeTextField:didCompleteMask:)` delegate method.
-    ///
     /// When overriding this class, you must also call this delegate method,
-    /// or (preferred) you can call `super.textFieldDidChange(_:)`
+    /// or (preferred) you can call `super.textViewDidChange(_:)`
     /// at the end of your implementation/
-    @objc func textFieldDidChange(_ textField: UITextField) {
-        delegate?.textFieldView(self, didChangeTextField: textField.text ?? "")
-    }
-
-    /// You can override this method to provide custom delegate calls,
-    /// but make sure to call `super.textFieldShouldReturn(_:)`
-    /// at the end of your implementation to preserve correct behavior.
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
+    func textViewDidChange(_ textView: UITextView) {
+        updatePlaceholder()
+        delegate?.textView(self, didChangeText: textView.text ?? "")
     }
 }

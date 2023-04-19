@@ -24,6 +24,8 @@ extension GamePageItemKind {
 protocol GamePageRegistrationFieldsOutput: AnyObject {
 
     func didChangeTeamCount()
+
+    func updateField(kind: GamePageItemKind)
 }
 
 /// Basic register fields builder
@@ -152,8 +154,21 @@ final class GamePageRegistrationFieldsBuilder {
     }
 
     private func makeCustomFieldTextareaItem(_ customField: CustomFieldModel) -> GamePageItemProtocol? {
-        // TODO: return item
-        return nil
+        let kind: GamePageItemKind = .customField(customField.data.name)
+        return GamePageMultilineFieldItem(
+            kind: kind,
+            title: customField.data.label,
+            placeholder: customField.data.placeholder,
+            options: .basic,
+            valueProvider: customField.inputValue,
+            onValueChange: { [weak customField, weak output] newValue in
+                let trimmedValue = newValue.trimmingCharacters(in: .whitespacesAndNewlines)
+                customField?.inputValue = trimmedValue
+                if trimmedValue.isEmpty {
+                    output?.updateField(kind: kind)
+                }
+            }
+        )
     }
 
     // MARK: - Feedback Field

@@ -1,14 +1,14 @@
 //
-//  GamePageFieldItem.swift
+//  GamePageMultilineFieldItem.swift
 //  QuizPlease
 //
-//  Created by Владислав on 14.04.2023.
+//  Created by Русаков Владислав Андреевич on 19.04.2023.
 //  Copyright © 2023 Владислав. All rights reserved.
 //
 
 import UIKit
 
-struct GamePageFieldItem {
+struct GamePageMultilineFieldItem {
 
     let kind: GamePageItemKind
     let title: String
@@ -21,8 +21,6 @@ struct GamePageFieldItem {
     let valueProvider: () -> String?
     let onValueChange: ((String) -> Void)?
     let onEndEditing: (() -> Void)?
-    let showsOkButton: Bool
-    let okButtonAction: (() -> Void)?
 
     private let canBeEdited: (() -> Bool)?
     private let swipeActions: [UIContextualAction]
@@ -38,8 +36,6 @@ struct GamePageFieldItem {
         valueProvider: @autoclosure @escaping () -> String?,
         onValueChange: ((String) -> Void)? = nil,
         onEndEditing: (() -> Void)? = nil,
-        showsOkButton: Bool = false,
-        okButtonAction: (() -> Void)? = nil,
         canBeEdited: (() -> Bool)? = nil,
         swipeActions: [UIContextualAction] = []
     ) {
@@ -55,9 +51,6 @@ struct GamePageFieldItem {
         self.onValueChange = onValueChange
         self.onEndEditing = onEndEditing
 
-        self.showsOkButton = showsOkButton
-        self.okButtonAction = okButtonAction
-
         self.canBeEdited = canBeEdited
         self.swipeActions = swipeActions
     }
@@ -65,10 +58,10 @@ struct GamePageFieldItem {
 
 // MARK: - GamePageItemProtocol
 
-extension GamePageFieldItem: GamePageItemProtocol {
+extension GamePageMultilineFieldItem: GamePageItemProtocol {
 
     func cellClass(with context: GamePageViewContext) -> GamePageCellProtocol.Type {
-        GamePageFieldCell.self
+        GamePageMultilineFieldCell.self
     }
 
     func isEditable() -> Bool {
