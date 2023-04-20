@@ -35,6 +35,7 @@ final class WelcomePresenter {
     // MARK: - Private Methods
 
     private func showMainMenu() {
+        interactor.setWelcomeScreenWasPresented()
         view?.animateTransitionToMainMenu()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             self.router.showMainMenu()
@@ -47,7 +48,6 @@ final class WelcomePresenter {
 extension WelcomePresenter: WelcomeViewOutput {
 
     func viewDidLoad() {
-        interactor.setWelcomeScreenWasPresented()
     }
 
     func didTapPickCity() {
