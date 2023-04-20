@@ -158,6 +158,7 @@ final class AuthVC: UIViewController {
         authButton.layer.cornerRadius = 20
         textFieldView.highlightedTitleColor = .black
         textFieldView.textField.keyboardType = .phonePad
+        textFieldView.textField.textContentType = .telephoneNumber
         textFieldView.textField.textColor = .black
         (textFieldView.textField as? PhoneNumberTextField)?.numberPlaceholderColor = .gray.withAlphaComponent(0.7)
         (textFieldView.textField as? PhoneNumberTextField)?.countryCodePlaceholderColor = .darkGray
@@ -181,6 +182,7 @@ final class AuthVC: UIViewController {
         textFieldView.title = "Код"
         textFieldView.textField.text = ""
         textFieldView.textField.placeholder = String(repeating: "X", count: 6)
+        textFieldView.textField.placeholderColor = .gray.withAlphaComponent(0.7)
         textFieldView.textField.textContentType = .oneTimeCode
         textFieldView.textField.keyboardType = .numberPad
     }
