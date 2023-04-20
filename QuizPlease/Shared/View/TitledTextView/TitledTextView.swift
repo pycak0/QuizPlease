@@ -26,45 +26,11 @@ private enum Constants {
 
 @IBDesignable
 class TitledTextView: UIView {
+
     weak var delegate: TitledTextViewDelegate?
 
-    // MARK: - UI Elements
-
-    private lazy var textView: UITextView = {
-        let textView = UITextView()
-        textView.backgroundColor = .clear
-        textView.font = .gilroy(.semibold, size: 16)
-        textView.isScrollEnabled = false
-        textView.textContainer.lineFragmentPadding = 0
-        textView.textContainerInset = .zero
-        textView.delegate = self
-        textView.translatesAutoresizingMaskIntoConstraints = false
-        return textView
-    }()
-
-    lazy var titleLabel: UILabel = {
-        let label = UILabel()
-        label.font = .gilroy(.semibold, size: 12)
-        label.textColor = titleColor
-        label.contentMode = .left
-        label.text = self.title
-        label.setContentHuggingPriority(.defaultHigh, for: .vertical)
-        label.setContentHuggingPriority(.defaultHigh, for: .horizontal)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-
-    private lazy var placeholderLabel: UILabel = {
-        let label = UILabel()
-        label.font = .gilroy(.semibold, size: 16)
-        label.textColor = .placeholderTextAdapted
-        label.contentMode = .left
-        label.text = placeholder
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-
     // MARK: - Inspectables
+
     @IBInspectable
     var title: String = "Title" {
         didSet {
@@ -144,6 +110,21 @@ class TitledTextView: UIView {
         }
     }
 
+    /// Set a limit to the `TitledTextView`'s `text` `contentSize`
+    /// with given max number of lines. Default value of this property is 0 - no limit.
+    ///
+    /// When the current number of lines in the text view is bigger than the limit,
+    /// text view stops increasing its height and becomes scrollable.
+    ///
+    /// - Note: This value is non-negative. Setting values below zero will assign 0.
+    @NonNegative
+    var linesLimit: Int = 0 {
+        didSet {
+            let height = CGFloat(linesLimit) * heightForOneLine
+            maximumHeight = height > 0 ? height : nil
+        }
+    }
+
     var autocapitalizationType: UITextAutocapitalizationType {
         get { textView.autocapitalizationType }
         set { textView.autocapitalizationType = newValue }
@@ -154,27 +135,79 @@ class TitledTextView: UIView {
         set { textView.keyboardType = newValue }
     }
 
+    // MARK: - Private Properties
+
+    private var maximumHeight: CGFloat? {
+        didSet {
+            updateMaxHeight()
+        }
+    }
+
+    private lazy var maxHeightConstraint: NSLayoutConstraint = {
+        textView.heightAnchor.constraint(equalToConstant: textView.contentSize.height)
+    }()
+
+    // MARK: - UI Elements
+
+    private lazy var textView: UITextView = {
+        let textView = UITextView()
+        textView.backgroundColor = .clear
+        textView.font = .gilroy(.semibold, size: 16)
+        textView.isScrollEnabled = false
+        textView.textContainer.lineFragmentPadding = 0
+        textView.textContainerInset = .zero
+        textView.delegate = self
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        return textView
+    }()
+
+    private lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = .gilroy(.semibold, size: 12)
+        label.textColor = titleColor
+        label.contentMode = .left
+        label.text = self.title
+        label.setContentHuggingPriority(.defaultHigh, for: .vertical)
+        label.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
+    private lazy var placeholderLabel: UILabel = {
+        let label = UILabel()
+        label.font = .gilroy(.semibold, size: 16)
+        label.textColor = .placeholderTextAdapted
+        label.contentMode = .left
+        label.text = placeholder
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
     // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
-        configureTapRecognizer()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         commonInit()
-        configureTapRecognizer()
     }
 
     override func prepareForInterfaceBuilder() {
-        commonInit()
+        configureLayout()
         super.prepareForInterfaceBuilder()
     }
 
     private func commonInit() {
+        configureLayout()
+        configureTapRecognizer()
+    }
+
+    private func configureLayout() {
         backgroundColor = .clear
         makeConstraints()
+        updateMaxHeight()
     }
 
     private func makeConstraints() {
@@ -246,6 +279,33 @@ class TitledTextView: UIView {
     private func updatePlaceholder() {
         placeholderLabel.isHidden = !textView.text.isEmpty
     }
+
+    private func updateMaxHeight() {
+        let maximumHeight = maximumHeight ?? CGFloat.greatestFiniteMagnitude
+        let isOversize = textView.contentSize.height >= maximumHeight
+        maxHeightConstraint.isActive = isOversize
+        maxHeightConstraint.constant = maximumHeight
+        textView.isScrollEnabled = isOversize
+        textView.alwaysBounceVertical = isOversize
+        textView.bounces = isOversize
+        layoutIfNeeded()
+    }
+
+    private lazy var heightForOneLine: CGFloat = {
+        let font = (textFontName.map { UIFont(name: $0, size: textFontSize) })
+            ?? .systemFont(ofSize: textFontSize, weight: .semibold)
+        let constraintSize = CGSize(
+            width: CGFloat.greatestFiniteMagnitude,
+            height: CGFloat.greatestFiniteMagnitude
+        )
+        let boundingBox = "A".boundingRect(
+            with: constraintSize,
+            options: [.usesLineFragmentOrigin, .usesFontLeading],
+            attributes: [.font: font!],
+            context: nil
+        )
+        return boundingBox.height
+    }()
 }
 
 // MARK: - UITextViewDelegate
@@ -274,6 +334,7 @@ extension TitledTextView: UITextViewDelegate {
     /// at the end of your implementation/
     func textViewDidChange(_ textView: UITextView) {
         updatePlaceholder()
+        updateMaxHeight()
         delegate?.textView(self, didChangeText: textView.text ?? "")
     }
 }
