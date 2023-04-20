@@ -31,14 +31,7 @@ class PhoneTextFieldView: TitledTextFieldView {
         case internationalWithMask
     }
 
-    private let phoneTextField: PhoneNumberTextField = {
-        let textField = PhoneNumberTextField(withPhoneNumberKit: PhoneNumberKitInstance.shared)
-        textField.withFlag = true
-        textField.withPrefix = true
-        textField.withExamplePlaceholder = true
-        textField.withDefaultPickerUI = true
-        return textField
-    }()
+    // MARK: - State properties
 
     /// This property defines the way how does delegate method
     /// `textFieldView(_:didChangeTextField:didCompleteMask:)`
@@ -72,6 +65,23 @@ class PhoneTextFieldView: TitledTextFieldView {
 
     var isValidNumber: Bool { phoneTextField.isValidNumber }
 
+    // MARK: - Private Properties
+
+    private var currentRegion: String = ""
+    private var currentRegionCode: String = ""
+    private var leadingDigits: String = ""
+
+    private let phoneTextField: PhoneNumberTextField = {
+        let textField = PhoneNumberTextField(withPhoneNumberKit: PhoneNumberKitInstance.shared)
+        textField.withFlag = true
+        textField.withPrefix = true
+        textField.withExamplePlaceholder = true
+        textField.withDefaultPickerUI = true
+        return textField
+    }()
+
+    // MARK: - Override Properties
+
     override var textField: UITextField {
         get { phoneTextField } set {}
     }
@@ -84,15 +94,44 @@ class PhoneTextFieldView: TitledTextFieldView {
         }
     }
 
+    // MARK: - Private Methods
+
+    private func updateCurentRegion(_ newRegion: String) {
+        currentRegion = newRegion
+        let code = phoneTextField.phoneNumberKit.countryCode(for: currentRegion) ?? 1
+        currentRegionCode = "\(code)"
+        leadingDigits = phoneTextField.phoneNumberKit.leadingDigits(for: currentRegion) ?? ""
+    }
+
+    // MARK: - Override Methods
+
     override func textFieldDidBeginEditing(_ textField: UITextField) {
-        let code = phoneTextField.phoneNumberKit.countryCode(for: phoneTextField.currentRegion) ?? 1
-        if textField.text == "+\(code)" {
-            textField.text = nil
+        if isPhoneMaskEnabled {
+            updateCurentRegion(phoneTextField.currentRegion)
+            if textField.text == "+\(currentRegionCode)" {
+                textField.text = nil
+            }
         }
+
         super.textFieldDidBeginEditing(textField)
     }
 
     override func textFieldDidChange(_ textField: UITextField) {
+        if isPhoneMaskEnabled {
+            if phoneTextField.currentRegion != currentRegion {
+                updateCurentRegion(phoneTextField.currentRegion)
+            }
+            if let text = textField.text, text.count == 1 {
+                if leadingDigits.contains(text) || !text.matches(of: leadingDigits).isEmpty {
+                    phoneTextField.text = "+\(currentRegionCode)\(text)"
+                } else if text == "2" && currentRegionCode == "1" {
+                    phoneTextField.text = "+\(currentRegionCode)\(text)"
+                } else if text.allSatisfy({ $0.isWholeNumber }) {
+                    phoneTextField.text = "+\(text)"
+                }
+            }
+        }
+
         delegate?.textFieldView(self, didChangeTextField: extractedFormattedNumber)
     }
 
