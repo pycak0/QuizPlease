@@ -98,6 +98,7 @@
 		A4147AD724E5B92D007C131F /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4147AD624E5B92D007C131F /* Place.swift */; };
 		A4162021270A5C030050CBD8 /* BarStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4162020270A5C030050CBD8 /* BarStyle.swift */; };
 		A417FA5325711C210064C467 /* UIViewController+SafariVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A417FA5225711C210064C467 /* UIViewController+SafariVC.swift */; };
+		A419728329F192D000601399 /* NonNegative.swift in Sources */ = {isa = PBXBuildFile; fileRef = A419728229F192D000601399 /* NonNegative.swift */; };
 		A419F2F224F003C9004A7997 /* ScalingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A419F2F124F003C9004A7997 /* ScalingButton.swift */; };
 		A41A506E253783DF00EBFA69 /* String+Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = A41A506D253783DF00EBFA69 /* String+Formatting.swift */; };
 		A423AC1B24EE864000071E68 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A423AC1A24EE864000071E68 /* ProfileCell.swift */; };
@@ -539,6 +540,7 @@
 		A4147AD624E5B92D007C131F /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		A4162020270A5C030050CBD8 /* BarStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarStyle.swift; sourceTree = "<group>"; };
 		A417FA5225711C210064C467 /* UIViewController+SafariVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+SafariVC.swift"; sourceTree = "<group>"; };
+		A419728229F192D000601399 /* NonNegative.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonNegative.swift; sourceTree = "<group>"; };
 		A419F2F124F003C9004A7997 /* ScalingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScalingButton.swift; sourceTree = "<group>"; };
 		A41A506D253783DF00EBFA69 /* String+Formatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Formatting.swift"; sourceTree = "<group>"; };
 		A423AC1A24EE864000071E68 /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
@@ -1188,6 +1190,7 @@
 		A40F036024D4186200C381F2 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				A419728129F192BD00601399 /* PropertyWrappers */,
 				A4EE9EAB29E7DE0D00DDFC50 /* UIKit */,
 				A4E675F5255DB49E0011A801 /* String */,
 				A4BB03482681FF5A005FE6D7 /* NumberFormatter */,
@@ -1211,6 +1214,14 @@
 				A4112D5A28B6883F0097ED97 /* DeleteResponse.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		A419728129F192BD00601399 /* PropertyWrappers */ = {
+			isa = PBXGroup;
+			children = (
+				A419728229F192D000601399 /* NonNegative.swift */,
+			);
+			path = PropertyWrappers;
 			sourceTree = "<group>";
 		};
 		A423AC1924EE860200071E68 /* View */ = {
@@ -2644,6 +2655,7 @@
 				4C00220729ED5C310030B1FD /* GamePageAgreementItem.swift in Sources */,
 				4C553C0829E6A1150066E2CA /* GamePageInfoItem.swift in Sources */,
 				A40B759224D9A836006DB7D1 /* HomeGameConfigurator.swift in Sources */,
+				A419728329F192D000601399 /* NonNegative.swift in Sources */,
 				A472D2B325291F0200AA9906 /* UserRegisterData.swift in Sources */,
 				A4B3BE3929EC9B2A00644A3D /* UIContextualAction+delete.swift in Sources */,
 				A4DAF73924DD987F00963C15 /* MenuProfileCell.swift in Sources */,

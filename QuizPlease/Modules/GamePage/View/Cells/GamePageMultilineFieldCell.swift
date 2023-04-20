@@ -44,6 +44,7 @@ final class GamePageMultilineFieldCell: UITableViewCell {
     private lazy var titledTextView: TitledTextView = {
         let textFieldView = TitledTextView()
         textFieldView.delegate = self
+        textFieldView.linesLimit = 5
         textFieldView.translatesAutoresizingMaskIntoConstraints = false
         return textFieldView
     }()
