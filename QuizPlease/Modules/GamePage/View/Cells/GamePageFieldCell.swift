@@ -19,8 +19,8 @@ final class GamePageFieldCell: UITableViewCell {
 
     // MARK: - Private Properties
 
+    private var trimsUserInput = true
     private var buttonTapAction: (() -> Void)?
-
     private var onTextChange: ((String) -> Void)?
     private var onEndEditing: (() -> Void)?
 
@@ -119,6 +119,12 @@ extension GamePageFieldCell: TitledTextFieldViewDelegate {
     }
 
     func textFieldViewDidEndEditing(_ textFieldView: TitledTextFieldView) {
+        if trimsUserInput {
+            let text = textFieldView.textField.text?
+                .trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+            textFieldView.textField.text = text
+            onTextChange?(text)
+        }
         onEndEditing?()
     }
 }
@@ -130,6 +136,7 @@ extension GamePageFieldCell: GamePageCellProtocol {
     func configure(with item: GamePageItemProtocol) {
         guard let item = item as? GamePageFieldItem else { return }
 
+        trimsUserInput = item.trimsUserInput
         bottomInset = item.bottomInset
 
         textFieldView.isPhoneMaskEnabled = item.options.isPhoneMode

@@ -19,6 +19,7 @@ final class GamePageMultilineFieldCell: UITableViewCell {
 
     // MARK: - Private Properties
 
+    private var trimsUserInput = true
     private var onTextChange: ((String) -> Void)?
     private var onEndEditing: (() -> Void)?
 
@@ -86,11 +87,17 @@ final class GamePageMultilineFieldCell: UITableViewCell {
 extension GamePageMultilineFieldCell: TitledTextViewDelegate {
 
     func textView(_ textView: TitledTextView, didChangeText text: String) {
-        onTextChange?(text)
         invalidateIntrinsicContentSize()
+        onTextChange?(text)
     }
 
     func textViewDidEndEditing(_ textView: TitledTextView) {
+        if trimsUserInput {
+            let text = textView.text.trimmingCharacters(in: .whitespacesAndNewlines)
+            textView.text = text
+            invalidateIntrinsicContentSize()
+            onTextChange?(text)
+        }
         onEndEditing?()
     }
 }
@@ -102,6 +109,7 @@ extension GamePageMultilineFieldCell: GamePageCellProtocol {
     func configure(with item: GamePageItemProtocol) {
         guard let item = item as? GamePageMultilineFieldItem else { return }
 
+        trimsUserInput = item.trimsUserInput
         bottomInset = item.bottomInset
 
         titledTextView.title = item.title

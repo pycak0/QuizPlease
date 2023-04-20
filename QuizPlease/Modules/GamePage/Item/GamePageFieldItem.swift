@@ -17,6 +17,7 @@ struct GamePageFieldItem {
     var bottomInset: CGFloat
     let fieldColor: UIColor
     let backgroundColor: UIColor
+    let trimsUserInput: Bool
 
     let valueProvider: () -> String?
     let onValueChange: ((String) -> Void)?
@@ -35,6 +36,7 @@ struct GamePageFieldItem {
         bottomInset: CGFloat = 0,
         fieldColor: UIColor = .clear,
         backgroundColor: UIColor = .systemGray6Adapted,
+        trimsUserInput: Bool = true,
         valueProvider: @autoclosure @escaping () -> String?,
         onValueChange: ((String) -> Void)? = nil,
         onEndEditing: (() -> Void)? = nil,
@@ -50,6 +52,7 @@ struct GamePageFieldItem {
         self.bottomInset = bottomInset
         self.fieldColor = fieldColor
         self.backgroundColor = backgroundColor
+        self.trimsUserInput = trimsUserInput
 
         self.valueProvider = valueProvider
         self.onValueChange = onValueChange
