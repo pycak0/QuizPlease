@@ -44,6 +44,7 @@ class TitledTextView: UIView {
         set {
             textView.text = newValue
             updatePlaceholder()
+            updateMaxHeight()
         }
     }
 

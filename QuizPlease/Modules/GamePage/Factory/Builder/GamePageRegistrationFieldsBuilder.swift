@@ -56,6 +56,7 @@ final class GamePageRegistrationFieldsBuilder {
 
     // MARK: - Basic Fields
 
+    // swiftlint:disable:next function_body_length
     private func makeBasicFields() -> [GamePageItemProtocol] {
         let registerForm = registerFormProvider.getRegisterForm()
         return [
@@ -136,11 +137,6 @@ final class GamePageRegistrationFieldsBuilder {
             valueProvider: customField.inputValue,
             onValueChange: { [weak customField] newValue in
                 customField?.inputValue = newValue.trimmingCharacters(in: .whitespacesAndNewlines)
-            },
-            onEndEditing: { [weak customField, weak output] in
-                if let trimmedValue = customField?.inputValue, trimmedValue.isEmpty {
-                    output?.updateField(kind: kind)
-                }
             }
         )
     }
@@ -170,20 +166,15 @@ final class GamePageRegistrationFieldsBuilder {
             valueProvider: customField.inputValue,
             onValueChange: { [weak customField] newValue in
                 customField?.inputValue = newValue.trimmingCharacters(in: .whitespacesAndNewlines)
-            },
-            onEndEditing: { [weak customField, weak output] in
-                if let trimmedValue = customField?.inputValue, trimmedValue.isEmpty {
-                    output?.updateField(kind: kind)
-                }
             }
         )
     }
 
     // MARK: - Feedback Field
 
-    private func makeFeedbackField() -> GamePageItemProtocol {
+    private func makeFeedbackFields() -> [GamePageItemProtocol] {
         let registerForm = registerFormProvider.getRegisterForm()
-        return GamePageFieldItem(
+        let item = GamePageFieldItem(
             kind: .customField("Feedback"),
             title: "Откуда вы узнали о нас?",
             placeholder: "Расскажите",
@@ -194,6 +185,7 @@ final class GamePageRegistrationFieldsBuilder {
                 registerForm?.comment = newValue
             }
         )
+        return [item]
     }
 }
 
@@ -205,6 +197,6 @@ extension GamePageRegistrationFieldsBuilder: GamePageItemBuilderProtocol {
         return makeTitleAndSubtitle()
         + makeBasicFields()
         + makeCustomFields()
-        + [makeFeedbackField()]
+        + makeFeedbackFields()
     }
 }
