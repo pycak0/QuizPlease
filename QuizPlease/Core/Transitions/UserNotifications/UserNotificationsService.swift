@@ -60,14 +60,14 @@ final class UserNotificationsServiceImpl: UserNotificationsService {
 
         // 2. Manually check for other endpoints
 
-        // 2.1 GameOrderEndpoint
+        // 2.1 GamePageEndpoint
         let gameId = ["game", "gameId", "id"]
             .compactMap { userInfo[$0] }
             .first as? String
 
         if let gameId {
             applinkRouter.prepareTransition(with: Applink(
-                identifier: GameOrderEndpoint.identifier,
+                identifier: GamePageEndpoint.identifier,
                 parameters: ["gameId": gameId]
             ))
             return true

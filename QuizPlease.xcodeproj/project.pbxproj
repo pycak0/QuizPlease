@@ -164,7 +164,7 @@
 		A452E3B224D428DA002EE514 /* ShopItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A452E3B024D428DA002EE514 /* ShopItemCell.xib */; };
 		A452E3B424D431C5002EE514 /* Int+WordBuilding.swift in Sources */ = {isa = PBXBuildFile; fileRef = A452E3B324D431C5002EE514 /* Int+WordBuilding.swift */; };
 		A453F5B528F329EF00CE20BA /* ScheduleEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A453F5B428F329EF00CE20BA /* ScheduleEndpoint.swift */; };
-		A453F5BC28F33B6800CE20BA /* GameOrderEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A453F5BB28F33B6800CE20BA /* GameOrderEndpoint.swift */; };
+		A453F5BC28F33B6800CE20BA /* GamePageEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A453F5BB28F33B6800CE20BA /* GamePageEndpoint.swift */; };
 		A453F5BE28F33EA700CE20BA /* GameOrderAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = A453F5BD28F33EA700CE20BA /* GameOrderAssembly.swift */; };
 		A453F5C028F341CD00CE20BA /* GameOrderPresentationOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A453F5BF28F341CD00CE20BA /* GameOrderPresentationOptions.swift */; };
 		A45488C52513719800992261 /* UIPageViewController+IsPagingEnabled.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45488C42513719700992261 /* UIPageViewController+IsPagingEnabled.swift */; };
@@ -612,7 +612,7 @@
 		A452E3B024D428DA002EE514 /* ShopItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShopItemCell.xib; sourceTree = "<group>"; };
 		A452E3B324D431C5002EE514 /* Int+WordBuilding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+WordBuilding.swift"; sourceTree = "<group>"; };
 		A453F5B428F329EF00CE20BA /* ScheduleEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleEndpoint.swift; sourceTree = "<group>"; };
-		A453F5BB28F33B6800CE20BA /* GameOrderEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOrderEndpoint.swift; sourceTree = "<group>"; };
+		A453F5BB28F33B6800CE20BA /* GamePageEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageEndpoint.swift; sourceTree = "<group>"; };
 		A453F5BD28F33EA700CE20BA /* GameOrderAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOrderAssembly.swift; sourceTree = "<group>"; };
 		A453F5BF28F341CD00CE20BA /* GameOrderPresentationOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOrderPresentationOptions.swift; sourceTree = "<group>"; };
 		A45488C42513719700992261 /* UIPageViewController+IsPagingEnabled.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIPageViewController+IsPagingEnabled.swift"; sourceTree = "<group>"; };
@@ -1252,6 +1252,7 @@
 				A4EE9E9829E4A57400DDFC50 /* GamePagePresenter.swift */,
 				A4E06B4629E7FFF40005C57B /* GamePageRouter.swift */,
 				A4EE9E9C29E4A77200DDFC50 /* GamePageAssembly.swift */,
+				A453F5BB28F33B6800CE20BA /* GamePageEndpoint.swift */,
 			);
 			path = GamePage;
 			sourceTree = "<group>";
@@ -1548,7 +1549,6 @@
 				A450E39C24E571C900C49AEE /* GameOrderPresenter.swift */,
 				A450E3A224E5735400C49AEE /* GameOrderRouter.swift */,
 				A450E39E24E5729200C49AEE /* GameOrderConfigurator.swift */,
-				A453F5BB28F33B6800CE20BA /* GameOrderEndpoint.swift */,
 				A453F5BD28F33EA700CE20BA /* GameOrderAssembly.swift */,
 			);
 			path = GameOrder;
@@ -2834,7 +2834,7 @@
 				A4EE9E9229E492CC00DDFC50 /* GamePageItemProtocol.swift in Sources */,
 				A4A0659D24E477E20080E0D8 /* GameInfoCell.swift in Sources */,
 				A4D44A1A28D12D82004703B4 /* OnboardingPresenter.swift in Sources */,
-				A453F5BC28F33B6800CE20BA /* GameOrderEndpoint.swift in Sources */,
+				A453F5BC28F33B6800CE20BA /* GamePageEndpoint.swift in Sources */,
 				A4A0519229D2459000D32E19 /* WelcomeInteractor.swift in Sources */,
 				A43E0AD9258E2F3400207616 /* UIEdgeInsets+Init.swift in Sources */,
 				A44B2E0728C00B5F00C1BC2F /* DeviceIdProvider.swift in Sources */,

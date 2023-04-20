@@ -39,7 +39,7 @@ public enum AppSettings {
     }()
 
     /// Whether the new GamePage is enabled or not
-    public static let isGamePageEnabled = false
+    public static let isGamePageEnabled = true
 
     public static var description: String {
         """

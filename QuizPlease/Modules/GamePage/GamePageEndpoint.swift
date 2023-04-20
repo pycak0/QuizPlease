@@ -1,5 +1,5 @@
 //
-//  GameOrderEndpoint.swift
+//  GamePageEndpoint.swift
 //  QuizPlease
 //
 //  Created by Владислав on 09.10.2022.
@@ -8,8 +8,8 @@
 
 import UIKit
 
-/// Endpoint class for the GameOrder screen
-public final class GameOrderEndpoint: ApplinkEndpoint {
+/// Endpoint class for the GameOrder / GamePage screen
+public final class GamePageEndpoint: ApplinkEndpoint {
 
     static let identifier = "game"
 
@@ -47,7 +47,7 @@ public final class GameOrderEndpoint: ApplinkEndpoint {
         }
 
         topNavigationController.pushViewController(viewController, animated: true)
-        print("✅ Successful transition to Schedule Screen")
+        print("✅ Successful transition to GamePage Screen")
         return true
     }
 
