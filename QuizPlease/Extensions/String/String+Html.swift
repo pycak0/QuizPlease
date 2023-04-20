@@ -1,5 +1,5 @@
 //
-//  String+Formatting.swift
+//  String+Html.swift
 //  QuizPlease
 //
 //  Created by Владислав on 14.10.2020.
@@ -9,14 +9,6 @@
 import Foundation
 
 extension String {
-    /// Ensures that string has a "/" prefix and removes percent encoding
-    var pathProof: String {
-        var res = self
-        if !self.hasPrefix("/") {
-            res = "/" + self
-        }
-        return res.removingPercentEncoding ?? res
-    }
 
     /// Deletes angle brackets and all content inside them
     func removingAngleBrackets(replaceWith replaceString: String = "") -> String {
