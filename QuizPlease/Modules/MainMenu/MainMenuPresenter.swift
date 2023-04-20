@@ -52,6 +52,7 @@ final class MainMenuPresenter: MainMenuPresenterProtocol {
 
     func viewDidLoad(_ view: MainMenuViewProtocol) {
         interactor.postMainScreenLoaded()
+        interactor.requestForPushNotifications()
         view.configureTableView()
         view.updateCityName(with: AppSettings.defaultCity.title)
         interactor.loadMenuItems()

@@ -7,12 +7,14 @@
 //
 
 import Foundation
+import UserNotifications
 
 protocol MainMenuInteractorProtocol: AnyObject {
     /// must be weak
     var output: MainMenuInteractorOutput? { get }
 
     func postMainScreenLoaded()
+    func requestForPushNotifications()
 
     func loadMenuItems()
     func loadUserInfo()
@@ -36,6 +38,13 @@ class MainMenuInteractor: MainMenuInteractorProtocol {
 
     func postMainScreenLoaded() {
         NotificationCenter.default.post(name: .mainScreenLoaded, object: nil)
+    }
+
+    func requestForPushNotifications() {
+        UNUserNotificationCenter.current().requestAuthorization(
+            options: [.alert, .badge, .sound],
+            completionHandler: {_, _ in }
+        )
     }
 
     func loadMenuItems() {
