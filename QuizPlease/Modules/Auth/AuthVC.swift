@@ -30,8 +30,18 @@ final class AuthVC: UIViewController {
     private var phoneNumber: String?
     private var smsCode: String?
 
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        if #available(iOS 13.0, *) {
+            return .darkContent
+        } else {
+            return .default
+        }
+    }
+
     // MARK: - Lifecycle
+
     override func viewDidLoad() {
+        print(type(of: navigationController))
         super.viewDidLoad()
         prepareNavigationBar(tintColor: .black, barStyle: .transcluent(tintColor: view.backgroundColor))
         configure()
@@ -146,8 +156,11 @@ final class AuthVC: UIViewController {
         view.addGradient(colors: [.lemon, .lightOrange], insertAt: 0)
 
         authButton.layer.cornerRadius = 20
+        textFieldView.highlightedTitleColor = .black
         textFieldView.textField.keyboardType = .phonePad
         textFieldView.textField.textColor = .black
+        (textFieldView.textField as? PhoneNumberTextField)?.numberPlaceholderColor = .gray.withAlphaComponent(0.7)
+        (textFieldView.textField as? PhoneNumberTextField)?.countryCodePlaceholderColor = .darkGray
         textFieldView.delegate = self
     }
 

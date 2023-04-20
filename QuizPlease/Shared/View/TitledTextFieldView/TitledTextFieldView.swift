@@ -116,6 +116,13 @@ class TitledTextFieldView: UIView {
         }
     }
 
+    @IBInspectable
+    var highlightedTitleColor: UIColor = .labelAdapted {
+        didSet {
+            updateEditingAppearance()
+        }
+    }
+
     override var intrinsicContentSize: CGSize {
         CGSize(
             width: UIView.noIntrinsicMetric,
@@ -206,7 +213,7 @@ class TitledTextFieldView: UIView {
 
     private func updateEditingAppearance() {
         UIView.transition(with: titleLabel, duration: 0.2, options: .transitionCrossDissolve) { [self] in
-            titleLabel.textColor = textField.isEditing ? nil : .darkGray
+            titleLabel.textColor = textField.isEditing ? highlightedTitleColor : titleColor
         } completion: { _ in }
     }
 }

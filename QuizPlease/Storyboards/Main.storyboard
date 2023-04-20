@@ -2151,7 +2151,7 @@
         <!--Личный кабинет-->
         <scene sceneID="l8g-Cl-ghL">
             <objects>
-                <viewController id="UCp-o8-hVx" customClass="AuthVC" customModule="QuizPlease" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AuthVC" id="UCp-o8-hVx" customClass="AuthVC" customModule="QuizPlease" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QXU-J2-9b7">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2364,7 +2364,7 @@
         <!--Navigation Controller-->
         <scene sceneID="Eet-qp-b69">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="grr-9p-KeR" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="grr-9p-KeR" customClass="QPNavigationController" customModule="QuizPlease" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="aJu-UF-Zb6">
                         <rect key="frame" x="0.0" y="47" width="390" height="44"/>

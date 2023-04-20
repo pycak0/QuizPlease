@@ -46,14 +46,6 @@ class ProfileRouter: ProfileRouterProtocol {
             vc.token = info
             vc.delegate = viewController as? AddGameVCDelegate
 
-        case "ProfileAuthVC":
-            guard let navC = segue.destination as? UINavigationController,
-                  let vc = navC.viewControllers.first as? AuthVC
-            else {
-                fatalError("Incorrect Data Passed when showing AuthVC from Profile Router")
-            }
-            vc.delegate = self
-
         case "ShowShop":
             guard let vc = segue.destination as? ShopVC
             else { fatalError("Incorrect Data Passed when showing ShopVC from Profile Router") }
@@ -80,7 +72,16 @@ class ProfileRouter: ProfileRouterProtocol {
     }
 
     func showAuthScreen() {
-        viewController.performSegue(withIdentifier: "ProfileAuthVC", sender: nil)
+        guard let authViewController = UIStoryboard.main
+            .instantiateViewController(withIdentifier: "\(AuthVC.self)") as? AuthVC
+        else {
+            fatalError("Incorrect Data Passed when showing AuthVC from Profile Router")
+        }
+
+        authViewController.delegate = self
+        let navigationController = QPNavigationController(rootViewController: authViewController)
+        navigationController.modalPresentationStyle = .fullScreen
+        viewController.present(navigationController, animated: true)
     }
 
     func showOnboarding(delegate: OnboardingScreenDelegate?) {
