@@ -9,19 +9,21 @@
 import Foundation
 
 struct RatingItem: Decodable, Equatable {
-    var name: String
-    var games: Int
-    var pointsTotal: Double
-    var rank: String?
+    let place: Int
+    let name: String
+    let games: Int
+    let pointsTotal: Double
+    let rank: String?
     private var image: String?
 
     enum CodingKeys: String, CodingKey {
-        case teamName, count, balls, rang, rang_image
+        case teamName, count, balls, rang, rang_image, ind
     }
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
+        place = try container.decode(Int.self, forKey: .ind)
         name = try container.decode(String.self, forKey: .teamName)
         games = try container.decode(Int.self, forKey: .count)
         pointsTotal = try container.decode(Double.self, forKey: .balls)

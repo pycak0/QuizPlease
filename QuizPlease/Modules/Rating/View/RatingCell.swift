@@ -27,8 +27,8 @@ final class RatingCell: UITableViewCell, IdentifiableType {
         selectedBackgroundView = selectedView
     }
 
-    func configure(with team: String, games: Int, points: Int, imagePath: String?) {
-        teamNameLabel.text = team
+    func configure(with team: String, games: Int, points: Int, imagePath: String?, place: Int) {
+        teamNameLabel.text = "\(place). \(team)"
         gamesPlayedLabel.text = games.string(withAssociatedFirstCaseWord: "игра", changingCase: .nominative)
         pointsScoredLabel.text = points.string(withAssociatedMaleWord: "балл")
         teamImageView.loadImage(using: .production, path: imagePath)
