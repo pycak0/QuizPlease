@@ -41,7 +41,6 @@ final class AuthVC: UIViewController {
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
-        print(type(of: navigationController))
         super.viewDidLoad()
         prepareNavigationBar(tintColor: .black, barStyle: .transcluent(tintColor: view.backgroundColor))
         configure()
@@ -156,6 +155,7 @@ final class AuthVC: UIViewController {
         view.addGradient(colors: [.lemon, .lightOrange], insertAt: 0)
 
         authButton.layer.cornerRadius = 20
+        textFieldView.viewBorderColor = .black.withAlphaComponent(0.05)
         textFieldView.highlightedTitleColor = .black
         textFieldView.textField.keyboardType = .phonePad
         textFieldView.textField.textContentType = .telephoneNumber
