@@ -13,9 +13,9 @@ final class SplashScreenConfigurator: Configurator {
     func configure(_ view: SplashScreenViewProtocol) {
         let interactor = SplashScreenInteractor()
         let router = SplashScreenRouter(
-            viewController: view,
             welcomeAssembly: WelcomeAssembly()
         )
+        router.viewController = view
         let presenter = SplashScreenPresenter(view: view, interactor: interactor, router: router)
         interactor.interactorOutput = presenter
         view.presenter = presenter

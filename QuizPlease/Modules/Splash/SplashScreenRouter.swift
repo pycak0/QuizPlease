@@ -9,7 +9,7 @@
 import UIKit
 
 /// SplashScreen router protocol
-protocol SplashScreenRouterProtocol: Router {
+protocol SplashScreenRouterProtocol {
 
     /// Show Main Menu
     func showMainMenu()
@@ -21,14 +21,11 @@ protocol SplashScreenRouterProtocol: Router {
 /// SplashScreen router
 final class SplashScreenRouter: SplashScreenRouterProtocol {
 
-    private let welcomeAssembly: WelcomeAssembly
-    unowned let viewController: UIViewController
+    weak var viewController: UIViewController?
 
-    init(
-        viewController: UIViewController,
-        welcomeAssembly: WelcomeAssembly
-    ) {
-        self.viewController = viewController
+    private let welcomeAssembly: WelcomeAssembly
+
+    init(welcomeAssembly: WelcomeAssembly) {
         self.welcomeAssembly = welcomeAssembly
     }
 
