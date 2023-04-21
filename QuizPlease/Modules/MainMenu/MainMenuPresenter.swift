@@ -108,25 +108,7 @@ final class MainMenuPresenter: MainMenuPresenterProtocol {
     }
 
     func didLongTapOnLogo() {
-        guard !Configuration.current.isProduction else { return }
-        let pStyle = NSMutableParagraphStyle()
-        pStyle.alignment = .left
-        let font: UIFont
-        if #available(iOS 13.0, *) {
-            font = .monospacedSystemFont(ofSize: 11, weight: .regular)
-        } else {
-            font = .systemFont(ofSize: 11)
-        }
-        view?.showSimpleAlert(
-            attributedTitle: NSAttributedString(string: "Debug Mode"),
-            attributedMessage: NSAttributedString(
-                string: UIApplication.shared.debugInfo,
-                attributes: [
-                    .font: font,
-                    .paragraphStyle: pStyle
-                ]
-            )
-        )
+        router.showDebugMenu()
     }
 
     func userPointsAmount() -> Double? {

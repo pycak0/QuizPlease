@@ -167,6 +167,11 @@ final class AddGameVC: UIViewController {
     /// - parameter isSatisfactory: `true` - user location is close to the place location,
     /// `false` - user location is too far from the place location, `nil` - unavailable to get user loaction
     private func checkUserLocation(completion: @escaping (_ isSatisfactory: Bool?) -> Void) {
+        if Configuration.current == .debug && AppSettings.geoChecksAlwaysSuccessful {
+            print("🧭 Location check always successful")
+            completion(true)
+            return
+        }
         UserLocationService.shared.askUserLocation { (location) in
             guard let gameInfo = self.gameInfo else { return }
             guard let location = location else {

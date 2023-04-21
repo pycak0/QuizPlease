@@ -39,7 +39,9 @@ public enum AppSettings {
     }()
 
     /// Whether the new GamePage is enabled or not
-    public static let isGamePageEnabled = true
+    public static var isGamePageEnabled = true
+
+    public static var geoChecksAlwaysSuccessful = false
 
     public static var description: String {
         """
