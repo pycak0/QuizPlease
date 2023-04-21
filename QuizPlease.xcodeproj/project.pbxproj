@@ -189,7 +189,7 @@
 		A46F303B24F52CAE0062A333 /* GameOnlinePaymentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A46F303924F52CAE0062A333 /* GameOnlinePaymentCell.xib */; };
 		A46F303E24F5302B0062A333 /* GameSubmitButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46F303C24F5302B0062A333 /* GameSubmitButtonCell.swift */; };
 		A46F303F24F5302B0062A333 /* GameSubmitButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A46F303D24F5302B0062A333 /* GameSubmitButtonCell.xib */; };
-		A47003C8253A4CD0002E8EA2 /* PushSubscribeResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47003C7253A4CD0002E8EA2 /* PushSubscribeResponse.swift */; };
+		A47003C8253A4CD0002E8EA2 /* ScheduleGameSubscriptionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47003C7253A4CD0002E8EA2 /* ScheduleGameSubscriptionResponse.swift */; };
 		A47003CB253A53C1002E8EA2 /* GameOrderResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47003CA253A53C1002E8EA2 /* GameOrderResponse.swift */; };
 		A471166D269DB61200F90099 /* MultipartFormDataObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = A471166C269DB61200F90099 /* MultipartFormDataObject.swift */; };
 		A4711672269F6F7700F90099 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A4711674269F6F7700F90099 /* Localizable.strings */; };
@@ -636,7 +636,7 @@
 		A46F303924F52CAE0062A333 /* GameOnlinePaymentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameOnlinePaymentCell.xib; sourceTree = "<group>"; };
 		A46F303C24F5302B0062A333 /* GameSubmitButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSubmitButtonCell.swift; sourceTree = "<group>"; };
 		A46F303D24F5302B0062A333 /* GameSubmitButtonCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameSubmitButtonCell.xib; sourceTree = "<group>"; };
-		A47003C7253A4CD0002E8EA2 /* PushSubscribeResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushSubscribeResponse.swift; sourceTree = "<group>"; };
+		A47003C7253A4CD0002E8EA2 /* ScheduleGameSubscriptionResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleGameSubscriptionResponse.swift; sourceTree = "<group>"; };
 		A47003CA253A53C1002E8EA2 /* GameOrderResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOrderResponse.swift; sourceTree = "<group>"; };
 		A471166C269DB61200F90099 /* MultipartFormDataObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartFormDataObject.swift; sourceTree = "<group>"; };
 		A471166F269F6F2800F90099 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -1703,7 +1703,7 @@
 				A48E2FB12530DC2F00CD6BE6 /* UserInfo */,
 				A4147AD624E5B92D007C131F /* Place.swift */,
 				A472D29D2528962A00AA9906 /* TeamInfo.swift */,
-				A47003C7253A4CD0002E8EA2 /* PushSubscribeResponse.swift */,
+				A47003C7253A4CD0002E8EA2 /* ScheduleGameSubscriptionResponse.swift */,
 				A4162020270A5C030050CBD8 /* BarStyle.swift */,
 			);
 			path = Models;
@@ -2792,7 +2792,7 @@
 				4C72339929F00D86006D92DF /* GamePageMultilineFieldCell.swift in Sources */,
 				A4BA1CEE24D8347300D32ADC /* MainMenuInteractor.swift in Sources */,
 				A45241E6265489A70058285C /* UIFont+Extensions.swift in Sources */,
-				A47003C8253A4CD0002E8EA2 /* PushSubscribeResponse.swift in Sources */,
+				A47003C8253A4CD0002E8EA2 /* ScheduleGameSubscriptionResponse.swift in Sources */,
 				A4EE9EA329E5E0D300DDFC50 /* GamePageRegisterButtonBuilder.swift in Sources */,
 				A46F303624F5284E0062A333 /* GamePaymentTypeCell.swift in Sources */,
 				4C553C0D29E6BE570066E2CA /* GamePageAnnotationProvider.swift in Sources */,
