@@ -10,3 +10,4 @@
 // https://help.apple.com/xcode/#/dev745c5c974
 
 APP_NAME = Квиз, плиз!
+ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon
