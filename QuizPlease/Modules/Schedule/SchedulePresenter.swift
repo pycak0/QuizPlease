@@ -51,7 +51,7 @@ final class SchedulePresenter: SchedulePresenterProtocol {
 
     private var games: [GameInfo] = []
     private var scheduleFilter = ScheduleFilter()
-    private var subscribedGameIds = [Int]()
+    private var subscribedGameIds: Set<Int> = Set()
 
     var gamesCount: Int {
         games.count
@@ -137,8 +137,7 @@ final class SchedulePresenter: SchedulePresenterProtocol {
 
     func didAskNotification(forGameAt index: Int) {
         let id = games[index].id ?? -1
-        let gameId = "\(id)"
-        interactor.getSubscribeStatus(gameId: gameId)
+        interactor.getSubscribeStatus(gameId: id)
     }
 
     func didPressFilterButton() {
@@ -282,6 +281,37 @@ final class SchedulePresenter: SchedulePresenterProtocol {
     private func showWarmup() {
         router.showWarmup(popCurrent: true)
     }
+
+    private func makeSubscriptionTitle(response: ScheduleGameSubscriptionResponse) -> String {
+        if let title = response.title {
+            return title
+        }
+        guard response.success else {
+            return "Не удалось подписаться на уведомления"
+        }
+        switch response.message {
+        case .subscribe:
+            return "Мы напомним об игре"
+        case .unsubscribe:
+            return "Отписка от уведомлений"
+        }
+    }
+
+    private func makeSubscriptionText(response: ScheduleGameSubscriptionResponse) -> String {
+        if let message = response.text {
+            return message
+        }
+        guard response.success else {
+            return "Произошла ошибка при выполнении запроса"
+        }
+        switch response.message {
+        case .subscribe:
+            return "За два дня до начала или когда места для регистрации начнут заканчиваться"
+        case .unsubscribe:
+            return "Вы были успешно отписаны от уведомлений об игре. " +
+            "Если хотите снова подписаться, нажмите на кнопку еще раз"
+        }
+    }
 }
 
 // MARK: - ScheduleInteractorOutput
@@ -290,32 +320,28 @@ extension SchedulePresenter: ScheduleInteractorOutput {
 
     func interactor(
         _ interactor: ScheduleInteractorProtocol?,
-        didGetSubscribeStatus isSubscribed: Bool,
-        forGameWithId id: String
+        didGetSubscribeStatus response: ScheduleGameSubscriptionResponse,
+        forGameWithId id: Int
     ) {
-        let title = isSubscribed ? "Мы напомним об игре" : "Отписка от уведомлений"
-        let message = isSubscribed
-            ? "За два дня до начала или когда места для регистрации начнут заканчиваться"
-            : "Вы были успешно отписаны от уведомлений об игре. " +
-        "Если хотите снова подписаться, нажмите на кнопку еще раз"
+        switch response.message {
+        case .subscribe:
+            self.subscribedGameIds.insert(id)
+        case .unsubscribe:
+            self.subscribedGameIds.remove(id)
+        }
 
         self.view?.showSimpleAlert(
-            title: title,
-            message: message
+            title: makeSubscriptionTitle(response: response),
+            message: makeSubscriptionText(response: response)
         )
 
-        guard let id = Int(id), let index = games.firstIndex(where: { $0.id == id }) else { return }
-        if isSubscribed {
-            self.subscribedGameIds.append(id)
-        } else {
-            self.subscribedGameIds.removeAll { $0 == id }
-        }
+        guard let index = games.firstIndex(where: { $0.id == id }) else { return }
         self.view?.changeSubscribeStatus(forGameAt: index)
     }
 
     func interactor(
         _ interactor: ScheduleInteractorProtocol?,
-        failedToSubscribeForGameWith gameId: String,
+        failedToSubscribeForGameWith gameId: Int,
         error: NetworkServiceError
     ) {
         print(error)

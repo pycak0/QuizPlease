@@ -435,30 +435,24 @@ class NetworkService {
     // MARK: - Push Subscribe
 
     func subscribePushOnGame(
-        with id: String,
-        completion: @escaping (Result<Bool, NetworkServiceError>) -> Void
+        with id: Int,
+        completion: @escaping (Result<ScheduleGameSubscriptionResponse, NetworkServiceError>) -> Void
     ) {
         guard let auth = createBearerAuthHeader() else {
             completion(.failure(.invalidToken))
             return
         }
         let headers = [auth.key: auth.value]
-        let params = ["game_id": id]
+        let params = ["game_id": "\(id)"]
         var urlComps = baseUrlComponents
         urlComps.path = "/api/game/subscribe-notification"
         afPostStandard(
             with: params,
             and: headers,
             to: urlComps,
-            responseType: PushSubscribeResponse.self
-        ) { (postResult) in
-            switch postResult {
-            case let .failure(error):
-                completion(.failure(error))
-            case let .success(response):
-                completion(.success(response.message == .subscribe))
-            }
-        }
+            responseType: ScheduleGameSubscriptionResponse.self,
+            completion: completion
+        )
     }
 
     // MARK: - Purchase Product
