@@ -10,3 +10,4 @@
 #include "Pods/Target Support Files/Pods-QuizPlease/Pods-QuizPlease.debug.xcconfig"
 
 APP_NAME = $(inherited) Dev
+ASSETCATALOG_COMPILER_APPICON_NAME = $(inherited)-Debug

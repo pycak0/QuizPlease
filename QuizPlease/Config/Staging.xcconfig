@@ -9,4 +9,4 @@
 #include "Base.xcconfig"
 #include "Pods/Target Support Files/Pods-QuizPlease/Pods-QuizPlease.staging.xcconfig"
 
-APP_NAME = $(inherited) Staging
+ASSETCATALOG_COMPILER_APPICON_NAME = $(inherited)-Staging
