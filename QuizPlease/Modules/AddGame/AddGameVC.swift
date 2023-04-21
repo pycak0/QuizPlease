@@ -65,7 +65,7 @@ final class AddGameVC: UIViewController {
         guard let id = chosenTeam?.id else {
             showSimpleAlert(
                 title: "Команда не выбрана",
-                message: "Пожалуйста, выберите команду, за которую Вы играли"
+                message: "Пожалуйста, выберите команду, за которую вы играли"
             )
             return
         }
@@ -89,7 +89,7 @@ final class AddGameVC: UIViewController {
                 self.showSimpleAlert(
                     title: "Вы находитесь слишком далеко",
                     message: "Чтобы добавить игру в Личный кабинет и получить за неё баллы, " +
-                    "Вам необходимо быть в месте проведения игры"
+                    "вам необходимо быть в месте проведения игры"
                 )
             }
         }

@@ -349,7 +349,7 @@ extension SchedulePresenter: ScheduleInteractorOutput {
         case .invalidToken:
             view?.showSimpleAlert(
                 title: "Не удалось подписаться на уведомления",
-                message: "Для получения напоминаний об играх Вам необходимо авторизоваться в Личном кабинете"
+                message: "Для получения напоминаний об играх вам необходимо авторизоваться в Личном кабинете"
             )
         default:
             view?.showErrorConnectingToServerAlert()
