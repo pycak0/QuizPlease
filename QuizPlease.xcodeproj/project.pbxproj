@@ -163,6 +163,12 @@
 		A45241E8265497370058285C /* AddGameResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45241E7265497370058285C /* AddGameResponse.swift */; };
 		A452E3B224D428DA002EE514 /* ShopItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A452E3B024D428DA002EE514 /* ShopItemCell.xib */; };
 		A452E3B424D431C5002EE514 /* Int+WordBuilding.swift in Sources */ = {isa = PBXBuildFile; fileRef = A452E3B324D431C5002EE514 /* Int+WordBuilding.swift */; };
+		A453E7BE29F292400041BFB5 /* DebugSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A453E7BD29F292400041BFB5 /* DebugSettingsViewController.swift */; };
+		A453E7C129F2A79D0041BFB5 /* DebugSettingsSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A453E7C029F2A79D0041BFB5 /* DebugSettingsSwitchCell.swift */; };
+		A453E7C429F2A7E10041BFB5 /* DebugSettingsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A453E7C329F2A7E10041BFB5 /* DebugSettingsSection.swift */; };
+		A453E7C729F2A8010041BFB5 /* DebugSettingsInfoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A453E7C629F2A8010041BFB5 /* DebugSettingsInfoItem.swift */; };
+		A453E7C929F2A83F0041BFB5 /* DebugSettingsSwitchItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A453E7C829F2A83F0041BFB5 /* DebugSettingsSwitchItem.swift */; };
+		A453E7CB29F2A8750041BFB5 /* DebugSettingsInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A453E7CA29F2A8750041BFB5 /* DebugSettingsInfoCell.swift */; };
 		A453F5B528F329EF00CE20BA /* ScheduleEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A453F5B428F329EF00CE20BA /* ScheduleEndpoint.swift */; };
 		A453F5BC28F33B6800CE20BA /* GamePageEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A453F5BB28F33B6800CE20BA /* GamePageEndpoint.swift */; };
 		A453F5BE28F33EA700CE20BA /* GameOrderAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = A453F5BD28F33EA700CE20BA /* GameOrderAssembly.swift */; };
@@ -611,6 +617,12 @@
 		A45241E7265497370058285C /* AddGameResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGameResponse.swift; sourceTree = "<group>"; };
 		A452E3B024D428DA002EE514 /* ShopItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShopItemCell.xib; sourceTree = "<group>"; };
 		A452E3B324D431C5002EE514 /* Int+WordBuilding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+WordBuilding.swift"; sourceTree = "<group>"; };
+		A453E7BD29F292400041BFB5 /* DebugSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugSettingsViewController.swift; sourceTree = "<group>"; };
+		A453E7C029F2A79D0041BFB5 /* DebugSettingsSwitchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugSettingsSwitchCell.swift; sourceTree = "<group>"; };
+		A453E7C329F2A7E10041BFB5 /* DebugSettingsSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugSettingsSection.swift; sourceTree = "<group>"; };
+		A453E7C629F2A8010041BFB5 /* DebugSettingsInfoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugSettingsInfoItem.swift; sourceTree = "<group>"; };
+		A453E7C829F2A83F0041BFB5 /* DebugSettingsSwitchItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugSettingsSwitchItem.swift; sourceTree = "<group>"; };
+		A453E7CA29F2A8750041BFB5 /* DebugSettingsInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugSettingsInfoCell.swift; sourceTree = "<group>"; };
 		A453F5B428F329EF00CE20BA /* ScheduleEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleEndpoint.swift; sourceTree = "<group>"; };
 		A453F5BB28F33B6800CE20BA /* GamePageEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageEndpoint.swift; sourceTree = "<group>"; };
 		A453F5BD28F33EA700CE20BA /* GameOrderAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOrderAssembly.swift; sourceTree = "<group>"; };
@@ -1394,6 +1406,43 @@
 			path = Service;
 			sourceTree = "<group>";
 		};
+		A453E7BC29F292350041BFB5 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				A453E7C229F2A7B70041BFB5 /* Model */,
+				A453E7BF29F2A77B0041BFB5 /* View */,
+				A453E7BD29F292400041BFB5 /* DebugSettingsViewController.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		A453E7BF29F2A77B0041BFB5 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A453E7C029F2A79D0041BFB5 /* DebugSettingsSwitchCell.swift */,
+				A453E7CA29F2A8750041BFB5 /* DebugSettingsInfoCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		A453E7C229F2A7B70041BFB5 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A453E7C529F2A7F90041BFB5 /* Items */,
+				A453E7C329F2A7E10041BFB5 /* DebugSettingsSection.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		A453E7C529F2A7F90041BFB5 /* Items */ = {
+			isa = PBXGroup;
+			children = (
+				A453E7C629F2A8010041BFB5 /* DebugSettingsInfoItem.swift */,
+				A453E7C829F2A83F0041BFB5 /* DebugSettingsSwitchItem.swift */,
+			);
+			path = Items;
+			sourceTree = "<group>";
+		};
 		A461733D2517635C00B002D1 /* ShopItemCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -1712,6 +1761,7 @@
 		A4BA1CF124D83A6900D32ADC /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				A453E7BC29F292350041BFB5 /* Settings */,
 				A4D44A0C28CFC97A004703B4 /* Onboarding */,
 				A4CDC346273067B300282EC2 /* Map */,
 				A4F3A793257E55F400D6A9C7 /* Splash */,
@@ -2531,6 +2581,7 @@
 				A4C3C44329CCE28C00DB0364 /* WelcomePresenter.swift in Sources */,
 				A47E06DA261095EC008EBACE /* PromocodeResponse.swift in Sources */,
 				4C72339429EFF618006D92DF /* TitledTextView.swift in Sources */,
+				A453E7C729F2A8010041BFB5 /* DebugSettingsInfoItem.swift in Sources */,
 				A4BA1CEA24D832D600D32ADC /* MainMenuConfigurator.swift in Sources */,
 				A4A0659824E477860080E0D8 /* GameOrderVC.swift in Sources */,
 				A4E4400628E8FEE700514C0D /* TransitionFacade.swift in Sources */,
@@ -2564,6 +2615,7 @@
 				4CDB228729E56E3100DD9E7C /* GamePageAnnotationItem.swift in Sources */,
 				A4CFCE4D29ECA95B004F3523 /* GamePageCheckboxCell.swift in Sources */,
 				A4DAF74724DDCCAD00963C15 /* MenuRatingCell.swift in Sources */,
+				A453E7C429F2A7E10041BFB5 /* DebugSettingsSection.swift in Sources */,
 				A4EE9EAD29E7DFC300DDFC50 /* UIStackView+RemoveArrangedSubviews.swift in Sources */,
 				A4617344251763AA00B002D1 /* CountPickerView.swift in Sources */,
 				A40B758824D9A7FD006DB7D1 /* WarmupRouter.swift in Sources */,
@@ -2624,8 +2676,10 @@
 				A4D5A395263C72340075ECF3 /* WarmupAnswerResponse.swift in Sources */,
 				A40B758224D9A76F006DB7D1 /* ScheduleConfigurator.swift in Sources */,
 				A4BA1CEC24D8338B00D32ADC /* MainMenuPresenter.swift in Sources */,
+				A453E7C929F2A83F0041BFB5 /* DebugSettingsSwitchItem.swift in Sources */,
 				A477164F261B3D580037A69A /* PaymentOption.swift in Sources */,
 				A4068A0324F7DB3C001273B2 /* CityResponse.swift in Sources */,
+				A453E7CB29F2A8750041BFB5 /* DebugSettingsInfoCell.swift in Sources */,
 				A4BB034E26820611005FE6D7 /* PaddingLabel.swift in Sources */,
 				A4FFA4A924F39F26006A1150 /* GameOrderCellProtocol.swift in Sources */,
 				A48DFF7D24F419AC00E47095 /* ShopCompletionVC.swift in Sources */,
@@ -2679,6 +2733,7 @@
 				A4162021270A5C030050CBD8 /* BarStyle.swift in Sources */,
 				A452E3B424D431C5002EE514 /* Int+WordBuilding.swift in Sources */,
 				A45241E026547A060058285C /* UITextField+Extensions.swift in Sources */,
+				A453E7BE29F292400041BFB5 /* DebugSettingsViewController.swift in Sources */,
 				A4317731267BEEEE0062E0E0 /* SpecialCondition.swift in Sources */,
 				A4E06B6929E893740005C57B /* WepPageBrowserOptions.swift in Sources */,
 				A4E06B8529E9DE140005C57B /* Cache.swift in Sources */,
@@ -2784,6 +2839,7 @@
 				4C553C0629E696F40066E2CA /* GamePageInfoCell.swift in Sources */,
 				A40F035D24D412D700C381F2 /* ShopItemCell.swift in Sources */,
 				A4A5370824EC7AA6004A10D4 /* HomeGameCell.swift in Sources */,
+				A453E7C129F2A79D0041BFB5 /* DebugSettingsSwitchCell.swift in Sources */,
 				A4A065AA24E4812F0080E0D8 /* GameGeneralDescriptionCell.swift in Sources */,
 				A450E3A324E5735400C49AEE /* GameOrderRouter.swift in Sources */,
 				A4E06B4729E7FFF40005C57B /* GamePageRouter.swift in Sources */,
