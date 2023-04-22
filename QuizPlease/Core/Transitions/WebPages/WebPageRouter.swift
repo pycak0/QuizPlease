@@ -46,13 +46,14 @@ final class WebPageRouterImpl: NSObject, WebPageRouter {
             return false
         }
 
+        let options = options ?? WepPageBrowserOptions()
         let config = SFSafariViewController.Configuration()
-        config.entersReaderIfAvailable = options?.autoReaderView ?? false
+        config.entersReaderIfAvailable = options.autoReaderView
 
         let safariViewController = SFSafariViewController(url: url, configuration: config)
         safariViewController.delegate = self
-        safariViewController.preferredControlTintColor = options?.controlsColor
-        safariViewController.preferredBarTintColor = options?.barsColor
+        safariViewController.preferredControlTintColor = options.controlsColor
+        safariViewController.preferredBarTintColor = options.barsColor
 
         if #available(iOS 13.0, *) {
             safariViewController.modalPresentationStyle = .automatic

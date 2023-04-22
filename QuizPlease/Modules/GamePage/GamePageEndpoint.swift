@@ -15,7 +15,8 @@ public final class GamePageEndpoint: ApplinkEndpoint {
 
     func show(parameters: [String: String]) -> Bool {
         print("📲 GameOrder Endpoint entry")
-        guard let gameIdString = parameters["gameId"], let gameId = Int(gameIdString) else {
+        let gameIdString = parameters["gameId"] ?? parameters["id"]
+        guard let gameIdString, let gameId = Int(gameIdString) else {
             logFail("Did not find game id among the launch parameters")
             return false
         }

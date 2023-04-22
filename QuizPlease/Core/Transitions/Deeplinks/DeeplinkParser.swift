@@ -35,9 +35,11 @@ final class DeeplinkParserImpl: DeeplinkParser {
             // deeplnik, i.e. quizplease://<...>
             endpoint = urlComponents.host
         } else {
-            // univeresal link, i.e. https://hostname/<...>
-            if !pathComponents.isEmpty {
-                endpoint = pathComponents.removeFirst()
+            if url.host?.contains("quizplease") ?? false {
+                // univeresal link, i.e. https://hostname/<...>
+                if !pathComponents.isEmpty {
+                    endpoint = pathComponents.removeFirst()
+                }
             }
         }
 
@@ -48,7 +50,8 @@ final class DeeplinkParserImpl: DeeplinkParser {
         return parseLink(
             endpoint: endpoint,
             pathComponents: pathComponents,
-            queryDictionary: queryDictionary
+            queryDictionary: queryDictionary,
+            url: url
         )
     }
 
@@ -57,7 +60,8 @@ final class DeeplinkParserImpl: DeeplinkParser {
     private func parseLink(
         endpoint: String,
         pathComponents: [String],
-        queryDictionary: [String: String?]
+        queryDictionary: [String: String?],
+        url: URL
     ) -> Applink? {
 
         var parameters = queryDictionary as? [String: String] ?? [:]
@@ -75,6 +79,10 @@ final class DeeplinkParserImpl: DeeplinkParser {
             break
         }
 
-        return Applink(identifier: endpoint, parameters: parameters)
+        return Applink(
+            identifier: endpoint,
+            parameters: parameters,
+            originalUrl: url
+        )
     }
 }
