@@ -174,7 +174,9 @@ final class GamePageInteractor: GamePageInteractorProtocol {
             guard let self else { return }
             switch result {
             case let .failure(error):
-                self.output?.didFailWithError(error)
+                self.paymentService.cancelPayment {
+                    self.output?.didFailWithError(error)
+                }
             case let .success(response):
                 self.processRegistrationResponse(response)
             }
@@ -189,7 +191,9 @@ final class GamePageInteractor: GamePageInteractorProtocol {
             if let url = response.link {
                 paymentService.startConfirmation(url.absoluteString)
             } else {
-                self.completeRegistration(success: false, message: message)
+                self.paymentService.cancelPayment {
+                    self.completeRegistration(success: false, message: message)
+                }
             }
             return
 
