@@ -35,8 +35,8 @@ class MainMenuVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         MainMenuConfigurator().configure(self)
-        presenter.viewDidLoad(self)
         addLongTap()
+        presenter.viewDidLoad(self)
     }
 
     override func viewWillAppear(_ animated: Bool) {

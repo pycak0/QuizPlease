@@ -22,7 +22,11 @@ final class ApplinkRouterImpl: ApplinkRouter {
 
     // MARK: - Private Properties
 
+    private let webPageRouter: WebPageRouter
+
     private var mainScreenLoaded = false
+    private weak var mainScreenLoadToken: NSObjectProtocol?
+    private var pendingLink: Applink?
 
     private lazy var endpointsDictionary: [String: ApplinkEndpoint.Type] = {
         let endpoints = getClasses(implementing: ApplinkEndpoint.self) as? [ApplinkEndpoint.Type] ?? []
@@ -31,22 +35,39 @@ final class ApplinkRouterImpl: ApplinkRouter {
         }
     }()
 
-    private var pendingLink: Applink?
-
     // MARK: - Lifecycle
 
     /// Initializer
-    init() {
-        var token: NSObjectProtocol?
-        token = NotificationCenter.default.addObserver(
+    init(webPageRouter: WebPageRouter) {
+        self.webPageRouter = webPageRouter
+        subscribeForNotifications()
+    }
+
+    // MARK: - ApplinkRouter
+
+    func prepareTransition(with link: Applink) {
+        os_log(.info, "Preparing for transition")
+        pendingLink = link
+        performTransition()
+    }
+
+    // MARK: - Private Methods
+
+    private func subscribeForNotifications() {
+        mainScreenLoadToken = NotificationCenter.default.addObserver(
             forName: .mainScreenLoaded,
             object: nil,
             queue: .main
         ) { [weak self] _ in
-            guard let self = self else { return }
+            guard
+                let self = self,
+                let mainScreenLoadToken = self.mainScreenLoadToken
+            else {
+                return
+            }
             self.mainScreenLoaded = true
             self.performTransition()
-            NotificationCenter.default.removeObserver(token!)
+            NotificationCenter.default.removeObserver(mainScreenLoadToken)
         }
 
         NotificationCenter.default.addObserver(
@@ -57,31 +78,23 @@ final class ApplinkRouterImpl: ApplinkRouter {
         )
     }
 
-    // MARK: - ApplinkRouter
-
-    func prepareTransition(with link: Applink) {
-        os_log(.info, "Preparing for transition")
-        pendingLink = link
-    }
-
-    // MARK: - Private Methods
-
     @objc
     private func performTransition() {
         guard mainScreenLoaded, let link = pendingLink else { return }
         defer { pendingLink = nil }
         os_log(.info, "Starting to perform the transition")
 
-        guard let endpoint = getEndpoint(with: link.identifier) else {
-            showDebugAlert(title: "Got link but didn't find any endpoint to show")
-            return
-        }
-
-        let didShowSuccessfully = endpoint.show(parameters: link.parameters)
-
-        if !didShowSuccessfully {
+        if let endpoint = getEndpoint(with: link.identifier) {
+            if endpoint.show(parameters: link.parameters) {
+                return
+            }
             showDebugAlert(title: "Target endpoint (\(endpoint)) refused to show the link")
         }
+
+        if let url = link.originalUrl, webPageRouter.open(url: url) {
+            return
+        }
+        showDebugAlert(title: "Got link but didn't find any endpoint to show")
     }
 
     private func getEndpoint(with identifier: String) -> ApplinkEndpoint? {

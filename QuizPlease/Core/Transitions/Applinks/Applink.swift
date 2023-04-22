@@ -15,4 +15,6 @@ struct Applink {
     let identifier: String
     /// Link parameters
     let parameters: [String: String]
+    /// Original url, if any available
+    let originalUrl: URL?
 }

@@ -55,7 +55,14 @@ final class UserNotificationsServiceImpl: UserNotificationsService {
             .first as? String
 
         if let deeplink, let url = URL(string: deeplink) {
-            return deeplinkService.handle(url: url)
+            if deeplinkService.handle(url: url) {
+                return true
+            }
+            applinkRouter.prepareTransition(with: .init(
+                identifier: "",
+                parameters: [:],
+                originalUrl: url
+            ))
         }
 
         // 2. Manually check for other endpoints
@@ -68,7 +75,8 @@ final class UserNotificationsServiceImpl: UserNotificationsService {
         if let gameId {
             applinkRouter.prepareTransition(with: Applink(
                 identifier: GamePageEndpoint.identifier,
-                parameters: ["gameId": gameId]
+                parameters: ["gameId": gameId],
+                originalUrl: nil
             ))
             return true
         }
