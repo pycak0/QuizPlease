@@ -47,6 +47,7 @@ final class GamePageFieldCell: UITableViewCell {
         let textFieldView = PhoneTextFieldView()
         textFieldView.delegate = self
         textFieldView.textField.returnKeyType = .done
+        textFieldView.formattingKind = .international
         textFieldView.translatesAutoresizingMaskIntoConstraints = false
         return textFieldView
     }()
@@ -120,10 +121,12 @@ extension GamePageFieldCell: TitledTextFieldViewDelegate {
 
     func textFieldViewDidEndEditing(_ textFieldView: TitledTextFieldView) {
         if trimsUserInput {
-            let text = textFieldView.textField.text?
-                .trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-            textFieldView.textField.text = text
-            onTextChange?(text)
+            let text = self.textFieldView.isPhoneMaskEnabled
+                ? self.textFieldView.extractedFormattedNumber
+                : (self.textFieldView.textField.text ?? "")
+            let trimmedText = text.trimmingCharacters(in: .whitespacesAndNewlines)
+            textFieldView.textField.text = trimmedText
+            onTextChange?(trimmedText)
         }
         onEndEditing?()
     }
