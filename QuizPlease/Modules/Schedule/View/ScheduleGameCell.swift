@@ -23,6 +23,8 @@ final class ScheduleGameCell: UITableViewCell {
 
     weak var delegate: ScheduleGameCellDelegate?
 
+    private var extraInfoTapAction: (() -> Void)?
+
     // MARK: - Outlets
     @IBOutlet private weak var cellView: UIView!
     @IBOutlet private weak var backgroundImageView: UIImageView!
@@ -53,6 +55,16 @@ final class ScheduleGameCell: UITableViewCell {
     @IBOutlet private weak var locationButton: UIButton!
     @IBOutlet private weak var remindButton: UIButton!
     @IBOutlet private weak var infoButton: UIButton!
+    @IBOutlet private weak var extraInfoButton: UIButton! {
+        didSet {
+            extraInfoButton.backgroundColor = .amaranth
+            extraInfoButton.layer.cornerRadius = 15
+            extraInfoButton.setTitleColor(.white, for: .normal)
+            extraInfoButton.titleLabel?.font = .gilroy(.bold, size: 20)
+            extraInfoButton.setTitle("i", for: .normal)
+            extraInfoButton.addTarget(self, action: #selector(didPressExtraInfo), for: .touchUpInside)
+        }
+    }
 
     @IBOutlet private weak var dateLabel: UILabel!
     @IBOutlet private weak var gameStatusLabel: UILabel!
@@ -75,6 +87,11 @@ final class ScheduleGameCell: UITableViewCell {
 
     @IBAction private func remindButtonPressed(_ sender: Any) {
         delegate?.remindButtonPressed(in: self)
+    }
+
+    @objc
+    private func didPressExtraInfo() {
+        extraInfoTapAction?()
     }
 
     override func layoutSubviews() {
@@ -111,17 +128,25 @@ final class ScheduleGameCell: UITableViewCell {
         infoButton.isEnabled = true
         signUpButton.isEnabled = gameInfo.gameStatus?.isRegistrationAvailable ?? false
 
-        let subscribeButton = viewModel.subscribeButtonViewModel
+        configureSubscribeButton(with: viewModel.subscribeButtonViewModel)
+        configureExtraInfoButton(with: viewModel.extraInfoButtonViewModel)
 
+        if let path = gameInfo.imageData?.pathProof {
+            backgroundImageView.loadImage(path: path)
+        }
+    }
+
+    private func configureSubscribeButton(with subscribeButton: SubscribeButtonViewModel) {
         remindButton.isHidden = !subscribeButton.isPresented
         remindButton.tintColor = subscribeButton.tintColor
         remindButton.setTitleColor(subscribeButton.tintColor, for: .normal)
         remindButton.backgroundColor = subscribeButton.backgroundColor
         remindButton.setTitle(subscribeButton.title, for: .normal)
+    }
 
-        if let path = gameInfo.imageData?.pathProof {
-            backgroundImageView.loadImage(path: path)
-        }
+    private func configureExtraInfoButton(with model: ExtraInfoButtonViewModel) {
+        extraInfoButton.isHidden = !model.isPresented
+        extraInfoTapAction = model.tapAction
     }
 
     private func onReuseActions() {

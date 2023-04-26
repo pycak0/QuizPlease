@@ -89,4 +89,8 @@ enum GameStatus: Int, Decodable {
             return false
         }
     }
+
+    var hasVacantPlaces: Bool {
+        return self == .placesAvailable || self == .fewPlaces
+    }
 }

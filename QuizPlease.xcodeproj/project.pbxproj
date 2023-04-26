@@ -389,6 +389,8 @@
 		A4E675F2255D76640011A801 /* AudioView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4E675F1255D76640011A801 /* AudioView.xib */; };
 		A4E675F4255D78400011A801 /* AudioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E675F3255D78400011A801 /* AudioView.swift */; };
 		A4E675F7255DB4AB0011A801 /* String+Validating.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E675F6255DB4AB0011A801 /* String+Validating.swift */; };
+		A4E6C37629F9B8F100B2ABA2 /* AlertData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E6C37529F9B8F100B2ABA2 /* AlertData.swift */; };
+		A4E6C37829F9BD6400B2ABA2 /* ExtraInfoButtonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E6C37729F9BD6400B2ABA2 /* ExtraInfoButtonViewModel.swift */; };
 		A4E86A34293260C800DB110F /* UserNotificationsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E86A33293260C800DB110F /* UserNotificationsService.swift */; };
 		A4E91EBC26C30D5C008C13A7 /* UIWindow+topViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E91EBB26C30D5C008C13A7 /* UIWindow+topViewController.swift */; };
 		A4E91EBE26C312BA008C13A7 /* WarmupQuestionsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E91EBD26C312BA008C13A7 /* WarmupQuestionsService.swift */; };
@@ -847,6 +849,8 @@
 		A4E675F1255D76640011A801 /* AudioView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AudioView.xib; sourceTree = "<group>"; };
 		A4E675F3255D78400011A801 /* AudioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioView.swift; sourceTree = "<group>"; };
 		A4E675F6255DB4AB0011A801 /* String+Validating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Validating.swift"; sourceTree = "<group>"; };
+		A4E6C37529F9B8F100B2ABA2 /* AlertData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertData.swift; sourceTree = "<group>"; };
+		A4E6C37729F9BD6400B2ABA2 /* ExtraInfoButtonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtraInfoButtonViewModel.swift; sourceTree = "<group>"; };
 		A4E86A33293260C800DB110F /* UserNotificationsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNotificationsService.swift; sourceTree = "<group>"; };
 		A4E91EBB26C30D5C008C13A7 /* UIWindow+topViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+topViewController.swift"; sourceTree = "<group>"; };
 		A4E91EBD26C312BA008C13A7 /* WarmupQuestionsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarmupQuestionsService.swift; sourceTree = "<group>"; };
@@ -1356,6 +1360,7 @@
 			children = (
 				A44B2E0B28C0204E00C1BC2F /* ScheduleGameCellViewModel.swift */,
 				A44B2E0928C01FA300C1BC2F /* SubscribeButtonViewModel.swift */,
+				A4E6C37729F9BD6400B2ABA2 /* ExtraInfoButtonViewModel.swift */,
 				A46DFCCB29CEF23F00B420B2 /* TextLink.swift */,
 			);
 			path = ViewModel;
@@ -1754,6 +1759,7 @@
 				A472D29D2528962A00AA9906 /* TeamInfo.swift */,
 				A47003C7253A4CD0002E8EA2 /* ScheduleGameSubscriptionResponse.swift */,
 				A4162020270A5C030050CBD8 /* BarStyle.swift */,
+				A4E6C37529F9B8F100B2ABA2 /* AlertData.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2782,6 +2788,7 @@
 				A498FCCC24E52ED80069F896 /* GameRegisterCell.swift in Sources */,
 				A4D44A0E28CFC9A9004703B4 /* OnboardingViewController.swift in Sources */,
 				A4C9D81324EA78BB00523688 /* RatingCell.swift in Sources */,
+				A4E6C37629F9B8F100B2ABA2 /* AlertData.swift in Sources */,
 				A48DFF7924F3EBEF00E47095 /* VideoView.swift in Sources */,
 				A4BA1CF024D835DE00D32ADC /* MainMenuRouter.swift in Sources */,
 				A46436ED24EAD24F0033F23A /* HBSegmentedControl.swift in Sources */,
@@ -2933,6 +2940,7 @@
 				A4E06B7929E9A5850005C57B /* RegistrationService.swift in Sources */,
 				A4FEB052273739F10052AD7B /* YMapsProvider.swift in Sources */,
 				A4B1291F27387ACA0035C041 /* MapInfoView.swift in Sources */,
+				A4E6C37829F9BD6400B2ABA2 /* ExtraInfoButtonViewModel.swift in Sources */,
 				A4E06B6729E8907A0005C57B /* WebPageRouter.swift in Sources */,
 				A4E675F7255DB4AB0011A801 /* String+Validating.swift in Sources */,
 				A4E06B4C29E805610005C57B /* DefaultGeocoder.swift in Sources */,
