@@ -145,4 +145,8 @@ public extension UIColor {
         }
         return .white
     }
+
+    class var amaranth: UIColor {
+        UIColor(named: "amaranth")!
+    }
 }

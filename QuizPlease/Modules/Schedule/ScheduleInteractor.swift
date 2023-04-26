@@ -18,6 +18,8 @@ protocol ScheduleInteractorProtocol: AnyObject {
 
     func getSubscribeStatus(gameId: Int)
     func getSubscribedGameIds(completion: @escaping ((Set<Int>) -> Void))
+
+    func getExtraInfoText(completion: @escaping (AlertData?) -> Void)
 }
 
 protocol ScheduleInteractorOutput: AnyObject {
@@ -101,6 +103,16 @@ final class ScheduleInteractor: ScheduleInteractorProtocol {
             case let .success(userInfo):
                 completion(userInfo.subscribedGames)
             }
+        }
+    }
+
+    func getExtraInfoText(completion: @escaping (AlertData?) -> Void) {
+        NetworkService.shared.getStandard(
+            AlertData.self,
+            apiPath: "/api/game/reserve-info",
+            parameters: [:]
+        ) { result in
+            completion(try? result.get())
         }
     }
 }

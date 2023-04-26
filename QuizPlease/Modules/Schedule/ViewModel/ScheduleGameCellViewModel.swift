@@ -10,4 +10,5 @@ struct ScheduleGameCellViewModel {
 
     let gameInfo: GameInfo
     let subscribeButtonViewModel: SubscribeButtonViewModel
+    let extraInfoButtonViewModel: ExtraInfoButtonViewModel
 }

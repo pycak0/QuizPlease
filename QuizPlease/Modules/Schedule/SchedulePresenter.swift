@@ -81,16 +81,24 @@ final class SchedulePresenter: SchedulePresenterProtocol {
         let isSubscribed = isSubscribedOnGame(with: game.id)
 
         let subscribeButtonModel = SubscribeButtonViewModel(
-            // Conditions to show remind button: Profile is enabled AND game allows registration
-            isPresented: AppSettings.isProfileEnabled && (game.gameStatus?.isRegistrationAvailable ?? false),
+            // Conditions to show remind button: Profile is enabled AND game has vacant places
+            isPresented: AppSettings.isProfileEnabled && (game.gameStatus?.hasVacantPlaces ?? false),
             tintColor: isSubscribed ? .black : .white,
             backgroundColor: isSubscribed ? .lemon : .themePurple,
             title: isSubscribed ? "Напомним" : "Напомнить"
         )
 
+        let extraInfoButton = ExtraInfoButtonViewModel(
+            isPresented: game.gameStatus == .reserveAvailable,
+            tapAction: { [weak self] in
+                self?.showExtraInfoTextAlert()
+            }
+        )
+
         return ScheduleGameCellViewModel(
             gameInfo: game,
-            subscribeButtonViewModel: subscribeButtonModel
+            subscribeButtonViewModel: subscribeButtonModel,
+            extraInfoButtonViewModel: extraInfoButton
         )
     }
 
@@ -280,6 +288,13 @@ final class SchedulePresenter: SchedulePresenterProtocol {
 
     private func showWarmup() {
         router.showWarmup(popCurrent: true)
+    }
+
+    private func showExtraInfoTextAlert() {
+        interactor.getExtraInfoText { [weak self] alert in
+            guard let self, let alert else { return }
+            self.view?.showSimpleAlert(title: alert.title, message: alert.text)
+        }
     }
 
     private func makeSubscriptionTitle(response: ScheduleGameSubscriptionResponse) -> String {
