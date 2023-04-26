@@ -91,7 +91,7 @@ final class MainMenuRouter: MainMenuRouterProtocol {
 
     func showDebugMenu() {
         guard !Configuration.current.isProduction else { return }
-        if #available(iOS 13, *), Configuration.current == .debug {
+        if #available(iOS 13, *) {
             showNewDebugMenu()
         } else {
             showLegacyDebugMenu()
