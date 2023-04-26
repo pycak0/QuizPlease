@@ -49,7 +49,10 @@ class PhoneTextFieldView: TitledTextFieldView {
             }
             return "+\(number.countryCode)\(number.nationalNumber)"
         case .internationalWithMask:
-            return phoneTextField.text ?? ""
+            guard let number = phoneTextField.phoneNumber else {
+                return phoneTextField.text ?? ""
+            }
+            return phoneTextField.phoneNumberKit.format(number, toType: .international)
         }
     }
 
@@ -67,6 +70,7 @@ class PhoneTextFieldView: TitledTextFieldView {
 
     // MARK: - Private Properties
 
+    private var oldValue: String = ""
     private var currentRegion: String = ""
     private var currentRegionCode: String = ""
     private var leadingDigits: String = ""
@@ -117,12 +121,16 @@ class PhoneTextFieldView: TitledTextFieldView {
     }
 
     override func textFieldDidChange(_ textField: UITextField) {
+        defer { oldValue = textField.text ?? "" }
         if isPhoneMaskEnabled {
             if phoneTextField.currentRegion != currentRegion {
                 updateCurentRegion(phoneTextField.currentRegion)
             }
-            if let text = textField.text, text.count == 1 {
-                if leadingDigits.contains(text) || !text.matches(of: leadingDigits).isEmpty {
+            guard let text = textField.text else { return }
+            if text.count == 1 {
+                if currentRegionCode == "7" && text == "8" {
+                    phoneTextField.text = "+\(currentRegionCode)"
+                } else if leadingDigits.contains(text) || !text.matches(of: leadingDigits).isEmpty {
                     phoneTextField.text = "+\(currentRegionCode)\(text)"
                 } else if text == "2" && currentRegionCode == "1" {
                     phoneTextField.text = "+\(currentRegionCode)\(text)"
@@ -130,9 +138,18 @@ class PhoneTextFieldView: TitledTextFieldView {
                     phoneTextField.text = "+\(text)"
                 }
             }
+
+            if oldValue.isEmpty, text.count > 10, let number = phoneTextField.phoneNumber {
+                let formattedNumber = phoneTextField.phoneNumberKit
+                    .format(number, toType: .international)
+                if text != formattedNumber {
+                    phoneTextField.text = formattedNumber
+                }
+            }
         }
 
-        delegate?.textFieldView(self, didChangeTextField: extractedFormattedNumber)
+        let returnValue = isPhoneMaskEnabled ? extractedFormattedNumber : (textField.text ?? "")
+        delegate?.textFieldView(self, didChangeTextField: returnValue)
     }
 
     override func textFieldDidEndEditing(_ textField: UITextField) {
