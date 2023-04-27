@@ -297,6 +297,11 @@
 		A4C5CE0C29FAC2FF002407B2 /* RatingEmptyItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C5CE0B29FAC2FF002407B2 /* RatingEmptyItem.swift */; };
 		A4C5CE0F29FAC32A002407B2 /* RatingItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C5CE0E29FAC32A002407B2 /* RatingItem.swift */; };
 		A4C5CE1329FAC3DB002407B2 /* RatingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C5CE1229FAC3DB002407B2 /* RatingCell.swift */; };
+		A4C5CE1729FAD75B002407B2 /* QPAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C5CE1629FAD75B002407B2 /* QPAlertViewController.swift */; };
+		A4C5CE1A29FB060E002407B2 /* QPAlertButtonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C5CE1929FB060E002407B2 /* QPAlertButtonModel.swift */; };
+		A4C5CE1D29FB0724002407B2 /* QPAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C5CE1C29FB0724002407B2 /* QPAlert.swift */; };
+		A4C5CE2029FB206C002407B2 /* VersionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C5CE1F29FB206C002407B2 /* VersionResponse.swift */; };
+		A4C5CE2229FB2081002407B2 /* VersionInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C5CE2129FB2081002407B2 /* VersionInfoModel.swift */; };
 		A4C71766254DE61600898CA5 /* YooMoneyPaymentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C71765254DE61600898CA5 /* YooMoneyPaymentProvider.swift */; };
 		A4C71769254E016400898CA5 /* PaymentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C71768254E016400898CA5 /* PaymentProvider.swift */; };
 		A4C9D81324EA78BB00523688 /* RatingTeamCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C9D81224EA78BB00523688 /* RatingTeamCell.swift */; };
@@ -759,6 +764,11 @@
 		A4C5CE0B29FAC2FF002407B2 /* RatingEmptyItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingEmptyItem.swift; sourceTree = "<group>"; };
 		A4C5CE0E29FAC32A002407B2 /* RatingItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingItem.swift; sourceTree = "<group>"; };
 		A4C5CE1229FAC3DB002407B2 /* RatingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingCell.swift; sourceTree = "<group>"; };
+		A4C5CE1629FAD75B002407B2 /* QPAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QPAlertViewController.swift; sourceTree = "<group>"; };
+		A4C5CE1929FB060E002407B2 /* QPAlertButtonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QPAlertButtonModel.swift; sourceTree = "<group>"; };
+		A4C5CE1C29FB0724002407B2 /* QPAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QPAlert.swift; sourceTree = "<group>"; };
+		A4C5CE1F29FB206C002407B2 /* VersionResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionResponse.swift; sourceTree = "<group>"; };
+		A4C5CE2129FB2081002407B2 /* VersionInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionInfoModel.swift; sourceTree = "<group>"; };
 		A4C71765254DE61600898CA5 /* YooMoneyPaymentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YooMoneyPaymentProvider.swift; sourceTree = "<group>"; };
 		A4C71768254E016400898CA5 /* PaymentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentProvider.swift; sourceTree = "<group>"; };
 		A4C9D81224EA78BB00523688 /* RatingTeamCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingTeamCell.swift; sourceTree = "<group>"; };
@@ -1770,6 +1780,7 @@
 				A47003C7253A4CD0002E8EA2 /* ScheduleGameSubscriptionResponse.swift */,
 				A4162020270A5C030050CBD8 /* BarStyle.swift */,
 				A4E6C37529F9B8F100B2ABA2 /* AlertData.swift */,
+				A4C5CE2129FB2081002407B2 /* VersionInfoModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1796,6 +1807,7 @@
 				A472D2CB2529422400AA9906 /* PickCity */,
 				A472D2C92529420D00AA9906 /* AddGame */,
 				A40D817824D2C99D006D2CE3 /* WarmUp */,
+				A4C5CE1529FAD745002407B2 /* QPAlert */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -1922,6 +1934,40 @@
 				A4C5CE1229FAC3DB002407B2 /* RatingCell.swift */,
 			);
 			path = Protocols;
+			sourceTree = "<group>";
+		};
+		A4C5CE1529FAD745002407B2 /* QPAlert */ = {
+			isa = PBXGroup;
+			children = (
+				A4C5CE1829FB0605002407B2 /* Model */,
+				A4C5CE1B29FB0704002407B2 /* View */,
+				A4C5CE1C29FB0724002407B2 /* QPAlert.swift */,
+			);
+			path = QPAlert;
+			sourceTree = "<group>";
+		};
+		A4C5CE1829FB0605002407B2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A4C5CE1929FB060E002407B2 /* QPAlertButtonModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		A4C5CE1B29FB0704002407B2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A4C5CE1629FAD75B002407B2 /* QPAlertViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		A4C5CE1E29FB2043002407B2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A4C5CE1F29FB206C002407B2 /* VersionResponse.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		A4C71767254E014E00898CA5 /* PaymentProvider */ = {
@@ -2316,6 +2362,7 @@
 		A4F3A793257E55F400D6A9C7 /* Splash */ = {
 			isa = PBXGroup;
 			children = (
+				A4C5CE1E29FB2043002407B2 /* Model */,
 				A4F3A794257E561800D6A9C7 /* SplashScreenVC.swift */,
 				A4F0B9E126248BD600E4E2A5 /* SplashScreenConfigurator.swift */,
 				A4F0B9DB26248B5A00E4E2A5 /* SplashScreenPresenter.swift */,
@@ -2652,6 +2699,7 @@
 				A471166D269DB61200F90099 /* MultipartFormDataObject.swift in Sources */,
 				A47003CB253A53C1002E8EA2 /* GameOrderResponse.swift in Sources */,
 				4C553C0429E68B4A0066E2CA /* GamePageInfoLineViewModel.swift in Sources */,
+				A4C5CE1729FAD75B002407B2 /* QPAlertViewController.swift in Sources */,
 				A4AFCD3A2953B094005F858C /* AnalyticsService.swift in Sources */,
 				A4B129232739DD9D0035C041 /* Spacer.swift in Sources */,
 				4C553C1729E756410066E2CA /* GamePageInfoModel.swift in Sources */,
@@ -2699,6 +2747,7 @@
 				A4BE730228D756CE0065FA08 /* UIViewController+StatusBarStyle.swift in Sources */,
 				4C72339D29F00F59006D92DF /* GamePageFieldOptions.swift in Sources */,
 				A419F2F224F003C9004A7997 /* ScalingButton.swift in Sources */,
+				A4C5CE2029FB206C002407B2 /* VersionResponse.swift in Sources */,
 				A4448ED2250EA16C0020686D /* ScheduleFilterOption.swift in Sources */,
 				A4FFA4AB24F3AB1A006A1150 /* GameOrderCellDelegates.swift in Sources */,
 				A468E12424FD37390083ADB2 /* RatingFilter.swift in Sources */,
@@ -2895,6 +2944,7 @@
 				A4BA1CEE24D8347300D32ADC /* MainMenuInteractor.swift in Sources */,
 				A45241E6265489A70058285C /* UIFont+Extensions.swift in Sources */,
 				A47003C8253A4CD0002E8EA2 /* ScheduleGameSubscriptionResponse.swift in Sources */,
+				A4C5CE1D29FB0724002407B2 /* QPAlert.swift in Sources */,
 				A4EE9EA329E5E0D300DDFC50 /* GamePageRegisterButtonBuilder.swift in Sources */,
 				A46F303624F5284E0062A333 /* GamePaymentTypeCell.swift in Sources */,
 				4C553C0D29E6BE570066E2CA /* GamePageAnnotationProvider.swift in Sources */,
@@ -2949,6 +2999,7 @@
 				A4E06B6029E8451E0005C57B /* GamePageDescriptionItem.swift in Sources */,
 				A4E06B9D29EA29110005C57B /* GamePageAddSpecialConditionCell.swift in Sources */,
 				A4EE9EA829E5F15900DDFC50 /* GamePageItemBuilderProtocol.swift in Sources */,
+				A4C5CE1A29FB060E002407B2 /* QPAlertButtonModel.swift in Sources */,
 				A4EE9E9729E493DE00DDFC50 /* GamePageCellProtocol.swift in Sources */,
 				A4632E91262EFE2D00012BBF /* UserLocationService.swift in Sources */,
 				4C1272AD29EED342008DA2E0 /* RegisterFormValidationResult+Error.swift in Sources */,
@@ -2965,6 +3016,7 @@
 				A4CC5FC724DACE2D0042B41C /* ShopConfigurator.swift in Sources */,
 				A4D44A1028CFD182004703B4 /* BigButton.swift in Sources */,
 				A4E06B6F29E8AF590005C57B /* NSAttributedString+TrimmingWhitespacesAndNewlines.swift in Sources */,
+				A4C5CE2229FB2081002407B2 /* VersionInfoModel.swift in Sources */,
 				A4112D5B28B6883F0097ED97 /* DeleteResponse.swift in Sources */,
 				4C00220B29ED682D0030B1FD /* GamePageSubmitButtonTitleProvider.swift in Sources */,
 				A472D2AD2528A89100AA9906 /* AuthVC.swift in Sources */,

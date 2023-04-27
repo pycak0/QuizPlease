@@ -48,6 +48,19 @@ final class SplashScreenPresenter: SplashScreenViewOutput {
     }
 
     private func showNextScreen() {
+        if let info = interactor.getVersionInfo(), info.isNewVersionAvailable {
+            router.showUpdateAlert(forceUpate: info.forceUpdate) { [unowned self] in
+                self.router.open(url: info.appStoreUrl)
+            } onSkip: { [unowned self] in
+                self.navigateToApp()
+            }
+            return
+        }
+
+        navigateToApp()
+    }
+
+    private func navigateToApp() {
         if interactor.wasWelcomeScreenPresented() {
             router.showMainMenu()
         } else {
