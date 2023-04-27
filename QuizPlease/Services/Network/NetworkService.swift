@@ -110,7 +110,7 @@ class NetworkService {
         league: Int,
         ratingScope: Int,
         page: Int,
-        completion: @escaping (Result<[RatingItem], NetworkServiceError>) -> Void
+        completion: @escaping (Result<[RatingTeamItem], NetworkServiceError>) -> Void
     ) -> Cancellable? {
         var ratingUrlComponents = baseUrlComponents
         ratingUrlComponents.path = "/api/rating"
@@ -123,7 +123,7 @@ class NetworkService {
         if teamName.count > 0 {
             ratingUrlComponents.queryItems?.append(URLQueryItem(name: "teamName", value: teamName))
         }
-        return getStandard([RatingItem].self, with: ratingUrlComponents, completion: completion)
+        return getStandard([RatingTeamItem].self, with: ratingUrlComponents, completion: completion)
     }
 
     // MARK: - Get Shop Items

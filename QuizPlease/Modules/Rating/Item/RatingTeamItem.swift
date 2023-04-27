@@ -1,5 +1,5 @@
 //
-//  RatingItem.swift
+//  RatingTeamItem.swift
 //  QuizPlease
 //
 //  Created by Владислав on 17.08.2020.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct RatingItem: Decodable, Equatable {
+struct RatingTeamItem: Decodable, Equatable {
     let place: Int
     let name: String
     let games: Int
@@ -32,8 +32,15 @@ struct RatingItem: Decodable, Equatable {
     }
 }
 
-extension RatingItem {
+extension RatingTeamItem {
     var imagePath: String? {
         return image?.pathProof
+    }
+}
+
+extension RatingTeamItem: RatingItem {
+
+    func cellClass() -> RatingCell.Type {
+        RatingTeamCell.self
     }
 }
