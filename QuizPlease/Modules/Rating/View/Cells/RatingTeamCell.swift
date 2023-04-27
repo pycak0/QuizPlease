@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class RatingCell: UITableViewCell, IdentifiableType {
+final class RatingTeamCell: UITableViewCell, IdentifiableType {
 
     @IBOutlet private weak var teamNameLabel: UILabel!
     @IBOutlet private weak var gamesPlayedLabel: UILabel!
@@ -32,5 +32,19 @@ final class RatingCell: UITableViewCell, IdentifiableType {
         gamesPlayedLabel.text = games.string(withAssociatedFirstCaseWord: "игра", changingCase: .nominative)
         pointsScoredLabel.text = points.string(withAssociatedMaleWord: "балл")
         teamImageView.loadImage(using: .production, path: imagePath)
+    }
+}
+
+// MARK: - RatingCell
+
+extension RatingTeamCell: RatingCell {
+
+    func configure(with item: RatingItem) {
+        guard let item = item as? RatingTeamItem else { return }
+        let points = Int(item.pointsTotal)
+        teamNameLabel.text = "\(item.place). \(item.name)"
+        gamesPlayedLabel.text = item.games.string(withAssociatedFirstCaseWord: "игра", changingCase: .nominative)
+        pointsScoredLabel.text = points.string(withAssociatedMaleWord: "балл")
+        teamImageView.loadImage(using: .production, path: item.imagePath)
     }
 }

@@ -213,7 +213,8 @@ extension MainMenuVC: UITableViewDelegate {
         _ tableView: UITableView,
         shouldHighlightRowAt indexPath: IndexPath
     ) -> Bool {
-        return indexPath.row != MainMenuItemKind.shop.rawValue
+        let doNotHighlight = presenter.menuItems?[indexPath.row]._kind == .shop
+        return !doNotHighlight
     }
 
     func tableView(
