@@ -20,13 +20,26 @@ final class QPAlert {
         self.title = title
     }
 
-    func withPrimaryButton(title: String, action: (() -> Void)?) -> QPAlert {
+    /// You may add only one primary button.
+    /// If you call this methd multiple times, only the last primary button will be presented
+    func addPrimaryButton(title: String, action: (() -> Void)?) {
+        buttons.removeAll(where: { $0.style == .primary })
         buttons.append(QPAlertButtonModel(title: title, style: .primary, tapAction: action))
+    }
+
+    /// You may add only one primary button.
+    /// If you call this methd multiple times, only the last primary button will be presented
+    func withPrimaryButton(title: String, action: (() -> Void)?) -> QPAlert {
+        addPrimaryButton(title: title, action: action)
         return self
     }
 
-    func withBasicButton(title: String, action: (() -> Void)?) -> QPAlert {
+    func addBasicButton(title: String, action: (() -> Void)?) {
         buttons.append(QPAlertButtonModel(title: title, style: .basic, tapAction: action))
+    }
+
+    func withBasicButton(title: String, action: (() -> Void)?) -> QPAlert {
+        addBasicButton(title: title, action: action)
         return self
     }
 
@@ -48,7 +61,7 @@ final class QPAlert {
         self.view = view
     }
 
-    func hide() {
-        view?.hide()
+    func hide(completion: (() -> Void)? = nil) {
+        view?.hide(completion: completion)
     }
 }

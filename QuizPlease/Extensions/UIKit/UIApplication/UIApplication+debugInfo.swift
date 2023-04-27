@@ -11,7 +11,7 @@ import UIKit
 extension UIApplication {
 
     var debugInfo: String {
-        let appVersionString = Bundle.main.version
+        let appVersionString = Bundle.main.versionAndBuild
         return """
         AppVersion: \(Configuration.current) \(appVersionString)
         \(AppSettings.description)

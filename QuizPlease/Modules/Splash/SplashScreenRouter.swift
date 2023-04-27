@@ -16,6 +16,12 @@ protocol SplashScreenRouterProtocol {
 
     /// Show Welcome Screen
     func showWelcomeScreen()
+
+    /// Show alert with prompt to update the app
+    func showUpdateAlert(forceUpate: Bool, onUpdate: (() -> Void)?, onSkip: (() -> Void)?)
+
+    /// Open web browser with given url
+    func open(url: URL)
 }
 
 /// SplashScreen router
@@ -43,5 +49,26 @@ final class SplashScreenRouter: SplashScreenRouterProtocol {
         UIApplication.shared
             .getKeyWindow()?
             .setRootViewControllerWithAnimation(rootViewController: mainMenuViewController)
+    }
+
+    func showUpdateAlert(forceUpate: Bool, onUpdate: (() -> Void)?, onSkip: (() -> Void)?) {
+        let alert = QPAlert(title: "Пора прокачать приложение до последней версии!")
+            .withPrimaryButton(title: "Обновить", action: onUpdate)
+
+        if !forceUpate {
+            alert.addBasicButton(title: "Позже") { [alert] in
+                alert.hide {
+                    onSkip?()
+                }
+            }
+        }
+
+        alert.show()
+    }
+
+    func open(url: URL) {
+        // No need to open update url via in-app browser,
+        // so we are not using WebPageRouter here.
+        UIApplication.shared.open(url)
     }
 }
