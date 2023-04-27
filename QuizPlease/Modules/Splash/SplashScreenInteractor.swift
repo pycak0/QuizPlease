@@ -120,8 +120,9 @@ final class SplashScreenInteractor: SplashScreenInteractorProtocol {
 
                 switch result {
                 case let .success(response):
-                    guard let data = response.update else {
+                    guard response.success, let data = response.update else {
                         print("Error when checking for updates, response: \(response)")
+                        self.defaultsManager.removeVersionInfo()
                         return
                     }
                     let info = VersionInfoModel(

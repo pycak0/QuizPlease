@@ -157,4 +157,8 @@ final class DefaultsManager {
             print(error)
         }
     }
+
+    func removeVersionInfo() {
+        defaults.removeObject(forKey: versionInfoKey)
+    }
 }
