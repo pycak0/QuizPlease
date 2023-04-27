@@ -101,9 +101,11 @@ final class GamePageSpecialConditionsBuilder {
             valueProvider: model.value,
             onValueChange: { [weak model, weak self] newValue in
                 guard let self, let model else { return }
+                if newValue != model.value {
+                    /// If the value was chagned, we can't guarantee that the new condition is still valid
+                    model.discountInfo = nil
+                }
                 model.value = newValue
-                /// If the value was chagned, we can't guarantee that the new condition is still valid
-                model.discountInfo = nil
                 let currentConditions = self.specialConditionsProvider.getSpecialConditions()
                 if currentConditions.count == 1 {
                     if newValue.isEmpty {

@@ -134,6 +134,7 @@ extension GamePagePresenter: GamePageViewOutput,
 
     func didPressCheckSpecialCondition(value: String?) {
         guard let value else { return }
+        view?.endEditing()
         view?.startLoading()
         interactor.checkSpecialCondition(value) { [weak view] isSuccess, message in
             view?.stopLoading()
