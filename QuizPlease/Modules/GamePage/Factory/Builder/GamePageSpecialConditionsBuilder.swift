@@ -15,11 +15,6 @@ protocol GamePageSpecialConditionsOutput: AnyObject {
     func didEndEditingSpecialCondition()
 }
 
-//protocol GamePageSpecialConditionsBuilderProtocol: GamePageItemBuilderProtocol {
-//
-//    func makeSpecialConditionItem(with model: SpecialCondition) -> GamePageItemProtocol
-//}
-
 /// GamePage special condition items builder
 final class GamePageSpecialConditionsBuilder {
 
