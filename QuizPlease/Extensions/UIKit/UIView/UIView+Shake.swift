@@ -11,13 +11,13 @@ import UIKit
 extension UIView {
 
     /// Shake view horizontally with animation
-    func shake(duration: Double = 0.4, dampingRatio: Double = 0.2, completion: (() -> Void)? = nil) {
+    func shake(duration: Double = 0.5, dampingRatio: Double = 0.2, completion: (() -> Void)? = nil) {
         self.transform = CGAffineTransform(translationX: 30, y: 0)
         UIView.animate(
-            withDuration: 0.4,
+            withDuration: duration,
             delay: 0,
-            usingSpringWithDamping: 0.2,
-            initialSpringVelocity: 10,
+            usingSpringWithDamping: dampingRatio,
+            initialSpringVelocity: 0,
             options: []
         ) {
             self.transform = .identity
