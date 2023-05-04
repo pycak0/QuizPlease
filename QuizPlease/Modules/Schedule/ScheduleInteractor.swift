@@ -109,8 +109,7 @@ final class ScheduleInteractor: ScheduleInteractorProtocol {
     func getExtraInfoText(completion: @escaping (AlertData?) -> Void) {
         NetworkService.shared.getStandard(
             AlertData.self,
-            apiPath: "/api/game/reserve-info",
-            parameters: [:]
+            apiPath: "/api/game/reserve-info"
         ) { result in
             completion(try? result.get())
         }

@@ -10,12 +10,12 @@ import Foundation
 
 protocol NetworkServiceProtocol {
 
+    // swiftlint:disable function_parameter_count
     @discardableResult
-    // swiftlint:disable:next function_parameter_count
     func get<T: Decodable>(
         _ type: T.Type,
         apiPath: String,
-        parameters: [String: String?],
+        parameters: [String: String?]?,
         headers: [String: String]?,
         authorizationKind: NetworkService.AuthorizationKind,
         completion: @escaping ((Result<T, NetworkServiceError>) -> Void)
@@ -40,6 +40,7 @@ protocol NetworkServiceProtocol {
         authorizationKind: NetworkService.AuthorizationKind,
         completion: @escaping (Result<Response, NetworkServiceError>) -> Void
     )
+    // swiftlint:enable function_parameter_count
 }
 
 extension NetworkServiceProtocol {
@@ -48,7 +49,7 @@ extension NetworkServiceProtocol {
     func get<T: Decodable>(
         _ type: T.Type,
         apiPath: String,
-        parameters: [String: String?],
+        parameters: [String: String?]?,
         completion: @escaping ((Result<T, NetworkServiceError>) -> Void)
     ) -> Cancellable? {
         get(
