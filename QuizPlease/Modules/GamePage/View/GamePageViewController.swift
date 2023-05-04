@@ -67,6 +67,12 @@ protocol GamePageViewInput: AnyObject,
 
     /// Scroll to item with given kind and ask to edit it 
     func editItem(kind: GamePageItemKind)
+
+    /// Perform haptics effect indication an error
+    func notifyHapticsError()
+
+    /// Perform haptics effect indication success
+    func notifyHapticsSuccess()
 }
 
 /// Game page screen view controller
@@ -75,6 +81,7 @@ final class GamePageViewController: UIViewController {
     // MARK: - UI Elements
 
     private let activityIndicator = UIActivityIndicatorView()
+    private let hapticsGenerator = UINotificationFeedbackGenerator()
 
     private let gamePageView: GamePageView = {
         let gamePageView = GamePageView()
@@ -177,6 +184,14 @@ extension GamePageViewController: GamePageViewInput {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             completion?()
         }
+    }
+
+    func notifyHapticsError() {
+        hapticsGenerator.notificationOccurred(.error)
+    }
+
+    func notifyHapticsSuccess() {
+        hapticsGenerator.notificationOccurred(.success)
     }
 
     // MARK: - SpecialConditionsView

@@ -67,7 +67,7 @@ final class GamePagePollCell: UITableViewCell {
     }
 
     override func becomeFirstResponder() -> Bool {
-        titleLabel.shake()
+        shake()
         return super.becomeFirstResponder()
     }
 
