@@ -21,8 +21,8 @@ protocol PaymentServiceProtocol {
     /// - Important: Do not call this method before the `launchPayment(options:)`. This will result in a `fatalError`
     func startConfirmation(_ link: String)
 
-    /// Abort the payment. Does not work if the payment was already confirmed.
-    func cancelPayment(completion: (() -> Void)?)
+    /// Close the payments module.
+    func closePayment(completion: (() -> Void)?)
 }
 
 /// Payment service output events handler protocol
@@ -97,10 +97,14 @@ final class PaymentServiceImpl: PaymentServiceProtocol {
         )
     }
 
-    func cancelPayment(completion: (() -> Void)?) {
+    func closePayment(completion: (() -> Void)?) {
         paymentMethodType = nil
-        presentingViewController?.dismiss(animated: true, completion: completion)
         paymentsModule = nil
+        if let vc = presentingViewController, vc.presentedViewController != nil {
+            vc.dismiss(animated: true, completion: completion)
+        } else {
+            completion?()
+        }
     }
 }
 

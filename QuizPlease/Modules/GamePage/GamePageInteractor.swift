@@ -174,7 +174,7 @@ final class GamePageInteractor: GamePageInteractorProtocol {
             guard let self else { return }
             switch result {
             case let .failure(error):
-                self.paymentService.cancelPayment {
+                self.paymentService.closePayment {
                     self.output?.didFailWithError(error)
                 }
             case let .success(response):
@@ -191,15 +191,12 @@ final class GamePageInteractor: GamePageInteractorProtocol {
             if let url = response.link {
                 paymentService.startConfirmation(url.absoluteString)
             } else {
-                self.paymentService.cancelPayment {
+                self.paymentService.closePayment {
                     self.completeRegistration(success: false, message: message)
                 }
             }
             return
 
-        } else if response.paymentStatus == .succeeded {
-            self.completeRegistration(success: true)
-            return
         }
 
         // 2. Check for response status
@@ -209,7 +206,9 @@ final class GamePageInteractor: GamePageInteractorProtocol {
             message = response.successMessage ?? response.errorMessage ?? "Произошла ошибка при записи на игру"
         }
 
-        completeRegistration(success: response.isSuccessfullyRegistered, message: message)
+        paymentService.closePayment {
+            self.completeRegistration(success: response.isSuccessfullyRegistered, message: message)
+        }
     }
 
     private func completeRegistration(success: Bool, message: String? = nil) {
@@ -371,7 +370,10 @@ final class GamePageInteractor: GamePageInteractorProtocol {
     }
 
     func hasAnyDiscounts() -> Bool {
-        !registrationService.getSpecialConditions().compactMap(\.discountInfo).isEmpty
+        !registrationService
+            .getSpecialConditions()
+            .compactMap(\.discountInfo)
+            .isEmpty
     }
 }
 
