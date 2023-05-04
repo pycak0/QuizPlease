@@ -61,6 +61,7 @@ final class GamePagePresenter {
 
     private func processErrors(_ errors: [RegisterFormValidationResult.Error]) {
         guard let error = errors.first else { return }
+        view?.notifyHapticsError()
         view?.showAlert(title: error.title, message: error.message) { [weak self] in
             self?.alertTapActionOnError(error)
         }
@@ -192,6 +193,7 @@ extension GamePagePresenter: GamePageInteractorOutput {
         let completion = { [weak self, result] in
             guard let self else { return }
             if result.isSuccess {
+                self.view?.notifyHapticsSuccess()
                 self.analyticsService.sendEvent(.registrationSuccess)
                 self.router.showCompletionScreen(options: result.options, delegate: self)
             }
