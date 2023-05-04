@@ -269,7 +269,7 @@ class NetworkService {
     func getStandard<T: Decodable>(
         _ type: T.Type,
         apiPath: String,
-        parameters: [String: String?],
+        parameters: [String: String?]? = nil,
         headers: [String: String]? = nil,
         authorizationKind: AuthorizationKind = .none,
         completion: @escaping ((Result<T, NetworkServiceError>) -> Void)
@@ -319,14 +319,14 @@ class NetworkService {
     func get<T: Decodable>(
         _ type: T.Type,
         apiPath: String,
-        parameters: [String: String?],
+        parameters: [String: String?]?,
         headers: [String: String]? = nil,
         authorizationKind: AuthorizationKind = .none,
         completion: @escaping ((Result<T, NetworkServiceError>) -> Void)
     ) -> Cancellable? {
         var urlComponents = baseUrlComponents
         urlComponents.path = apiPath
-        urlComponents.queryItems = parameters.map { URLQueryItem(name: $0, value: $1) }
+        urlComponents.queryItems = parameters?.map { URLQueryItem(name: $0, value: $1) }
         return get(
             type,
             with: urlComponents,
