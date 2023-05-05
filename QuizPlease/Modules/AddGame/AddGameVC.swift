@@ -134,17 +134,26 @@ final class AddGameVC: UIViewController {
             switch serverResult {
             case let .failure(error):
                 print(error)
-                self.gameNameLabel.text = "-"
-                self.showSimpleAlert(
-                    title: "Не удалось найти игру",
-                    message: "Попробуйте отсканировать код ещё раз"
-                ) { _ in
-                    self.navigationController?.popViewController(animated: true)
-                }
+                self.showGameNotFoundAlert()
+
             case let .success(teams):
                 self.teamsInfo = teams.filter(\.isConfirmed)
-                self.loadGameInfo(with: teams[0].game_id)
+                guard let id = teams.first?.game_id else {
+                    self.showGameNotFoundAlert()
+                    return
+                }
+                self.loadGameInfo(with: id)
             }
+        }
+    }
+
+    private func showGameNotFoundAlert() {
+        gameNameLabel.text = "-"
+        showSimpleAlert(
+            title: "Не удалось найти игру",
+            message: "Попробуйте отсканировать код ещё раз"
+        ) { _ in
+            self.navigationController?.popViewController(animated: true)
         }
     }
 
@@ -167,7 +176,7 @@ final class AddGameVC: UIViewController {
     /// - parameter isSatisfactory: `true` - user location is close to the place location,
     /// `false` - user location is too far from the place location, `nil` - unavailable to get user loaction
     private func checkUserLocation(completion: @escaping (_ isSatisfactory: Bool?) -> Void) {
-        if Configuration.current == .debug && AppSettings.geoChecksAlwaysSuccessful {
+        if Configuration.current != .production && AppSettings.geoChecksAlwaysSuccessful {
             print("🧭 Location check always successful")
             completion(true)
             return

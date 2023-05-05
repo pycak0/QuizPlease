@@ -9,6 +9,7 @@
 import MapKit
 
 enum PlaceConstants {
+    /// In meters
     static let deviationLimit: Double = 100
 }
 
