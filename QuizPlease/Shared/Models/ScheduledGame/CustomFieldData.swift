@@ -9,7 +9,7 @@
 import Foundation
 
 /// Custom field in Game info
-struct CustomFieldData: Codable {
+struct CustomFieldData: Decodable {
 
     /// Field title
     let label: String
@@ -18,19 +18,19 @@ struct CustomFieldData: Codable {
     /// Placeholder for types `text` and `textarea`
     let placeholder: String
     /// Custom field type
-    let type: Kind
+    let type: CustomFieldKind
     /// Is field required to be filled in
     let isRequired: Bool
     /// Possible values for `radio` type of field
     let values: [String]
+}
 
-    /// Describes possible types of `CustomFieldData`
-    enum Kind: String, Codable {
-        /// Single-line text
-        case text
-        /// Multiline text
-        case textarea
-        /// Single choice question with radiobuttons
-        case radio
-    }
+/// Describes possible types of `CustomField`
+enum CustomFieldKind: String, Codable {
+    /// Single-line text
+    case text
+    /// Multiline text
+    case textarea
+    /// Single choice question with radiobuttons
+    case radio
 }

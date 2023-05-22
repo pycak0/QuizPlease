@@ -46,4 +46,13 @@ final class CoreAssembly {
 
     /// Service that opens web pages with in-app browser
     lazy var webPageRouter: WebPageRouter = WebPageRouterImpl()
+
+    /// An object that encodes instances of a data type as JSON objects.
+    lazy var jsonEncoder: JsonEncoder = JSONEncoder()
+
+    /// An object that decodes instances of a data type from JSON objects.
+    lazy var jsonDecoder: JsonDecoder = JSONDecoder()
+
+    /// A service that executes tasks asynchronously
+    lazy var concurrentExecutor: AsyncExecutor = ConcurrentExecutorImpl()
 }
