@@ -76,13 +76,14 @@ final class SchedulePresenter: SchedulePresenterProtocol {
         analyticsService.sendEvent(.scheduleOpen)
     }
 
+    // MARK: - Schedule Cell View Model
+
     func viewModel(forGameAt index: Int) -> ScheduleGameCellViewModel {
         let game = games[index]
         let isSubscribed = isSubscribedOnGame(with: game.id)
 
         let subscribeButtonModel = SubscribeButtonViewModel(
-            // Conditions to show remind button: Profile is enabled AND game has vacant places
-            isPresented: AppSettings.isProfileEnabled && (game.gameStatus?.hasVacantPlaces ?? false),
+            isPresented: game.showRemindButton,
             tintColor: isSubscribed ? .black : .white,
             backgroundColor: isSubscribed ? .lemon : .themePurple,
             title: isSubscribed ? "Напомним" : "Напомнить"

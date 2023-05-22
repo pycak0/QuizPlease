@@ -11,12 +11,19 @@ import UIKit
 /// Status of the game
 enum GameStatus: Int, Decodable {
 
-    case placesAvailable = 1,
-         reserveAvailable = 2,
-         noPlaces = 3,
-         invite = 4,
-         ended = 6
+    /// Есть места
+    case placesAvailable = 1
+    /// Нет мест! Но можно записаться в резерв
+    case reserveAvailable = 2
+    /// Нет мест! Резерв заполнен
+    case noPlaces = 3
+    /// Только по приглашениям
+    case invite = 4
+    /// Закончилась
+    case ended = 6
 
+    /// Осталось мало мест
+    ///
     /// A special status that comes from the backend in a separate field
     case fewPlaces = 100
 

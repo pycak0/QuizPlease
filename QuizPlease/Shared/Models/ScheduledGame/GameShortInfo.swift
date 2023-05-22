@@ -12,10 +12,11 @@ import Foundation
 /// but the field names are different from `GameInfo` model,
 /// so we store only game id here.
 struct GameShortInfo: Decodable {
-    private var datetime: String
-    var id: Int
-    var special_mobile_banner: String?
-    var is_little_place: Int?
+    private let datetime: String
+    let id: Int
+    let special_mobile_banner: String?
+    let is_little_place: Int?
+    let show_remind_button: Bool?
 
     var date: Date? {
         let formatter = DateFormatter()
