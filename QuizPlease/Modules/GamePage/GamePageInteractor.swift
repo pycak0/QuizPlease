@@ -365,14 +365,16 @@ final class GamePageInteractor: GamePageInteractorProtocol {
             forPeople: registerForm.countPaidOnline ?? registerForm.count,
             gamePrice: gameInfo.priceNumber ?? 0,
             isOnlineGame: gameInfo.isOnlineGame,
-            discounts: registrationService.getSpecialConditions().compactMap(\.discountInfo)
+            discounts: registrationService
+                .getSpecialConditions()
+                .compactMap(\.discountInfo?.discount)
         )
     }
 
     func hasAnyDiscounts() -> Bool {
         !registrationService
             .getSpecialConditions()
-            .compactMap(\.discountInfo)
+            .compactMap(\.discountInfo?.discount)
             .isEmpty
     }
 }

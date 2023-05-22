@@ -18,7 +18,7 @@ extension SpecialCondition {
 
     struct DiscountInfo {
         let kind: Kind?
-        let discount: DiscountKind
+        let discount: DiscountKind?
     }
 
     struct Response: Decodable {
@@ -32,9 +32,10 @@ extension SpecialCondition {
 }
 
 extension SpecialCondition.Response {
-    private var discountKind: DiscountKind {
-        if let certType = certificate_type {
-            return .certificateDiscount(type: CertificateDiscountType(rawValue: certType))
+    private var discountKind: DiscountKind? {
+        if let certType = certificate_type,
+           let certDiscount = CertificateDiscountType(rawValue: certType) {
+            return .certificateDiscount(type: certDiscount)
         }
         if let promoType = promo_type {
             return .somePeopleForFree(amount: promoType)
@@ -42,7 +43,7 @@ extension SpecialCondition.Response {
         if let fraction = percent {
             return .percent(fraction: fraction)
         }
-        return .none
+        return nil
     }
 
     var discountInfo: SpecialCondition.DiscountInfo {

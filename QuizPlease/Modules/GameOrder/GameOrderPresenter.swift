@@ -251,11 +251,7 @@ final class GameOrderPresenter: GameOrderPresenterProtocol {
                     if peopleForFree != Int.max {
                         peopleForFree += amount
                     }
-                case .none:
-                    continue
                 }
-            case .none:
-                continue
             }
         }
 

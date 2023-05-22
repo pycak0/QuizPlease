@@ -23,7 +23,7 @@ protocol PaymentSumCalculator {
         forPeople number: Int,
         gamePrice: Int,
         isOnlineGame: Bool,
-        discounts: [SpecialCondition.DiscountInfo]
+        discounts: [DiscountKind]
     ) -> Double
 }
 
@@ -36,7 +36,7 @@ final class PaymentSumCalculatorImpl: PaymentSumCalculator {
         forPeople number: Int,
         gamePrice: Int,
         isOnlineGame: Bool,
-        discounts: [SpecialCondition.DiscountInfo]
+        discounts: [DiscountKind]
     ) -> Double {
         var price = Double(gamePrice)
         var peopleToPay = Double(number)
@@ -64,13 +64,13 @@ final class PaymentSumCalculatorImpl: PaymentSumCalculator {
     // MARK: - Private Methods
 
     private func countAllDiscounts(
-        _ discounts: [SpecialCondition.DiscountInfo]
+        _ discounts: [DiscountKind]
     ) -> (totalPeopleForFree: Int, totalPercentFraction: Double) {
 
         var percentFraction = 0.0
         var peopleForFree = 0
-        for discountInfo in discounts {
-            switch discountInfo.discount {
+        for discount in discounts {
+            switch discount {
             case let .percent(fraction):
                 percentFraction += fraction
             case let .somePeopleForFree(amount):
@@ -85,11 +85,7 @@ final class PaymentSumCalculatorImpl: PaymentSumCalculator {
                     if peopleForFree != Int.max {
                         peopleForFree += amount
                     }
-                case .none:
-                    continue
                 }
-            case .none:
-                continue
             }
         }
 
