@@ -26,6 +26,8 @@ final class AuthVC: UIViewController {
     @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
 
+    private let hapticsGenerator = UINotificationFeedbackGenerator()
+
     private var isCodeSent: Bool = false
     private var phoneNumber: String?
     private var smsCode: String?
@@ -188,6 +190,7 @@ final class AuthVC: UIViewController {
     }
 
     private func showIncorrectInputNotification() {
+        hapticsGenerator.notificationOccurred(.error)
         textFieldView.shake()
     }
 }
