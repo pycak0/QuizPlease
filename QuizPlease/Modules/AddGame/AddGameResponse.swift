@@ -11,5 +11,6 @@ import Foundation
 struct AddGameResponse: Decodable {
 
     let success: Bool?
-    let message: String?
+    let title: String?
+    let text: String?
 }
