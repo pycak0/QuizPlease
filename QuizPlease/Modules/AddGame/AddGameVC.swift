@@ -112,8 +112,8 @@ final class AddGameVC: UIViewController {
     private func processCheckInResponse(_ response: AddGameResponse) {
         if response.success ?? false {
             showSimpleAlert(
-                title: "Успешно",
-                message: response.message ?? "Игра успешно добавлена",
+                title: response.title ?? "Успешно",
+                message: response.text ?? "Игра успешно добавлена",
                 okHandler: { _ in
                     self.delegate?.didAddGameToUserProfile(self)
                     self.navigationController?.popViewController(animated: true)
@@ -121,8 +121,8 @@ final class AddGameVC: UIViewController {
             )
         } else {
             showSimpleAlert(
-                title: "Ошибка",
-                message: response.message ?? "Неизвестная ошибка сервера"
+                title: response.title ?? "Ошибка",
+                message: response.text ?? "Неизвестная ошибка сервера"
             )
         }
     }
