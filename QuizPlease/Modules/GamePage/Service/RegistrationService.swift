@@ -196,7 +196,8 @@ extension RegistrationService: RegistrationServiceProtocol {
             case let .failure(error):
                 completion(false, error.localizedDescription)
             case let .success(response):
-                switch response.discountInfo.kind {
+                let discountInfo = response.discountInfo
+                switch discountInfo.kind {
                 case .promocode:
                     if self.specialConditions.filter({ $0.discountInfo?.kind == .promocode }).count > 0 {
                         completion(false, "На одну игру возможно использовать только один промокод")
@@ -206,7 +207,7 @@ extension RegistrationService: RegistrationServiceProtocol {
                     break
                 }
                 if let index = self.specialConditions.firstIndex(where: { $0.value == value }) {
-                    self.specialConditions[index].discountInfo = response.discountInfo
+                    self.specialConditions[index].discountInfo = discountInfo
                 }
 
                 completion(response.success, response.message)

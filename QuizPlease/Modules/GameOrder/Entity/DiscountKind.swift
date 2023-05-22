@@ -12,5 +12,4 @@ enum DiscountKind {
     case percent(fraction: Double)
     case somePeopleForFree(amount: Int)
     case certificateDiscount(type: CertificateDiscountType)
-    case none
 }
