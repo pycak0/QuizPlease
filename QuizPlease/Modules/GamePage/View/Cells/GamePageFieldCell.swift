@@ -47,7 +47,7 @@ final class GamePageFieldCell: UITableViewCell {
         let textFieldView = PhoneTextFieldView()
         textFieldView.delegate = self
         textFieldView.textField.returnKeyType = .done
-        textFieldView.formattingKind = .international
+        textFieldView.formattingKind = .internationalWithMask
         textFieldView.translatesAutoresizingMaskIntoConstraints = false
         return textFieldView
     }()
