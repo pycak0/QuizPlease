@@ -54,6 +54,7 @@ final class RegistrationService {
     private let specialConditionsLimit = 9
 
     private let networkService: NetworkServiceProtocol
+    private let jsonEncoder: JsonEncoder
     private let registerForm: RegisterForm
     private var customFields: [CustomFieldModel] = []
     private var specialConditions: [SpecialCondition] = [SpecialCondition()]
@@ -64,17 +65,20 @@ final class RegistrationService {
     /// - Parameters:
     ///   - gameId: Game identifier
     ///   - gameInfoLoader: Service that loads Game info
+    ///   - jsonEncoder: An object that encodes instances of a data type as JSON objects.
     ///
     /// Creates a new register form
     init(
         gameId: Int,
-        networkService: NetworkServiceProtocol
+        networkService: NetworkServiceProtocol,
+        jsonEncoder: JsonEncoder
     ) {
         self.registerForm = RegisterForm(
             cityId: AppSettings.defaultCity.id,
             gameId: gameId
         )
         self.networkService = networkService
+        self.jsonEncoder = jsonEncoder
     }
 
     // MARK: - Private Methods
@@ -142,6 +146,17 @@ final class RegistrationService {
             }
 
             completion(errors)
+        }
+    }
+
+    private func encodeCustomFields() -> Data? {
+        guard !customFields.isEmpty else { return nil }
+        let customFieldsOutputDataArray = customFields.map { CustomFieldOutputData(model: $0) }
+        do {
+            return try jsonEncoder.encode(customFieldsOutputDataArray)
+        } catch {
+            print(error.localizedDescription)
+            return nil
         }
     }
 }
@@ -258,7 +273,15 @@ extension RegistrationService: RegistrationServiceProtocol {
         ]
         // swiftlint:enable colon
 
-        let formData: [MultipartFormDataObject] = certificates + MultipartFormDataObjects(params)
+        var formData: [MultipartFormDataObject] = certificates + MultipartFormDataObjects(params)
+
+        if let customFieldsData = encodeCustomFields() {
+            let customFieldForm = MultipartFormDataObject(
+                name: "QpRecord[custom_fields_values]",
+                data: customFieldsData
+            )
+            formData.append(customFieldForm)
+        }
 
         networkService.afPost(
             with: formData,

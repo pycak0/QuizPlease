@@ -29,7 +29,8 @@ extension GamePageAssembly: ViewAssembly {
         let paymentSumCalculator = PaymentSumCalculatorImpl()
         let registrationService = RegistrationService(
             gameId: launchOptions.gameId,
-            networkService: services.networkService
+            networkService: services.networkService,
+            jsonEncoder: services.core.jsonEncoder
         )
         let interactor = GamePageInteractor(
             gameId: launchOptions.gameId,

@@ -10,11 +10,13 @@ import UIKit
 
 final class OnboardingAssembly {
 
+    let core = CoreAssembly.shared
+
     func makeViewController(delegate: OnboardingScreenDelegate?) -> UIViewController {
         let router = OnboardingRouter()
         let interactor = OnboardingInteractor(
-            jsonDecoder: JSONDecoder(),
-            concurrentExecutor: ConcurrentExecutorImpl()
+            jsonDecoder: core.jsonDecoder,
+            concurrentExecutor: core.concurrentExecutor
         )
         let presenter = OnboardingPresenter(
             interactor: interactor,
