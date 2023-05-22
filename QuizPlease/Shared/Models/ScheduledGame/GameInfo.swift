@@ -66,7 +66,10 @@ struct GameInfo: Decodable {
     /// Vacant places
     private var blockOf: Int = 0
 
+    /// Custom registration fields on Game page
     private var custom_fields: [CustomFieldData]?
+    /// Show remind button or not
+    private var show_remind_button: Bool?
 
     init() { }
 
@@ -75,6 +78,7 @@ struct GameInfo: Decodable {
         date = shortInfo.date
         special_mobile_banner = shortInfo.special_mobile_banner
         is_little_place = shortInfo.is_little_place
+        show_remind_button = shortInfo.show_remind_button
     }
 
     mutating func setShortInfo(_ shortInfo: GameShortInfo) {
@@ -82,6 +86,7 @@ struct GameInfo: Decodable {
         date = shortInfo.date
         special_mobile_banner = shortInfo.special_mobile_banner
         is_little_place = shortInfo.is_little_place
+        show_remind_button = shortInfo.show_remind_button
     }
 
     mutating func setShortInfo(_ shortInfo: GameInfo) {
@@ -89,6 +94,7 @@ struct GameInfo: Decodable {
         date = shortInfo.date
         special_mobile_banner = shortInfo.special_mobile_banner
         is_little_place = shortInfo.is_little_place
+        show_remind_button = shortInfo.show_remind_button
     }
 }
 
@@ -199,5 +205,9 @@ extension GameInfo {
 
     var customFields: [CustomFieldData]? {
         custom_fields
+    }
+
+    var showRemindButton: Bool {
+        show_remind_button ?? false
     }
 }
