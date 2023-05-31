@@ -254,6 +254,8 @@ extension RegistrationService: RegistrationServiceProtocol {
 
         let promocode = specialConditions.first(where: { $0.discountInfo?.kind == .promocode })?.value
 
+        let surcharge = registerForm.surcharge ?? registerForm.countPaidOnline 
+
         // swiftlint:disable colon
         let params: [String: String?] = [
             /// 2 - регистрация через мобильное приложение
@@ -268,7 +270,7 @@ extension RegistrationService: RegistrationServiceProtocol {
             "QpRecord[count]":              "\(registerForm.count)",
             "QpRecord[teamName]":           registerForm.teamName,
             "QpRecord[payment_token]":      registerForm.paymentToken,
-            "QpRecord[surcharge]":          registerForm.countPaidOnline.map { "\($0)" },
+            "QpRecord[surcharge]":          surcharge.map { "\($0)" },
             "promo_code":                   promocode
         ]
         // swiftlint:enable colon

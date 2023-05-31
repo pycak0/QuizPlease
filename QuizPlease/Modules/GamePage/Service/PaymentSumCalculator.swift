@@ -25,6 +25,11 @@ protocol PaymentSumCalculator {
         isOnlineGame: Bool,
         discounts: [DiscountKind]
     ) -> Double
+
+
+    func calculateDiscounts(
+        discounts: [DiscountKind]
+    ) -> (totalPeopleForFree: Int, totalPercentFraction: Double)
 }
 
 /// Service that calculates payment sum for the game
@@ -59,6 +64,12 @@ final class PaymentSumCalculatorImpl: PaymentSumCalculator {
         }
 
         return price
+    }
+
+    func calculateDiscounts(
+        discounts: [DiscountKind]
+    ) -> (totalPeopleForFree: Int, totalPercentFraction: Double) {
+        countAllDiscounts(discounts)
     }
 
     // MARK: - Private Methods

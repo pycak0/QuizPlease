@@ -15,11 +15,17 @@ final class RegisterForm: Encodable {
     var email: String = ""
     var phone: String = ""
     var count: Int = 2
-    var countPaidOnline: Int?
+    /// Setting to this field resets the value in `surcharge` to `nil`
+    var countPaidOnline: Int? {
+        didSet {
+            surcharge = nil
+        }
+    }
     var isFirstTime: Bool = false
     var comment: String?
     var paymentType: PaymentType = .online
     var paymentToken: String?
+    var surcharge: Int?
 
     init(cityId: Int, gameId: Int) {
         self.cityId = cityId

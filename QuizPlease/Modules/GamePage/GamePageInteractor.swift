@@ -125,6 +125,19 @@ final class GamePageInteractor: GamePageInteractorProtocol {
             // В онлайн-играх оплата производится всегда за команду,
             // отдельно количество оплаченных участников не указывается
             registerForm.countPaidOnline = nil
+            registerForm.surcharge = nil
+
+        } else if let selectedToPay = registerForm.countPaidOnline {
+            // Для корректной работы бэка (о да, опять костыли 🙄)
+            // нам нужно указать только то количество человек,
+            // за которых действительно нужно заплатить.
+            //
+            // То есть необходимо отнять от общего числа выбранных для оплаты людей
+            // количество тех, кто пройдет бесплатно
+            let peopleForFree = paymentSumCalculator
+                .calculateDiscounts(discounts: getDiscounts())
+                .totalPeopleForFree
+            registerForm.surcharge = selectedToPay - peopleForFree
         }
 
         // Если выбрана оплата онлайн, и оплата действительно требуется,
@@ -221,6 +234,12 @@ final class GamePageInteractor: GamePageInteractorProtocol {
             )
         )
         output?.didRegisterWithResult(result)
+    }
+
+    private func getDiscounts() -> [DiscountKind] {
+        registrationService
+            .getSpecialConditions()
+            .compactMap(\.discountInfo?.discount)
     }
 
     // MARK: - GamePageInteractorProtocol
@@ -365,17 +384,12 @@ final class GamePageInteractor: GamePageInteractorProtocol {
             forPeople: registerForm.countPaidOnline ?? registerForm.count,
             gamePrice: gameInfo.priceNumber ?? 0,
             isOnlineGame: gameInfo.isOnlineGame,
-            discounts: registrationService
-                .getSpecialConditions()
-                .compactMap(\.discountInfo?.discount)
+            discounts: getDiscounts()
         )
     }
 
     func hasAnyDiscounts() -> Bool {
-        !registrationService
-            .getSpecialConditions()
-            .compactMap(\.discountInfo?.discount)
-            .isEmpty
+        !getDiscounts().isEmpty
     }
 }
 
