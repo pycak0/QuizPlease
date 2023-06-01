@@ -29,6 +29,13 @@ final class DebugSettingsViewController: UIViewController {
                 onValueChange: { newValue in
                     AppSettings.isGamePageEnabled = newValue
                 }
+            ),
+            DebugSettingsSwitchItem(
+                title: "Возможность оплаты доступна только для онлайн-игр",
+                isEnabledProvider: AppSettings.inAppPaymentOnlyForOnlineGamesEnabled,
+                onValueChange: { newValue in
+                    AppSettings.inAppPaymentOnlyForOnlineGamesEnabled = newValue
+                }
             )
         ])
     ]
