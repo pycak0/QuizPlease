@@ -43,6 +43,9 @@ public enum AppSettings {
 
     public static var geoChecksAlwaysSuccessful = false
 
+    /// Enable in-app payment only for online games
+    public static var inAppPaymentOnlyForOnlineGamesEnabled = true
+
     public static var description: String {
         """
         AppSettings: {

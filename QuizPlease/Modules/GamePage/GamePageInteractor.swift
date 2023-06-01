@@ -68,6 +68,9 @@ final class GamePageInteractor: GamePageInteractorProtocol {
         if gameInfo.isOnlineGame {
             return gameInfo.availablePaymentTypes
         }
+        if AppSettings.inAppPaymentOnlyForOnlineGamesEnabled {
+            return [.cash]
+        }
         if gameInfo.gameStatus == .reserveAvailable {
             return [.cash]
         }
