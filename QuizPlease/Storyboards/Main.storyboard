@@ -1707,6 +1707,7 @@
                     <navigationItem key="navigationItem" title="Завершение покупки" id="p7U-iT-zNo"/>
                     <connections>
                         <outlet property="arrowImageView" destination="zQj-kq-Ibc" id="rgA-bd-PUH"/>
+                        <outlet property="confirmButton" destination="Gwm-fA-j5X" id="E1q-pk-jAx"/>
                         <outlet property="imageView" destination="jhS-3r-YyX" id="JN5-4m-hia"/>
                         <outlet property="questionLabel" destination="gu5-yq-NPT" id="PGT-RA-h8p"/>
                         <outlet property="segmentControl" destination="KBr-n6-ewD" id="zIG-Zy-OSc"/>
