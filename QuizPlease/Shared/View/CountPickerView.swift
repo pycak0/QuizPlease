@@ -127,7 +127,7 @@ final class CountPickerView: UIView {
 
     /// This method does not call any delegate methods
     func setSelectedButton(at index: Int, animated: Bool) {
-        deselectAllButtons()
+        deselectAllButtons(animated: animated)
         guard index >= 0 && index < buttons.count else { return }
         selectedIndex = index
         // let selectedNumber = selectedIndex + startCount
@@ -155,7 +155,6 @@ final class CountPickerView: UIView {
     // MARK: - Touches
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        setScrollEnabled(false)
         selectButton(with: touches)
     }
 
@@ -174,32 +173,18 @@ final class CountPickerView: UIView {
     // MARK: - Private Methods
 
     private func didEndEditing() {
-        setScrollEnabled(true)
         delegate?.countPickerDidEndEditing(self)
     }
 
     private func selectButton(with touches: Set<UITouch>) {
         guard let location = touches.first?.location(in: pickerStack) else { return }
         for (index, item) in buttons.enumerated() {
-            if item.frame.contains(location) {
+            if item.frame.minX <= location.x && location.x <= item.frame.maxX {
                 if selectedIndex != index {
                     pickerButtonPressed(at: index)
                 }
                 break
             }
-        }
-    }
-
-    private func setScrollEnabled(_ isEnabled: Bool) {
-        var superview = superview
-        while superview != nil {
-            if let scrollView = superview as? UIScrollView,
-               !scrollView.isDecelerating,
-               !scrollView.isDragging {
-                scrollView.contentInsetAdjustmentBehavior = .always
-                scrollView.isScrollEnabled = isEnabled
-            }
-            superview = superview?.superview
         }
     }
 
@@ -230,7 +215,7 @@ final class CountPickerView: UIView {
             button.addTarget(self, action: #selector(pickerButtonPressed(_:)), for: [.touchUpInside])
             buttons.append(button)
             pickerStack.addArrangedSubview(button)
-            button.layer.cornerRadius = pickerStack.frame.height / 2
+            button.layer.cornerRadius = buttonsCornerRadius
         }
     }
 
@@ -272,9 +257,9 @@ final class CountPickerView: UIView {
 
     // MARK: - Deselect
 
-    private func deselect(_ button: UIButton?) {
+    private func deselect(_ button: UIButton?, animated: Bool) {
         button?.isSelected = false
-        UIView.animate(withDuration: 0.2) {
+        UIView.animate(withDuration: animated ? 0.2 : 0.0) {
             button?.setImage(self.unselectedImage, for: .normal)
            // button?.setTitle("", for: .normal)
             button?.backgroundColor = self.pickerBackgroundColor
@@ -282,8 +267,8 @@ final class CountPickerView: UIView {
         }
     }
 
-    private func deselectAllButtons() {
-        buttons.forEach { deselect($0) }
+    private func deselectAllButtons(animated: Bool) {
+        buttons.forEach { deselect($0, animated: animated) }
     }
 
     // MARK: - Setup View

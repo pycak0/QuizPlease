@@ -102,25 +102,31 @@ public class ExpandingHeader: UIView {
         if !isExpanded { endEditing(true) }
 
         let height: CGFloat = isExpanded ? ExpandingHeader.expandedHeight : ExpandingHeader.collapsedHeight
-        let grHeight: CGFloat = isExpanded ? ExpandingHeader.gradientExpandedHeight : ExpandingHeader.collapsedHeight
+        let grHeight: CGFloat = isExpanded ? ExpandingHeader.gradientExpandedHeight : 58
 
         let alpha: CGFloat = isExpanded ? 0 : 1
         let opacity: Float = isExpanded ? 1 : 0
 
-        UIView.animate(withDuration: 0.2, delay: 0, options: .layoutSubviews, animations: {
-            // self.frame = CGRect(origin: self.frame.origin, size: CGSize(width: width, height: height))
-            self.frame.setHeight(height)
-            self.gradientLayer.frame.setHeight(grHeight)
+        self.gradientLayer.frame.setHeight(grHeight)
+        self.gradientLayer.opacity = opacity
+        UIView.animate(
+            withDuration: CATransaction.animationDuration(),
+            delay: 0,
+            options: .layoutSubviews,
+            animations: {
+                // self.frame = CGRect(origin: self.frame.origin, size: CGSize(width: width, height: height))
+                self.frame.setHeight(height)
 
-            self.gradientLayer.opacity = opacity
-            self.setItemsHidden(!isExpanded)
-            // self.labels.forEach { $0.isHidden = !self.expanded }
-            self.expandView.isHidden = isExpanded
-            self.expandView.alpha = alpha
-            self.layoutIfNeeded()
+                self.setItemsHidden(!isExpanded)
+                // self.labels.forEach { $0.isHidden = !self.expanded }
+                self.expandView.isHidden = isExpanded
+                self.expandView.alpha = alpha
+                self.layoutIfNeeded()
 
-            self.delegate?.expandingHeader(self, didChangeStateTo: isExpanded)
-        }, completion: nil)
+                self.delegate?.expandingHeader(self, didChangeStateTo: isExpanded)
+            },
+            completion: nil
+        )
     }
 
     @IBAction private func collapseButtonPressed(_ sender: Any) {

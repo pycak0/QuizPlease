@@ -9,18 +9,22 @@
 import Foundation
 
 class UserInfo: Decodable {
-    var phone: String?
-    private var bonus_points: [String: Double]?
-    var games: [PassedGame]?
-    private var subscribe_games: [String]?
-}
 
-extension UserInfo {
-    var pointsAmount: Double {
+    private let bonus_points: [String: Double]?
+    private let subscribe_games: [String]?
+
+    let phone: String?
+    let games: [PassedGame]?
+
+    lazy var pointsAmount: Double = {
         bonus_points?[AppSettings.defaultCity.title] ?? 0
-    }
+    }()
 
-    var subscribedGames: [Int] {
-        subscribe_games?.compactMap { Int($0) } ?? []
-    }
+    lazy var subscribedGames: Set<Int> = {
+        subscribe_games?.reduce(into: Set<Int>(), { partialResult, id in
+            if let id = Int(id) {
+                partialResult.insert(id)
+            }
+        }) ?? Set()
+    }()
 }

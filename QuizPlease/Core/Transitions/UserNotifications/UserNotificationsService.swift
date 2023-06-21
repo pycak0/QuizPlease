@@ -43,7 +43,7 @@ final class UserNotificationsServiceImpl: UserNotificationsService {
         self.applinkRouter = applinkRouter
     }
 
-    func handle(userInfo: [AnyHashable : Any]) -> Bool {
+    func handle(userInfo: [AnyHashable: Any]) -> Bool {
         // Print message ID.
         if let messageID = userInfo[UserNotifications.gcmMessageIDKey] {
             print("Message ID: \(messageID)")
@@ -55,20 +55,28 @@ final class UserNotificationsServiceImpl: UserNotificationsService {
             .first as? String
 
         if let deeplink, let url = URL(string: deeplink) {
-            return deeplinkService.handle(url: url)
+            if deeplinkService.handle(url: url) {
+                return true
+            }
+            applinkRouter.prepareTransition(with: .init(
+                identifier: "",
+                parameters: [:],
+                originalUrl: url
+            ))
         }
 
         // 2. Manually check for other endpoints
 
-        // 2.1 GameOrderEndpoint
+        // 2.1 GamePageEndpoint
         let gameId = ["game", "gameId", "id"]
             .compactMap { userInfo[$0] }
             .first as? String
 
         if let gameId {
             applinkRouter.prepareTransition(with: Applink(
-                identifier: GameOrderEndpoint.identifier,
-                parameters: ["gameId": gameId]
+                identifier: GamePageEndpoint.identifier,
+                parameters: ["gameId": gameId],
+                originalUrl: nil
             ))
             return true
         }

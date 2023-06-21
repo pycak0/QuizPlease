@@ -51,10 +51,11 @@ final class MainMenuPresenter: MainMenuPresenterProtocol {
     }
 
     func viewDidLoad(_ view: MainMenuViewProtocol) {
-        interactor.postMainScreenLoaded()
+        interactor.requestForPushNotifications()
         view.configureTableView()
         view.updateCityName(with: AppSettings.defaultCity.title)
         interactor.loadMenuItems()
+        interactor.postMainScreenLoaded()
     }
 
     func viewDidAppear(_ view: MainMenuViewProtocol) {
@@ -107,25 +108,7 @@ final class MainMenuPresenter: MainMenuPresenterProtocol {
     }
 
     func didLongTapOnLogo() {
-        guard AppSettings.isDebug else { return }
-        let pStyle = NSMutableParagraphStyle()
-        pStyle.alignment = .left
-        let font: UIFont
-        if #available(iOS 13.0, *) {
-            font = .monospacedSystemFont(ofSize: 11, weight: .regular)
-        } else {
-            font = .systemFont(ofSize: 11)
-        }
-        view?.showSimpleAlert(
-            attributedTitle: NSAttributedString(string: "Debug Mode"),
-            attributedMessage: NSAttributedString(
-                string: UIApplication.shared.debugInfo,
-                attributes: [
-                    .font: font,
-                    .paragraphStyle: pStyle
-                ]
-            )
-        )
+        router.showDebugMenu()
     }
 
     func userPointsAmount() -> Double? {

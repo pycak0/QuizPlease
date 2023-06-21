@@ -57,10 +57,10 @@ class NetworkService {
         }
     }
 
-    ///
+    //
     // MARK: - GET REQUESTS =======
-    ///
-    ///
+    //
+    //
 
     // MARK: - User Info
     func getUserInfo(completion: @escaping ((Result<UserInfo, NetworkServiceError>) -> Void)) {
@@ -110,7 +110,7 @@ class NetworkService {
         league: Int,
         ratingScope: Int,
         page: Int,
-        completion: @escaping (Result<[RatingItem], NetworkServiceError>) -> Void
+        completion: @escaping (Result<[RatingTeamItem], NetworkServiceError>) -> Void
     ) -> Cancellable? {
         var ratingUrlComponents = baseUrlComponents
         ratingUrlComponents.path = "/api/rating"
@@ -123,7 +123,7 @@ class NetworkService {
         if teamName.count > 0 {
             ratingUrlComponents.queryItems?.append(URLQueryItem(name: "teamName", value: teamName))
         }
-        return getStandard([RatingItem].self, with: ratingUrlComponents, completion: completion)
+        return getStandard([RatingTeamItem].self, with: ratingUrlComponents, completion: completion)
     }
 
     // MARK: - Get Shop Items
@@ -184,7 +184,7 @@ class NetworkService {
         if let id = filter.date?.id {
             queryItems.append(URLQueryItem(name: "month", value: "\(id)"))
         }
-        if let id = filter.format?.rawValue {
+        if let id = filter.format?.id {
             queryItems.append(URLQueryItem(name: "format", value: "\(id)"))
         }
         if let id = filter.place?.id {
@@ -253,11 +253,12 @@ class NetworkService {
     ) {
         var filterUrlComponents = baseUrlComponents
         filterUrlComponents.path = "/api/game/\(type.rawValue)"
+        var queryItems = [URLQueryItem(name: "isMobile", value: "1")]
+
         if let id = cityId {
-            filterUrlComponents.queryItems = [
-                URLQueryItem(name: "city_id", value: "\(id)")
-            ]
+            queryItems.append(URLQueryItem(name: "city_id", value: "\(id)"))
         }
+        filterUrlComponents.queryItems = queryItems
         getStandard([ScheduleFilterOption].self, with: filterUrlComponents, completion: completion)
     }
 
@@ -268,7 +269,7 @@ class NetworkService {
     func getStandard<T: Decodable>(
         _ type: T.Type,
         apiPath: String,
-        parameters: [String: String?],
+        parameters: [String: String?]? = nil,
         headers: [String: String]? = nil,
         authorizationKind: AuthorizationKind = .none,
         completion: @escaping ((Result<T, NetworkServiceError>) -> Void)
@@ -318,14 +319,14 @@ class NetworkService {
     func get<T: Decodable>(
         _ type: T.Type,
         apiPath: String,
-        parameters: [String: String?],
+        parameters: [String: String?]?,
         headers: [String: String]? = nil,
         authorizationKind: AuthorizationKind = .none,
         completion: @escaping ((Result<T, NetworkServiceError>) -> Void)
     ) -> Cancellable? {
         var urlComponents = baseUrlComponents
         urlComponents.path = apiPath
-        urlComponents.queryItems = parameters.map { URLQueryItem(name: $0, value: $1) }
+        urlComponents.queryItems = parameters?.map { URLQueryItem(name: $0, value: $1) }
         return get(
             type,
             with: urlComponents,
@@ -426,38 +427,32 @@ class NetworkService {
         return task
     }
 
-    ///
+    //
     // MARK: - POST REQUESTS =======
-    ///
-    ///
+    //
+    //
 
     // MARK: - Push Subscribe
 
     func subscribePushOnGame(
-        with id: String,
-        completion: @escaping (Result<Bool, NetworkServiceError>) -> Void
+        with id: Int,
+        completion: @escaping (Result<ScheduleGameSubscriptionResponse, NetworkServiceError>) -> Void
     ) {
         guard let auth = createBearerAuthHeader() else {
             completion(.failure(.invalidToken))
             return
         }
         let headers = [auth.key: auth.value]
-        let params = ["game_id": id]
+        let params = ["game_id": "\(id)"]
         var urlComps = baseUrlComponents
         urlComps.path = "/api/game/subscribe-notification"
         afPostStandard(
             with: params,
             and: headers,
             to: urlComps,
-            responseType: PushSubscribeResponse.self
-        ) { (postResult) in
-            switch postResult {
-            case let .failure(error):
-                completion(.failure(error))
-            case let .success(response):
-                completion(.success(response.message == .subscribe))
-            }
-        }
+            responseType: ScheduleGameSubscriptionResponse.self,
+            completion: completion
+        )
     }
 
     // MARK: - Purchase Product
@@ -798,6 +793,7 @@ class NetworkService {
     }
 
     // MARK: - Alamofire POST
+
     // swiftlint:disable:next function_body_length
     func afPost<Response: Decodable>(
         with multipartFormDataObjects: MultipartFormDataObjects,
@@ -904,7 +900,7 @@ class NetworkService {
     }
 
     // MARK: - POST Request
-    /// Completion is performed on the main queue
+
     // swiftlint:disable:next function_body_length
     func post(
         _ data: Data,
@@ -972,3 +968,4 @@ class NetworkService {
         }.resume()
     }
 }
+// swiftlint:enable type_body_length

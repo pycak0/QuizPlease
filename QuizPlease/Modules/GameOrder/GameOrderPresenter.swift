@@ -54,6 +54,8 @@ protocol GameOrderPresenterProtocol {
     func didChangeComment(_ comment: String)
 }
 
+// MARK: ❗️ TODO: Fix type body length
+// swiftlint:disable type_body_length
 final class GameOrderPresenter: GameOrderPresenterProtocol {
 
     weak var view: GameOrderViewProtocol?
@@ -155,7 +157,7 @@ final class GameOrderPresenter: GameOrderPresenterProtocol {
         if scrollToSignUp {
             view.scrollToSignUp()
         }
-        analyticsService.sendEvent(.gameOrderOpen)
+        analyticsService.sendEvent(.gamePageOpen)
     }
 
     func didChangeNumberOfPeople(_ newNumber: Int) {
@@ -249,11 +251,7 @@ final class GameOrderPresenter: GameOrderPresenterProtocol {
                     if peopleForFree != Int.max {
                         peopleForFree += amount
                     }
-                case .none:
-                    continue
                 }
-            case .none:
-                continue
             }
         }
 
@@ -488,9 +486,32 @@ final class GameOrderPresenter: GameOrderPresenterProtocol {
         } else {
             print(">>>\n>>> No background image path for game with id '\(game.id ?? -1)'\n>>>")
         }
-        view?.reloadInfo()
+        view?.setItems(makeItems())
+    }
+
+    private func makeItems() -> [GameInfoItemKind] {
+        if !(game.gameStatus?.isRegistrationAvailable ?? false) {
+            return [.annotation, .info, .description]
+        }
+
+        var _items = GameInfoItemKind.allCases
+        let specialConditionsAmount = specialConditions.count
+        if specialConditionsAmount > 1 {
+            let specialConditions = Array(repeating: GameInfoItemKind.certificate, count: specialConditionsAmount)
+            _items.insert(contentsOf: specialConditions, at: _items.firstIndex(of: .certificate)!)
+        } else {
+            if specialConditionsAmount != 1 {
+                _items.removeAll(where: { $0 == .certificate })
+            }
+            _items.removeAll { $0 == .addExtraCertificate }
+        }
+        if isOnlyCashAvailable || !isOnlinePaymentDefault {
+            _items.removeAll { $0 == .onlinePayment }
+        }
+        return _items
     }
 }
+// swiftlint:enable type_body_length
 
 // MARK: - GameOrderInteractorOutput
 

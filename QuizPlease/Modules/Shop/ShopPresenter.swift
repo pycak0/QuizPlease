@@ -113,7 +113,7 @@ class ShopPresenter: ShopPresenterProtocol {
             let diffFormatted = PointsDecorator().string(from: diff as NSNumber) ?? "несколько баллов"
             view?.showSimpleAlert(
                 title: "Недостаточно баллов",
-                message: "Для приобретения этого продукта Вам не хватает \(diffFormatted)"
+                message: "Для приобретения этого продукта вам не хватает \(diffFormatted)"
             )
             return
         }

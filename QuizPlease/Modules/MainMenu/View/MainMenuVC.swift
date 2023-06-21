@@ -35,8 +35,8 @@ class MainMenuVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         MainMenuConfigurator().configure(self)
-        presenter.viewDidLoad(self)
         addLongTap()
+        presenter.viewDidLoad(self)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -87,7 +87,9 @@ class MainMenuVC: UIViewController {
 // MARK: - MainMenuViewProtocol
 
 extension MainMenuVC: MainMenuViewProtocol {
+
     func configureTableView() {
+        tableView.showsVerticalScrollIndicator = false
         tableView.delegate = self
         tableView.dataSource = self
 
@@ -211,7 +213,8 @@ extension MainMenuVC: UITableViewDelegate {
         _ tableView: UITableView,
         shouldHighlightRowAt indexPath: IndexPath
     ) -> Bool {
-        return indexPath.row != MainMenuItemKind.shop.rawValue
+        let doNotHighlight = presenter.menuItems?[indexPath.row]._kind == .shop
+        return !doNotHighlight
     }
 
     func tableView(

@@ -14,8 +14,8 @@ protocol RatingViewProtocol: UIViewController, LoadingIndicator {
 
     var presenter: RatingPresenterProtocol! { get set }
 
-    func reloadRatingList()
-    func appendRatingItems(at indices: Range<Int>)
+    func setItems(_ items: [RatingItem])
+    func addItems(_ newItems: [RatingItem])
 
     func configure()
     func setHeaderLabelContent(city: String, leagueComment: String, ratingScopeComment: String)
@@ -29,6 +29,8 @@ final class RatingVC: UIViewController {
         .lightContent
     }
 
+    private var items: [RatingItem] = []
+
     // MARK: - UI Elements
 
     @IBOutlet private weak var expandingHeader: ExpandingHeader!
@@ -38,6 +40,8 @@ final class RatingVC: UIViewController {
             tableView.delegate = self
             tableView.dataSource = self
             tableView.allowsSelection = false
+            tableView.separatorColor = .white.withAlphaComponent(0.3)
+            tableView.register(RatingEmptyCell.self, forCellReuseIdentifier: "\(RatingEmptyCell.self)")
             tableView.refreshControl = UIRefreshControl(
                 tintColor: .lemon,
                 target: self,
@@ -75,17 +79,21 @@ final class RatingVC: UIViewController {
 // MARK: - RatingViewProtocol
 
 extension RatingVC: RatingViewProtocol {
-    func reloadRatingList() {
+
+    func setItems(_ items: [RatingItem]) {
+        self.items = items
         tableView.reloadSections(IndexSet(integer: 0), with: .fade)
     }
 
-    func appendRatingItems(at indices: Range<Int>) {
-        let indexPaths = indices.map { IndexPath(row: $0, section: 0) }
-        UIView.setAnimationsEnabled(false)
-        tableView.beginUpdates()
-        tableView.insertRows(at: indexPaths, with: .none)
-        tableView.endUpdates()
-        UIView.setAnimationsEnabled(true)
+    func addItems(_ newItems: [RatingItem]) {
+        let startIndex = items.count
+        self.items += newItems
+        let indexPaths = (startIndex..<items.count).map { IndexPath(row: $0, section: 0) }
+        UIView.performWithoutAnimation {
+            tableView.beginUpdates()
+            tableView.insertRows(at: indexPaths, with: .none)
+            tableView.endUpdates()
+        }
     }
 
     func stopLoading() {
@@ -125,7 +133,8 @@ extension RatingVC: ExpandingHeaderDelegate {
     }
 
     func expandingHeader(_ expandingHeader: ExpandingHeader, didChangeStateTo isExpanded: Bool) {
-        tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
+        tableView.beginUpdates()
+        tableView.endUpdates()
     }
 
     func expandingHeader(_ expandingHeader: ExpandingHeader, didChange selectedSegment: Int) {
@@ -174,22 +183,24 @@ extension RatingVC: ExpandingHeaderDataSource {
 extension RatingVC: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter.filteredTeams.count
+        return items.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(RatingCell.self, for: indexPath)
-        let team = presenter.filteredTeams[indexPath.row]
+        let item = items[indexPath.row]
+        let cellClass = item.cellClass()
 
-        cell.configure(
-            with: team.name,
-            games: team.games,
-            points: Int(team.pointsTotal),
-            imagePath: team.imagePath
-        )
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: "\(cellClass)",
+            for: indexPath
+        ) as? RatingCell else {
+            fatalError("Unknown cell kind: \(cellClass)")
+        }
 
-        let teamsCount = presenter.filteredTeams.count
-        if indexPath.row == teamsCount - 1 {
+        cell.configure(with: item)
+
+        let itemsCount = items.count
+        if itemsCount > 1, indexPath.row == itemsCount - 1 {
             presenter.needsLoadingMoreItems()
         }
 

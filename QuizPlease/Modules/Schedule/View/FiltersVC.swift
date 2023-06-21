@@ -49,6 +49,7 @@ final class FiltersVC: BottomPopupViewController {
     var statuses: [ScheduleFilterOption]?
     var gameTypes: [ScheduleFilterOption]?
     var bars: [ScheduleFilterOption]?
+    var formats: [ScheduleFilterOption]?
 
     // MARK: - Lifecycle
 
@@ -101,11 +102,7 @@ final class FiltersVC: BottomPopupViewController {
             self.showOptions(for: self.bars) { self.filter.place = $0 }
         }
         formatFilterView.addTapGestureRecognizer {
-            let formats = GameFormat.allCases.map { $0.title }
-            self.showOptions(with: formats) { (selectedIndex) in
-                let newFormat = GameFormat.allCases[selectedIndex]
-                self.filter.format = newFormat == .all ? nil : newFormat
-            }
+            self.showOptions(for: self.formats) { self.filter.format = $0 }
         }
     }
 
@@ -171,6 +168,7 @@ final class FiltersVC: BottomPopupViewController {
         loadFilters(.statuses) { [weak self] in self?.statuses = $0 }
         loadFilters(.months) { [weak self] in self?.dates = $0 }
         loadFilters(.places) { [weak self] in self?.bars = $0 }
+        loadFilters(.formats) { [weak self] in self?.formats = $0 }
     }
 
     // MARK: - Update UI

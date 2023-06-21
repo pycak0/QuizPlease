@@ -8,28 +8,42 @@
 
 import UIKit
 
+/// View protocol for Schedule
 protocol ScheduleViewProtocol: UIViewController, LoadingIndicator {
     var presenter: SchedulePresenterProtocol! { get set }
 
     func reloadScheduleList()
     func reloadGame(at index: Int)
-    func showNoGamesScheduled()
+
+    func showNoGamesInSchedule(text: String, links: [TextLink])
 
     func configure()
 
     func changeSubscribeStatus(forGameAt index: Int)
+
+    /// Set screen title
+    func setTitle(_ title: String)
 }
 
-class ScheduleVC: UIViewController {
+/// Schedule view controller
+final class ScheduleVC: UIViewController {
+
     var presenter: SchedulePresenterProtocol!
+    var detectLinks: ((NSRange) -> Void)?
+
+    // MARK: - UI Elements
 
     @IBOutlet private weak var tableView: UITableView!
-    @IBOutlet private weak var noGamesView: UIView!
+    @IBOutlet private weak var noGamesView: UIView! {
+        didSet { noGamesView.isHidden = true }
+    }
     @IBOutlet private weak var noGamesTextView: UITextView!
 
     // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        prepareNavigationBar(barStyle: .transcluent(tintColor: view.backgroundColor))
         ScheduleConfigurator().configure(self)
         presenter.viewDidLoad(self)
 
@@ -41,6 +55,8 @@ class ScheduleVC: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         presenter.router.prepare(for: segue, sender: sender)
     }
+
+    // MARK: - Actions
 
     @IBAction func filtersButtonPressed(_ sender: Any) {
         presenter.didPressFilterButton()
@@ -54,15 +70,16 @@ class ScheduleVC: UIViewController {
         presenter.handleRefreshControl()
     }
 
-    // MARK: - Configure Text
-    private func configureNoGamesText() {
-        let text = noGamesTextView.text ?? ""
+    // MARK: - Private Methods
+
+    private func addTapRecognizerToTextView() {
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTextTap(_:)))
+        noGamesTextView.addGestureRecognizer(tapRecognizer)
+    }
+
+    private func configureNoGamesText(text: String, links: [TextLink]) {
         let nsString = text as NSString
-
         let wholeRange = nsString.range(of: text)
-        let homeGameRange = nsString.range(of: "игры Хоум")
-        let warmupRange = nsString.range(of: "размяться")
-
         let attrString = NSMutableAttributedString(string: text)
         let font: UIFont = .gilroy(.semibold, size: 22)
         attrString.addAttributes([
@@ -71,16 +88,28 @@ class ScheduleVC: UIViewController {
             ],
             range: wholeRange
         )
-        attrString.addAttributes([.foregroundColor: UIColor.themePurple], range: homeGameRange)
-        attrString.addAttributes([.foregroundColor: UIColor.themePurple], range: warmupRange)
+
+        for link in links {
+            let rangeOfLink = nsString.range(of: link.text)
+            attrString.addAttributes([.foregroundColor: UIColor.themePurple], range: rangeOfLink)
+        }
 
         noGamesTextView.attributedText = attrString
         noGamesTextView.textAlignment = .center
-        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTextTap(_:)))
-        noGamesTextView.addGestureRecognizer(tapRecognizer)
+
+        detectLinks = { rangeOfTap in
+            for link in links {
+                let rangeOfLink = nsString.range(of: link.text)
+                if rangeOfTap.intersection(rangeOfLink) != nil {
+                    link.action()
+                    break
+                }
+            }
+        }
     }
 
     // MARK: - Handle Tap on Text
+
     @objc private func handleTextTap(_ sender: UITapGestureRecognizer) {
         guard let textView = sender.view as? UITextView else { return }
         let layoutManager = textView.layoutManager
@@ -99,25 +128,18 @@ class ScheduleVC: UIViewController {
 
         guard characterIndex > 0, characterIndex < textView.textStorage.length else { return }
 
-        let detectedRange = NSRange(location: characterIndex, length: 1)
-
-        let nsString = textView.attributedText.string as NSString
-        let homeGameRange = nsString.range(of: "игры Хоум")
-        let warmupRange = nsString.range(of: "размяться")
-
-        if homeGameRange.intersection(detectedRange) != nil {
-            presenter.homeGameAction()
-        } else if warmupRange.intersection(detectedRange) != nil {
-            presenter.warmupAction()
-        }
+        let rangeOfTap = NSRange(location: characterIndex, length: 1)
+        detectLinks?(rangeOfTap)
     }
 }
 
-// MARK: - View Protocol
+// MARK: - ScheduleViewProtocol
+
 extension ScheduleVC: ScheduleViewProtocol {
+
     func reloadScheduleList() {
         noGamesView.isHidden = true
-        tableView.reloadData()
+        tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
     }
 
     func reloadGame(at index: Int) {
@@ -137,26 +159,43 @@ extension ScheduleVC: ScheduleViewProtocol {
     }
 
     func configure() {
-        tableView.delegate = self
         tableView.dataSource = self
         tableView.refreshControl = UIRefreshControl(
             tintColor: .systemBlue,
             target: self,
             action: #selector(refreshControlTriggered)
         )
-        configureNoGamesText()
+        addTapRecognizerToTextView()
     }
 
-    func showNoGamesScheduled() {
+    func showNoGamesInSchedule(text: String, links: [TextLink]) {
+        configureNoGamesText(text: text, links: links)
         noGamesView.isHidden = false
     }
 
     func changeSubscribeStatus(forGameAt index: Int) {
         tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
     }
+
+    func setTitle(_ title: String) {
+        // No need to change if the title is already the same
+        guard (navigationItem.titleView as? TitleLabel)?.text != title else { return }
+
+        UIView.animate(withDuration: 0.1) {
+            self.navigationItem.titleView?.alpha = 0
+        } completion: { _ in
+            let newTitle = TitleLabel(title: title)
+            self.navigationItem.titleView = newTitle
+            newTitle.alpha = 0
+            UIView.animate(withDuration: 0.1) {
+                newTitle.alpha = 1
+            }
+        }
+    }
 }
 
 // MARK: - FiltersVCDelegate
+
 extension ScheduleVC: FiltersVCDelegate {
     func didChangeFilter(_ newFilter: ScheduleFilter) {
         presenter.didChangeScheduleFilter(newFilter: newFilter)
@@ -167,8 +206,10 @@ extension ScheduleVC: FiltersVCDelegate {
     }
 }
 
-// MARK: - Data Source & Delegate
-extension ScheduleVC: UITableViewDelegate, UITableViewDataSource {
+// MARK: - UITableViewDataSource
+
+extension ScheduleVC: UITableViewDataSource {
+
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -190,10 +231,10 @@ extension ScheduleVC: UITableViewDelegate, UITableViewDataSource {
 
         return cell
     }
-
 }
 
 // MARK: - ScheduleGameCellDelegate
+
 extension ScheduleVC: ScheduleGameCellDelegate {
 
     func signUpButtonPressed(in cell: ScheduleGameCell) {

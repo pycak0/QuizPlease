@@ -31,15 +31,19 @@ class GameGeneralDescriptionCell: UITableViewCell, GameOrderCellProtocol {
         didSet {
             if let text = _delegate?.optionalDescription(for: self) {
                 DispatchQueue.global().async {
-                    if let attrString = text.htmlFormatted() {
-                        let range = (attrString.string as NSString).range(of: attrString.string)
-                        attrString.addAttributes([
-                            .font: UIFont.gilroy(.medium, size: 14),
-                            .foregroundColor: UIColor.labelAdapted
-                        ], range: range)
-                        DispatchQueue.main.async {
-                            self.descriptionLabel.attributedText = attrString
-                        }
+                    guard let attrString = text.htmlFormatted()?.trimmingWhitespacesAndNewlines() else {
+                        return
+                    }
+
+                    let mutableAttrString = NSMutableAttributedString(attributedString: attrString)
+                    let range = (mutableAttrString.string as NSString).range(of: mutableAttrString.string)
+                    mutableAttrString.addAttributes([
+                        .font: UIFont.gilroy(.medium, size: 14),
+                        .foregroundColor: UIColor.labelAdapted
+                    ], range: range)
+
+                    DispatchQueue.main.async {
+                        self.descriptionLabel.attributedText = mutableAttrString
                     }
                 }
             }

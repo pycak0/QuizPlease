@@ -8,24 +8,21 @@
 
 import Foundation
 
-// MARK: - Presenter Protocol
-protocol SplashScreenPresenterProtocol {
-    var router: SplashScreenRouterProtocol { get }
-    init(view: SplashScreenViewProtocol, interactor: SplashScreenInteractorProtocol, router: SplashScreenRouterProtocol)
+final class SplashScreenPresenter: SplashScreenViewOutput {
 
-    func viewDidLoad(_ view: SplashScreenViewProtocol)
-}
-
-final class SplashScreenPresenter: SplashScreenPresenterProtocol {
     weak var view: SplashScreenViewProtocol?
-    var interactor: SplashScreenInteractorProtocol
-    var router: SplashScreenRouterProtocol
 
-    private let dispatchGroup = DispatchGroup()
+    // MARK: - Private Properties
 
-    private let timeout = 0.5
+    private let interactor: SplashScreenInteractorProtocol
+    private let router: SplashScreenRouterProtocol
+    /// Show loading indicator after 1.05 seconds waiting
+    private let timeout = 1.0
 
-    required init(
+    // MARK: - Lifecycle
+
+    /// Initializer
+    init(
         view: SplashScreenViewProtocol,
         interactor: SplashScreenInteractorProtocol,
         router: SplashScreenRouterProtocol
@@ -35,41 +32,53 @@ final class SplashScreenPresenter: SplashScreenPresenterProtocol {
         self.router = router
     }
 
+    // MARK: - SplashScreenViewOutput
+
     func viewDidLoad(_ view: SplashScreenViewProtocol) {
-        updateUserToken()
-        setTimer()
-        dispatchGroup.notify(queue: .main) {
-            self.router.showMainMenu()
+        interactor.loadAppSettings()
+        setTimerForLoadingIndicator()
+    }
+
+    // MARK: - Private Methods
+
+    private func setTimerForLoadingIndicator() {
+        Timer.scheduledTimer(withTimeInterval: timeout, repeats: false) { [weak self] _ in
+            self?.view?.startLoading()
         }
     }
 
-    private func updateUserToken() {
-        dispatchGroup.enter()
-        interactor.updateUserToken()
+    private func showNextScreen() {
+        if let info = interactor.getVersionInfo(), info.isNewVersionAvailable {
+            router.showUpdateAlert(forceUpate: info.forceUpdate) { [unowned self] in
+                self.router.open(url: info.appStoreUrl)
+            } onSkip: { [unowned self] in
+                self.navigateToApp()
+            }
+            return
+        }
+
+        navigateToApp()
     }
 
-    private func setTimer() {
-        dispatchGroup.enter()
-        Timer.scheduledTimer(withTimeInterval: timeout, repeats: false) { [self] _ in
-            dispatchGroup.leave()
-            view?.startLoading()
+    private func navigateToApp() {
+        if interactor.wasWelcomeScreenPresented() {
+            router.showMainMenu()
+        } else {
+            router.showWelcomeScreen()
         }
     }
 }
 
 // MARK: - SplashScreenInteractorOutput
+
 extension SplashScreenPresenter: SplashScreenInteractorOutput {
-    func interactorDidUpdateUserToken(_ interactor: SplashScreenInteractorProtocol) {
-        interactor.updateDefaultCity()
-        interactor.updateClientSettings()
+
+    func didLoadAllSettings() {
+        showNextScreen()
     }
 
-    func interactor(_ interactor: SplashScreenInteractorProtocol, errorOccured error: NetworkServiceError) {
-        dispatchGroup.leave()
-        print(error)
-    }
-
-    func interactor(_ interactor: SplashScreenInteractorProtocol, didLoadClientSettings settings: ClientSettings) {
-        dispatchGroup.leave()
+    func failedToLoadSettings(error: Error) {
+        print(error.localizedDescription)
+        showNextScreen()
     }
 }

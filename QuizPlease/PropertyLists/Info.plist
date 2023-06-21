@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>Configuration</key>
+	<string>$(CONFIGURATION)</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>ru</string>
 	<key>CFBundleExecutable</key>
@@ -47,9 +49,9 @@
 	<key>NSCameraUsageDescription</key>
 	<string>Камера используется для сканирования QR-кодов</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Чтобы Вы могли добавлять игры в свой Личный кабинет, нам необходимо проверить, что Вы действительно находитесь в месте проведения игры.</string>
+	<string>Чтобы вы могли добавлять игры в свой Личный кабинет, нам необходимо проверить, что вы действительно находитесь в месте проведения игры.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Разрешите доступ к Фото, чтобы сохранять результаты Ваших разминок</string>
+	<string>Разрешите доступ к Фото, чтобы сохранять результаты ваших разминок</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Gilroy-Bold.ttf</string>
@@ -99,6 +101,8 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>CFBundleDisplayName</key>
+	<string>$(APP_NAME)</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
 </dict>

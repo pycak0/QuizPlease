@@ -10,9 +10,14 @@ import Foundation
 
 final class SplashScreenConfigurator: Configurator {
 
+    let services = ServiceAssembly.shared
+
     func configure(_ view: SplashScreenViewProtocol) {
         let interactor = SplashScreenInteractor()
-        let router = SplashScreenRouter(viewController: view)
+        let router = SplashScreenRouter(
+            welcomeAssembly: WelcomeAssembly()
+        )
+        router.viewController = view
         let presenter = SplashScreenPresenter(view: view, interactor: interactor, router: router)
         interactor.interactorOutput = presenter
         view.presenter = presenter

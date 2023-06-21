@@ -10,12 +10,17 @@ import UIKit
 
 protocol SplashScreenViewProtocol: UIViewController, LoadingIndicator {
 
-    var presenter: SplashScreenPresenterProtocol! { get set }
+    var presenter: SplashScreenViewOutput! { get set }
+}
+
+protocol SplashScreenViewOutput {
+
+    func viewDidLoad(_ view: SplashScreenViewProtocol)
 }
 
 final class SplashScreenVC: UIViewController, SplashScreenViewProtocol {
 
-    var presenter: SplashScreenPresenterProtocol!
+    var presenter: SplashScreenViewOutput!
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .lightContent

@@ -14,11 +14,9 @@ enum CertificateDiscountType {
     case allTeamFree
     /// Сертификат на игру для определенного количества человек
     case numberOfPeopleForFree(_ number: Int)
-    /// Нет скидки (скорее всего, ошибка в данных)
-    case none
 
     /// Создать тип сертификата по его коду
-    init(rawValue: Int) {
+    init?(rawValue: Int) {
         switch rawValue {
         case 0:
             self = .allTeamFree
@@ -27,27 +25,7 @@ enum CertificateDiscountType {
         case 11...15:
             self = .numberOfPeopleForFree(1)
         default:
-            self = .none
+            return nil
         }
-    }
-}
-
-struct CertificateResponse: Decodable {
-    let isSuccess: Bool
-    let message: String?
-    private let type: Int?
-
-    private enum CodingKeys: String, CodingKey {
-        case isSuccess = "success"
-        case message, type
-    }
-}
-
-extension CertificateResponse {
-    var discountType: CertificateDiscountType {
-        guard let type = type else {
-            return .none
-        }
-        return CertificateDiscountType(rawValue: type)
     }
 }

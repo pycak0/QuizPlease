@@ -8,13 +8,16 @@
 
 import Foundation
 
-class DefaultsManager {
+final class DefaultsManager {
     // singleton
     private init() {}
 
     static let shared = DefaultsManager()
 
     private let defaults = UserDefaults.standard
+    private let decoder = JSONDecoder()
+    private let encoder = JSONEncoder()
+
     private let userTokenKey = "user-token"
     private let authInfoKey = "user-auth-info"
     private let defaultCityKey = "default-city"
@@ -23,11 +26,13 @@ class DefaultsManager {
     private let answeredQuestionsKey = "answered-questions-key"
     private let clientSettingsKey = "client-settings"
     private let profileOnboardingMarker = "profile.onboarding"
+    private let welcomeScreenMarker = "welcome.screen.presented"
+    private let versionInfoKey = "app.version.info"
 
     // MARK: - Auth Info
     func getUserAuthInfo() -> SavedAuthInfo? {
         if let data = defaults.data(forKey: authInfoKey),
-           let authInfo = try? JSONDecoder().decode(SavedAuthInfo.self, from: data) {
+           let authInfo = try? decoder.decode(SavedAuthInfo.self, from: data) {
             return authInfo
         }
         return nil
@@ -35,7 +40,7 @@ class DefaultsManager {
 
     func saveAuthInfo(_ info: SavedAuthInfo) {
         do {
-            let data = try JSONEncoder().encode(info)
+            let data = try encoder.encode(info)
             defaults.setValue(data, forKey: authInfoKey)
         } catch {
             print(error)
@@ -49,7 +54,7 @@ class DefaultsManager {
     // MARK: - Default City 
     func getDefaultCity() -> City? {
         if let data = defaults.data(forKey: defaultCityKey),
-           let city = try? JSONDecoder().decode(City.self, from: data) {
+           let city = try? decoder.decode(City.self, from: data) {
             return city
         }
         return nil
@@ -57,7 +62,7 @@ class DefaultsManager {
 
     func saveDefaultCity(_ city: City) {
         do {
-            let data = try JSONEncoder().encode(city)
+            let data = try encoder.encode(city)
             defaults.set(data, forKey: defaultCityKey)
         } catch {
             print(error)
@@ -97,7 +102,7 @@ class DefaultsManager {
     // MARK: - Client Settings
     func saveClientSettings(_ settings: ClientSettings) {
         do {
-            let data = try JSONEncoder().encode(settings)
+            let data = try encoder.encode(settings)
             defaults.set(data, forKey: clientSettingsKey)
         } catch {
             print(error)
@@ -106,7 +111,7 @@ class DefaultsManager {
 
     func getClientSettings() -> ClientSettings? {
         if let data = defaults.data(forKey: clientSettingsKey),
-           let settings = try? JSONDecoder().decode(ClientSettings.self, from: data) {
+           let settings = try? decoder.decode(ClientSettings.self, from: data) {
             return settings
         }
         return nil
@@ -119,11 +124,41 @@ class DefaultsManager {
     // MARK: - Profile Onboarding
 
     func wasProfileOnboardingPresented() -> Bool {
-        let wasLaunchedBefore = defaults.bool(forKey: profileOnboardingMarker)
-        return wasLaunchedBefore
+        defaults.bool(forKey: profileOnboardingMarker)
     }
 
     func setProfileOnboardingWasPresented() {
         defaults.set(true, forKey: profileOnboardingMarker)
+    }
+
+    func wasWelcomeScreenPresented() -> Bool {
+        defaults.bool(forKey: welcomeScreenMarker)
+    }
+
+    func setWelcomeScreenWasPresented() {
+        defaults.set(true, forKey: welcomeScreenMarker)
+    }
+
+    // MARK: - Version Info
+
+    func getVersionInfo() -> VersionInfoModel? {
+        if let data = defaults.data(forKey: versionInfoKey),
+           let authInfo = try? decoder.decode(VersionInfoModel.self, from: data) {
+            return authInfo
+        }
+        return nil
+    }
+
+    func saveVersionInfo(_ info: VersionInfoModel) {
+        do {
+            let data = try encoder.encode(info)
+            defaults.setValue(data, forKey: versionInfoKey)
+        } catch {
+            print(error)
+        }
+    }
+
+    func removeVersionInfo() {
+        defaults.removeObject(forKey: versionInfoKey)
     }
 }

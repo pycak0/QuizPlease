@@ -1,4 +1,5 @@
 disabled_rules:
   - identifier_name
+  - for_where
 excluded:
   - Pods

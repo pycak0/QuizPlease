@@ -8,22 +8,26 @@
 
 import Foundation
 
+private enum Constants {
+    /// Basic Schedule title
+    static let scheduleSectionTitle = "Расписание игр"
+    /// Schedule title for ended games
+    static let endedGamesTitle = "Прошедшие игры"
+}
+
 // MARK: - Presenter Protocol
+
 protocol SchedulePresenterProtocol: AnyObject {
 
     var router: ScheduleRouterProtocol { get }
 
     var gamesCount: Int { get }
-    var scheduleFilter: ScheduleFilter { get set }
 
     func viewDidLoad(_ view: ScheduleViewProtocol)
     func didSignUp(forGameAt index: Int)
     func didPressInfoButton(forGameAt index: Int)
     func didAskNotification(forGameAt index: Int)
     func didAskLocation(forGameAt index: Int)
-
-    func homeGameAction()
-    func warmupAction()
 
     func didPressFilterButton()
     func didChangeScheduleFilter(newFilter: ScheduleFilter)
@@ -41,19 +45,19 @@ final class SchedulePresenter: SchedulePresenterProtocol {
 
     weak var view: ScheduleViewProtocol?
 
-    let interactor: ScheduleInteractorProtocol
     let router: ScheduleRouterProtocol
-    let analyticsService: AnalyticsService
+    private let interactor: ScheduleInteractorProtocol
+    private let analyticsService: AnalyticsService
 
     private var games: [GameInfo] = []
+    private var scheduleFilter = ScheduleFilter()
+    private var subscribedGameIds: Set<Int> = Set()
 
     var gamesCount: Int {
         games.count
     }
 
-    var scheduleFilter = ScheduleFilter()
-
-    private var subscribedGameIds = [Int]()
+    // MARK: - Lifecycle
 
     required init(
         interactor: ScheduleInteractorProtocol,
@@ -72,20 +76,30 @@ final class SchedulePresenter: SchedulePresenterProtocol {
         analyticsService.sendEvent(.scheduleOpen)
     }
 
+    // MARK: - Schedule Cell View Model
+
     func viewModel(forGameAt index: Int) -> ScheduleGameCellViewModel {
         let game = games[index]
         let isSubscribed = isSubscribedOnGame(with: game.id)
 
         let subscribeButtonModel = SubscribeButtonViewModel(
-            isPresented: AppSettings.isProfileEnabled,
+            isPresented: game.showRemindButton,
             tintColor: isSubscribed ? .black : .white,
             backgroundColor: isSubscribed ? .lemon : .themePurple,
             title: isSubscribed ? "Напомним" : "Напомнить"
         )
 
+        let extraInfoButton = ExtraInfoButtonViewModel(
+            isPresented: game.gameStatus == .reserveAvailable,
+            tapAction: { [weak self] in
+                self?.showExtraInfoTextAlert()
+            }
+        )
+
         return ScheduleGameCellViewModel(
             gameInfo: game,
-            subscribeButtonViewModel: subscribeButtonModel
+            subscribeButtonViewModel: subscribeButtonModel,
+            extraInfoButtonViewModel: extraInfoButton
         )
     }
 
@@ -103,7 +117,14 @@ final class SchedulePresenter: SchedulePresenterProtocol {
 
     func didPressInfoButton(forGameAt index: Int) {
         let game = games[index]
-        let statusesAllowedForTransition = [GameStatus.placesAvailable, .reserveAvailable, .fewPlaces]
+        let statusesAllowedForTransition = Set([
+            GameStatus.placesAvailable,
+            .reserveAvailable,
+            .fewPlaces,
+            .noPlaces,
+            .ended,
+            .invite
+        ])
 
         guard
             let status = game.gameStatus,
@@ -125,8 +146,7 @@ final class SchedulePresenter: SchedulePresenterProtocol {
 
     func didAskNotification(forGameAt index: Int) {
         let id = games[index].id ?? -1
-        let gameId = "\(id)"
-        interactor.getSubscribeStatus(gameId: gameId)
+        interactor.getSubscribeStatus(gameId: id)
     }
 
     func didPressFilterButton() {
@@ -136,26 +156,25 @@ final class SchedulePresenter: SchedulePresenterProtocol {
     func didChangeScheduleFilter(newFilter: ScheduleFilter) {
         scheduleFilter = newFilter
         updateSchedule()
+        if newFilter.status?.id == GameStatus.ended.identifier {
+            view?.setTitle(Constants.endedGamesTitle)
+        } else {
+            view?.setTitle(Constants.scheduleSectionTitle)
+        }
     }
 
     func didPressScheduleRemindButton() {
         //
     }
 
-    func homeGameAction() {
-        router.showHomeGame(popCurrent: true)
-    }
-
-    func warmupAction() {
-        router.showWarmup(popCurrent: true)
-    }
-
     // MARK: - Handle Refresh Control
+
     func handleRefreshControl() {
         updateSchedule()
     }
 
     // MARK: - Loading
+
     func updateDetailInfoIfNeeded(at index: Int) {
         guard index < games.count else { return }
         let game = games[index]
@@ -175,6 +194,7 @@ final class SchedulePresenter: SchedulePresenterProtocol {
     }
 
     // MARK: - Load
+
     private func updateSchedule() {
         loadSchedule()
         updateSubscribedGames()
@@ -189,21 +209,26 @@ final class SchedulePresenter: SchedulePresenterProtocol {
                 print(error)
                 switch error {
                 case .other, .serverError, .invalidUrl:
-                    self.view?.showErrorConnectingToServerAlert()
+                    self.view?.showErrorConnectingToServerAlert { [weak self] _ in
+                        self?.router.close()
+                    }
                 default:
                     self.games.removeAll()
                     self.view?.reloadScheduleList()
-                    self.view?.showNoGamesScheduled()
+                    self.showNoGamesInSchedule()
                 }
             case .success(let schedule):
                 self.games = schedule
                 self.view?.reloadScheduleList()
+                if schedule.isEmpty {
+                    self.showNoGamesInSchedule()
+                }
             }
         }
     }
 
     private func updateSubscribedGames() {
-        interactor.getSubscribedGameIds { [weak self] (gameIds) in
+        interactor.getSubscribedGameIds { [weak self] gameIds in
             guard let self = self else { return }
             self.subscribedGameIds = gameIds
         }
@@ -221,6 +246,88 @@ final class SchedulePresenter: SchedulePresenterProtocol {
             shouldLoadGameInfo: false
         )
     }
+
+    private func showNoGamesInSchedule() {
+        let links: [TextLink]
+        let text: String
+        if scheduleFilter.status?.id == GameStatus.ended.identifier {
+            text = "Упс! А прошедших игр еще нет. Чтобы посмотреть предстоящие игры, " +
+            "перейдите в раздел \(Constants.scheduleSectionTitle)"
+            links = [
+                TextLink(
+                    text: Constants.scheduleSectionTitle,
+                    action: { [weak self] in self?.resetFilterAndUpdateSchedule() }
+                )
+            ]
+
+        } else {
+            text = "Упс! Кажется, сейчас нет игр, на которые открыта регистрация, " +
+            "поэтому пока вы можете размяться или сыграть в наши игры Хоум"
+            links = [
+                TextLink(
+                    text: "игры Хоум",
+                    action: { [weak self] in self?.showHomeGame() }
+                ),
+                TextLink(
+                    text: "размяться",
+                    action: { [weak self] in self?.showWarmup() }
+                )
+            ]
+        }
+        self.view?.showNoGamesInSchedule(text: text, links: links)
+    }
+
+    private func resetFilterAndUpdateSchedule() {
+        scheduleFilter = ScheduleFilter()
+        updateSchedule()
+        view?.setTitle(Constants.scheduleSectionTitle)
+    }
+
+    private func showHomeGame() {
+        router.showHomeGame(popCurrent: true)
+    }
+
+    private func showWarmup() {
+        router.showWarmup(popCurrent: true)
+    }
+
+    private func showExtraInfoTextAlert() {
+        interactor.getExtraInfoText { [weak self] alert in
+            guard let self, let alert else { return }
+            self.view?.showSimpleAlert(title: alert.title, message: alert.text)
+        }
+    }
+
+    private func makeSubscriptionTitle(response: ScheduleGameSubscriptionResponse) -> String {
+        if let title = response.title {
+            return title
+        }
+        guard response.success else {
+            return "Не удалось подписаться на уведомления"
+        }
+        switch response.message {
+        case .subscribe:
+            return "Мы напомним об игре"
+        case .unsubscribe:
+            return "Отписка от уведомлений"
+        }
+    }
+
+    private func makeSubscriptionText(response: ScheduleGameSubscriptionResponse) -> String {
+        if let message = response.text {
+            return message
+        }
+        guard response.success else {
+            return "Произошла ошибка при выполнении запроса"
+        }
+        switch response.message {
+        case .subscribe:
+            return "За два дня до начала или когда места для регистрации начнут заканчиваться"
+        case .unsubscribe:
+            return "Вы были успешно отписаны от уведомлений об игре. " +
+            "Если хотите снова подписаться, нажмите на кнопку еще раз"
+        }
+    }
 }
 
 // MARK: - ScheduleInteractorOutput
@@ -229,32 +336,28 @@ extension SchedulePresenter: ScheduleInteractorOutput {
 
     func interactor(
         _ interactor: ScheduleInteractorProtocol?,
-        didGetSubscribeStatus isSubscribed: Bool,
-        forGameWithId id: String
+        didGetSubscribeStatus response: ScheduleGameSubscriptionResponse,
+        forGameWithId id: Int
     ) {
-        let title = isSubscribed ? "Мы напомним об игре" : "Отписка от уведомлений"
-        let message = isSubscribed
-            ? "За два дня до начала или когда места для регистрации начнут заканчиваться"
-            : "Вы были успешно отписаны от уведомлений об игре. " +
-        "Если хотите снова подписаться, нажмите на кнопку еще раз"
+        switch response.message {
+        case .subscribe:
+            self.subscribedGameIds.insert(id)
+        case .unsubscribe:
+            self.subscribedGameIds.remove(id)
+        }
 
         self.view?.showSimpleAlert(
-            title: title,
-            message: message
+            title: makeSubscriptionTitle(response: response),
+            message: makeSubscriptionText(response: response)
         )
 
-        guard let id = Int(id), let index = games.firstIndex(where: { $0.id == id }) else { return }
-        if isSubscribed {
-            self.subscribedGameIds.append(id)
-        } else {
-            self.subscribedGameIds.removeAll { $0 == id }
-        }
+        guard let index = games.firstIndex(where: { $0.id == id }) else { return }
         self.view?.changeSubscribeStatus(forGameAt: index)
     }
 
     func interactor(
         _ interactor: ScheduleInteractorProtocol?,
-        failedToSubscribeForGameWith gameId: String,
+        failedToSubscribeForGameWith gameId: Int,
         error: NetworkServiceError
     ) {
         print(error)
@@ -262,7 +365,7 @@ extension SchedulePresenter: ScheduleInteractorOutput {
         case .invalidToken:
             view?.showSimpleAlert(
                 title: "Не удалось подписаться на уведомления",
-                message: "Для получения напоминаний об играх Вам необходимо авторизоваться в Личном кабинете"
+                message: "Для получения напоминаний об играх вам необходимо авторизоваться в Личном кабинете"
             )
         default:
             view?.showErrorConnectingToServerAlert()

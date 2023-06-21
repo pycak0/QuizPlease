@@ -18,10 +18,9 @@ protocol AudioViewDelegate: AnyObject {
     func audioView(_ audioView: AudioView, didFailToConfigurePlayerWithError error: Error)
 
     func didFinishPlayingAudio(in audioView: AudioView)
-
 }
 
-class AudioView: UIView {
+final class AudioView: UIView {
     static let nibName = "\(AudioView.self)"
 
     // MARK: - Outlets
@@ -103,10 +102,15 @@ class AudioView: UIView {
 
     }
 
-    // MARK: - Private 
+    // MARK: - Private Methods
+
     @IBAction
     private func playPauseButtonPressed(_ sender: UIButton) {
-        isPlaying ? pause() : play()
+        if isPlaying {
+            pause()
+        } else {
+            play()
+        }
     }
 
     private func configurePlayer(with data: Data) {

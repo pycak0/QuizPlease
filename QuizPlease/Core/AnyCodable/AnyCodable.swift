@@ -106,3 +106,4 @@ extension AnyCodable: ExpressibleByFloatLiteral {}
 extension AnyCodable: ExpressibleByStringLiteral {}
 extension AnyCodable: ExpressibleByArrayLiteral {}
 extension AnyCodable: ExpressibleByDictionaryLiteral {}
+// swiftlint:enable all

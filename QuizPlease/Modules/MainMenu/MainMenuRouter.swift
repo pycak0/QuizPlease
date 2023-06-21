@@ -13,17 +13,25 @@ protocol MainMenuRouterProtocol: SegueRouter {
     func showChooseCityScreen(selectedCity: City)
     func showQRScanner()
     func showAddGameScreen(_ info: String)
+    func showDebugMenu()
 }
 
-class MainMenuRouter: MainMenuRouterProtocol {
+final class MainMenuRouter: MainMenuRouterProtocol {
+
     unowned let viewController: UIViewController
     private unowned let storyboard: UIStoryboard
+    private let pickCityAssembly: PickCityAssembly
+
     private var navigationController: UINavigationController {
         viewController.navigationController!
     }
 
-    required init(viewController: UIViewController) {
+    init(
+        viewController: UIViewController,
+        pickCityAssembly: PickCityAssembly
+    ) {
         self.viewController = viewController
+        self.pickCityAssembly = pickCityAssembly
         self.storyboard = viewController.storyboard ?? UIStoryboard(name: "Main", bundle: .main)
     }
 
@@ -66,12 +74,11 @@ class MainMenuRouter: MainMenuRouterProtocol {
     }
 
     func showChooseCityScreen(selectedCity: City) {
-        let pickCityVc = PickCityVC(
+        let pickCityViewController = pickCityAssembly.makePickCityViewController(
             selectedCity: selectedCity,
             delegate: viewController as? PickCityVCDelegate
         )
-        let navC = UINavigationController(rootViewController: pickCityVc)
-        viewController.present(navC, animated: true)
+        viewController.present(pickCityViewController, animated: true)
     }
 
     func showQRScanner() {
@@ -80,6 +87,44 @@ class MainMenuRouter: MainMenuRouterProtocol {
 
     func showAddGameScreen(_ info: String) {
         viewController.performSegue(withIdentifier: "AddGameMenu", sender: info)
+    }
+
+    func showDebugMenu() {
+        guard !Configuration.current.isProduction else { return }
+        if #available(iOS 13, *) {
+            showNewDebugMenu()
+        } else {
+            showLegacyDebugMenu()
+        }
+    }
+
+    @available(iOS 13, *)
+    private func showNewDebugMenu() {
+        let settingsViewController = DebugSettingsViewController()
+        let navigationController = QPNavigationController(rootViewController: settingsViewController)
+        navigationController.modalPresentationStyle = .fullScreen
+        viewController.present(navigationController, animated: true)
+    }
+
+    private func showLegacyDebugMenu() {
+        let pStyle = NSMutableParagraphStyle()
+        pStyle.alignment = .left
+        let font: UIFont
+        if #available(iOS 13.0, *) {
+            font = .monospacedSystemFont(ofSize: 11, weight: .regular)
+        } else {
+            font = .systemFont(ofSize: 11)
+        }
+        viewController.showSimpleAlert(
+            attributedTitle: NSAttributedString(string: "Debug Mode"),
+            attributedMessage: NSAttributedString(
+                string: UIApplication.shared.debugInfo,
+                attributes: [
+                    .font: font,
+                    .paragraphStyle: pStyle
+                ]
+            )
+        )
     }
 
     private func couldNotInstantiateError<T>(type: T.Type) {

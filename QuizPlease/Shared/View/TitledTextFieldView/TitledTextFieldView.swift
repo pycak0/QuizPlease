@@ -37,7 +37,7 @@ class TitledTextFieldView: UIView {
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = .gilroy(.semibold, size: 12)
-        label.textColor = .darkGray
+        label.textColor = titleColor
         label.contentMode = .left
         label.text = self.title
         label.setContentHuggingPriority(.defaultHigh, for: .vertical)
@@ -107,6 +107,27 @@ class TitledTextFieldView: UIView {
         didSet {
             updateAppearance()
         }
+    }
+
+    @IBInspectable
+    var titleColor: UIColor = .darkGray {
+        didSet {
+            titleLabel.textColor = titleColor
+        }
+    }
+
+    @IBInspectable
+    var highlightedTitleColor: UIColor = .labelAdapted {
+        didSet {
+            updateEditingAppearance()
+        }
+    }
+
+    override var intrinsicContentSize: CGSize {
+        CGSize(
+            width: UIView.noIntrinsicMetric,
+            height: 70
+        )
     }
 
     // MARK: - Init
@@ -179,15 +200,20 @@ class TitledTextFieldView: UIView {
             ?? .systemFont(ofSize: textFontSize, weight: .semibold)
     }
 
+    override func becomeFirstResponder() -> Bool {
+        startEditing()
+    }
+
+    @discardableResult
     @objc
-    private func startEditing() {
-        guard !textField.isFirstResponder else { return }
-        textField.becomeFirstResponder()
+    private func startEditing() -> Bool {
+        guard !textField.isFirstResponder else { return true }
+        return textField.becomeFirstResponder()
     }
 
     private func updateEditingAppearance() {
         UIView.transition(with: titleLabel, duration: 0.2, options: .transitionCrossDissolve) { [self] in
-            titleLabel.textColor = textField.isEditing ? nil : .darkGray
+            titleLabel.textColor = textField.isEditing ? highlightedTitleColor : titleColor
         } completion: { _ in }
     }
 }
@@ -219,5 +245,13 @@ extension TitledTextFieldView: UITextFieldDelegate {
     /// at the end of your implementation/
     @objc func textFieldDidChange(_ textField: UITextField) {
         delegate?.textFieldView(self, didChangeTextField: textField.text ?? "")
+    }
+
+    /// You can override this method to provide custom delegate calls,
+    /// but make sure to call `super.textFieldShouldReturn(_:)`
+    /// at the end of your implementation to preserve correct behavior.
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }

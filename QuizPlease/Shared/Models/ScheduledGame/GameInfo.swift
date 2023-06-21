@@ -32,15 +32,18 @@ struct GameInfo: Decodable {
     /// Background Image path on server
     private var special_mobile_banner: String?
 
-    /// background image for cell in Schedule
+    /// Background image for cell in Schedule
     var imageData: String?
 
     var time: String = placeholderValue
+    /// Game annotation
     var description: String = placeholderValue
 
     private var text_block: String?
 
+    /// See `GameStatus` for description
     private var status: Int?
+    /// Special marketing flag "few places left!!"
     private var is_little_place: Int?
 
     private var price: String = placeholderValue
@@ -51,6 +54,7 @@ struct GameInfo: Decodable {
     private var address: String? = placeholderValue
     private var cityName: String = ""
     private var payment_icon: Int = 0
+    /// Online game = 1; offline game = 0
     private var game_type: Int = 0
 
     private var latitude: String?
@@ -62,6 +66,11 @@ struct GameInfo: Decodable {
     /// Vacant places
     private var blockOf: Int = 0
 
+    /// Custom registration fields on Game page
+    private var custom_fields: [CustomFieldData]?
+    /// Show remind button or not
+    private var show_remind_button: Bool?
+
     init() { }
 
     init(shortInfo: GameShortInfo) {
@@ -69,6 +78,7 @@ struct GameInfo: Decodable {
         date = shortInfo.date
         special_mobile_banner = shortInfo.special_mobile_banner
         is_little_place = shortInfo.is_little_place
+        show_remind_button = shortInfo.show_remind_button
     }
 
     mutating func setShortInfo(_ shortInfo: GameShortInfo) {
@@ -76,6 +86,7 @@ struct GameInfo: Decodable {
         date = shortInfo.date
         special_mobile_banner = shortInfo.special_mobile_banner
         is_little_place = shortInfo.is_little_place
+        show_remind_button = shortInfo.show_remind_button
     }
 
     mutating func setShortInfo(_ shortInfo: GameInfo) {
@@ -83,6 +94,7 @@ struct GameInfo: Decodable {
         date = shortInfo.date
         special_mobile_banner = shortInfo.special_mobile_banner
         is_little_place = shortInfo.is_little_place
+        show_remind_button = shortInfo.show_remind_button
     }
 }
 
@@ -141,6 +153,7 @@ extension GameInfo {
         return game_type == 1
     }
 
+    /// Status of the game
     var gameStatus: GameStatus? {
         let realStatus = GameStatus(rawValue: self.status ?? -999)
         let isFewPlacesFlagEnabled = ((is_little_place ?? 0) == 1)
@@ -150,6 +163,7 @@ extension GameInfo {
         return displayStatus
     }
 
+    /// Path of backgorund image in the header of game detail page
     var backgroundImagePath: String? {
         get { special_mobile_banner }
         set { special_mobile_banner = newValue }
@@ -171,7 +185,7 @@ extension GameInfo {
     }
 
     var optionalDescription: String? {
-        text_block?.removingAngleBrackets(replaceWith: " ")
+        text_block
     }
 
     var paymentKey: String? {
@@ -187,5 +201,13 @@ extension GameInfo {
 
     var vacantPlaces: Int {
         blockOf
+    }
+
+    var customFields: [CustomFieldData]? {
+        custom_fields
+    }
+
+    var showRemindButton: Bool {
+        show_remind_button ?? false
     }
 }

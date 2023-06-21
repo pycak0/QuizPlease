@@ -9,17 +9,17 @@
 import UIKit
 import InputMask
 
-protocol MaskedTextFieldDelegateEditingListener: AnyObject {
+private protocol MaskedTextFieldEditingListener: AnyObject {
     func onEditingChanged(in textField: UITextField)
 }
 
-protocol MaskedTextFieldDelegateEndEditingListener: AnyObject {
+private protocol MaskedTextFieldEndEditingListener: AnyObject {
     func onEndEditing(in textField: UITextField)
 }
 
-class NotifyingMaskedTextFieldDelegate: MaskedTextFieldDelegate {
-    weak var editingListener: MaskedTextFieldDelegateEditingListener?
-    weak var endEditingListener: MaskedTextFieldDelegateEndEditingListener?
+private class NotifyingMaskedTextFieldDelegate: MaskedTextFieldDelegate {
+    weak var editingListener: MaskedTextFieldEditingListener?
+    weak var endEditingListener: MaskedTextFieldEndEditingListener?
 
     override func textField(
         _ textField: UITextField,
@@ -43,7 +43,7 @@ class MaskedTextFieldView: TitledTextFieldView {
     private let maskDelegate = NotifyingMaskedTextFieldDelegate()
 
     /// Make sure that mask satisfies the syntax described here:
-    ///https://github.com/RedMadRobot/input-mask-ios/wiki/1.-Mask-Syntax
+    /// https://github.com/RedMadRobot/input-mask-ios/wiki/1.-Mask-Syntax
     @IBInspectable
     var inputMask: String = MaskedTextFieldView.noMask {
         didSet {
@@ -90,8 +90,8 @@ class MaskedTextFieldView: TitledTextFieldView {
 // MARK: - MaskedTextFieldDelegateListener
 
 extension MaskedTextFieldView: MaskedTextFieldDelegateListener,
-                               MaskedTextFieldDelegateEditingListener,
-                               MaskedTextFieldDelegateEndEditingListener {
+                               MaskedTextFieldEditingListener,
+                               MaskedTextFieldEndEditingListener {
 
     func onEndEditing(in textField: UITextField) {
         /// must call `super.textFieldDidEndEditing(_:)` to preserve correct behavior

@@ -82,7 +82,7 @@ final class ShopCompletionVC: UIViewController {
         guard let itemId = shopItem.id else {
             self.showSimpleAlert(
                 title: "Не удалось завершить покупку",
-                message: "Произошла ошибка, но не волнуйтесь, Ваши бонусные баллы не были списаны. " +
+                message: "Произошла ошибка, но не волнуйтесь, ваши бонусные баллы не были списаны. " +
                 "(desc: product id not found)"
             )
             return
@@ -110,7 +110,7 @@ final class ShopCompletionVC: UIViewController {
                 } else {
                     self.showSimpleAlert(
                         title: "Не удалось завершить покупку",
-                        message: "Произошла ошибка, но не волнуйтесь, Ваши бонусные баллы не были списаны. " +
+                        message: "Произошла ошибка, но не волнуйтесь, ваши бонусные баллы не были списаны. " +
                         "Можете попробовать подтвердить заказ ещё раз"
                     )
                 }

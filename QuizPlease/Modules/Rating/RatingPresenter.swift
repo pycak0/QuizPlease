@@ -15,11 +15,7 @@ protocol RatingPresenterProtocol {
 
     var filter: RatingFilter { get set }
     var availableGameTypeNames: [String] { get }
-    // var teams: [RatingItem] { get set }
-
     var availableFilters: [RatingFilter.RatingScope] { get }
-
-    var filteredTeams: [RatingItem] { get }
 
     func handleRefreshControl()
 
@@ -44,8 +40,8 @@ final class RatingPresenter: RatingPresenterProtocol {
     private let interactor: RatingInteractorProtocol
     private let analyticsService: AnalyticsService
 
-    var teams: [RatingItem] = []
-    var filteredTeams: [RatingItem] = []
+    var teams: [RatingTeamItem] = []
+    var filteredTeams: [RatingTeamItem] = []
 
     let availableGameTypeNames = RatingFilter.RatingLeague.allCases.map { $0.name }
     var filter = RatingFilter(scope: .season)
@@ -138,7 +134,7 @@ final class RatingPresenter: RatingPresenterProtocol {
         currentPage = firstPageNumber
         teams.removeAll()
         filteredTeams.removeAll()
-        view?.reloadRatingList()
+        view?.setItems([])
     }
 
     // MARK: - Load
@@ -174,26 +170,28 @@ extension RatingPresenter: RatingInteractorOutput {
         view?.showErrorConnectingToServerAlert()
     }
 
-    func interactor(_ interactor: RatingInteractorProtocol, didLoadRatingItems ratingItems: [RatingItem]) {
+    func interactor(_ interactor: RatingInteractorProtocol, didLoadRatingItems ratingItems: [RatingTeamItem]) {
         view?.stopLoading()
-        var indices = 0..<0
+
         if currentPage > firstPageNumber {
             let filteredTeams = ratingItems.filter { !teams.contains($0) }
             guard !filteredTeams.isEmpty else { return }
 
             let startIndex = teams.count
             teams += filteredTeams
-            indices = startIndex..<teams.count
-        } else {
+            view?.addItems(filteredTeams)
+
+        } else if !ratingItems.isEmpty {
             teams = ratingItems
+            view?.setItems(teams)
+        } else {
+            let emptyItem = RatingEmptyItem(
+                title: "Упс. А рейтинга пока нет, мы работаем над этим!",
+                imageName: "cat"
+            )
+            view?.setItems([emptyItem])
         }
 
         filteredTeams = teams
-
-        if !indices.isEmpty {
-            view?.appendRatingItems(at: indices)
-        } else {
-            view?.reloadRatingList()
-        }
     }
 }

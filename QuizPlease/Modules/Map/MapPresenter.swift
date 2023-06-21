@@ -36,9 +36,7 @@ extension MapPresenter: MapViewOutput {
 
     func viewDidLoad() {
         interactor.getPlaceAnnotation { [weak self] place in
-            if let place = place {
-                self?.view?.addPlace(place, animated: false)
-            }
+            self?.view?.addPlace(place, animated: false)
         }
     }
 

@@ -35,7 +35,7 @@ struct HomeGame: Decodable {
 extension HomeGame {
     var videoUrl: URL? {
         let path = videos_link ?? ""
-        var components = URLComponents(string: NetworkConfiguration.prod.host)!
+        var components = URLComponents(string: NetworkConfiguration.production.host)!
         components.path = path.pathProof
         return components.url
     }

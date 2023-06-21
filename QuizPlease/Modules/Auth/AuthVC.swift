@@ -26,11 +26,22 @@ final class AuthVC: UIViewController {
     @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
 
+    private let hapticsGenerator = UINotificationFeedbackGenerator()
+
     private var isCodeSent: Bool = false
     private var phoneNumber: String?
     private var smsCode: String?
 
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        if #available(iOS 13.0, *) {
+            return .darkContent
+        } else {
+            return .default
+        }
+    }
+
     // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareNavigationBar(tintColor: .black, barStyle: .transcluent(tintColor: view.backgroundColor))
@@ -146,8 +157,13 @@ final class AuthVC: UIViewController {
         view.addGradient(colors: [.lemon, .lightOrange], insertAt: 0)
 
         authButton.layer.cornerRadius = 20
+        textFieldView.viewBorderColor = .black.withAlphaComponent(0.05)
+        textFieldView.highlightedTitleColor = .black
         textFieldView.textField.keyboardType = .phonePad
+        textFieldView.textField.textContentType = .telephoneNumber
         textFieldView.textField.textColor = .black
+        (textFieldView.textField as? PhoneNumberTextField)?.numberPlaceholderColor = .black.withAlphaComponent(0.3)
+        (textFieldView.textField as? PhoneNumberTextField)?.countryCodePlaceholderColor = .darkGray
         textFieldView.delegate = self
     }
 
@@ -168,11 +184,13 @@ final class AuthVC: UIViewController {
         textFieldView.title = "Код"
         textFieldView.textField.text = ""
         textFieldView.textField.placeholder = String(repeating: "X", count: 6)
+        textFieldView.textField.placeholderColor = .black.withAlphaComponent(0.3)
         textFieldView.textField.textContentType = .oneTimeCode
         textFieldView.textField.keyboardType = .numberPad
     }
 
     private func showIncorrectInputNotification() {
+        hapticsGenerator.notificationOccurred(.error)
         textFieldView.shake()
     }
 }

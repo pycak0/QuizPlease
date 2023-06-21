@@ -16,11 +16,10 @@ protocol ScheduleInteractorProtocol: AnyObject {
     func loadSchedule(filter: ScheduleFilter, completion: @escaping (Result<[GameInfo], NetworkServiceError>) -> Void)
     func loadDetailInfo(for game: GameInfo, completion: @escaping (GameInfo?) -> Void)
 
-    func openInMaps(placeName: String, withLongitutde lon: Double, andLatitude lat: Double)
-    func openInMaps(place: Place)
+    func getSubscribeStatus(gameId: Int)
+    func getSubscribedGameIds(completion: @escaping ((Set<Int>) -> Void))
 
-    func getSubscribeStatus(gameId: String)
-    func getSubscribedGameIds(completion: @escaping ((Array<Int>) -> Void))
+    func getExtraInfoText(completion: @escaping (AlertData?) -> Void)
 }
 
 protocol ScheduleInteractorOutput: AnyObject {
@@ -32,19 +31,26 @@ protocol ScheduleInteractorOutput: AnyObject {
 
     func interactor(
         _ interactor: ScheduleInteractorProtocol?,
-        didGetSubscribeStatus isSubscribed: Bool,
-        forGameWithId id: String
+        didGetSubscribeStatus response: ScheduleGameSubscriptionResponse,
+        forGameWithId id: Int
     )
 
     func interactor(
         _ interactor: ScheduleInteractorProtocol?,
-        failedToSubscribeForGameWith gameId: String,
+        failedToSubscribeForGameWith gameId: Int,
         error: NetworkServiceError
     )
 }
 
 final class ScheduleInteractor: ScheduleInteractorProtocol {
+
     weak var output: ScheduleInteractorOutput?
+
+    private let gameInfoLoader: GameInfoLoader
+
+    init(gameInfoLoader: GameInfoLoader) {
+        self.gameInfoLoader = gameInfoLoader
+    }
 
     func loadSchedule(filter: ScheduleFilter, completion: @escaping (Result<[GameInfo], NetworkServiceError>) -> Void) {
         NetworkService.shared.getSchedule(with: filter) { (serverResult) in
@@ -59,7 +65,7 @@ final class ScheduleInteractor: ScheduleInteractorProtocol {
     }
 
     func loadDetailInfo(for game: GameInfo, completion: @escaping (GameInfo?) -> Void) {
-        NetworkService.shared.getGameInfo(by: game.id) { (result) in
+        gameInfoLoader.load(gameId: game.id) { result in
             switch result {
             case let .failure(error):
                 print(error)
@@ -67,52 +73,45 @@ final class ScheduleInteractor: ScheduleInteractorProtocol {
             case let .success(gameInfo):
                 var fullInfo = gameInfo
                 fullInfo.setShortInfo(game)
-                completion(fullInfo)
+                /// cells don't have time to update the content when the game is loaded from cache
+                /// временный костыль из-за того, что ячейка почему-то не обновляется второй раз 
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+                    completion(fullInfo)
+                }
             }
         }
     }
 
-    func openInMaps(placeName: String, withLongitutde lon: Double, andLatitude lat: Double) {
-        MapService.openAppleMaps(for: placeName, withLongitude: lon, andLatitude: lat)
-    }
-
-    func openInMaps(place: Place) {
-        guard !place.isZeroCoordinate else {
-            MapService.openAppleMaps(for: place.title ?? "", withCoordinate: place.coordinate)
-            return
-        }
-        MapService.getCoordinatesAndOpenMap(
-            for: place.title ?? "",
-            withAddress: place.fullAddress
-        ) { [weak self] error in
-            guard let self = self else { return }
-            if let error = error {
-                self.output?.interactor(self, failedToOpenMapsWithError: error)
-            }
-        }
-    }
-
-    func getSubscribeStatus(gameId: String) {
+    func getSubscribeStatus(gameId: Int) {
         NetworkService.shared.subscribePushOnGame(with: gameId) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case let .failure(error):
                 self.output?.interactor(self, failedToSubscribeForGameWith: gameId, error: error)
-            case let .success(isSubscribed):
-                self.output?.interactor(self, didGetSubscribeStatus: isSubscribed, forGameWithId: gameId)
+            case let .success(subscriptionResponse):
+                self.output?.interactor(self, didGetSubscribeStatus: subscriptionResponse, forGameWithId: gameId)
             }
         }
     }
 
-    func getSubscribedGameIds(completion: @escaping ((Array<Int>) -> Void)) {
-        NetworkService.shared.getUserInfo { (result) in
+    func getSubscribedGameIds(completion: @escaping ((Set<Int>) -> Void)) {
+        NetworkService.shared.getUserInfo { result in
             switch result {
             case let .failure(error):
                 print(error)
-                completion([])
+                completion(Set())
             case let .success(userInfo):
                 completion(userInfo.subscribedGames)
             }
+        }
+    }
+
+    func getExtraInfoText(completion: @escaping (AlertData?) -> Void) {
+        NetworkService.shared.getStandard(
+            AlertData.self,
+            apiPath: "/api/game/reserve-info"
+        ) { result in
+            completion(try? result.get())
         }
     }
 }
