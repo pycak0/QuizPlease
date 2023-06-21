@@ -19,6 +19,7 @@ final class ShopCompletionVC: UIViewController {
     @IBOutlet private weak var arrowImageView: UIImageView!
     @IBOutlet private weak var segmentControl: HBSegmentedControl!
     @IBOutlet private weak var questionLabel: UILabel!
+    @IBOutlet private weak var confirmButton: ScalingButton!
     @IBOutlet private weak var textFieldView: TitledTextFieldView! {
         didSet {
             textFieldView.addTapGestureRecognizer { self.didPressFieldView() }
@@ -57,7 +58,8 @@ final class ShopCompletionVC: UIViewController {
     }
 
     // MARK: - Confirm Button Pressed
-    @IBAction func confirmButtonPressed(_ sender: Any) {
+    @IBAction
+    private func confirmButtonPressed(_ sender: UIButton) {
         let index = segmentControl.selectedIndex
         let chosenDelivery: DeliveryMethod? = shopItem.isOfflineDeliveryOnly
         ? .game
@@ -87,12 +89,15 @@ final class ShopCompletionVC: UIViewController {
             )
             return
         }
+        confirmButton.isEnabled = false
+
         NetworkService.shared.purchaseProduct(
             with: "\(itemId)",
             deliveryMethod: method,
             email: email
         ) { [weak self] (result) in
             guard let self = self else { return }
+            self.confirmButton.isEnabled = true
 
             switch result {
             case let .failure(error):
