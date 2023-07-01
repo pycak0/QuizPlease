@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import FirebaseAnalytics
 
 struct AnalyticsEvent {
 
@@ -55,4 +56,16 @@ extension AnalyticsEvent {
 
     /// Запуск видео хоум игры
     static let homeGameVideoPlay = AnalyticsEvent(name: "home_play")
+
+    /// Покупка товаров в магазине за бонусные баллы
+    static func spendVirtualCurrency(value: Int, itemName: String) -> AnalyticsEvent {
+        AnalyticsEvent(
+            name: AnalyticsEventSpendVirtualCurrency,
+            parameters: [
+                AnalyticsParameterItemName: itemName,
+                AnalyticsParameterValue: value,
+                AnalyticsParameterVirtualCurrencyName: "баллы"
+            ]
+        )
+    }
 }
