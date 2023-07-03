@@ -64,7 +64,7 @@ extension AnalyticsEvent {
             parameters: [
                 AnalyticsParameterItemName: itemName,
                 AnalyticsParameterValue: value,
-                AnalyticsParameterVirtualCurrencyName: "баллы"
+                AnalyticsParameterVirtualCurrencyName: "квизкоины"
             ]
         )
     }
