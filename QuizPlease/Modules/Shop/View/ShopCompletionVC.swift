@@ -14,11 +14,16 @@ protocol ShopCompletionVCDelegate: AnyObject {
 
 final class ShopCompletionVC: UIViewController {
 
+    weak var delegate: ShopCompletionVCDelegate?
+    var shopItem: ShopItem!
+
     // MARK: - Outlets
+
     @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var arrowImageView: UIImageView!
     @IBOutlet private weak var segmentControl: HBSegmentedControl!
     @IBOutlet private weak var questionLabel: UILabel!
+    @IBOutlet private weak var confirmButton: ScalingButton!
     @IBOutlet private weak var textFieldView: TitledTextFieldView! {
         didSet {
             textFieldView.addTapGestureRecognizer { self.didPressFieldView() }
@@ -27,10 +32,9 @@ final class ShopCompletionVC: UIViewController {
         }
     }
 
-    weak var delegate: ShopCompletionVCDelegate?
+    // MARK: - Private Properties
 
-    var shopItem: ShopItem!
-    // var selectedGame: PassedGame?
+    private let analyticsService: AnalyticsService = ServiceAssembly.shared.analytics
 
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -57,7 +61,8 @@ final class ShopCompletionVC: UIViewController {
     }
 
     // MARK: - Confirm Button Pressed
-    @IBAction func confirmButtonPressed(_ sender: Any) {
+    @IBAction
+    private func confirmButtonPressed(_ sender: UIButton) {
         let index = segmentControl.selectedIndex
         let chosenDelivery: DeliveryMethod? = shopItem.isOfflineDeliveryOnly
         ? .game
@@ -87,22 +92,30 @@ final class ShopCompletionVC: UIViewController {
             )
             return
         }
+        confirmButton.isEnabled = false
+
         NetworkService.shared.purchaseProduct(
             with: "\(itemId)",
             deliveryMethod: method,
             email: email
         ) { [weak self] (result) in
             guard let self = self else { return }
+            self.confirmButton.isEnabled = true
 
             switch result {
             case let .failure(error):
                 self.handleError(error)
             case let .success(response):
                 if response.message == "ok" {
+
+                    self.analyticsService.sendEvent(.spendVirtualCurrency(
+                        value: self.shopItem.priceNumber,
+                        itemName: self.shopItem.title
+                    ))
+
                     self.showSimpleAlert(
                         title: "Покупка прошла успешно",
-                        message: method.message,
-                        okButtonTitle: "OK"
+                        message: method.message
                     ) { _ in
                         self.delegate?.shopCompletionVC(self, didCompletePurchaseForItem: self.shopItem)
                         self.navigationController?.popViewController(animated: true)

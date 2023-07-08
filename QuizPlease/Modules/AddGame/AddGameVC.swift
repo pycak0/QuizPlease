@@ -8,6 +8,14 @@
 
 import UIKit
 
+private enum LocationCheckResult {
+
+    case ok
+    case tooFar
+    case notAuthorized
+    case placeEmptyCoordintates
+}
+
 protocol AddGameVCDelegate: AnyObject {
     func didAddGameToUserProfile(_ vc: AddGameVC)
 }
@@ -77,19 +85,23 @@ final class AddGameVC: UIViewController {
             )
             return
         }
-        checkUserLocation { [weak self] isSatisfactory in
+        checkUserLocation { [weak self] status in
             guard let self = self else { return }
-            guard let isClose = isSatisfactory else {
-                self.showSimpleAlert(title: "Не удалось проверить геолокацию")
-                return
-            }
-            if isClose {
+            switch status {
+            case .ok:
                 self.checkIn(teamId: id)
-            } else {
+            case .tooFar:
                 self.showSimpleAlert(
                     title: "Вы находитесь слишком далеко",
                     message: "Чтобы добавить игру в Личный кабинет и получить за неё баллы, " +
                     "вам необходимо быть в месте проведения игры"
+                )
+            case .notAuthorized:
+                self.showSimpleAlert(title: "Не удалось проверить геолокацию")
+            case .placeEmptyCoordintates:
+                self.showSimpleAlert(
+                    title: "Не удалось проверить геолокацию",
+                    message: "У нас проблемы на сервере"
                 )
             }
         }
@@ -175,20 +187,23 @@ final class AddGameVC: UIViewController {
     // MARK: - Check User Location
     /// - parameter isSatisfactory: `true` - user location is close to the place location,
     /// `false` - user location is too far from the place location, `nil` - unavailable to get user loaction
-    private func checkUserLocation(completion: @escaping (_ isSatisfactory: Bool?) -> Void) {
+    private func checkUserLocation(completion: @escaping (_ result: LocationCheckResult) -> Void) {
         if Configuration.current != .production && AppSettings.geoChecksAlwaysSuccessful {
             print("🧭 Location check always successful")
-            completion(true)
+            completion(.ok)
             return
         }
         UserLocationService.shared.askUserLocation { (location) in
             guard let gameInfo = self.gameInfo else { return }
             guard let location = location else {
-                completion(nil)
+                completion(.notAuthorized)
                 return
             }
+            if gameInfo.placeInfo.isZeroCoordinate {
+                completion(.placeEmptyCoordintates)
+            }
             let isCloseToPlace = gameInfo.placeInfo.isCloseToLocation(location)
-            completion(isCloseToPlace)
+            completion(isCloseToPlace ? .ok : .tooFar)
         }
     }
 
