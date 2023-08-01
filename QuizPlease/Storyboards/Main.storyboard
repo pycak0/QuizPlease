@@ -1375,7 +1375,7 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </view>
                                 <view key="tableFooterView" hidden="YES" contentMode="scaleToFill" id="gbU-AV-f8p">
-                                    <rect key="frame" x="0.0" y="303" width="390" height="44"/>
+                                    <rect key="frame" x="0.0" y="298.33333015441895" width="390" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="QZP-B7-ScY">
@@ -1403,23 +1403,26 @@
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="21" translatesAutoresizingMaskIntoConstraints="NO" id="cAm-eW-6nc">
+                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="21" translatesAutoresizingMaskIntoConstraints="NO" id="cAm-eW-6nc">
                                                     <rect key="frame" x="20" y="46" width="354" height="25"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bW6-GG-1Ik">
-                                                            <rect key="frame" x="0.0" y="0.0" width="104" height="25"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bW6-GG-1Ik">
+                                                            <rect key="frame" x="0.0" y="0.0" width="40.666666666666664" height="25"/>
                                                             <fontDescription key="fontDescription" name="Gilroy-Heavy" family="Gilroy" pointSize="16"/>
                                                             <color key="textColor" name="lemon"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ade-SY-VBQ">
-                                                            <rect key="frame" x="125" y="0.0" width="104" height="25"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ade-SY-VBQ">
+                                                            <rect key="frame" x="61.666666666666671" y="0.0" width="177.33333333333331" height="25"/>
                                                             <fontDescription key="fontDescription" name="Gilroy-Heavy" family="Gilroy" pointSize="16"/>
                                                             <color key="textColor" name="lemon"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pixelGuyHatAndPlate" translatesAutoresizingMaskIntoConstraints="NO" id="HJs-BP-l5K">
-                                                            <rect key="frame" x="250" y="0.0" width="104" height="25"/>
+                                                            <rect key="frame" x="260" y="0.0" width="94" height="25"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="94" id="8KM-Ew-QiO"/>
+                                                            </constraints>
                                                         </imageView>
                                                     </subviews>
                                                     <constraints>
@@ -2452,11 +2455,20 @@
         </scene>
     </scenes>
     <designables>
+        <designable name="2Ww-pp-CEN">
+            <size key="intrinsicContentSize" width="-1" height="70"/>
+        </designable>
         <designable name="Ozp-8d-wSt">
             <size key="intrinsicContentSize" width="76" height="22"/>
         </designable>
+        <designable name="RLJ-3L-P4p">
+            <size key="intrinsicContentSize" width="-1" height="70"/>
+        </designable>
         <designable name="v7Q-1I-FH4">
             <size key="intrinsicContentSize" width="56" height="17"/>
+        </designable>
+        <designable name="vk2-4w-q3h">
+            <size key="intrinsicContentSize" width="-1" height="70"/>
         </designable>
         <designable name="zbv-jy-ImX">
             <size key="intrinsicContentSize" width="27.333333333333332" height="17"/>
