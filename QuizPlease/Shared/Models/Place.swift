@@ -10,7 +10,7 @@ import MapKit
 
 enum PlaceConstants {
     /// In meters
-    static let deviationLimit: Double = 200
+    static let deviationLimit: Double = 300
 }
 
 class Place: NSObject, MKAnnotation, Decodable {
