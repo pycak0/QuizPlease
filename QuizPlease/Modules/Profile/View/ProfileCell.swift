@@ -8,6 +8,10 @@
 
 import UIKit
 
+private enum Constants {
+    static let verticalInsets: CGFloat = 10
+}
+
 final class ProfileCell: UITableViewCell, IdentifiableType {
 
     @IBOutlet private weak var gameNameLabel: UILabel!
@@ -25,8 +29,10 @@ final class ProfileCell: UITableViewCell, IdentifiableType {
         }
     }
 
+    @IBOutlet private weak var backgroundImageTopConstraint: NSLayoutConstraint!
     @IBOutlet private weak var backgroundImageView: UIImageView! {
         didSet {
+            backgroundImageTopConstraint.constant = Constants.verticalInsets
             backgroundImageView.image = UIImage(named: "profile.game.background")
         }
     }
