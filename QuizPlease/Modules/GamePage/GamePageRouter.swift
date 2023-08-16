@@ -18,6 +18,10 @@ protocol GamePageRouterProtocol: AnyObject {
     /// Show user agreement screen
     func showUserAgreementScreen()
 
+    /// Show the given url
+    /// - Parameter url: url
+    func show(url: URL)
+
     func showCompletionScreen(
         options: GameRegistrationResult.Options,
         delegate: GameOrderCompletionDelegate
@@ -53,6 +57,10 @@ final class GamePageRouter: GamePageRouterProtocol {
 
     func showUserAgreementScreen() {
         webPageRouter.open(url: AppSettings.termsOfUseUrl, options: .autoReaderView)
+    }
+
+    func show(url: URL) {
+        webPageRouter.open(url: url)
     }
 
     func showCompletionScreen(
