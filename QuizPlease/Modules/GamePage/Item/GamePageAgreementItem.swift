@@ -15,10 +15,12 @@ extension GamePageItemKind {
 /// GamePage agreement item
 struct GamePageAgreementItem {
 
-    let tapAction: (() -> Void)?
+    let text: String
+    let links: [TextLink]
 
-    init(tapAction: (() -> Void)?) {
-        self.tapAction = tapAction
+    init(text: String, links: [TextLink]) {
+        self.text = text
+        self.links = links
     }
 }
 
