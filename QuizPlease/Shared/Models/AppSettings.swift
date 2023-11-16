@@ -45,7 +45,7 @@ public enum AppSettings {
     /// Whether the new GamePage is enabled or not
     public static var isGamePageEnabled = true
 
-    public static var geoChecksAlwaysSuccessful = false
+    public static var geoChecksAlwaysSuccessful = true
 
     /// Enable in-app payment only for online games
     public static var inAppPaymentOnlyForOnlineGamesEnabled = true
