@@ -50,7 +50,7 @@ final class UserNotificationsServiceImpl: UserNotificationsService {
         }
 
         // 1. Check for deeplinks
-        let deeplink = ["deeplink", "link"]
+        let deeplink = ["deeplink", "link", "url"]
             .compactMap { userInfo[$0] }
             .first as? String
 
