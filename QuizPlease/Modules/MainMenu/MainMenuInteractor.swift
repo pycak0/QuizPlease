@@ -36,7 +36,11 @@ protocol MainMenuInteractorOutput: AnyObject {
 class MainMenuInteractor: MainMenuInteractorProtocol {
     weak var output: MainMenuInteractorOutput?
 
+    private var didPostMainScreenLoaded = false
+
     func postMainScreenLoaded() {
+        guard !didPostMainScreenLoaded else { return }
+        didPostMainScreenLoaded = true
         NotificationCenter.default.post(name: .mainScreenLoaded, object: nil)
     }
 
