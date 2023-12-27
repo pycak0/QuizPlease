@@ -131,13 +131,16 @@ final class WarmupVC: UIViewController {
     private func configureResultLabels() {
         let bgColor = UIColor.white.withAlphaComponent(0.1)
         let cRadius: CGFloat = 10
-        minutesLabel.backgroundColor = bgColor
-        secondsLabel.backgroundColor = bgColor
-        secondPartsLabel.backgroundColor = bgColor
-
-        minutesLabel.layer.cornerRadius = cRadius
-        secondsLabel.layer.cornerRadius = cRadius
-        secondPartsLabel.layer.cornerRadius = cRadius
+        [
+            minutesLabel,
+            secondsLabel,
+            secondPartsLabel
+        ].forEach {
+            guard let label = $0 else { return }
+            label.layer.masksToBounds = true
+            label.backgroundColor = bgColor
+            label.layer.cornerRadius = cRadius
+        }
     }
 
     // MARK: - Set Results

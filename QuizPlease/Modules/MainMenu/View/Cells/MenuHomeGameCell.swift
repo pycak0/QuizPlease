@@ -16,11 +16,16 @@ final class MenuHomeGameCell: UITableViewCell, MenuCellItemProtocol {
     @IBOutlet weak var newGamesLabel: UILabel! {
         didSet {
             // сейчас плашка всегда спрятана
+            newGamesLabel.layer.masksToBounds = true
             newGamesLabel.isHidden = true
         }
     }
 
-    @IBOutlet weak var playLabel: UILabel!
+    @IBOutlet weak var playLabel: UILabel! {
+        didSet {
+            playLabel.layer.masksToBounds = true
+        }
+    }
 
     override func layoutSubviews() {
         super.layoutSubviews()

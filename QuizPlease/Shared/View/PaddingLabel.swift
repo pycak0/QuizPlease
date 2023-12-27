@@ -15,7 +15,17 @@ final class PaddingLabel: UILabel {
     @IBInspectable var bottomInset: CGFloat = 0
     @IBInspectable var leftInset: CGFloat = 10
     @IBInspectable var rightInset: CGFloat = 10
-
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        configure()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        configure()
+    }
+    
     override func drawText(in rect: CGRect) {
         let insets = UIEdgeInsets(
             top: topInset,
@@ -38,5 +48,9 @@ final class PaddingLabel: UILabel {
         didSet {
             preferredMaxLayoutWidth = bounds.width - (leftInset + rightInset)
         }
+    }
+
+    private func configure() {
+        layer.masksToBounds = true
     }
 }

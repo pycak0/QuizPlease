@@ -14,7 +14,11 @@ final class ScheduleCell: UITableViewCell, MenuCellItemProtocol {
     @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var accessoryImageView: UIImageView!
     // @IBOutlet weak var titleBackgroundView: UIView!
-    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var titleLabel: UILabel! {
+        didSet {
+            titleLabel.layer.masksToBounds = true
+        }
+    }
     @IBOutlet weak var accessoryLabel: UILabel!
 
     override func layoutSubviews() {

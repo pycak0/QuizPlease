@@ -80,6 +80,8 @@ class MenuProfileCell: UITableViewCell, MenuCellItemProtocol {
 
     func configureViews() {
         accessoryLabel.isHidden = true
+        accessoryLabel.layer.masksToBounds = true
+        profileLabel.layer.masksToBounds = true
         commentLabel.textColor = UIColor.black.withAlphaComponent(0.5)
         commentLabel.text = "Добавляйте игры, получайте баллы и тратьте их на приятности!"
 

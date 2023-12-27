@@ -13,9 +13,13 @@ class MenuRatingCell: UITableViewCell, MenuCellItemProtocol {
 
     @IBOutlet weak var cellView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
-     weak var accessoryLabel: UILabel!
+    weak var accessoryLabel: UILabel!
 
-    @IBOutlet weak var ratingLabel: UILabel!
+    @IBOutlet weak var ratingLabel: UILabel! {
+        didSet {
+            ratingLabel.layer.masksToBounds = true
+        }
+    }
 
     override func layoutSubviews() {
         super.layoutSubviews()
