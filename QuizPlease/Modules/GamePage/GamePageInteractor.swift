@@ -161,7 +161,7 @@ final class GamePageInteractor: GamePageInteractorProtocol {
         paymentService.launchPayment(options: PaymentOptions(
             amount: amount,
             description: createPaymentDescription(),
-            shopId: gameInfo.shopId,
+            shopId: gameInfo.shopId ?? "",
             transactionKey: gameInfo.paymentKey ?? "",
             userPhoneNumber: userPhoneNumber
         ))

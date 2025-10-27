@@ -452,7 +452,7 @@ final class GameOrderPresenter: GameOrderPresenterProtocol {
             withOptions: PaymentOptions(
                 amount: amount,
                 description: createPaymentDescription(),
-                shopId: game.shopId,
+                shopId: game.shopId ?? "",
                 transactionKey: game.paymentKey ?? "",
                 userPhoneNumber: userPhoneNumber
             )
@@ -620,6 +620,19 @@ extension GameOrderPresenter: GameOrderInteractorOutput {
 // MARK: - TokenizationModuleOutput
 
 extension GameOrderPresenter: TokenizationModuleOutput {
+    
+    func didFinishConfirmation(paymentMethodType: YooKassaPayments.PaymentMethodType) {
+        completeAfterConfirm()
+        print("Payment successfully confirmed")
+    }
+    
+    func didFailConfirmation(error: YooKassaPayments.YooKassaPaymentsError?) {
+        DispatchQueue.main.async {
+            self.view?.dismiss(animated: true)
+        }
+        print("Error:", error as Any)
+    }
+    
     func didFinish(on module: TokenizationModuleInput, with error: YooKassaPaymentsError?) {
         DispatchQueue.main.async {
             self.view?.dismiss(animated: true)
