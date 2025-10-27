@@ -16,7 +16,11 @@ class HomeGameCell: UICollectionViewCell {
     @IBOutlet weak var gameNameLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
-    @IBOutlet weak var playLabel: UILabel!
+    @IBOutlet weak var playLabel: UILabel! {
+        didSet {
+            playLabel.layer.masksToBounds = true
+        }
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()

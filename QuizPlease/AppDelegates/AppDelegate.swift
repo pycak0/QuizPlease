@@ -8,7 +8,8 @@
 
 import UIKit
 import IQKeyboardManagerSwift
-import Firebase
+import FirebaseMessaging
+import FirebaseCore
 import UserNotificationsUI
 import PhoneNumberKit
 

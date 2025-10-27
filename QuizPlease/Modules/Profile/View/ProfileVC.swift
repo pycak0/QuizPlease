@@ -47,7 +47,11 @@ final class ProfileVC: UIViewController {
 
     @IBOutlet private weak var infoHeader: UIView!
     @IBOutlet private weak var gamesCountLabel: UILabel!
-    @IBOutlet private weak var totalPointsScoredLabel: UILabel!
+    @IBOutlet private weak var totalPointsScoredLabel: UILabel! {
+        didSet {
+            totalPointsScoredLabel.layer.masksToBounds = true
+        }
+    }
     @IBOutlet private weak var showShopButton: UIButton!
     @IBOutlet private weak var addGameButton: ScalingButton!
     @IBOutlet private weak var exitButton: UIBarButtonItem!

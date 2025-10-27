@@ -22,6 +22,7 @@ final class ShopVC: UIViewController {
 
     @IBOutlet private weak var userPointsLabel: UILabel! {
         didSet {
+            userPointsLabel.layer.masksToBounds = true
             userPointsLabel.isHidden = true
             userPointsLabel.layer.cornerRadius = 15
         }

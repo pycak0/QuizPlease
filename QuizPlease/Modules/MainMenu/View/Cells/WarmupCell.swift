@@ -12,8 +12,16 @@ class WarmupCell: UITableViewCell, MenuCellItemProtocol {
     static let identifier = "WarmupCell"
 
     @IBOutlet weak var cellView: UIView!
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var accessoryLabel: UILabel!
+    @IBOutlet weak var titleLabel: UILabel! {
+        didSet {
+            titleLabel.layer.masksToBounds = true
+        }
+    }
+    @IBOutlet weak var accessoryLabel: UILabel! {
+        didSet {
+            accessoryLabel.layer.masksToBounds = true
+        }
+    }
 
     override func layoutSubviews() {
         super.layoutSubviews()
