@@ -99,12 +99,11 @@ class PickCityVC: UITableViewController {
 
     private func addBarButtonItems() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(
-            image: UIImage(named: "cross"),
+            image: .xmark,
             style: .done,
             target: self,
             action: #selector(cancelButtonPressed)
         )
-        navigationItem.leftBarButtonItem = UIBarButtonItem()
     }
 
     @objc private func cancelButtonPressed() {
