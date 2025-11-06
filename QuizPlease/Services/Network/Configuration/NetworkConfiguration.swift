@@ -23,7 +23,7 @@ public enum NetworkConfiguration: CustomStringConvertible {
     var host: String {
         switch self {
         case .staging:
-            return "https://mobile-api.dev.quizplease.ru/"
+            return "https://mobile.qpdv.ru/"
         case .production:
             return "https://quizplease.ru/"
         }

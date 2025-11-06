@@ -158,7 +158,7 @@ class NetworkService {
     }
 
     // MARK: - Get Game Info
-    func getGameInfo(by id: Int, completion: @escaping (Result<GameInfo, NetworkServiceError>) -> Void) {
+    func getGameInfo(by id: String, completion: @escaping (Result<GameInfo, NetworkServiceError>) -> Void) {
         var gameUrlComponents = baseUrlComponents
         gameUrlComponents.path = "/ajax/scope-game"
         gameUrlComponents.queryItems = [
@@ -220,7 +220,7 @@ class NetworkService {
                 completion(.failure(error))
             case let .success(games):
                 let group = DispatchGroup()
-                var fullGames = [Int: GameInfo]()
+                var fullGames = [String: GameInfo]()
                 for game in games {
                     group.enter()
                     self.getGameInfo(by: game.id) { (result) in
@@ -435,7 +435,7 @@ class NetworkService {
     // MARK: - Push Subscribe
 
     func subscribePushOnGame(
-        with id: Int,
+        with id: String,
         completion: @escaping (Result<ScheduleGameSubscriptionResponse, NetworkServiceError>) -> Void
     ) {
         guard let auth = createBearerAuthHeader() else {

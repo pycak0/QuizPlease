@@ -13,9 +13,9 @@ import Foundation
 /// so we store only game id here.
 struct GameShortInfo: Decodable {
     private let datetime: String
-    let id: Int
+    let id: String
     let special_mobile_banner: String?
-    let is_little_place: Int?
+    let is_little_place: Bool?
     let show_remind_button: Bool?
 
     var date: Date? {

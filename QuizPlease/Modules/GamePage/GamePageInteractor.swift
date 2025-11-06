@@ -91,7 +91,7 @@ final class GamePageInteractor: GamePageInteractorProtocol {
     ///   - paymentSumCalculator: Service that calculates payment sum for the game
     ///   - paymentService: Payment service
     init(
-        gameId: Int,
+        gameId: String,
         gameInfoLoader: GameInfoLoader,
         placeGeocoder: PlaceGeocoderProtocol,
         registrationService: RegistrationServiceProtocol,

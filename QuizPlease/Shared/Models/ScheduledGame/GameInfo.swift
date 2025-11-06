@@ -20,7 +20,7 @@ private let translationDict: [String: String] = [
 struct GameInfo: Decodable {
     static let placeholderValue = "-"
 
-    var id: Int!
+    var id: String!
     var date: Date?
 
     private var numberGame: String = "#"
@@ -44,7 +44,7 @@ struct GameInfo: Decodable {
     /// See `GameStatus` for description
     private var status: Int?
     /// Special marketing flag "few places left!!"
-    private var is_little_place: Int?
+    private var is_little_place: Bool?
 
     private var price: String = placeholderValue
     /// Describing price e.g. "с человека". Use `priceDetails` instead of this
@@ -156,7 +156,7 @@ extension GameInfo {
     /// Status of the game
     var gameStatus: GameStatus? {
         let realStatus = GameStatus(rawValue: self.status ?? -999)
-        let isFewPlacesFlagEnabled = ((is_little_place ?? 0) == 1)
+        let isFewPlacesFlagEnabled = is_little_place ?? false
         let displayStatus = (isFewPlacesFlagEnabled && realStatus == .placesAvailable)
             ? .fewPlaces
             : realStatus

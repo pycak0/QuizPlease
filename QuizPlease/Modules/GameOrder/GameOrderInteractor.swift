@@ -16,7 +16,7 @@ protocol GameOrderInteractorProtocol {
     /// must be weak
     var output: GameOrderInteractorOutput? { get }
 
-    func loadGameInfo(id: Int)
+    func loadGameInfo(id: String)
 
     func register(
         with form: RegisterForm,
@@ -31,7 +31,7 @@ protocol GameOrderInteractorProtocol {
     ///   - name: team name
     func checkSpecialCondition(
         _ value: String,
-        forGameWithId id: Int,
+        forGameWithId id: String,
         selectedTeamName name: String
     )
 
@@ -43,7 +43,7 @@ protocol GameOrderInteractorProtocol {
     ///   whether team is registered (`true`) or not (`false`).
     func checkForTeamName(
         _ name: String,
-        gameId: Int,
+        gameId: String,
         completion: @escaping (_ isTeamRegistered: Bool) -> Void
     )
 }
@@ -95,7 +95,7 @@ final class GameOrderInteractor: GameOrderInteractorProtocol {
         self.asyncExecutor = asyncExecutor
     }
 
-    func loadGameInfo(id: Int) {
+    func loadGameInfo(id: String) {
         networkService.getGameInfo(by: id) { [weak self] result in
             guard let self = self else { return }
             switch result {
@@ -157,7 +157,7 @@ final class GameOrderInteractor: GameOrderInteractorProtocol {
 
     func checkSpecialCondition(
         _ value: String,
-        forGameWithId id: Int,
+        forGameWithId id: String,
         selectedTeamName name: String
     ) {
         networkService.get(
@@ -179,7 +179,7 @@ final class GameOrderInteractor: GameOrderInteractorProtocol {
         }
     }
 
-    func checkForTeamName(_ name: String, gameId: Int, completion: @escaping (Bool) -> Void) {
+    func checkForTeamName(_ name: String, gameId: String, completion: @escaping (Bool) -> Void) {
         let params: [String: String] = [
             "QpRecord[game_id]": "\(gameId)",
             "QpRecord[teamName]": name

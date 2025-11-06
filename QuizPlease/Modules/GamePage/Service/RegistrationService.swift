@@ -69,7 +69,7 @@ final class RegistrationService {
     ///
     /// Creates a new register form
     init(
-        gameId: Int,
+        gameId: String,
         networkService: NetworkServiceProtocol,
         jsonEncoder: JsonEncoder
     ) {

@@ -10,7 +10,7 @@ import Foundation
 
 struct TeamInfo: Decodable {
     var id: Int
-    var game_id: Int
+    var game_id: String
     var teamName: String
 
     var captainName: String?
