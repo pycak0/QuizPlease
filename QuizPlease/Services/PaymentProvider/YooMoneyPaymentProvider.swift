@@ -25,6 +25,7 @@ final class YooMoneyPaymentProvider: PaymentProvider {
         let tokenizationModuleInputData = TokenizationModuleInputData(
             clientApplicationKey: options.transactionKey,
             shopName: options.shopName,
+            shopId: options.shopId,
             purchaseDescription: options.description,
             amount: paymentAmount,
             gatewayId: nil,

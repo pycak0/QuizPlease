@@ -6,3 +6,5 @@ Pods
 *.resolved
 QuizPlease.xcworkspace
 QuizPlease.xcodeproj/xcuserdata
+xcuserdata
+.DS_Store

@@ -1,40 +1,35 @@
-platform :ios, '12.0'
+platform :ios, '15.1'
+
+# Источники: официальный — ПЕРВЫМ
 source 'https://github.com/CocoaPods/Specs.git'
 source 'https://git.yoomoney.ru/scm/sdk/cocoa-pod-specs.git'
 
 target 'QuizPlease' do
-  # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 
-  pod 'Firebase/Analytics'
-  pod 'Firebase/Crashlytics'
-  pod 'Firebase/Messaging'
-
+  # YooKassa SDK (из git)
   pod 'YooKassaPayments',
-    :git => 'https://git.yoomoney.ru/scm/sdk/yookassa-payments-swift.git',
-    :tag => '6.8.2'
-
-  pod 'Wormholy', :configurations => ['Staging', 'Debug']
+      :git => 'https://git.yoomoney.ru/scm/sdk/yookassa-payments-swift.git',
+      :tag => '8.1.1'
 
   target 'QuizPleaseTests' do
     inherit! :complete
-    # Pods for testing
   end
-
 end
 
 project 'QuizPlease', {
-  'Production' => :release, 
-  'Staging' => :release,
-  'Debug' => :debug
+  'Production' => :release,
+  'Staging'    => :release,
+  'Debug'      => :debug
 }
 
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     target.build_configurations.each do |config|
-      config.build_settings.delete 'IPHONEOS_DEPLOYMENT_TARGET'
+      # синхронизируем минимальную iOS
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.1'
+      # PIE/подпись бандлов — можно оставить как у тебя
       config.build_settings['LD_NO_PIE'] = 'NO'
-      # Fixing resources signing for xcode 14 sdk
       if config.build_settings['WRAPPER_EXTENSION'] == 'bundle'
         config.build_settings['CODE_SIGNING_ALLOWED'] = 'NO'
       end

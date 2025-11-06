@@ -37,7 +37,8 @@
 	<false/>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
-		<string>sberpay</string>
+		<string>sbolidexternallogin</string>
+		<string>sberbankidexternallogin</string>
 		<string>yoomoneyauth</string>
 		<string>yandexnavi</string>
 		<string>comgooglemaps</string>
@@ -103,6 +104,29 @@
 	</array>
 	<key>CFBundleDisplayName</key>
 	<string>$(APP_NAME)</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+        <key>NSExceptionDomains</key>
+        <dict>
+        <key>gate1.spaymentsplus.ru</key>
+        <dict>
+           <key>NSExceptionAllowsInsecureHTTPLoads</key>
+           <true/>
+        </dict>
+        <key>ift.gate2.spaymentsplus.ru</key>
+        <dict>
+           <key>NSExceptionAllowsInsecureHTTPLoads</key>
+           <true/>
+        </dict>
+        <key>cms-res.online.sberbank.ru</key>
+           <dict>
+               <key>NSExceptionAllowsInsecureHTTPLoads</key>
+               <true/>
+           </dict>
+        </dict>
+	</dict>
+    <key>NSFaceIDUsageDescription</key>
+    <string>Так вы подтвердите, что именно вы выполняете вход</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
 </dict>
