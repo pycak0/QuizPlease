@@ -75,6 +75,10 @@ extension UIViewController {
         if let color = tintColor {
             navigationController?.navigationBar.tintColor = color
         }
+
+        // Убирает текст у backBarButtonItem для следующего экрана
+        navigationItem.backBarButtonItem = UIBarButtonItem.flexibleSpace()
+        
         navigationItem.titleView = TitleLabel(
             title: title ?? navigationItem.title ?? "",
             textColor: tintColor,

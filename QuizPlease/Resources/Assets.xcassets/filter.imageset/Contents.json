@@ -1,19 +1,8 @@
 {
   "images" : [
     {
-      "filename" : "last game.png",
-      "idiom" : "universal",
-      "scale" : "1x"
-    },
-    {
-      "filename" : "last game@2x.png",
-      "idiom" : "universal",
-      "scale" : "2x"
-    },
-    {
-      "filename" : "last game@3x.png",
-      "idiom" : "universal",
-      "scale" : "3x"
+      "filename" : "filter.svg",
+      "idiom" : "universal"
     }
   ],
   "info" : {
@@ -21,6 +10,7 @@
     "version" : 1
   },
   "properties" : {
+    "compression-type" : "lossless",
     "preserves-vector-representation" : true,
     "template-rendering-intent" : "original"
   }
