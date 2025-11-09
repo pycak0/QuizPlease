@@ -17,13 +17,15 @@ private let translationDict: [String: String] = [
     "онлайн через смс": "онлайн"
 ]
 
+private let gameNumberPrefix = "#"
+
 struct GameInfo: Decodable {
     static let placeholderValue = "-"
 
     var id: String!
     var date: Date?
 
-    private var numberGame: String = "#"
+    private var numberGame: String?
     var nameGame: String = placeholderValue
 
     /// Date of the game
@@ -36,8 +38,12 @@ struct GameInfo: Decodable {
     var imageData: String?
 
     var time: String = placeholderValue
+
     /// Game annotation
-    var description: String = placeholderValue
+    var gameDescription: String {
+        description ?? Self.placeholderValue
+    }
+    private var description: String?
 
     private var text_block: String?
 
@@ -57,8 +63,8 @@ struct GameInfo: Decodable {
     /// Online game = 1; offline game = 0
     private var game_type: Int = 0
 
-    private var latitude: String?
-    private var longitude: String?
+    private var latitude: Double?
+    private var longitude: Double?
 
     private var sdk_key: String?
     private var sdk_shop_id: String?
@@ -104,14 +110,12 @@ extension GameInfo {
     }
 
     var placeInfo: Place {
-        let latitude = Double(self.latitude ?? "") ?? 0
-        let longitude = Double(self.longitude ?? "") ?? 0
         return Place(
             name: place,
             cityName: cityName,
             address: address ?? "",
-            latitude: latitude,
-            longitude: longitude
+            latitude: latitude ?? 0,
+            longitude: longitude ?? 0
         )
     }
 
@@ -127,10 +131,11 @@ extension GameInfo {
     }
 
     var gameNumber: String {
-        if numberGame.trimmingCharacters(in: .whitespaces).hasPrefix("#") {
-            return numberGame
+        let number = numberGame ?? gameNumberPrefix
+        if number.trimmingCharacters(in: .whitespaces).hasPrefix(gameNumberPrefix) {
+            return number
         }
-        return "#" + numberGame
+        return gameNumberPrefix + number
     }
 
     /// A title of game containing its `nameGame` and `gameNumber` properties separated by a whitespace

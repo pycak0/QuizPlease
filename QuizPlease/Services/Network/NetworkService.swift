@@ -249,7 +249,7 @@ class NetworkService {
     func getFilterOptions(
         _ type: ScheduleFilterType,
         scopeFor cityId: Int? = nil,
-        completion: @escaping (Result<[ScheduleFilterOption], NetworkServiceError>) -> Void
+        completion: @escaping (Result<ServerResponse<[ScheduleFilterOption]>, NetworkServiceError>) -> Void
     ) {
         var filterUrlComponents = baseUrlComponents
         filterUrlComponents.path = "/api/game/\(type.rawValue)"
@@ -259,7 +259,7 @@ class NetworkService {
             queryItems.append(URLQueryItem(name: "city_id", value: "\(id)"))
         }
         filterUrlComponents.queryItems = queryItems
-        getStandard([ScheduleFilterOption].self, with: filterUrlComponents, completion: completion)
+        getStandard(ServerResponse<[ScheduleFilterOption]>.self, with: filterUrlComponents, completion: completion)
     }
 
     // MARK: - Get Standard Server Request

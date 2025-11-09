@@ -286,7 +286,7 @@ final class GamePageInteractor: GamePageInteractorProtocol {
     // MARK: - GamePageAnnotationProvider
 
     func getAnnotation() -> String {
-        gameInfo.description
+        gameInfo.gameDescription
     }
 
     // MARK: - GamePageInfoProvider
