@@ -177,7 +177,8 @@ class NetworkService {
         // Mandatory query items
         var queryItems = [
             URLQueryItem(name: "city_id", value: "\(filter.city.id)"),
-            URLQueryItem(name: "isMobile", value: "1")
+            URLQueryItem(name: "isMobile", value: "1"),
+            URLQueryItem(name: "order", value: "-date")
         ]
 
         // Optional query items
