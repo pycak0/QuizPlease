@@ -81,14 +81,14 @@ protocol GameOrderInteractorOutput: AnyObject {
 
 final class GameOrderInteractor: GameOrderInteractorProtocol {
 
-    private let networkService: NetworkService
+    private let networkService: NetworkServiceProtocol
     private let asyncExecutor: AsyncExecutor
 
     weak var output: GameOrderInteractorOutput?
 
     /// Initializer
     init(
-        networkService: NetworkService,
+        networkService: NetworkServiceProtocol,
         asyncExecutor: AsyncExecutor
     ) {
         self.networkService = networkService
@@ -96,7 +96,14 @@ final class GameOrderInteractor: GameOrderInteractorProtocol {
     }
 
     func loadGameInfo(id: String) {
-        networkService.getGameInfo(by: id) { [weak self] result in
+        let parameters: [String: String?] = [
+            "id": "\(id)"
+        ]
+        networkService.get(
+            GameInfo.self,
+            apiPath: ApiConstants.Path.ajaxScopeGame,
+            parameters: parameters
+        ) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case let .success(gameInfo):
@@ -142,7 +149,7 @@ final class GameOrderInteractor: GameOrderInteractorProtocol {
 
         networkService.afPost(
             with: formData,
-            to: "/ajax/save-record",
+            to: ApiConstants.Path.ajaxSaveRecord,
             responseType: GameOrderResponse.self
         ) { [weak self] serverResult in
             guard let self = self else { return }
@@ -162,7 +169,7 @@ final class GameOrderInteractor: GameOrderInteractorProtocol {
     ) {
         networkService.get(
             SpecialCondition.Response.self,
-            apiPath: "/ajax/check-code",
+            apiPath: ApiConstants.Path.ajaxCheckCode,
             parameters: [
                 "game_id": "\(id)",
                 "code": value,
@@ -187,7 +194,7 @@ final class GameOrderInteractor: GameOrderInteractorProtocol {
 
         networkService.afPost(
             with: params,
-            to: "/ajax/is-record-name-exist",
+            to: ApiConstants.Path.ajaxIsRecordNameExist,
             responseType: Bool.self
         ) { result in
             switch result {
@@ -199,3 +206,4 @@ final class GameOrderInteractor: GameOrderInteractorProtocol {
         }
     }
 }
+

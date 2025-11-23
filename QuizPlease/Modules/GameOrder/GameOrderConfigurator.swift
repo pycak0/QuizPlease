@@ -18,7 +18,7 @@ final class GameOrderConfigurator: GameOrderConfiguratorProtocol {
 
     func configure(_ viewController: GameOrderViewProtocol, with options: GameOrderPresentationOptions) {
         let interactor = GameOrderInteractor(
-            networkService: NetworkService.shared,
+            networkService: service.networkService,
             asyncExecutor: ConcurrentExecutorImpl()
         )
         let router = GameOrderRouter(viewController: viewController)
