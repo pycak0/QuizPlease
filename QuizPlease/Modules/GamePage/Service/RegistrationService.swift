@@ -126,13 +126,16 @@ final class RegistrationService {
     }
 
     private func validateFormOnServer(completion: @escaping ([RegisterFormValidationResult.Error]) -> Void) {
-        networkService.afPost(
-            with: [
-                "QpRecord[game_id]": "\(registerForm.gameId)",
-                "QpRecord[teamName]": registerForm.teamName
-            ],
-            to: "/ajax/is-record-name-exist",
-            responseType: Bool.self
+        let parameters: [String: String] = [
+            "QpRecord[game_id]": "\(registerForm.gameId)",
+            "QpRecord[teamName]": registerForm.teamName
+        ]
+
+        networkService.post(
+            Data(),
+            apiPath: ApiConstants.Path.ajaxIsRecordNameExist,
+            parameters: parameters,
+            reponseType: Bool.self
         ) { result in
             var errors = [RegisterFormValidationResult.Error]()
 
@@ -199,7 +202,7 @@ extension RegistrationService: RegistrationServiceProtocol {
     func checkSpecialCondition(_ value: String, completion: @escaping (_ success: Bool, _ message: String) -> Void) {
         networkService.get(
             SpecialCondition.Response.self,
-            apiPath: "/ajax/check-code",
+            apiPath: ApiConstants.Path.ajaxCheckCode,
             parameters: [
                 "game_id": "\(registerForm.gameId)",
                 "code": value,
@@ -285,7 +288,7 @@ extension RegistrationService: RegistrationServiceProtocol {
 
         networkService.afPost(
             with: formData,
-            to: "/ajax/save-record",
+            to: ApiConstants.Path.ajaxSaveRecord,
             responseType: GameOrderResponse.self,
             completion: completion
         )

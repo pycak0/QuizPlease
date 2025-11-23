@@ -169,6 +169,7 @@ extension NetworkServiceProtocol {
         )
     }
 
+    @discardableResult
     func post<Object: Encodable, Response: Decodable>(
         _ object: Object,
         apiPath: String,
