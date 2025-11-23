@@ -29,9 +29,6 @@ final class PlaceGeocoder: PlaceGeocoderProtocol {
 
     private let geocoder: Geocoder
 
-    private var searchAttempts = [SearchAttempt]()
-    private var attemptsUsed = 0
-
     /// Initialize `PlaceGeocoder`
     /// - Parameters:
     ///   - geocoder: Object that geocodes address string to coordinates
@@ -42,43 +39,51 @@ final class PlaceGeocoder: PlaceGeocoderProtocol {
     // MARK: - PlaceGeocoderProtocol
 
     func getCoordinate(_ place: Place, completion: @escaping (CLLocationCoordinate2D) -> Void) {
-        if !place.isZeroCoordinate {
+        if !place.isZeroCoordinate && CLLocationCoordinate2DIsValid(place.coordinate) {
+            print("[\(Self.self)] Provided coordinates are valid. Returning them in completion")
             completion(place.coordinate)
             return
         }
-        attemptsUsed = 0
-        searchAttempts = [
+        var searchAttempts = [
             SearchAttempt(place: place, query: place.fullAddress),
             SearchAttempt(place: place, query: place.cityName),
             SearchAttempt(place: place, query: place.cityNameLatin)
         ]
-        evaluateAttempts(completion: completion)
+        evaluate(attempts: searchAttempts) { targetCoordinate in
+            let finalCoordinate = CLLocationCoordinate2DIsValid(targetCoordinate) ? targetCoordinate : .zero
+            completion(finalCoordinate)
+        }
     }
 
     // MARK: - Private Methods
 
-    private func evaluateAttempts(completion: @escaping (CLLocationCoordinate2D) -> Void) {
-        guard !searchAttempts.isEmpty else { return }
+    private func evaluate(attempts: [SearchAttempt], completion: @escaping (CLLocationCoordinate2D) -> Void) {
+        var searchAttempts = attempts
+        guard !searchAttempts.isEmpty else {
+            print("❌ [\(Self.self)] Empty attempts list passed. Returning the zero value in completion")
+            completion(.zero)
+            return
+        }
+        let attemptsLeft = searchAttempts.count
         let attempt = searchAttempts.removeFirst()
-        attemptsUsed += 1
-        print("[\(Self.self)] Trying to geocode location for place (attempt #\(attemptsUsed)): \(attempt.place)...")
+        print("[\(Self.self)] Trying to geocode location for place (attempts left \(attemptsLeft)): \(attempt.place)...")
 
-        geocoder.geocodeAddress(attempt.query) { [weak self] coordinate in
-            guard let self = self else { return }
+        geocoder.geocodeAddress(attempt.query) { [weak self, searchAttempts] coordinate in
+            guard let self else { return }
 
             if let coordinate {
                 let logMessage = "[\(Self.self)] Successfully geocoded location " +
-                "for place \(attempt.place) from attempt #\(self.attemptsUsed)"
+                "for place \(attempt.place), coordinate: \(coordinate)"
                 print(logMessage)
                 completion(coordinate)
                 return
             }
 
-            if self.searchAttempts.isEmpty {
+            if searchAttempts.isEmpty {
                 print("[\(Self.self)] Failed to geocode Place coordinate. Returning the input value in completion")
                 completion(attempt.place.coordinate)
             } else {
-                self.evaluateAttempts(completion: completion)
+                self.evaluate(attempts: searchAttempts, completion: completion)
             }
         }
     }
