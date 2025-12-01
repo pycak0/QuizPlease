@@ -135,15 +135,16 @@ final class RegistrationService {
             Data(),
             apiPath: ApiConstants.Path.ajaxIsRecordNameExist,
             parameters: parameters,
-            reponseType: Bool.self
+            reponseType: ServerResponse<Bool>.self
         ) { result in
             var errors = [RegisterFormValidationResult.Error]()
 
             switch result {
             case let .failure(error):
                 errors.append(.network(error))
-            case let .success(isTeamRegistered):
-                if isTeamRegistered {
+            case let .success(response):
+                let isSuccess = response.data
+                if !isSuccess {
                     errors.append(.invalidTeamName)
                 }
             }
