@@ -135,7 +135,7 @@ final class RegistrationService {
             Data(),
             apiPath: ApiConstants.Path.ajaxIsRecordNameExist,
             parameters: parameters,
-            reponseType: ServerResponse<Bool>.self
+            reponseType: ServerResponse<AnyDecodable>.self
         ) { result in
             var errors = [RegisterFormValidationResult.Error]()
 
@@ -143,8 +143,9 @@ final class RegistrationService {
             case let .failure(error):
                 errors.append(.network(error))
             case let .success(response):
-                let isSuccess = response.data
-                if !isSuccess {
+                let responseData = response.data
+                if let validationResult = responseData.value as? GameRegistrationValidationResponseData,
+                   !validationResult.success {
                     errors.append(.invalidTeamName)
                 }
             }
@@ -291,8 +292,14 @@ extension RegistrationService: RegistrationServiceProtocol {
         networkService.afPost(
             with: formData,
             to: ApiConstants.Path.ajaxSaveRecord,
-            responseType: GameOrderResponse.self,
-            completion: completion
-        )
+            responseType: ServerResponse<GameOrderResponse>.self
+        ) { response in
+            switch response {
+            case .success(let serverResponse):
+                completion(.success(serverResponse.data))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
     }
 }

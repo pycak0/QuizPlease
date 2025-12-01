@@ -39,6 +39,7 @@
 		4C72339B29F00EC2006D92DF /* GamePageMultilineFieldItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C72339A29F00EC2006D92DF /* GamePageMultilineFieldItem.swift */; };
 		4C72339D29F00F59006D92DF /* GamePageFieldOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C72339C29F00F59006D92DF /* GamePageFieldOptions.swift */; };
 		4CAAA8342A8FA2F500A74B07 /* TextWebLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAAA8332A8FA2F500A74B07 /* TextWebLink.swift */; };
+		4CBE8BA22EDDCEE90081BF54 /* GameRegistrationValidationResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CBE8BA12EDDCEE90081BF54 /* GameRegistrationValidationResponseData.swift */; };
 		4CDA3D2A2ED3779300C4DEB7 /* CLLocationCoordinate2D+Static.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDA3D292ED3779300C4DEB7 /* CLLocationCoordinate2D+Static.swift */; };
 		4CDB228529E559CD00DD9E7C /* GamePageAnnotationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDB228429E559CD00DD9E7C /* GamePageAnnotationCell.swift */; };
 		4CDB228729E56E3100DD9E7C /* GamePageAnnotationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDB228629E56E3100DD9E7C /* GamePageAnnotationItem.swift */; };
@@ -508,6 +509,7 @@
 		4C72339A29F00EC2006D92DF /* GamePageMultilineFieldItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageMultilineFieldItem.swift; sourceTree = "<group>"; };
 		4C72339C29F00F59006D92DF /* GamePageFieldOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageFieldOptions.swift; sourceTree = "<group>"; };
 		4CAAA8332A8FA2F500A74B07 /* TextWebLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextWebLink.swift; sourceTree = "<group>"; };
+		4CBE8BA12EDDCEE90081BF54 /* GameRegistrationValidationResponseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRegistrationValidationResponseData.swift; sourceTree = "<group>"; };
 		4CDA3D292ED3779300C4DEB7 /* CLLocationCoordinate2D+Static.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D+Static.swift"; sourceTree = "<group>"; };
 		4CDB228429E559CD00DD9E7C /* GamePageAnnotationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageAnnotationCell.swift; sourceTree = "<group>"; };
 		4CDB228629E56E3100DD9E7C /* GamePageAnnotationItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageAnnotationItem.swift; sourceTree = "<group>"; };
@@ -1040,6 +1042,7 @@
 				4C1272B229EEFB04008DA2E0 /* GameRegistrationResult.swift */,
 				4C72339C29F00F59006D92DF /* GamePageFieldOptions.swift */,
 				A4974A9D2A1BC89900BEE2BE /* CustomFieldOutputData.swift */,
+				4CBE8BA12EDDCEE90081BF54 /* GameRegistrationValidationResponseData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2872,6 +2875,7 @@
 				A45241E226547A990058285C /* UIView+TapGestureRecognizer.swift in Sources */,
 				A48E303D2871E549000704B2 /* UITableView+deque.swift in Sources */,
 				A4CC5FC324DACE1A0042B41C /* ShopPresenter.swift in Sources */,
+				4CBE8BA22EDDCEE90081BF54 /* GameRegistrationValidationResponseData.swift in Sources */,
 				A42F00E028F237A300184E54 /* URLComponents+QueryDictionary.swift in Sources */,
 				A4FEB055273739F10052AD7B /* DGisMapProvier.swift in Sources */,
 				A4A065A524E47D460080E0D8 /* IdentifiableType.swift in Sources */,
