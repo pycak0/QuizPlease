@@ -126,7 +126,14 @@ class NetworkService {
         if teamName.count > 0 {
             parameters["teamName"] = teamName
         }
-        return getStandard([RatingTeamItem].self, apiPath: ApiConstants.Path.rating, parameters: parameters, completion: completion)
+        return networkService.get(ServerResponse<[RatingTeamItem]>.self, apiPath: ApiConstants.Path.rating, parameters: parameters, headers: nil, authorizationKind: .none, networkConfiguration: .rating) { serverResponse in
+            switch serverResponse {
+            case let .failure(error):
+                completion(.failure(error))
+            case let .success(response):
+                completion(.success(response.data))
+            }
+        }
     }
 
     // MARK: - Get Shop Items

@@ -19,8 +19,8 @@ final class NetworkServiceImpl: NetworkServiceProtocol {
         self.responseDecoder = responseDecoder
     }
 
-    private var baseUrlComponents: URLComponents {
-        var urlComps = URLComponents(string: NetworkConfiguration.standard.host)!
+    private func baseUrlComponents(networkConfiguration: NetworkConfiguration) -> URLComponents {
+        var urlComps = URLComponents(string: networkConfiguration.host)!
         urlComps.queryItems = nil
         return urlComps
     }
@@ -34,9 +34,10 @@ final class NetworkServiceImpl: NetworkServiceProtocol {
         parameters: [String : String?]?,
         headers: [String : String]?,
         authorizationKind: NetworkService.AuthorizationKind,
+        networkConfiguration: NetworkConfiguration = NetworkConfiguration.standard,
         completion: @escaping (Result<T, NetworkServiceError>) -> Void
     ) -> Cancellable? {
-        var urlComponents = baseUrlComponents
+        var urlComponents = baseUrlComponents(networkConfiguration: networkConfiguration)
         urlComponents.path = apiPath
         urlComponents.queryItems = parameters?.map { URLQueryItem(name: $0, value: $1) }
 
@@ -130,7 +131,7 @@ final class NetworkServiceImpl: NetworkServiceProtocol {
         reponseType: Response.Type,
         completion: @escaping (Result<Response, NetworkServiceError>) -> Void
     ) -> Cancellable? {
-        var urlComponents = baseUrlComponents
+        var urlComponents = baseUrlComponents(networkConfiguration: .standard)
         urlComponents.path = apiPath
         urlComponents.queryItems = parameters?.map { URLQueryItem(name: $0, value: $1) }
 
@@ -239,7 +240,7 @@ final class NetworkServiceImpl: NetworkServiceProtocol {
         authorizationKind: NetworkService.AuthorizationKind,
         completion: @escaping (Result<Response, NetworkServiceError>) -> Void
     ) {
-        var urlComponents = baseUrlComponents
+        var urlComponents = baseUrlComponents(networkConfiguration: .standard)
         urlComponents.path = apiPath
         urlComponents.queryItems = queryParameters?.map { URLQueryItem(name: $0, value: $1) }
 
