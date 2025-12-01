@@ -51,7 +51,7 @@ final class SchedulePresenter: SchedulePresenterProtocol {
 
     private var games: [GameInfo] = []
     private var scheduleFilter = ScheduleFilter()
-    private var subscribedGameIds: Set<Int> = Set()
+    private var subscribedGameIds: Set<String> = Set()
 
     var gamesCount: Int {
         games.count
@@ -103,7 +103,7 @@ final class SchedulePresenter: SchedulePresenterProtocol {
         )
     }
 
-    private func isSubscribedOnGame(with id: Int) -> Bool {
+    private func isSubscribedOnGame(with id: String) -> Bool {
         return subscribedGameIds.contains(id)
     }
 
@@ -145,7 +145,7 @@ final class SchedulePresenter: SchedulePresenterProtocol {
     }
 
     func didAskNotification(forGameAt index: Int) {
-        let id = games[index].id ?? -1
+        let id = games[index].id ?? ""
         interactor.getSubscribeStatus(gameId: id)
     }
 
@@ -337,7 +337,7 @@ extension SchedulePresenter: ScheduleInteractorOutput {
     func interactor(
         _ interactor: ScheduleInteractorProtocol?,
         didGetSubscribeStatus response: ScheduleGameSubscriptionResponse,
-        forGameWithId id: Int
+        forGameWithId id: String
     ) {
         switch response.message {
         case .subscribe:
@@ -357,7 +357,7 @@ extension SchedulePresenter: ScheduleInteractorOutput {
 
     func interactor(
         _ interactor: ScheduleInteractorProtocol?,
-        failedToSubscribeForGameWith gameId: Int,
+        failedToSubscribeForGameWith gameId: String,
         error: NetworkServiceError
     ) {
         print(error)

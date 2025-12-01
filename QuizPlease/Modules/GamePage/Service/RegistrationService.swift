@@ -69,7 +69,7 @@ final class RegistrationService {
     ///
     /// Creates a new register form
     init(
-        gameId: Int,
+        gameId: String,
         networkService: NetworkServiceProtocol,
         jsonEncoder: JsonEncoder
     ) {
@@ -126,21 +126,26 @@ final class RegistrationService {
     }
 
     private func validateFormOnServer(completion: @escaping ([RegisterFormValidationResult.Error]) -> Void) {
-        networkService.afPost(
-            with: [
-                "QpRecord[game_id]": "\(registerForm.gameId)",
-                "QpRecord[teamName]": registerForm.teamName
-            ],
-            to: "/ajax/is-record-name-exist",
-            responseType: Bool.self
+        let parameters: [String: String] = [
+            "QpRecord[game_id]": "\(registerForm.gameId)",
+            "QpRecord[teamName]": registerForm.teamName
+        ]
+
+        networkService.post(
+            Data(),
+            apiPath: ApiConstants.Path.ajaxIsRecordNameExist,
+            parameters: parameters,
+            reponseType: ServerResponse<AnyDecodable>.self
         ) { result in
             var errors = [RegisterFormValidationResult.Error]()
 
             switch result {
             case let .failure(error):
                 errors.append(.network(error))
-            case let .success(isTeamRegistered):
-                if isTeamRegistered {
+            case let .success(response):
+                let responseData = response.data
+                if let validationResult = responseData.value as? GameRegistrationValidationResponseData,
+                   !validationResult.success {
                     errors.append(.invalidTeamName)
                 }
             }
@@ -199,7 +204,7 @@ extension RegistrationService: RegistrationServiceProtocol {
     func checkSpecialCondition(_ value: String, completion: @escaping (_ success: Bool, _ message: String) -> Void) {
         networkService.get(
             SpecialCondition.Response.self,
-            apiPath: "/ajax/check-code",
+            apiPath: ApiConstants.Path.ajaxCheckCode,
             parameters: [
                 "game_id": "\(registerForm.gameId)",
                 "code": value,
@@ -269,7 +274,8 @@ extension RegistrationService: RegistrationServiceProtocol {
             "QpRecord[teamName]":           registerForm.teamName,
             "QpRecord[payment_token]":      registerForm.paymentToken,
             "QpRecord[surcharge]":          registerForm.countPaidOnline.map { "\($0)" },
-            "promo_code":                   promocode
+            "promo_code":                   promocode,
+            "is_personal_data_consent":     "\(true)"
         ]
         // swiftlint:enable colon
 
@@ -285,9 +291,15 @@ extension RegistrationService: RegistrationServiceProtocol {
 
         networkService.afPost(
             with: formData,
-            to: "/ajax/save-record",
-            responseType: GameOrderResponse.self,
-            completion: completion
-        )
+            to: ApiConstants.Path.ajaxSaveRecord,
+            responseType: ServerResponse<GameOrderResponse>.self
+        ) { response in
+            switch response {
+            case .success(let serverResponse):
+                completion(.success(serverResponse.data))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
     }
 }

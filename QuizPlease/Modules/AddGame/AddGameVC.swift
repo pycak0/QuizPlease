@@ -170,7 +170,7 @@ final class AddGameVC: UIViewController {
     }
 
     // MARK: - Load Game
-    private func loadGameInfo(with id: Int) {
+    private func loadGameInfo(with id: String) {
         NetworkService.shared.getGameInfo(by: id) { [weak self] (serverResult) in
             guard let self = self else { return }
             switch serverResult {

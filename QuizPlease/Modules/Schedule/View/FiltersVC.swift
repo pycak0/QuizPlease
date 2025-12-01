@@ -157,7 +157,8 @@ final class FiltersVC: BottomPopupViewController {
             case let .failure(error):
                 print(error)
                 completion(nil)
-            case let .success(filterValues):
+            case let .success(response):
+                let filterValues = response.data
                 completion(filterValues)
             }
         }

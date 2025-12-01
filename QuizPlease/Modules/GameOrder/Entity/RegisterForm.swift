@@ -8,7 +8,7 @@
 
 final class RegisterForm: Encodable {
     let cityId: Int
-    let gameId: Int
+    let gameId: String
 
     var teamName: String = ""
     var captainName: String = ""
@@ -21,7 +21,7 @@ final class RegisterForm: Encodable {
     var paymentType: PaymentType = .online
     var paymentToken: String?
 
-    init(cityId: Int, gameId: Int) {
+    init(cityId: Int, gameId: String) {
         self.cityId = cityId
         self.gameId = gameId
     }
@@ -31,7 +31,7 @@ extension RegisterForm {
     /// Property validates email, checks that team and captain names are not empty
     /// but does not check if mobile phone is valid
     var isValid: Bool {
-        return gameId >= 0
+        return !gameId.isEmpty
             && email.isValidEmail
             && !teamName.isEmpty
             && !captainName.isEmpty

@@ -97,7 +97,7 @@ final class GameInfoCell: UITableViewCell, GameOrderCellProtocol {
     }
 
     private func configureMapView(with place: Place) {
-        if !place.isZeroCoordinate {
+        if !place.isZeroCoordinate && CLLocationCoordinate2DIsValid(place.coordinate) {
             setLocation(of: place)
             return
         }

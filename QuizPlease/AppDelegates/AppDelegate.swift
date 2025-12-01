@@ -36,6 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate {
         UIBarButtonItem.swizzleMenu()
         IQKeyboardManager.shared.keyboardDistanceFromTextField = 20
         IQKeyboardManager.shared.enable = true
+        IQKeyboardManager.shared.enableAutoToolbar = false
         PhoneNumberKit.CountryCodePicker.forceModalPresentation = true
         PhoneNumberKit.CountryCodePicker.commonCountryCodes = []
 

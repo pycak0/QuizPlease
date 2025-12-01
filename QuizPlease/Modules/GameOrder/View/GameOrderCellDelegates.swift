@@ -12,7 +12,7 @@ import UIKit
 
 extension GameOrderVC: GameAnnotationCellDelegate {
     func gameAnnotation(for cell: GameAnnotationCell) -> String {
-        presenter.game.description
+        presenter.game.gameDescription
     }
 
     func signUpButtonPressed(in cell: GameAnnotationCell) {

@@ -11,13 +11,13 @@ import UIKit
 final class GameOrderAssembly: ViewAssembly {
 
     private let configurator = GameOrderConfigurator()
-    private let gameId: Int
+    private let gameId: String
     private let cityId: Int
     private let shouldScrollToSignUp: Bool
     private let shouldLoadGameInfo: Bool
 
     init(
-        gameId: Int,
+        gameId: String,
         cityId: Int,
         shouldScrollToSignUp: Bool,
         shouldLoadGameInfo: Bool

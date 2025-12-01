@@ -20,11 +20,9 @@ class UserInfo: Decodable {
         bonus_points?[AppSettings.defaultCity.title] ?? 0
     }()
 
-    lazy var subscribedGames: Set<Int> = {
-        subscribe_games?.reduce(into: Set<Int>(), { partialResult, id in
-            if let id = Int(id) {
-                partialResult.insert(id)
-            }
+    lazy var subscribedGames: Set<String> = {
+        subscribe_games?.reduce(into: Set<String>(), { partialResult, id in
+            partialResult.insert(id)
         }) ?? Set()
     }()
 }

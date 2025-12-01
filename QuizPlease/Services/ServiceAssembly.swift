@@ -47,5 +47,12 @@ final class ServiceAssembly {
     }()
 
     /// Network service
-    lazy var networkService: NetworkServiceProtocol = NetworkService.shared
+    lazy var networkService: NetworkServiceProtocol = {
+        NetworkServiceImpl(responseDecoder: networkResponseDecoder)
+    }()
+
+    /// Response decoder used in `NetworkService`
+    lazy var networkResponseDecoder: NetworkResponseDecoder = NetworkResponseDecoderImpl(
+        jsonDecoder: core.jsonDecoder
+    )
 }

@@ -60,6 +60,7 @@ final class ScheduleRouter: ScheduleRouterProtocol {
     // MARK: - Segues
 
     func showGameInfo(with options: GameOrderPresentationOptions) {
+        print("📲 Переход к странице игры, параметры: \(options)")
         if AppSettings.isGamePageEnabled {
             let launchOptions = GamePageLaunchOptions(
                 gameId: options.gameInfo.id,

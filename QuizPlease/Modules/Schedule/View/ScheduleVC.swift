@@ -107,6 +107,14 @@ final class ScheduleVC: UIViewController {
             }
         }
     }
+    
+    private func makeFilterButton() -> UIBarButtonItem {
+        let item = UIBarButtonItem(image: .filter, style: .plain, target: self, action: #selector(filtersButtonPressed))
+        if #available(iOS 26.0, *) {
+            item.hidesSharedBackground = true
+        }
+        return item
+    }
 
     // MARK: - Handle Tap on Text
 
@@ -159,6 +167,7 @@ extension ScheduleVC: ScheduleViewProtocol {
     }
 
     func configure() {
+        navigationItem.rightBarButtonItem = makeFilterButton()
         tableView.dataSource = self
         tableView.refreshControl = UIRefreshControl(
             tintColor: .systemBlue,
