@@ -114,6 +114,12 @@ final class ProfileVC: UIViewController {
         item.tintColor = .labelAdapted
 
         navigationItem.rightBarButtonItem = item
+
+        if #available(iOS 26.0, *) {
+            navigationItem.rightBarButtonItems?.forEach {
+                $0.hidesSharedBackground = true
+            }
+        }
     }
 
     private func resetGradient() {
