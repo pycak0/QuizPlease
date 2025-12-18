@@ -54,13 +54,8 @@ final class WebPageRouterImpl: NSObject, WebPageRouter {
         safariViewController.delegate = self
         safariViewController.preferredControlTintColor = options.controlsColor
         safariViewController.preferredBarTintColor = options.barsColor
-
-        if #available(iOS 13.0, *) {
-            safariViewController.modalPresentationStyle = .automatic
-            safariViewController.isModalInPresentation = true
-        } else {
-            safariViewController.modalPresentationStyle = .pageSheet
-        }
+        safariViewController.modalPresentationStyle = options.presentationStyle
+        safariViewController.isModalInPresentation = true
 
         viewController.present(safariViewController, animated: true)
         return true

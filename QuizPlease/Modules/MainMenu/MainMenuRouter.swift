@@ -21,6 +21,7 @@ final class MainMenuRouter: MainMenuRouterProtocol {
     unowned let viewController: UIViewController
     private unowned let storyboard: UIStoryboard
     private let pickCityAssembly: PickCityAssembly
+    private let webPageRouter: WebPageRouter
 
     private var navigationController: UINavigationController {
         viewController.navigationController!
@@ -28,11 +29,13 @@ final class MainMenuRouter: MainMenuRouterProtocol {
 
     init(
         viewController: UIViewController,
-        pickCityAssembly: PickCityAssembly
+        pickCityAssembly: PickCityAssembly,
+        webPageRouter: WebPageRouter
     ) {
         self.viewController = viewController
         self.pickCityAssembly = pickCityAssembly
         self.storyboard = viewController.storyboard ?? UIStoryboard(name: "Main", bundle: .main)
+        self.webPageRouter = webPageRouter
     }
 
     // MARK: - Prepare for Segue
@@ -70,6 +73,11 @@ final class MainMenuRouter: MainMenuRouterProtocol {
 
     // MARK: - Segues
     func showMenuSection(_ kind: MainMenuItemProtocol, sender: Any?) {
+        if kind._kind == .homeGame {
+            let options = WepPageBrowserOptions(presentationStyle: .fullScreen)
+            webPageRouter.open(url: HomeGameConstants.pageUrl, options: options)
+            return
+        }
         viewController.performSegue(withIdentifier: kind._kind.segueID, sender: sender)
     }
 

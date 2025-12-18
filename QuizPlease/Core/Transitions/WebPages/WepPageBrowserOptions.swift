@@ -17,6 +17,8 @@ struct WepPageBrowserOptions {
     let barsColor: UIColor
     /// Browser buttons tint color
     let controlsColor: UIColor
+    /// Modal presentation style
+    let presentationStyle: UIModalPresentationStyle
 
     /// Creates an instance of `WepPageBrowserOptions`
     /// - Parameters:
@@ -26,11 +28,13 @@ struct WepPageBrowserOptions {
     init(
         autoReaderView: Bool = false,
         barsColor: UIColor = .purple,
-        controlsColor: UIColor = .white
+        controlsColor: UIColor = .white,
+        presentationStyle: UIModalPresentationStyle = .automatic
     ) {
         self.autoReaderView = autoReaderView
         self.barsColor = barsColor
         self.controlsColor = controlsColor
+        self.presentationStyle = presentationStyle
     }
 }
 
