@@ -117,18 +117,10 @@ final class SchedulePresenter: SchedulePresenterProtocol {
 
     func didPressInfoButton(forGameAt index: Int) {
         let game = games[index]
-        let statusesAllowedForTransition = Set([
-            GameStatus.placesAvailable,
-            .reserveAvailable,
-            .fewPlaces,
-            .noPlaces,
-            .ended,
-            .invite
-        ])
 
         guard
             let status = game.gameStatus,
-            statusesAllowedForTransition.contains(status)
+            status.allowsTransitionToDetails
         else {
             return
         }

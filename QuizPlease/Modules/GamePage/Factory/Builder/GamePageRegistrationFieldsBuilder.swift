@@ -16,7 +16,7 @@ extension GamePageItemKind {
     static let phone = GamePageItemKind()
     static let teamCount = GamePageItemKind()
 
-    static func customField(_ id: String) -> GamePageItemKind {
+    static func customField(_ id: some CustomStringConvertible) -> GamePageItemKind {
         GamePageItemKind(id: "CustomField_\(id)")
     }
 }
@@ -128,10 +128,10 @@ final class GamePageRegistrationFieldsBuilder {
     }
 
     private func makeCustomFieldTextItem(_ customField: CustomFieldModel) -> GamePageItemProtocol {
-        let kind: GamePageItemKind = .customField(customField.data.name)
+        let kind: GamePageItemKind = .customField(customField.data.id)
         return GamePageFieldItem(
             kind: kind,
-            title: customField.data.label,
+            title: customField.data.title,
             placeholder: customField.data.placeholder,
             options: .basic,
             valueProvider: customField.inputValue,
@@ -143,9 +143,9 @@ final class GamePageRegistrationFieldsBuilder {
 
     private func makeCustomFieldPollItem(_ customField: CustomFieldModel) -> GamePageItemProtocol? {
         GamePagePollItem(
-            kind: .customField(customField.data.name),
-            title: customField.data.label,
-            values: customField.data.values,
+            kind: .customField(customField.data.id),
+            title: customField.data.title,
+            values: customField.data.radios.map(\.optionText),
             isRequired: customField.data.isRequired,
             getSelectedValue: {
                 customField.inputValue
@@ -157,10 +157,10 @@ final class GamePageRegistrationFieldsBuilder {
     }
 
     private func makeCustomFieldTextareaItem(_ customField: CustomFieldModel) -> GamePageItemProtocol? {
-        let kind: GamePageItemKind = .customField(customField.data.name)
+        let kind: GamePageItemKind = .customField(customField.data.id)
         return GamePageMultilineFieldItem(
             kind: kind,
-            title: customField.data.label,
+            title: customField.data.title,
             placeholder: customField.data.placeholder,
             options: .basic,
             valueProvider: customField.inputValue,

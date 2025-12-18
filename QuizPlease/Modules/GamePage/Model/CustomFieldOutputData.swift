@@ -16,14 +16,14 @@ struct CustomFieldOutputData: Encodable {
     /// Technical identifier
     let name: String
     /// Custom field type
-    let type: CustomFieldKind
+    let type: CustomFieldType
     /// Value that was filled in by the user
     let value: String?
 
     /// Initialize `CustomFieldOutputData` with model
     init(model: CustomFieldModel) {
-        self.label = model.data.label
-        self.name = model.data.name
+        self.label = model.data.title
+        self.name = "\(model.data.id)"
         self.type = model.data.type
         self.value = model.inputValue
     }

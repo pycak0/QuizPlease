@@ -106,4 +106,14 @@ enum GameStatus: Int, Decodable {
     var hasVacantPlaces: Bool {
         return self == .placesAvailable || self == .fewPlaces
     }
+
+    /// Indicates whether the user is allowed to transition to the game details screen for this status.
+    ///
+    /// - Returns: `true` if transitioning to game details is permitted (all statuses except `.cancelled`), otherwise `false`.
+    var allowsTransitionToDetails: Bool {
+        return switch self {
+            case .cancelled: false
+            default: true
+        }
+    }
 }

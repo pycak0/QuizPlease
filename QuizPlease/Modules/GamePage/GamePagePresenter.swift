@@ -78,7 +78,7 @@ final class GamePagePresenter {
         case .unknown, .network, .someFieldsEmpty:
             break
         case let .customFieldEmpty(field):
-            view?.editItem(kind: .customField(field.data.name))
+            view?.editItem(kind: .customField(field.data.id))
         }
     }
 }
