@@ -55,7 +55,8 @@ class PickCityVC: UITableViewController {
 
     // MARK: - Loading
     func loadCities() {
-        NetworkService.shared.getCities { (result) in
+        NetworkService.shared.getCities { [weak self] (result) in
+            guard let self else { return }
             switch result {
             case let .failure(error):
                 print(error)

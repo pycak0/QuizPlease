@@ -14,7 +14,7 @@ public struct City: Codable {
 }
 
 extension City {
-    public static let moscow = City(id: 9, title: "Москва")
+    public static let moscow = City(id: 4, title: "Москва")
 }
 
 extension City: Equatable {
