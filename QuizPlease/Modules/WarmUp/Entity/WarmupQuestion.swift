@@ -50,17 +50,4 @@ extension WarmupQuestion: Decodable {
     private enum CodingKeys: String, CodingKey {
         case question, answers, file, id
     }
-
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        question = try container.decode(String.self, forKey: .question)
-
-        let answerString = try container.decode(String.self, forKey: .answers)
-        let answerArray = try JSONDecoder().decode([String].self, from: Data(answerString.utf8))
-        answers = answerArray.enumerated().map { (index, answer) in
-            WarmupAnswer(value: answer, id: index)
-        }
-        file = try container.decode(String.self, forKey: .file)
-        id = try container.decode(String.self, forKey: .id)
-    }
 }

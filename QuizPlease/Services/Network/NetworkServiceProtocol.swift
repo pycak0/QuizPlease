@@ -62,6 +62,7 @@ protocol NetworkServiceProtocol {
         completion: @escaping (Result<Response, NetworkServiceError>) -> Void
     )
 
+    @discardableResult
     func post<Object: Encodable, Response: Decodable>(
         _ object: Object,
         apiPath: String,
