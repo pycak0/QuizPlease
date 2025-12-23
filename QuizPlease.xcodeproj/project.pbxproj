@@ -15,6 +15,7 @@
 		4C00220929ED5D520030B1FD /* GamePageSubmitBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C00220829ED5D520030B1FD /* GamePageSubmitBuilder.swift */; };
 		4C00220B29ED682D0030B1FD /* GamePageSubmitDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C00220A29ED682D0030B1FD /* GamePageSubmitDataProvider.swift */; };
 		4C00220D29ED8A820030B1FD /* GamePageLaunchOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C00220C29ED8A820030B1FD /* GamePageLaunchOptions.swift */; };
+		4C0737D62EF4BFF10010AB7F /* WarmupAnswerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0737D52EF4BFEC0010AB7F /* WarmupAnswerData.swift */; };
 		4C1272A729EE8F73008DA2E0 /* GamePagePaymentSumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1272A629EE8F73008DA2E0 /* GamePagePaymentSumCell.swift */; };
 		4C1272A929EEAB5E008DA2E0 /* GamePagePaymentSumItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1272A829EEAB5E008DA2E0 /* GamePagePaymentSumItem.swift */; };
 		4C1272AB29EEB5A0008DA2E0 /* PaymentSumCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1272AA29EEB5A0008DA2E0 /* PaymentSumCalculator.swift */; };
@@ -25,6 +26,7 @@
 		4C1FF9AA2ECBBE2B00EEA63B /* NetworkServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1FF9A92ECBBE2300EEA63B /* NetworkServiceImpl.swift */; };
 		4C1FF9AC2ECBC22000EEA63B /* NetworkResponseDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1FF9AB2ECBC21900EEA63B /* NetworkResponseDecoder.swift */; };
 		4C1FF9AE2ECBC43400EEA63B /* ApiConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1FF9AD2ECBC42800EEA63B /* ApiConstants.swift */; };
+		4C3C8B972EF4AFB000D4F5D3 /* HomeGameConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3C8B962EF4AFA600D4F5D3 /* HomeGameConstants.swift */; };
 		4C553C0129E688400066E2CA /* GamePageInfoLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C553C0029E688400066E2CA /* GamePageInfoLineView.swift */; };
 		4C553C0429E68B4A0066E2CA /* GamePageInfoLineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C553C0329E68B4A0066E2CA /* GamePageInfoLineViewModel.swift */; };
 		4C553C0629E696F40066E2CA /* GamePageInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C553C0529E696F40066E2CA /* GamePageInfoCell.swift */; };
@@ -485,6 +487,7 @@
 		4C00220829ED5D520030B1FD /* GamePageSubmitBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageSubmitBuilder.swift; sourceTree = "<group>"; };
 		4C00220A29ED682D0030B1FD /* GamePageSubmitDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageSubmitDataProvider.swift; sourceTree = "<group>"; };
 		4C00220C29ED8A820030B1FD /* GamePageLaunchOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageLaunchOptions.swift; sourceTree = "<group>"; };
+		4C0737D52EF4BFEC0010AB7F /* WarmupAnswerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarmupAnswerData.swift; sourceTree = "<group>"; };
 		4C1272A629EE8F73008DA2E0 /* GamePagePaymentSumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePagePaymentSumCell.swift; sourceTree = "<group>"; };
 		4C1272A829EEAB5E008DA2E0 /* GamePagePaymentSumItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePagePaymentSumItem.swift; sourceTree = "<group>"; };
 		4C1272AA29EEB5A0008DA2E0 /* PaymentSumCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentSumCalculator.swift; sourceTree = "<group>"; };
@@ -495,6 +498,7 @@
 		4C1FF9A92ECBBE2300EEA63B /* NetworkServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceImpl.swift; sourceTree = "<group>"; };
 		4C1FF9AB2ECBC21900EEA63B /* NetworkResponseDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResponseDecoder.swift; sourceTree = "<group>"; };
 		4C1FF9AD2ECBC42800EEA63B /* ApiConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiConstants.swift; sourceTree = "<group>"; };
+		4C3C8B962EF4AFA600D4F5D3 /* HomeGameConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeGameConstants.swift; sourceTree = "<group>"; };
 		4C553C0029E688400066E2CA /* GamePageInfoLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageInfoLineView.swift; sourceTree = "<group>"; };
 		4C553C0329E68B4A0066E2CA /* GamePageInfoLineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageInfoLineViewModel.swift; sourceTree = "<group>"; };
 		4C553C0529E696F40066E2CA /* GamePageInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageInfoCell.swift; sourceTree = "<group>"; };
@@ -1073,6 +1077,7 @@
 		A40C8083252E872200CE40D8 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
+				4C0737D52EF4BFEC0010AB7F /* WarmupAnswerData.swift */,
 				A4D230A724F9203500524A01 /* WarmupQuestion.swift */,
 				A44E5EEF295F9B7000402B97 /* WarmupQuestionType.swift */,
 				A40C8085252E872D00CE40D8 /* WarmupAnswer.swift */,
@@ -1797,6 +1802,7 @@
 		A4B828E224D8322B00D77E67 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4C3C8B962EF4AFA600D4F5D3 /* HomeGameConstants.swift */,
 				4C1FF9AD2ECBC42800EEA63B /* ApiConstants.swift */,
 				A40689FE24F7D94B001273B2 /* AppSettings.swift */,
 				A4F0B9D1262469B000E4E2A5 /* ClientSettings.swift */,
@@ -2701,6 +2707,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C3C8B972EF4AFB000D4F5D3 /* HomeGameConstants.swift in Sources */,
 				A472D2A12528975900AA9906 /* CheckInTeamsInfo.swift in Sources */,
 				A4C3C44329CCE28C00DB0364 /* WelcomePresenter.swift in Sources */,
 				A47E06DA261095EC008EBACE /* PromocodeResponse.swift in Sources */,
@@ -3090,6 +3097,7 @@
 				4CDB228529E559CD00DD9E7C /* GamePageAnnotationCell.swift in Sources */,
 				A4EE9EAA29E5F8AD00DDFC50 /* GamePageAnnotationBuilder.swift in Sources */,
 				A4B0753224DFDBFB007778A2 /* GameInfo.swift in Sources */,
+				4C0737D62EF4BFF10010AB7F /* WarmupAnswerData.swift in Sources */,
 				A434503729EDED9100E49B7E /* GamePagePaymentInfoProvider.swift in Sources */,
 				A449B6E125C448BE00382962 /* UIView+Blurable.swift in Sources */,
 				A4E675EF255D66640011A801 /* WarmupAnswerButton.swift in Sources */,

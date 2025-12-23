@@ -43,12 +43,23 @@ final class ScheduleVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        prepareNavigationBar(barStyle: .transcluent(tintColor: view.backgroundColor))
+        if #available(iOS 26.0, *) {
+            prepareNavigationBar(barStyle: .transparent)
+        } else {
+            prepareNavigationBar(barStyle: .transcluent(tintColor: view.backgroundColor))
+        }
         ScheduleConfigurator().configure(self)
         presenter.viewDidLoad(self)
 
         if #available(iOS 14.0, *) {
             navigationItem.backBarButtonItem?.menu = nil
+        }
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if #available(iOS 26.0, *) {
+            prepareNavigationBar(barStyle: .transparent)
         }
     }
 

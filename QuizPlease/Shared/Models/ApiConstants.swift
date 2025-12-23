@@ -48,6 +48,10 @@ enum ApiConstants {
         static let ajaxSaveRecord = "/ajax/save-record"
         static let ajaxCheckCode = "/ajax/check-code"
         static let ajaxIsRecordNameExist = "/ajax/is-record-name-exist"
+
+        // Warmup
+        static let warmupQuestion = "/api/warmup-question"
+        static let warmupSendAnswer = "/api/warmup-question/send-answer"
     }
 }
 

@@ -11,20 +11,13 @@ import Foundation
 /// Custom field output data that is sent to the backend
 struct CustomFieldOutputData: Encodable {
 
-    /// Field title
-    let label: String
-    /// Technical identifier
-    let name: String
-    /// Custom field type
-    let type: CustomFieldKind
+    let fieldId: Int
     /// Value that was filled in by the user
     let value: String?
 
     /// Initialize `CustomFieldOutputData` with model
     init(model: CustomFieldModel) {
-        self.label = model.data.label
-        self.name = model.data.name
-        self.type = model.data.type
+        self.fieldId = model.data.id
         self.value = model.inputValue
     }
 }

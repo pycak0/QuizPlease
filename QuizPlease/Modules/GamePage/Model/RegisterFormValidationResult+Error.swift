@@ -53,7 +53,7 @@ extension RegisterFormValidationResult.Error {
         case let .network(error):
             return error.localizedDescription
         case let .customFieldEmpty(field):
-            return "Пожалуйста, заполните поле '\(field.data.label)'"
+            return "Пожалуйста, заполните поле '\(field.data.title)'"
         }
     }
 }
