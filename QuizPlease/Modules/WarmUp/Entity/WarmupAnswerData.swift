@@ -8,4 +8,6 @@
 
 struct WarmupAnswerData: Encodable {
     let answer: Int
+    let questionId: Int
+    let deviceId: String
 }
