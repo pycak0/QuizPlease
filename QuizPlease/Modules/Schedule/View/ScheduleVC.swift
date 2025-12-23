@@ -43,7 +43,11 @@ final class ScheduleVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        prepareNavigationBar(barStyle: .transparent)
+        if #available(iOS 26.0, *) {
+            prepareNavigationBar(barStyle: .transparent)
+        } else {
+            prepareNavigationBar(barStyle: .transcluent(tintColor: view.backgroundColor))
+        }
         ScheduleConfigurator().configure(self)
         presenter.viewDidLoad(self)
 
@@ -54,7 +58,9 @@ final class ScheduleVC: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        prepareNavigationBar(barStyle: .transparent)
+        if #available(iOS 26.0, *) {
+            prepareNavigationBar(barStyle: .transparent)
+        }
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
