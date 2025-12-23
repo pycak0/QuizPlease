@@ -62,18 +62,21 @@ final class WarmupQuestionsServiceImpl: WarmupQuestionsService {
         answerId: Int,
         completion: @escaping (Result<WarmupAnswerResponse, NetworkServiceError>) -> Void
     ) {
+        guard let questionIdInt = Int(questionId), let deviceId = deviceIdProvider.get() else {
+            completion(.failure(.encodingError))
+            return
+        }
 
-        let answerData = WarmupAnswerData(answer: answerId)
+        let answerData = WarmupAnswerData(
+            answer: answerId,
+            questionId: questionIdInt,
+            deviceId: deviceId
+        )
 
         networkService.post(
             answerData,
             apiPath: ApiConstants.Path.warmupSendAnswer,
-            parameters: [
-                "question_id": questionId,
-                "device_id": deviceIdProvider.get()
-            ],
-            headers: nil,
-            authorizationKind: .none,
+            parameters: nil,
             reponseType: ServerResponse<WarmupAnswerResponse>.self,
             completion: { result in
                 switch result {
