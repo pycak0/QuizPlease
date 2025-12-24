@@ -179,6 +179,7 @@ extension WarmupPresenter: WarmupInteractorOutput {
     func interactor(
         _ interactor: WarmupInteractorProtocol,
         isAnswerCorrect: Bool,
+        message: String,
         answerId: Int,
         questionId: String
     ) {

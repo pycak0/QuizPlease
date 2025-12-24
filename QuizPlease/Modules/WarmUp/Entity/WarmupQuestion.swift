@@ -22,12 +22,7 @@ struct WarmupQuestion {
 
     /// Media attachment URL
     lazy var fileUrl: URL? = {
-        guard let filePath = file?.pathProof, !filePath.isEmpty else {
-            return nil
-        }
-        var urlComps = NetworkService.shared.baseUrlComponents
-        urlComps.path = filePath
-        return urlComps.url
+        file.map(URL.init(string:)) ?? nil
     }()
 
     init(

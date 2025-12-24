@@ -44,7 +44,8 @@ final class WarmupQuestionsServiceStub: WarmupQuestionsService {
         answerId: Int,
         completion: @escaping (Result<WarmupAnswerResponse, NetworkServiceError>) -> Void
     ) {
-        let response = WarmupAnswerResponse(message: Bool.random())
+        let isCorrect = Bool.random()
+        let response = WarmupAnswerResponse(message: "\(isCorrect)", result: isCorrect)
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             completion(.success(response))
         }
