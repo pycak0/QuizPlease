@@ -55,6 +55,7 @@ final class ProfileInteractor: ProfileInteractorProtocol {
             guard let self = self else { return }
             switch serverResult {
             case let .failure(error):
+                print("[\(Self.self)] Failed to load user info: \(error)")
                 self.delegate?.didFailLoadingUserInfo(with: error)
             case let .success(userInfo):
                 self.delegate?.didSuccessfullyLoadUserInfo(userInfo)
