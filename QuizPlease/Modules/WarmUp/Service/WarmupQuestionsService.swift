@@ -62,14 +62,14 @@ final class WarmupQuestionsServiceImpl: WarmupQuestionsService {
         answerId: Int,
         completion: @escaping (Result<WarmupAnswerResponse, NetworkServiceError>) -> Void
     ) {
-        guard let questionIdInt = Int(questionId), let deviceId = deviceIdProvider.get() else {
+        guard let deviceId = deviceIdProvider.get() else {
             completion(.failure(.encodingError))
             return
         }
 
         let answerData = WarmupAnswerData(
             answer: answerId,
-            questionId: questionIdInt,
+            questionId: questionId,
             deviceId: deviceId
         )
 
@@ -83,6 +83,7 @@ final class WarmupQuestionsServiceImpl: WarmupQuestionsService {
                 case .success(let response):
                     completion(.success(response.data))
                 case .failure(let error):
+                    print("Error receiving warmup answer: \(error)")
                     completion(.failure(error))
                 }
             }

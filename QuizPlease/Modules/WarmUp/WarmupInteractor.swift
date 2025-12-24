@@ -25,6 +25,7 @@ protocol WarmupInteractorOutput: AnyObject {
     func interactor(
         _ interactor: WarmupInteractorProtocol,
         isAnswerCorrect: Bool,
+        message: String,
         answerId: Int,
         questionId: String
     )
@@ -114,7 +115,8 @@ final class WarmupInteractor: WarmupInteractorProtocol {
             case let .success(answerResponse):
                 self.output.interactor(
                     self,
-                    isAnswerCorrect: answerResponse.message,
+                    isAnswerCorrect: answerResponse.isCorrect,
+                    message: answerResponse.message,
                     answerId: answerId,
                     questionId: questionId
                 )

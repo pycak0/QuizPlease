@@ -9,5 +9,15 @@
 import Foundation
 
 struct WarmupAnswerResponse: Decodable {
-    let message: Bool
+    let message: String
+    private let result: Bool?
+
+    var isCorrect: Bool {
+        result ?? false
+    }
+
+    init(message: String, result: Bool) {
+        self.message = message
+        self.result = result
+    }
 }
