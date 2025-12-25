@@ -120,7 +120,9 @@ class ProfilePresenter: ProfilePresenterProtocol {
 extension ProfilePresenter: ProfileInteractorDelegate {
 
     func didFailLoadingUserInfo(with error: NetworkServiceError) {
-        view?.showErrorConnectingToServerAlert()
+        view?.showErrorConnectingToServerAlert { [weak self] _ in
+            self?.router.closeProfile()
+        }
     }
 
     func didSuccessfullyLoadUserInfo(_ userInfo: UserInfo) {

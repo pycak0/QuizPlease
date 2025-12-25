@@ -63,16 +63,17 @@ final class ShopCompletionVC: UIViewController {
     // MARK: - Confirm Button Pressed
     @IBAction
     private func confirmButtonPressed(_ sender: UIButton) {
+        guard !segmentControl.items.isEmpty else {
+            showErrorDeliveryMethodUnavailable()
+            return
+        }
         let index = segmentControl.selectedIndex
         let chosenDelivery: DeliveryMethod? = shopItem.isOfflineDeliveryOnly
         ? .game
         : DeliveryMethod(title: segmentControl.items[index])
 
         guard let deliveryMethod = chosenDelivery else {
-            showSimpleAlert(
-                title: "Произошла ошибка",
-                message: "Выбранная опция получения товара недоступна в данный момент"
-            )
+            showErrorDeliveryMethodUnavailable()
             return
         }
         guard let text = textFieldView.textField.text, text.isValidEmail else {
@@ -80,6 +81,13 @@ final class ShopCompletionVC: UIViewController {
             return
         }
         purchase(withDelivryMethod: deliveryMethod, email: text)
+    }
+
+    private func showErrorDeliveryMethodUnavailable() {
+        showSimpleAlert(
+            title: "Произошла ошибка",
+            message: "Выбранная опция получения товара недоступна в данный момент"
+        )
     }
 
     // MARK: - Purchase
