@@ -180,19 +180,19 @@ class NetworkService {
 
         // Optional query items
         if let id = filter.date?.id {
-            parameters["month"] = "\(id)"
+            parameters["months[]"] = "\(id)"
         }
         if let id = filter.format?.id {
-            parameters["format"] = "\(id)"
+            parameters["formats[]"] = "\(id)"
         }
         if let id = filter.place?.id {
-            parameters["place_id"] = "\(id)"
+            parameters["places[]"] = "\(id)"
         }
         if let id = filter.status?.id {
-            parameters["status"] = "\(id)"
+            parameters["statuses[]"] = "\(id)"
         }
         if let id = filter.type?.id {
-            parameters["type"] = "\(id)"
+            parameters["game_types[]"] = "\(id)"
         }
 
         getStandard(ScheduledGamesResponse.self, apiPath: ApiConstants.Path.game, parameters: parameters) { (getResult) in
