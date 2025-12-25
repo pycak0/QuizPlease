@@ -45,12 +45,26 @@ class RatingInteractor: RatingInteractorProtocol {
     }
 
     private func _loadRating(with filter: RatingFilter, page: Int) {
-        let token = NetworkService.shared.getRating(
-            cityId: filter.city.id,
-            teamName: filter.teamName,
-            league: filter.league.rawValue,
-            ratingScope: filter.scope.rawValue,
-            page: page
+        let isSeason = filter.scope == .season
+
+        var parameters: [String: String?] = [
+            "city_id": "\(filter.city.slug)",
+            "rating": "\(filter.league.rawValue)",
+            "bySeason": "\(isSeason)",
+            "page": "\(page)"
+        ]
+
+        if !filter.teamName.isEmpty {
+            parameters["title"] = filter.teamName
+        }
+
+        let token = networkService.get(
+            [RatingTeamItem].self,
+            apiPath: ApiConstants.Path.ratingTeams,
+            parameters: parameters,
+            headers: nil,
+            authorizationKind: .none,
+            networkConfiguration: .rating
         ) { [weak self] (serverResult) in
             guard let self = self else { return }
             switch serverResult {
@@ -60,6 +74,22 @@ class RatingInteractor: RatingInteractorProtocol {
                 self.output?.interactor(self, didLoadRatingItems: items)
             }
         }
+
+//        let token = NetworkService.shared.getRating(
+//            cityId: filter.city.id,
+//            teamName: filter.teamName,
+//            league: filter.league.rawValue,
+//            ratingScope: filter.scope.rawValue,
+//            page: page
+//        ) { [weak self] (serverResult) in
+//            guard let self = self else { return }
+//            switch serverResult {
+//            case let .failure(error):
+//                self.output?.interactor(self, errorOccured: error)
+//            case let .success(items):
+//                self.output?.interactor(self, didLoadRatingItems: items)
+//            }
+//        }
         runningTasks.append(token)
     }
 }

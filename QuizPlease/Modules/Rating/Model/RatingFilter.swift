@@ -32,7 +32,7 @@ struct RatingFilter {
     }
 
     enum RatingLeague: Int, Codable, CaseIterable {
-        case classic = 1, movieAndMusic, teens, englishPlease, streams
+        case classic = 1, movieAndMusic, streams, teens, englishPlease
 
         var name: String {
             switch self {

@@ -36,6 +36,8 @@
 		4C553C1229E6C2ED0066E2CA /* GamePageInfoBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C553C1129E6C2ED0066E2CA /* GamePageInfoBuilder.swift */; };
 		4C553C1429E755A90066E2CA /* GamePageInfoProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C553C1329E755A90066E2CA /* GamePageInfoProvider.swift */; };
 		4C553C1729E756410066E2CA /* GamePageInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C553C1629E756410066E2CA /* GamePageInfoModel.swift */; };
+		4C5B25792EFD9A0F00B925E2 /* RatingTeamResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5B25782EFD9A0F00B925E2 /* RatingTeamResponseData.swift */; };
+		4C5B257B2EFD9A5E00B925E2 /* RatingTeamItemData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5B257A2EFD9A5E00B925E2 /* RatingTeamItemData.swift */; };
 		4C72339429EFF618006D92DF /* TitledTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C72339329EFF618006D92DF /* TitledTextView.swift */; };
 		4C72339929F00D86006D92DF /* GamePageMultilineFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C72339829F00D86006D92DF /* GamePageMultilineFieldCell.swift */; };
 		4C72339B29F00EC2006D92DF /* GamePageMultilineFieldItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C72339A29F00EC2006D92DF /* GamePageMultilineFieldItem.swift */; };
@@ -508,6 +510,8 @@
 		4C553C1129E6C2ED0066E2CA /* GamePageInfoBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageInfoBuilder.swift; sourceTree = "<group>"; };
 		4C553C1329E755A90066E2CA /* GamePageInfoProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageInfoProvider.swift; sourceTree = "<group>"; };
 		4C553C1629E756410066E2CA /* GamePageInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageInfoModel.swift; sourceTree = "<group>"; };
+		4C5B25782EFD9A0F00B925E2 /* RatingTeamResponseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingTeamResponseData.swift; sourceTree = "<group>"; };
+		4C5B257A2EFD9A5E00B925E2 /* RatingTeamItemData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingTeamItemData.swift; sourceTree = "<group>"; };
 		4C72339329EFF618006D92DF /* TitledTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitledTextView.swift; sourceTree = "<group>"; };
 		4C72339829F00D86006D92DF /* GamePageMultilineFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageMultilineFieldCell.swift; sourceTree = "<group>"; };
 		4C72339A29F00EC2006D92DF /* GamePageMultilineFieldItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageMultilineFieldItem.swift; sourceTree = "<group>"; };
@@ -1051,6 +1055,15 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		4C5B25772EFD9A0100B925E2 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				4C5B25782EFD9A0F00B925E2 /* RatingTeamResponseData.swift */,
+				4C5B257A2EFD9A5E00B925E2 /* RatingTeamItemData.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 		4C72339529EFF621006D92DF /* TitledTextView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1184,6 +1197,7 @@
 		A40D817524D2C974006D2CE3 /* Rating */ = {
 			isa = PBXGroup;
 			children = (
+				4C5B25772EFD9A0100B925E2 /* Data */,
 				A4C5CE1129FAC3CE002407B2 /* Protocols */,
 				A4C5CE0D29FAC325002407B2 /* Item */,
 				A4BEF47228D26E2F0099DCDB /* Model */,
@@ -2841,6 +2855,7 @@
 				A4768C96268E72A00085B622 /* MaskedTextFieldView.swift in Sources */,
 				A4EE9E8F29E490CE00DDFC50 /* GamePageView.swift in Sources */,
 				A44B2FD525841D9100B5B52C /* CertificateResponse.swift in Sources */,
+				4C5B257B2EFD9A5E00B925E2 /* RatingTeamItemData.swift in Sources */,
 				A4D44A1828D108D5004703B4 /* OnboardingPageViewModel.swift in Sources */,
 				A4FFA4B124F3BE2A006A1150 /* PaymentType.swift in Sources */,
 				4C553C0129E688400066E2CA /* GamePageInfoLineView.swift in Sources */,
@@ -3087,6 +3102,7 @@
 				A4E675F7255DB4AB0011A801 /* String+Validating.swift in Sources */,
 				A4E06B4C29E805610005C57B /* DefaultGeocoder.swift in Sources */,
 				A450E39D24E571C900C49AEE /* GameOrderPresenter.swift in Sources */,
+				4C5B25792EFD9A0F00B925E2 /* RatingTeamResponseData.swift in Sources */,
 				A4CDC34A27308ABE00282EC2 /* MapAssembly.swift in Sources */,
 				A4D44A2228D1336D004703B4 /* OnboardingPageData.swift in Sources */,
 				A40B759824D9A852006DB7D1 /* ProfileRouter.swift in Sources */,
