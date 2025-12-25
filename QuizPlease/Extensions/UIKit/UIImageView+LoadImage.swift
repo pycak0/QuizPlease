@@ -22,6 +22,15 @@ extension UIImageView {
         })
     }
 
+    func loadImage(urlString: String?, placeholderImage: UIImage? = nil, handler: ((UIImage?) -> Void)? = nil) {
+        guard let urlString, let url = URL(string: urlString) else {
+            print("Invalid URL")
+            handler?(nil)
+            return
+        }
+        loadImage(url: url, placeholderImage: placeholderImage, handler: handler)
+    }
+
     func loadImage(
         using configuration: NetworkConfiguration = .standard,
         path: String?,

@@ -11,6 +11,7 @@ import Foundation
 final class RatingConfigurator: Configurator {
 
     private let service = ServiceAssembly.shared
+    private let ratingItemMapper: RatingTeamDataToItemMapper = RatingTeamDataToItemMapperImpl()
 
     func configure(_ view: RatingViewProtocol) {
         let interactor = RatingInteractor(
@@ -20,7 +21,8 @@ final class RatingConfigurator: Configurator {
         let presenter = RatingPresenter(
             interactor: interactor,
             router: router,
-            analyticsService: service.analytics
+            analyticsService: service.analytics,
+            ratingItemMapper: ratingItemMapper
         )
         presenter.view = view
         interactor.output = presenter

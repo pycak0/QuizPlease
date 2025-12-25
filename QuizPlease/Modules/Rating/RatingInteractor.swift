@@ -8,6 +8,10 @@
 
 import Foundation
 
+private enum RatingInteractorConstants {
+    static let ratingItemsPerPage: Int = 20
+}
+
 protocol RatingInteractorProtocol {
     /// must be weak
     var output: RatingInteractorOutput? { get set }
@@ -17,7 +21,7 @@ protocol RatingInteractorProtocol {
 
 protocol RatingInteractorOutput: AnyObject {
     func interactor(_ interactor: RatingInteractorProtocol, errorOccured error: NetworkServiceError)
-    func interactor(_ interactor: RatingInteractorProtocol, didLoadRatingItems ratingItems: [RatingTeamItem])
+    func interactor(_ interactor: RatingInteractorProtocol, didLoadRatingItems ratingItems: [RatingTeamItemData])
 }
 
 class RatingInteractor: RatingInteractorProtocol {
@@ -47,11 +51,16 @@ class RatingInteractor: RatingInteractorProtocol {
     private func _loadRating(with filter: RatingFilter, page: Int) {
         let isSeason = filter.scope == .season
 
+        // rank=legends&bySeason=false&page=1&perPage=10&order=points&orderBy=desc
         var parameters: [String: String?] = [
-            "city_id": "\(filter.city.slug)",
+            "city": "\(filter.city.slug)",
             "rating": "\(filter.league.rawValue)",
             "bySeason": "\(isSeason)",
-            "page": "\(page)"
+            "page": "\(page)",
+            "perPage": "\(RatingInteractorConstants.ratingItemsPerPage)",
+            "order": "points",
+            "orderBy": "desc",
+            "rank": "legends"
         ]
 
         if !filter.teamName.isEmpty {
@@ -59,7 +68,7 @@ class RatingInteractor: RatingInteractorProtocol {
         }
 
         let token = networkService.get(
-            [RatingTeamItem].self,
+            RatingTeamResponseData.self,
             apiPath: ApiConstants.Path.ratingTeams,
             parameters: parameters,
             headers: nil,
@@ -70,26 +79,16 @@ class RatingInteractor: RatingInteractorProtocol {
             switch serverResult {
             case let .failure(error):
                 self.output?.interactor(self, errorOccured: error)
-            case let .success(items):
-                self.output?.interactor(self, didLoadRatingItems: items)
+            case let .success(data):
+                self.processSuccessResponse(data)
             }
         }
 
-//        let token = NetworkService.shared.getRating(
-//            cityId: filter.city.id,
-//            teamName: filter.teamName,
-//            league: filter.league.rawValue,
-//            ratingScope: filter.scope.rawValue,
-//            page: page
-//        ) { [weak self] (serverResult) in
-//            guard let self = self else { return }
-//            switch serverResult {
-//            case let .failure(error):
-//                self.output?.interactor(self, errorOccured: error)
-//            case let .success(items):
-//                self.output?.interactor(self, didLoadRatingItems: items)
-//            }
-//        }
         runningTasks.append(token)
+    }
+
+    private func processSuccessResponse(_ data: RatingTeamResponseData) {
+        let items = data.result
+        output?.interactor(self, didLoadRatingItems: items)
     }
 }

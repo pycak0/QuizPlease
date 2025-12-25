@@ -9,5 +9,5 @@
 import Foundation
 
 struct RatingTeamResponseData: Decodable {
-    let result: [RatingTeamItem]
+    let result: [RatingTeamItemData]
 }

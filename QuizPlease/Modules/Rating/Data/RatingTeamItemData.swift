@@ -9,6 +9,8 @@
 import Foundation
 
 struct RatingTeamItemData: Decodable {
-    let name: String
-    let score: Int
+    let title: String
+    let points: Double
+    let games: Int
+    let rank: RatingTeamRankData
 }

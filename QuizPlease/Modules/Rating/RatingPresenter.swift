@@ -39,6 +39,7 @@ final class RatingPresenter: RatingPresenterProtocol {
     let router: RatingRouterProtocol
     private let interactor: RatingInteractorProtocol
     private let analyticsService: AnalyticsService
+    private let ratingItemMapper: RatingTeamDataToItemMapper
 
     var teams: [RatingTeamItem] = []
     var filteredTeams: [RatingTeamItem] = []
@@ -56,11 +57,13 @@ final class RatingPresenter: RatingPresenterProtocol {
     init(
         interactor: RatingInteractorProtocol,
         router: RatingRouterProtocol,
-        analyticsService: AnalyticsService
+        analyticsService: AnalyticsService,
+        ratingItemMapper: RatingTeamDataToItemMapper
     ) {
         self.interactor = interactor
         self.router = router
         self.analyticsService = analyticsService
+        self.ratingItemMapper = ratingItemMapper
     }
 
     // MARK: - Actions
@@ -170,14 +173,16 @@ extension RatingPresenter: RatingInteractorOutput {
         view?.showErrorConnectingToServerAlert()
     }
 
-    func interactor(_ interactor: RatingInteractorProtocol, didLoadRatingItems ratingItems: [RatingTeamItem]) {
+    func interactor(_ interactor: RatingInteractorProtocol, didLoadRatingItems ratingDataItems: [RatingTeamItemData]) {
         view?.stopLoading()
+
+        let startingPlace = teams.count + 1
+        let ratingItems = ratingItemMapper.map(ratingDataItems, startingPlace: startingPlace)
 
         if currentPage > firstPageNumber {
             let filteredTeams = ratingItems.filter { !teams.contains($0) }
             guard !filteredTeams.isEmpty else { return }
 
-            let startIndex = teams.count
             teams += filteredTeams
             view?.addItems(filteredTeams)
 
