@@ -57,10 +57,7 @@ class RatingInteractor: RatingInteractorProtocol {
             "rating": "\(filter.league.rawValue)",
             "bySeason": "\(isSeason)",
             "page": "\(page)",
-            "perPage": "\(RatingInteractorConstants.ratingItemsPerPage)",
-            "order": "points",
-            "orderBy": "desc",
-            "rank": "legends"
+            "perPage": "\(RatingInteractorConstants.ratingItemsPerPage)"
         ]
 
         if !filter.teamName.isEmpty {
