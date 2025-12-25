@@ -13,7 +13,9 @@ final class RatingConfigurator: Configurator {
     private let service = ServiceAssembly.shared
 
     func configure(_ view: RatingViewProtocol) {
-        let interactor = RatingInteractor()
+        let interactor = RatingInteractor(
+            networkService: service.networkService
+        )
         let router = RatingRouter(viewController: view)
         let presenter = RatingPresenter(
             interactor: interactor,

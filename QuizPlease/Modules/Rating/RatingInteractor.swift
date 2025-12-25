@@ -25,6 +25,12 @@ class RatingInteractor: RatingInteractorProtocol {
     private var runningTasks = [Cancellable?]()
     weak var output: RatingInteractorOutput?
 
+    private let networkService: NetworkServiceProtocol
+
+    init(networkService: NetworkServiceProtocol) {
+        self.networkService = networkService
+    }
+
     func cancelLoading() {
         timer?.invalidate()
         runningTasks.forEach { $0?.cancel() }
