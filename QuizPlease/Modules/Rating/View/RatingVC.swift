@@ -54,7 +54,17 @@ final class RatingVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .ripePlum
+        let color = UIColor.ripePlum
+        view.backgroundColor = color
+        if #available(iOS 26.0, *) {
+            prepareNavigationBar(barStyle: .transparent)
+        } else {
+            prepareNavigationBar(
+                tintColor: .white,
+                barStyle: .transcluent(tintColor: color),
+                scrollBarStyle: .transcluent(tintColor: color.withAlphaComponent(0.9))
+            )
+        }
         RatingConfigurator().configure(self)
         presenter.viewDidLoad(self)
     }

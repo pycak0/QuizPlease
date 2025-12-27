@@ -125,10 +125,17 @@ extension GamePageViewController: GamePageViewInput {
     }
 
     func setTitle(_ title: String) {
-        prepareNavigationBar(
-            title: title,
-            barStyle: .transcluent(tintColor: .systemBackgroundAdapted)
-        )
+        if #available(iOS 26.0, *) {
+            prepareNavigationBar(
+                title: title,
+                barStyle: .transparent
+            )
+        } else {
+            prepareNavigationBar(
+                title: title,
+                barStyle: .transcluent(tintColor: .systemBackgroundAdapted)
+            )
+        }
     }
 
     func setHeaderImage(path: String) {
