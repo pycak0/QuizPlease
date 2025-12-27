@@ -29,11 +29,5 @@ final class RatingConfigurator: Configurator {
         presenter.view = view
         interactor.output = presenter
         view.presenter = presenter
-        let color = view.view.backgroundColor
-        view.prepareNavigationBar(
-            tintColor: .white,
-            barStyle: .transcluent(tintColor: color),
-            scrollBarStyle: .transcluent(tintColor: color?.withAlphaComponent(0.9))
-        )
     }
 }

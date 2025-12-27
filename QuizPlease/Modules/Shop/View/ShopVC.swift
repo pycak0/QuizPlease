@@ -50,13 +50,17 @@ final class ShopVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        prepareNavigationBar(barStyle: .transcluent(tintColor: view.backgroundColor))
-        presenter.viewDidLoad(self)
+        if #available(iOS 26.0, *) {
+            prepareNavigationBar(barStyle: .transparent)
+        } else {
+            prepareNavigationBar(barStyle: .transcluent(tintColor: view.backgroundColor))
+        }
         if #available(iOS 26.0, *) {
             navigationItem.rightBarButtonItems?.forEach {
                 $0.hidesSharedBackground = true
             }
         }
+        presenter.viewDidLoad(self)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
