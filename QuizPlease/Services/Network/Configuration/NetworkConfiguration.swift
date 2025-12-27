@@ -10,6 +10,7 @@ import Foundation
 
 public enum NetworkConfiguration: CustomStringConvertible {
     case staging, production
+    case stagingRating, productionRating
 
     public static let standard: NetworkConfiguration = {
         switch Configuration.current {
@@ -20,12 +21,23 @@ public enum NetworkConfiguration: CustomStringConvertible {
         }
     }()
 
+    public static let rating: NetworkConfiguration = {
+        switch Configuration.current {
+        case .debug, .staging:
+            return .stagingRating
+        case .production:
+            return .productionRating
+        }
+    }()
+
     var host: String {
         switch self {
         case .staging:
             return "https://mobile.qpdv.ru/"
-        case .production:
+        case .production, .productionRating:
             return "https://quizplease.ru/"
+        case .stagingRating:
+            return "https://rating-api.dev.quizplease.ru/"
         }
     }
 
@@ -33,6 +45,8 @@ public enum NetworkConfiguration: CustomStringConvertible {
         switch self {
         case .staging: return "staging"
         case .production: return "production"
+        case .stagingRating: return "stagingRating"
+        case .productionRating: return "productionRating"
         }
     }
 

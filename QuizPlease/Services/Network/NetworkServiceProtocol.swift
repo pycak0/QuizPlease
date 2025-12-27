@@ -37,6 +37,7 @@ protocol NetworkServiceProtocol {
         parameters: [String: String?]?,
         headers: [String: String]?,
         authorizationKind: NetworkService.AuthorizationKind,
+        networkConfiguration: NetworkConfiguration,
         completion: @escaping ((Result<T, NetworkServiceError>) -> Void)
     ) -> Cancellable?
 
@@ -76,6 +77,26 @@ protocol NetworkServiceProtocol {
 }
 
 extension NetworkServiceProtocol {
+
+    @discardableResult
+    func get<T: Decodable>(
+        _ type: T.Type,
+        apiPath: String,
+        parameters: [String: String?]?,
+        headers: [String: String]?,
+        authorizationKind: NetworkService.AuthorizationKind,
+        completion: @escaping ((Result<T, NetworkServiceError>) -> Void)
+    ) -> Cancellable? {
+        get(
+            type,
+            apiPath: apiPath,
+            parameters: parameters,
+            headers: nil,
+            authorizationKind: .none,
+            networkConfiguration: .standard,
+            completion: completion
+        )
+    }
 
     @discardableResult
     func get<T: Decodable>(

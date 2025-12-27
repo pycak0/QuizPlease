@@ -13,6 +13,7 @@ enum NetworkServiceError: Error {
     case serverError(_ statusCode: Int)
     case decoding(Error)
     case other(Error)
+    case networkError(NSError)
 
     var localizedDescription: String {
         switch self {
@@ -27,6 +28,8 @@ enum NetworkServiceError: Error {
         case let .serverError(statusCode):
             return "Server Side Error. Status Code: \(statusCode)"
         case let .decoding(error), let .other(error):
+            return error.localizedDescription
+        case let .networkError(error):
             return error.localizedDescription
         }
     }

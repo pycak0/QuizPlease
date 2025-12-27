@@ -17,7 +17,7 @@ protocol RatingViewProtocol: UIViewController, LoadingIndicator {
     func setItems(_ items: [RatingItem])
     func addItems(_ newItems: [RatingItem])
 
-    func configure()
+    func configureHeaderWithFilters()
     func setHeaderLabelContent(city: String, leagueComment: String, ratingScopeComment: String)
 }
 
@@ -107,7 +107,7 @@ extension RatingVC: RatingViewProtocol {
         tableView.tableFooterView?.isHidden = false
     }
 
-    func configure() {
+    func configureHeaderWithFilters() {
         expandingHeader.delegate = self
         expandingHeader.dataSource = self
     }

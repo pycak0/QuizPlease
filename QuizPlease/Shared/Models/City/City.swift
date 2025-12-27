@@ -11,10 +11,11 @@ import Foundation
 public struct City: Codable {
     public let id: Int
     public let title: String
+    let slug: String
 }
 
 extension City {
-    public static let moscow = City(id: 4, title: "Москва")
+    public static let moscow = City(id: 4, title: "Москва", slug: "moscow")
 }
 
 extension City: Equatable {
