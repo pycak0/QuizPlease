@@ -21,11 +21,15 @@ final class NetworkLogFormatter {
 
     // MARK: - Public API
 
-    static func prettyHeaders(_ headers: [AnyHashable: Any]) -> String {
+    class func httpStatus(code: Int) -> String {
+        "\(code) | \(HTTPURLResponse.localizedString(forStatusCode: code).capitalized)"
+    }
+
+    class func prettyHeaders(_ headers: [AnyHashable: Any]) -> String {
         prettyHeaders(normalizeHeaders(headers))
     }
 
-    static func prettyHeaders(_ headers: [String: String]) -> String {
+    class func prettyHeaders(_ headers: [String: String]) -> String {
         if headers.isEmpty {
             return Constants.emptyData
         }
@@ -38,7 +42,7 @@ final class NetworkLogFormatter {
         return string
     }
 
-    static func prettyBody(_ data: Data?) -> String {
+    class func prettyBody(_ data: Data?) -> String {
         guard let data = data, !data.isEmpty else { return Constants.emptyData }
 
         // Попробуем JSON
@@ -53,14 +57,14 @@ final class NetworkLogFormatter {
         return String(data: data, encoding: .utf8) ?? Constants.stringRepresentationError
     }
 
-    static func getString(_ data: Data?) -> String {
+    class func getString(_ data: Data?) -> String {
         guard let data = data, !data.isEmpty else { return Constants.emptyData }
         return String(data: data, encoding: .utf8) ?? Constants.stringRepresentationError
     }
 
     // MARK: - Internal
 
-    private static func normalizeHeaders(_ headers: [AnyHashable: Any]) -> [String: String] {
+    private class func normalizeHeaders(_ headers: [AnyHashable: Any]) -> [String: String] {
         var result: [String: String] = [:]
         for (key, value) in headers {
             let k = String(describing: key)
@@ -76,4 +80,3 @@ final class NetworkLogFormatter {
         return result
     }
 }
-

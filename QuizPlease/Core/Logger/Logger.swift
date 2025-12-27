@@ -75,23 +75,30 @@ protocol Logger {
 
 extension Logger {
     func debug(_ message: String,
-               file: StaticString = #file, function: StaticString = #function, line: UInt = #line) {
+               file: StaticString = #fileID,
+               function: StaticString = #function,
+               line: UInt = #line) {
         debug(message, file: file, function: function, line: line)
     }
+
     func info(_ message: String,
-              file: StaticString = #file, function: StaticString = #function, line: UInt = #line) {
+              file: StaticString = #fileID,
+              function: StaticString = #function,
+              line: UInt = #line) {
         info(message, file: file, function: function, line: line)
     }
+
     func warn(_ message: String,
-              file: StaticString = #file, function: StaticString = #function, line: UInt = #line) {
+              file: StaticString = #fileID,
+              function: StaticString = #function,
+              line: UInt = #line) {
         warn(message, file: file, function: function, line: line)
     }
 
     func error(_ message: String,
-               file: StaticString = #file, function: StaticString = #function, line: UInt = #line) {
+               file: StaticString = #fileID,
+               function: StaticString = #function,
+               line: UInt = #line) {
         error(message, file: file, function: function, line: line)
-    }
-    func error(_ message: String) {
-        error(message, file: #file, function: #function, line: #line)
     }
 }

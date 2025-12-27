@@ -76,6 +76,7 @@ final class NetworkServiceImpl: NetworkServiceProtocol {
             guard let self else { return }
 
             if let error = error {
+                log.error("❌ Error occured when executing GET request: \(error.localizedDescription)")
                 DispatchQueue.main.async {
                     completion(.failure(.networkError(error as NSError)))
                 }
@@ -92,7 +93,7 @@ final class NetworkServiceImpl: NetworkServiceProtocol {
 
             log.info("""
             RESPONSE ⬇️ \(request.httpMethod ?? "GET") \(url)
-            Status Code: \(response.statusCode)
+            Status Code: \(NetworkLogFormatter.httpStatus(code: response.statusCode))
             Headers:
             \(NetworkLogFormatter.prettyHeaders(response.allHeaderFields))
             Body:
@@ -177,6 +178,7 @@ final class NetworkServiceImpl: NetworkServiceProtocol {
             guard let self else { return }
 
             if let error = error {
+                log.error("❌ Error occured when executing POST request: \(error.localizedDescription)")
                 DispatchQueue.main.async {
                     completion(.failure(.other(error)))
                 }
@@ -193,7 +195,7 @@ final class NetworkServiceImpl: NetworkServiceProtocol {
 
             log.info("""
             RESPONSE ⬇️ \(request.httpMethod ?? "POST") \(httpResponse.url?.absoluteString ?? "unknown")
-            Status Code: \(httpResponse.statusCode)
+            Status Code: \(NetworkLogFormatter.httpStatus(code: httpResponse.statusCode))
             Headers:
             \(NetworkLogFormatter.prettyHeaders(httpResponse.allHeaderFields))
             Body:
@@ -273,7 +275,7 @@ final class NetworkServiceImpl: NetworkServiceProtocol {
 
             log.info("""
             RESPONSE ⬇️ \(afResponse.request?.httpMethod ?? httpMethod) \(afResponse.response?.url?.absoluteString ?? "unknown") \(formDataMessage)
-            Status Code: \(statusCode)
+            Status Code: \(NetworkLogFormatter.httpStatus(code: statusCode))
             Headers:
             \(NetworkLogFormatter.prettyHeaders(responseHeaders))
             Body:
