@@ -16,10 +16,3 @@ protocol AsyncExecutor {
     /// This block has no return value and no parameters.
     func async(execute work: @escaping () -> Void)
 }
-
-final class ConcurrentExecutorImpl: AsyncExecutor {
-
-    func async(execute work: @escaping () -> Void) {
-        DispatchQueue.global().async(execute: work)
-    }
-}

@@ -28,10 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate {
 
         FirebaseApp.configure()
         Messaging.messaging().delegate = self
-
         UNUserNotificationCenter.current().delegate = self
-
-        application.registerForRemoteNotifications()
 
         UIBarButtonItem.swizzleMenu()
         IQKeyboardManager.shared.keyboardDistanceFromTextField = 20
