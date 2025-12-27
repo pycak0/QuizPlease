@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import UserNotifications
 
 protocol MainMenuInteractorProtocol: AnyObject {
     /// must be weak
@@ -34,9 +33,15 @@ protocol MainMenuInteractorOutput: AnyObject {
 }
 
 class MainMenuInteractor: MainMenuInteractorProtocol {
+
+    private let notificationService: NotificationService
+    private var didPostMainScreenLoaded = false
+
     weak var output: MainMenuInteractorOutput?
 
-    private var didPostMainScreenLoaded = false
+    init(notificationService: NotificationService) {
+        self.notificationService = notificationService
+    }
 
     func postMainScreenLoaded() {
         guard !didPostMainScreenLoaded else { return }
@@ -45,10 +50,7 @@ class MainMenuInteractor: MainMenuInteractorProtocol {
     }
 
     func requestForPushNotifications() {
-        UNUserNotificationCenter.current().requestAuthorization(
-            options: [.alert, .badge, .sound],
-            completionHandler: {_, _ in }
-        )
+        notificationService.requestForPushNotifications()
     }
 
     func loadMenuItems() {

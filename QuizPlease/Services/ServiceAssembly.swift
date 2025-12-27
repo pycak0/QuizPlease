@@ -58,4 +58,10 @@ final class ServiceAssembly {
     lazy var networkResponseDecoder: NetworkResponseDecoder = NetworkResponseDecoderImpl(
         jsonDecoder: core.jsonDecoder
     )
+
+    /// Service that wraps system notification center
+    lazy var notificationService: NotificationService = NotificationServiceImpl(
+        mainExecutor: core.mainExecutor,
+        log: core.logger
+    )
 }

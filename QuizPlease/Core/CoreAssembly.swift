@@ -54,7 +54,10 @@ final class CoreAssembly {
     lazy var jsonDecoder: JsonDecoder = JSONDecoder()
 
     /// A service that executes tasks asynchronously
-    lazy var concurrentExecutor: AsyncExecutor = ConcurrentExecutorImpl()
+    lazy var concurrentExecutor: AsyncExecutor = ConcurrentExecutor()
+
+    /// A service that executes tasks on main queue
+    lazy var mainExecutor: AsyncExecutor = MainExecutor()
 
     /// Centralized logger (os.Logger-based)
     lazy var logger: Logger = OsLogLogger()
