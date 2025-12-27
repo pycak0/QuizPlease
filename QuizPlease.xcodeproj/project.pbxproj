@@ -23,6 +23,7 @@
 		4C1272AF29EED9CD008DA2E0 /* RegisterFormValidationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1272AE29EED9CD008DA2E0 /* RegisterFormValidationResult.swift */; };
 		4C1272B129EEE75D008DA2E0 /* PaymentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1272B029EEE75D008DA2E0 /* PaymentService.swift */; };
 		4C1272B329EEFB04008DA2E0 /* GameRegistrationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1272B229EEFB04008DA2E0 /* GameRegistrationResult.swift */; };
+		4C1FF2612EFFE07D0047D634 /* NetworkLogFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1FF2602EFFE07D0047D634 /* NetworkLogFormatter.swift */; };
 		4C1FF9AA2ECBBE2B00EEA63B /* NetworkServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1FF9A92ECBBE2300EEA63B /* NetworkServiceImpl.swift */; };
 		4C1FF9AC2ECBC22000EEA63B /* NetworkResponseDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1FF9AB2ECBC21900EEA63B /* NetworkResponseDecoder.swift */; };
 		4C1FF9AE2ECBC43400EEA63B /* ApiConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1FF9AD2ECBC42800EEA63B /* ApiConstants.swift */; };
@@ -503,6 +504,7 @@
 		4C1272AE29EED9CD008DA2E0 /* RegisterFormValidationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterFormValidationResult.swift; sourceTree = "<group>"; };
 		4C1272B029EEE75D008DA2E0 /* PaymentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentService.swift; sourceTree = "<group>"; };
 		4C1272B229EEFB04008DA2E0 /* GameRegistrationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRegistrationResult.swift; sourceTree = "<group>"; };
+		4C1FF2602EFFE07D0047D634 /* NetworkLogFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLogFormatter.swift; sourceTree = "<group>"; };
 		4C1FF9A92ECBBE2300EEA63B /* NetworkServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceImpl.swift; sourceTree = "<group>"; };
 		4C1FF9AB2ECBC21900EEA63B /* NetworkResponseDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResponseDecoder.swift; sourceTree = "<group>"; };
 		4C1FF9AD2ECBC42800EEA63B /* ApiConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiConstants.swift; sourceTree = "<group>"; };
@@ -1937,6 +1939,7 @@
 				A4BEF47028D26DB20099DCDB /* Model */,
 				A40689FA24F7D86F001273B2 /* NetworkService.swift */,
 				A4E06B8F29E9F19F0005C57B /* NetworkServiceProtocol.swift */,
+				4C1FF2602EFFE07D0047D634 /* NetworkLogFormatter.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -3159,6 +3162,7 @@
 				A4E675EF255D66640011A801 /* WarmupAnswerButton.swift in Sources */,
 				A48290F228D9177000C87D18 /* UIView+Shadow.swift in Sources */,
 				A445C88D25436497003B68E8 /* ShopItemImage.swift in Sources */,
+				4C1FF2612EFFE07D0047D634 /* NetworkLogFormatter.swift in Sources */,
 				A453F5C028F341CD00CE20BA /* GameOrderPresentationOptions.swift in Sources */,
 				A4EE9E9B29E4A5EC00DDFC50 /* GamePageItemFactory.swift in Sources */,
 				A4E86A34293260C800DB110F /* UserNotificationsService.swift in Sources */,
