@@ -41,10 +41,14 @@ extension RatingTeamCell: RatingCell {
 
     func configure(with item: RatingItem) {
         guard let item = item as? RatingTeamItem else { return }
-        let points = Int(item.pointsTotal)
+        teamImageView.loadImage(using: .production, path: item.imagePath)
         teamNameLabel.text = "\(item.place). \(item.name)"
         gamesPlayedLabel.text = item.games.string(withAssociatedFirstCaseWord: "игра", changingCase: .nominative)
-        pointsScoredLabel.text = points.string(withAssociatedMaleWord: "балл")
-        teamImageView.loadImage(using: .production, path: item.imagePath)
+
+        if let points = Int(exactly: item.pointsTotal) {
+            pointsScoredLabel.text = points.string(withAssociatedMaleWord: "балл")
+        } else {
+            pointsScoredLabel.text = "\(item.pointsTotal) баллов"
+        }
     }
 }

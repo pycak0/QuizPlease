@@ -14,7 +14,7 @@ protocol GamePageInteractorProtocol: AnyObject,
                                      GamePageAnnotationProvider,
                                      GamePageInfoProvider,
                                      GamePageDescriptionProvider,
-                                     GamePageSubmitButtonTitleProvider,
+                                     GamePageSubmitDataProvider,
                                      GamePagePaymentInfoProvider {
 
     /// Load game info
@@ -320,11 +320,24 @@ final class GamePageInteractor: GamePageInteractorProtocol {
         registrationService.addSpecialCondition()
     }
 
-    // MARK: - GamePageSubmitButtonTitleProvider
+    // MARK: - GamePageSubmitDataProvider
 
     func getSubmitButtonTitle() -> String {
         let registerForm = registrationService.getRegisterForm()
         return registerForm.paymentType == .online ? "Оплатить игру" : "Записаться на игру"
+    }
+
+    func getAgreementText() -> String {
+        let buttonTitle = getSubmitButtonTitle()
+        return "Нажимая на \"\(buttonTitle)\", " +
+            "вы соглашаетесь с обработкой персональных данных и условиями пользовательского соглашения"
+    }
+
+    func getAgreementLinks() -> [TextWebLink] {
+        return [
+            TextWebLink(text: "персональных данных", url: AppSettings.privacyPolicyUrl),
+            TextWebLink(text: "условиями пользовательского соглашения", url: AppSettings.termsOfUseUrl)
+        ]
     }
 
     // MARK: - GamePagePaymentInfoProvider

@@ -1,5 +1,5 @@
 //
-//  GamePageSubmitButtonTitleProvider.swift
+//  GamePageSubmitDataProvider.swift
 //  QuizPlease
 //
 //  Created by Русаков Владислав Андреевич on 17.04.2023.
@@ -9,8 +9,14 @@
 import Foundation
 
 /// GamePage submit button title provider
-protocol GamePageSubmitButtonTitleProvider: AnyObject {
+protocol GamePageSubmitDataProvider: AnyObject {
 
     /// Provide submit button title
     func getSubmitButtonTitle() -> String
+
+    /// Provide agreement text
+    func getAgreementText() -> String
+
+    /// Provide links in agreement text
+    func getAgreementLinks() -> [TextWebLink]
 }

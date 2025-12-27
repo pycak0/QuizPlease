@@ -13,23 +13,26 @@ private enum Constants {
     static let topSpacing: CGFloat = 4
     static let horizontalSpacing: CGFloat = 16
     static let bottomSpacing: CGFloat = 20
+    static let agreementFontSize: CGFloat = 12
 }
 
 /// GamePage agreement cell
 final class GamePageAgreementCell: UITableViewCell {
 
-    private var tapAction: (() -> Void)?
+    private var detectLinks: ((NSRange) -> Void)?
 
     // MARK: - UI Elements
 
-    private let agreementButton: UIButton = {
-        let button = UIButton()
-        button.titleLabel?.numberOfLines = 0
-        let color = UIColor.opaqueSeparatorAdapted
-        button.tintColor = color
-        button.setTitleColor(color, for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
+    private let textView: UITextView = {
+        let textView = UITextView()
+        textView.isEditable = false
+        textView.isSelectable = false
+        textView.isScrollEnabled = false
+        textView.backgroundColor = .clear
+        textView.textContainer.lineFragmentPadding = 0
+        textView.textContainerInset = .zero
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        return textView
     }()
 
     // MARK: - Lifecycle
@@ -38,7 +41,9 @@ final class GamePageAgreementCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         selectionStyle = .none
         backgroundColor = .systemGray6Adapted
-        setupAgreementButton()
+        setContentCompressionResistancePriority(.init(1000), for: .vertical)
+        setContentHuggingPriority(.init(252), for: .vertical)
+        addTapRecognizerToTextView()
         makeLayout()
     }
 
@@ -50,72 +55,77 @@ final class GamePageAgreementCell: UITableViewCell {
     // MARK: - Private Methods
 
     private func makeLayout() {
-        contentView.addSubview(agreementButton)
+        contentView.addSubview(textView)
         NSLayoutConstraint.activate([
-            agreementButton.leadingAnchor.constraint(
+            textView.leadingAnchor.constraint(
                 equalTo: contentView.leadingAnchor, constant: Constants.horizontalSpacing),
-            agreementButton.trailingAnchor.constraint(
+            textView.trailingAnchor.constraint(
                 equalTo: contentView.trailingAnchor, constant: -Constants.horizontalSpacing),
-            agreementButton.topAnchor.constraint(
+            textView.topAnchor.constraint(
                 equalTo: contentView.topAnchor, constant: Constants.topSpacing),
-            agreementButton.bottomAnchor.constraint(
+            textView.bottomAnchor.constraint(
                 equalTo: contentView.bottomAnchor, constant: -Constants.bottomSpacing)
         ])
     }
 
-    @objc
-    private func highlighted() {
-        agreementButton.alpha = 0.5
+    private func addTapRecognizerToTextView() {
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTextTap(_:)))
+        textView.addGestureRecognizer(tapRecognizer)
     }
 
-    @objc
-    private func released() {
-        agreementButton.alpha = 1
-    }
-
-    private func setupAgreementButton() {
-        let text = "Записываясь на игру, вы соглашаетесь c условиями пользовательского соглашения"
-        let attrText = NSMutableAttributedString(string: text)
-        let agreementRange = (attrText.string as NSString).range(of: "пользовательского соглашения")
-        let wholeRange = (attrText.string as NSString).range(of: attrText.string)
-
-        let pStyle = NSMutableParagraphStyle()
-        pStyle.alignment = .center
-        attrText.addAttributes(
-            [.paragraphStyle: pStyle,
-             .font: UIFont.gilroy(.semibold, size: 12)],
+    private func configureLinkTextView(text: String, links: [TextLink]) {
+        let nsString = text as NSString
+        let wholeRange = nsString.range(of: text)
+        let attrString = NSMutableAttributedString(string: text)
+        let font: UIFont = .gilroy(.semibold, size: Constants.agreementFontSize)
+        attrString.addAttributes([
+                .font: font,
+                .foregroundColor: UIColor.opaqueSeparatorAdapted
+            ],
             range: wholeRange
         )
 
-        attrText.addAttribute(
-            .foregroundColor,
-            value: UIColor.themePink,
-            range: agreementRange
-        )
+        for link in links {
+            let rangeOfLink = nsString.range(of: link.text)
+            attrString.addAttributes([.foregroundColor: UIColor.themePink], range: rangeOfLink)
+        }
 
-        agreementButton.setAttributedTitle(attrText, for: .normal)
-        agreementButton.addTarget(self, action: #selector(agreementButtonPressed), for: .touchUpInside)
+        textView.attributedText = attrString
+        textView.textAlignment = .center
 
-        let highlightControlEvents: UIControl.Event = [
-            .touchDown,
-            .touchDragEnter,
-            .touchDragInside
-        ]
-        agreementButton.addTarget(self, action: #selector(highlighted), for: highlightControlEvents)
-
-        let releaseControlEvents: UIControl.Event = [
-            .touchCancel,
-            .touchDragExit,
-            .touchUpOutside,
-            .touchDragOutside,
-            .touchUpInside
-        ]
-        agreementButton.addTarget(self, action: #selector(released), for: releaseControlEvents)
+        detectLinks = { rangeOfTap in
+            for link in links {
+                let rangeOfLink = nsString.range(of: link.text)
+                if rangeOfTap.intersection(rangeOfLink) != nil {
+                    link.action()
+                    break
+                }
+            }
+        }
     }
 
-    @objc
-    private func agreementButtonPressed() {
-        tapAction?()
+    // MARK: - Handle Tap on Text
+
+    @objc private func handleTextTap(_ sender: UITapGestureRecognizer) {
+        guard let textView = sender.view as? UITextView else { return }
+        let layoutManager = textView.layoutManager
+
+        // location of tap in textView coordinates and taking the inset into account
+        var location = sender.location(in: textView)
+        location.x -= textView.textContainerInset.left
+        location.y -= textView.textContainerInset.top
+
+        // character index at tap location
+        let characterIndex = layoutManager.characterIndex(
+            for: location,
+            in: textView.textContainer,
+            fractionOfDistanceBetweenInsertionPoints: nil
+        )
+
+        guard characterIndex > 0, characterIndex < textView.textStorage.length else { return }
+
+        let rangeOfTap = NSRange(location: characterIndex, length: 1)
+        detectLinks?(rangeOfTap)
     }
 }
 
@@ -125,6 +135,6 @@ extension GamePageAgreementCell: GamePageCellProtocol {
 
     func configure(with item: GamePageItemProtocol) {
         guard let item = item as? GamePageAgreementItem else { return }
-        tapAction = item.tapAction
+        configureLinkTextView(text: item.text, links: item.links)
     }
 }

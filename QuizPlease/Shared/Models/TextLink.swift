@@ -6,7 +6,7 @@
 //  Copyright © 2023 Владислав. All rights reserved.
 //
 
-/// A model characterizing a link in a text view
+/// A model characterizing a link in a text view with action
 struct TextLink {
 
     /// Link text

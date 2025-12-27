@@ -182,6 +182,10 @@ extension GamePagePresenter: GamePageViewOutput,
     func agreementButtonPressed() {
         router.showUserAgreementScreen()
     }
+
+    func didPressLink(url: URL) {
+        router.show(url: url)
+    }
 }
 
 // MARK: - GamePageInteractorOutput

@@ -30,7 +30,11 @@ public enum AppSettings {
     public static var isProfileEnabled: Bool = false
 
     public static let termsOfUseUrl: URL = {
-        URL(string: "https://docs.google.com/document/d/1r5YlaJF5PEgPRrNn0SmrnqHNyzmD_PiM")!
+        URL(string: "https://quizplease.ru/rules")!
+    }()
+
+    public static let privacyPolicyUrl: URL = {
+        URL(string: "https://quizplease.ru/agreement")!
     }()
 
     /// App's URL on the App Store

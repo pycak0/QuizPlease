@@ -55,7 +55,7 @@ extension GamePageAssembly: ViewAssembly {
         )
         let paymentBuilder = GamePagePaymentSectionBuilder(paymentInfoProvider: interactor)
         let submitBuilder = GamePageSubmitBuilder(
-            titleProvider: interactor
+            dataProvider: interactor
         )
         let itemFactory = GamePageItemFactory(
             gameStatusProvider: interactor,

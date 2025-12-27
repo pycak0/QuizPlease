@@ -14,6 +14,9 @@ protocol GamePageSubmitOutput: AnyObject {
     /// User did press submit button
     func submitButtonPressed()
 
+    /// User did press url link
+    func didPressLink(url: URL)
+
     /// User did press agreement button
     func agreementButtonPressed()
 }
@@ -25,20 +28,20 @@ final class GamePageSubmitBuilder {
 
     // MARK: - Private Properties
 
-    private let titleProvider: GamePageSubmitButtonTitleProvider
+    private let dataProvider: GamePageSubmitDataProvider
 
     // MARK: - Lifecycle
 
-    init(titleProvider: GamePageSubmitButtonTitleProvider) {
-        self.titleProvider = titleProvider
+    init(dataProvider: GamePageSubmitDataProvider) {
+        self.dataProvider = dataProvider
     }
 
     // MARK: - Private Methods
 
     private func makeSubmitItem() -> GamePageItemProtocol {
         GamePageSubmitButtonItem(
-            getTitle: { [weak titleProvider] in
-                titleProvider?.getSubmitButtonTitle() ?? "Записаться на игру"
+            getTitle: { [weak dataProvider] in
+                dataProvider?.getSubmitButtonTitle() ?? "Записаться на игру"
             },
             tapAction: { [weak output] in
                 output?.submitButtonPressed()
@@ -47,9 +50,14 @@ final class GamePageSubmitBuilder {
     }
 
     private func makeAgreementItem() -> GamePageItemProtocol {
-        GamePageAgreementItem { [weak output] in
-            output?.agreementButtonPressed()
-        }
+        GamePageAgreementItem(
+            text: dataProvider.getAgreementText(),
+            links: dataProvider.getAgreementLinks().map { [weak output] webLink in
+                TextLink(text: webLink.text) {
+                    output?.didPressLink(url: webLink.url)
+                }
+            }
+        )
     }
 }
 
