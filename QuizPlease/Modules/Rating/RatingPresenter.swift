@@ -40,11 +40,16 @@ final class RatingPresenter: RatingPresenterProtocol {
     private let interactor: RatingInteractorProtocol
     private let analyticsService: AnalyticsService
     private let ratingItemMapper: RatingTeamDataToItemMapper
+    private let log: Logger
+
+    private var leagues: [RatingLeagueData] = []
 
     var teams: [RatingTeamItem] = []
     var filteredTeams: [RatingTeamItem] = []
 
-    let availableGameTypeNames = RatingFilter.RatingLeague.allCases.map { $0.name }
+    var availableGameTypeNames: [String] {
+        leagues.map { $0.title }
+    }
     var filter = RatingFilter(scope: .season)
 
     var availableFilters: [RatingFilter.RatingScope] {
@@ -58,17 +63,20 @@ final class RatingPresenter: RatingPresenterProtocol {
         interactor: RatingInteractorProtocol,
         router: RatingRouterProtocol,
         analyticsService: AnalyticsService,
-        ratingItemMapper: RatingTeamDataToItemMapper
+        ratingItemMapper: RatingTeamDataToItemMapper,
+        log: Logger
     ) {
         self.interactor = interactor
         self.router = router
         self.analyticsService = analyticsService
         self.ratingItemMapper = ratingItemMapper
+        self.log = log
     }
 
     // MARK: - Actions
     func didChangeLeague(_ selectedIndex: Int) {
-        let league = RatingFilter.RatingLeague.allCases[selectedIndex]
+        guard leagues.indices.contains(selectedIndex) else { return }
+        let league = leagues[selectedIndex]
         filter.league = league
         reloadRating()
         updateHeaderContent()
@@ -83,12 +91,6 @@ final class RatingPresenter: RatingPresenterProtocol {
 
     func didChangeTeamName(_ name: String) {
         searchByTeamName(name)
-//        filteredTeams = teams.filter { $0.name.lowercased().contains(name.lowercased()) }
-//        if filteredTeams.isEmpty {
-//            searchByTeamName(name)
-//        } else {
-//            view?.reloadRatingList()
-//        }
     }
 
     func didPressSearchButton(with query: String) {
@@ -101,14 +103,12 @@ final class RatingPresenter: RatingPresenterProtocol {
 
     func searchByTeamName(_ name: String) {
         filter.teamName = name
-        // view?.startLoading()
         reloadRating(afterDelay: 0.5)
     }
 
     func viewDidLoad(_ view: RatingViewProtocol) {
-        view.configure()
         updateHeaderContent()
-        loadRating()
+        interactor.loadLeagues()
         analyticsService.sendEvent(.ratingOpen)
     }
 
@@ -128,7 +128,7 @@ final class RatingPresenter: RatingPresenterProtocol {
     private func updateHeaderContent() {
         view?.setHeaderLabelContent(
             city: filter.city.title,
-            leagueComment: filter.league.comment,
+            leagueComment: filter.league?.title ?? "",
             ratingScopeComment: filter.scope.comment
         )
     }
@@ -149,6 +149,10 @@ final class RatingPresenter: RatingPresenterProtocol {
 
     /// Calls interactor's `loadRating` method using value of the `currentPage` without changing it
     private func loadRating(afterDelay delay: Double = 0) {
+        guard filter.league?.id != nil else {
+            log.error("Attempted to load rating without a selected league")
+            return
+        }
         view?.startLoading()
         interactor.loadRating(with: filter, page: currentPage, delay: delay)
     }
@@ -171,6 +175,18 @@ extension RatingPresenter: RatingInteractorOutput {
         }
         view?.stopLoading()
         view?.showErrorConnectingToServerAlert()
+    }
+
+    func interactor(_ interactor: RatingInteractorProtocol, didLoadLeagues leagues: [RatingLeagueData]) {
+        self.leagues = leagues
+
+        if filter.league == nil, let first = leagues.first {
+            filter.league = first
+            view?.configureHeaderWithFilters()
+            updateHeaderContent()
+        }
+
+        loadRating()
     }
 
     func interactor(_ interactor: RatingInteractorProtocol, didLoadRatingItems ratingDataItems: [RatingTeamItemData]) {

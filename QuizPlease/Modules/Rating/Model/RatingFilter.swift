@@ -31,42 +31,8 @@ struct RatingFilter {
         }
     }
 
-    enum RatingLeague: Int, Codable, CaseIterable {
-        case classic = 1, movieAndMusic, streams, teens, englishPlease
-
-        var name: String {
-            switch self {
-            case .classic:
-                return "Классические игры"
-            case .movieAndMusic:
-                return "Кино и музыка"
-            case .teens:
-                return "Teens"
-            case .englishPlease:
-                return "English, please!"
-            case .streams:
-                return "Стримы"
-            }
-        }
-
-        var comment: String {
-            switch self {
-            case .classic:
-                return "классических игр"
-            case .movieAndMusic:
-                return "кино-музыкальных игр"
-            case .teens:
-                return "игр Teens"
-            case .englishPlease:
-                return "игр English, please!"
-            case .streams:
-                return "онлайн игр"
-            }
-        }
-    }
-
     var city: City = AppSettings.defaultCity
     var teamName: String = ""
-    var league: RatingLeague = .classic
+    var league: RatingLeagueData?
     var scope: RatingScope = .allTime
 }

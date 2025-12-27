@@ -12,5 +12,5 @@ struct RatingTeamItemData: Decodable {
     let title: String
     let points: Double
     let games: Int
-    let rank: RatingTeamRankData
+    let rank: RatingTeamRankData?
 }

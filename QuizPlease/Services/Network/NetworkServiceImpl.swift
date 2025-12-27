@@ -9,14 +9,24 @@
 import Foundation
 import Alamofire
 
+private enum Constants {
+    static let emptyData: String = "<empty>"
+    static let stringRepresentationError: String = "<error>"
+}
+
 final class NetworkServiceImpl: NetworkServiceProtocol {
 
     private let responseDecoder: NetworkResponseDecoder
+    private let log: Logger
 
     // MARK: - Init
 
-    init(responseDecoder: NetworkResponseDecoder = NetworkResponseDecoderImpl()) {
+    init(
+        responseDecoder: NetworkResponseDecoder,
+        log: Logger
+    ) {
         self.responseDecoder = responseDecoder
+        self.log = log
     }
 
     private func baseUrlComponents(networkConfiguration: NetworkConfiguration) -> URLComponents {
@@ -58,13 +68,11 @@ final class NetworkServiceImpl: NetworkServiceProtocol {
         let config = URLSessionConfiguration.default
         config.timeoutIntervalForRequest = 15
 
-        print("""
-        \n=====
-        [\(Self.self).swift] REQUEST ⬆️
-        URL: \(url)
-        HTTP Method: \(request.httpMethod ?? "GET")
+        log.info("""
+        REQUEST ⬆️ \(request.httpMethod ?? "GET") \(url)
         Headers: \(request.allHTTPHeaderFields ?? [:])
-        =====\n\n
+        Body:
+        \(getString(request.httpBody))
         """)
 
         let session = URLSession(configuration: config)
@@ -73,44 +81,35 @@ final class NetworkServiceImpl: NetworkServiceProtocol {
 
             if let error = error {
                 DispatchQueue.main.async {
-                    completion(.failure(.other(error)))
+                    completion(.failure(.networkError(error as NSError)))
                 }
                 return
             }
 
             guard let response = response as? HTTPURLResponse else {
-                print("""
-                🚫 Error: Received Non-HTTP Response
-                =====\n\n
-                """)
+                log.error("🚫 Received Non-HTTP Response")
                 DispatchQueue.main.async {
                     completion(.failure(.serverError(500)))
                 }
                 return
             }
 
-            print("""
-            \n=====
-            [\(Self.self).swift] RESPONSE ⬇️
-            URL: \(url)
+            log.info("""
+            RESPONSE ⬇️ \(request.httpMethod ?? "GET") \(url)
             Status Code: \(response.statusCode)
+            Headers: \(response.allHeaderFields)
+            Body:
+            \(getString(data))
             """)
+
             guard response.statusCode == 200, let data = data else {
-                print("""
-                ❌ Error: either status code != 200, or data is nil
-                =====\n\n
-                """)
+                log.error("❌ Either status code != 200, or data is nil")
                 DispatchQueue.main.async {
                     completion(.failure(.serverError(response.statusCode)))
                 }
                 return
             }
 
-            print("""
-            Body:
-            \(String(data: data, encoding: .utf8) ?? "❌ JSON error.")
-            =====\n\n
-            """)
             let result = self.responseDecoder.decode(data, to: responseType)
             DispatchQueue.main.async {
                 completion(result)
@@ -323,5 +322,10 @@ final class NetworkServiceImpl: NetworkServiceProtocol {
             completion: completion
         )
     }
-}
 
+    private func getString(_ data: Data?) -> String {
+        data.map {
+            String(data: $0, encoding: .utf8) ?? Constants.stringRepresentationError
+        } ?? Constants.emptyData
+    }
+}

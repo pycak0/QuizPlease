@@ -32,7 +32,7 @@ class NetworkService {
 
     static let shared = NetworkService()
 
-    private let networkService: NetworkServiceProtocol = NetworkServiceImpl()
+    private let networkService: NetworkServiceProtocol = ServiceAssembly.shared.networkService
 
     var baseUrlComponents: URLComponents {
         var urlComps = URLComponents(string: NetworkConfiguration.standard.host)!

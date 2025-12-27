@@ -45,8 +45,8 @@ struct RatingTeamDataToItemMapperImpl: RatingTeamDataToItemMapper {
             name: data.title,
             games: data.games,
             pointsTotal: data.points,
-            rank: data.rank.title,
-            imagePath: data.rank.image.path
+            rank: data.rank?.title,
+            imagePath: data.rank?.image.path
         )
     }
 

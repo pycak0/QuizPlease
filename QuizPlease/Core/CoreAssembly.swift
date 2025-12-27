@@ -55,4 +55,7 @@ final class CoreAssembly {
 
     /// A service that executes tasks asynchronously
     lazy var concurrentExecutor: AsyncExecutor = ConcurrentExecutorImpl()
+
+    /// Centralized logger (os.Logger-based)
+    lazy var logger: Logger = OsLogLogger()
 }

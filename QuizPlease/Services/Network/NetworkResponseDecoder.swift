@@ -47,7 +47,7 @@ final class NetworkResponseDecoderImpl: NetworkResponseDecoder {
 
     private let jsonDecoder: JsonDecoder
 
-    init(jsonDecoder: JsonDecoder = JSONDecoder()) {
+    init(jsonDecoder: JsonDecoder) {
         self.jsonDecoder = jsonDecoder
     }
     

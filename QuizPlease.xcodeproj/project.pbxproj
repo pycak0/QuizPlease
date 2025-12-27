@@ -41,6 +41,9 @@
 		4C5B257D2EFDF2BF00B925E2 /* RatingTeamRankData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5B257C2EFDF2BF00B925E2 /* RatingTeamRankData.swift */; };
 		4C5B257F2EFDF30C00B925E2 /* RatingTeamRankImageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5B257E2EFDF30C00B925E2 /* RatingTeamRankImageData.swift */; };
 		4C5B25822EFDF48800B925E2 /* RatingTeamDataToItemMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5B25812EFDF48800B925E2 /* RatingTeamDataToItemMapper.swift */; };
+		4C5B25842EFE08E600B925E2 /* RatingLeagueData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5B25832EFE08E600B925E2 /* RatingLeagueData.swift */; };
+		4C5B25862EFF5C4000B925E2 /* OsLogLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5B25852EFF5C4000B925E2 /* OsLogLogger.swift */; };
+		4C5B25892EFF5F2800B925E2 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5B25882EFF5F2800B925E2 /* Logger.swift */; };
 		4C72339429EFF618006D92DF /* TitledTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C72339329EFF618006D92DF /* TitledTextView.swift */; };
 		4C72339929F00D86006D92DF /* GamePageMultilineFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C72339829F00D86006D92DF /* GamePageMultilineFieldCell.swift */; };
 		4C72339B29F00EC2006D92DF /* GamePageMultilineFieldItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C72339A29F00EC2006D92DF /* GamePageMultilineFieldItem.swift */; };
@@ -518,6 +521,9 @@
 		4C5B257C2EFDF2BF00B925E2 /* RatingTeamRankData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingTeamRankData.swift; sourceTree = "<group>"; };
 		4C5B257E2EFDF30C00B925E2 /* RatingTeamRankImageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingTeamRankImageData.swift; sourceTree = "<group>"; };
 		4C5B25812EFDF48800B925E2 /* RatingTeamDataToItemMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingTeamDataToItemMapper.swift; sourceTree = "<group>"; };
+		4C5B25832EFE08E600B925E2 /* RatingLeagueData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingLeagueData.swift; sourceTree = "<group>"; };
+		4C5B25852EFF5C4000B925E2 /* OsLogLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OsLogLogger.swift; sourceTree = "<group>"; };
+		4C5B25882EFF5F2800B925E2 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		4C72339329EFF618006D92DF /* TitledTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitledTextView.swift; sourceTree = "<group>"; };
 		4C72339829F00D86006D92DF /* GamePageMultilineFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageMultilineFieldCell.swift; sourceTree = "<group>"; };
 		4C72339A29F00EC2006D92DF /* GamePageMultilineFieldItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageMultilineFieldItem.swift; sourceTree = "<group>"; };
@@ -1068,6 +1074,7 @@
 				4C5B257A2EFD9A5E00B925E2 /* RatingTeamItemData.swift */,
 				4C5B257C2EFDF2BF00B925E2 /* RatingTeamRankData.swift */,
 				4C5B257E2EFDF30C00B925E2 /* RatingTeamRankImageData.swift */,
+				4C5B25832EFE08E600B925E2 /* RatingLeagueData.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -1078,6 +1085,15 @@
 				4C5B25812EFDF48800B925E2 /* RatingTeamDataToItemMapper.swift */,
 			);
 			path = Service;
+			sourceTree = "<group>";
+		};
+		4C5B25872EFF5F1B00B925E2 /* Logger */ = {
+			isa = PBXGroup;
+			children = (
+				4C5B25852EFF5C4000B925E2 /* OsLogLogger.swift */,
+				4C5B25882EFF5F2800B925E2 /* Logger.swift */,
+			);
+			path = Logger;
 			sourceTree = "<group>";
 		};
 		4C72339529EFF621006D92DF /* TitledTextView */ = {
@@ -2128,6 +2144,7 @@
 		A4D44A2328D13956004703B4 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				4C5B25872EFF5F1B00B925E2 /* Logger */,
 				A4E06B8329E9DE050005C57B /* Cache */,
 				A44C697924EFE6E000AB3BC9 /* Protocols */,
 				A4F2347B2685E0D200E6FC68 /* AnyCodable */,
@@ -2766,6 +2783,7 @@
 				4C00220D29ED8A820030B1FD /* GamePageLaunchOptions.swift in Sources */,
 				A4C71769254E016400898CA5 /* PaymentProvider.swift in Sources */,
 				A4C5CE0A29FAB751002407B2 /* RatingEmptyCell.swift in Sources */,
+				4C5B25842EFE08E600B925E2 /* RatingLeagueData.swift in Sources */,
 				A40B758424D9A7CD006DB7D1 /* WarmupInteractor.swift in Sources */,
 				4CDB228B29E5988100DD9E7C /* GamePageRegisterButtonItem.swift in Sources */,
 				A48F64642501416300E7A528 /* ScheduleFilterProtocol.swift in Sources */,
@@ -2837,6 +2855,7 @@
 				A4EE9EA529E5EEBD00DDFC50 /* GameStatusProvider.swift in Sources */,
 				A4E06B8929E9EC950005C57B /* GameInfoLoader.swift in Sources */,
 				4CDB228929E593D400DD9E7C /* GamePageRegisterButtonCell.swift in Sources */,
+				4C5B25892EFF5F2800B925E2 /* Logger.swift in Sources */,
 				A4E91EBE26C312BA008C13A7 /* WarmupQuestionsService.swift in Sources */,
 				A4AFCD3E2953B1FA005F858C /* ServiceAssembly.swift in Sources */,
 				A4E06B5C29E823AF0005C57B /* CLLocationCoordinate2D+Equatable.swift in Sources */,
@@ -2927,6 +2946,7 @@
 				4CDA3D2A2ED3779300C4DEB7 /* CLLocationCoordinate2D+Static.swift in Sources */,
 				A45C656F265D2136009A63BB /* Cancellable.swift in Sources */,
 				A44A462F24F901ED00C81F82 /* WarmupQuestionVC.swift in Sources */,
+				4C5B25862EFF5C4000B925E2 /* OsLogLogger.swift in Sources */,
 				A4FCBC28263C8F1A0048D382 /* ShopPurchaseResponse.swift in Sources */,
 				A4D0C2662684EBF60012E05C /* PointsDecorator.swift in Sources */,
 				A43DB6AF254770F8006E4569 /* ActivityIndicator+Extensions.swift in Sources */,

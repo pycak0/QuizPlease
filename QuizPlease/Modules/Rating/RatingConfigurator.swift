@@ -15,14 +15,16 @@ final class RatingConfigurator: Configurator {
 
     func configure(_ view: RatingViewProtocol) {
         let interactor = RatingInteractor(
-            networkService: service.networkService
+            networkService: service.networkService,
+            log: service.core.logger
         )
         let router = RatingRouter(viewController: view)
         let presenter = RatingPresenter(
             interactor: interactor,
             router: router,
             analyticsService: service.analytics,
-            ratingItemMapper: ratingItemMapper
+            ratingItemMapper: ratingItemMapper,
+            log: service.core.logger
         )
         presenter.view = view
         interactor.output = presenter

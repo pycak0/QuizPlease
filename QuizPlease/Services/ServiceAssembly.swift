@@ -48,7 +48,10 @@ final class ServiceAssembly {
 
     /// Network service
     lazy var networkService: NetworkServiceProtocol = {
-        NetworkServiceImpl(responseDecoder: networkResponseDecoder)
+        NetworkServiceImpl(
+            responseDecoder: networkResponseDecoder,
+            log: core.logger
+        )
     }()
 
     /// Response decoder used in `NetworkService`
