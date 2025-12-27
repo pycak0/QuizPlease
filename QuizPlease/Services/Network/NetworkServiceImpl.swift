@@ -9,11 +9,6 @@
 import Foundation
 import Alamofire
 
-private enum Constants {
-    static let emptyData: String = "<empty>"
-    static let stringRepresentationError: String = "<error>"
-}
-
 final class NetworkServiceImpl: NetworkServiceProtocol {
 
     private let responseDecoder: NetworkResponseDecoder
@@ -70,9 +65,10 @@ final class NetworkServiceImpl: NetworkServiceProtocol {
 
         log.info("""
         REQUEST ⬆️ \(request.httpMethod ?? "GET") \(url)
-        Headers: \(request.allHTTPHeaderFields ?? [:])
+        Headers:
+        \(NetworkLogFormatter.prettyHeaders(request.allHTTPHeaderFields ?? [:]))
         Body:
-        \(getString(request.httpBody))
+        \(NetworkLogFormatter.prettyBody(request.httpBody))
         """)
 
         let session = URLSession(configuration: config)
@@ -97,9 +93,10 @@ final class NetworkServiceImpl: NetworkServiceProtocol {
             log.info("""
             RESPONSE ⬇️ \(request.httpMethod ?? "GET") \(url)
             Status Code: \(response.statusCode)
-            Headers: \(response.allHeaderFields)
+            Headers:
+            \(NetworkLogFormatter.prettyHeaders(response.allHeaderFields))
             Body:
-            \(getString(data))
+            \(NetworkLogFormatter.prettyBody(data))
             """)
 
             guard response.statusCode == 200, let data = data else {
@@ -119,6 +116,8 @@ final class NetworkServiceImpl: NetworkServiceProtocol {
 
         return task
     }
+
+    // MARK: - POST (JSON)
 
     @discardableResult
     func post<Object: Encodable, Response: Decodable & Sendable>(
@@ -165,14 +164,12 @@ final class NetworkServiceImpl: NetworkServiceProtocol {
         let config = URLSessionConfiguration.default
         config.timeoutIntervalForRequest = 15
 
-        print("""
-        \n=====
-        [\(Self.self).swift] REQUEST ⬆️
-        URL: \(url)
-        HTTP Method: POST
-        Headers: \(request.allHTTPHeaderFields ?? [:])
-        Body: \(String(data: request.httpBody ?? Data(), encoding: .utf8) ?? "nil")
-        =====\n\n
+        log.info("""
+        REQUEST ⬆️ \(request.httpMethod ?? "POST") \(url)
+        Headers:
+        \(NetworkLogFormatter.prettyHeaders(request.allHTTPHeaderFields ?? [:]))
+        Body:
+        \(NetworkLogFormatter.prettyBody(request.httpBody))
         """)
 
         let session = URLSession(configuration: config)
@@ -187,39 +184,30 @@ final class NetworkServiceImpl: NetworkServiceProtocol {
             }
 
             guard let httpResponse = response as? HTTPURLResponse else {
-                print("""
-                🚫 Error: Received Non-HTTP Response
-                =====\n\n
-                """)
+                log.error("🚫 Received Non-HTTP Response")
                 DispatchQueue.main.async {
                     completion(.failure(.serverError(500)))
                 }
                 return
             }
 
-            print("""
-            \n=====
-            [\(Self.self).swift] RESPONSE ⬇️
-            URL: \(httpResponse.url?.absoluteString ?? "unknown")
+            log.info("""
+            RESPONSE ⬇️ \(request.httpMethod ?? "POST") \(httpResponse.url?.absoluteString ?? "unknown")
             Status Code: \(httpResponse.statusCode)
+            Headers:
+            \(NetworkLogFormatter.prettyHeaders(httpResponse.allHeaderFields))
+            Body:
+            \(NetworkLogFormatter.prettyBody(data))
             """)
 
             guard httpResponse.statusCode == 200, let data = data else {
-                print("""
-                ❌ Error: either status code != 200, or data is nil
-                =====\n\n
-                """)
+                log.error("❌ Either status code != 200, or data is nil")
                 DispatchQueue.main.async {
                     completion(.failure(.serverError(httpResponse.statusCode)))
                 }
                 return
             }
 
-            print("""
-            Body:
-            \(String(data: data, encoding: .utf8) ?? "❌ JSON error.")
-            =====\n\n
-            """)
             let result = self.responseDecoder.decode(data, to: reponseType)
             DispatchQueue.main.async {
                 completion(result)
@@ -229,6 +217,8 @@ final class NetworkServiceImpl: NetworkServiceProtocol {
 
         return task
     }
+
+    // MARK: - AF POST (multipart/form-data)
 
     func afPost<Response: Decodable & Sendable>(
         with multipartFormDataObjects: MultipartFormDataObjects,
@@ -251,7 +241,17 @@ final class NetworkServiceImpl: NetworkServiceProtocol {
             return
         }
         let httpHeaders = headers.isEmpty ? nil : HTTPHeaders(headers)
+        let httpMethod = "POST"
         let formDataMessage = "(Content-Disposition: form-data)"
+
+        log.info("""
+        REQUEST ⬆️ \(httpMethod) \(urlComponents.url?.absoluteString ?? "unknown") \(formDataMessage)
+        Headers:
+        \(NetworkLogFormatter.prettyHeaders(headers))
+        Body:
+        \(multipartFormDataObjects)
+        """)
+
         AF.upload(
             multipartFormData: { (multipartFormData) in
                 for object in multipartFormDataObjects {
@@ -268,40 +268,34 @@ final class NetworkServiceImpl: NetworkServiceProtocol {
         ).responseData(queue: .global()) { [weak self] (afResponse) in
             guard let self else { return }
 
-            let statusCode = afResponse.response?.statusCode.description ?? "unknown"
-            print("""
-            \n=====
-            [\(Self.self).swift] RESPONSE ⬇️
-            URL: \(afResponse.response?.url?.description ?? "unknown")
-            HTTP Method: \(afResponse.request?.httpMethod ?? "POST") \(formDataMessage)
+            let statusCode = afResponse.response?.statusCode ?? -1
+            let responseHeaders = afResponse.response?.allHeaderFields ?? [:]
+
+            log.info("""
+            RESPONSE ⬇️ \(afResponse.request?.httpMethod ?? httpMethod) \(afResponse.response?.url?.absoluteString ?? "unknown") \(formDataMessage)
             Status Code: \(statusCode)
+            Headers:
+            \(NetworkLogFormatter.prettyHeaders(responseHeaders))
+            Body:
+            \(NetworkLogFormatter.prettyBody(afResponse.data))
             """)
+
             switch afResponse.result {
             case let .failure(error):
-                print("Error: \(error)")
+                log.error("❌ AF.upload failure: \(error.localizedDescription)")
                 DispatchQueue.main.async {
                     completion(.failure(.other(error)))
                 }
             case let .success(data):
-                print("Body:")
-                print(String(data: data, encoding: .utf8) ?? "json decoding error")
                 let result = self.responseDecoder.decode(data, to: responseType)
                 DispatchQueue.main.async {
                     completion(result)
                 }
             }
-            print("=====\n\n")
         }
-        print("""
-        \n=====
-        [\(Self.self).swift] REQUEST ⬆️
-        URL: \(urlComponents.url?.description ?? "unknown")
-        HTTP Method: POST \(formDataMessage)
-        Headers: \(headers)
-        Body parameters: \(multipartFormDataObjects)
-        =====\n\n
-        """)
     }
+
+    // MARK: - AF POST (x-www-form-urlencoded via multipart builder)
 
     func afPost<Response: Decodable & Sendable>(
         with bodyParameters: [String : String?],
@@ -321,11 +315,5 @@ final class NetworkServiceImpl: NetworkServiceProtocol {
             authorizationKind: authorizationKind,
             completion: completion
         )
-    }
-
-    private func getString(_ data: Data?) -> String {
-        data.map {
-            String(data: $0, encoding: .utf8) ?? Constants.stringRepresentationError
-        } ?? Constants.emptyData
     }
 }
