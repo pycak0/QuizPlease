@@ -107,7 +107,8 @@ final class RatingPresenter: RatingPresenterProtocol {
     }
 
     func viewDidLoad(_ view: RatingViewProtocol) {
-        updateHeaderContent()
+        setHeaderLoading()
+        view.startLoading()
         interactor.loadLeagues()
         analyticsService.sendEvent(.ratingOpen)
     }
@@ -125,12 +126,16 @@ final class RatingPresenter: RatingPresenterProtocol {
         interactor.cancelLoading()
     }
 
+    private func setHeaderLoading() {
+        view?.setHeaderLabelContent("Загрузка…")
+    }
+
     private func updateHeaderContent() {
-        view?.setHeaderLabelContent(
-            city: filter.city.title,
-            leagueComment: filter.league?.title ?? "",
-            ratingScopeComment: filter.scope.comment
-        )
+        let league = filter.league?.title.appending(" ") ?? ""
+        let scope = filter.scope.comment
+        let city = filter.city.title
+        let headerText = "Рейтинг \(league)\(scope) в городе: \(city)"
+        view?.setHeaderLabelContent(headerText)
     }
 
     private func resetData() {

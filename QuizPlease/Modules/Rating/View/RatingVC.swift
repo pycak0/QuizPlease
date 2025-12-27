@@ -18,7 +18,7 @@ protocol RatingViewProtocol: UIViewController, LoadingIndicator {
     func addItems(_ newItems: [RatingItem])
 
     func configureHeaderWithFilters()
-    func setHeaderLabelContent(city: String, leagueComment: String, ratingScopeComment: String)
+    func setHeaderLabelContent(_ text: String)
 }
 
 final class RatingVC: UIViewController {
@@ -112,12 +112,8 @@ extension RatingVC: RatingViewProtocol {
         expandingHeader.dataSource = self
     }
 
-    func setHeaderLabelContent(city: String, leagueComment: String, ratingScopeComment: String) {
-        expandingHeader.setFooterContent(
-            city: city,
-            gameType: leagueComment,
-            season: ratingScopeComment
-        )
+    func setHeaderLabelContent(_ text: String) {
+        expandingHeader.setFooterContent(text)
     }
 }
 
