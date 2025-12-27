@@ -187,7 +187,7 @@ class NetworkService {
 
         // Optional query items
         if let id = filter.date?.id {
-            parameters["months[]"] = "\(id)"
+            parameters["month"] = "\(id)"
         }
         if let id = filter.format?.id {
             parameters["formats[]"] = "\(id)"
