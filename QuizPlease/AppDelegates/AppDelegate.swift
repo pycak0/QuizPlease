@@ -17,6 +17,7 @@ import PhoneNumberKit
 class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate {
 
     private let transitionFacade = CoreAssembly.shared.transitionFacade
+    private let userService: UserService = ServiceAssembly.shared.userService
 
     var window: UIWindow?
 
@@ -41,7 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate {
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
-        Utilities.main.updateToken()
+        userService.updateToken()
     }
 
     // MARK: UISceneSession Lifecycle
