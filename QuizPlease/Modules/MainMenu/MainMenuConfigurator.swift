@@ -14,7 +14,8 @@ final class MainMenuConfigurator: Configurator {
 
     func configure(_ mainMenuVC: MainMenuViewProtocol) {
         let interactor = MainMenuInteractor(
-            notificationService: services.notificationService
+            notificationService: services.notificationService,
+            userService: services.userService
         )
         let router = MainMenuRouter(
             viewController: mainMenuVC,

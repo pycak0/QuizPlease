@@ -41,25 +41,22 @@ protocol ProfileInteractorDelegate: AnyObject {
 
 final class ProfileInteractor: ProfileInteractorProtocol {
 
-    private let networkService: NetworkServiceProtocol
     private let log: Logger
-    private let userInfoLoader: UserInfoLoaderProtocol
+    private let userService: UserServiceProtocol
 
     weak var delegate: ProfileInteractorDelegate?
 
     init(
-        networkService: NetworkServiceProtocol,
-        log: Logger,
-        userInfoLoader: UserInfoLoaderProtocol
+        userService: UserServiceProtocol,
+        log: Logger
     ) {
-        self.networkService = networkService
+        self.userService = userService
         self.log = log
-        self.userInfoLoader = userInfoLoader
     }
 
     // MARK: - Load User Info
     func loadUserInfo() {
-        userInfoLoader.load { [weak self] result in
+        userService.loadUserInfo { [weak self] result in
             guard let self else { return }
             switch result {
             case let .success(userInfo):
@@ -77,23 +74,11 @@ final class ProfileInteractor: ProfileInteractorProtocol {
     }
 
     func deleteUserAccount() {
-        networkService.afPost(
-            with: [:],
-            queryParameters: nil,
-            and: nil,
-            to: "/api/users/delete",
-            responseType: ServerResponse<DeleteResponse>.self,
-            authorizationKind: .bearer
-        ) { [weak self] result in
+        userService.deleteAccount { [weak self] result in
             guard let self else { return }
             switch result {
-            case let .success(response):
-                if response.data.isSuccess {
-                    self.delegate?.didSuccessfullyDeleteAccount()
-                } else {
-                    self.log.error("Error deleting account")
-                    self.delegate?.didFailDeletingAccount(with: .serverError(1000))
-                }
+            case .success:
+                self.delegate?.didSuccessfullyDeleteAccount()
             case let .failure(error):
                 self.log.error("Error deleting account: \(error.localizedDescription)")
                 self.delegate?.didFailDeletingAccount(with: error)
@@ -109,4 +94,3 @@ final class ProfileInteractor: ProfileInteractorProtocol {
         DefaultsManager.shared.setProfileOnboardingWasPresented()
     }
 }
-

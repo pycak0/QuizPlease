@@ -35,12 +35,17 @@ protocol MainMenuInteractorOutput: AnyObject {
 class MainMenuInteractor: MainMenuInteractorProtocol {
 
     private let notificationService: NotificationService
+    private let userService: UserServiceProtocol
     private var didPostMainScreenLoaded = false
 
     weak var output: MainMenuInteractorOutput?
 
-    init(notificationService: NotificationService) {
+    init(
+        notificationService: NotificationService,
+        userService: UserServiceProtocol
+    ) {
         self.notificationService = notificationService
+        self.userService = userService
     }
 
     func postMainScreenLoaded() {
@@ -67,7 +72,7 @@ class MainMenuInteractor: MainMenuInteractorProtocol {
     }
 
     func loadUserInfo() {
-        NetworkService.shared.getUserInfo { [weak self] result in
+        userService.loadUserInfo { [weak self] result in
             guard let self = self else { return }
             switch result {
             case let .failure(error):
