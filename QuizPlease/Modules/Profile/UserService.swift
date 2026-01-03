@@ -28,6 +28,13 @@ final class UserServiceImpl: UserService {
     private let networkService: NetworkServiceProtocol
     private let log: Logger
 
+    // MARK: - In-memory cache (5 минут)
+
+    private let cacheQueue = DispatchQueue(label: "ru.quizplease.userService.cache", qos: .userInitiated)
+    private var cachedUserInfo: UserInfo?
+    private var cachedUserInfoDate: Date?
+    private let userInfoCacheTTL: TimeInterval = 5 * 60
+
     init(
         networkService: NetworkServiceProtocol,
         log: Logger
@@ -37,6 +44,18 @@ final class UserServiceImpl: UserService {
     }
 
     func loadUserInfo(completion: @escaping (Result<UserInfo, NetworkServiceError>) -> Void) {
+        // Попытка вернуть валидный кэш
+        if let cached = cacheQueue.sync(execute: { () -> UserInfo? in
+            guard let value = cachedUserInfo, let date = cachedUserInfoDate else { return nil }
+            let isValid = Date().timeIntervalSince(date) < userInfoCacheTTL
+            return isValid ? value : nil
+        }) {
+            log.info("UserService: returning cached UserInfo")
+            completion(.success(cached))
+            return
+        }
+
+        // Кэш пуст/просрочен — запрос в сеть
         let parameters: [String: String?] = [
             "city_id": "\(AppSettings.defaultCity.id)"
         ]
@@ -51,6 +70,11 @@ final class UserServiceImpl: UserService {
             guard let self else { return }
             switch result {
             case let .success(response):
+                // Обновляем кэш
+                self.cacheQueue.async {
+                    self.cachedUserInfo = response.data
+                    self.cachedUserInfoDate = Date()
+                }
                 completion(.success(response.data))
             case let .failure(error):
                 self.log.error("Error loading user info: \(error.localizedDescription)")
@@ -72,6 +96,13 @@ final class UserServiceImpl: UserService {
             switch result {
             case let .success(response):
                 if response.data.isSuccess {
+                    // Инвалидация кэша при успешном удалении аккаунта
+                    self.cacheQueue.async {
+                        self.cachedUserInfo = nil
+                        self.cachedUserInfoDate = nil
+                    }
+                    AppSettings.userToken = nil
+                    DefaultsManager.shared.removeAuthInfo()
                     completion(.success(()))
                 } else {
                     self.log.error("Error deleting account")
@@ -151,3 +182,4 @@ final class UserServiceImpl: UserService {
         }
     }
 }
+
