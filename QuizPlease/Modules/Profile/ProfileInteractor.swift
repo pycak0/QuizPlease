@@ -41,24 +41,32 @@ protocol ProfileInteractorDelegate: AnyObject {
 
 final class ProfileInteractor: ProfileInteractorProtocol {
 
-    private let networkService: NetworkService
+    private let networkService: NetworkServiceProtocol
+    private let log: Logger
+    private let userInfoLoader: UserInfoLoaderProtocol
 
     weak var delegate: ProfileInteractorDelegate?
 
-    init(networkService: NetworkService) {
+    init(
+        networkService: NetworkServiceProtocol,
+        log: Logger,
+        userInfoLoader: UserInfoLoaderProtocol
+    ) {
         self.networkService = networkService
+        self.log = log
+        self.userInfoLoader = userInfoLoader
     }
 
     // MARK: - Load User Info
     func loadUserInfo() {
-        networkService.getUserInfo { [weak self] (serverResult) in
-            guard let self = self else { return }
-            switch serverResult {
-            case let .failure(error):
-                print("[\(Self.self)] Failed to load user info: \(error)")
-                self.delegate?.didFailLoadingUserInfo(with: error)
+        userInfoLoader.load { [weak self] result in
+            guard let self else { return }
+            switch result {
             case let .success(userInfo):
                 self.delegate?.didSuccessfullyLoadUserInfo(userInfo)
+            case let .failure(error):
+                self.log.error("Error loading user info: \(error.localizedDescription)")
+                self.delegate?.didFailLoadingUserInfo(with: error)
             }
         }
     }
@@ -69,22 +77,25 @@ final class ProfileInteractor: ProfileInteractorProtocol {
     }
 
     func deleteUserAccount() {
-        networkService.afPostStandard(
-            bodyParameters: [:],
+        networkService.afPost(
+            with: [:],
+            queryParameters: nil,
+            and: nil,
             to: "/api/users/delete",
-            responseType: DeleteResponse.self,
+            responseType: ServerResponse<DeleteResponse>.self,
             authorizationKind: .bearer
         ) { [weak self] result in
-            guard let self = self else { return }
-
+            guard let self else { return }
             switch result {
             case let .success(response):
-                if response.isSuccess {
+                if response.data.isSuccess {
                     self.delegate?.didSuccessfullyDeleteAccount()
                 } else {
+                    self.log.error("Error deleting account")
                     self.delegate?.didFailDeletingAccount(with: .serverError(1000))
                 }
             case let .failure(error):
+                self.log.error("Error deleting account: \(error.localizedDescription)")
                 self.delegate?.didFailDeletingAccount(with: error)
             }
         }
@@ -98,3 +109,4 @@ final class ProfileInteractor: ProfileInteractorProtocol {
         DefaultsManager.shared.setProfileOnboardingWasPresented()
     }
 }
+
