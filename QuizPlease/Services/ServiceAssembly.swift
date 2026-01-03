@@ -66,7 +66,7 @@ final class ServiceAssembly {
     )
 
     /// Service that manages user info
-    lazy var userService: UserServiceProtocol = UserService(
+    lazy var userService: UserService = UserServiceImpl(
         networkService: networkService,
         log: core.logger
     )

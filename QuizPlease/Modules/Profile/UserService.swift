@@ -7,12 +7,12 @@
 
 import Foundation
 
-protocol UserServiceProtocol {
+protocol UserService {
     func loadUserInfo(completion: @escaping (Result<UserInfo, NetworkServiceError>) -> Void)
     func deleteAccount(completion: @escaping (Result<Void, NetworkServiceError>) -> Void)
 }
 
-final class UserService: UserServiceProtocol {
+final class UserServiceImpl: UserService {
 
     private let networkService: NetworkServiceProtocol
     private let log: Logger

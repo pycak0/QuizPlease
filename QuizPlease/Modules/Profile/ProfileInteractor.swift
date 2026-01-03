@@ -42,12 +42,12 @@ protocol ProfileInteractorDelegate: AnyObject {
 final class ProfileInteractor: ProfileInteractorProtocol {
 
     private let log: Logger
-    private let userService: UserServiceProtocol
+    private let userService: UserService
 
     weak var delegate: ProfileInteractorDelegate?
 
     init(
-        userService: UserServiceProtocol,
+        userService: UserService,
         log: Logger
     ) {
         self.userService = userService
