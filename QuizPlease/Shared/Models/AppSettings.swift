@@ -9,12 +9,6 @@
 import Foundation
 
 public enum AppSettings {
-    public static var userToken: String? {
-        didSet {
-            // guard let token = userToken else { return }
-            // DefaultsManager.shared.saveUserToken(token)
-        }
-    }
 
     public static var defaultCity: City = .moscow {
         didSet {
@@ -53,7 +47,6 @@ public enum AppSettings {
     public static var description: String {
         """
         AppSettings: {
-            userToken: "\(userToken ?? "nil")"
             defaultCity: \(defaultCity)
             isShopEnabled: \(isShopEnabled)
             isProfileEnabled: \(isProfileEnabled)

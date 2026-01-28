@@ -50,6 +50,7 @@ final class ServiceAssembly {
     lazy var networkService: NetworkServiceProtocol = {
         NetworkServiceImpl(
             responseDecoder: networkResponseDecoder,
+            defaults: core.defaults,
             log: core.logger
         )
     }()
@@ -63,5 +64,19 @@ final class ServiceAssembly {
     lazy var notificationService: NotificationService = NotificationServiceImpl(
         mainExecutor: core.mainExecutor,
         log: core.logger
+    )
+
+    lazy var authService: AuthService = AuthServiceImpl(
+        networkService: networkService,
+        defaults: core.defaults,
+        log: core.logger
+    )
+
+    /// Service that manages user info
+    lazy var userService: UserService = UserServiceImpl(
+        networkService: networkService,
+        defaults: core.defaults,
+        log: core.logger,
+        authService: authService
     )
 }

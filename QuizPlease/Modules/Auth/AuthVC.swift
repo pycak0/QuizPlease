@@ -28,6 +28,8 @@ final class AuthVC: UIViewController {
 
     private let hapticsGenerator = UINotificationFeedbackGenerator()
 
+    private let authService: AuthService = ServiceAssembly.shared.authService
+
     private var isCodeSent: Bool = false
     private var phoneNumber: String?
     private var smsCode: String?
@@ -88,7 +90,7 @@ final class AuthVC: UIViewController {
     // MARK: - Register
     private func register(phone: String) {
         let userData = UserRegisterData(phone: phone, cityId: "\(AppSettings.defaultCity.id)")
-        NetworkService.shared.register(userData) { [weak self] (serverResult) in
+        authService.register(userData) { [weak self] (serverResult) in
             guard let self = self else { return }
 
             switch serverResult {
@@ -110,7 +112,7 @@ final class AuthVC: UIViewController {
 
     // MARK: - Send Code
     private func sendCode(to phoneNumber: String) {
-        NetworkService.shared.sendCode(to: phoneNumber) { [weak self] (isSuccess) in
+        authService.sendCode(to: phoneNumber) { [weak self] (isSuccess) in
             guard let self = self else { return }
             self.activityIndicator.stopAnimating()
             self.setViews(hidden: false)
@@ -126,7 +128,7 @@ final class AuthVC: UIViewController {
     // MARK: - Auth
     private func auth(with phoneNumber: String, smsCode: String) {
         let firebaseId = DefaultsManager.shared.getFcmToken() ?? ""
-        NetworkService.shared.authenticate(
+        authService.authenticate(
             phoneNumber: phoneNumber,
             smsCode: smsCode,
             firebaseId: firebaseId
@@ -142,8 +144,6 @@ final class AuthVC: UIViewController {
                 self.showErrorConnectingToServerAlert()
             case let .success(authInfo):
                 if let token = authInfo.accessToken {
-                    AppSettings.userToken = token
-                    DefaultsManager.shared.saveAuthInfo(authInfo)
                     self.delegate?.didSuccessfullyAuthenticate(in: self)
                 } else {
                     self.showSimpleAlert(title: "Произошла ошибка", message: "Пожалуйста, попробуйте повторить еще раз")

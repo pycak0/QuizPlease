@@ -12,15 +12,18 @@ import Alamofire
 final class NetworkServiceImpl: NetworkServiceProtocol {
 
     private let responseDecoder: NetworkResponseDecoder
+    private let defaults: DefaultsManager
     private let log: Logger
 
     // MARK: - Init
 
     init(
         responseDecoder: NetworkResponseDecoder,
+        defaults: DefaultsManager,
         log: Logger
     ) {
         self.responseDecoder = responseDecoder
+        self.defaults = defaults
         self.log = log
     }
 
@@ -54,12 +57,26 @@ final class NetworkServiceImpl: NetworkServiceProtocol {
         for (key, value) in headers ?? [:] {
             request.setValue(value, forHTTPHeaderField: key)
         }
-        if let auth = authorizationKind.header {
-            request.setValue(auth.value, forHTTPHeaderField: auth.key)
-        } else if authorizationKind != .none {
-            completion(.failure(.invalidToken))
-            return nil
+
+        let auth: (key: String, value: String)?
+        switch authorizationKind {
+        case .none:
+            auth = nil
+        case .bearer:
+            if let token = defaults.getUserAuthInfo()?.accessToken {
+                auth = createBearerAuthHeader(with: token)
+            } else {
+                completion(.failure(.invalidToken))
+                return nil
+            }
+        case let .bearerCustom(token):
+            auth = createBearerAuthHeader(with: token)
         }
+
+        if let auth {
+            request.setValue(auth.value, forHTTPHeaderField: auth.key)
+        }
+
         let config = URLSessionConfiguration.default
         config.timeoutIntervalForRequest = 15
 
@@ -147,11 +164,23 @@ final class NetworkServiceImpl: NetworkServiceProtocol {
             request.setValue(value, forHTTPHeaderField: key)
         }
 
-        if let auth = authorizationKind.header {
+        let auth: (key: String, value: String)?
+        switch authorizationKind {
+        case .none:
+            auth = nil
+        case .bearer:
+            if let token = defaults.getUserAuthInfo()?.accessToken {
+                auth = createBearerAuthHeader(with: token)
+            } else {
+                completion(.failure(.invalidToken))
+                return nil
+            }
+        case let .bearerCustom(token):
+            auth = createBearerAuthHeader(with: token)
+        }
+
+        if let auth {
             request.setValue(auth.value, forHTTPHeaderField: auth.key)
-        } else if authorizationKind != .none {
-            completion(.failure(.invalidToken))
-            return nil
         }
 
         do {
@@ -236,12 +265,27 @@ final class NetworkServiceImpl: NetworkServiceProtocol {
         urlComponents.queryItems = queryParameters?.map { URLQueryItem(name: $0, value: $1) }
 
         var headers = headers ?? [:]
-        if let auth = authorizationKind.header {
-            headers[auth.key] = auth.value
-        } else if authorizationKind != .none {
-            completion(.failure(.invalidToken))
-            return
+
+        let auth: (key: String, value: String)?
+        switch authorizationKind {
+        case .none:
+            auth = nil
+        case .bearer:
+            if let token = defaults.getUserAuthInfo()?.accessToken {
+                auth = createBearerAuthHeader(with: token)
+            } else {
+                completion(.failure(.invalidToken))
+                return
+            }
+        case let .bearerCustom(token):
+            auth = createBearerAuthHeader(with: token)
         }
+
+        if let auth {
+            headers[auth.key] = auth.value
+        }
+
+
         let httpHeaders = headers.isEmpty ? nil : HTTPHeaders(headers)
         let httpMethod = "POST"
         let formDataMessage = "(Content-Disposition: form-data)"
@@ -317,5 +361,11 @@ final class NetworkServiceImpl: NetworkServiceProtocol {
             authorizationKind: authorizationKind,
             completion: completion
         )
+    }
+
+    private func createBearerAuthHeader(
+        with userToken: String
+    ) -> (key: String, value: String) {
+        return ("Authorization", "Bearer \(userToken)")
     }
 }

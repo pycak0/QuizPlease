@@ -17,17 +17,6 @@ class NetworkService {
 
     enum AuthorizationKind: Equatable {
         case none, bearer, bearerCustom(_ token: String)
-
-        var header: (key: String, value: String)? {
-            switch self {
-            case .none:
-                return nil
-            case .bearer:
-                return NetworkService.shared.createBearerAuthHeader()
-            case let .bearerCustom(token):
-                return NetworkService.shared.createBearerAuthHeader(with: token)
-            }
-        }
     }
 
     static let shared = NetworkService()
@@ -41,7 +30,7 @@ class NetworkService {
     }
 
     private func createBearerAuthHeader(
-        with token: String? = AppSettings.userToken
+        with token: String? = DefaultsManager.shared.getUserAuthInfo()?.accessToken
     ) -> (key: String, value: String)? {
         guard let userToken = token else {
             return nil
@@ -62,25 +51,6 @@ class NetworkService {
     // MARK: - GET REQUESTS =======
     //
     //
-
-    // MARK: - User Info
-    func getUserInfo(completion: @escaping ((Result<UserInfo, NetworkServiceError>) -> Void)) {
-        guard let auth = createBearerAuthHeader() else {
-            completion(.failure(.invalidToken))
-            return
-        }
-        let headers = [auth.key: auth.value]
-        let parameters: [String: String?] = [
-            "city_id": "\(AppSettings.defaultCity.id)"
-        ]
-        getStandard(
-            UserInfo.self,
-            apiPath: ApiConstants.Path.currentUser,
-            parameters: parameters,
-            headers: headers,
-            completion: completion
-        )
-    }
 
     // MARK: - Settings
     func getSettings(cityId: Int, completion: @escaping (Result<ClientSettings, NetworkServiceError>) -> Void) {
@@ -422,62 +392,6 @@ class NetworkService {
                 }
             }
         }
-    }
-
-    // MARK: - Register
-
-    func register(
-        _ user: UserRegisterData,
-        completion: @escaping (Result<RegisterResponse, NetworkServiceError>) -> Void
-    ) {
-        let parameters = [
-            "phone": user.phone,
-            "city_id": user.cityId
-        ]
-
-        afPostStandard(
-            bodyParameters: parameters,
-            to: ApiConstants.Path.authRegister,
-            responseType: RegisterResponse.self,
-            completion: completion
-        )
-    }
-
-    // MARK: - Send SMS Code
-    func sendCode(
-        to number: String,
-        completion: @escaping (_ isSuccess: Bool) -> Void
-    ) {
-        let parameters = [
-            "phone": number
-        ]
-        afPostBool(with: parameters, to: ApiConstants.Path.authToken, completion: completion)
-    }
-
-    // MARK: - Authenticate
-    func authenticate(
-        phoneNumber: String,
-        smsCode: String,
-        firebaseId: String,
-        completion: @escaping (Result<SavedAuthInfo, NetworkServiceError>) -> Void
-    ) {
-        let parameters = [
-            "phone": phoneNumber,
-            "code": smsCode,
-            "device_id": firebaseId
-        ]
-        afPostAuth(with: parameters, to: ApiConstants.Path.authToken, completion: completion)
-    }
-
-    // MARK: - Update User Token
-    func updateToken(
-        with refreshToken: String,
-        completion: @escaping (Result<SavedAuthInfo, NetworkServiceError>) -> Void
-    ) {
-        let params = [
-            "refresh_token": refreshToken
-        ]
-        afPostAuth(with: params, to: ApiConstants.Path.authToken, completion: completion)
     }
 
     // MARK: - Send Firebase ID

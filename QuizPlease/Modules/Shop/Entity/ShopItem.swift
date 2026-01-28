@@ -17,9 +17,14 @@ struct ShopItem: Decodable {
     private let images: [ShopItemImage]?
     private let offline_delivery: Int
     private let online_delivery: Int
+    private let product_id: Int?
 }
 
 extension ShopItem {
+
+    var productId: Int? {
+        product_id
+    }
 
     var imagePath: String? {
         return images?.first?.path?.pathProof

@@ -90,7 +90,7 @@ final class MainMenuPresenter: MainMenuPresenterProtocol {
     }
 
     func didPressAddGame() {
-        if AppSettings.userToken != nil {
+        if interactor.getIsUserLoggedIn() {
             router.showQRScanner()
         } else {
             if let item = menuItems?.first(where: { $0._kind == .profile }) {

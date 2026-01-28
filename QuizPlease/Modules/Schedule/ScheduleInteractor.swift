@@ -47,9 +47,14 @@ final class ScheduleInteractor: ScheduleInteractorProtocol {
     weak var output: ScheduleInteractorOutput?
 
     private let gameInfoLoader: GameInfoLoader
+    private let userService: UserService
 
-    init(gameInfoLoader: GameInfoLoader) {
+    init(
+        gameInfoLoader: GameInfoLoader,
+        userService: UserService
+    ) {
         self.gameInfoLoader = gameInfoLoader
+        self.userService = userService
     }
 
     func loadSchedule(filter: ScheduleFilter, completion: @escaping (Result<[GameInfo], NetworkServiceError>) -> Void) {
@@ -95,7 +100,7 @@ final class ScheduleInteractor: ScheduleInteractorProtocol {
     }
 
     func getSubscribedGameIds(completion: @escaping ((Set<String>) -> Void)) {
-        NetworkService.shared.getUserInfo { result in
+        userService.getUserInfo { result in
             switch result {
             case let .failure(error):
                 print(error)

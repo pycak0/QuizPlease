@@ -13,7 +13,9 @@ final class SplashScreenConfigurator: Configurator {
     let services = ServiceAssembly.shared
 
     func configure(_ view: SplashScreenViewProtocol) {
-        let interactor = SplashScreenInteractor()
+        let interactor = SplashScreenInteractor(
+            userService: services.userService
+        )
         let router = SplashScreenRouter(
             welcomeAssembly: WelcomeAssembly()
         )

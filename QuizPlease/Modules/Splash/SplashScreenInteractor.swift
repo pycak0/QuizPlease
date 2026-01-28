@@ -38,6 +38,7 @@ final class SplashScreenInteractor: SplashScreenInteractorProtocol {
     private let defaultsManager = DefaultsManager.shared
     private let utilities = Utilities.main
     private let networkService: NetworkService = .shared
+    private let userService: UserService
     private let dispatchGroup = DispatchGroup()
     /// Time that interactor just waits for the user to look at the splash screen
     private let waitingTime = 0.7
@@ -47,6 +48,12 @@ final class SplashScreenInteractor: SplashScreenInteractorProtocol {
     }
 
     weak var interactorOutput: SplashScreenInteractorOutput?
+
+    // MARK: - Init
+
+    init(userService: UserService) {
+        self.userService = userService
+    }
 
     // MARK: - SplashScreenInteractorProtocol
 
@@ -79,7 +86,7 @@ final class SplashScreenInteractor: SplashScreenInteractorProtocol {
 
     private func updateUserToken() {
         dispatchGroup.enter()
-        utilities.updateToken { [weak self] in
+        userService.updateToken { [weak self] in
             guard let self = self else { return }
             self.dispatchGroup.leave()
         }
@@ -140,3 +147,4 @@ final class SplashScreenInteractor: SplashScreenInteractorProtocol {
         )
     }
 }
+

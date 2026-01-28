@@ -13,6 +13,8 @@ protocol ProfileInteractorProtocol {
     /// must be weak
     var delegate: ProfileInteractorDelegate? { get set }
 
+    func getIsUserLoggedIn() -> Bool
+
     func loadUserInfo()
 
     /// Performs only LOCAL logout from app, e.g. removing user's auth info
@@ -41,50 +43,49 @@ protocol ProfileInteractorDelegate: AnyObject {
 
 final class ProfileInteractor: ProfileInteractorProtocol {
 
-    private let networkService: NetworkService
+    private let log: Logger
+    private let userService: UserService
 
     weak var delegate: ProfileInteractorDelegate?
 
-    init(networkService: NetworkService) {
-        self.networkService = networkService
+    init(
+        userService: UserService,
+        log: Logger
+    ) {
+        self.userService = userService
+        self.log = log
+    }
+
+    func getIsUserLoggedIn() -> Bool {
+        userService.isloggedIn
     }
 
     // MARK: - Load User Info
     func loadUserInfo() {
-        networkService.getUserInfo { [weak self] (serverResult) in
-            guard let self = self else { return }
-            switch serverResult {
-            case let .failure(error):
-                print("[\(Self.self)] Failed to load user info: \(error)")
-                self.delegate?.didFailLoadingUserInfo(with: error)
+        userService.getUserInfo { [weak self] result in
+            guard let self else { return }
+            switch result {
             case let .success(userInfo):
                 self.delegate?.didSuccessfullyLoadUserInfo(userInfo)
+            case let .failure(error):
+                self.log.error("Error loading user info: \(error.localizedDescription)")
+                self.delegate?.didFailLoadingUserInfo(with: error)
             }
         }
     }
 
     func logOut() {
-        AppSettings.userToken = nil
-        DefaultsManager.shared.removeAuthInfo()
+        userService.logout()
     }
 
     func deleteUserAccount() {
-        networkService.afPostStandard(
-            bodyParameters: [:],
-            to: "/api/users/delete",
-            responseType: DeleteResponse.self,
-            authorizationKind: .bearer
-        ) { [weak self] result in
-            guard let self = self else { return }
-
+        userService.deleteAccount { [weak self] result in
+            guard let self else { return }
             switch result {
-            case let .success(response):
-                if response.isSuccess {
-                    self.delegate?.didSuccessfullyDeleteAccount()
-                } else {
-                    self.delegate?.didFailDeletingAccount(with: .serverError(1000))
-                }
+            case .success:
+                self.delegate?.didSuccessfullyDeleteAccount()
             case let .failure(error):
+                self.log.error("Error deleting account: \(error.localizedDescription)")
                 self.delegate?.didFailDeletingAccount(with: error)
             }
         }
