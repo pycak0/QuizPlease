@@ -35,6 +35,7 @@ final class ShopCompletionVC: UIViewController {
     // MARK: - Private Properties
 
     private let analyticsService: AnalyticsService = ServiceAssembly.shared.analytics
+    private let networkService: NetworkServiceProtocol = ServiceAssembly.shared.networkService
 
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -92,7 +93,7 @@ final class ShopCompletionVC: UIViewController {
 
     // MARK: - Purchase
     private func purchase(withDelivryMethod method: DeliveryMethod, email: String) {
-        guard let itemId = shopItem.id else {
+        guard let itemId = shopItem.productId else {
             self.showSimpleAlert(
                 title: "Не удалось завершить покупку",
                 message: "Произошла ошибка, но не волнуйтесь, ваши бонусные баллы не были списаны. " +
@@ -102,11 +103,21 @@ final class ShopCompletionVC: UIViewController {
         }
         confirmButton.isEnabled = false
 
-        NetworkService.shared.purchaseProduct(
-            with: "\(itemId)",
-            deliveryMethod: method,
+        let request = ShopPurchaseRequest(
+            productId: itemId,
+            deliveryMethod: method.id,
+            cityId: AppSettings.defaultCity.id,
             email: email
-        ) { [weak self] (result) in
+        )
+
+        networkService.post(
+            request,
+            apiPath: ApiConstants.Path.orderBuy,
+            parameters: nil,
+            headers: nil,
+            authorizationKind: .bearer,
+            reponseType: ServerResponse<ShopPurchaseResponse>.self
+        ) { [weak self] result in
             guard let self = self else { return }
             self.confirmButton.isEnabled = true
 
@@ -114,7 +125,8 @@ final class ShopCompletionVC: UIViewController {
             case let .failure(error):
                 self.handleError(error)
             case let .success(response):
-                if response.message == "ok" {
+                let data = response.data
+                if data.description != nil || data.title != nil {
 
                     self.analyticsService.sendEvent(.spendVirtualCurrency(
                         value: self.shopItem.priceNumber,
@@ -168,3 +180,4 @@ final class ShopCompletionVC: UIViewController {
         segmentControl.addTarget(self, action: #selector(segmentChanged), for: .valueChanged)
     }
 }
+

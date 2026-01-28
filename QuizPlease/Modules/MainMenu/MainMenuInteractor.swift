@@ -21,6 +21,8 @@ protocol MainMenuInteractorProtocol: AnyObject {
 
     /// Loads new client settings, then calls `loadMenuItems`, `loadShopItems` and `loadUserInfo`
     func updateAllData()
+
+    func getIsUserLoggedIn() -> Bool
 }
 
 protocol MainMenuInteractorOutput: AnyObject {
@@ -81,6 +83,10 @@ class MainMenuInteractor: MainMenuInteractorProtocol {
                 self.output?.interactor(self, didLoadUserInfo: userInfo)
             }
         }
+    }
+
+    func getIsUserLoggedIn() -> Bool {
+        userService.isloggedIn
     }
 
     func loadShopItems() {

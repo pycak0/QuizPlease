@@ -13,8 +13,13 @@ protocol ShopConfiguratorProtocol {
 }
 
 class ShopConfigurator: ShopConfiguratorProtocol {
+
+    let service: ServiceAssembly = .shared
+
     func configure(_ view: ShopViewProtocol, userInfo: UserInfo?) {
-        let interactor = ShopInteractor()
+        let interactor = ShopInteractor(
+            userService: service.userService
+        )
         let router = ShopRouter(viewController: view)
         let presenter = ShopPresenter(view: view, interactor: interactor, router: router)
         presenter.userInfo = userInfo

@@ -97,10 +97,10 @@ class ProfilePresenter: ProfilePresenterProtocol {
     }
 
     private func checkAuthorization() {
-        if AppSettings.userToken == nil {
-            router.showAuthScreen()
-        } else {
+        if interactor.getIsUserLoggedIn() {
             interactor.loadUserInfo()
+        } else {
+            router.showAuthScreen()
         }
     }
 

@@ -13,6 +13,8 @@ protocol ProfileInteractorProtocol {
     /// must be weak
     var delegate: ProfileInteractorDelegate? { get set }
 
+    func getIsUserLoggedIn() -> Bool
+
     func loadUserInfo()
 
     /// Performs only LOCAL logout from app, e.g. removing user's auth info
@@ -54,9 +56,13 @@ final class ProfileInteractor: ProfileInteractorProtocol {
         self.log = log
     }
 
+    func getIsUserLoggedIn() -> Bool {
+        userService.isloggedIn
+    }
+
     // MARK: - Load User Info
     func loadUserInfo() {
-        userService.loadUserInfo { [weak self] result in
+        userService.getUserInfo { [weak self] result in
             guard let self else { return }
             switch result {
             case let .success(userInfo):
@@ -69,8 +75,7 @@ final class ProfileInteractor: ProfileInteractorProtocol {
     }
 
     func logOut() {
-        AppSettings.userToken = nil
-        DefaultsManager.shared.removeAuthInfo()
+        userService.logout()
     }
 
     func deleteUserAccount() {

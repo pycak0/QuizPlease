@@ -61,4 +61,7 @@ final class CoreAssembly {
 
     /// Centralized logger (os.Logger-based)
     lazy var logger: Logger = OsLogLogger()
+
+    /// Defaults manager store
+    lazy var defaults: DefaultsManager = .shared
 }
