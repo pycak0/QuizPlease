@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import UIKit
+import WebKit
 
 /// GamePage interactor protocol
 protocol GamePageInteractorProtocol: AnyObject,
@@ -157,14 +159,15 @@ final class GamePageInteractor: GamePageInteractorProtocol {
         if gameInfo.paymentKey?.isEmpty ?? true {
             print("❌ [\(Self.self)|\(#line)] Payment key is empty. Payment SDK launch will fail")
         }
+        register()
 
-        paymentService.launchPayment(options: PaymentOptions(
-            amount: amount,
-            description: createPaymentDescription(),
-            shopId: gameInfo.shopId ?? "",
-            transactionKey: gameInfo.paymentKey ?? "",
-            userPhoneNumber: userPhoneNumber
-        ))
+//        paymentService.launchPayment(options: PaymentOptions(
+//            amount: amount,
+//            description: createPaymentDescription(),
+//            shopId: gameInfo.shopId ?? "",
+//            transactionKey: gameInfo.paymentKey ?? "",
+//            userPhoneNumber: userPhoneNumber
+//        ))
     }
 
     private func createPaymentDescription() -> String {
@@ -187,31 +190,45 @@ final class GamePageInteractor: GamePageInteractorProtocol {
     }
 
     private func processRegistrationResponse(_ response: GameOrderResponse) {
-        var message: String = "Произошла ошибка при записи на игру"
+        let defaultMessage = "Произошла ошибка при записи на игру"
 
         // 1. Check for payment status
         if response.shouldRedirect {
-            if let url = response.link {
-                paymentService.startConfirmation(url.absoluteString)
-            } else {
-                self.paymentService.closePayment {
-                    self.completeRegistration(success: false, message: message)
-                }
+            guard
+                let urlString = response.game?.url?.link,
+                let url = URL(string: urlString)
+            else {
+                completeRegistration(success: false, message: defaultMessage)
+                return
             }
-            return
 
+            let paymentRouter = GamePagePaymentRouterImpl()
+            paymentRouter.open(
+                paymentUrl: url,
+                completion: { [weak self] result in
+                    guard let self else { return }
+                    switch result {
+                    case .success:
+                        self.completeRegistration(success: true)
+                    case let .fail(message):
+                        self.completeRegistration(success: false, message: message)
+                    case .canceled:
+                        self.completeRegistration(success: false, message: "Оплата отменена")
+                    }
+                }
+            )
+            return
         }
 
         // 2. Check for response status
+        var message: String = defaultMessage
         if response.isSuccess {
             message = response.successMessage ?? "Успешно"
         } else {
-            message = response.successMessage ?? response.errorMessage ?? "Произошла ошибка при записи на игру"
+            message = response.successMessage ?? response.errorMessage ?? defaultMessage
         }
 
-        paymentService.closePayment {
-            self.completeRegistration(success: response.isSuccessfullyRegistered, message: message)
-        }
+        completeRegistration(success: response.isSuccessfullyRegistered, message: message)
     }
 
     private func completeRegistration(success: Bool, message: String? = nil) {
@@ -410,5 +427,193 @@ extension GamePageInteractor: PaymentServiceOutput {
 
     func didConfirmPaymentSuccessfully() {
         completeRegistration(success: true)
+    }
+}
+
+private enum GamePagePaymentResult {
+    case success
+    case fail(String)
+    case canceled
+}
+
+private protocol GamePagePaymentRouter {
+    func open(paymentUrl: URL, completion: @escaping (GamePagePaymentResult) -> Void)
+}
+
+private final class GamePagePaymentRouterImpl: GamePagePaymentRouter {
+    func open(paymentUrl: URL, completion: @escaping (GamePagePaymentResult) -> Void) {
+        guard let topViewController = UIApplication.shared.getKeyWindow()?.topViewController else {
+            completion(.fail("Не удалось открыть страницу оплаты"))
+            return
+        }
+
+        let paymentViewController = GamePagePaymentViewController(
+            paymentUrl: paymentUrl,
+            completion: completion
+        )
+        let navigationController = UINavigationController(rootViewController: paymentViewController)
+        navigationController.modalPresentationStyle = .fullScreen
+        topViewController.present(navigationController, animated: true)
+    }
+}
+
+private final class GamePagePaymentViewController: UIViewController {
+    private let successPathPart = "/checkout/payments/v2/success"
+    private let contractPathPart = "/checkout/payments/v2/contract"
+
+    private let paymentUrl: URL
+    private let completion: (GamePagePaymentResult) -> Void
+
+    private var isFinished = false
+
+    private lazy var webView: WKWebView = {
+        let webView = WKWebView(frame: .zero)
+        webView.navigationDelegate = self
+        webView.uiDelegate = self
+        webView.translatesAutoresizingMaskIntoConstraints = false
+        return webView
+    }()
+
+    private lazy var activityIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .large)
+        indicator.hidesWhenStopped = true
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        return indicator
+    }()
+
+    init(paymentUrl: URL, completion: @escaping (GamePagePaymentResult) -> Void) {
+        self.paymentUrl = paymentUrl
+        self.completion = completion
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupView()
+        webView.load(URLRequest(url: paymentUrl))
+    }
+
+    private func setupView() {
+        view.backgroundColor = .systemBackground
+        navigationItem.title = "Оплата"
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            title: "Закрыть",
+            style: .plain,
+            target: self,
+            action: #selector(closeTapped)
+        )
+
+        view.addSubview(webView)
+        view.addSubview(activityIndicator)
+
+        NSLayoutConstraint.activate([
+            webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            webView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            webView.topAnchor.constraint(equalTo: view.topAnchor),
+            webView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+    }
+
+    @objc
+    private func closeTapped() {
+        finish(with: .canceled)
+    }
+
+    private func finish(with result: GamePagePaymentResult) {
+        guard !isFinished else { return }
+        isFinished = true
+        dismiss(animated: true) { [completion] in
+            completion(result)
+        }
+    }
+
+    private func parseResult(from url: URL) -> GamePagePaymentResult? {
+        let urlString = url.absoluteString
+        if urlString.contains("/records/") {
+            return .canceled
+        }
+
+        let path = url.path
+        if path.contains(successPathPart), urlString.contains("/success?") {
+            return .success
+        }
+
+        if path.contains(contractPathPart),
+           let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
+           let paymentError = components.queryItems?
+            .first(where: { $0.name == "paymentError" })?
+            .value?
+            .trimmingCharacters(in: .whitespacesAndNewlines),
+           !paymentError.isEmpty {
+            return .fail(paymentError)
+        }
+
+        return nil
+    }
+}
+
+extension GamePagePaymentViewController: WKNavigationDelegate {
+    func webView(
+        _ webView: WKWebView,
+        decidePolicyFor navigationAction: WKNavigationAction,
+        decisionHandler: @escaping (WKNavigationActionPolicy) -> Void
+    ) {
+        guard let url = navigationAction.request.url else {
+            decisionHandler(.allow)
+            return
+        }
+
+        if let result = parseResult(from: url) {
+            decisionHandler(.cancel)
+            finish(with: result)
+            return
+        }
+
+        decisionHandler(.allow)
+    }
+
+    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+        activityIndicator.startAnimating()
+    }
+
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        activityIndicator.stopAnimating()
+    }
+
+    func webView(
+        _ webView: WKWebView,
+        didFail navigation: WKNavigation!,
+        withError error: Error
+    ) {
+        activityIndicator.stopAnimating()
+    }
+
+    func webView(
+        _ webView: WKWebView,
+        didFailProvisionalNavigation navigation: WKNavigation!,
+        withError error: Error
+    ) {
+        activityIndicator.stopAnimating()
+    }
+}
+
+extension GamePagePaymentViewController: WKUIDelegate {
+    func webView(
+        _ webView: WKWebView,
+        createWebViewWith configuration: WKWebViewConfiguration,
+        for navigationAction: WKNavigationAction,
+        windowFeatures: WKWindowFeatures
+    ) -> WKWebView? {
+        if navigationAction.targetFrame == nil {
+            webView.load(navigationAction.request)
+        }
+        return nil
     }
 }
