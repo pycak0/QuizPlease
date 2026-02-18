@@ -44,10 +44,6 @@ public enum AppSettings {
     /// Enable in-app payment only for online games
     public static var inAppPaymentOnlyForOnlineGamesEnabled = false
 
-    public static var sdkKey = "test_Njg0NDMxBnnjNU2TZdg-RiqnQMemOvuCBI8BTV9VF4Q"
-
-    public static var shopId = "684431"
-
     public static var description: String {
         """
         AppSettings: {

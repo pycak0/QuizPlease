@@ -64,9 +64,9 @@ final class PaymentServiceImpl: PaymentServiceProtocol {
         let paymentAmount = Amount(value: Decimal(options.amount), currency: .rub)
 
         let tokenizationModuleInputData = TokenizationModuleInputData(
-            clientApplicationKey:  AppSettings.sdkKey, //options.transactionKey,
+            clientApplicationKey: options.transactionKey,
             shopName: options.shopName,
-            shopId: AppSettings.shopId, //options.shopId,
+            shopId: options.shopId,
             purchaseDescription: options.description,
             amount: paymentAmount,
             gatewayId: nil,
