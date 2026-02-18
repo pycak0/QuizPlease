@@ -7,8 +7,25 @@
 //
 
 import UIKit
+import ObjectiveC
 
 extension UIBarButtonItem {
+    private static var menuEnabledAssociationKey: UInt8 = 0
+
+    @available(iOS 14.0, *)
+    var isMenuEnabled: Bool {
+        get {
+            (objc_getAssociatedObject(self, &Self.menuEnabledAssociationKey) as? Bool) == true
+        }
+        set {
+            objc_setAssociatedObject(
+                self,
+                &Self.menuEnabledAssociationKey,
+                newValue,
+                .OBJC_ASSOCIATION_RETAIN_NONATOMIC
+            )
+        }
+    }
 
     /// Remove back button navigation menu (iOS 14+) with method swizzling
     static func swizzleMenu() {
@@ -22,11 +39,16 @@ extension UIBarButtonItem {
     @available(iOS 14, *)
     @objc dynamic private var swizzledMenu: UIMenu? {
         get {
-            nil
+            guard isMenuEnabled else { return nil }
+            return swizzledMenu
         }
         // swiftlint:disable:next unused_setter_value
         set {
-            // nothing
+            if isMenuEnabled {
+                swizzledMenu = newValue
+            } else {
+                swizzledMenu = nil
+            }
         }
     }
 
