@@ -19,6 +19,9 @@ protocol ProfileViewProtocol: UIViewController {
     func setCity(_ city: String)
 
     func showExitOrDeleteActionSheet(
+        onShowPrivacyPolicy: @escaping () -> Void,
+        onShowTermsOfUse: @escaping () -> Void,
+        onShowPersonalDataRemoval: @escaping () -> Void,
         onExit: @escaping () -> Void,
         onDelete: @escaping () -> Void
     )
@@ -166,8 +169,29 @@ extension ProfileVC: ProfileViewProtocol {
         cityLabel.text = "Игры, на кототрых вы зажигали в городе: \(city)"
     }
 
-    func showExitOrDeleteActionSheet(onExit: @escaping () -> Void, onDelete: @escaping () -> Void) {
+    func showExitOrDeleteActionSheet(
+        onShowPrivacyPolicy: @escaping () -> Void,
+        onShowTermsOfUse: @escaping () -> Void,
+        onShowPersonalDataRemoval: @escaping () -> Void,
+        onExit: @escaping () -> Void,
+        onDelete: @escaping () -> Void
+    ) {
         showActionSheetWithOptions(title: nil, buttons: [
+            UIAlertAction(
+                title: "Политика конфиденциальности",
+                style: .default,
+                handler: { _ in onShowPrivacyPolicy() }
+            ),
+            UIAlertAction(
+                title: "Пользовательское соглашение",
+                style: .default,
+                handler: { _ in onShowTermsOfUse() }
+            ),
+            UIAlertAction(
+                title: "Удалить персональные данные",
+                style: .default,
+                handler: { _ in onShowPersonalDataRemoval() }
+            ),
             UIAlertAction(
                 title: "Выйти из личного кабинета",
                 style: .default,

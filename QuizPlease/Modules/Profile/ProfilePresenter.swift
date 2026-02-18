@@ -65,7 +65,13 @@ class ProfilePresenter: ProfilePresenterProtocol {
 
     // MARK: - Actions
     func didPressOptionsButton() {
-        view?.showExitOrDeleteActionSheet(onExit: exit, onDelete: deleteAccount)
+        view?.showExitOrDeleteActionSheet(
+            onShowPrivacyPolicy: showPrivacyPolicy,
+            onShowTermsOfUse: showTermsOfUse,
+            onShowPersonalDataRemoval: showPersonalDataRemoval,
+            onExit: exit,
+            onDelete: deleteAccount
+        )
     }
 
     private func exit() {
@@ -78,6 +84,18 @@ class ProfilePresenter: ProfilePresenterProtocol {
         view?.showDeleteAccountAlert(onConfirm: { [weak self] in
             self?.interactor.deleteUserAccount()
         })
+    }
+
+    private func showPrivacyPolicy() {
+        router.showWebPage(AppSettings.profilePrivacyPolicyUrl)
+    }
+
+    private func showTermsOfUse() {
+        router.showWebPage(AppSettings.profileUserAgreementUrl)
+    }
+
+    private func showPersonalDataRemoval() {
+        router.showWebPage(AppSettings.personalDataRemovalUrl)
     }
 
     func didPressShowShopButton() {
