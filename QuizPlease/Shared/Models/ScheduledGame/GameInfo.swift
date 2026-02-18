@@ -145,7 +145,7 @@ extension GameInfo {
 
     var availablePaymentTypes: [PaymentType] {
         switch PaymentOption(rawValue: payment_icon) {
-        case .none, .cashOnly, .creditCardOffline, .cashOrCreditOffline, .onlineCustom:
+        case .none, .cashOnly, .creditCardOffline, .cashOrCreditOffline, .onlineCustom, .freeEnter:
             return [.cash]
         case .onlineInApp:
             return [.online]

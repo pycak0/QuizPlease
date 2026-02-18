@@ -13,9 +13,20 @@ enum GameOrderStatus: String, Decodable {
 }
 
 struct GameOrderResponse: Decodable {
+
+    struct GameData: Decodable {
+        struct GameDataUrlInfo: Decodable {
+            let link: String?
+        }
+
+        let url: GameDataUrlInfo?
+    }
+
     private let redirect: Bool?
     private let success: AnyDecodable?
     private let sameTeam: Bool?
+
+    let game: GameData?
 
     let link: URL?
     private let status: AnyDecodable?
@@ -68,6 +79,7 @@ struct GameOrderResponse: Decodable {
     }
 
     var shouldRedirect: Bool {
-        redirect ?? false
+//        redirect ?? false
+        game?.url?.link != nil
     }
 }

@@ -63,6 +63,7 @@ final class GamePageInteractor: GamePageInteractorProtocol {
     private let registrationService: RegistrationServiceProtocol
     private let paymentSumCalculator: PaymentSumCalculator
     private let paymentService: PaymentServiceProtocol
+    private let yooKassaPaymentModule: YooKassaPaymentModule
 
     var availablePaymentTypes: [PaymentType] {
         if gameInfo.isOnlineGame {
@@ -96,7 +97,8 @@ final class GamePageInteractor: GamePageInteractorProtocol {
         placeGeocoder: PlaceGeocoderProtocol,
         registrationService: RegistrationServiceProtocol,
         paymentSumCalculator: PaymentSumCalculator,
-        paymentService: PaymentServiceProtocol
+        paymentService: PaymentServiceProtocol,
+        yooKassaPaymentModule: YooKassaPaymentModule
     ) {
         var gameInfo = GameInfo()
         gameInfo.id = gameId
@@ -106,6 +108,7 @@ final class GamePageInteractor: GamePageInteractorProtocol {
         self.registrationService = registrationService
         self.paymentSumCalculator = paymentSumCalculator
         self.paymentService = paymentService
+        self.yooKassaPaymentModule = yooKassaPaymentModule
     }
 
     // MARK: - Private Methods
@@ -130,41 +133,13 @@ final class GamePageInteractor: GamePageInteractorProtocol {
             registerForm.countPaidOnline = nil
         }
 
-        // Если выбрана оплата онлайн, и оплата действительно требуется,
-        // то поднимаем юкассу и генерируем платежный токен
-        if paymentSum > 0 {
-            launchPayment(amount: paymentSum)
-        } else {
+        if paymentSum <= 0 {
             // Если платеж не требуется, то для корректной отработки бэка
             // нужно указать тип оплаты "на игре" / "наличными"
             // и сразу отправить запрос на регистрацию без платежного токена
             registerForm.paymentType = .cash
-            register()
         }
-    }
-
-    /// Launch payment process with given amount.
-    /// - Parameter amount: payment amount.
-    private func launchPayment(amount: Double) {
-        let userPhoneNumber = registrationService.getRegisterForm().phone
-            .replacingOccurrences(of: "-", with: " ")
-            .replacingOccurrences(of: "(", with: "")
-            .replacingOccurrences(of: ")", with: "")
-
-        if gameInfo.shopId?.isEmpty ?? true {
-            print("⚠️ [\(Self.self)|\(#line)] Shop id is empty. Production payment will fail")
-        }
-        if gameInfo.paymentKey?.isEmpty ?? true {
-            print("❌ [\(Self.self)|\(#line)] Payment key is empty. Payment SDK launch will fail")
-        }
-
-        paymentService.launchPayment(options: PaymentOptions(
-            amount: amount,
-            description: createPaymentDescription(),
-            shopId: gameInfo.shopId ?? "",
-            transactionKey: gameInfo.paymentKey ?? "",
-            userPhoneNumber: userPhoneNumber
-        ))
+        register()
     }
 
     private func createPaymentDescription() -> String {
@@ -187,31 +162,44 @@ final class GamePageInteractor: GamePageInteractorProtocol {
     }
 
     private func processRegistrationResponse(_ response: GameOrderResponse) {
-        var message: String = "Произошла ошибка при записи на игру"
+        let defaultMessage = "Произошла ошибка при записи на игру"
 
         // 1. Check for payment status
         if response.shouldRedirect {
-            if let url = response.link {
-                paymentService.startConfirmation(url.absoluteString)
-            } else {
-                self.paymentService.closePayment {
-                    self.completeRegistration(success: false, message: message)
-                }
+            guard
+                let urlString = response.game?.url?.link,
+                let url = URL(string: urlString)
+            else {
+                completeRegistration(success: false, message: defaultMessage)
+                return
             }
-            return
 
+            yooKassaPaymentModule.open(
+                paymentUrl: url,
+                completion: { [weak self] result in
+                    guard let self else { return }
+                    switch result {
+                    case .success:
+                        self.completeRegistration(success: true)
+                    case let .fail(message):
+                        self.completeRegistration(success: false, message: message)
+                    case .canceled:
+                        self.completeRegistration(success: false, message: "Оплата отменена")
+                    }
+                }
+            )
+            return
         }
 
         // 2. Check for response status
+        var message: String = defaultMessage
         if response.isSuccess {
             message = response.successMessage ?? "Успешно"
         } else {
-            message = response.successMessage ?? response.errorMessage ?? "Произошла ошибка при записи на игру"
+            message = response.successMessage ?? response.errorMessage ?? defaultMessage
         }
 
-        paymentService.closePayment {
-            self.completeRegistration(success: response.isSuccessfullyRegistered, message: message)
-        }
+        completeRegistration(success: response.isSuccessfullyRegistered, message: message)
     }
 
     private func completeRegistration(success: Bool, message: String? = nil) {

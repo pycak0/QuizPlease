@@ -38,7 +38,8 @@ extension GamePageAssembly: ViewAssembly {
             placeGeocoder: services.placeGeocoder,
             registrationService: registrationService,
             paymentSumCalculator: paymentSumCalculator,
-            paymentService: paymentService
+            paymentService: paymentService,
+            yooKassaPaymentModule: services.yooKassaPaymentModule
         )
         let annotationBuilder = GamePageAnnotationBuilder(annotationProvider: interactor)
         let registerButtonBuilder = GamePageRegisterButtonBuilder(gameStatusProvider: interactor)

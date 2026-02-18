@@ -79,4 +79,8 @@ final class ServiceAssembly {
         log: core.logger,
         authService: authService
     )
+
+    lazy var yooKassaPaymentModule: YooKassaPaymentModule = YooKassaPaymentModuleImpl(
+        assembly: YooKassaPaymentAssembly()
+    )
 }

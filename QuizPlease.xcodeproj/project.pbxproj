@@ -55,6 +55,7 @@
 		4C72339929F00D86006D92DF /* GamePageMultilineFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C72339829F00D86006D92DF /* GamePageMultilineFieldCell.swift */; };
 		4C72339B29F00EC2006D92DF /* GamePageMultilineFieldItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C72339A29F00EC2006D92DF /* GamePageMultilineFieldItem.swift */; };
 		4C72339D29F00F59006D92DF /* GamePageFieldOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C72339C29F00F59006D92DF /* GamePageFieldOptions.swift */; };
+		4C7657832F450DAA00DBC556 /* YooKassaPaymentAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7657822F450DA000DBC556 /* YooKassaPaymentAssembly.swift */; };
 		4CAAA8342A8FA2F500A74B07 /* TextWebLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAAA8332A8FA2F500A74B07 /* TextWebLink.swift */; };
 		4CBE8BA22EDDCEE90081BF54 /* GameRegistrationValidationResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CBE8BA12EDDCEE90081BF54 /* GameRegistrationValidationResponseData.swift */; };
 		4CDA3D2A2ED3779300C4DEB7 /* CLLocationCoordinate2D+Static.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDA3D292ED3779300C4DEB7 /* CLLocationCoordinate2D+Static.swift */; };
@@ -66,6 +67,10 @@
 		4CEC425E2EAF868C00E460DC /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 4CEC425D2EAF868C00E460DC /* FirebaseCrashlytics */; };
 		4CEC42602EAF868C00E460DC /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 4CEC425F2EAF868C00E460DC /* FirebaseMessaging */; };
 		4CEC42632EAF873400E460DC /* Wormholy in Frameworks */ = {isa = PBXBuildFile; productRef = 4CEC42622EAF873400E460DC /* Wormholy */; };
+		7B9A1C012F20000100AA0101 /* YooKassaPaymentModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9A1C002F20000100AA0101 /* YooKassaPaymentModule.swift */; };
+		7B9A1C032F20000100AA0101 /* YooKassaPaymentPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9A1C022F20000100AA0101 /* YooKassaPaymentPresenter.swift */; };
+		7B9A1C052F20000100AA0101 /* YooKassaPaymentResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9A1C042F20000100AA0101 /* YooKassaPaymentResult.swift */; };
+		7B9A1C072F20000100AA0101 /* YooKassaPaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9A1C062F20000100AA0101 /* YooKassaPaymentViewController.swift */; };
 		A400A26E269CE4C200FBF70C /* String+WordBuilding.swift in Sources */ = {isa = PBXBuildFile; fileRef = A400A26D269CE4C200FBF70C /* String+WordBuilding.swift */; };
 		A405C98724F651C900C74787 /* MainMenuShopCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A405C98624F651C900C74787 /* MainMenuShopCollectionView.swift */; };
 		A40689F924F7D11A001273B2 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40689F824F7D11A001273B2 /* City.swift */; };
@@ -542,6 +547,7 @@
 		4C72339829F00D86006D92DF /* GamePageMultilineFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageMultilineFieldCell.swift; sourceTree = "<group>"; };
 		4C72339A29F00EC2006D92DF /* GamePageMultilineFieldItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageMultilineFieldItem.swift; sourceTree = "<group>"; };
 		4C72339C29F00F59006D92DF /* GamePageFieldOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageFieldOptions.swift; sourceTree = "<group>"; };
+		4C7657822F450DA000DBC556 /* YooKassaPaymentAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YooKassaPaymentAssembly.swift; sourceTree = "<group>"; };
 		4CAAA8332A8FA2F500A74B07 /* TextWebLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextWebLink.swift; sourceTree = "<group>"; };
 		4CBE8BA12EDDCEE90081BF54 /* GameRegistrationValidationResponseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRegistrationValidationResponseData.swift; sourceTree = "<group>"; };
 		4CDA3D292ED3779300C4DEB7 /* CLLocationCoordinate2D+Static.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D+Static.swift"; sourceTree = "<group>"; };
@@ -550,6 +556,10 @@
 		4CDB228829E593D400DD9E7C /* GamePageRegisterButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageRegisterButtonCell.swift; sourceTree = "<group>"; };
 		4CDB228A29E5988100DD9E7C /* GamePageRegisterButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageRegisterButtonItem.swift; sourceTree = "<group>"; };
 		6E36E9437482CE0880B2EF5B /* Pods-QuizPlease.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuizPlease.staging.xcconfig"; path = "Target Support Files/Pods-QuizPlease/Pods-QuizPlease.staging.xcconfig"; sourceTree = "<group>"; };
+		7B9A1C002F20000100AA0101 /* YooKassaPaymentModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YooKassaPaymentModule.swift; sourceTree = "<group>"; };
+		7B9A1C022F20000100AA0101 /* YooKassaPaymentPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YooKassaPaymentPresenter.swift; sourceTree = "<group>"; };
+		7B9A1C042F20000100AA0101 /* YooKassaPaymentResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YooKassaPaymentResult.swift; sourceTree = "<group>"; };
+		7B9A1C062F20000100AA0101 /* YooKassaPaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YooKassaPaymentViewController.swift; sourceTree = "<group>"; };
 		A400A26D269CE4C200FBF70C /* String+WordBuilding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+WordBuilding.swift"; sourceTree = "<group>"; };
 		A405C98624F651C900C74787 /* MainMenuShopCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuShopCollectionView.swift; sourceTree = "<group>"; };
 		A40689F824F7D11A001273B2 /* City.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
@@ -1126,6 +1136,18 @@
 				4C72339329EFF618006D92DF /* TitledTextView.swift */,
 			);
 			path = TitledTextView;
+			sourceTree = "<group>";
+		};
+		7B9A1C082F20000100AA0101 /* YooKassaPaymentModule */ = {
+			isa = PBXGroup;
+			children = (
+				4C7657822F450DA000DBC556 /* YooKassaPaymentAssembly.swift */,
+				7B9A1C042F20000100AA0101 /* YooKassaPaymentResult.swift */,
+				7B9A1C022F20000100AA0101 /* YooKassaPaymentPresenter.swift */,
+				7B9A1C062F20000100AA0101 /* YooKassaPaymentViewController.swift */,
+				7B9A1C002F20000100AA0101 /* YooKassaPaymentModule.swift */,
+			);
+			path = YooKassaPaymentModule;
 			sourceTree = "<group>";
 		};
 		A40C8080252E857500CE40D8 /* UIView */ = {
@@ -1911,6 +1933,7 @@
 				A40D817624D2C97E006D2CE3 /* Schedule */,
 				A4A0659524E4775E0080E0D8 /* GameOrder */,
 				A429532F29DCAF9500A76AD9 /* GamePage */,
+				7B9A1C082F20000100AA0101 /* YooKassaPaymentModule */,
 				A4FB047C25178B3400054DE4 /* GameOrderCompletion */,
 				A40D817724D2C98A006D2CE3 /* HomeGame */,
 				A40D817424D2C96B006D2CE3 /* Profile */,
@@ -2865,6 +2888,7 @@
 				A41A506E253783DF00EBFA69 /* String+Html.swift in Sources */,
 				A42527C324F06E9300E3FBD4 /* GameFirstPlayCell.swift in Sources */,
 				A4B3F8A0266BF46F001A35A1 /* GameAddExtraCertificateCell.swift in Sources */,
+				4C7657832F450DAA00DBC556 /* YooKassaPaymentAssembly.swift in Sources */,
 				A44084FA269B07E6005F2ED0 /* TwoColumnsFlowLayout.swift in Sources */,
 				A4BB034A2681FF72005FE6D7 /* NumberDecorator.swift in Sources */,
 				A48DFF7524F3EB5000E47095 /* HomeGameVideoVC.swift in Sources */,
@@ -3145,6 +3169,10 @@
 				4C1272AD29EED342008DA2E0 /* RegisterFormValidationResult+Error.swift in Sources */,
 				A417FA5325711C210064C467 /* UIViewController+SafariVC.swift in Sources */,
 				A4EE9E9F29E4AC2500DDFC50 /* GamePageInteractor.swift in Sources */,
+				7B9A1C052F20000100AA0101 /* YooKassaPaymentResult.swift in Sources */,
+				7B9A1C032F20000100AA0101 /* YooKassaPaymentPresenter.swift in Sources */,
+				7B9A1C072F20000100AA0101 /* YooKassaPaymentViewController.swift in Sources */,
+				7B9A1C012F20000100AA0101 /* YooKassaPaymentModule.swift in Sources */,
 				A4E06B9F29EA2A1B0005C57B /* GamePageAddSpecialConditionItem.swift in Sources */,
 				A4C5CE1329FAC3DB002407B2 /* RatingCell.swift in Sources */,
 				A4FEB054273739F10052AD7B /* GMapsProvider.swift in Sources */,
