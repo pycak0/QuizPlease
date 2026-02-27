@@ -31,6 +31,18 @@ public enum AppSettings {
         URL(string: "https://quizplease.ru/agreement")!
     }()
 
+    public static let profilePrivacyPolicyUrl: URL = {
+        URL(string: "https://quizplease.ru/app-privacy-policy")!
+    }()
+
+    public static let profileUserAgreementUrl: URL = {
+        URL(string: "https://moscow.quizplease.ru/rules")!
+    }()
+
+    public static let personalDataRemovalUrl: URL = {
+        URL(string: "https://quizplease.ru/data-removing")!
+    }()
+
     /// App's URL on the App Store
     public static let appStoreUrl: URL = {
         URL(string: "https://apps.apple.com/ru/app/id1585713090")!

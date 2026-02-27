@@ -19,7 +19,11 @@ protocol ProfilePresenterProtocol {
     func handleViewDidAppear()
 
     func didPerformAuth()
-    func didPressOptionsButton()
+    func didSelectPrivacyPolicyOption()
+    func didSelectTermsOfUseOption()
+    func didSelectPersonalDataRemovalOption()
+    func didSelectExitOption()
+    func didSelectDeleteAccountOption()
 
     func didPressShowShopButton()
     func didPressAddGameButton()
@@ -64,8 +68,24 @@ class ProfilePresenter: ProfilePresenterProtocol {
     }
 
     // MARK: - Actions
-    func didPressOptionsButton() {
-        view?.showExitOrDeleteActionSheet(onExit: exit, onDelete: deleteAccount)
+    func didSelectPrivacyPolicyOption() {
+        showPrivacyPolicy()
+    }
+
+    func didSelectTermsOfUseOption() {
+        showTermsOfUse()
+    }
+
+    func didSelectPersonalDataRemovalOption() {
+        showPersonalDataRemoval()
+    }
+
+    func didSelectExitOption() {
+        exit()
+    }
+
+    func didSelectDeleteAccountOption() {
+        deleteAccount()
     }
 
     private func exit() {
@@ -78,6 +98,18 @@ class ProfilePresenter: ProfilePresenterProtocol {
         view?.showDeleteAccountAlert(onConfirm: { [weak self] in
             self?.interactor.deleteUserAccount()
         })
+    }
+
+    private func showPrivacyPolicy() {
+        router.showWebPage(AppSettings.profilePrivacyPolicyUrl)
+    }
+
+    private func showTermsOfUse() {
+        router.showWebPage(AppSettings.profileUserAgreementUrl)
+    }
+
+    private func showPersonalDataRemoval() {
+        router.showWebPage(AppSettings.personalDataRemovalUrl)
     }
 
     func didPressShowShopButton() {

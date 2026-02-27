@@ -59,4 +59,10 @@ extension UIImage {
     class var filter: UIImage? {
         UIImage(named: "filter")?.withRenderingMode(.alwaysOriginal)
     }
+
+    /// Image with 3 dots to use in menus
+    class var menuOptions: UIImage? {
+        let symbolConfig = UIImage.SymbolConfiguration(pointSize: 17, weight: .bold, scale: .large)
+        return UIImage(systemName: "ellipsis", withConfiguration: symbolConfig)
+    }
 }

@@ -18,11 +18,6 @@ protocol ProfileViewProtocol: UIViewController {
     func updateUserInfo(with pointsScored: Double)
     func setCity(_ city: String)
 
-    func showExitOrDeleteActionSheet(
-        onExit: @escaping () -> Void,
-        onDelete: @escaping () -> Void
-    )
-
     func showDeleteAccountAlert(onConfirm: @escaping () -> Void)
     func showExitAlert(onConfirm: @escaping () -> Void)
 }
@@ -105,25 +100,48 @@ final class ProfileVC: UIViewController {
     }
 
     @IBAction private func exitButtonPressed(_ sender: Any) {
-        presenter.didPressOptionsButton()
+        // nothing
     }
 
     private func configureBarItem() {
-        let item = UIBarButtonItem(
-            image: UIImage(named: "menu"),
-            style: .plain,
-            target: self,
-            action: #selector(exitButtonPressed(_:))
-        )
+        let item = UIBarButtonItem(image: .menuOptions, style: .plain, target: nil, action: nil)
         item.tintColor = .labelAdapted
-
+        item.isMenuEnabled = true
+        item.menu = makeOptionsMenu()
         navigationItem.rightBarButtonItem = item
+    }
 
-        if #available(iOS 26.0, *) {
-            navigationItem.rightBarButtonItems?.forEach {
-                $0.hidesSharedBackground = true
-            }
+    @available(iOS 14.0, *)
+    private func makeOptionsMenu() -> UIMenu {
+        let privacyPolicyAction = UIAction(title: "Политика конфиденциальности") { [weak self] _ in
+            self?.presenter.didSelectPrivacyPolicyOption()
         }
+        let termsOfUseAction = UIAction(title: "Пользовательское соглашение") { [weak self] _ in
+            self?.presenter.didSelectTermsOfUseOption()
+        }
+        let personalDataRemovalAction = UIAction(title: "Удалить персональные данные") { [weak self] _ in
+            self?.presenter.didSelectPersonalDataRemovalOption()
+        }
+        let exitAction = UIAction(title: "Выйти из личного кабинета") { [weak self] _ in
+            self?.presenter.didSelectExitOption()
+        }
+        let deleteAccountAction = UIAction(
+            title: "Удалить аккаунт",
+            attributes: .destructive
+        ) { [weak self] _ in
+            self?.presenter.didSelectDeleteAccountOption()
+        }
+
+        return UIMenu(
+            options: .displayInline,
+            children: [
+                privacyPolicyAction,
+                termsOfUseAction,
+                personalDataRemovalAction,
+                exitAction,
+                deleteAccountAction
+            ]
+        )
     }
 
     private func resetGradient() {
@@ -164,21 +182,6 @@ extension ProfileVC: ProfileViewProtocol {
 
     func setCity(_ city: String) {
         cityLabel.text = "Игры, на кототрых вы зажигали в городе: \(city)"
-    }
-
-    func showExitOrDeleteActionSheet(onExit: @escaping () -> Void, onDelete: @escaping () -> Void) {
-        showActionSheetWithOptions(title: nil, buttons: [
-            UIAlertAction(
-                title: "Выйти из личного кабинета",
-                style: .default,
-                handler: { _ in onExit() }
-            ),
-            UIAlertAction(
-                title: "Удалить аккаунт",
-                style: .default,
-                handler: { _ in onDelete() }
-            )
-        ])
     }
 
     func showDeleteAccountAlert(onConfirm: @escaping () -> Void) {

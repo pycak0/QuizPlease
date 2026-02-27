@@ -23,7 +23,8 @@ final class ProfileConfigurator: ProfileConfiguratorProtocol {
         )
         let router = ProfileRouter(
             viewController: view,
-            onboardingAssembly: OnboardingAssembly()
+            onboardingAssembly: OnboardingAssembly(),
+            webPageRouter: service.core.webPageRouter
         )
         let presenter = ProfilePresenter(view: view, interactor: interactor, router: router)
         presenter.userInfo = userInfo

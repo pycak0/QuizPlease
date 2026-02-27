@@ -13,6 +13,7 @@ protocol ProfileRouterProtocol: SegueRouter {
     func showShop(with userInfo: UserInfo?)
     func showQRScanner()
     func showAddGameScreen(_ info: String)
+    func showWebPage(_ url: URL)
 
     func showAuthScreen()
     func closeProfile()
@@ -23,13 +24,16 @@ class ProfileRouter: ProfileRouterProtocol {
 
     unowned let viewController: UIViewController
     private let onboardingAssembly: OnboardingAssembly
+    private let webPageRouter: WebPageRouter
 
     required init(
         viewController: UIViewController,
-        onboardingAssembly: OnboardingAssembly
+        onboardingAssembly: OnboardingAssembly,
+        webPageRouter: WebPageRouter
     ) {
         self.viewController = viewController
         self.onboardingAssembly = onboardingAssembly
+        self.webPageRouter = webPageRouter
     }
 
     // MARK: - Prepare for Segue
@@ -69,6 +73,10 @@ class ProfileRouter: ProfileRouterProtocol {
 
     func showAddGameScreen(_ info: String) {
         viewController.performSegue(withIdentifier: "AddGameProfile", sender: info)
+    }
+
+    func showWebPage(_ url: URL) {
+        webPageRouter.open(url: url)
     }
 
     func showAuthScreen() {
