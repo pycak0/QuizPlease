@@ -55,9 +55,15 @@ final class RegistrationService {
 
     private let networkService: NetworkServiceProtocol
     private let jsonEncoder: JsonEncoder
+    private let gameInfoLoader: GameInfoLoader
     private let registerForm: RegisterForm
     private var customFields: [CustomFieldModel] = []
-    private var specialConditions: [SpecialCondition] = [SpecialCondition()]
+    private lazy var specialConditions: [SpecialCondition] = {
+        if gameInfoLoader.getCachedGame(gameId: registerForm.gameId)?.showPromoFields ?? false {
+            return [SpecialCondition()]
+        }
+        return []
+    }()
 
     // MARK: - Lifecycle
 
@@ -66,12 +72,14 @@ final class RegistrationService {
     ///   - gameId: Game identifier
     ///   - gameInfoLoader: Service that loads Game info
     ///   - jsonEncoder: An object that encodes instances of a data type as JSON objects.
+    ///   - gameInfoLoader: Service that loads Game info
     ///
     /// Creates a new register form
     init(
         gameId: String,
         networkService: NetworkServiceProtocol,
-        jsonEncoder: JsonEncoder
+        jsonEncoder: JsonEncoder,
+        gameInfoLoader: GameInfoLoader
     ) {
         self.registerForm = RegisterForm(
             cityId: AppSettings.defaultCity.id,
@@ -79,6 +87,7 @@ final class RegistrationService {
         )
         self.networkService = networkService
         self.jsonEncoder = jsonEncoder
+        self.gameInfoLoader = gameInfoLoader
     }
 
     // MARK: - Private Methods

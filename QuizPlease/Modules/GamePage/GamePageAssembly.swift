@@ -30,7 +30,8 @@ extension GamePageAssembly: ViewAssembly {
         let registrationService = RegistrationService(
             gameId: launchOptions.gameId,
             networkService: services.networkService,
-            jsonEncoder: services.core.jsonEncoder
+            jsonEncoder: services.core.jsonEncoder,
+            gameInfoLoader: services.gameInfoLoader
         )
         let interactor = GamePageInteractor(
             gameId: launchOptions.gameId,

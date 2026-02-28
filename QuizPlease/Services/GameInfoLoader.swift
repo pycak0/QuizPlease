@@ -13,6 +13,8 @@ protocol GameInfoLoader {
 
     /// Load the game by id
     func load(gameId: String, completion: @escaping (Result<GameInfo, Error>) -> Void)
+
+    func getCachedGame(gameId: String) -> GameInfo?
 }
 
 /// Service that loads Game info
@@ -57,5 +59,9 @@ final class GameInfoLoaderImpl: GameInfoLoader {
                 completion(.failure(error))
             }
         }
+    }
+
+    func getCachedGame(gameId: String) -> GameInfo? {
+        cache.get(key: gameId)
     }
 }
