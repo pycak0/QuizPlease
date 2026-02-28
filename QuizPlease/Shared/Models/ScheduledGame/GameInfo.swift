@@ -77,6 +77,8 @@ struct GameInfo: Decodable {
     /// Show remind button or not
     private var show_remind_button: Bool?
 
+    private var is_show_promo_field: Bool?
+
     init() { }
 
     init(shortInfo: GameShortInfo) {
@@ -214,5 +216,9 @@ extension GameInfo {
 
     var showRemindButton: Bool {
         show_remind_button ?? false
+    }
+
+    var showPromoFields: Bool {
+        is_show_promo_field ?? false
     }
 }

@@ -149,6 +149,9 @@ final class GamePageSpecialConditionsBuilder {
 extension GamePageSpecialConditionsBuilder: GamePageItemBuilderProtocol {
 
     func makeItems() -> [GamePageItemProtocol] {
+        if specialConditionsProvider.getSpecialConditions().isEmpty {
+            return []
+        }
         return [makeHeaderItem()]
         + makeSpecialConditions()
         + [makeFooterItem()]
