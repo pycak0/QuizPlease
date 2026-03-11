@@ -212,7 +212,7 @@ extension RegistrationService: RegistrationServiceProtocol {
 
     func checkSpecialCondition(_ value: String, completion: @escaping (_ success: Bool, _ message: String) -> Void) {
         networkService.get(
-            SpecialCondition.Response.self,
+            ServerResponse<SpecialCondition.Response>.self,
             apiPath: ApiConstants.Path.ajaxCheckCode,
             parameters: [
                 "game_id": "\(registerForm.gameId)",
@@ -224,7 +224,8 @@ extension RegistrationService: RegistrationServiceProtocol {
             switch serverResult {
             case let .failure(error):
                 completion(false, error.localizedDescription)
-            case let .success(response):
+            case let .success(serverResponse):
+                let response = serverResponse.data
                 let discountInfo = response.discountInfo
                 switch discountInfo.kind {
                 case .promocode:
