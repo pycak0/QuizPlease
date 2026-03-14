@@ -37,6 +37,7 @@
 		4C3CDF3D2EFFF10400FCCA69 /* ConcurrentExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3CDF3C2EFFF10400FCCA69 /* ConcurrentExecutor.swift */; };
 		4C3CDF3F2EFFF14000FCCA69 /* MainExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3CDF3E2EFFF14000FCCA69 /* MainExecutor.swift */; };
 		4C3CDF412EFFF1DA00FCCA69 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3CDF402EFFF1DA00FCCA69 /* NotificationService.swift */; };
+		4C4896EC2F61C99100301825 /* PriceKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4896EB2F61C99100301825 /* PriceKind.swift */; };
 		4C553C0129E688400066E2CA /* GamePageInfoLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C553C0029E688400066E2CA /* GamePageInfoLineView.swift */; };
 		4C553C0429E68B4A0066E2CA /* GamePageInfoLineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C553C0329E68B4A0066E2CA /* GamePageInfoLineViewModel.swift */; };
 		4C553C0629E696F40066E2CA /* GamePageInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C553C0529E696F40066E2CA /* GamePageInfoCell.swift */; };
@@ -533,6 +534,7 @@
 		4C3CDF3C2EFFF10400FCCA69 /* ConcurrentExecutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcurrentExecutor.swift; sourceTree = "<group>"; };
 		4C3CDF3E2EFFF14000FCCA69 /* MainExecutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainExecutor.swift; sourceTree = "<group>"; };
 		4C3CDF402EFFF1DA00FCCA69 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		4C4896EB2F61C99100301825 /* PriceKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceKind.swift; sourceTree = "<group>"; };
 		4C553C0029E688400066E2CA /* GamePageInfoLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageInfoLineView.swift; sourceTree = "<group>"; };
 		4C553C0329E68B4A0066E2CA /* GamePageInfoLineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageInfoLineViewModel.swift; sourceTree = "<group>"; };
 		4C553C0529E696F40066E2CA /* GamePageInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageInfoCell.swift; sourceTree = "<group>"; };
@@ -2240,6 +2242,7 @@
 				A4822F67252CF85A004E05B9 /* GameStatus.swift */,
 				A477164E261B3D580037A69A /* PaymentOption.swift */,
 				A4E06B7F29E9D9CB0005C57B /* CustomFieldData.swift */,
+				4C4896EB2F61C99100301825 /* PriceKind.swift */,
 			);
 			path = ScheduledGame;
 			sourceTree = "<group>";
@@ -3088,6 +3091,7 @@
 				4CAAA8342A8FA2F500A74B07 /* TextWebLink.swift in Sources */,
 				A40D818024D2CA26006D2CE3 /* HomeGamesListVC.swift in Sources */,
 				A450E39724E559CD00C49AEE /* TitledTextFieldView.swift in Sources */,
+				4C4896EC2F61C99100301825 /* PriceKind.swift in Sources */,
 				A4A5DE9825019DA800EBC408 /* ScheduleFilter.swift in Sources */,
 				4C3CDF3D2EFFF10400FCCA69 /* ConcurrentExecutor.swift in Sources */,
 				A45241E426547B660058285C /* UIView+Gradient.swift in Sources */,
