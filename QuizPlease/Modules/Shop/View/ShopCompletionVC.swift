@@ -24,6 +24,7 @@ final class ShopCompletionVC: UIViewController {
     @IBOutlet private weak var segmentControl: HBSegmentedControl!
     @IBOutlet private weak var questionLabel: UILabel!
     @IBOutlet private weak var confirmButton: ScalingButton!
+    @IBOutlet private weak var stackView: UIStackView!
     @IBOutlet private weak var textFieldView: TitledTextFieldView! {
         didSet {
             textFieldView.addTapGestureRecognizer { self.didPressFieldView() }
@@ -36,12 +37,32 @@ final class ShopCompletionVC: UIViewController {
 
     private let analyticsService: AnalyticsService = ServiceAssembly.shared.analytics
     private let networkService: NetworkServiceProtocol = ServiceAssembly.shared.networkService
+    private let webPageRouter: WebPageRouter = WebPageRouterImpl()
+    private let errorHapticsGenerator = UINotificationFeedbackGenerator()
+
+    private let personalDataCheckbox: AgreementCheckboxView = {
+        let checkbox = AgreementCheckboxView()
+        checkbox.checkboxColor = .systemBlue
+        return checkbox
+    }()
+
+    private let mailingConsentCheckbox: AgreementCheckboxView = {
+        let checkbox = AgreementCheckboxView()
+        checkbox.checkboxColor = .systemBlue
+        return checkbox
+    }()
 
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareNavigationBar(barStyle: .transcluent(tintColor: view.backgroundColor))
         configureViews()
+        configureCheckboxes()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        errorHapticsGenerator.prepare()
     }
 
     // MARK: - Segment Changed
@@ -78,7 +99,13 @@ final class ShopCompletionVC: UIViewController {
             return
         }
         guard let text = textFieldView.textField.text, text.isValidEmail else {
+            errorHapticsGenerator.notificationOccurred(.error)
             textFieldView.shake()
+            return
+        }
+        guard personalDataCheckbox.isSelected else {
+            errorHapticsGenerator.notificationOccurred(.error)
+            personalDataCheckbox.showError()
             return
         }
         purchase(withDelivryMethod: deliveryMethod, email: text)
@@ -178,6 +205,34 @@ final class ShopCompletionVC: UIViewController {
         segmentControl.dampingRatio = 0.9
         segmentControl.font = .gilroy(.bold, size: 16)
         segmentControl.addTarget(self, action: #selector(segmentChanged), for: .valueChanged)
+    }
+
+    private func configureCheckboxes() {
+        personalDataCheckbox.configure(
+            text: "Даю согласие на обработку моих персональных данных для целей и на условиях, изложенных в Политике конфиденциальности",
+            links: [
+                .init(text: "согласие", url: AppSettings.userAgreementUrl),
+                .init(text: "Политике конфиденциальности", url: AppSettings.privacyPolicyUrl)
+            ]
+        )
+
+        mailingConsentCheckbox.configure(
+            text: "Даю согласие на получение информационных и рекламных сообщений",
+            links: [
+                .init(text: "согласие", url: URL(string: "https://quizplease.ru/app-consent-to-mailing")!)
+            ]
+        )
+
+        personalDataCheckbox.onLinkTap = { [weak self] url in
+            self?.webPageRouter.open(url: url)
+        }
+
+        mailingConsentCheckbox.onLinkTap = { [weak self] url in
+            self?.webPageRouter.open(url: url)
+        }
+
+        stackView.addArrangedSubview(personalDataCheckbox)
+        stackView.addArrangedSubview(mailingConsentCheckbox)
     }
 }
 
