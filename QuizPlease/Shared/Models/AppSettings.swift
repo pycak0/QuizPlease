@@ -43,6 +43,10 @@ public enum AppSettings {
         URL(string: "https://quizplease.ru/app-agreement")!
     }()
 
+    public static let mailingAgreementUrl: URL = {
+        URL(string: "https://quizplease.ru/app-consent-to-mailing")!
+    }()
+
     /// App's URL on the App Store
     public static let appStoreUrl: URL = {
         URL(string: "https://apps.apple.com/ru/app/id1585713090")!

@@ -115,6 +115,10 @@ final class RegistrationService {
             errors.append(.phone)
         }
 
+        if !registerForm.isPersonalDataConsent {
+            errors.append(.consent)
+        }
+
         if errors.isEmpty && !registerForm.isValid {
             errors.append(.unknown)
         }
@@ -286,7 +290,7 @@ extension RegistrationService: RegistrationServiceProtocol {
             "QpRecord[payment_token]":      registerForm.paymentToken,
             "QpRecord[surcharge]":          registerForm.countPaidOnline.map { "\($0)" },
             "promo_code":                   promocode,
-            "is_personal_data_consent":     "\(true)"
+            "is_personal_data_consent":     "\(registerForm.isPersonalDataConsent)"
         ]
         // swiftlint:enable colon
 

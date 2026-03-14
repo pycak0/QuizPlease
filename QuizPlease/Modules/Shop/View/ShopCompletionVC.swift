@@ -219,7 +219,7 @@ final class ShopCompletionVC: UIViewController {
         mailingConsentCheckbox.configure(
             text: "Даю согласие на получение информационных и рекламных сообщений",
             links: [
-                .init(text: "согласие", url: URL(string: "https://quizplease.ru/app-consent-to-mailing")!)
+                .init(text: "согласие", url: AppSettings.mailingAgreementUrl)
             ]
         )
 

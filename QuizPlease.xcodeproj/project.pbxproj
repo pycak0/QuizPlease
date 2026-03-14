@@ -356,6 +356,8 @@
 		A4CFCE4D29ECA95B004F3523 /* GamePageCheckboxCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CFCE4C29ECA95B004F3523 /* GamePageCheckboxCell.swift */; };
 		A4CFCE4F29ECA98C004F3523 /* CheckboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CFCE4E29ECA98C004F3523 /* CheckboxView.swift */; };
 		A4CFCE5129ECAED4004F3523 /* GamePageCheckboxItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CFCE5029ECAED3004F3523 /* GamePageCheckboxItem.swift */; };
+		C1A2B3D4E5F6A7B8C9D0E1F2 /* GamePageConsentCheckboxItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A2B3D4E5F6A7B8C9D0E1F3 /* GamePageConsentCheckboxItem.swift */; };
+		C1A2B3D4E5F6A7B8C9D0E1F4 /* GamePageConsentCheckboxCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A2B3D4E5F6A7B8C9D0E1F5 /* GamePageConsentCheckboxCell.swift */; };
 		A4CFCE5329ECAFB4004F3523 /* GamePageItemKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CFCE5229ECAFB4004F3523 /* GamePageItemKind.swift */; };
 		A4CFCE5529ECAFDD004F3523 /* GamePageFirstPlayBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CFCE5429ECAFDD004F3523 /* GamePageFirstPlayBuilder.swift */; };
 		A4D0C2662684EBF60012E05C /* PointsDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D0C2652684EBF60012E05C /* PointsDecorator.swift */; };
@@ -854,6 +856,8 @@
 		A4CFCE4C29ECA95B004F3523 /* GamePageCheckboxCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageCheckboxCell.swift; sourceTree = "<group>"; };
 		A4CFCE4E29ECA98C004F3523 /* CheckboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxView.swift; sourceTree = "<group>"; };
 		A4CFCE5029ECAED3004F3523 /* GamePageCheckboxItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageCheckboxItem.swift; sourceTree = "<group>"; };
+		C1A2B3D4E5F6A7B8C9D0E1F3 /* GamePageConsentCheckboxItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageConsentCheckboxItem.swift; sourceTree = "<group>"; };
+		C1A2B3D4E5F6A7B8C9D0E1F5 /* GamePageConsentCheckboxCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageConsentCheckboxCell.swift; sourceTree = "<group>"; };
 		A4CFCE5229ECAFB4004F3523 /* GamePageItemKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageItemKind.swift; sourceTree = "<group>"; };
 		A4CFCE5429ECAFDD004F3523 /* GamePageFirstPlayBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageFirstPlayBuilder.swift; sourceTree = "<group>"; };
 		A4D0C2652684EBF60012E05C /* PointsDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointsDecorator.swift; sourceTree = "<group>"; };
@@ -2435,6 +2439,7 @@
 				A4E06B7D29E9B6270005C57B /* GamePageTeamCountItem.swift */,
 				A4E06B9E29EA2A1B0005C57B /* GamePageAddSpecialConditionItem.swift */,
 				A4CFCE5029ECAED3004F3523 /* GamePageCheckboxItem.swift */,
+				C1A2B3D4E5F6A7B8C9D0E1F3 /* GamePageConsentCheckboxItem.swift */,
 				4C00220229ED4F950030B1FD /* GamePageSubmitButtonItem.swift */,
 				4C00220629ED5C310030B1FD /* GamePageAgreementItem.swift */,
 				A434503229EDD31800E49B7E /* GamePagePaymentTypeItem.swift */,
@@ -2458,6 +2463,7 @@
 				A4E06B7B29E9B3410005C57B /* GamePageTeamCountCell.swift */,
 				A4E06B9C29EA29110005C57B /* GamePageAddSpecialConditionCell.swift */,
 				A4CFCE4C29ECA95B004F3523 /* GamePageCheckboxCell.swift */,
+				C1A2B3D4E5F6A7B8C9D0E1F5 /* GamePageConsentCheckboxCell.swift */,
 				4C00220029ED4CD70030B1FD /* GamePageSubmitButtonCell.swift */,
 				4C00220429ED53020030B1FD /* GamePageAgreementCell.swift */,
 				A434503029EDCDCB00E49B7E /* GamePagePaymentTypeCell.swift */,
@@ -2851,6 +2857,8 @@
 				A4068A0124F7DAE2001273B2 /* ServerResponse.swift in Sources */,
 				A4E91EBC26C30D5C008C13A7 /* UIWindow+topViewController.swift in Sources */,
 				A4CFCE5129ECAED4004F3523 /* GamePageCheckboxItem.swift in Sources */,
+				C1A2B3D4E5F6A7B8C9D0E1F2 /* GamePageConsentCheckboxItem.swift in Sources */,
+				C1A2B3D4E5F6A7B8C9D0E1F4 /* GamePageConsentCheckboxCell.swift in Sources */,
 				4C00220D29ED8A820030B1FD /* GamePageLaunchOptions.swift in Sources */,
 				A4C71769254E016400898CA5 /* PaymentProvider.swift in Sources */,
 				A4C5CE0A29FAB751002407B2 /* RatingEmptyCell.swift in Sources */,

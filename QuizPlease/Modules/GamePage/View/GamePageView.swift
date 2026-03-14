@@ -172,6 +172,14 @@ final class GamePageView: UIView {
         tableView.scrollToRow(at: IndexPath(row: index, section: 0), at: .top, animated: true)
     }
 
+    func showConsentError(kind: GamePageItemKind) {
+        guard let index = items.firstIndex(where: { $0.kind == kind }) else { return }
+        let indexPath = IndexPath(row: index, section: 0)
+        if let cell = tableView.cellForRow(at: indexPath) as? GamePageConsentCheckboxCell {
+            cell.showError()
+        }
+    }
+
     /// Set the image with given path to the header view
     /// - Parameter path: image location on a server
     func setHeaderImage(path: String) {
