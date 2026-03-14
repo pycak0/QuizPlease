@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1D7A89E3286A71BCF6BB5545 /* ConsentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBA904BDF8B37D415518CCC /* ConsentViewController.swift */; };
+		1F64CC925130414BF461599D /* AgreementCheckboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72ABB2C3090DCA936E56112D /* AgreementCheckboxView.swift */; };
 		2D4F5D61B0BCB0066E47DD94 /* Pods_QuizPlease_QuizPleaseTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26819FF47D6ADAB392EFCD53 /* Pods_QuizPlease_QuizPleaseTests.framework */; };
 		4C00220129ED4CD70030B1FD /* GamePageSubmitButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C00220029ED4CD70030B1FD /* GamePageSubmitButtonCell.swift */; };
 		4C00220329ED4F950030B1FD /* GamePageSubmitButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C00220229ED4F950030B1FD /* GamePageSubmitButtonItem.swift */; };
@@ -500,6 +502,7 @@
 		26819FF47D6ADAB392EFCD53 /* Pods_QuizPlease_QuizPleaseTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QuizPlease_QuizPleaseTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2FD65F96F0BF3263F727E6A1 /* Pods-QuizPlease-QuizPleaseTests.production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuizPlease-QuizPleaseTests.production.xcconfig"; path = "Target Support Files/Pods-QuizPlease-QuizPleaseTests/Pods-QuizPlease-QuizPleaseTests.production.xcconfig"; sourceTree = "<group>"; };
 		35FDBDEF56E370A90453905C /* Pods-QuizPlease-QuizPleaseTests.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuizPlease-QuizPleaseTests.staging.xcconfig"; path = "Target Support Files/Pods-QuizPlease-QuizPleaseTests/Pods-QuizPlease-QuizPleaseTests.staging.xcconfig"; sourceTree = "<group>"; };
+		3BBA904BDF8B37D415518CCC /* ConsentViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ConsentViewController.swift; sourceTree = "<group>"; };
 		4C00220029ED4CD70030B1FD /* GamePageSubmitButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageSubmitButtonCell.swift; sourceTree = "<group>"; };
 		4C00220229ED4F950030B1FD /* GamePageSubmitButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageSubmitButtonItem.swift; sourceTree = "<group>"; };
 		4C00220429ED53020030B1FD /* GamePageAgreementCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageAgreementCell.swift; sourceTree = "<group>"; };
@@ -556,6 +559,7 @@
 		4CDB228829E593D400DD9E7C /* GamePageRegisterButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageRegisterButtonCell.swift; sourceTree = "<group>"; };
 		4CDB228A29E5988100DD9E7C /* GamePageRegisterButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageRegisterButtonItem.swift; sourceTree = "<group>"; };
 		6E36E9437482CE0880B2EF5B /* Pods-QuizPlease.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuizPlease.staging.xcconfig"; path = "Target Support Files/Pods-QuizPlease/Pods-QuizPlease.staging.xcconfig"; sourceTree = "<group>"; };
+		72ABB2C3090DCA936E56112D /* AgreementCheckboxView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AgreementCheckboxView.swift; sourceTree = "<group>"; };
 		7B9A1C002F20000100AA0101 /* YooKassaPaymentModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YooKassaPaymentModule.swift; sourceTree = "<group>"; };
 		7B9A1C022F20000100AA0101 /* YooKassaPaymentPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YooKassaPaymentPresenter.swift; sourceTree = "<group>"; };
 		7B9A1C042F20000100AA0101 /* YooKassaPaymentResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YooKassaPaymentResult.swift; sourceTree = "<group>"; };
@@ -1150,6 +1154,15 @@
 			path = YooKassaPaymentModule;
 			sourceTree = "<group>";
 		};
+		86C4709BE299483A7CD99616 /* Consent */ = {
+			isa = PBXGroup;
+			children = (
+				3BBA904BDF8B37D415518CCC /* ConsentViewController.swift */,
+			);
+			name = Consent;
+			path = Consent;
+			sourceTree = "<group>";
+		};
 		A40C8080252E857500CE40D8 /* UIView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1484,6 +1497,7 @@
 				A4B129222739DD9D0035C041 /* Spacer.swift */,
 				A4D44A0F28CFD182004703B4 /* BigButton.swift */,
 				A4CFCE4E29ECA98C004F3523 /* CheckboxView.swift */,
+				72ABB2C3090DCA936E56112D /* AgreementCheckboxView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1945,6 +1959,7 @@
 				A472D2C92529420D00AA9906 /* AddGame */,
 				A40D817824D2C99D006D2CE3 /* WarmUp */,
 				A4C5CE1529FAD745002407B2 /* QPAlert */,
+				86C4709BE299483A7CD99616 /* Consent */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -3226,6 +3241,8 @@
 				A453F5C028F341CD00CE20BA /* GameOrderPresentationOptions.swift in Sources */,
 				A4EE9E9B29E4A5EC00DDFC50 /* GamePageItemFactory.swift in Sources */,
 				A4E86A34293260C800DB110F /* UserNotificationsService.swift in Sources */,
+				1F64CC925130414BF461599D /* AgreementCheckboxView.swift in Sources */,
+				1D7A89E3286A71BCF6BB5545 /* ConsentViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

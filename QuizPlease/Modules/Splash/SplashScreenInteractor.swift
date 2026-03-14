@@ -17,6 +17,9 @@ protocol SplashScreenInteractorProtocol {
     /// Indicates whether the Welcome screen was ever presented or not
     func wasWelcomeScreenPresented() -> Bool
 
+    /// Indicates whether the consent screen was accepted or not
+    func wasConsentAccepted() -> Bool
+
     /// If this method is called before interactor's `didLoadAllSettings` output method,
     /// The version model is retreived from the device cache.
     func getVersionInfo() -> VersionInfoModel?
@@ -69,6 +72,10 @@ final class SplashScreenInteractor: SplashScreenInteractorProtocol {
 
     func wasWelcomeScreenPresented() -> Bool {
         defaultsManager.wasWelcomeScreenPresented()
+    }
+
+    func wasConsentAccepted() -> Bool {
+        defaultsManager.wasConsentAccepted()
     }
 
     func getVersionInfo() -> VersionInfoModel? {
