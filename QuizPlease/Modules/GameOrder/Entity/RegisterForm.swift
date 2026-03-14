@@ -20,6 +20,7 @@ final class RegisterForm: Encodable {
     var comment: String?
     var paymentType: PaymentType = .online
     var paymentToken: String?
+    var isPersonalDataConsent: Bool = false
 
     init(cityId: Int, gameId: String) {
         self.cityId = cityId
@@ -35,5 +36,6 @@ extension RegisterForm {
             && email.isValidEmail
             && !teamName.isEmpty
             && !captainName.isEmpty
+            && isPersonalDataConsent
     }
 }

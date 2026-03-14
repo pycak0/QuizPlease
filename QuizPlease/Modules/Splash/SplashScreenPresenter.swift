@@ -61,6 +61,16 @@ final class SplashScreenPresenter: SplashScreenViewOutput {
     }
 
     private func navigateToApp() {
+        if interactor.wasConsentAccepted() {
+            showAppScreen()
+            return
+        }
+        router.showConsentScreen { [weak self] in
+            self?.showAppScreen()
+        }
+    }
+
+    private func showAppScreen() {
         if interactor.wasWelcomeScreenPresented() {
             router.showMainMenu()
         } else {

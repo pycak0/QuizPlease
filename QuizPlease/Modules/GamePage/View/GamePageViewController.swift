@@ -73,6 +73,12 @@ protocol GamePageViewInput: AnyObject,
 
     /// Perform haptics effect indication success
     func notifyHapticsSuccess()
+
+    /// Prepare haptics engine to react
+    func prepareHaptics()
+
+    /// Show error state on a consent checkbox cell with given kind
+    func showConsentError(kind: GamePageItemKind)
 }
 
 /// Game page screen view controller
@@ -113,6 +119,11 @@ final class GamePageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         output.viewDidLoad()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        hapticsGenerator.prepare()
     }
 }
 
@@ -199,6 +210,14 @@ extension GamePageViewController: GamePageViewInput {
 
     func notifyHapticsSuccess() {
         hapticsGenerator.notificationOccurred(.success)
+    }
+
+    func prepareHaptics() {
+        hapticsGenerator.prepare()
+    }
+
+    func showConsentError(kind: GamePageItemKind) {
+        gamePageView.showConsentError(kind: kind)
     }
 
     // MARK: - SpecialConditionsView

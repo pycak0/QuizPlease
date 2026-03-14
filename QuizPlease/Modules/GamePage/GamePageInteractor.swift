@@ -328,6 +328,24 @@ final class GamePageInteractor: GamePageInteractorProtocol {
         ]
     }
 
+    func getIsPersonalDataConsent() -> Bool {
+        registrationService.getRegisterForm().isPersonalDataConsent
+    }
+
+    func setIsPersonalDataConsent(_ value: Bool) {
+        registrationService.getRegisterForm().isPersonalDataConsent = value
+    }
+
+    private var isMailingConsent: Bool = false
+
+    func getIsMailingConsent() -> Bool {
+        isMailingConsent
+    }
+
+    func setIsMailingConsent(_ value: Bool) {
+        isMailingConsent = value
+    }
+
     // MARK: - GamePagePaymentInfoProvider
 
     func getAvailablePaymentTypes() -> [PaymentType] {

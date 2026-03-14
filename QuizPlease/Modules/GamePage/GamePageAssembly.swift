@@ -79,7 +79,8 @@ extension GamePageAssembly: ViewAssembly {
             interactor: interactor,
             analyticsService: services.analytics,
             router: router,
-            shouldScrollToRegistrationOnLoad: launchOptions.shouldScrollToRegistration
+            shouldScrollToRegistrationOnLoad: launchOptions.shouldScrollToRegistration,
+            logger: services.core.logger
         )
         let viewController = GamePageViewController(output: presenter)
 

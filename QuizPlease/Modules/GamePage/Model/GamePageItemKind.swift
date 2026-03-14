@@ -30,4 +30,6 @@ extension GamePageItemKind {
     static let addSpecialCondition = GamePageItemKind()
     static let specialConditionFooter = GamePageItemKind()
     static let firstPlay = GamePageItemKind()
+    static let personalDataConsent = GamePageItemKind()
+    static let mailingConsent = GamePageItemKind()
 }

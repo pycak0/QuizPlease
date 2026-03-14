@@ -38,6 +38,45 @@ final class GamePageSubmitBuilder {
 
     // MARK: - Private Methods
 
+    private func makePersonalDataConsentItem() -> GamePageItemProtocol {
+        GamePageConsentCheckboxItem(
+            kind: .personalDataConsent,
+            text: "Даю согласие на обработку моих персональных данных для целей и на условиях, изложенных в Политике конфиденциальности",
+            links: [
+                .init(text: "согласие", url: AppSettings.userAgreementUrl),
+                .init(text: "Политике конфиденциальности", url: AppSettings.privacyPolicyUrl)
+            ],
+            getIsSelected: { [weak dataProvider] in
+                dataProvider?.getIsPersonalDataConsent() ?? false
+            },
+            onValueChange: { [weak dataProvider] value in
+                dataProvider?.setIsPersonalDataConsent(value)
+            },
+            onLinkTap: { [weak output] url in
+                output?.didPressLink(url: url)
+            }
+        )
+    }
+
+    private func makeMailingConsentItem() -> GamePageItemProtocol {
+        GamePageConsentCheckboxItem(
+            kind: .mailingConsent,
+            text: "Даю согласие на получение информационных и рекламных сообщений",
+            links: [
+                .init(text: "согласие", url: AppSettings.mailingAgreementUrl)
+            ],
+            getIsSelected: { [weak dataProvider] in
+                dataProvider?.getIsMailingConsent() ?? false
+            },
+            onValueChange: { [weak dataProvider] value in
+                dataProvider?.setIsMailingConsent(value)
+            },
+            onLinkTap: { [weak output] url in
+                output?.didPressLink(url: url)
+            }
+        )
+    }
+
     private func makeSubmitItem() -> GamePageItemProtocol {
         GamePageSubmitButtonItem(
             getTitle: { [weak dataProvider] in
@@ -67,6 +106,8 @@ extension GamePageSubmitBuilder: GamePageItemBuilderProtocol {
 
     func makeItems() -> [GamePageItemProtocol] {
         return [
+            makePersonalDataConsentItem(),
+            makeMailingConsentItem(),
             makeSubmitItem(),
             makeAgreementItem()
         ]

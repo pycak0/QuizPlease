@@ -101,7 +101,7 @@ class ProfilePresenter: ProfilePresenterProtocol {
     }
 
     private func showPrivacyPolicy() {
-        router.showWebPage(AppSettings.profilePrivacyPolicyUrl)
+        router.showWebPage(AppSettings.privacyPolicyUrl)
     }
 
     private func showTermsOfUse() {
