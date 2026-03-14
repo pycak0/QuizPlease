@@ -356,8 +356,6 @@
 		A4CFCE4D29ECA95B004F3523 /* GamePageCheckboxCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CFCE4C29ECA95B004F3523 /* GamePageCheckboxCell.swift */; };
 		A4CFCE4F29ECA98C004F3523 /* CheckboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CFCE4E29ECA98C004F3523 /* CheckboxView.swift */; };
 		A4CFCE5129ECAED4004F3523 /* GamePageCheckboxItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CFCE5029ECAED3004F3523 /* GamePageCheckboxItem.swift */; };
-		C1A2B3D4E5F6A7B8C9D0E1F2 /* GamePageConsentCheckboxItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A2B3D4E5F6A7B8C9D0E1F3 /* GamePageConsentCheckboxItem.swift */; };
-		C1A2B3D4E5F6A7B8C9D0E1F4 /* GamePageConsentCheckboxCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A2B3D4E5F6A7B8C9D0E1F5 /* GamePageConsentCheckboxCell.swift */; };
 		A4CFCE5329ECAFB4004F3523 /* GamePageItemKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CFCE5229ECAFB4004F3523 /* GamePageItemKind.swift */; };
 		A4CFCE5529ECAFDD004F3523 /* GamePageFirstPlayBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CFCE5429ECAFDD004F3523 /* GamePageFirstPlayBuilder.swift */; };
 		A4D0C2662684EBF60012E05C /* PointsDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D0C2652684EBF60012E05C /* PointsDecorator.swift */; };
@@ -487,6 +485,8 @@
 		A4FFA4AF24F3BD73006A1150 /* RegisterForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FFA4AE24F3BD73006A1150 /* RegisterForm.swift */; };
 		A4FFA4B124F3BE2A006A1150 /* PaymentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FFA4B024F3BE2A006A1150 /* PaymentType.swift */; };
 		B610BE2751A904EFEF4D5589 /* Pods_QuizPlease.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A8B09C270141F5706B6A0A3 /* Pods_QuizPlease.framework */; };
+		C1A2B3D4E5F6A7B8C9D0E1F2 /* GamePageConsentCheckboxItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A2B3D4E5F6A7B8C9D0E1F3 /* GamePageConsentCheckboxItem.swift */; };
+		C1A2B3D4E5F6A7B8C9D0E1F4 /* GamePageConsentCheckboxCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A2B3D4E5F6A7B8C9D0E1F5 /* GamePageConsentCheckboxCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -856,8 +856,6 @@
 		A4CFCE4C29ECA95B004F3523 /* GamePageCheckboxCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageCheckboxCell.swift; sourceTree = "<group>"; };
 		A4CFCE4E29ECA98C004F3523 /* CheckboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxView.swift; sourceTree = "<group>"; };
 		A4CFCE5029ECAED3004F3523 /* GamePageCheckboxItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageCheckboxItem.swift; sourceTree = "<group>"; };
-		C1A2B3D4E5F6A7B8C9D0E1F3 /* GamePageConsentCheckboxItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageConsentCheckboxItem.swift; sourceTree = "<group>"; };
-		C1A2B3D4E5F6A7B8C9D0E1F5 /* GamePageConsentCheckboxCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageConsentCheckboxCell.swift; sourceTree = "<group>"; };
 		A4CFCE5229ECAFB4004F3523 /* GamePageItemKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageItemKind.swift; sourceTree = "<group>"; };
 		A4CFCE5429ECAFDD004F3523 /* GamePageFirstPlayBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageFirstPlayBuilder.swift; sourceTree = "<group>"; };
 		A4D0C2652684EBF60012E05C /* PointsDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointsDecorator.swift; sourceTree = "<group>"; };
@@ -987,6 +985,8 @@
 		A4FFA4AE24F3BD73006A1150 /* RegisterForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterForm.swift; sourceTree = "<group>"; };
 		A4FFA4B024F3BE2A006A1150 /* PaymentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentType.swift; sourceTree = "<group>"; };
 		B348413BFE142C00E71A18EF /* Pods-QuizPlease-QuizPleaseTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuizPlease-QuizPleaseTests.debug.xcconfig"; path = "Target Support Files/Pods-QuizPlease-QuizPleaseTests/Pods-QuizPlease-QuizPleaseTests.debug.xcconfig"; sourceTree = "<group>"; };
+		C1A2B3D4E5F6A7B8C9D0E1F3 /* GamePageConsentCheckboxItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageConsentCheckboxItem.swift; sourceTree = "<group>"; };
+		C1A2B3D4E5F6A7B8C9D0E1F5 /* GamePageConsentCheckboxCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageConsentCheckboxCell.swift; sourceTree = "<group>"; };
 		ED3B05AF6CD4F9DDBD0C34A6 /* Pods-QuizPlease.production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuizPlease.production.xcconfig"; path = "Target Support Files/Pods-QuizPlease/Pods-QuizPlease.production.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1166,7 +1166,6 @@
 				3BBA904BDF8B37D415518CCC /* ConsentViewController.swift */,
 				3BBA904BDF8B37D415518CCD /* ConsentAssembly.swift */,
 			);
-			name = Consent;
 			path = Consent;
 			sourceTree = "<group>";
 		};
@@ -3372,7 +3371,7 @@
 				CODE_SIGN_ENTITLEMENTS = QuizPlease/QuizPlease.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 59;
+				CURRENT_PROJECT_VERSION = 60;
 				DEVELOPMENT_TEAM = 5524GP5G24;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3497,7 +3496,7 @@
 				CODE_SIGN_ENTITLEMENTS = QuizPlease/QuizPlease.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 59;
+				CURRENT_PROJECT_VERSION = 60;
 				DEVELOPMENT_TEAM = 5524GP5G24;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3615,7 +3614,7 @@
 				CODE_SIGN_ENTITLEMENTS = QuizPlease/QuizPlease.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 59;
+				CURRENT_PROJECT_VERSION = 60;
 				DEVELOPMENT_TEAM = 5524GP5G24;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
