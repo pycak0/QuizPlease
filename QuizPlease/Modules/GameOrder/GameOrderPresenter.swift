@@ -294,7 +294,8 @@ final class GameOrderPresenter: GameOrderPresenterProtocol {
         interactor.checkSpecialCondition(
             value,
             forGameWithId: game.id,
-            selectedTeamName: registerForm.teamName
+            selectedTeamName: registerForm.teamName,
+            peopleCount: registerForm.count
         )
     }
 

@@ -217,7 +217,8 @@ extension RegistrationService: RegistrationServiceProtocol {
             parameters: [
                 "game_id": "\(registerForm.gameId)",
                 "code": value,
-                "name": registerForm.teamName
+                "name": registerForm.teamName,
+                "people_count": "\(registerForm.count)"
             ]
         ) { [weak self] serverResult in
             guard let self = self else { return }

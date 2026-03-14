@@ -29,10 +29,12 @@ protocol GameOrderInteractorProtocol {
     ///   - value: promocode / certificate value
     ///   - id: game identifier
     ///   - name: team name
+    ///   - peopleCount: number of people in the team
     func checkSpecialCondition(
         _ value: String,
         forGameWithId id: String,
-        selectedTeamName name: String
+        selectedTeamName name: String,
+        peopleCount: Int
     )
 
     /// Check if team name is alrready used.
@@ -165,7 +167,8 @@ final class GameOrderInteractor: GameOrderInteractorProtocol {
     func checkSpecialCondition(
         _ value: String,
         forGameWithId id: String,
-        selectedTeamName name: String
+        selectedTeamName name: String,
+        peopleCount: Int
     ) {
         networkService.get(
             SpecialCondition.Response.self,
@@ -173,7 +176,8 @@ final class GameOrderInteractor: GameOrderInteractorProtocol {
             parameters: [
                 "game_id": "\(id)",
                 "code": value,
-                "name": name
+                "name": name,
+                "people_count": "\(peopleCount)"
             ]
         ) { [weak self] serverResult in
             guard let self = self else { return }
