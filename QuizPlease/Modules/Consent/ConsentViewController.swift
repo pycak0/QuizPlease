@@ -56,12 +56,12 @@ final class ConsentViewController: UIViewController {
         return checkbox
     }()
 
+    private let errorHapticsGenerator = UINotificationFeedbackGenerator()
+
     private let continueButton: BigButton = {
         let button = BigButton()
         button.setTitle("Продолжить", for: .normal)
         button.tintColor = .black
-        button.isEnabled = false
-        button.alpha = 0.5
         return button
     }()
 
@@ -71,6 +71,11 @@ final class ConsentViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         configureCheckboxes()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        errorHapticsGenerator.prepare()
     }
 
     override func viewDidLayoutSubviews() {
@@ -175,21 +180,24 @@ final class ConsentViewController: UIViewController {
         webPageRouter.open(url: url)
     }
 
-    private func updateContinueButton() {
-        let allChecked = personalDataCheckbox.isSelected && privacyPolicyCheckbox.isSelected
-        UIView.animate(withDuration: 0.2) {
-            self.continueButton.isEnabled = allChecked
-            self.continueButton.alpha = allChecked ? 1.0 : 0.5
-        }
+    private var uncheckedCheckboxes: [AgreementCheckboxView] {
+        [personalDataCheckbox, privacyPolicyCheckbox].filter { !$0.isSelected }
     }
 
     // MARK: - Actions
 
     @objc private func checkboxChanged() {
-        updateContinueButton()
+        // No-op, validation happens on button tap
     }
 
     @objc private func continueButtonTapped() {
+        let unchecked = uncheckedCheckboxes
+        guard unchecked.isEmpty else {
+            errorHapticsGenerator.notificationOccurred(.error)
+            unchecked.forEach { $0.showError() }
+            return
+        }
+
         DefaultsManager.shared.setConsentAccepted()
         onConsentAccepted?()
     }

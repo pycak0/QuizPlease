@@ -127,6 +127,18 @@ final class AgreementCheckboxView: UIControl {
         ]
     }
 
+    /// Highlight the checkbox with error state (red border + shake + haptics)
+    func showError() {
+        checkboxImageView.layer.borderColor = UIColor.systemRed.cgColor
+        shake()
+    }
+
+    /// Reset error state back to normal border
+    func hideError() {
+        guard !_isSelected else { return }
+        checkboxImageView.layer.borderColor = UIColor.systemGray3.cgColor
+    }
+
     // MARK: - Private Methods
 
     private func makeLayout() {
@@ -168,6 +180,11 @@ final class AgreementCheckboxView: UIControl {
         if isHapticsEnabled {
             hapticsGenerator.impactOccurred()
         }
+
+        if _isSelected {
+            // Reset error border when user checks the checkbox
+            checkboxImageView.layer.borderColor = checkboxColor.cgColor
+        }
     }
 
     private func updateCheckboxAppearance() {
@@ -179,7 +196,7 @@ final class AgreementCheckboxView: UIControl {
             checkboxImageView.tintColor = .white
         } else {
             checkboxImageView.backgroundColor = .clear
-            checkboxImageView.layer.borderColor = UIColor.systemGray3.cgColor
+            checkboxImageView.layer.borderColor = checkboxColor.cgColor
             checkboxImageView.image = nil
         }
     }
