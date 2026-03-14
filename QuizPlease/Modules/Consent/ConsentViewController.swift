@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SafariServices
 
 /// Consent screen shown on first app launch over the splash screen.
 /// Uses `UISheetPresentationController` for a modern sheet presentation.
@@ -23,7 +22,6 @@ final class ConsentViewController: UIViewController {
     private let logoImageView: UIImageView = {
         let imageView = UIImageView(image: .logoColoredImage)
         imageView.contentMode = .scaleAspectFit
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
 
@@ -33,7 +31,6 @@ final class ConsentViewController: UIViewController {
         label.font = .gilroy(.bold, size: 24)
         label.textColor = .labelAdapted
         label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
@@ -44,18 +41,25 @@ final class ConsentViewController: UIViewController {
         label.textColor = .labelAdapted
         label.textAlignment = .center
         label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
-    private let personalDataCheckbox = AgreementCheckboxView()
-    private let privacyPolicyCheckbox = AgreementCheckboxView()
+    private let personalDataCheckbox: AgreementCheckboxView = {
+        let checkbox = AgreementCheckboxView()
+        checkbox.checkboxColor = .lemon
+        return checkbox
+    }()
+
+    private let privacyPolicyCheckbox: AgreementCheckboxView = {
+        let checkbox = AgreementCheckboxView()
+        checkbox.checkboxColor = .lemon
+        return checkbox
+    }()
 
     private let continueButton: BigButton = {
         let button = BigButton()
         button.setTitle("Продолжить", for: .normal)
         button.tintColor = .black
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.isEnabled = false
         button.alpha = 0.5
         return button
@@ -81,25 +85,43 @@ final class ConsentViewController: UIViewController {
         view.backgroundColor = .systemBackgroundAdapted
         isModalInPresentation = true
 
-        let scrollView = UIScrollView()
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        // Header stack: logo + title + subtitle
+        let headerStack = UIStackView(arrangedSubviews: [
+            logoImageView, titleLabel, subtitleLabel
+        ])
+        headerStack.axis = .vertical
+        headerStack.alignment = .center
+        headerStack.spacing = 0
+        headerStack.setCustomSpacing(16, after: logoImageView)
+        headerStack.setCustomSpacing(12, after: titleLabel)
 
-        let contentView = UIView()
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-
-        view.addSubview(scrollView)
-        scrollView.addSubview(contentView)
-
+        // Checkbox stack
         let checkboxStack = UIStackView(arrangedSubviews: [
-            personalDataCheckbox,
-            privacyPolicyCheckbox
+            personalDataCheckbox, privacyPolicyCheckbox
         ])
         checkboxStack.axis = .vertical
         checkboxStack.spacing = 20
-        checkboxStack.translatesAutoresizingMaskIntoConstraints = false
 
-        [logoImageView, titleLabel, subtitleLabel, checkboxStack, continueButton]
-            .forEach(contentView.addSubview)
+        // Spacer between subtitle and checkboxes
+        let spacerView = UIView()
+        spacerView.translatesAutoresizingMaskIntoConstraints = false
+        spacerView.heightAnchor.constraint(equalToConstant: 64).isActive = true
+
+        // Main content stack
+        let contentStack = UIStackView(arrangedSubviews: [
+            headerStack, spacerView, checkboxStack, continueButton
+        ])
+        contentStack.axis = .vertical
+        contentStack.alignment = .fill
+        contentStack.spacing = 0
+        contentStack.setCustomSpacing(32, after: checkboxStack)
+        contentStack.translatesAutoresizingMaskIntoConstraints = false
+
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentStack)
 
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -107,33 +129,14 @@ final class ConsentViewController: UIViewController {
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
 
-            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            contentStack.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 48),
+            contentStack.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 20),
+            contentStack.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -20),
+            contentStack.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -40),
+            contentStack.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -40),
 
-            logoImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 48),
-            logoImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             logoImageView.widthAnchor.constraint(equalToConstant: 124),
-            logoImageView.heightAnchor.constraint(equalToConstant: 124),
-
-            titleLabel.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 16),
-            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-
-            subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 12),
-            subtitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            subtitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-
-            checkboxStack.topAnchor.constraint(equalTo: subtitleLabel.bottomAnchor, constant: 64),
-            checkboxStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            checkboxStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-
-            continueButton.topAnchor.constraint(greaterThanOrEqualTo: checkboxStack.bottomAnchor, constant: 32),
-            continueButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            continueButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-            continueButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -40)
+            logoImageView.heightAnchor.constraint(equalToConstant: 124)
         ])
 
         continueButton.addGradient(.lemonOrange, insertAt: 0)
@@ -144,7 +147,7 @@ final class ConsentViewController: UIViewController {
         personalDataCheckbox.configure(
             text: "Даю согласие на обработку моих персональных данных для целей и на условиях, изложенных в Политике конфиденциальности",
             links: [
-                .init(text: "согласие", url: AppSettings.privacyPolicyUrl),
+                .init(text: "согласие", url: AppSettings.userAgreementUrl),
                 .init(text: "Политике конфиденциальности", url: AppSettings.privacyPolicyUrl)
             ]
         )

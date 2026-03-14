@@ -33,9 +33,11 @@ final class SplashScreenRouter: SplashScreenRouterProtocol {
     weak var viewController: UIViewController?
 
     private let welcomeAssembly: WelcomeAssembly
+    private let consentAssembly: ConsentAssembly
 
-    init(welcomeAssembly: WelcomeAssembly) {
+    init(welcomeAssembly: WelcomeAssembly, consentAssembly: ConsentAssembly) {
         self.welcomeAssembly = welcomeAssembly
+        self.consentAssembly = consentAssembly
     }
 
     func showWelcomeScreen() {
@@ -46,19 +48,7 @@ final class SplashScreenRouter: SplashScreenRouterProtocol {
     }
 
     func showConsentScreen(onAccepted: @escaping () -> Void) {
-        let consentVC = ConsentViewController()
-        consentVC.onConsentAccepted = { [weak consentVC] in
-            consentVC?.dismiss(animated: true) {
-                onAccepted()
-            }
-        }
-
-        if let sheet = consentVC.sheetPresentationController {
-            sheet.detents = [.large()]
-            sheet.prefersGrabberVisible = false
-            sheet.preferredCornerRadius = 40
-        }
-
+        let consentVC = consentAssembly.makeViewController(onAccepted: onAccepted)
         viewController?.present(consentVC, animated: true)
     }
 

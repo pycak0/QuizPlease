@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1D7A89E3286A71BCF6BB5545 /* ConsentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBA904BDF8B37D415518CCC /* ConsentViewController.swift */; };
+		1D7A89E3286A71BCF6BB5546 /* ConsentAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBA904BDF8B37D415518CCD /* ConsentAssembly.swift */; };
 		1F64CC925130414BF461599D /* AgreementCheckboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72ABB2C3090DCA936E56112D /* AgreementCheckboxView.swift */; };
 		2D4F5D61B0BCB0066E47DD94 /* Pods_QuizPlease_QuizPleaseTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26819FF47D6ADAB392EFCD53 /* Pods_QuizPlease_QuizPleaseTests.framework */; };
 		4C00220129ED4CD70030B1FD /* GamePageSubmitButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C00220029ED4CD70030B1FD /* GamePageSubmitButtonCell.swift */; };
@@ -503,6 +504,7 @@
 		2FD65F96F0BF3263F727E6A1 /* Pods-QuizPlease-QuizPleaseTests.production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuizPlease-QuizPleaseTests.production.xcconfig"; path = "Target Support Files/Pods-QuizPlease-QuizPleaseTests/Pods-QuizPlease-QuizPleaseTests.production.xcconfig"; sourceTree = "<group>"; };
 		35FDBDEF56E370A90453905C /* Pods-QuizPlease-QuizPleaseTests.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuizPlease-QuizPleaseTests.staging.xcconfig"; path = "Target Support Files/Pods-QuizPlease-QuizPleaseTests/Pods-QuizPlease-QuizPleaseTests.staging.xcconfig"; sourceTree = "<group>"; };
 		3BBA904BDF8B37D415518CCC /* ConsentViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ConsentViewController.swift; sourceTree = "<group>"; };
+		3BBA904BDF8B37D415518CCD /* ConsentAssembly.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ConsentAssembly.swift; sourceTree = "<group>"; };
 		4C00220029ED4CD70030B1FD /* GamePageSubmitButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageSubmitButtonCell.swift; sourceTree = "<group>"; };
 		4C00220229ED4F950030B1FD /* GamePageSubmitButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageSubmitButtonItem.swift; sourceTree = "<group>"; };
 		4C00220429ED53020030B1FD /* GamePageAgreementCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageAgreementCell.swift; sourceTree = "<group>"; };
@@ -1158,6 +1160,7 @@
 			isa = PBXGroup;
 			children = (
 				3BBA904BDF8B37D415518CCC /* ConsentViewController.swift */,
+				3BBA904BDF8B37D415518CCD /* ConsentAssembly.swift */,
 			);
 			name = Consent;
 			path = Consent;
@@ -3243,6 +3246,7 @@
 				A4E86A34293260C800DB110F /* UserNotificationsService.swift in Sources */,
 				1F64CC925130414BF461599D /* AgreementCheckboxView.swift in Sources */,
 				1D7A89E3286A71BCF6BB5545 /* ConsentViewController.swift in Sources */,
+				1D7A89E3286A71BCF6BB5546 /* ConsentAssembly.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

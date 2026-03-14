@@ -17,7 +17,8 @@ final class SplashScreenConfigurator: Configurator {
             userService: services.userService
         )
         let router = SplashScreenRouter(
-            welcomeAssembly: WelcomeAssembly()
+            welcomeAssembly: WelcomeAssembly(),
+            consentAssembly: ConsentAssembly()
         )
         router.viewController = view
         let presenter = SplashScreenPresenter(view: view, interactor: interactor, router: router)

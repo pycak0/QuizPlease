@@ -20,6 +20,11 @@ final class AgreementCheckboxView: UIControl {
     /// Haptics can be enabled only when user presses the checkbox
     var isHapticsEnabled: Bool = true
 
+    /// Color used for the checkbox when selected. Defaults to `lightGreen`.
+    var checkboxColor: UIColor = .lightGreen {
+        didSet { updateCheckboxAppearance() }
+    }
+
     // MARK: - Private Properties
 
     private let hapticsGenerator = UIImpactFeedbackGenerator(style: .medium)
@@ -167,8 +172,8 @@ final class AgreementCheckboxView: UIControl {
 
     private func updateCheckboxAppearance() {
         if _isSelected {
-            checkboxImageView.backgroundColor = .lightGreen
-            checkboxImageView.layer.borderColor = UIColor.lightGreen.cgColor
+            checkboxImageView.backgroundColor = checkboxColor
+            checkboxImageView.layer.borderColor = checkboxColor.cgColor
             checkboxImageView.image = UIImage(systemName: "checkmark")?
                 .withConfiguration(UIImage.SymbolConfiguration(pointSize: 14, weight: .bold))
             checkboxImageView.tintColor = .white
