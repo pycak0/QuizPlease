@@ -134,7 +134,9 @@ final class ShopCompletionVC: UIViewController {
             productId: itemId,
             deliveryMethod: method.id,
             cityId: AppSettings.defaultCity.id,
-            email: email
+            email: email,
+            isPersonalDataConsent: personalDataCheckbox.isSelected,
+            isMarketingConsent: mailingConsentCheckbox.isSelected
         )
 
         networkService.post(
