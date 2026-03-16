@@ -96,7 +96,14 @@ class NetworkService {
         if teamName.count > 0 {
             parameters["teamName"] = teamName
         }
-        return networkService.get(ServerResponse<[RatingTeamItem]>.self, apiPath: ApiConstants.Path.rating, parameters: parameters, headers: nil, authorizationKind: .none, networkConfiguration: .rating) { serverResponse in
+        return networkService.get(
+            ServerResponse<[RatingTeamItem]>.self,
+            apiPath: ApiConstants.Path.rating,
+            parameters: parameters,
+            headers: nil,
+            authorizationKind: .none,
+            networkConfiguration: .rating
+        ) { serverResponse in
             switch serverResponse {
             case let .failure(error):
                 completion(.failure(error))
