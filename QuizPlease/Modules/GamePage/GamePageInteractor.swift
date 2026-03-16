@@ -336,14 +336,12 @@ final class GamePageInteractor: GamePageInteractorProtocol {
         registrationService.getRegisterForm().isPersonalDataConsent = value
     }
 
-    private var isMailingConsent: Bool = false
-
     func getIsMailingConsent() -> Bool {
-        isMailingConsent
+        registrationService.getRegisterForm().isMarketingConsent
     }
 
     func setIsMailingConsent(_ value: Bool) {
-        isMailingConsent = value
+        registrationService.getRegisterForm().isMarketingConsent = value
     }
 
     // MARK: - GamePagePaymentInfoProvider

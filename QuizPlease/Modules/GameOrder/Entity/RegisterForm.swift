@@ -21,6 +21,7 @@ final class RegisterForm: Encodable {
     var paymentType: PaymentType = .online
     var paymentToken: String?
     var isPersonalDataConsent: Bool = false
+    var isMarketingConsent: Bool = false
 
     init(cityId: Int, gameId: String) {
         self.cityId = cityId

@@ -290,7 +290,8 @@ extension RegistrationService: RegistrationServiceProtocol {
             "QpRecord[payment_token]":      registerForm.paymentToken,
             "QpRecord[surcharge]":          registerForm.countPaidOnline.map { "\($0)" },
             "promo_code":                   promocode,
-            "is_personal_data_consent":     "\(registerForm.isPersonalDataConsent)"
+            "is_personal_data_consent":     "\(registerForm.isPersonalDataConsent)",
+            "is_marketing_consent":         "\(registerForm.isMarketingConsent)"
         ]
         // swiftlint:enable colon
 
