@@ -123,6 +123,17 @@ final class CountPickerView: UIView {
         didSet { updateButtonViews() }
     }
 
+    /// When set, overrides sequential numbering (`startCount`-based).
+    /// Each button shows `customValues[index]` instead of `index + startCount`.
+    var customValues: [Int]? {
+        didSet {
+            setButtons()
+            if let customValues, !customValues.isEmpty {
+                setSelectedButton(at: 0, animated: false)
+            }
+        }
+    }
+
     // MARK: - Update Selected Button
 
     /// This method does not call any delegate methods
@@ -198,8 +209,15 @@ final class CountPickerView: UIView {
 
     private func pickerButtonPressed(at index: Int) {
         hapticsGenerator.selectionChanged()
-        delegate?.countPicker(self, didChangeSelectedNumber: index + startCount)
         setSelectedButton(at: index, animated: true)
+        delegate?.countPicker(self, didChangeSelectedNumber: valueForButton(at: index))
+    }
+
+    private func valueForButton(at index: Int) -> Int {
+        if let customValues, index < customValues.count {
+            return customValues[index]
+        }
+        return index + startCount
     }
 
     // MARK: - Set Buttons
@@ -207,7 +225,8 @@ final class CountPickerView: UIView {
     private func setButtons() {
         buttons.forEach { $0.removeFromSuperview() }
         buttons.removeAll()
-        for i in 0..<maxButtonsCount {
+        let count = customValues?.count ?? maxButtonsCount
+        for i in 0..<count {
             let button = UIButton()
             button.isUserInteractionEnabled = false
             updateView(for: button, at: i)
@@ -234,7 +253,7 @@ final class CountPickerView: UIView {
         button.setImage(nil, for: .highlighted)
         button.setImage(nil, for: .selected)
         button.setTitle("", for: .normal)
-        button.setTitle("\(index + startCount)", for: .selected)
+        button.setTitle("\(valueForButton(at: index))", for: .selected)
         button.titleLabel?.font = buttonsTitleFont
         button.setTitleColor(buttonsTitleColor, for: .normal)
         button.backgroundColor = button.isSelected ? selectedColor : pickerBackgroundColor

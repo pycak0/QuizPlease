@@ -15,7 +15,8 @@ protocol GamePageInteractorProtocol: AnyObject,
                                      GamePageInfoProvider,
                                      GamePageDescriptionProvider,
                                      GamePageSubmitDataProvider,
-                                     GamePagePaymentInfoProvider {
+                                     GamePagePaymentInfoProvider,
+                                     GamePageTableInfoProvider {
 
     /// Load game info
     func loadGame(complpetion: @escaping (Error?) -> Void)
@@ -396,6 +397,16 @@ final class GamePageInteractor: GamePageInteractorProtocol {
             .getSpecialConditions()
             .compactMap(\.discountInfo?.discount)
             .isEmpty
+    }
+
+    // MARK: - GamePageTableInfoProvider
+
+    func getPriceKind() -> PriceKind {
+        gameInfo.priceKind
+    }
+
+    func getAvailableTables() -> [GameTable] {
+        gameInfo.gameTables
     }
 }
 

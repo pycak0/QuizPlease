@@ -36,13 +36,20 @@ final class GamePageRegistrationFieldsBuilder {
     // MARK: - Private Properties
 
     private let registerFormProvider: GamePageRegisterFormProvider
+    private let tableInfoProvider: GamePageTableInfoProvider?
 
     // MARK: - Lifecycle
 
     /// Initialize `GamePageRegistrationFieldsBuilder`
-    /// - Parameter registerFormProvider: RegisterForm provider
-    init(registerFormProvider: GamePageRegisterFormProvider) {
+    /// - Parameters:
+    ///   - registerFormProvider: RegisterForm provider
+    ///   - tableInfoProvider: Table info provider for games with table pricing
+    init(
+        registerFormProvider: GamePageRegisterFormProvider,
+        tableInfoProvider: GamePageTableInfoProvider? = nil
+    ) {
         self.registerFormProvider = registerFormProvider
+        self.tableInfoProvider = tableInfoProvider
     }
 
     // MARK: - Private Methods
@@ -96,19 +103,58 @@ final class GamePageRegistrationFieldsBuilder {
                 onValueChange: { [weak registerForm] newValue in
                     registerForm?.phone = newValue
             }),
-            GamePageTeamCountItem(
-                kind: .teamCount,
-                title: "Количество человек в команде",
-                pickerColor: .systemGray5Adapted,
-                backgroundColor: .systemGray6Adapted,
-                getMinCount: 2,
-                getMaxCount: 9,
-                getSelectedTeamCount: registerForm.count,
-                changeHandler: { [weak registerForm, weak output] newValue in
-                    registerForm?.count = newValue
-                    output?.didChangeTeamCount()
-            })
+            makeCountOrTableItem(registerForm: registerForm)
         ]
+    }
+
+    private func makeCountOrTableItem(registerForm: RegisterForm) -> GamePageItemProtocol {
+        let tables = tableInfoProvider?.getAvailableTables() ?? []
+        if tableInfoProvider?.getPriceKind() == .table, !tables.isEmpty {
+            return makeTablePickerItem(registerForm: registerForm, tables: tables)
+        }
+        return makeTeamCountItem(registerForm: registerForm)
+    }
+
+    private func makeTeamCountItem(registerForm: RegisterForm) -> GamePageItemProtocol {
+        GamePageTeamCountItem(
+            kind: .teamCount,
+            title: "Количество человек в команде",
+            pickerColor: .systemGray5Adapted,
+            backgroundColor: .systemGray6Adapted,
+            getMinCount: 2,
+            getMaxCount: 9,
+            getSelectedTeamCount: registerForm.count,
+            changeHandler: { [weak registerForm, weak output] newValue in
+                registerForm?.count = newValue
+                output?.didChangeTeamCount()
+            }
+        )
+    }
+
+    private func makeTablePickerItem(registerForm: RegisterForm, tables: [GameTable]) -> GamePageItemProtocol {
+        // Select first table by default if none selected
+        if registerForm.selectedTableId == nil, let firstTable = tables.first {
+            registerForm.selectedTableId = firstTable.id
+            registerForm.count = firstTable.seats
+        }
+
+        let selectedIndex = tables.firstIndex(where: { $0.id == registerForm.selectedTableId }) ?? 0
+
+        return GamePageTablePickerItem(
+            kind: .teamCount,
+            title: "Количество мест за столом",
+            tables: tables,
+            pickerColor: .systemGray5Adapted,
+            backgroundColor: .systemGray6Adapted,
+            getSelectedIndex: selectedIndex,
+            changeHandler: { [weak registerForm, weak output] index in
+                guard index < tables.count else { return }
+                let table = tables[index]
+                registerForm?.selectedTableId = table.id
+                registerForm?.count = table.seats
+                output?.didChangeTeamCount()
+            }
+        )
     }
 
     // MARK: - Custom Fields

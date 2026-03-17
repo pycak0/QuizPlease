@@ -67,6 +67,8 @@ struct GameInfo: Decodable {
     private var latitude: Double?
     private var longitude: Double?
 
+    private var tables: [GameTable]?
+
     private var sdk_key: String?
     private var sdk_shop_id: String?
 
@@ -163,6 +165,10 @@ extension GameInfo {
 
     var priceKind: PriceKind {
         return PriceKind(rawValue: price_type) ?? PriceKind.person
+    }
+
+    var gameTables: [GameTable] {
+        return tables ?? []
     }
 
     /// Status of the game

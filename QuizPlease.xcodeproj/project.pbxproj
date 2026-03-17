@@ -38,6 +38,9 @@
 		4C3CDF3F2EFFF14000FCCA69 /* MainExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3CDF3E2EFFF14000FCCA69 /* MainExecutor.swift */; };
 		4C3CDF412EFFF1DA00FCCA69 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3CDF402EFFF1DA00FCCA69 /* NotificationService.swift */; };
 		4C4896EC2F61C99100301825 /* PriceKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4896EB2F61C99100301825 /* PriceKind.swift */; };
+		1649945520554545AC14B721 /* GameTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EB1B5A48284DBAAB7FE36F /* GameTable.swift */; };
+		3B6A1D9F438645D7942BC6D9 /* GamePageTablePickerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8E7ABBB52D496FA234541E /* GamePageTablePickerItem.swift */; };
+		857CA765BDC84B00ADB143BA /* GamePageTableInfoProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98FE70D27F224AD1BDA05229 /* GamePageTableInfoProvider.swift */; };
 		4C553C0129E688400066E2CA /* GamePageInfoLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C553C0029E688400066E2CA /* GamePageInfoLineView.swift */; };
 		4C553C0429E68B4A0066E2CA /* GamePageInfoLineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C553C0329E68B4A0066E2CA /* GamePageInfoLineViewModel.swift */; };
 		4C553C0629E696F40066E2CA /* GamePageInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C553C0529E696F40066E2CA /* GamePageInfoCell.swift */; };
@@ -535,6 +538,9 @@
 		4C3CDF3E2EFFF14000FCCA69 /* MainExecutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainExecutor.swift; sourceTree = "<group>"; };
 		4C3CDF402EFFF1DA00FCCA69 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		4C4896EB2F61C99100301825 /* PriceKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceKind.swift; sourceTree = "<group>"; };
+		F1EB1B5A48284DBAAB7FE36F /* GameTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTable.swift; sourceTree = "<group>"; };
+		9B8E7ABBB52D496FA234541E /* GamePageTablePickerItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageTablePickerItem.swift; sourceTree = "<group>"; };
+		98FE70D27F224AD1BDA05229 /* GamePageTableInfoProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageTableInfoProvider.swift; sourceTree = "<group>"; };
 		4C553C0029E688400066E2CA /* GamePageInfoLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageInfoLineView.swift; sourceTree = "<group>"; };
 		4C553C0329E68B4A0066E2CA /* GamePageInfoLineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageInfoLineViewModel.swift; sourceTree = "<group>"; };
 		4C553C0529E696F40066E2CA /* GamePageInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageInfoCell.swift; sourceTree = "<group>"; };
@@ -1075,6 +1081,7 @@
 				A4E06B7429E9A21E0005C57B /* GamePageRegisterFormProvider.swift */,
 				4C00220A29ED682D0030B1FD /* GamePageSubmitDataProvider.swift */,
 				A434503629EDED9100E49B7E /* GamePagePaymentInfoProvider.swift */,
+				98FE70D27F224AD1BDA05229 /* GamePageTableInfoProvider.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -2243,6 +2250,7 @@
 				A477164E261B3D580037A69A /* PaymentOption.swift */,
 				A4E06B7F29E9D9CB0005C57B /* CustomFieldData.swift */,
 				4C4896EB2F61C99100301825 /* PriceKind.swift */,
+				F1EB1B5A48284DBAAB7FE36F /* GameTable.swift */,
 			);
 			path = ScheduledGame;
 			sourceTree = "<group>";
@@ -2439,6 +2447,7 @@
 				A4E06B7229E8B7B30005C57B /* GamePageFieldItem.swift */,
 				4C72339A29F00EC2006D92DF /* GamePageMultilineFieldItem.swift */,
 				A4E06B7D29E9B6270005C57B /* GamePageTeamCountItem.swift */,
+				9B8E7ABBB52D496FA234541E /* GamePageTablePickerItem.swift */,
 				A4E06B9E29EA2A1B0005C57B /* GamePageAddSpecialConditionItem.swift */,
 				A4CFCE5029ECAED3004F3523 /* GamePageCheckboxItem.swift */,
 				C1A2B3D4E5F6A7B8C9D0E1F3 /* GamePageConsentCheckboxItem.swift */,
@@ -3092,6 +3101,9 @@
 				A40D818024D2CA26006D2CE3 /* HomeGamesListVC.swift in Sources */,
 				A450E39724E559CD00C49AEE /* TitledTextFieldView.swift in Sources */,
 				4C4896EC2F61C99100301825 /* PriceKind.swift in Sources */,
+				1649945520554545AC14B721 /* GameTable.swift in Sources */,
+				3B6A1D9F438645D7942BC6D9 /* GamePageTablePickerItem.swift in Sources */,
+				857CA765BDC84B00ADB143BA /* GamePageTableInfoProvider.swift in Sources */,
 				A4A5DE9825019DA800EBC408 /* ScheduleFilter.swift in Sources */,
 				4C3CDF3D2EFFF10400FCCA69 /* ConcurrentExecutor.swift in Sources */,
 				A45241E426547B660058285C /* UIView+Gradient.swift in Sources */,

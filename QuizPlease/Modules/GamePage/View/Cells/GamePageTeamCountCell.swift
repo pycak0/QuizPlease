@@ -20,6 +20,7 @@ private enum Constants {
 final class GamePageTeamCountCell: UITableViewCell {
 
     private var onCountChange: ((Int) -> Void)?
+    private var onTableIndexChange: ((Int) -> Void)?
 
     // MARK: - UI Elements
 
@@ -51,6 +52,7 @@ final class GamePageTeamCountCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         onCountChange = nil
+        onTableIndexChange = nil
     }
 
     // MARK: - Private Methods
@@ -76,7 +78,11 @@ final class GamePageTeamCountCell: UITableViewCell {
 extension GamePageTeamCountCell: CountPickerViewDelegate {
 
     func countPicker(_ picker: CountPickerView, didChangeSelectedNumber number: Int) {
-        onCountChange?(number)
+        if onTableIndexChange != nil {
+            onTableIndexChange?(picker.selectedIndex)
+        } else {
+            onCountChange?(number)
+        }
     }
 }
 
@@ -85,9 +91,18 @@ extension GamePageTeamCountCell: CountPickerViewDelegate {
 extension GamePageTeamCountCell: GamePageCellProtocol {
 
     func configure(with item: GamePageItemProtocol) {
-        guard let item = item as? GamePageTeamCountItem else { return }
+        if let teamCountItem = item as? GamePageTeamCountItem {
+            configureTeamCount(teamCountItem)
+        } else if let tablePickerItem = item as? GamePageTablePickerItem {
+            configureTablePicker(tablePickerItem)
+        }
+    }
+
+    private func configureTeamCount(_ item: GamePageTeamCountItem) {
         backgroundColor = item.backgroundColor
         countPickerView.pickerBackgroundColor = item.pickerColor
+        countPickerView.customValues = nil
+        onTableIndexChange = nil
         onCountChange = item.changeHandler
         countPickerView.title = item.title ?? ""
         let minCount = item.getMinCount()
@@ -102,5 +117,18 @@ extension GamePageTeamCountCell: GamePageCellProtocol {
         if actualSelectedCount != selectedCount {
             onCountChange?(actualSelectedCount)
         }
+    }
+
+    private func configureTablePicker(_ item: GamePageTablePickerItem) {
+        backgroundColor = item.backgroundColor
+        countPickerView.pickerBackgroundColor = item.pickerColor
+        countPickerView.title = item.title
+        countPickerView.customValues = item.tables.map(\.seats)
+
+        onCountChange = nil
+        onTableIndexChange = { index in
+            item.changeHandler?(index)
+        }
+        countPickerView.setSelectedButton(at: item.getSelectedIndex(), animated: false)
     }
 }
