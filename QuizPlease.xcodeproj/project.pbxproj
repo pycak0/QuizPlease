@@ -7,10 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1649945520554545AC14B721 /* GameTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EB1B5A48284DBAAB7FE36F /* GameTable.swift */; };
 		1D7A89E3286A71BCF6BB5545 /* ConsentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBA904BDF8B37D415518CCC /* ConsentViewController.swift */; };
 		1D7A89E3286A71BCF6BB5546 /* ConsentAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBA904BDF8B37D415518CCD /* ConsentAssembly.swift */; };
 		1F64CC925130414BF461599D /* AgreementCheckboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72ABB2C3090DCA936E56112D /* AgreementCheckboxView.swift */; };
 		2D4F5D61B0BCB0066E47DD94 /* Pods_QuizPlease_QuizPleaseTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26819FF47D6ADAB392EFCD53 /* Pods_QuizPlease_QuizPleaseTests.framework */; };
+		3B6A1D9F438645D7942BC6D9 /* GamePageTablePickerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8E7ABBB52D496FA234541E /* GamePageTablePickerItem.swift */; };
 		4C00220129ED4CD70030B1FD /* GamePageSubmitButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C00220029ED4CD70030B1FD /* GamePageSubmitButtonCell.swift */; };
 		4C00220329ED4F950030B1FD /* GamePageSubmitButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C00220229ED4F950030B1FD /* GamePageSubmitButtonItem.swift */; };
 		4C00220529ED53020030B1FD /* GamePageAgreementCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C00220429ED53020030B1FD /* GamePageAgreementCell.swift */; };
@@ -38,9 +40,6 @@
 		4C3CDF3F2EFFF14000FCCA69 /* MainExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3CDF3E2EFFF14000FCCA69 /* MainExecutor.swift */; };
 		4C3CDF412EFFF1DA00FCCA69 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3CDF402EFFF1DA00FCCA69 /* NotificationService.swift */; };
 		4C4896EC2F61C99100301825 /* PriceKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4896EB2F61C99100301825 /* PriceKind.swift */; };
-		1649945520554545AC14B721 /* GameTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EB1B5A48284DBAAB7FE36F /* GameTable.swift */; };
-		3B6A1D9F438645D7942BC6D9 /* GamePageTablePickerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8E7ABBB52D496FA234541E /* GamePageTablePickerItem.swift */; };
-		857CA765BDC84B00ADB143BA /* GamePageTableInfoProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98FE70D27F224AD1BDA05229 /* GamePageTableInfoProvider.swift */; };
 		4C553C0129E688400066E2CA /* GamePageInfoLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C553C0029E688400066E2CA /* GamePageInfoLineView.swift */; };
 		4C553C0429E68B4A0066E2CA /* GamePageInfoLineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C553C0329E68B4A0066E2CA /* GamePageInfoLineViewModel.swift */; };
 		4C553C0629E696F40066E2CA /* GamePageInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C553C0529E696F40066E2CA /* GamePageInfoCell.swift */; };
@@ -78,6 +77,7 @@
 		7B9A1C032F20000100AA0101 /* YooKassaPaymentPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9A1C022F20000100AA0101 /* YooKassaPaymentPresenter.swift */; };
 		7B9A1C052F20000100AA0101 /* YooKassaPaymentResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9A1C042F20000100AA0101 /* YooKassaPaymentResult.swift */; };
 		7B9A1C072F20000100AA0101 /* YooKassaPaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9A1C062F20000100AA0101 /* YooKassaPaymentViewController.swift */; };
+		857CA765BDC84B00ADB143BA /* GamePageTableInfoProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98FE70D27F224AD1BDA05229 /* GamePageTableInfoProvider.swift */; };
 		A400A26E269CE4C200FBF70C /* String+WordBuilding.swift in Sources */ = {isa = PBXBuildFile; fileRef = A400A26D269CE4C200FBF70C /* String+WordBuilding.swift */; };
 		A405C98724F651C900C74787 /* MainMenuShopCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A405C98624F651C900C74787 /* MainMenuShopCollectionView.swift */; };
 		A40689F924F7D11A001273B2 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40689F824F7D11A001273B2 /* City.swift */; };
@@ -538,9 +538,6 @@
 		4C3CDF3E2EFFF14000FCCA69 /* MainExecutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainExecutor.swift; sourceTree = "<group>"; };
 		4C3CDF402EFFF1DA00FCCA69 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		4C4896EB2F61C99100301825 /* PriceKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceKind.swift; sourceTree = "<group>"; };
-		F1EB1B5A48284DBAAB7FE36F /* GameTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTable.swift; sourceTree = "<group>"; };
-		9B8E7ABBB52D496FA234541E /* GamePageTablePickerItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageTablePickerItem.swift; sourceTree = "<group>"; };
-		98FE70D27F224AD1BDA05229 /* GamePageTableInfoProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageTableInfoProvider.swift; sourceTree = "<group>"; };
 		4C553C0029E688400066E2CA /* GamePageInfoLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageInfoLineView.swift; sourceTree = "<group>"; };
 		4C553C0329E68B4A0066E2CA /* GamePageInfoLineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageInfoLineViewModel.swift; sourceTree = "<group>"; };
 		4C553C0529E696F40066E2CA /* GamePageInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageInfoCell.swift; sourceTree = "<group>"; };
@@ -576,6 +573,8 @@
 		7B9A1C022F20000100AA0101 /* YooKassaPaymentPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YooKassaPaymentPresenter.swift; sourceTree = "<group>"; };
 		7B9A1C042F20000100AA0101 /* YooKassaPaymentResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YooKassaPaymentResult.swift; sourceTree = "<group>"; };
 		7B9A1C062F20000100AA0101 /* YooKassaPaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YooKassaPaymentViewController.swift; sourceTree = "<group>"; };
+		98FE70D27F224AD1BDA05229 /* GamePageTableInfoProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageTableInfoProvider.swift; sourceTree = "<group>"; };
+		9B8E7ABBB52D496FA234541E /* GamePageTablePickerItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageTablePickerItem.swift; sourceTree = "<group>"; };
 		A400A26D269CE4C200FBF70C /* String+WordBuilding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+WordBuilding.swift"; sourceTree = "<group>"; };
 		A405C98624F651C900C74787 /* MainMenuShopCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuShopCollectionView.swift; sourceTree = "<group>"; };
 		A40689F824F7D11A001273B2 /* City.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
@@ -996,6 +995,7 @@
 		C1A2B3D4E5F6A7B8C9D0E1F3 /* GamePageConsentCheckboxItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageConsentCheckboxItem.swift; sourceTree = "<group>"; };
 		C1A2B3D4E5F6A7B8C9D0E1F5 /* GamePageConsentCheckboxCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageConsentCheckboxCell.swift; sourceTree = "<group>"; };
 		ED3B05AF6CD4F9DDBD0C34A6 /* Pods-QuizPlease.production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuizPlease.production.xcconfig"; path = "Target Support Files/Pods-QuizPlease/Pods-QuizPlease.production.xcconfig"; sourceTree = "<group>"; };
+		F1EB1B5A48284DBAAB7FE36F /* GameTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -3387,7 +3387,7 @@
 				CODE_SIGN_ENTITLEMENTS = QuizPlease/QuizPlease.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 60;
+				CURRENT_PROJECT_VERSION = 61;
 				DEVELOPMENT_TEAM = 5524GP5G24;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3512,7 +3512,7 @@
 				CODE_SIGN_ENTITLEMENTS = QuizPlease/QuizPlease.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 60;
+				CURRENT_PROJECT_VERSION = 61;
 				DEVELOPMENT_TEAM = 5524GP5G24;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3630,7 +3630,7 @@
 				CODE_SIGN_ENTITLEMENTS = QuizPlease/QuizPlease.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 60;
+				CURRENT_PROJECT_VERSION = 61;
 				DEVELOPMENT_TEAM = 5524GP5G24;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
