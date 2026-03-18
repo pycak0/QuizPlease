@@ -36,13 +36,20 @@ final class GamePageRegistrationFieldsBuilder {
     // MARK: - Private Properties
 
     private let registerFormProvider: GamePageRegisterFormProvider
+    private let tableInfoProvider: GamePageTableInfoProvider?
 
     // MARK: - Lifecycle
 
     /// Initialize `GamePageRegistrationFieldsBuilder`
-    /// - Parameter registerFormProvider: RegisterForm provider
-    init(registerFormProvider: GamePageRegisterFormProvider) {
+    /// - Parameters:
+    ///   - registerFormProvider: RegisterForm provider
+    ///   - tableInfoProvider: Table info provider for games with table pricing
+    init(
+        registerFormProvider: GamePageRegisterFormProvider,
+        tableInfoProvider: GamePageTableInfoProvider? = nil
+    ) {
         self.registerFormProvider = registerFormProvider
+        self.tableInfoProvider = tableInfoProvider
     }
 
     // MARK: - Private Methods
@@ -96,19 +103,62 @@ final class GamePageRegistrationFieldsBuilder {
                 onValueChange: { [weak registerForm] newValue in
                     registerForm?.phone = newValue
             }),
-            GamePageTeamCountItem(
-                kind: .teamCount,
-                title: "Количество человек в команде",
-                pickerColor: .systemGray5Adapted,
-                backgroundColor: .systemGray6Adapted,
-                getMinCount: 2,
-                getMaxCount: 9,
-                getSelectedTeamCount: registerForm.count,
-                changeHandler: { [weak registerForm, weak output] newValue in
-                    registerForm?.count = newValue
-                    output?.didChangeTeamCount()
-            })
+            makeCountOrTableItem(registerForm: registerForm)
         ]
+    }
+
+    private func makeCountOrTableItem(registerForm: RegisterForm) -> GamePageItemProtocol {
+        let tables = tableInfoProvider?.getAvailableTables() ?? []
+        if tableInfoProvider?.getPriceKind() == .table, !tables.isEmpty {
+            return makeTablePickerItem(registerForm: registerForm, tables: tables)
+        }
+        return makeTeamCountItem(registerForm: registerForm)
+    }
+
+    private func makeTeamCountItem(registerForm: RegisterForm) -> GamePageItemProtocol {
+        GamePageTeamCountItem(
+            kind: .teamCount,
+            title: "Количество человек в команде",
+            pickerColor: .systemGray5Adapted,
+            backgroundColor: .systemGray6Adapted,
+            getMinCount: 2,
+            getMaxCount: 9,
+            getSelectedTeamCount: registerForm.count,
+            changeHandler: { [weak registerForm, weak output] newValue in
+                registerForm?.count = newValue
+                output?.didChangeTeamCount()
+            }
+        )
+    }
+
+    private func makeTablePickerItem(registerForm: RegisterForm, tables: [GameTable]) -> GamePageItemProtocol {
+        // Deduplicate tables by seats to show only unique seat counts
+        var seenSeats = Set<Int>()
+        let uniqueTables = tables.filter { seenSeats.insert($0.seats).inserted }
+
+        // Select first table size by default if none selected
+        if registerForm.selectedTableSize == nil, let firstTable = uniqueTables.first {
+            registerForm.selectedTableSize = firstTable.seats
+            registerForm.count = firstTable.seats
+        }
+
+        let selectedIndex = uniqueTables.firstIndex(where: { $0.seats == registerForm.selectedTableSize }) ?? 0
+
+        return GamePageTablePickerItem(
+            kind: .teamCount,
+            title: "Количество мест за столом",
+            tables: uniqueTables,
+            pickerColor: .systemGray5Adapted,
+            backgroundColor: .systemGray6Adapted,
+            getSelectedIndex: selectedIndex,
+            changeHandler: { [weak registerForm, weak output] index in
+                guard index < uniqueTables.count else { return }
+                let table = uniqueTables[index]
+                registerForm?.selectedTableSize = table.seats
+                registerForm?.count = table.seats
+                output?.didChangeTeamCount()
+            }
+        )
     }
 
     // MARK: - Custom Fields

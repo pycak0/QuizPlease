@@ -285,10 +285,11 @@ extension RegistrationService: RegistrationServiceProtocol {
             "QpRecord[game_id]":            "\(registerForm.gameId)",
             "QpRecord[first_time]":         registerForm.isFirstTime ? "1" : "0",
             "QpRecord[payment_type]":       "\(registerForm.paymentType.rawValue)",
-            "QpRecord[count]":              "\(registerForm.count)",
+            "QpRecord[people_count]":              "\(registerForm.count)",
             "QpRecord[teamName]":           registerForm.teamName,
             "QpRecord[payment_token]":      registerForm.paymentToken,
-            "QpRecord[surcharge]":          registerForm.countPaidOnline.map { "\($0)" },
+            "QpRecord[count_paid]":          registerForm.countPaidOnline.map { "\($0)" },
+            "QpRecord[table_size]":          registerForm.selectedTableSize.map { "\($0)" },
             "promo_code":                   promocode,
             "is_personal_data_consent":     "\(registerForm.isPersonalDataConsent)",
             "is_marketing_consent":         "\(registerForm.isMarketingConsent)"

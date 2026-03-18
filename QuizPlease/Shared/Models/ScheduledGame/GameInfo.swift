@@ -62,9 +62,12 @@ struct GameInfo: Decodable {
     private var payment_icon: Int = 0
     /// Online game = 1; offline game = 0
     private var game_type: Int = 0
+    private var price_type: Int = 0
 
     private var latitude: Double?
     private var longitude: Double?
+
+    private var tables: [GameTable]?
 
     private var sdk_key: String?
     private var sdk_shop_id: String?
@@ -158,6 +161,14 @@ extension GameInfo {
 
     var isOnlineGame: Bool {
         return game_type == 1
+    }
+
+    var priceKind: PriceKind {
+        return PriceKind(rawValue: price_type) ?? PriceKind.person
+    }
+
+    var gameTables: [GameTable] {
+        return tables ?? []
     }
 
     /// Status of the game
