@@ -102,6 +102,8 @@ extension GamePageTeamCountCell: GamePageCellProtocol {
         backgroundColor = item.backgroundColor
         countPickerView.pickerBackgroundColor = item.pickerColor
         countPickerView.customValues = nil
+        countPickerView.isUserInteractionEnabled = item.isEditable
+        countPickerView.alpha = item.isEditable ? 1.0 : 0.5
         onTableIndexChange = nil
         onCountChange = item.changeHandler
         countPickerView.title = item.title ?? ""

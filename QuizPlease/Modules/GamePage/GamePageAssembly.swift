@@ -56,7 +56,10 @@ extension GamePageAssembly: ViewAssembly {
         let firstPlayBuilder = GamePageFirstPlayBuilder(
             registerFormProvider: registrationService
         )
-        let paymentBuilder = GamePagePaymentSectionBuilder(paymentInfoProvider: interactor)
+        let paymentBuilder = GamePagePaymentSectionBuilder(
+            paymentInfoProvider: interactor,
+            tableInfoProvider: interactor
+        )
         let submitBuilder = GamePageSubmitBuilder(
             dataProvider: interactor
         )

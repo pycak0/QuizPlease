@@ -38,11 +38,16 @@ final class GamePagePaymentSectionBuilder {
     // MARK: - Private Properties
 
     private let paymentInfoProvider: GamePagePaymentInfoProvider
+    private let tableInfoProvider: GamePageTableInfoProvider?
 
     // MARK: - Lifecycle
 
-    init(paymentInfoProvider: GamePagePaymentInfoProvider) {
+    init(
+        paymentInfoProvider: GamePagePaymentInfoProvider,
+        tableInfoProvider: GamePageTableInfoProvider? = nil
+    ) {
         self.paymentInfoProvider = paymentInfoProvider
+        self.tableInfoProvider = tableInfoProvider
     }
 
     // MARK: - Private Methods
@@ -75,12 +80,14 @@ final class GamePagePaymentSectionBuilder {
         else {
             return []
         }
+        let isEditable = tableInfoProvider?.getPriceKind() != .table
         return [
             GamePageTeamCountItem(
                 kind: .paymentCount,
                 title: nil,
                 pickerColor: .systemBackgroundAdapted,
                 backgroundColor: .systemGray5Adapted,
+                isEditable: isEditable,
                 getMinCount: 1,
                 getMaxCount: self.paymentInfoProvider.getNumberOfPeopleInTeam(),
                 getSelectedTeamCount: self.paymentInfoProvider.getSelectedNumberOfPeopleToPay(),
