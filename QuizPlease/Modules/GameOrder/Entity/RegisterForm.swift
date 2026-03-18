@@ -20,7 +20,7 @@ final class RegisterForm: Encodable {
     var comment: String?
     var paymentType: PaymentType = .online
     var paymentToken: String?
-    var selectedTableId: Int?
+    var selectedTableSize: Int?
     var isPersonalDataConsent: Bool = false
     var isMarketingConsent: Bool = false
 

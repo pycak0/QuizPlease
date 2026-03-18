@@ -132,25 +132,29 @@ final class GamePageRegistrationFieldsBuilder {
     }
 
     private func makeTablePickerItem(registerForm: RegisterForm, tables: [GameTable]) -> GamePageItemProtocol {
-        // Select first table by default if none selected
-        if registerForm.selectedTableId == nil, let firstTable = tables.first {
-            registerForm.selectedTableId = firstTable.id
+        // Deduplicate tables by seats to show only unique seat counts
+        var seenSeats = Set<Int>()
+        let uniqueTables = tables.filter { seenSeats.insert($0.seats).inserted }
+
+        // Select first table size by default if none selected
+        if registerForm.selectedTableSize == nil, let firstTable = uniqueTables.first {
+            registerForm.selectedTableSize = firstTable.seats
             registerForm.count = firstTable.seats
         }
 
-        let selectedIndex = tables.firstIndex(where: { $0.id == registerForm.selectedTableId }) ?? 0
+        let selectedIndex = uniqueTables.firstIndex(where: { $0.seats == registerForm.selectedTableSize }) ?? 0
 
         return GamePageTablePickerItem(
             kind: .teamCount,
             title: "Количество мест за столом",
-            tables: tables,
+            tables: uniqueTables,
             pickerColor: .systemGray5Adapted,
             backgroundColor: .systemGray6Adapted,
             getSelectedIndex: selectedIndex,
             changeHandler: { [weak registerForm, weak output] index in
-                guard index < tables.count else { return }
-                let table = tables[index]
-                registerForm?.selectedTableId = table.id
+                guard index < uniqueTables.count else { return }
+                let table = uniqueTables[index]
+                registerForm?.selectedTableSize = table.seats
                 registerForm?.count = table.seats
                 output?.didChangeTeamCount()
             }
