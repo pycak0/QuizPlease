@@ -267,10 +267,12 @@ extension RegistrationService: RegistrationServiceProtocol {
     func sendRegistrationRequest(
         completion: @escaping (Result<GameOrderResponse, NetworkServiceError>) -> Void
     ) {
-        let certificates: [MultipartFormDataObject] = specialConditions
-            .lazy
+        let certificatesIds = specialConditions
             .filter { $0.discountInfo?.kind == .certificate }
-            .compactMap { MultipartFormDataObject(name: "certificates[]", optionalStringData: $0.value) }
+            .compactMap { $0.value }
+
+        let certificatesIdsData = try? jsonEncoder.encode(certificatesIds)
+        let certificatesIdsJson = certificatesIdsData.map { String(data: $0, encoding: .utf8) } ?? nil
 
         let promocode = specialConditions.first(where: { $0.discountInfo?.kind == .promocode })?.value
 
@@ -289,18 +291,19 @@ extension RegistrationService: RegistrationServiceProtocol {
             "QpRecord[teamName]":           registerForm.teamName,
             "QpRecord[payment_token]":      registerForm.paymentToken,
             "QpRecord[count_paid]":         registerForm.countPaidOnline.map { "\($0)" },
-            "QpRecord[table_size]":         registerForm.selectedTableSize.map { "\($0)" },
-            "promo_code":                   promocode,
+            "QpRecord[promo_id]":           promocode,
+            "QpRecord[certificate_ids]":    certificatesIdsJson,
+            "table_size":                   registerForm.selectedTableSize.map { "\($0)" },
             "is_personal_data_consent":     "\(registerForm.isPersonalDataConsent)",
             "is_marketing_consent":         "\(registerForm.isMarketingConsent)"
         ]
         // swiftlint:enable colon
 
-        var formData: [MultipartFormDataObject] = certificates + MultipartFormDataObjects(params)
+        var formData: [MultipartFormDataObject] = MultipartFormDataObjects(params)
 
         if let customFieldsData = encodeCustomFields() {
             let customFieldForm = MultipartFormDataObject(
-                name: "QpRecord[custom_fields_values]",
+                name: "custom_fields",
                 data: customFieldsData
             )
             formData.append(customFieldForm)
