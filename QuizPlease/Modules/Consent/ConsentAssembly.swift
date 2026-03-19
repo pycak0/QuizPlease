@@ -23,8 +23,8 @@ final class ConsentAssembly {
         if let sheet = consentVC.sheetPresentationController {
             if #available(iOS 16.0, *) {
                 sheet.detents = [
-                    .custom { context in
-                        context.maximumDetentValue * 0.85
+                    .custom { [weak consentVC] context in
+                        consentVC?.preferredSheetHeight(maximumDetentValue: context.maximumDetentValue)
                     }
                 ]
             } else {

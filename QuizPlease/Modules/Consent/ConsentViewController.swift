@@ -11,6 +11,15 @@ import UIKit
 /// Uses `UISheetPresentationController` for a modern sheet presentation.
 final class ConsentViewController: UIViewController {
 
+    private enum Layout {
+        static let contentTopInset: CGFloat = 48
+        static let contentHorizontalInset: CGFloat = 20
+        static let contentBottomInset: CGFloat = 40
+        static let interSectionSpacing: CGFloat = 32
+        static let subtitleToCheckboxSpacing: CGFloat = 64
+        static let minimumSheetHeightRatio: CGFloat = 0.85
+    }
+
     // MARK: - Properties
 
     var onConsentAccepted: (() -> Void)?
@@ -65,6 +74,15 @@ final class ConsentViewController: UIViewController {
         return button
     }()
 
+    private let contentStack: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .vertical
+        stack.alignment = .fill
+        stack.spacing = 0
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        return stack
+    }()
+
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
@@ -82,6 +100,28 @@ final class ConsentViewController: UIViewController {
         super.viewDidLayoutSubviews()
         continueButton.layer.sublayers?.removeAll(where: { $0 is CAGradientLayer })
         continueButton.addGradient(.lemonOrange, insertAt: 0)
+    }
+
+    func preferredSheetHeight(maximumDetentValue: CGFloat) -> CGFloat {
+        loadViewIfNeeded()
+        view.layoutIfNeeded()
+
+        let viewWidth = max(view.bounds.width, UIScreen.main.bounds.width)
+        let contentWidth = viewWidth - (Layout.contentHorizontalInset * 2)
+        let targetSize = CGSize(
+            width: contentWidth,
+            height: UIView.layoutFittingCompressedSize.height
+        )
+
+        let contentHeight = contentStack.systemLayoutSizeFitting(
+            targetSize,
+            withHorizontalFittingPriority: .required,
+            verticalFittingPriority: .fittingSizeLevel
+        ).height
+        let totalHeight = Layout.contentTopInset + contentHeight + Layout.contentBottomInset
+        let minimumSheetHeight = maximumDetentValue * Layout.minimumSheetHeightRatio
+
+        return min(maximumDetentValue, max(minimumSheetHeight, totalHeight))
     }
 
     // MARK: - Private Methods
@@ -110,17 +150,14 @@ final class ConsentViewController: UIViewController {
         // Spacer between subtitle and checkboxes
         let spacerView = UIView()
         spacerView.translatesAutoresizingMaskIntoConstraints = false
-        spacerView.heightAnchor.constraint(equalToConstant: 64).isActive = true
+        spacerView.heightAnchor.constraint(equalToConstant: Layout.subtitleToCheckboxSpacing).isActive = true
 
         // Main content stack
-        let contentStack = UIStackView(arrangedSubviews: [
-            headerStack, spacerView, checkboxStack, continueButton
-        ])
-        contentStack.axis = .vertical
-        contentStack.alignment = .fill
-        contentStack.spacing = 0
-        contentStack.setCustomSpacing(32, after: checkboxStack)
-        contentStack.translatesAutoresizingMaskIntoConstraints = false
+        contentStack.addArrangedSubview(headerStack)
+        contentStack.addArrangedSubview(spacerView)
+        contentStack.addArrangedSubview(checkboxStack)
+        contentStack.addArrangedSubview(continueButton)
+        contentStack.setCustomSpacing(Layout.interSectionSpacing, after: checkboxStack)
 
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -134,11 +171,11 @@ final class ConsentViewController: UIViewController {
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
 
-            contentStack.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 48),
-            contentStack.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 20),
-            contentStack.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -20),
-            contentStack.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -40),
-            contentStack.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -40),
+            contentStack.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: Layout.contentTopInset),
+            contentStack.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: Layout.contentHorizontalInset),
+            contentStack.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -Layout.contentHorizontalInset),
+            contentStack.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -Layout.contentBottomInset),
+            contentStack.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -(Layout.contentHorizontalInset * 2)),
 
             logoImageView.widthAnchor.constraint(equalToConstant: 124),
             logoImageView.heightAnchor.constraint(equalToConstant: 124)
