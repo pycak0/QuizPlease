@@ -31,7 +31,7 @@ final class ConsentAssembly {
                 sheet.detents = [.large()]
             }
             sheet.prefersGrabberVisible = false
-            sheet.preferredCornerRadius = 40
+            sheet.prefersEdgeAttachedInCompactHeight = true
         }
 
         return consentVC
