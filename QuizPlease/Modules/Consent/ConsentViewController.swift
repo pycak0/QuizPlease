@@ -127,7 +127,8 @@ final class ConsentViewController: UIViewController {
     // MARK: - Private Methods
 
     private func setupUI() {
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .backgroundOpaque
+        view.isOpaque = true
         isModalInPresentation = true
 
         // Header stack: logo + title + subtitle
