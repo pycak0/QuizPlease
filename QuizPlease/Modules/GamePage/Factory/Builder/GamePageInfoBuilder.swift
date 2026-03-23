@@ -37,7 +37,7 @@ extension GamePageInfoBuilder: GamePageItemBuilderProtocol {
 
     func makeItems() -> [GamePageItemProtocol] {
         let gameInfo = infoProvider.getInfo()
-        let infoLines = [
+        var infoLines = [
             // price
             GamePageInfoLineViewModel(title: gameInfo.priceDetails, subtitle: nil,
                                       iconName: "banknoteIcon"),
@@ -51,6 +51,15 @@ extension GamePageInfoBuilder: GamePageItemBuilderProtocol {
             GamePageInfoLineViewModel(title: gameInfo.status.comment, subtitle: nil,
                                       iconName: gameInfo.status.imageName)
         ]
+        if let restrictionMessage = gameInfo.specialConditionsRestrictionMessage {
+            infoLines.append(
+                GamePageInfoLineViewModel(
+                    title: nil,
+                    subtitle: restrictionMessage,
+                    iconName: "exclamationmark.circle.fill"
+                )
+            )
+        }
         let item = GamePageInfoItem(
             infoLines: infoLines,
             placeProvider: infoProvider,
