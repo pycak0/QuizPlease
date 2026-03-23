@@ -243,6 +243,7 @@ extension RegistrationService: RegistrationServiceProtocol {
                 }
                 if let index = self.specialConditions.firstIndex(where: { $0.value == value }) {
                     self.specialConditions[index].discountInfo = discountInfo
+                    self.specialConditions[index].conditionId = response.id
                 }
 
                 completion(response.success, response.message)
@@ -267,14 +268,17 @@ extension RegistrationService: RegistrationServiceProtocol {
     func sendRegistrationRequest(
         completion: @escaping (Result<GameOrderResponse, NetworkServiceError>) -> Void
     ) {
-        let certificatesIds = specialConditions
+        let certificateIds = specialConditions
             .filter { $0.discountInfo?.kind == .certificate }
-            .compactMap { $0.value }
+            .compactMap(\.conditionId)
 
-        let certificatesIdsData = try? jsonEncoder.encode(certificatesIds)
-        let certificatesIdsJson = certificatesIdsData.map { String(data: $0, encoding: .utf8) } ?? nil
+        let certificateIdsData = try? jsonEncoder.encode(certificateIds)
+        let certificateIdsJson = certificateIdsData.map { String(data: $0, encoding: .utf8) } ?? nil
 
-        let promocode = specialConditions.first(where: { $0.discountInfo?.kind == .promocode })?.value
+        let promocodeId = specialConditions
+            .first(where: { $0.discountInfo?.kind == .promocode })?
+            .conditionId
+            .map(String.init)
 
         // swiftlint:disable colon
         let params: [String: String?] = [
@@ -291,8 +295,8 @@ extension RegistrationService: RegistrationServiceProtocol {
             "QpRecord[teamName]":           registerForm.teamName,
             "QpRecord[payment_token]":      registerForm.paymentToken,
             "QpRecord[count_paid]":         registerForm.countPaidOnline.map { "\($0)" },
-            "QpRecord[promo_id]":           promocode,
-            "QpRecord[certificate_ids]":    certificatesIdsJson,
+            "QpRecord[promo_id]":           promocodeId,
+            "QpRecord[certificate_ids]":    certificateIdsJson,
             "table_size":                   registerForm.selectedTableSize.map { "\($0)" },
             "is_personal_data_consent":     "\(registerForm.isPersonalDataConsent)",
             "is_marketing_consent":         "\(registerForm.isMarketingConsent)"
