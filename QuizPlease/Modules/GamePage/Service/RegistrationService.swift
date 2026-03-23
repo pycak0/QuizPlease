@@ -268,12 +268,14 @@ extension RegistrationService: RegistrationServiceProtocol {
     func sendRegistrationRequest(
         completion: @escaping (Result<GameOrderResponse, NetworkServiceError>) -> Void
     ) {
-        let certificateIds = specialConditions
+        let certificates: [MultipartFormDataObject] = specialConditions
             .filter { $0.discountInfo?.kind == .certificate }
-            .compactMap(\.conditionId)
-
-        let certificateIdsData = try? jsonEncoder.encode(certificateIds)
-        let certificateIdsJson = certificateIdsData.map { String(data: $0, encoding: .utf8) } ?? nil
+            .compactMap {
+                MultipartFormDataObject(
+                    name: "QpRecord[certificate_ids][]",
+                    optionalStringData: $0.conditionId.map(String.init)
+                )
+            }
 
         let promocodeId = specialConditions
             .first(where: { $0.discountInfo?.kind == .promocode })?
@@ -296,14 +298,13 @@ extension RegistrationService: RegistrationServiceProtocol {
             "QpRecord[payment_token]":      registerForm.paymentToken,
             "QpRecord[count_paid]":         registerForm.countPaidOnline.map { "\($0)" },
             "QpRecord[promo_id]":           promocodeId,
-            "QpRecord[certificate_ids]":    certificateIdsJson,
             "table_size":                   registerForm.selectedTableSize.map { "\($0)" },
             "is_personal_data_consent":     "\(registerForm.isPersonalDataConsent)",
             "is_marketing_consent":         "\(registerForm.isMarketingConsent)"
         ]
         // swiftlint:enable colon
 
-        var formData: [MultipartFormDataObject] = MultipartFormDataObjects(params)
+        var formData: [MultipartFormDataObject] = certificates + MultipartFormDataObjects(params)
 
         if let customFieldsData = encodeCustomFields() {
             let customFieldForm = MultipartFormDataObject(
