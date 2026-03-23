@@ -99,6 +99,7 @@ final class GamePageSpecialConditionsBuilder {
                 if newValue != model.value {
                     /// If the value was chagned, we can't guarantee that the new condition is still valid
                     model.discountInfo = nil
+                    model.conditionId = nil
                 }
                 model.value = newValue
                 let currentConditions = self.specialConditionsProvider.getSpecialConditions()
