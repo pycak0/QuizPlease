@@ -1,5 +1,10 @@
 # AGENTS
 
+## Project Map
+
+- Repo analysis and evolving architecture notes live in `.codex/project-map.md`.
+- Keep this file short and stable; put long-form project memory in the project map.
+
 ## Build
 
 - Build this project from `QuizPlease.xcworkspace`, not from `QuizPlease.xcodeproj`.
