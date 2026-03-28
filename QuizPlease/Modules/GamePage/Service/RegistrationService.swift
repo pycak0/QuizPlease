@@ -177,6 +177,14 @@ final class RegistrationService {
             return nil
         }
     }
+
+    private var registrationPaymentTypeRawValue: String {
+        let paymentOption = gameInfoLoader
+            .getCachedGame(gameId: registerForm.gameId)?
+            .paymentOption ?? .cashOnly
+
+        return "\(paymentOption.rawValue)"
+    }
 }
 
 // MARK: - RegistrationServiceProtocol
@@ -292,7 +300,7 @@ extension RegistrationService: RegistrationServiceProtocol {
             "QpRecord[comment]":            registerForm.comment ?? "",
             "QpRecord[game_id]":            "\(registerForm.gameId)",
             "QpRecord[first_time]":         registerForm.isFirstTime ? "1" : "0",
-            "QpRecord[payment_type]":       "\(registerForm.paymentType.rawValue)",
+            "QpRecord[payment_type]":       registrationPaymentTypeRawValue,
             "QpRecord[people_count]":       "\(registerForm.count)",
             "QpRecord[teamName]":           registerForm.teamName,
             "QpRecord[payment_token]":      registerForm.paymentToken,

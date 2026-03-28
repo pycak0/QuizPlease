@@ -148,9 +148,13 @@ extension GameInfo {
         return "\(nameGame.trimmingCharacters(in: .whitespaces)) \(gameNumber)"
     }
 
+    var paymentOption: PaymentOption {
+        PaymentOption(rawValue: payment_icon) ?? .cashOnly
+    }
+
     var availablePaymentTypes: [PaymentType] {
-        switch PaymentOption(rawValue: payment_icon) {
-        case .none, .cashOnly, .creditCardOffline, .cashOrCreditOffline, .onlineCustom, .freeEnter:
+        switch paymentOption {
+        case .cashOnly, .creditCardOffline, .cashOrCreditOffline, .onlineCustom, .freeEnter:
             return [.cash]
         case .onlineInApp:
             return [.online]
