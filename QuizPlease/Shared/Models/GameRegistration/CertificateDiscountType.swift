@@ -1,5 +1,5 @@
 //
-//  CertificateResponse.swift
+//  CertificateDiscountType.swift
 //  QuizPlease
 //
 //  Created by Владислав on 12.12.2020.

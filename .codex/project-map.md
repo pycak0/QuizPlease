@@ -170,7 +170,6 @@ Implication: changes to startup or deep links often involve `AppDelegate`, `Scen
 ### Largest / highest-complexity modules by file count
 
 - `GamePage` (~78 files): custom registration, payment, item builders, game details
-- `GameOrder` (~37 files): older order flow, storyboard-backed
 - `MainMenu` (~21 files): hub screen, menu routing, posts `mainScreenLoaded`
 - `Rating` (~21 files): rating flow and cells
 - `WarmUp` (~17 files): warmup mini-domain, questions flow
@@ -186,11 +185,9 @@ Implication: changes to startup or deep links often involve `AppDelegate`, `Scen
 - `Schedule`
   - games list and filter UX
 - `GamePage`
-  - current, more modular game details / registration flow
-- `GameOrder`
-  - separate game ordering flow; still storyboard-based
+  - current game details / registration flow
 - `GameOrderCompletion`
-  - post-order result UI
+  - standalone post-registration result UI, presented from `GamePage`
 - `HomeGame`
   - home game listing / details
 - `WarmUp`
@@ -229,9 +226,9 @@ Implication: changes to startup or deep links often involve `AppDelegate`, `Scen
   - router
   - builder/factory objects for table sections/items
   - separate registration and payment services
-- `GameOrder` looks older and more storyboard-driven.
+- Legacy `GameOrder` module was removed on 2026-03-28.
 
-Implication: when changing "game registration" logic, inspect both `GamePage` and `GameOrder`; they likely overlap in business intent but differ architecturally.
+Implication: registration and payment logic now lives in `GamePage` plus shared models under `Shared/Models/GameRegistration`.
 
 ## Networking
 
@@ -290,7 +287,6 @@ Implication: when changing "game registration" logic, inspect both `GamePage` an
   - `defaultCity`
   - `isShopEnabled`
   - `isProfileEnabled`
-  - `isGamePageEnabled`
   - `geoChecksAlwaysSuccessful`
   - `inAppPaymentOnlyForOnlineGamesEnabled`
 
@@ -301,15 +297,15 @@ Implication: behavior may be controlled partly by server-loaded client settings 
 ### Payment-related locations
 
 - `QuizPlease/Modules/GamePage/Service/PaymentService.swift`
+- `QuizPlease/Shared/Models/GameRegistration/*`
 - `QuizPlease/Services/PaymentProvider/*`
 - `QuizPlease/Modules/YooKassaPaymentModule/*`
-- `QuizPlease/Modules/GameOrder/*`
 
 ### External payment stack
 
 - YooKassa SDK is integrated through CocoaPods.
 - `TransitionFacade` explicitly delegates callback URLs to `YKSdk.shared.handleOpen(...)`.
-- Both `GamePage` and `GameOrder` contain payment-related logic.
+- Registration payment flow is centered in `GamePage`; `GameOrderCompletion` only shows the result UI.
 
 ### Risk area
 
@@ -402,7 +398,7 @@ Implication: most features do not appear to have direct automated coverage. Expe
 ## Hotspots And Migration Notes
 
 - `GamePage` is the highest-value module to understand first for current product work.
-- `GameOrder` may duplicate business rules that also exist in `GamePage`.
+- Legacy `GameOrder` flow has been removed; shared registration models live in `Shared/Models/GameRegistration`.
 - Networking appears partially modernized, not fully converged.
 - Global mutable state is used heavily through `DefaultsManager`, `AppSettings`, and some singleton services.
 - Deep-link routing depends on `mainScreenLoaded`, which makes app-start navigation timing-sensitive.
@@ -414,7 +410,8 @@ Implication: most features do not appear to have direct automated coverage. Expe
 - Before modifying a feature, check its assembly/configurator first to understand wiring.
 - For anything touching registration or payment:
   - inspect `Modules/GamePage`
-  - inspect `Modules/GameOrder`
+  - inspect `Shared/Models/GameRegistration`
+  - inspect `Modules/GameOrderCompletion`
   - inspect `Services/PaymentProvider`
   - inspect `Modules/YooKassaPaymentModule`
   - inspect `Core/Transitions/TransitionFacade.swift`

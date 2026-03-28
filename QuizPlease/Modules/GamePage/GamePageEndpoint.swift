@@ -8,13 +8,13 @@
 
 import UIKit
 
-/// Endpoint class for the GameOrder / GamePage screen
+/// Endpoint class for the GamePage screen
 public final class GamePageEndpoint: ApplinkEndpoint {
 
     static let identifier = "game"
 
     func show(parameters: [String: String]) -> Bool {
-        print("📲 GameOrder Endpoint entry")
+        print("📲 GamePage Endpoint entry")
         let gameIdString = parameters["gameId"] ?? parameters["id"]
         guard let gameId = gameIdString else {
             logFail("Did not find game id among the launch parameters")
@@ -29,23 +29,12 @@ public final class GamePageEndpoint: ApplinkEndpoint {
             return false
         }
 
-        let viewController: UIViewController
-
-        if AppSettings.isGamePageEnabled {
-            viewController = GamePageAssembly(
-                launchOptions: .init(
-                    gameId: gameId,
-                    shouldScrollToRegistration: false
-                )
-            ).makeViewController()
-        } else {
-            viewController = GameOrderAssembly(
+        let viewController = GamePageAssembly(
+            launchOptions: .init(
                 gameId: gameId,
-                cityId: AppSettings.defaultCity.id,
-                shouldScrollToSignUp: false,
-                shouldLoadGameInfo: true
-            ).makeViewController()
-        }
+                shouldScrollToRegistration: false
+            )
+        ).makeViewController()
 
         topNavigationController.pushViewController(viewController, animated: true)
         print("✅ Successful transition to GamePage Screen")

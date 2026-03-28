@@ -24,13 +24,6 @@ final class DebugSettingsViewController: UIViewController {
                 }
             ),
             DebugSettingsSwitchItem(
-                title: "Новый экран GamePage включен",
-                isEnabledProvider: AppSettings.isGamePageEnabled,
-                onValueChange: { newValue in
-                    AppSettings.isGamePageEnabled = newValue
-                }
-            ),
-            DebugSettingsSwitchItem(
                 title: "Возможность оплаты доступна только для онлайн-игр",
                 isEnabledProvider: AppSettings.inAppPaymentOnlyForOnlineGamesEnabled,
                 onValueChange: { newValue in

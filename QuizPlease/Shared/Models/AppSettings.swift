@@ -52,9 +52,6 @@ public enum AppSettings {
         URL(string: "https://apps.apple.com/ru/app/id1585713090")!
     }()
 
-    /// Whether the new GamePage is enabled or not
-    public static var isGamePageEnabled = true
-
     public static var geoChecksAlwaysSuccessful = true
 
     /// Enable in-app payment only for online games

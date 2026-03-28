@@ -20,7 +20,7 @@ protocol GameInfoCellDelegate: AnyObject {
     func gameInfoCellDidTapOnMap(_ cell: GameInfoCell)
 }
 
-final class GameInfoCell: UITableViewCell, GameOrderCellProtocol {
+final class GameInfoCell: UITableViewCell {
 
     weak var delegate: AnyObject? {
         get { _delegate }

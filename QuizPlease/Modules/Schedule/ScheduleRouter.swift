@@ -11,7 +11,7 @@ import UIKit
 // MARK: - Router Protocol
 protocol ScheduleRouterProtocol: SegueRouter {
 
-    func showGameInfo(with options: GameOrderPresentationOptions)
+    func showGameInfo(with options: GamePageLaunchOptions)
     func showScheduleFilters(with filterInfo: ScheduleFilter)
 
     /// Pop current screen and push Warmup Screen onto the navigation stack
@@ -43,10 +43,6 @@ final class ScheduleRouter: ScheduleRouterProtocol {
 
     func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
-        case "ShowGameInfo":
-            guard let gameInfo = sender as? GameOrderPresentationOptions,
-                let vc = segue.destination as? GameOrderVC else { return }
-            GameOrderConfigurator().configure(vc, with: gameInfo)
         case "ShowFilters":
             guard let vc = segue.destination as? FiltersVC,
                 let filter = sender as? ScheduleFilter else { return }
@@ -59,18 +55,10 @@ final class ScheduleRouter: ScheduleRouterProtocol {
 
     // MARK: - Segues
 
-    func showGameInfo(with options: GameOrderPresentationOptions) {
+    func showGameInfo(with options: GamePageLaunchOptions) {
         print("📲 Переход к странице игры, параметры: \(options)")
-        if AppSettings.isGamePageEnabled {
-            let launchOptions = GamePageLaunchOptions(
-                gameId: options.gameInfo.id,
-                shouldScrollToRegistration: options.shouldScrollToSignUp
-            )
-            let assembly = GamePageAssembly(launchOptions: launchOptions)
-            navigationController?.pushViewController(assembly.makeViewController(), animated: true)
-            return
-        }
-        viewController.performSegue(withIdentifier: "ShowGameInfo", sender: options)
+        let assembly = GamePageAssembly(launchOptions: options)
+        navigationController?.pushViewController(assembly.makeViewController(), animated: true)
     }
 
     func showScheduleFilters(with filterInfo: ScheduleFilter) {

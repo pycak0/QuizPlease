@@ -574,7 +574,6 @@
                         <outlet property="noGamesTextView" destination="pxi-Le-rcS" id="fGW-GZ-tc2"/>
                         <outlet property="noGamesView" destination="6ly-LF-rJR" id="RLq-6g-9I7"/>
                         <outlet property="tableView" destination="cDB-VW-MNb" id="tas-8h-Jd6"/>
-                        <segue destination="hGT-Iz-M2s" kind="show" identifier="ShowGameInfo" id="igl-eH-8rq"/>
                         <segue destination="rAk-7b-BCn" kind="presentation" identifier="ShowFilters" id="z5i-4v-r7U"/>
                     </connections>
                 </viewController>
@@ -1063,71 +1062,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VAm-gC-Ene" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1372" y="1574"/>
-        </scene>
-        <!--Game OrderVC-->
-        <scene sceneID="iTE-1J-euP">
-            <objects>
-                <viewController storyboardIdentifier="GameOrderVC" id="hGT-Iz-M2s" customClass="GameOrderVC" customModule="QuizPlease" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="bSr-Tq-E4k">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ahH-nd-hl4">
-                                <rect key="frame" x="0.0" y="101" width="390" height="743"/>
-                                <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gameInfoTemplate" translatesAutoresizingMaskIntoConstraints="NO" id="FKI-MS-LTd">
-                                        <rect key="frame" x="0.0" y="0.0" width="390" height="270"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="270" id="cNX-GV-dAh"/>
-                                        </constraints>
-                                    </imageView>
-                                    <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OF9-qh-Dyj">
-                                        <rect key="frame" x="0.0" y="0.0" width="390" height="270"/>
-                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </view>
-                                </subviews>
-                                <color key="backgroundColor" systemColor="systemGray6Color"/>
-                                <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="OF9-qh-Dyj" secondAttribute="trailing" id="1kt-dF-k9T"/>
-                                    <constraint firstItem="OF9-qh-Dyj" firstAttribute="height" secondItem="FKI-MS-LTd" secondAttribute="height" id="2kh-fm-k1V"/>
-                                    <constraint firstItem="FKI-MS-LTd" firstAttribute="leading" secondItem="ahH-nd-hl4" secondAttribute="leading" id="72o-NO-jb4"/>
-                                    <constraint firstAttribute="trailing" secondItem="FKI-MS-LTd" secondAttribute="trailing" id="HmQ-bX-eRh"/>
-                                    <constraint firstItem="OF9-qh-Dyj" firstAttribute="top" secondItem="ahH-nd-hl4" secondAttribute="top" id="Kke-VO-mIK"/>
-                                    <constraint firstItem="OF9-qh-Dyj" firstAttribute="leading" secondItem="ahH-nd-hl4" secondAttribute="leading" id="Liw-9c-Apt"/>
-                                    <constraint firstItem="FKI-MS-LTd" firstAttribute="top" secondItem="ahH-nd-hl4" secondAttribute="top" id="iJY-jk-71C"/>
-                                </constraints>
-                            </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zWG-FS-gI7">
-                                <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </tableView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="B1B-P2-bzf"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstAttribute="bottom" secondItem="ahH-nd-hl4" secondAttribute="bottom" id="0Jo-CQ-pW3"/>
-                            <constraint firstItem="B1B-P2-bzf" firstAttribute="trailing" secondItem="ahH-nd-hl4" secondAttribute="trailing" id="3Vm-jL-I0l"/>
-                            <constraint firstItem="B1B-P2-bzf" firstAttribute="trailing" secondItem="zWG-FS-gI7" secondAttribute="trailing" id="932-5y-cp3"/>
-                            <constraint firstItem="zWG-FS-gI7" firstAttribute="top" secondItem="bSr-Tq-E4k" secondAttribute="top" id="Ip0-0y-a5S"/>
-                            <constraint firstItem="zWG-FS-gI7" firstAttribute="leading" secondItem="B1B-P2-bzf" secondAttribute="leading" id="OqO-W8-Twt"/>
-                            <constraint firstAttribute="bottom" secondItem="zWG-FS-gI7" secondAttribute="bottom" id="QbE-cq-NmU"/>
-                            <constraint firstItem="ahH-nd-hl4" firstAttribute="leading" secondItem="B1B-P2-bzf" secondAttribute="leading" id="RxM-mB-TDI"/>
-                            <constraint firstItem="ahH-nd-hl4" firstAttribute="top" secondItem="B1B-P2-bzf" secondAttribute="top" id="yvb-Pa-gAa"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="ts0-9H-xLu"/>
-                    <connections>
-                        <outlet property="gameImageView" destination="FKI-MS-LTd" id="JxS-99-I7O"/>
-                        <outlet property="gameImageViewHeightConstraint" destination="cNX-GV-dAh" id="B1j-Qa-H9m"/>
-                        <outlet property="imageDarkeningView" destination="OF9-qh-Dyj" id="mhu-FG-faY"/>
-                        <outlet property="tableView" destination="zWG-FS-gI7" id="Emk-d8-6RH"/>
-                        <segue destination="aTk-QU-tXA" kind="presentation" identifier="ShowGameOrderCompletionScreen" modalPresentationStyle="overFullScreen" id="T8Y-vv-sYG"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="kct-uf-a61" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2134.7826086956525" y="-1987.5"/>
         </scene>
         <!--Разминка-->
         <scene sceneID="2LJ-Dw-0Y3">
@@ -2279,24 +2213,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h2s-a3-qOI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1904" y="1379"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="NIi-rw-EO9">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="aTk-QU-tXA" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ftx-3d-9Jt">
-                        <rect key="frame" x="0.0" y="47" width="390" height="54"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="Biu-cA-03G" kind="relationship" relationship="rootViewController" id="oLb-wC-Dxf"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6aH-0s-Nnq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3342.0289855072465" y="-2229.2410714285711"/>
         </scene>
         <!--[Game Name]-->
         <scene sceneID="kLd-U1-iMA">
