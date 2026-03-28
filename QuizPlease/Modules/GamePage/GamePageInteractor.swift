@@ -123,16 +123,24 @@ final class GamePageInteractor: GamePageInteractorProtocol {
         }
     }
 
+    private func resolveCountPaidOnline() -> Int? {
+        let registerForm = registrationService.getRegisterForm()
+        guard registerForm.paymentType == .online else { return nil }
+
+        switch gameInfo.priceKind {
+        case .person:
+            return registerForm.countPaidOnline ?? registerForm.count
+        case .team, .table:
+            return registerForm.count
+        }
+    }
+
     /// Calculates payment sum. If payment is needed, launches payment process.
     /// If not, registers immediately.
     private func registerWithOnlinePayment() {
         let registerForm = registrationService.getRegisterForm()
+        registerForm.countPaidOnline = resolveCountPaidOnline()
         let paymentSum = calculatePaymentSum()
-        if gameInfo.isOnlineGame {
-            // В онлайн-играх оплата производится всегда за команду,
-            // отдельно количество оплаченных участников не указывается
-            registerForm.countPaidOnline = nil
-        }
 
         if paymentSum <= 0 {
             // Если платеж не требуется, то для корректной отработки бэка
