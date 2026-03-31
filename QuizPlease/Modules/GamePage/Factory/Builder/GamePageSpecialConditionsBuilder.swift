@@ -13,6 +13,8 @@ protocol GamePageSpecialConditionsOutput: AnyObject {
     func didPressCheckSpecialCondition(value: String?)
 
     func didEndEditingSpecialCondition()
+
+    func didRemoveSpecialCondition()
 }
 
 /// GamePage special condition items builder
@@ -138,6 +140,7 @@ final class GamePageSpecialConditionsBuilder {
     private func removeSpecialCondition(at index: Int) {
         specialConditionsProvider.removeSpecialCondition(at: index)
         view?.removeSpecialCondition(at: index)
+        output?.didRemoveSpecialCondition()
         let currentConditions = specialConditionsProvider.getSpecialConditions()
         if currentConditions.count == 1 && (currentConditions.first?.value?.isEmpty ?? true) {
             view?.hideAddButton()
