@@ -306,6 +306,7 @@ extension RegistrationService: RegistrationServiceProtocol {
             "QpRecord[payment_token]":      registerForm.paymentToken,
             "QpRecord[count_paid]":         registerForm.countPaidOnline.map { "\($0)" },
             "QpRecord[promo_id]":           promocodeId,
+            "QpRecord[payment_format]":     "\(registerForm.paymentType.rawValue)",
             "table_size":                   registerForm.selectedTableSize.map { "\($0)" },
             "is_personal_data_consent":     "\(registerForm.isPersonalDataConsent)",
             "is_marketing_consent":         "\(registerForm.isMarketingConsent)"
