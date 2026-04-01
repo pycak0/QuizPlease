@@ -10,8 +10,13 @@ import UIKit
 
 // MARK: - Colors
 public extension UIColor {
+
+    class var backgroundOpaque: UIColor {
+        UIColor(named: "backgroundOpaque")!
+    }
+
     class var darkBlue: UIColor {
-        return UIColor(named: "darkBlue")!
+        UIColor(named: "darkBlue")!
     }
 
     /// In the light appearance, it's the same color as `darkBlue`.
