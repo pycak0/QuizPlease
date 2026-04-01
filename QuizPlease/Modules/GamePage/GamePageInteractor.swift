@@ -123,6 +123,19 @@ final class GamePageInteractor: GamePageInteractorProtocol {
         }
     }
 
+    private func resolveSelectedPaidPeopleCount() -> Int {
+        let registerForm = registrationService.getRegisterForm()
+        if gameInfo.priceKind == .table {
+            registerForm.countPaidOnline = registerForm.count
+            return registerForm.count
+        }
+        if let count = registerForm.countPaidOnline {
+            return count
+        }
+        registerForm.countPaidOnline = registerForm.count
+        return registerForm.count
+    }
+
     private func resolveCountPaidOnline() -> Int? {
         let registerForm = registrationService.getRegisterForm()
         guard registerForm.paymentType == .online else { return nil }
@@ -364,7 +377,11 @@ final class GamePageInteractor: GamePageInteractorProtocol {
     }
 
     func setPaymentType(_ type: PaymentType) {
-        registrationService.getRegisterForm().paymentType = type
+        let registerForm = registrationService.getRegisterForm()
+        registerForm.paymentType = type
+        if gameInfo.priceKind == .table {
+            registerForm.countPaidOnline = registerForm.count
+        }
     }
 
     func supportsSelectPaidPeopleCount() -> Bool {
@@ -376,22 +393,18 @@ final class GamePageInteractor: GamePageInteractorProtocol {
     }
 
     func getSelectedNumberOfPeopleToPay() -> Int {
-        let registerForm = registrationService.getRegisterForm()
-        if let count = registerForm.countPaidOnline {
-            return count
-        }
-        registerForm.countPaidOnline = registerForm.count
-        return registerForm.count
+        resolveSelectedPaidPeopleCount()
     }
 
     func setNumberOfPeopleToPay(_ number: Int) {
-        registrationService.getRegisterForm().countPaidOnline = number
+        let registerForm = registrationService.getRegisterForm()
+        registerForm.countPaidOnline = gameInfo.priceKind == .table ? registerForm.count : number
     }
 
     func calculatePaymentSum() -> Double {
         let registerForm = registrationService.getRegisterForm()
         return paymentSumCalculator.calculateSumToPay(
-            forPeople: registerForm.countPaidOnline ?? registerForm.count,
+            forPeople: resolveSelectedPaidPeopleCount(),
             gamePrice: gameInfo.priceNumber ?? 0,
             isOnlineGame: gameInfo.isOnlineGame,
             discounts: registrationService

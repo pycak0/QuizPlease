@@ -135,6 +135,7 @@ extension GamePagePresenter: GamePageViewOutput,
 
     func didChangeTeamCount() {
         view?.updateFirstItem(kind: .paymentCount)
+        view?.updateFirstItem(kind: .paymentSum)
     }
 
     func updateField(kind: GamePageItemKind) {

@@ -131,18 +131,39 @@ final class GamePageRegistrationFieldsBuilder {
         )
     }
 
-    private func makeTablePickerItem(registerForm: RegisterForm, tables: [GameTable]) -> GamePageItemProtocol {
-        // Deduplicate tables by seats to show only unique seat counts
+    private func makeUniqueSortedTables(from tables: [GameTable]) -> [GameTable] {
         var seenSeats = Set<Int>()
-        let uniqueTables = tables.filter { seenSeats.insert($0.seats).inserted }
+        return tables
+            .sorted {
+                if $0.seats == $1.seats {
+                    return $0.id < $1.id
+                }
+                return $0.seats < $1.seats
+            }
+            .filter { seenSeats.insert($0.seats).inserted }
+    }
 
-        // Select first table size by default if none selected
-        if registerForm.selectedTableSize == nil, let firstTable = uniqueTables.first {
-            registerForm.selectedTableSize = firstTable.seats
-            registerForm.count = firstTable.seats
+    @discardableResult
+    private func syncSelectedTable(
+        for registerForm: RegisterForm,
+        with tables: [GameTable]
+    ) -> GameTable? {
+        let selectedTable = tables.first(where: { $0.seats == registerForm.selectedTableSize }) ?? tables.first
+        registerForm.selectedTableSize = selectedTable?.seats
+        if let seats = selectedTable?.seats {
+            registerForm.count = seats
+            registerForm.countPaidOnline = seats
         }
+        return selectedTable
+    }
 
-        let selectedIndex = uniqueTables.firstIndex(where: { $0.seats == registerForm.selectedTableSize }) ?? 0
+    private func makeTablePickerItem(registerForm: RegisterForm, tables: [GameTable]) -> GamePageItemProtocol {
+        let uniqueTables = makeUniqueSortedTables(from: tables)
+        let selectedTable = syncSelectedTable(for: registerForm, with: uniqueTables)
+        let selectedIndex = selectedTable
+            .flatMap { table in
+                uniqueTables.firstIndex(where: { $0.seats == table.seats })
+            } ?? 0
 
         return GamePageTablePickerItem(
             kind: .teamCount,
@@ -156,6 +177,7 @@ final class GamePageRegistrationFieldsBuilder {
                 let table = uniqueTables[index]
                 registerForm?.selectedTableSize = table.seats
                 registerForm?.count = table.seats
+                registerForm?.countPaidOnline = table.seats
                 output?.didChangeTeamCount()
             }
         )

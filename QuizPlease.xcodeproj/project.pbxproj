@@ -183,6 +183,8 @@
 		A44E5EEE295F85F800402B97 /* WarmupQuestionTypeResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44E5EED295F85F800402B97 /* WarmupQuestionTypeResolver.swift */; };
 		A44E5EF0295F9B7000402B97 /* WarmupQuestionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44E5EEF295F9B7000402B97 /* WarmupQuestionType.swift */; };
 		A44E5EF2295F9DFD00402B97 /* WarmupQuestionTypeResolverTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44E5EF1295F9DFD00402B97 /* WarmupQuestionTypeResolverTest.swift */; };
+		D1A2B3C4D5E6F70011223347 /* GamePageRegistrationFieldsBuilderTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A2B3C4D5E6F70011223346 /* GamePageRegistrationFieldsBuilderTest.swift */; };
+		D1A2B3C4D5E6F70011223348 /* GamePageRegistrationFieldsBuilderMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A2B3C4D5E6F70011223349 /* GamePageRegistrationFieldsBuilderMocks.swift */; };
 		A450E39724E559CD00C49AEE /* TitledTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A450E39524E559CD00C49AEE /* TitledTextFieldView.swift */; };
 		A45241DE265479A70058285C /* CGRect+setHeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45241DD265479A70058285C /* CGRect+setHeight.swift */; };
 		A45241E026547A060058285C /* UITextField+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45241DF26547A060058285C /* UITextField+Extensions.swift */; };
@@ -654,6 +656,8 @@
 		A44E5EED295F85F800402B97 /* WarmupQuestionTypeResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarmupQuestionTypeResolver.swift; sourceTree = "<group>"; };
 		A44E5EEF295F9B7000402B97 /* WarmupQuestionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarmupQuestionType.swift; sourceTree = "<group>"; };
 		A44E5EF1295F9DFD00402B97 /* WarmupQuestionTypeResolverTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarmupQuestionTypeResolverTest.swift; sourceTree = "<group>"; };
+		D1A2B3C4D5E6F70011223346 /* GamePageRegistrationFieldsBuilderTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageRegistrationFieldsBuilderTest.swift; sourceTree = "<group>"; };
+		D1A2B3C4D5E6F70011223349 /* GamePageRegistrationFieldsBuilderMocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageRegistrationFieldsBuilderMocks.swift; sourceTree = "<group>"; };
 		A450E39524E559CD00C49AEE /* TitledTextFieldView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitledTextFieldView.swift; sourceTree = "<group>"; };
 		A45241DD265479A70058285C /* CGRect+setHeight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGRect+setHeight.swift"; sourceTree = "<group>"; };
 		A45241DF26547A060058285C /* UITextField+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extensions.swift"; sourceTree = "<group>"; };
@@ -1523,6 +1527,14 @@
 			path = WarmUp;
 			sourceTree = "<group>";
 		};
+		D1A2B3C4D5E6F70011223345 /* GamePage */ = {
+			isa = PBXGroup;
+			children = (
+				D1A2B3C4D5E6F70011223346 /* GamePageRegistrationFieldsBuilderTest.swift */,
+			);
+			path = GamePage;
+			sourceTree = "<group>";
+		};
 		A44E5EEC295F71C000402B97 /* Service */ = {
 			isa = PBXGroup;
 			children = (
@@ -2186,6 +2198,7 @@
 		A4E06B5029E80E5C0005C57B /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				D1A2B3C4D5E6F70011223345 /* GamePage */,
 				A44E5EEB295F716700402B97 /* WarmUp */,
 			);
 			path = Modules;
@@ -2203,10 +2216,27 @@
 		A4E06B5429E816AE0005C57B /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
+				D1A2B3C4D5E6F7001122334B /* Modules */,
 				A4E06B5529E816BC0005C57B /* Service */,
 				A4E06B8C29E9F0900005C57B /* Core */,
 			);
 			path = Mocks;
+			sourceTree = "<group>";
+		};
+		D1A2B3C4D5E6F7001122334A /* GamePage */ = {
+			isa = PBXGroup;
+			children = (
+				D1A2B3C4D5E6F70011223349 /* GamePageRegistrationFieldsBuilderMocks.swift */,
+			);
+			path = GamePage;
+			sourceTree = "<group>";
+		};
+		D1A2B3C4D5E6F7001122334B /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				D1A2B3C4D5E6F7001122334A /* GamePage */,
+			);
+			path = Modules;
 			sourceTree = "<group>";
 		};
 		A4E06B5529E816BC0005C57B /* Service */ = {
@@ -3129,6 +3159,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D1A2B3C4D5E6F70011223348 /* GamePageRegistrationFieldsBuilderMocks.swift in Sources */,
+				D1A2B3C4D5E6F70011223347 /* GamePageRegistrationFieldsBuilderTest.swift in Sources */,
 				A44E5EF2295F9DFD00402B97 /* WarmupQuestionTypeResolverTest.swift in Sources */,
 				A4E06B5229E80E720005C57B /* PlaceGeocoderTest.swift in Sources */,
 				A4E06B8E29E9F0A30005C57B /* InMemoryCacheMock.swift in Sources */,
