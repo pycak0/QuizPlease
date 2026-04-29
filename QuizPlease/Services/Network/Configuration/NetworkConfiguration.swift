@@ -34,10 +34,12 @@ public enum NetworkConfiguration: CustomStringConvertible {
         switch self {
         case .staging:
             return "https://mobile.qpdv.ru/"
-        case .production, .productionRating:
-            return "https://quizplease.ru/"
+        case .production:
+            return "https://mobile.qpdv.ru/"
         case .stagingRating:
             return "https://rating-api.dev.quizplease.ru/"
+        case .productionRating:
+            return "https://rating-api.quizplease.ru/"
         }
     }
 
