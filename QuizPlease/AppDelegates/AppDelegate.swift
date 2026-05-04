@@ -12,6 +12,9 @@ import FirebaseMessaging
 import FirebaseCore
 import UserNotificationsUI
 import PhoneNumberKit
+#if canImport(Wormholy)
+import Wormholy
+#endif
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate {
@@ -27,6 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate {
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
 
+        configureWormholy()
         FirebaseApp.configure()
         Messaging.messaging().delegate = self
         UNUserNotificationCenter.current().delegate = self
@@ -39,6 +43,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate {
         PhoneNumberKit.CountryCodePicker.commonCountryCodes = []
 
         return transitionFacade.handleLaunchOptions(launchOptions)
+    }
+
+    private func configureWormholy() {
+        #if canImport(Wormholy)
+        guard Configuration.current.isProduction else { return }
+        Wormholy.shakeEnabled = false
+        Wormholy.setEnabled(false)
+        #endif
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {

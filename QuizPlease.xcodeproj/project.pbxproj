@@ -582,6 +582,7 @@
 		A40C807D252E857000CE40D8 /* UIView+Shake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Shake.swift"; sourceTree = "<group>"; };
 		A40C8085252E872D00CE40D8 /* WarmupAnswer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarmupAnswer.swift; sourceTree = "<group>"; };
 		A40D815624D2C6C1006D2CE3 /* QuizPlease.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuizPlease.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C91F0002F70000000100001 /* QuizPlease.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuizPlease.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A40D815924D2C6C1006D2CE3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A40D815B24D2C6C1006D2CE3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		A40D816224D2C6C2006D2CE3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -964,6 +965,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4C91F0012F70000000100001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A4A2647C252BC9D2005C0894 /* Alamofire in Frameworks */,
+				A468E12224FD0BE40083ADB2 /* InputMask in Frameworks */,
+				4CEC42602EAF868C00E460DC /* FirebaseMessaging in Frameworks */,
+				4CEC425C2EAF868C00E460DC /* FirebaseAnalytics in Frameworks */,
+				A445C89125436C9D003B68E8 /* Kingfisher in Frameworks */,
+				A423AC2024EEBA0600071E68 /* BottomPopup in Frameworks */,
+				A40E2A6A25294B4D00986CCA /* UICircularProgressRing in Frameworks */,
+				4CEC425E2EAF868C00E460DC /* FirebaseCrashlytics in Frameworks */,
+				A4147AD524E596FC007C131F /* IQKeyboardManagerSwift in Frameworks */,
+				A4132787268F33550088DE6A /* PhoneNumberKit-Static in Frameworks */,
+				B610BE2751A904EFEF4D5589 /* Pods_QuizPlease.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A44E5EDF295EFCA700402B97 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1166,6 +1185,7 @@
 			isa = PBXGroup;
 			children = (
 				A40D815624D2C6C1006D2CE3 /* QuizPlease.app */,
+				4C91F0002F70000000100001 /* QuizPlease.app */,
 				A44E5EE2295EFCA700402B97 /* QuizPleaseTests.xctest */,
 			);
 			name = Products;
@@ -2519,6 +2539,38 @@
 			productReference = A40D815624D2C6C1006D2CE3 /* QuizPlease.app */;
 			productType = "com.apple.product-type.application";
 		};
+		4C91F0022F70000000100001 /* QuizPlease Production */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4C91F0042F70000000100001 /* Build configuration list for PBXNativeTarget "QuizPlease Production" */;
+			buildPhases = (
+				E2545A1D3B167545F36E2867 /* [CP] Check Pods Manifest.lock */,
+				A43868DA2871CC54004031AF /* ShellScript */,
+				A40D815224D2C6C1006D2CE3 /* Sources */,
+				4C91F0012F70000000100001 /* Frameworks */,
+				A40D815424D2C6C1006D2CE3 /* Resources */,
+				70E636550CBCF12C5D3E317E /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "QuizPlease Production";
+			packageProductDependencies = (
+				A4147AD424E596FC007C131F /* IQKeyboardManagerSwift */,
+				A423AC1F24EEBA0600071E68 /* BottomPopup */,
+				A468E12124FD0BE40083ADB2 /* InputMask */,
+				A40E2A6925294B4D00986CCA /* UICircularProgressRing */,
+				A4A2647B252BC9D2005C0894 /* Alamofire */,
+				A445C89025436C9D003B68E8 /* Kingfisher */,
+				A4132786268F33550088DE6A /* PhoneNumberKit-Static */,
+				4CEC425B2EAF868C00E460DC /* FirebaseAnalytics */,
+				4CEC425D2EAF868C00E460DC /* FirebaseCrashlytics */,
+				4CEC425F2EAF868C00E460DC /* FirebaseMessaging */,
+			);
+			productName = QuizPlease;
+			productReference = 4C91F0002F70000000100001 /* QuizPlease.app */;
+			productType = "com.apple.product-type.application";
+		};
 		A44E5EE1295EFCA700402B97 /* QuizPleaseTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = A44E5EE8295EFCA700402B97 /* Build configuration list for PBXNativeTarget "QuizPleaseTests" */;
@@ -2550,6 +2602,9 @@
 				LastUpgradeCheck = 1510;
 				ORGANIZATIONNAME = "Владислав";
 				TargetAttributes = {
+					4C91F0022F70000000100001 = {
+						CreatedOnToolsVersion = 15.1;
+					};
 					A40D815524D2C6C1006D2CE3 = {
 						CreatedOnToolsVersion = 11.6;
 					};
@@ -2585,6 +2640,7 @@
 			projectRoot = "";
 			targets = (
 				A40D815524D2C6C1006D2CE3 /* QuizPlease */,
+				4C91F0022F70000000100001 /* QuizPlease Production */,
 				A44E5EE1295EFCA700402B97 /* QuizPleaseTests */,
 			);
 		};
@@ -3299,6 +3355,42 @@
 			};
 			name = Production;
 		};
+		4C91F0032F70000000100001 /* Production */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A43D154829DF34320065FE2F /* Production.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "$(inherited)";
+				CODE_SIGN_ENTITLEMENTS = QuizPlease/QuizPlease.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 63;
+				DEVELOPMENT_TEAM = 5524GP5G24;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Frameworks",
+				);
+				INFOPLIST_FILE = QuizPlease/PropertyLists/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.4.0;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CODE_SIGN_FLAGS = "";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = com.quizplease.app;
+				PRODUCT_NAME = QuizPlease;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Production;
+		};
 		A43D154E29DF35C60065FE2F /* Production */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2FD65F96F0BF3263F727E6A1 /* Pods-QuizPlease-QuizPleaseTests.production.xcconfig */;
@@ -3586,6 +3678,14 @@
 				A4CA4FFC29DF7FDB00EAD40A /* Debug */,
 				A43D154D29DF35C60065FE2F /* Production */,
 				A4CA4FFF29DF809000EAD40A /* Staging */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Production;
+		};
+		4C91F0042F70000000100001 /* Build configuration list for PBXNativeTarget "QuizPlease Production" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4C91F0032F70000000100001 /* Production */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Production;
