@@ -272,6 +272,17 @@
 		A4A296C224F6DC2800347EB2 /* AddGameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A296C124F6DC2800347EB2 /* AddGameVC.swift */; };
 		A4A296C424F6E1A700347EB2 /* MainMenuQRDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A296C324F6E1A700347EB2 /* MainMenuQRDelegate.swift */; };
 		A4A4ED382775D8D000DAA945 /* Bundle+version.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A4ED372775D8D000DAA945 /* Bundle+version.swift */; };
+		A4A530912FA92CF300B9C64B /* Pods_QuizPlease.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A8B09C270141F5706B6A0A3 /* Pods_QuizPlease.framework */; };
+		A4A530922FA92CF300B9C64B /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = A4147AD424E596FC007C131F /* IQKeyboardManagerSwift */; };
+		A4A530932FA92CF300B9C64B /* BottomPopup in Frameworks */ = {isa = PBXBuildFile; productRef = A423AC1F24EEBA0600071E68 /* BottomPopup */; };
+		A4A530942FA92CF300B9C64B /* InputMask in Frameworks */ = {isa = PBXBuildFile; productRef = A468E12124FD0BE40083ADB2 /* InputMask */; };
+		A4A530952FA92CF300B9C64B /* UICircularProgressRing in Frameworks */ = {isa = PBXBuildFile; productRef = A40E2A6925294B4D00986CCA /* UICircularProgressRing */; };
+		A4A530962FA92CF300B9C64B /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = A4A2647B252BC9D2005C0894 /* Alamofire */; };
+		A4A530972FA92CF300B9C64B /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = A445C89025436C9D003B68E8 /* Kingfisher */; };
+		A4A530982FA92CF300B9C64B /* PhoneNumberKit-Static in Frameworks */ = {isa = PBXBuildFile; productRef = A4132786268F33550088DE6A /* PhoneNumberKit-Static */; };
+		A4A530992FA92CF300B9C64B /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 4CEC425B2EAF868C00E460DC /* FirebaseAnalytics */; };
+		A4A5309A2FA92CF300B9C64B /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 4CEC425D2EAF868C00E460DC /* FirebaseCrashlytics */; };
+		A4A5309B2FA92CF300B9C64B /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 4CEC425F2EAF868C00E460DC /* FirebaseMessaging */; };
 		A4A5370424EC7691004A10D4 /* UIColor+Static.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A5370324EC7691004A10D4 /* UIColor+Static.swift */; };
 		A4A5370824EC7AA6004A10D4 /* HomeGameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A5370624EC7AA6004A10D4 /* HomeGameCell.swift */; };
 		A4A5370924EC7AA6004A10D4 /* HomeGameCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4A5370724EC7AA6004A10D4 /* HomeGameCell.xib */; };
@@ -533,6 +544,7 @@
 		4C72339A29F00EC2006D92DF /* GamePageMultilineFieldItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageMultilineFieldItem.swift; sourceTree = "<group>"; };
 		4C72339C29F00F59006D92DF /* GamePageFieldOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageFieldOptions.swift; sourceTree = "<group>"; };
 		4C7657822F450DA000DBC556 /* YooKassaPaymentAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YooKassaPaymentAssembly.swift; sourceTree = "<group>"; };
+		4C91F0002F70000000100001 /* QuizPlease.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuizPlease.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CAAA8332A8FA2F500A74B07 /* TextWebLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextWebLink.swift; sourceTree = "<group>"; };
 		4CBE8BA12EDDCEE90081BF54 /* GameRegistrationValidationResponseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRegistrationValidationResponseData.swift; sourceTree = "<group>"; };
 		4CDA3D292ED3779300C4DEB7 /* CLLocationCoordinate2D+Static.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D+Static.swift"; sourceTree = "<group>"; };
@@ -582,7 +594,6 @@
 		A40C807D252E857000CE40D8 /* UIView+Shake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Shake.swift"; sourceTree = "<group>"; };
 		A40C8085252E872D00CE40D8 /* WarmupAnswer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarmupAnswer.swift; sourceTree = "<group>"; };
 		A40D815624D2C6C1006D2CE3 /* QuizPlease.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuizPlease.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		4C91F0002F70000000100001 /* QuizPlease.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuizPlease.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A40D815924D2C6C1006D2CE3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A40D815B24D2C6C1006D2CE3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		A40D816224D2C6C2006D2CE3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -946,6 +957,24 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		4C91F0012F70000000100001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A4A530942FA92CF300B9C64B /* InputMask in Frameworks */,
+				A4A530952FA92CF300B9C64B /* UICircularProgressRing in Frameworks */,
+				A4A530982FA92CF300B9C64B /* PhoneNumberKit-Static in Frameworks */,
+				A4A530922FA92CF300B9C64B /* IQKeyboardManagerSwift in Frameworks */,
+				A4A5309B2FA92CF300B9C64B /* FirebaseMessaging in Frameworks */,
+				A4A530962FA92CF300B9C64B /* Alamofire in Frameworks */,
+				A4A530932FA92CF300B9C64B /* BottomPopup in Frameworks */,
+				A4A530972FA92CF300B9C64B /* Kingfisher in Frameworks */,
+				A4A5309A2FA92CF300B9C64B /* FirebaseCrashlytics in Frameworks */,
+				A4A530992FA92CF300B9C64B /* FirebaseAnalytics in Frameworks */,
+				A4A530912FA92CF300B9C64B /* Pods_QuizPlease.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A40D815324D2C6C1006D2CE3 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -959,24 +988,6 @@
 				A40E2A6A25294B4D00986CCA /* UICircularProgressRing in Frameworks */,
 				4CEC425E2EAF868C00E460DC /* FirebaseCrashlytics in Frameworks */,
 				4CEC42632EAF873400E460DC /* Wormholy in Frameworks */,
-				A4147AD524E596FC007C131F /* IQKeyboardManagerSwift in Frameworks */,
-				A4132787268F33550088DE6A /* PhoneNumberKit-Static in Frameworks */,
-				B610BE2751A904EFEF4D5589 /* Pods_QuizPlease.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4C91F0012F70000000100001 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A4A2647C252BC9D2005C0894 /* Alamofire in Frameworks */,
-				A468E12224FD0BE40083ADB2 /* InputMask in Frameworks */,
-				4CEC42602EAF868C00E460DC /* FirebaseMessaging in Frameworks */,
-				4CEC425C2EAF868C00E460DC /* FirebaseAnalytics in Frameworks */,
-				A445C89125436C9D003B68E8 /* Kingfisher in Frameworks */,
-				A423AC2024EEBA0600071E68 /* BottomPopup in Frameworks */,
-				A40E2A6A25294B4D00986CCA /* UICircularProgressRing in Frameworks */,
-				4CEC425E2EAF868C00E460DC /* FirebaseCrashlytics in Frameworks */,
 				A4147AD524E596FC007C131F /* IQKeyboardManagerSwift in Frameworks */,
 				A4132787268F33550088DE6A /* PhoneNumberKit-Static in Frameworks */,
 				B610BE2751A904EFEF4D5589 /* Pods_QuizPlease.framework in Frameworks */,
@@ -2506,6 +2517,38 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		4C91F0022F70000000100001 /* QuizPlease Production */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4C91F0042F70000000100001 /* Build configuration list for PBXNativeTarget "QuizPlease Production" */;
+			buildPhases = (
+				E2545A1D3B167545F36E2867 /* [CP] Check Pods Manifest.lock */,
+				A43868DA2871CC54004031AF /* ShellScript */,
+				A40D815224D2C6C1006D2CE3 /* Sources */,
+				4C91F0012F70000000100001 /* Frameworks */,
+				A40D815424D2C6C1006D2CE3 /* Resources */,
+				70E636550CBCF12C5D3E317E /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "QuizPlease Production";
+			packageProductDependencies = (
+				A4147AD424E596FC007C131F /* IQKeyboardManagerSwift */,
+				A423AC1F24EEBA0600071E68 /* BottomPopup */,
+				A468E12124FD0BE40083ADB2 /* InputMask */,
+				A40E2A6925294B4D00986CCA /* UICircularProgressRing */,
+				A4A2647B252BC9D2005C0894 /* Alamofire */,
+				A445C89025436C9D003B68E8 /* Kingfisher */,
+				A4132786268F33550088DE6A /* PhoneNumberKit-Static */,
+				4CEC425B2EAF868C00E460DC /* FirebaseAnalytics */,
+				4CEC425D2EAF868C00E460DC /* FirebaseCrashlytics */,
+				4CEC425F2EAF868C00E460DC /* FirebaseMessaging */,
+			);
+			productName = QuizPlease;
+			productReference = 4C91F0002F70000000100001 /* QuizPlease.app */;
+			productType = "com.apple.product-type.application";
+		};
 		A40D815524D2C6C1006D2CE3 /* QuizPlease */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = A40D816A24D2C6C2006D2CE3 /* Build configuration list for PBXNativeTarget "QuizPlease" */;
@@ -2537,38 +2580,6 @@
 			);
 			productName = QuizPlease;
 			productReference = A40D815624D2C6C1006D2CE3 /* QuizPlease.app */;
-			productType = "com.apple.product-type.application";
-		};
-		4C91F0022F70000000100001 /* QuizPlease Production */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4C91F0042F70000000100001 /* Build configuration list for PBXNativeTarget "QuizPlease Production" */;
-			buildPhases = (
-				E2545A1D3B167545F36E2867 /* [CP] Check Pods Manifest.lock */,
-				A43868DA2871CC54004031AF /* ShellScript */,
-				A40D815224D2C6C1006D2CE3 /* Sources */,
-				4C91F0012F70000000100001 /* Frameworks */,
-				A40D815424D2C6C1006D2CE3 /* Resources */,
-				70E636550CBCF12C5D3E317E /* [CP] Embed Pods Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "QuizPlease Production";
-			packageProductDependencies = (
-				A4147AD424E596FC007C131F /* IQKeyboardManagerSwift */,
-				A423AC1F24EEBA0600071E68 /* BottomPopup */,
-				A468E12124FD0BE40083ADB2 /* InputMask */,
-				A40E2A6925294B4D00986CCA /* UICircularProgressRing */,
-				A4A2647B252BC9D2005C0894 /* Alamofire */,
-				A445C89025436C9D003B68E8 /* Kingfisher */,
-				A4132786268F33550088DE6A /* PhoneNumberKit-Static */,
-				4CEC425B2EAF868C00E460DC /* FirebaseAnalytics */,
-				4CEC425D2EAF868C00E460DC /* FirebaseCrashlytics */,
-				4CEC425F2EAF868C00E460DC /* FirebaseMessaging */,
-			);
-			productName = QuizPlease;
-			productReference = 4C91F0002F70000000100001 /* QuizPlease.app */;
 			productType = "com.apple.product-type.application";
 		};
 		A44E5EE1295EFCA700402B97 /* QuizPleaseTests */ = {
@@ -3261,6 +3272,39 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		4C91F0032F70000000100001 /* Production */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A43D154829DF34320065FE2F /* Production.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "$(inherited)";
+				CODE_SIGN_ENTITLEMENTS = QuizPlease/QuizPlease.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5524GP5G24;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Frameworks",
+				);
+				INFOPLIST_FILE = QuizPlease/PropertyLists/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CODE_SIGN_FLAGS = "";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = com.quizplease.app;
+				PRODUCT_NAME = QuizPlease;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Production;
+		};
 		A43D154C29DF35C60065FE2F /* Production */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A43D154629DF32BE0065FE2F /* Base.xcconfig */;
@@ -3309,7 +3353,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -3327,7 +3371,6 @@
 				CODE_SIGN_ENTITLEMENTS = QuizPlease/QuizPlease.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 63;
 				DEVELOPMENT_TEAM = 5524GP5G24;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3335,53 +3378,15 @@
 					"$(PROJECT_DIR)/Frameworks",
 				);
 				INFOPLIST_FILE = QuizPlease/PropertyLists/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CODE_SIGN_FLAGS = "";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.quizplease.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Production;
-		};
-		4C91F0032F70000000100001 /* Production */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = A43D154829DF34320065FE2F /* Production.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "$(inherited)";
-				CODE_SIGN_ENTITLEMENTS = QuizPlease/QuizPlease.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 63;
-				DEVELOPMENT_TEAM = 5524GP5G24;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Frameworks",
-				);
-				INFOPLIST_FILE = QuizPlease/PropertyLists/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.4.0;
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_CODE_SIGN_FLAGS = "";
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.quizplease.app;
-				PRODUCT_NAME = QuizPlease;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -3405,7 +3410,7 @@
 					"$(inherited)",
 					"${SRCROOT}/Pods/Firebase/CoreOnly/Sources",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.quizplease.QuizPleaseTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3415,6 +3420,25 @@
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/QuizPlease.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/QuizPlease";
 			};
 			name = Production;
+		};
+		A4A5309C2FA92D0600B9C64B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A4CA4FFA29DF7F8E00EAD40A /* Debug.xcconfig */;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = QuizPlease;
+			};
+			name = Debug;
+		};
+		A4A5309D2FA92D0600B9C64B /* Staging */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A43D154729DF342A0065FE2F /* Staging.xcconfig */;
+			buildSettings = {
+				PRODUCT_NAME = QuizPlease;
+			};
+			name = Staging;
 		};
 		A4CA4FFB29DF7FDB00EAD40A /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -3470,7 +3494,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -3488,7 +3512,6 @@
 				CODE_SIGN_ENTITLEMENTS = QuizPlease/QuizPlease.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 63;
 				DEVELOPMENT_TEAM = 5524GP5G24;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3496,12 +3519,10 @@
 					"$(PROJECT_DIR)/Frameworks",
 				);
 				INFOPLIST_FILE = QuizPlease/PropertyLists/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.0;
 				OTHER_CODE_SIGN_FLAGS = "";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.quizplease.app;
@@ -3529,7 +3550,7 @@
 					"$(inherited)",
 					"${SRCROOT}/Pods/Firebase/CoreOnly/Sources",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.quizplease.QuizPleaseTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3588,7 +3609,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -3606,7 +3627,6 @@
 				CODE_SIGN_ENTITLEMENTS = QuizPlease/QuizPlease.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 63;
 				DEVELOPMENT_TEAM = 5524GP5G24;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3614,12 +3634,10 @@
 					"$(PROJECT_DIR)/Frameworks",
 				);
 				INFOPLIST_FILE = QuizPlease/PropertyLists/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CODE_SIGN_FLAGS = "";
 				OTHER_LDFLAGS = "-ObjC";
@@ -3648,7 +3666,7 @@
 					"$(inherited)",
 					"${SRCROOT}/Pods/Firebase/CoreOnly/Sources",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.quizplease.QuizPleaseTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3662,6 +3680,16 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		4C91F0042F70000000100001 /* Build configuration list for PBXNativeTarget "QuizPlease Production" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4C91F0032F70000000100001 /* Production */,
+				A4A5309C2FA92D0600B9C64B /* Debug */,
+				A4A5309D2FA92D0600B9C64B /* Staging */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Production;
+		};
 		A40D815124D2C6C1006D2CE3 /* Build configuration list for PBXProject "QuizPlease" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -3678,14 +3706,6 @@
 				A4CA4FFC29DF7FDB00EAD40A /* Debug */,
 				A43D154D29DF35C60065FE2F /* Production */,
 				A4CA4FFF29DF809000EAD40A /* Staging */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Production;
-		};
-		4C91F0042F70000000100001 /* Build configuration list for PBXNativeTarget "QuizPlease Production" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4C91F0032F70000000100001 /* Production */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Production;
