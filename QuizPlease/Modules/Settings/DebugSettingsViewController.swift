@@ -29,6 +29,13 @@ final class DebugSettingsViewController: UIViewController {
                 onValueChange: { newValue in
                     AppSettings.inAppPaymentOnlyForOnlineGamesEnabled = newValue
                 }
+            ),
+            DebugSettingsSwitchItem(
+                title: "Открывать Хоум-игры во внешнем браузере",
+                isEnabledProvider: AppSettings.isHomeGameExternalBrowserEnabled,
+                onValueChange: { newValue in
+                    AppSettings.isHomeGameExternalBrowserEnabled = newValue
+                }
             )
         ])
     ]

@@ -57,12 +57,16 @@ public enum AppSettings {
     /// Enable in-app payment only for online games
     public static var inAppPaymentOnlyForOnlineGamesEnabled = false
 
+    /// Open Home Game page in external default browser
+    public static var isHomeGameExternalBrowserEnabled = true
+
     public static var description: String {
         """
         AppSettings: {
             defaultCity: \(defaultCity)
             isShopEnabled: \(isShopEnabled)
             isProfileEnabled: \(isProfileEnabled)
+            isHomeGameExternalBrowserEnabled: \(isHomeGameExternalBrowserEnabled)
             configuration: \(Configuration.current)
         }
         """
