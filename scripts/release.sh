@@ -9,8 +9,13 @@ WORKSPACE="QuizPlease.xcworkspace"
 PRODUCTION_SCHEME="QuizPlease Production"
 PRODUCTION_CONFIGURATION="Production"
 ARCHIVES_DIR="${HOME}/Library/Developer/Xcode/Archives"
+LOG_DIR="${LOG_DIR:-logs}"
+ARCHIVE_LOG_FILE=""
+XCODEBUILD_LOG_FILE=""
+ARCHIVE_BACKUP_FILE=""
+ARCHIVE_STARTED_AT=0
 
-if [[ -t 1 && -z "${NO_COLOR:-}" ]]; then
+if [[ (-t 1 || "${FORCE_COLOR:-0}" == "1") && -z "${NO_COLOR:-}" ]]; then
   BOLD=$'\033[1m'
   DIM=$'\033[2m'
   RED=$'\033[31m'
@@ -42,6 +47,9 @@ Branch rules:
 
 Options:
   DRY_RUN=1  Print the planned change without editing, archiving, or committing.
+
+Logs:
+  make archive writes logs to logs/ by default. Override with LOG_DIR=path.
 
 Formatting:
   Install xcbeautify to format xcodebuild output. Raw xcodebuild output is used otherwise.
@@ -78,6 +86,135 @@ log_success() {
 
 log_note() {
   echo "${DIM}$*${RESET}"
+}
+
+grep_count() {
+  local pattern="$1"
+  local file="$2"
+
+  if [[ -f "$file" ]]; then
+    grep -Eic "$pattern" "$file" || true
+  else
+    echo 0
+  fi
+}
+
+format_duration() {
+  local started_at="$1"
+  local ended_at elapsed
+
+  if [[ "$started_at" -le 0 ]]; then
+    echo "-"
+    return
+  fi
+
+  ended_at="$(date +%s)"
+  elapsed=$((ended_at - started_at))
+  printf '%02d:%02d:%02d\n' $((elapsed / 3600)) $(((elapsed % 3600) / 60)) $((elapsed % 60))
+}
+
+setup_archive_logging() {
+  local stamp
+
+  if is_dry_run; then
+    return
+  fi
+
+  mkdir -p "$LOG_DIR"
+  ARCHIVE_STARTED_AT="$(date +%s)"
+
+  if [[ -n "${RELEASE_LOG_FILE:-}" ]]; then
+    ARCHIVE_LOG_FILE="$RELEASE_LOG_FILE"
+  else
+    stamp="$(date +%Y%m%d-%H%M%S)"
+    ARCHIVE_LOG_FILE="${LOG_DIR}/archive-${stamp}.log"
+    : > "$ARCHIVE_LOG_FILE"
+  fi
+
+  XCODEBUILD_LOG_FILE="${ARCHIVE_LOG_FILE%.log}.xcodebuild.raw.log"
+  : > "$XCODEBUILD_LOG_FILE"
+
+  log_note "Archive log: $ARCHIVE_LOG_FILE"
+  log_note "Raw xcodebuild log: $XCODEBUILD_LOG_FILE"
+}
+
+print_archive_summary() {
+  local result="$1"
+  local warnings errors notes
+
+  warnings="$(grep_count '(^|[^[:alpha:]])warning:' "$XCODEBUILD_LOG_FILE")"
+  errors="$(grep_count '(^|[^[:alpha:]])error:' "$XCODEBUILD_LOG_FILE")"
+  notes="$(grep_count '(^|[^[:alpha:]])note:' "$XCODEBUILD_LOG_FILE")"
+
+  log_title "Archive summary"
+  log_kv "Result" "$result"
+  log_kv "Duration" "$(format_duration "$ARCHIVE_STARTED_AT")"
+  log_kv "Warnings" "$warnings"
+  log_kv "Errors" "$errors"
+  log_kv "Notes" "$notes"
+
+  if [[ -n "$ARCHIVE_LOG_FILE" ]]; then
+    log_kv "Log" "$ARCHIVE_LOG_FILE"
+  fi
+
+  if [[ -n "$XCODEBUILD_LOG_FILE" ]]; then
+    log_kv "Raw log" "$XCODEBUILD_LOG_FILE"
+  fi
+}
+
+archive_exit() {
+  local exit_code=$?
+  trap - EXIT INT TERM
+
+  if [[ "$exit_code" -eq 0 ]]; then
+    return
+  fi
+
+  if [[ -n "${ARCHIVE_BACKUP_FILE:-}" && -f "$ARCHIVE_BACKUP_FILE" ]]; then
+    cp "$ARCHIVE_BACKUP_FILE" "$BASE_CONFIG"
+    rm -f "$ARCHIVE_BACKUP_FILE"
+    ARCHIVE_BACKUP_FILE=""
+    log_note "Reverted $BASE_CONFIG."
+  fi
+
+  print_archive_summary "failed"
+
+  if [[ -n "$ARCHIVE_LOG_FILE" ]]; then
+    echo "${RED}archive failed:${RESET} full log saved to $ARCHIVE_LOG_FILE" >&2
+  fi
+
+  exit "$exit_code"
+}
+
+run_with_archive_log_if_needed() {
+  local command="${1:-}"
+  local stamp log_file force_color status
+
+  if [[ "$command" != "archive" || "${ARCHIVE_LOG_ACTIVE:-0}" == "1" || "${DRY_RUN:-0}" == "1" ]]; then
+    return
+  fi
+
+  mkdir -p "$LOG_DIR"
+  stamp="$(date +%Y%m%d-%H%M%S)"
+  log_file="${RELEASE_LOG_FILE:-${LOG_DIR}/archive-${stamp}.log}"
+  : > "$log_file"
+
+  force_color=0
+  if [[ -t 1 && -z "${NO_COLOR:-}" ]]; then
+    force_color=1
+  fi
+
+  set +e
+  if [[ "$force_color" == "1" ]]; then
+    ARCHIVE_LOG_ACTIVE=1 RELEASE_LOG_FILE="$log_file" FORCE_COLOR="${FORCE_COLOR:-$force_color}" "$0" "$@" 2>&1 \
+      | tee >(sed -E $'s/\x1B\\[[0-9;]*[[:alpha:]]//g' >> "$log_file")
+    status=${PIPESTATUS[0]}
+  else
+    ARCHIVE_LOG_ACTIVE=1 RELEASE_LOG_FILE="$log_file" FORCE_COLOR="${FORCE_COLOR:-$force_color}" "$0" "$@" 2>&1 | tee -a "$log_file"
+    status=${PIPESTATUS[0]}
+  fi
+  set -e
+  exit "$status"
 }
 
 require_clean_tree() {
@@ -235,10 +372,10 @@ run_xcodebuild_archive() {
 
   if command -v xcbeautify >/dev/null 2>&1; then
     log_note "Using xcbeautify for xcodebuild output."
-    NSUnbufferedIO=YES xcodebuild "${args[@]}" 2>&1 | xcbeautify
+    NSUnbufferedIO=YES xcodebuild "${args[@]}" 2>&1 | tee "$XCODEBUILD_LOG_FILE" | xcbeautify
   else
     log_note "xcbeautify is not installed; using raw xcodebuild output."
-    xcodebuild "${args[@]}"
+    xcodebuild "${args[@]}" 2>&1 | tee "$XCODEBUILD_LOG_FILE"
   fi
 }
 
@@ -290,6 +427,13 @@ run_version() {
 }
 
 run_archive() {
+  setup_archive_logging
+  if ! is_dry_run; then
+    trap archive_exit EXIT
+    trap 'exit 130' INT
+    trap 'exit 143' TERM
+  fi
+
   require_archive_branch
   require_clean_tree
 
@@ -311,27 +455,25 @@ run_archive() {
     return
   fi
 
-  local backup_file
-  backup_file="$(mktemp)"
-  cp "$BASE_CONFIG" "$backup_file"
+  ARCHIVE_BACKUP_FILE="$(mktemp)"
+  cp "$BASE_CONFIG" "$ARCHIVE_BACKUP_FILE"
 
-  rollback() {
-    cp "$backup_file" "$BASE_CONFIG"
-    rm -f "$backup_file"
-  }
-
-  trap rollback ERR INT TERM
   write_config_values "$marketing_version" "$new_build"
   mkdir -p "$(dirname "$archive_path")"
 
   run_xcodebuild_archive "$archive_path"
 
   commit_config_change "#build $marketing_version ($new_build)"
-  trap - ERR INT TERM
-  rm -f "$backup_file"
+  rm -f "$ARCHIVE_BACKUP_FILE"
+  ARCHIVE_BACKUP_FILE=""
 
+  print_archive_summary "succeeded"
   log_success "archived and committed #build $marketing_version ($new_build)"
+
+  trap - EXIT INT TERM
 }
+
+run_with_archive_log_if_needed "$@"
 
 case "${1:-}" in
   version)

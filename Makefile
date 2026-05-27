@@ -15,6 +15,9 @@ help:
 		'Options:' \
 		'  DRY_RUN=1  Print planned changes without editing, archiving, or committing.' \
 		'' \
+		'Logs:' \
+		'  make archive writes logs to logs/ by default. Override with LOG_DIR=path.' \
+		'' \
 		'Formatting:' \
 		'  Install xcbeautify to format xcodebuild output.'
 
