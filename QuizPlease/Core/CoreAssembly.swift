@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 /// Object that assembles Core tools of the App
 final class CoreAssembly {
@@ -44,8 +45,11 @@ final class CoreAssembly {
         webPageRouter: webPageRouter
     )
 
-    /// Service that opens web pages with in-app browser
-    lazy var webPageRouter: WebPageRouter = WebPageRouterImpl()
+    /// System application adapter
+    lazy var application: WebPageRoutingApplication = UIApplication.shared
+
+    /// Service that opens web pages
+    lazy var webPageRouter: WebPageRouter = WebPageRouterImpl(application: application)
 
     /// An object that encodes instances of a data type as JSON objects.
     lazy var jsonEncoder: JsonEncoder = JSONEncoder()

@@ -18,3 +18,8 @@
 ```bash
 xcodebuild -workspace QuizPlease.xcworkspace -scheme "QuizPlease Debug" -configuration Debug -destination "generic/platform=iOS" build
 ```
+
+## Tests
+
+- When implementing behavior, add or update focused tests for it. If tests are not practical for the change, state the reason explicitly.
+- Prefer the `QuizPleaseTests` scheme for unit tests.

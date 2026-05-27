@@ -74,7 +74,9 @@ final class MainMenuRouter: MainMenuRouterProtocol {
     // MARK: - Segues
     func showMenuSection(_ kind: MainMenuItemProtocol, sender: Any?) {
         if kind._kind == .homeGame {
-            let options = WepPageBrowserOptions(presentationStyle: .fullScreen)
+            let options: WepPageBrowserOptions = AppSettings.isHomeGameExternalBrowserEnabled
+                ? .externalBrowser
+                : WepPageBrowserOptions(presentationStyle: .fullScreen)
             webPageRouter.open(url: HomeGameConstants.pageUrl, options: options)
             return
         }

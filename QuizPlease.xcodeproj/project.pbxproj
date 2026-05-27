@@ -475,6 +475,7 @@
 		C1A2B3D4E5F6A7B8C9D0E1F4 /* GamePageConsentCheckboxCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A2B3D4E5F6A7B8C9D0E1F5 /* GamePageConsentCheckboxCell.swift */; };
 		D1A2B3C4D5E6F70011223347 /* GamePageRegistrationFieldsBuilderTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A2B3C4D5E6F70011223346 /* GamePageRegistrationFieldsBuilderTest.swift */; };
 		D1A2B3C4D5E6F70011223348 /* GamePageRegistrationFieldsBuilderMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A2B3C4D5E6F70011223349 /* GamePageRegistrationFieldsBuilderMocks.swift */; };
+		D1A2B3C4D5E6F70011223354 /* WebPageRouterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A2B3C4D5E6F70011223355 /* WebPageRouterTest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -952,6 +953,7 @@
 		C1A2B3D4E5F6A7B8C9D0E1F5 /* GamePageConsentCheckboxCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageConsentCheckboxCell.swift; sourceTree = "<group>"; };
 		D1A2B3C4D5E6F70011223346 /* GamePageRegistrationFieldsBuilderTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageRegistrationFieldsBuilderTest.swift; sourceTree = "<group>"; };
 		D1A2B3C4D5E6F70011223349 /* GamePageRegistrationFieldsBuilderMocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageRegistrationFieldsBuilderMocks.swift; sourceTree = "<group>"; };
+		D1A2B3C4D5E6F70011223355 /* WebPageRouterTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebPageRouterTest.swift; sourceTree = "<group>"; };
 		ED3B05AF6CD4F9DDBD0C34A6 /* Pods-QuizPlease.production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuizPlease.production.xcconfig"; path = "Target Support Files/Pods-QuizPlease/Pods-QuizPlease.production.xcconfig"; sourceTree = "<group>"; };
 		F1EB1B5A48284DBAAB7FE36F /* GameTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -2258,10 +2260,35 @@
 		A4E06B5A29E817500005C57B /* Unit Tests */ = {
 			isa = PBXGroup;
 			children = (
+				D1A2B3C4D5E6F70011223356 /* Core */,
 				A4E06B5029E80E5C0005C57B /* Modules */,
 				A4E06B4F29E80E500005C57B /* Services */,
 			);
 			path = "Unit Tests";
+			sourceTree = "<group>";
+		};
+		D1A2B3C4D5E6F70011223356 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				D1A2B3C4D5E6F70011223357 /* Transitions */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		D1A2B3C4D5E6F70011223357 /* Transitions */ = {
+			isa = PBXGroup;
+			children = (
+				D1A2B3C4D5E6F70011223358 /* WebPages */,
+			);
+			path = Transitions;
+			sourceTree = "<group>";
+		};
+		D1A2B3C4D5E6F70011223358 /* WebPages */ = {
+			isa = PBXGroup;
+			children = (
+				D1A2B3C4D5E6F70011223355 /* WebPageRouterTest.swift */,
+			);
+			path = WebPages;
 			sourceTree = "<group>";
 		};
 		A4E06B6529E8905F0005C57B /* WebPages */ = {
@@ -3234,6 +3261,7 @@
 				A4E06B8B29E9F0240005C57B /* GameInfoLoaderTest.swift in Sources */,
 				A4E06B5729E816C20005C57B /* GeocoderMock.swift in Sources */,
 				A4E06B9529E9F8F80005C57B /* GameInfo+TestData.swift in Sources */,
+				D1A2B3C4D5E6F70011223354 /* WebPageRouterTest.swift in Sources */,
 				A4E06B9329E9F2CE0005C57B /* NetworkServiceMock.swift in Sources */,
 				A4E06B5929E817010005C57B /* Place+TestData.swift in Sources */,
 			);
