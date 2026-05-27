@@ -13,7 +13,10 @@ help:
 		'  make archive  develop or release/*' \
 		'' \
 		'Options:' \
-		'  DRY_RUN=1  Print planned changes without editing, archiving, or committing.'
+		'  DRY_RUN=1  Print planned changes without editing, archiving, or committing.' \
+		'' \
+		'Formatting:' \
+		'  Install xcbeautify to format xcodebuild output.'
 
 archive:
 	@./scripts/release.sh archive

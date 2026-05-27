@@ -42,6 +42,9 @@ Branch rules:
 
 Options:
   DRY_RUN=1  Print the planned change without editing, archiving, or committing.
+
+Formatting:
+  Install xcbeautify to format xcodebuild output. Raw xcodebuild output is used otherwise.
 USAGE
 }
 
@@ -71,6 +74,10 @@ log_dry_run() {
 
 log_success() {
   echo "${GREEN}done:${RESET} $*"
+}
+
+log_note() {
+  echo "${DIM}$*${RESET}"
 }
 
 require_clean_tree() {
@@ -215,6 +222,26 @@ commit_config_change() {
   git commit -m "$message"
 }
 
+run_xcodebuild_archive() {
+  local archive_path="$1"
+  local -a args=(
+    -workspace "$WORKSPACE"
+    -scheme "$PRODUCTION_SCHEME"
+    -configuration "$PRODUCTION_CONFIGURATION"
+    -destination "generic/platform=iOS"
+    -archivePath "$archive_path"
+    archive
+  )
+
+  if command -v xcbeautify >/dev/null 2>&1; then
+    log_note "Using xcbeautify for xcodebuild output."
+    NSUnbufferedIO=YES xcodebuild "${args[@]}" 2>&1 | xcbeautify
+  else
+    log_note "xcbeautify is not installed; using raw xcodebuild output."
+    xcodebuild "${args[@]}"
+  fi
+}
+
 run_version() {
   local bump="${1:-}"
   [[ -n "$bump" ]] || {
@@ -297,13 +324,7 @@ run_archive() {
   write_config_values "$marketing_version" "$new_build"
   mkdir -p "$(dirname "$archive_path")"
 
-  xcodebuild \
-    -workspace "$WORKSPACE" \
-    -scheme "$PRODUCTION_SCHEME" \
-    -configuration "$PRODUCTION_CONFIGURATION" \
-    -destination "generic/platform=iOS" \
-    -archivePath "$archive_path" \
-    archive
+  run_xcodebuild_archive "$archive_path"
 
   commit_config_change "#build $marketing_version ($new_build)"
   trap - ERR INT TERM
