@@ -143,7 +143,8 @@ print_archive_summary() {
   local warnings errors notes
 
   warnings="$(grep_count '(^|[^[:alpha:]])warning:' "$XCODEBUILD_LOG_FILE")"
-  errors="$(grep_count '(^|[^[:alpha:]])error:' "$XCODEBUILD_LOG_FILE")"
+  errors="$(grep_count '^(/|[A-Za-z0-9_./ -]+:)[^:]*:[0-9]+:[0-9]+: error:' "$XCODEBUILD_LOG_FILE")"
+  errors=$((errors + $(grep_count '^\*\* (BUILD|ARCHIVE) FAILED \*\*$' "$XCODEBUILD_LOG_FILE")))
   notes="$(grep_count '(^|[^[:alpha:]])note:' "$XCODEBUILD_LOG_FILE")"
 
   log_title "Archive summary"
