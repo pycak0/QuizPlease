@@ -64,17 +64,19 @@ extension UIViewController {
         barStyle: BarStyle,
         scrollBarStyle: BarStyle? = nil
     ) {
-        navigationController?.navigationBar.barTintColor = barStyle.tintColor ?? view.backgroundColor
-        navigationController?.navigationBar.shadowImage = UIImage()
-
-        if #available(iOS 15, *) {
-            navigationController?.navigationBar.standardAppearance = (scrollBarStyle ?? barStyle).appearance
-            navigationController?.navigationBar.scrollEdgeAppearance = barStyle.appearance
-        }
+        let navigationBar = navigationController?.navigationBar
+        navigationBar?.barTintColor = barStyle.tintColor ?? view.backgroundColor
+        navigationBar?.shadowImage = UIImage()
+        navigationBar?.standardAppearance = (scrollBarStyle ?? barStyle).appearance
+        navigationBar?.scrollEdgeAppearance = barStyle.appearance
 
         if let color = tintColor {
-            navigationController?.navigationBar.tintColor = color
+            navigationBar?.tintColor = color
         }
+
+        // Убирает текст у backBarButtonItem для следующего экрана
+        navigationItem.backBarButtonItem = UIBarButtonItem.flexibleSpace()
+        
         navigationItem.titleView = TitleLabel(
             title: title ?? navigationItem.title ?? "",
             textColor: tintColor,

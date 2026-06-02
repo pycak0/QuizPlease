@@ -17,8 +17,8 @@ protocol RatingViewProtocol: UIViewController, LoadingIndicator {
     func setItems(_ items: [RatingItem])
     func addItems(_ newItems: [RatingItem])
 
-    func configure()
-    func setHeaderLabelContent(city: String, leagueComment: String, ratingScopeComment: String)
+    func configureHeaderWithFilters()
+    func setHeaderLabelContent(_ text: String)
 }
 
 final class RatingVC: UIViewController {
@@ -54,7 +54,17 @@ final class RatingVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .ripePlum
+        let color = UIColor.ripePlum
+        view.backgroundColor = color
+        if #available(iOS 26.0, *) {
+            prepareNavigationBar(barStyle: .transparent)
+        } else {
+            prepareNavigationBar(
+                tintColor: .white,
+                barStyle: .transcluent(tintColor: color),
+                scrollBarStyle: .transcluent(tintColor: color.withAlphaComponent(0.9))
+            )
+        }
         RatingConfigurator().configure(self)
         presenter.viewDidLoad(self)
     }
@@ -107,17 +117,13 @@ extension RatingVC: RatingViewProtocol {
         tableView.tableFooterView?.isHidden = false
     }
 
-    func configure() {
+    func configureHeaderWithFilters() {
         expandingHeader.delegate = self
         expandingHeader.dataSource = self
     }
 
-    func setHeaderLabelContent(city: String, leagueComment: String, ratingScopeComment: String) {
-        expandingHeader.setFooterContent(
-            city: city,
-            gameType: leagueComment,
-            season: ratingScopeComment
-        )
+    func setHeaderLabelContent(_ text: String) {
+        expandingHeader.setFooterContent(text)
     }
 }
 

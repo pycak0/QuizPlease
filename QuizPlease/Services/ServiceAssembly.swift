@@ -47,5 +47,40 @@ final class ServiceAssembly {
     }()
 
     /// Network service
-    lazy var networkService: NetworkServiceProtocol = NetworkService.shared
+    lazy var networkService: NetworkServiceProtocol = {
+        NetworkServiceImpl(
+            responseDecoder: networkResponseDecoder,
+            defaults: core.defaults,
+            log: core.logger
+        )
+    }()
+
+    /// Response decoder used in `NetworkService`
+    lazy var networkResponseDecoder: NetworkResponseDecoder = NetworkResponseDecoderImpl(
+        jsonDecoder: core.jsonDecoder
+    )
+
+    /// Service that wraps system notification center
+    lazy var notificationService: NotificationService = NotificationServiceImpl(
+        mainExecutor: core.mainExecutor,
+        log: core.logger
+    )
+
+    lazy var authService: AuthService = AuthServiceImpl(
+        networkService: networkService,
+        defaults: core.defaults,
+        log: core.logger
+    )
+
+    /// Service that manages user info
+    lazy var userService: UserService = UserServiceImpl(
+        networkService: networkService,
+        defaults: core.defaults,
+        log: core.logger,
+        authService: authService
+    )
+
+    lazy var yooKassaPaymentModule: YooKassaPaymentModule = YooKassaPaymentModuleImpl(
+        assembly: YooKassaPaymentAssembly()
+    )
 }

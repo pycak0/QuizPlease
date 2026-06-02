@@ -27,6 +27,16 @@ extension CountPickerViewDelegate {
     func countPickerDidEndEditing(_ picker: CountPickerView) {}
 }
 
+// MARK: - CircleButton
+
+private class CircleButton: UIButton {
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        layer.cornerRadius = min(bounds.width, bounds.height) / 2
+    }
+}
+
 @IBDesignable
 final class CountPickerView: UIView {
 
@@ -60,11 +70,12 @@ final class CountPickerView: UIView {
         let pickerStack = UIStackView()
         pickerStack.axis = .horizontal
         pickerStack.spacing = 10
-        pickerStack.distribution = .fillEqually
+        pickerStack.distribution = .fill
         return pickerStack
     }()
 
     private var buttons = [UIButton]()
+    private var buttonAspectConstraints = [NSLayoutConstraint]()
     private(set) var selectedIndex: Int = 0
 
     weak var delegate: CountPickerViewDelegate?
@@ -115,12 +126,23 @@ final class CountPickerView: UIView {
     @IBInspectable
     var buttonsCornerRadius: CGFloat = 10 {
         didSet {
-            buttons.forEach { $0.layer.cornerRadius = buttonsCornerRadius }
+            setNeedsLayout()
         }
     }
 
     var buttonsTitleFont: UIFont? = .systemFont(ofSize: 16, weight: .semibold) {
         didSet { updateButtonViews() }
+    }
+
+    /// When set, overrides sequential numbering (`startCount`-based).
+    /// Each button shows `customValues[index]` instead of `index + startCount`.
+    var customValues: [Int]? {
+        didSet {
+            setButtons()
+            if let customValues, !customValues.isEmpty {
+                setSelectedButton(at: 0, animated: false)
+            }
+        }
     }
 
     // MARK: - Update Selected Button
@@ -145,11 +167,6 @@ final class CountPickerView: UIView {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setupView()
-    }
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        // buttons.forEach { $0.layer.cornerRadius = $0.frame.height / 2 }
     }
 
     // MARK: - Touches
@@ -198,8 +215,15 @@ final class CountPickerView: UIView {
 
     private func pickerButtonPressed(at index: Int) {
         hapticsGenerator.selectionChanged()
-        delegate?.countPicker(self, didChangeSelectedNumber: index + startCount)
         setSelectedButton(at: index, animated: true)
+        delegate?.countPicker(self, didChangeSelectedNumber: valueForButton(at: index))
+    }
+
+    private func valueForButton(at index: Int) -> Int {
+        if let customValues, index < customValues.count {
+            return customValues[index]
+        }
+        return index + startCount
     }
 
     // MARK: - Set Buttons
@@ -207,16 +231,35 @@ final class CountPickerView: UIView {
     private func setButtons() {
         buttons.forEach { $0.removeFromSuperview() }
         buttons.removeAll()
-        for i in 0..<maxButtonsCount {
-            let button = UIButton()
+        NSLayoutConstraint.deactivate(buttonAspectConstraints)
+        buttonAspectConstraints.removeAll()
+
+        let count = customValues?.count ?? maxButtonsCount
+        for i in 0..<count {
+            let button = CircleButton()
             button.isUserInteractionEnabled = false
             updateView(for: button, at: i)
             button.clipsToBounds = true
             button.addTarget(self, action: #selector(pickerButtonPressed(_:)), for: [.touchUpInside])
+            button.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+            button.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+
+            // Prefer square (circle), breakable when too many buttons
+            let aspect = button.widthAnchor.constraint(equalTo: button.heightAnchor)
+            aspect.priority = UILayoutPriority(900)
+            buttonAspectConstraints.append(aspect)
+
+            // Chain all buttons to equal width so they compress uniformly
+            if let firstButton = buttons.first {
+                let equalWidth = button.widthAnchor.constraint(equalTo: firstButton.widthAnchor)
+                equalWidth.priority = .required
+                buttonAspectConstraints.append(equalWidth)
+            }
+
             buttons.append(button)
             pickerStack.addArrangedSubview(button)
-            button.layer.cornerRadius = buttonsCornerRadius
         }
+        NSLayoutConstraint.activate(buttonAspectConstraints)
     }
 
     // MARK: - Update Button Views
@@ -234,7 +277,7 @@ final class CountPickerView: UIView {
         button.setImage(nil, for: .highlighted)
         button.setImage(nil, for: .selected)
         button.setTitle("", for: .normal)
-        button.setTitle("\(index + startCount)", for: .selected)
+        button.setTitle("\(valueForButton(at: index))", for: .selected)
         button.titleLabel?.font = buttonsTitleFont
         button.setTitleColor(buttonsTitleColor, for: .normal)
         button.backgroundColor = button.isSelected ? selectedColor : pickerBackgroundColor
@@ -280,12 +323,19 @@ final class CountPickerView: UIView {
         activateTitleConstraints()
 
         vStack.addArrangedSubview(pickerView)
+        pickerView.heightAnchor.constraint(equalToConstant: 44).isActive = true
 
         pickerView.addSubview(pickerLine)
         activatePickerLineConstraints()
 
         pickerView.addSubview(pickerStack)
-        activateConstraints(for: pickerStack, fillInto: pickerView)
+        pickerStack.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            pickerStack.leadingAnchor.constraint(equalTo: pickerView.leadingAnchor),
+            pickerStack.topAnchor.constraint(equalTo: pickerView.topAnchor),
+            pickerStack.trailingAnchor.constraint(lessThanOrEqualTo: pickerView.trailingAnchor),
+            pickerStack.bottomAnchor.constraint(equalTo: pickerView.bottomAnchor)
+        ])
         setButtons()
         setSelectedButton(at: maxButtonsCount - 1, animated: false)
     }

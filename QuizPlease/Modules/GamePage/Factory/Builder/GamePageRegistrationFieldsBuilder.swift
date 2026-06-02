@@ -16,7 +16,7 @@ extension GamePageItemKind {
     static let phone = GamePageItemKind()
     static let teamCount = GamePageItemKind()
 
-    static func customField(_ id: String) -> GamePageItemKind {
+    static func customField(_ id: some CustomStringConvertible) -> GamePageItemKind {
         GamePageItemKind(id: "CustomField_\(id)")
     }
 }
@@ -36,13 +36,20 @@ final class GamePageRegistrationFieldsBuilder {
     // MARK: - Private Properties
 
     private let registerFormProvider: GamePageRegisterFormProvider
+    private let tableInfoProvider: GamePageTableInfoProvider?
 
     // MARK: - Lifecycle
 
     /// Initialize `GamePageRegistrationFieldsBuilder`
-    /// - Parameter registerFormProvider: RegisterForm provider
-    init(registerFormProvider: GamePageRegisterFormProvider) {
+    /// - Parameters:
+    ///   - registerFormProvider: RegisterForm provider
+    ///   - tableInfoProvider: Table info provider for games with table pricing
+    init(
+        registerFormProvider: GamePageRegisterFormProvider,
+        tableInfoProvider: GamePageTableInfoProvider? = nil
+    ) {
         self.registerFormProvider = registerFormProvider
+        self.tableInfoProvider = tableInfoProvider
     }
 
     // MARK: - Private Methods
@@ -96,19 +103,84 @@ final class GamePageRegistrationFieldsBuilder {
                 onValueChange: { [weak registerForm] newValue in
                     registerForm?.phone = newValue
             }),
-            GamePageTeamCountItem(
-                kind: .teamCount,
-                title: "Количество человек в команде",
-                pickerColor: .systemGray5Adapted,
-                backgroundColor: .systemGray6Adapted,
-                getMinCount: 2,
-                getMaxCount: 9,
-                getSelectedTeamCount: registerForm.count,
-                changeHandler: { [weak registerForm, weak output] newValue in
-                    registerForm?.count = newValue
-                    output?.didChangeTeamCount()
-            })
+            makeCountOrTableItem(registerForm: registerForm)
         ]
+    }
+
+    private func makeCountOrTableItem(registerForm: RegisterForm) -> GamePageItemProtocol {
+        let tables = tableInfoProvider?.getAvailableTables() ?? []
+        if tableInfoProvider?.getPriceKind() == .table, !tables.isEmpty {
+            return makeTablePickerItem(registerForm: registerForm, tables: tables)
+        }
+        return makeTeamCountItem(registerForm: registerForm)
+    }
+
+    private func makeTeamCountItem(registerForm: RegisterForm) -> GamePageItemProtocol {
+        GamePageTeamCountItem(
+            kind: .teamCount,
+            title: "Количество человек в команде",
+            pickerColor: .systemGray5Adapted,
+            backgroundColor: .systemGray6Adapted,
+            getMinCount: 2,
+            getMaxCount: 9,
+            getSelectedTeamCount: registerForm.count,
+            changeHandler: { [weak registerForm, weak output] newValue in
+                registerForm?.count = newValue
+                output?.didChangeTeamCount()
+            }
+        )
+    }
+
+    private func makeUniqueSortedTables(from tables: [GameTable]) -> [GameTable] {
+        var seenSeats = Set<Int>()
+        return tables
+            .sorted {
+                if $0.seats == $1.seats {
+                    return $0.id < $1.id
+                }
+                return $0.seats < $1.seats
+            }
+            .filter { seenSeats.insert($0.seats).inserted }
+    }
+
+    @discardableResult
+    private func syncSelectedTable(
+        for registerForm: RegisterForm,
+        with tables: [GameTable]
+    ) -> GameTable? {
+        let selectedTable = tables.first(where: { $0.seats == registerForm.selectedTableSize }) ?? tables.first
+        registerForm.selectedTableSize = selectedTable?.seats
+        if let seats = selectedTable?.seats {
+            registerForm.count = seats
+            registerForm.countPaidOnline = seats
+        }
+        return selectedTable
+    }
+
+    private func makeTablePickerItem(registerForm: RegisterForm, tables: [GameTable]) -> GamePageItemProtocol {
+        let uniqueTables = makeUniqueSortedTables(from: tables)
+        let selectedTable = syncSelectedTable(for: registerForm, with: uniqueTables)
+        let selectedIndex = selectedTable
+            .flatMap { table in
+                uniqueTables.firstIndex(where: { $0.seats == table.seats })
+            } ?? 0
+
+        return GamePageTablePickerItem(
+            kind: .teamCount,
+            title: "Количество мест за столом",
+            tables: uniqueTables,
+            pickerColor: .systemGray5Adapted,
+            backgroundColor: .systemGray6Adapted,
+            getSelectedIndex: selectedIndex,
+            changeHandler: { [weak registerForm, weak output] index in
+                guard index < uniqueTables.count else { return }
+                let table = uniqueTables[index]
+                registerForm?.selectedTableSize = table.seats
+                registerForm?.count = table.seats
+                registerForm?.countPaidOnline = table.seats
+                output?.didChangeTeamCount()
+            }
+        )
     }
 
     // MARK: - Custom Fields
@@ -128,10 +200,10 @@ final class GamePageRegistrationFieldsBuilder {
     }
 
     private func makeCustomFieldTextItem(_ customField: CustomFieldModel) -> GamePageItemProtocol {
-        let kind: GamePageItemKind = .customField(customField.data.name)
+        let kind: GamePageItemKind = .customField(customField.data.id)
         return GamePageFieldItem(
             kind: kind,
-            title: customField.data.label,
+            title: customField.data.title,
             placeholder: customField.data.placeholder,
             options: .basic,
             valueProvider: customField.inputValue,
@@ -143,9 +215,9 @@ final class GamePageRegistrationFieldsBuilder {
 
     private func makeCustomFieldPollItem(_ customField: CustomFieldModel) -> GamePageItemProtocol? {
         GamePagePollItem(
-            kind: .customField(customField.data.name),
-            title: customField.data.label,
-            values: customField.data.values,
+            kind: .customField(customField.data.id),
+            title: customField.data.title,
+            values: customField.data.radios.map(\.optionText),
             isRequired: customField.data.isRequired,
             getSelectedValue: {
                 customField.inputValue
@@ -157,10 +229,10 @@ final class GamePageRegistrationFieldsBuilder {
     }
 
     private func makeCustomFieldTextareaItem(_ customField: CustomFieldModel) -> GamePageItemProtocol? {
-        let kind: GamePageItemKind = .customField(customField.data.name)
+        let kind: GamePageItemKind = .customField(customField.data.id)
         return GamePageMultilineFieldItem(
             kind: kind,
-            title: customField.data.label,
+            title: customField.data.title,
             placeholder: customField.data.placeholder,
             options: .basic,
             valueProvider: customField.inputValue,

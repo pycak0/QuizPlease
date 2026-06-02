@@ -10,11 +10,17 @@ import UIKit
 
 final class MainMenuConfigurator: Configurator {
 
+    private let services = ServiceAssembly.shared
+
     func configure(_ mainMenuVC: MainMenuViewProtocol) {
-        let interactor = MainMenuInteractor()
+        let interactor = MainMenuInteractor(
+            notificationService: services.notificationService,
+            userService: services.userService
+        )
         let router = MainMenuRouter(
             viewController: mainMenuVC,
-            pickCityAssembly: PickCityAssembly()
+            pickCityAssembly: PickCityAssembly(),
+            webPageRouter: services.core.webPageRouter
         )
         let presenter = MainMenuPresenter(view: mainMenuVC, interactor: interactor, router: router)
         interactor.output = presenter

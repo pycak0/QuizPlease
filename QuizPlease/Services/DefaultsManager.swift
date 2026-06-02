@@ -28,6 +28,7 @@ final class DefaultsManager {
     private let profileOnboardingMarker = "profile.onboarding"
     private let welcomeScreenMarker = "welcome.screen.presented"
     private let versionInfoKey = "app.version.info"
+    private let consentScreenMarker = "consent.screen.accepted"
 
     // MARK: - Auth Info
     func getUserAuthInfo() -> SavedAuthInfo? {
@@ -137,6 +138,16 @@ final class DefaultsManager {
 
     func setWelcomeScreenWasPresented() {
         defaults.set(true, forKey: welcomeScreenMarker)
+    }
+
+    // MARK: - Consent Screen
+
+    func wasConsentAccepted() -> Bool {
+        defaults.bool(forKey: consentScreenMarker)
+    }
+
+    func setConsentAccepted() {
+        defaults.set(true, forKey: consentScreenMarker)
     }
 
     // MARK: - Version Info

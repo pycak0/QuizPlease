@@ -13,6 +13,8 @@ protocol GamePageSpecialConditionsOutput: AnyObject {
     func didPressCheckSpecialCondition(value: String?)
 
     func didEndEditingSpecialCondition()
+
+    func didRemoveSpecialCondition()
 }
 
 /// GamePage special condition items builder
@@ -99,6 +101,7 @@ final class GamePageSpecialConditionsBuilder {
                 if newValue != model.value {
                     /// If the value was chagned, we can't guarantee that the new condition is still valid
                     model.discountInfo = nil
+                    model.conditionId = nil
                 }
                 model.value = newValue
                 let currentConditions = self.specialConditionsProvider.getSpecialConditions()
@@ -137,6 +140,7 @@ final class GamePageSpecialConditionsBuilder {
     private func removeSpecialCondition(at index: Int) {
         specialConditionsProvider.removeSpecialCondition(at: index)
         view?.removeSpecialCondition(at: index)
+        output?.didRemoveSpecialCondition()
         let currentConditions = specialConditionsProvider.getSpecialConditions()
         if currentConditions.count == 1 && (currentConditions.first?.value?.isEmpty ?? true) {
             view?.hideAddButton()
@@ -149,6 +153,9 @@ final class GamePageSpecialConditionsBuilder {
 extension GamePageSpecialConditionsBuilder: GamePageItemBuilderProtocol {
 
     func makeItems() -> [GamePageItemProtocol] {
+        if specialConditionsProvider.getSpecialConditions().isEmpty {
+            return []
+        }
         return [makeHeaderItem()]
         + makeSpecialConditions()
         + [makeFooterItem()]

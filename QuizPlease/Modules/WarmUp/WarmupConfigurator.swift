@@ -13,12 +13,12 @@ final class WarmupConfigurator: Configurator {
     private let service = ServiceAssembly.shared
 
     func configure(_ view: WarmupViewProtocol) {
-        let enableWarmupQuestionsSerivceStubInDebug = true
+        let enableWarmupQuestionsSerivceStubInDebug = false
         let interactor = WarmupInteractor(
             questionsService: Configuration.current.isDebug && enableWarmupQuestionsSerivceStubInDebug
             ? WarmupQuestionsServiceStub(maxNumberOfQuestions: 3)
             : WarmupQuestionsServiceImpl(
-                networkService: .shared,
+                networkService: service.networkService,
                 deviceIdProvider: Configuration.current.isDebug ? DeviceIdProviderStub() : DeviceIdProviderImpl()
             )
         )

@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import UserNotifications
 
 protocol MainMenuInteractorProtocol: AnyObject {
     /// must be weak
@@ -22,6 +21,8 @@ protocol MainMenuInteractorProtocol: AnyObject {
 
     /// Loads new client settings, then calls `loadMenuItems`, `loadShopItems` and `loadUserInfo`
     func updateAllData()
+
+    func getIsUserLoggedIn() -> Bool
 }
 
 protocol MainMenuInteractorOutput: AnyObject {
@@ -34,17 +35,29 @@ protocol MainMenuInteractorOutput: AnyObject {
 }
 
 class MainMenuInteractor: MainMenuInteractorProtocol {
+
+    private let notificationService: NotificationService
+    private let userService: UserService
+    private var didPostMainScreenLoaded = false
+
     weak var output: MainMenuInteractorOutput?
 
+    init(
+        notificationService: NotificationService,
+        userService: UserService
+    ) {
+        self.notificationService = notificationService
+        self.userService = userService
+    }
+
     func postMainScreenLoaded() {
+        guard !didPostMainScreenLoaded else { return }
+        didPostMainScreenLoaded = true
         NotificationCenter.default.post(name: .mainScreenLoaded, object: nil)
     }
 
     func requestForPushNotifications() {
-        UNUserNotificationCenter.current().requestAuthorization(
-            options: [.alert, .badge, .sound],
-            completionHandler: {_, _ in }
-        )
+        notificationService.requestForPushNotifications()
     }
 
     func loadMenuItems() {
@@ -61,7 +74,7 @@ class MainMenuInteractor: MainMenuInteractorProtocol {
     }
 
     func loadUserInfo() {
-        NetworkService.shared.getUserInfo { [weak self] result in
+        userService.loadUserInfo { [weak self] result in
             guard let self = self else { return }
             switch result {
             case let .failure(error):
@@ -70,6 +83,10 @@ class MainMenuInteractor: MainMenuInteractorProtocol {
                 self.output?.interactor(self, didLoadUserInfo: userInfo)
             }
         }
+    }
+
+    func getIsUserLoggedIn() -> Bool {
+        userService.isloggedIn
     }
 
     func loadShopItems() {

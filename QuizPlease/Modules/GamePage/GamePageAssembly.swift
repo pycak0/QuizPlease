@@ -30,7 +30,8 @@ extension GamePageAssembly: ViewAssembly {
         let registrationService = RegistrationService(
             gameId: launchOptions.gameId,
             networkService: services.networkService,
-            jsonEncoder: services.core.jsonEncoder
+            jsonEncoder: services.core.jsonEncoder,
+            gameInfoLoader: services.gameInfoLoader
         )
         let interactor = GamePageInteractor(
             gameId: launchOptions.gameId,
@@ -38,14 +39,16 @@ extension GamePageAssembly: ViewAssembly {
             placeGeocoder: services.placeGeocoder,
             registrationService: registrationService,
             paymentSumCalculator: paymentSumCalculator,
-            paymentService: paymentService
+            paymentService: paymentService,
+            yooKassaPaymentModule: services.yooKassaPaymentModule
         )
         let annotationBuilder = GamePageAnnotationBuilder(annotationProvider: interactor)
         let registerButtonBuilder = GamePageRegisterButtonBuilder(gameStatusProvider: interactor)
         let infoBuilder = GamePageInfoBuilder(infoProvider: interactor)
         let descriptionBuilder = GamePageDescriptionBuilder(descriptionProvider: interactor)
         let registrationFieldsBuilder = GamePageRegistrationFieldsBuilder(
-            registerFormProvider: registrationService
+            registerFormProvider: registrationService,
+            tableInfoProvider: interactor
         )
         let specialConditionsBuilder = GamePageSpecialConditionsBuilder(
             specialConditionsProvider: registrationService
@@ -53,7 +56,10 @@ extension GamePageAssembly: ViewAssembly {
         let firstPlayBuilder = GamePageFirstPlayBuilder(
             registerFormProvider: registrationService
         )
-        let paymentBuilder = GamePagePaymentSectionBuilder(paymentInfoProvider: interactor)
+        let paymentBuilder = GamePagePaymentSectionBuilder(
+            paymentInfoProvider: interactor,
+            tableInfoProvider: interactor
+        )
         let submitBuilder = GamePageSubmitBuilder(
             dataProvider: interactor
         )
@@ -77,7 +83,8 @@ extension GamePageAssembly: ViewAssembly {
             interactor: interactor,
             analyticsService: services.analytics,
             router: router,
-            shouldScrollToRegistrationOnLoad: launchOptions.shouldScrollToRegistration
+            shouldScrollToRegistrationOnLoad: launchOptions.shouldScrollToRegistration,
+            logger: services.core.logger
         )
         let viewController = GamePageViewController(output: presenter)
 

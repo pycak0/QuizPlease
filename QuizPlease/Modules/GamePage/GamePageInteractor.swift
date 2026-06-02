@@ -15,7 +15,8 @@ protocol GamePageInteractorProtocol: AnyObject,
                                      GamePageInfoProvider,
                                      GamePageDescriptionProvider,
                                      GamePageSubmitDataProvider,
-                                     GamePagePaymentInfoProvider {
+                                     GamePagePaymentInfoProvider,
+                                     GamePageTableInfoProvider {
 
     /// Load game info
     func loadGame(complpetion: @escaping (Error?) -> Void)
@@ -63,6 +64,7 @@ final class GamePageInteractor: GamePageInteractorProtocol {
     private let registrationService: RegistrationServiceProtocol
     private let paymentSumCalculator: PaymentSumCalculator
     private let paymentService: PaymentServiceProtocol
+    private let yooKassaPaymentModule: YooKassaPaymentModule
 
     var availablePaymentTypes: [PaymentType] {
         if gameInfo.isOnlineGame {
@@ -91,12 +93,13 @@ final class GamePageInteractor: GamePageInteractorProtocol {
     ///   - paymentSumCalculator: Service that calculates payment sum for the game
     ///   - paymentService: Payment service
     init(
-        gameId: Int,
+        gameId: String,
         gameInfoLoader: GameInfoLoader,
         placeGeocoder: PlaceGeocoderProtocol,
         registrationService: RegistrationServiceProtocol,
         paymentSumCalculator: PaymentSumCalculator,
-        paymentService: PaymentServiceProtocol
+        paymentService: PaymentServiceProtocol,
+        yooKassaPaymentModule: YooKassaPaymentModule
     ) {
         var gameInfo = GameInfo()
         gameInfo.id = gameId
@@ -106,6 +109,7 @@ final class GamePageInteractor: GamePageInteractorProtocol {
         self.registrationService = registrationService
         self.paymentSumCalculator = paymentSumCalculator
         self.paymentService = paymentService
+        self.yooKassaPaymentModule = yooKassaPaymentModule
     }
 
     // MARK: - Private Methods
@@ -119,52 +123,45 @@ final class GamePageInteractor: GamePageInteractorProtocol {
         }
     }
 
+    private func resolveSelectedPaidPeopleCount() -> Int {
+        let registerForm = registrationService.getRegisterForm()
+        if gameInfo.priceKind == .table {
+            registerForm.countPaidOnline = registerForm.count
+            return registerForm.count
+        }
+        if let count = registerForm.countPaidOnline {
+            return count
+        }
+        registerForm.countPaidOnline = registerForm.count
+        return registerForm.count
+    }
+
+    private func resolveCountPaidOnline() -> Int? {
+        let registerForm = registrationService.getRegisterForm()
+        guard registerForm.paymentType == .online else { return nil }
+
+        switch gameInfo.priceKind {
+        case .person:
+            return registerForm.countPaidOnline ?? registerForm.count
+        case .team, .table:
+            return registerForm.count
+        }
+    }
+
     /// Calculates payment sum. If payment is needed, launches payment process.
     /// If not, registers immediately.
     private func registerWithOnlinePayment() {
         let registerForm = registrationService.getRegisterForm()
+        registerForm.countPaidOnline = resolveCountPaidOnline()
         let paymentSum = calculatePaymentSum()
-        if gameInfo.isOnlineGame {
-            // В онлайн-играх оплата производится всегда за команду,
-            // отдельно количество оплаченных участников не указывается
-            registerForm.countPaidOnline = nil
-        }
 
-        // Если выбрана оплата онлайн, и оплата действительно требуется,
-        // то поднимаем юкассу и генерируем платежный токен
-        if paymentSum > 0 {
-            launchPayment(amount: paymentSum)
-        } else {
+        if paymentSum <= 0 {
             // Если платеж не требуется, то для корректной отработки бэка
             // нужно указать тип оплаты "на игре" / "наличными"
             // и сразу отправить запрос на регистрацию без платежного токена
             registerForm.paymentType = .cash
-            register()
         }
-    }
-
-    /// Launch payment process with given amount.
-    /// - Parameter amount: payment amount.
-    private func launchPayment(amount: Double) {
-        let userPhoneNumber = registrationService.getRegisterForm().phone
-            .replacingOccurrences(of: "-", with: " ")
-            .replacingOccurrences(of: "(", with: "")
-            .replacingOccurrences(of: ")", with: "")
-
-        if gameInfo.shopId?.isEmpty ?? true {
-            print("⚠️ [\(Self.self)|\(#line)] Shop id is empty. Production payment will fail")
-        }
-        if gameInfo.paymentKey?.isEmpty ?? true {
-            print("❌ [\(Self.self)|\(#line)] Payment key is empty. Payment SDK launch will fail")
-        }
-
-        paymentService.launchPayment(options: PaymentOptions(
-            amount: amount,
-            description: createPaymentDescription(),
-            shopId: gameInfo.shopId,
-            transactionKey: gameInfo.paymentKey ?? "",
-            userPhoneNumber: userPhoneNumber
-        ))
+        register()
     }
 
     private func createPaymentDescription() -> String {
@@ -187,31 +184,44 @@ final class GamePageInteractor: GamePageInteractorProtocol {
     }
 
     private func processRegistrationResponse(_ response: GameOrderResponse) {
-        var message: String = "Произошла ошибка при записи на игру"
+        let defaultMessage = "Произошла ошибка при записи на игру"
 
         // 1. Check for payment status
         if response.shouldRedirect {
-            if let url = response.link {
-                paymentService.startConfirmation(url.absoluteString)
-            } else {
-                self.paymentService.closePayment {
-                    self.completeRegistration(success: false, message: message)
-                }
+            guard
+                let urlString = response.game?.url?.link,
+                let url = URL(string: urlString)
+            else {
+                completeRegistration(success: false, message: defaultMessage)
+                return
             }
-            return
 
+            yooKassaPaymentModule.open(
+                paymentUrl: url,
+                completion: { [weak self] result in
+                    guard let self else { return }
+                    switch result {
+                    case .success:
+                        self.completeRegistration(success: true)
+                    case let .fail(message):
+                        self.completeRegistration(success: false, message: message)
+                    case .canceled:
+                        self.completeRegistration(success: false, message: "Оплата отменена")
+                    }
+                }
+            )
+            return
         }
 
         // 2. Check for response status
+        var message: String = defaultMessage
         if response.isSuccess {
             message = response.successMessage ?? "Успешно"
         } else {
-            message = response.successMessage ?? response.errorMessage ?? "Произошла ошибка при записи на игру"
+            message = response.successMessage ?? response.errorMessage ?? defaultMessage
         }
 
-        paymentService.closePayment {
-            self.completeRegistration(success: response.isSuccessfullyRegistered, message: message)
-        }
+        completeRegistration(success: response.isSuccessfullyRegistered, message: message)
     }
 
     private func completeRegistration(success: Bool, message: String? = nil) {
@@ -286,7 +296,7 @@ final class GamePageInteractor: GamePageInteractorProtocol {
     // MARK: - GamePageAnnotationProvider
 
     func getAnnotation() -> String {
-        gameInfo.description
+        gameInfo.gameDescription
     }
 
     // MARK: - GamePageInfoProvider
@@ -340,6 +350,22 @@ final class GamePageInteractor: GamePageInteractorProtocol {
         ]
     }
 
+    func getIsPersonalDataConsent() -> Bool {
+        registrationService.getRegisterForm().isPersonalDataConsent
+    }
+
+    func setIsPersonalDataConsent(_ value: Bool) {
+        registrationService.getRegisterForm().isPersonalDataConsent = value
+    }
+
+    func getIsMailingConsent() -> Bool {
+        registrationService.getRegisterForm().isMarketingConsent
+    }
+
+    func setIsMailingConsent(_ value: Bool) {
+        registrationService.getRegisterForm().isMarketingConsent = value
+    }
+
     // MARK: - GamePagePaymentInfoProvider
 
     func getAvailablePaymentTypes() -> [PaymentType] {
@@ -351,7 +377,11 @@ final class GamePageInteractor: GamePageInteractorProtocol {
     }
 
     func setPaymentType(_ type: PaymentType) {
-        registrationService.getRegisterForm().paymentType = type
+        let registerForm = registrationService.getRegisterForm()
+        registerForm.paymentType = type
+        if gameInfo.priceKind == .table {
+            registerForm.countPaidOnline = registerForm.count
+        }
     }
 
     func supportsSelectPaidPeopleCount() -> Bool {
@@ -363,22 +393,18 @@ final class GamePageInteractor: GamePageInteractorProtocol {
     }
 
     func getSelectedNumberOfPeopleToPay() -> Int {
-        let registerForm = registrationService.getRegisterForm()
-        if let count = registerForm.countPaidOnline {
-            return count
-        }
-        registerForm.countPaidOnline = registerForm.count
-        return registerForm.count
+        resolveSelectedPaidPeopleCount()
     }
 
     func setNumberOfPeopleToPay(_ number: Int) {
-        registrationService.getRegisterForm().countPaidOnline = number
+        let registerForm = registrationService.getRegisterForm()
+        registerForm.countPaidOnline = gameInfo.priceKind == .table ? registerForm.count : number
     }
 
     func calculatePaymentSum() -> Double {
         let registerForm = registrationService.getRegisterForm()
         return paymentSumCalculator.calculateSumToPay(
-            forPeople: registerForm.countPaidOnline ?? registerForm.count,
+            forPeople: resolveSelectedPaidPeopleCount(),
             gamePrice: gameInfo.priceNumber ?? 0,
             isOnlineGame: gameInfo.isOnlineGame,
             discounts: registrationService
@@ -392,6 +418,16 @@ final class GamePageInteractor: GamePageInteractorProtocol {
             .getSpecialConditions()
             .compactMap(\.discountInfo?.discount)
             .isEmpty
+    }
+
+    // MARK: - GamePageTableInfoProvider
+
+    func getPriceKind() -> PriceKind {
+        gameInfo.priceKind
+    }
+
+    func getAvailableTables() -> [GameTable] {
+        gameInfo.gameTables
     }
 }
 

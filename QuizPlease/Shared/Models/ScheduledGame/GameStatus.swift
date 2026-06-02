@@ -12,15 +12,19 @@ import UIKit
 enum GameStatus: Int, Decodable {
 
     /// Есть места
-    case placesAvailable = 1
+    case placesAvailable = 0
     /// Нет мест! Но можно записаться в резерв
-    case reserveAvailable = 2
+    case reserveAvailable = 1
     /// Нет мест! Резерв заполнен
-    case noPlaces = 3
+    case noPlaces = 2
     /// Только по приглашениям
-    case invite = 4
+    case invite = 3
     /// Закончилась
-    case ended = 6
+    case finished = 4
+    /// Закончилась
+    case ended = 5
+    /// Отменена
+    case cancelled = 6
 
     /// Осталось мало мест
     ///
@@ -42,10 +46,12 @@ enum GameStatus: Int, Decodable {
             return "Нет мест! Резерв заполнен"
         case .invite:
             return "Только по приглашениям"
-        case .ended:
+        case .ended, .finished:
             return "Закончилась"
         case .fewPlaces:
             return "Осталось мало мест"
+        case .cancelled:
+            return "Отменена"
         }
     }
 
@@ -66,7 +72,7 @@ enum GameStatus: Int, Decodable {
             return .lightGreen
         case .reserveAvailable:
             return .lemon
-        case .invite, .ended, .noPlaces:
+        case .invite, .ended, .noPlaces, .cancelled, .finished:
             return .themeGray
         }
     }
@@ -99,5 +105,15 @@ enum GameStatus: Int, Decodable {
 
     var hasVacantPlaces: Bool {
         return self == .placesAvailable || self == .fewPlaces
+    }
+
+    /// Indicates whether the user is allowed to transition to the game details screen for this status.
+    ///
+    /// - Returns: `true` if transitioning to game details is permitted (all statuses except `.cancelled`), otherwise `false`.
+    var allowsTransitionToDetails: Bool {
+        return switch self {
+            case .cancelled: false
+            default: true
+        }
     }
 }

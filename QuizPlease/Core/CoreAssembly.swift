@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 /// Object that assembles Core tools of the App
 final class CoreAssembly {
@@ -44,8 +45,11 @@ final class CoreAssembly {
         webPageRouter: webPageRouter
     )
 
-    /// Service that opens web pages with in-app browser
-    lazy var webPageRouter: WebPageRouter = WebPageRouterImpl()
+    /// System application adapter
+    lazy var application: WebPageRoutingApplication = UIApplication.shared
+
+    /// Service that opens web pages
+    lazy var webPageRouter: WebPageRouter = WebPageRouterImpl(application: application)
 
     /// An object that encodes instances of a data type as JSON objects.
     lazy var jsonEncoder: JsonEncoder = JSONEncoder()
@@ -54,5 +58,14 @@ final class CoreAssembly {
     lazy var jsonDecoder: JsonDecoder = JSONDecoder()
 
     /// A service that executes tasks asynchronously
-    lazy var concurrentExecutor: AsyncExecutor = ConcurrentExecutorImpl()
+    lazy var concurrentExecutor: AsyncExecutor = ConcurrentExecutor()
+
+    /// A service that executes tasks on main queue
+    lazy var mainExecutor: AsyncExecutor = MainExecutor()
+
+    /// Centralized logger (os.Logger-based)
+    lazy var logger: Logger = OsLogLogger()
+
+    /// Defaults manager store
+    lazy var defaults: DefaultsManager = .shared
 }

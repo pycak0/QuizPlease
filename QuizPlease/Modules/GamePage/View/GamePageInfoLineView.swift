@@ -33,6 +33,7 @@ final class GamePageInfoLineView: UIView {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .gilroy(.bold, size: 12)
+        label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -41,6 +42,7 @@ final class GamePageInfoLineView: UIView {
         let label = UILabel()
         label.font = .gilroy(.bold, size: 12)
         label.textColor = .placeholderTextAdapted
+        label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -71,7 +73,9 @@ final class GamePageInfoLineView: UIView {
         subtitleLabel.text = viewModel.subtitle
         subtitleLabel.isHidden = viewModel.subtitle == nil
 
-        iconImageView.image = viewModel.iconName.map { UIImage(named: $0) } ?? nil
+        iconImageView.image = viewModel.iconName.flatMap {
+            UIImage(named: $0) ?? UIImage(systemName: $0)
+        }
         iconImageView.isHidden = viewModel.iconName == nil
     }
 
@@ -88,6 +92,7 @@ final class GamePageInfoLineView: UIView {
 
         let horizontalStack = UIStackView()
         horizontalStack.axis = .horizontal
+        horizontalStack.alignment = .top
         horizontalStack.spacing = Constants.horizontalSpacing
         horizontalStack.translatesAutoresizingMaskIntoConstraints = false
         [
@@ -98,6 +103,7 @@ final class GamePageInfoLineView: UIView {
         addSubview(horizontalStack)
         NSLayoutConstraint.activate([
             iconImageView.widthAnchor.constraint(equalToConstant: Constants.iconWidth),
+            iconImageView.heightAnchor.constraint(equalToConstant: Constants.iconWidth),
 
             horizontalStack.leadingAnchor.constraint(equalTo: leadingAnchor),
             horizontalStack.trailingAnchor.constraint(equalTo: trailingAnchor),

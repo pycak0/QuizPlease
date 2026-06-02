@@ -7,11 +7,28 @@
 //
 
 import SafariServices
+import UIKit
 
-/// Service that opens web pages with in-app browser
+protocol WebPageRoutingApplication {
+    var topViewController: UIViewController? { get }
+    func canOpenURL(_ url: URL) -> Bool
+    func openExternalURL(_ url: URL)
+}
+
+extension UIApplication: WebPageRoutingApplication {
+    var topViewController: UIViewController? {
+        getKeyWindow()?.topViewController
+    }
+
+    func openExternalURL(_ url: URL) {
+        open(url)
+    }
+}
+
+/// Service that opens web pages
 protocol WebPageRouter {
 
-    /// Open url via in-app browser
+    /// Open url
     /// - Parameters:
     ///   - url: web page url
     ///   - options: Options to open url in browser
@@ -32,21 +49,37 @@ extension WebPageRouter {
     }
 }
 
-/// Service that opens web pages with in-app browser
+/// Service that opens web pages
 final class WebPageRouterImpl: NSObject, WebPageRouter {
+
+    private let application: WebPageRoutingApplication
+
+    init(application: WebPageRoutingApplication = UIApplication.shared) {
+        self.application = application
+    }
 
     // MARK: - WebPageRouter
 
     @discardableResult
     func open(url: URL, options: WepPageBrowserOptions?) -> Bool {
-        guard let viewController = UIApplication.shared
-            .getKeyWindow()?
-            .topViewController
-        else {
+        let options = options ?? WepPageBrowserOptions()
+
+        switch options.openingMode {
+        case .externalBrowser:
+            guard application.canOpenURL(url) else { return false }
+            application.openExternalURL(url)
+            return true
+
+        case .inAppBrowser:
+            return openInAppBrowser(url: url, options: options)
+        }
+    }
+
+    private func openInAppBrowser(url: URL, options: WepPageBrowserOptions) -> Bool {
+        guard let viewController = application.topViewController else {
             return false
         }
 
-        let options = options ?? WepPageBrowserOptions()
         let config = SFSafariViewController.Configuration()
         config.entersReaderIfAvailable = options.autoReaderView
 
@@ -54,13 +87,8 @@ final class WebPageRouterImpl: NSObject, WebPageRouter {
         safariViewController.delegate = self
         safariViewController.preferredControlTintColor = options.controlsColor
         safariViewController.preferredBarTintColor = options.barsColor
-
-        if #available(iOS 13.0, *) {
-            safariViewController.modalPresentationStyle = .automatic
-            safariViewController.isModalInPresentation = true
-        } else {
-            safariViewController.modalPresentationStyle = .pageSheet
-        }
+        safariViewController.modalPresentationStyle = options.presentationStyle
+        safariViewController.isModalInPresentation = true
 
         viewController.present(safariViewController, animated: true)
         return true

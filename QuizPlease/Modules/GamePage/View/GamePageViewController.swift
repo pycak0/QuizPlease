@@ -73,6 +73,12 @@ protocol GamePageViewInput: AnyObject,
 
     /// Perform haptics effect indication success
     func notifyHapticsSuccess()
+
+    /// Prepare haptics engine to react
+    func prepareHaptics()
+
+    /// Show error state on a consent checkbox cell with given kind
+    func showConsentError(kind: GamePageItemKind)
 }
 
 /// Game page screen view controller
@@ -114,6 +120,11 @@ final class GamePageViewController: UIViewController {
         super.viewDidLoad()
         output.viewDidLoad()
     }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        hapticsGenerator.prepare()
+    }
 }
 
 // MARK: - GamePageViewInput
@@ -125,10 +136,17 @@ extension GamePageViewController: GamePageViewInput {
     }
 
     func setTitle(_ title: String) {
-        prepareNavigationBar(
-            title: title,
-            barStyle: .transcluent(tintColor: .systemBackgroundAdapted)
-        )
+        if #available(iOS 26.0, *) {
+            prepareNavigationBar(
+                title: title,
+                barStyle: .transparent
+            )
+        } else {
+            prepareNavigationBar(
+                title: title,
+                barStyle: .transcluent(tintColor: .systemBackgroundAdapted)
+            )
+        }
     }
 
     func setHeaderImage(path: String) {
@@ -192,6 +210,14 @@ extension GamePageViewController: GamePageViewInput {
 
     func notifyHapticsSuccess() {
         hapticsGenerator.notificationOccurred(.success)
+    }
+
+    func prepareHaptics() {
+        hapticsGenerator.prepare()
+    }
+
+    func showConsentError(kind: GamePageItemKind) {
+        gamePageView.showConsentError(kind: kind)
     }
 
     // MARK: - SpecialConditionsView

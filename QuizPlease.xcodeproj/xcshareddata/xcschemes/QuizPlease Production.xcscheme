@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1430"
-   version = "1.8">
+   LastUpgradeVersion = "1510"
+   version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A40D815524D2C6C1006D2CE3"
+               BlueprintIdentifier = "4C91F0022F70000000100001"
                BuildableName = "QuizPlease.app"
-               BlueprintName = "QuizPlease"
+               BlueprintName = "QuizPlease Production"
                ReferencedContainer = "container:QuizPlease.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,8 +28,6 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES"
       shouldAutocreateTestPlan = "YES">
-      <Testables>
-      </Testables>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Production"
@@ -45,9 +43,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A40D815524D2C6C1006D2CE3"
+            BlueprintIdentifier = "4C91F0022F70000000100001"
             BuildableName = "QuizPlease.app"
-            BlueprintName = "QuizPlease"
+            BlueprintName = "QuizPlease Production"
             ReferencedContainer = "container:QuizPlease.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -61,9 +59,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A40D815524D2C6C1006D2CE3"
+            BlueprintIdentifier = "4C91F0022F70000000100001"
             BuildableName = "QuizPlease.app"
-            BlueprintName = "QuizPlease"
+            BlueprintName = "QuizPlease Production"
             ReferencedContainer = "container:QuizPlease.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

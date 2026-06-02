@@ -10,17 +10,9 @@ import UIKit
 
 extension UIApplication {
     func getKeyWindow() -> UIWindow? {
-        if #available(iOS 15, *) {
-            return connectedScenes
-                .compactMap { $0 as? UIWindowScene }
-                .first?
-                .keyWindow
-        }
-
-        if #available(iOS 13, *) {
-            return windows.first { $0.isKeyWindow }
-        }
-
-        return keyWindow
+        connectedScenes
+            .compactMap { $0 as? UIWindowScene }
+            .first?
+            .keyWindow
     }
 }

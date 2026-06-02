@@ -21,11 +21,11 @@ protocol WarmupQuestionsService {
 
 final class WarmupQuestionsServiceImpl: WarmupQuestionsService {
 
-    private let networkService: NetworkService
+    private let networkService: NetworkServiceProtocol
     private let deviceIdProvider: DeviceIdProvider
 
     init(
-        networkService: NetworkService,
+        networkService: NetworkServiceProtocol,
         deviceIdProvider: DeviceIdProvider
     ) {
         self.networkService = networkService
@@ -41,15 +41,20 @@ final class WarmupQuestionsServiceImpl: WarmupQuestionsService {
             return
         }
 
-        networkService.getStandard(
-            [WarmupQuestion].self,
-            apiPath: "/api/warmup-question",
+        networkService.get(
+            ServerResponse<[WarmupQuestion]>.self,
+            apiPath: ApiConstants.Path.warmupQuestion,
             parameters: [
                 "device_id": deviceId
-            ],
-            authorizationKind: .none,
-            completion: completion
-        )
+            ]
+        ) { result in
+            switch result {
+            case .success(let response):
+                completion(.success(response.data))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
     }
 
     func sendWarmupAnswer(
@@ -57,18 +62,32 @@ final class WarmupQuestionsServiceImpl: WarmupQuestionsService {
         answerId: Int,
         completion: @escaping (Result<WarmupAnswerResponse, NetworkServiceError>) -> Void
     ) {
-        networkService.afPostStandard(
-            bodyParameters: [
-                "answer": "\(answerId)"
-            ],
-            to: "/api/warmup-question/send-answer",
-            queryParameters: [
-                "question_id": questionId,
-                "device_id": deviceIdProvider.get()
-            ],
-            responseType: WarmupAnswerResponse.self,
-            authorizationKind: .none,
-            completion: completion
+        guard let deviceId = deviceIdProvider.get() else {
+            completion(.failure(.encodingError))
+            return
+        }
+
+        let answerData = WarmupAnswerData(
+            answer: answerId,
+            questionId: questionId,
+            deviceId: deviceId
+        )
+
+        networkService.post(
+            answerData,
+            apiPath: ApiConstants.Path.warmupSendAnswer,
+            parameters: nil,
+            reponseType: ServerResponse<WarmupAnswerResponse>.self,
+            completion: { result in
+                switch result {
+                case .success(let response):
+                    completion(.success(response.data))
+                case .failure(let error):
+                    print("Error receiving warmup answer: \(error)")
+                    completion(.failure(error))
+                }
+            }
         )
     }
 }
+

@@ -66,6 +66,7 @@ final class PaymentServiceImpl: PaymentServiceProtocol {
         let tokenizationModuleInputData = TokenizationModuleInputData(
             clientApplicationKey: options.transactionKey,
             shopName: options.shopName,
+            shopId: options.shopId,
             purchaseDescription: options.description,
             amount: paymentAmount,
             gatewayId: nil,
@@ -111,6 +112,20 @@ final class PaymentServiceImpl: PaymentServiceProtocol {
 // MARK: - TokenizationModuleOutput
 
 extension PaymentServiceImpl: TokenizationModuleOutput {
+    func didFinishConfirmation(paymentMethodType: YooKassaPayments.PaymentMethodType) {
+        presentingViewController?.dismiss(animated: true) { [self] in
+            output?.didConfirmPaymentSuccessfully()
+            paymentsModule = nil
+        }
+    }
+    
+    func didFailConfirmation(error: YooKassaPayments.YooKassaPaymentsError?) {
+        presentingViewController?.dismiss(animated: true) { [self] in
+            output?.didCancelPayment()
+            paymentMethodType = nil
+            paymentsModule = nil
+        }
+    }
 
     func didFinish(
         on module: TokenizationModuleInput,

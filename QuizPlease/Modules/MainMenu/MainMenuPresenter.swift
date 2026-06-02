@@ -55,7 +55,6 @@ final class MainMenuPresenter: MainMenuPresenterProtocol {
         view.configureTableView()
         view.updateCityName(with: AppSettings.defaultCity.title)
         interactor.loadMenuItems()
-        interactor.postMainScreenLoaded()
     }
 
     func viewDidAppear(_ view: MainMenuViewProtocol) {
@@ -63,6 +62,7 @@ final class MainMenuPresenter: MainMenuPresenterProtocol {
         if sampleShopItems.count == 0 || sampleShopItems.first?.title == "SAMPLE" {
             interactor.loadShopItems()
         }
+        interactor.postMainScreenLoaded()
     }
 
     // MARK: - Actions
@@ -90,7 +90,7 @@ final class MainMenuPresenter: MainMenuPresenterProtocol {
     }
 
     func didPressAddGame() {
-        if AppSettings.userToken != nil {
+        if interactor.getIsUserLoggedIn() {
             router.showQRScanner()
         } else {
             if let item = menuItems?.first(where: { $0._kind == .profile }) {

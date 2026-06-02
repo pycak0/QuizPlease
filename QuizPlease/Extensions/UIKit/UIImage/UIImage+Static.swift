@@ -9,51 +9,60 @@
 import UIKit
 
 extension UIImage {
+
+    /// The colored app logo image (`logoSmall`), rendered in original colors.
     class var logoColoredImage: UIImage? {
         UIImage(named: "logoSmall")?.withRenderingMode(.alwaysOriginal)
     }
 
+    /// The template app logo image (`logoSmall`), rendered as a template for tinting.
     class var logoTemplateImage: UIImage? {
         UIImage(named: "logoSmall")?.withRenderingMode(.alwaysTemplate)
     }
 
+    /// The background image for the logo screen (`launchScreenBackground`).
     class var logoScreenBackground: UIImage? {
         UIImage(named: "launchScreenBackground")
     }
 
+    /// The back button image (`backButton`), always rendered as a template.
     class var backButton: UIImage {
-        UIImage(imageLiteralResourceName: "backButton")
+        UIImage(named: "backButton")!.withRenderingMode(.alwaysTemplate)
     }
 
+    /// The standard system "xmark" (close) symbol image.
     class var xmark: UIImage? {
-        if #available(iOS 13.0, *) {
-            return UIImage(systemName: "xmark")
-        }
-        return UIImage(named: "xmarkIcon")
+        UIImage(systemName: "xmark")
     }
 
+    /// The standard system "plus" (add) symbol image.
     class var plus: UIImage? {
-        if #available(iOS 13.0, *) {
-            return UIImage(systemName: "plus")
-        }
-        return UIImage(named: "plus")
+        UIImage(systemName: "plus")
     }
 
+    /// The standard system "minus" (remove) symbol image.
     class var minus: UIImage? {
-        if #available(iOS 13.0, *) {
-            return UIImage(systemName: "minus")
-        }
-        return UIImage(named: "minus")
+        UIImage(systemName: "minus")
     }
 
+    /// The standard system "location" symbol image.
     class var location: UIImage? {
-        if #available(iOS 13.0, *) {
-            return UIImage(systemName: "location")
-        }
-        return UIImage(named: "compass")
+        UIImage(systemName: "location")
     }
 
+    /// The custom down arrow image (`arrowDown`).
     class var arrowDown: UIImage? {
         return UIImage(named: "arrowDown")
+    }
+
+    /// The filter image (`filter`), rendered in original colors.
+    class var filter: UIImage? {
+        UIImage(named: "filter")?.withRenderingMode(.alwaysOriginal)
+    }
+
+    /// Image with 3 dots to use in menus
+    class var menuOptions: UIImage? {
+        let symbolConfig = UIImage.SymbolConfiguration(pointSize: 17, weight: .bold, scale: .large)
+        return UIImage(systemName: "ellipsis", withConfiguration: symbolConfig)
     }
 }

@@ -55,7 +55,8 @@ class PickCityVC: UITableViewController {
 
     // MARK: - Loading
     func loadCities() {
-        NetworkService.shared.getCities { (result) in
+        NetworkService.shared.getCities { [weak self] (result) in
+            guard let self else { return }
             switch result {
             case let .failure(error):
                 print(error)
@@ -99,12 +100,11 @@ class PickCityVC: UITableViewController {
 
     private func addBarButtonItems() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(
-            image: UIImage(named: "cross"),
+            image: .xmark,
             style: .done,
             target: self,
             action: #selector(cancelButtonPressed)
         )
-        navigationItem.leftBarButtonItem = UIBarButtonItem()
     }
 
     @objc private func cancelButtonPressed() {

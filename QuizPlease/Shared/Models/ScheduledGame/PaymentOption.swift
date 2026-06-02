@@ -11,20 +11,23 @@ import Foundation
 /// Доступные варианты оплаты игры
 enum PaymentOption: Int, Decodable {
     /// Оплата только наличными
-    case cashOnly = 0
+    case cashOnly = 1
 
     /// Оплата банковской картой в месте игры
-    case creditCardOffline = 1
+    case creditCardOffline = 2
 
     /// Оплата наличными или картой в месте игры
-    case cashOrCreditOffline = 2
+    case cashOrCreditOffline = 3
 
     /// Оплата онлайн через провайдера платежей (в приложении)
-    case onlineInApp = 3
-
-    /// Оплата онлайн НЕ через провайдера (смс, переводы и др.)
-    case onlineCustom = 4
+    case onlineInApp = 4
 
     /// Оплата наличными или онлайн через провайдера платежей (в приложении)
     case cashOrOnlineInApp = 5
+
+    /// Свободный вход
+    case freeEnter = 6
+
+    /// Оплата онлайн НЕ через провайдера (смс, переводы и др.)
+    case onlineCustom = 7
 }

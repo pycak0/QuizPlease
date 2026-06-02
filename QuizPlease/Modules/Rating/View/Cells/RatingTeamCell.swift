@@ -41,7 +41,7 @@ extension RatingTeamCell: RatingCell {
 
     func configure(with item: RatingItem) {
         guard let item = item as? RatingTeamItem else { return }
-        teamImageView.loadImage(using: .production, path: item.imagePath)
+        teamImageView.loadImage(urlString: item.imagePath)
         teamNameLabel.text = "\(item.place). \(item.name)"
         gamesPlayedLabel.text = item.games.string(withAssociatedFirstCaseWord: "игра", changingCase: .nominative)
 

@@ -8,22 +8,39 @@
 
 import Foundation
 
+private enum RatingInteractorConstants {
+    static let ratingItemsPerPage: Int = 20
+}
+
 protocol RatingInteractorProtocol {
     /// must be weak
     var output: RatingInteractorOutput? { get set }
     func loadRating(with filter: RatingFilter, page: Int, delay: Double)
+    func loadLeagues()
     func cancelLoading()
 }
 
 protocol RatingInteractorOutput: AnyObject {
     func interactor(_ interactor: RatingInteractorProtocol, errorOccured error: NetworkServiceError)
-    func interactor(_ interactor: RatingInteractorProtocol, didLoadRatingItems ratingItems: [RatingTeamItem])
+    func interactor(_ interactor: RatingInteractorProtocol, didLoadRatingItems ratingItems: [RatingTeamItemData])
+    func interactor(_ interactor: RatingInteractorProtocol, didLoadLeagues leagues: [RatingLeagueData])
 }
 
 class RatingInteractor: RatingInteractorProtocol {
     private var timer: Timer?
     private var runningTasks = [Cancellable?]()
     weak var output: RatingInteractorOutput?
+
+    private let networkService: NetworkServiceProtocol
+    private let log: Logger
+
+    init(
+        networkService: NetworkServiceProtocol,
+        log: Logger
+    ) {
+        self.networkService = networkService
+        self.log = log
+    }
 
     func cancelLoading() {
         timer?.invalidate()
@@ -38,22 +55,68 @@ class RatingInteractor: RatingInteractorProtocol {
         }
     }
 
+    func loadLeagues() {
+        let token = networkService.get(
+            [RatingLeagueData].self,
+            apiPath: ApiConstants.Path.rating,
+            parameters: nil,
+            headers: nil,
+            authorizationKind: .none,
+            networkConfiguration: .rating
+        ) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case let .failure(error):
+                self.output?.interactor(self, errorOccured: error)
+            case let .success(leagues):
+                self.output?.interactor(self, didLoadLeagues: leagues)
+            }
+        }
+        runningTasks.append(token)
+    }
+
     private func _loadRating(with filter: RatingFilter, page: Int) {
-        let token = NetworkService.shared.getRating(
-            cityId: filter.city.id,
-            teamName: filter.teamName,
-            league: filter.league.rawValue,
-            ratingScope: filter.scope.rawValue,
-            page: page
+        let isSeason = filter.scope == .season
+
+        var parameters: [String: String?] = [
+            "city": "\(filter.city.slug)",
+            "bySeason": "\(isSeason)",
+            "page": "\(page)",
+            "perPage": "\(RatingInteractorConstants.ratingItemsPerPage)"
+        ]
+
+        if let leagueId = filter.league?.id {
+            parameters["rating"] = "\(leagueId)"
+        } else {
+            log.warn("leagueId is nil")
+        }
+
+        if !filter.teamName.isEmpty {
+            parameters["title"] = filter.teamName
+        }
+
+        let token = networkService.get(
+            RatingTeamResponseData.self,
+            apiPath: ApiConstants.Path.ratingTeams,
+            parameters: parameters,
+            headers: nil,
+            authorizationKind: .none,
+            networkConfiguration: .rating
         ) { [weak self] (serverResult) in
             guard let self = self else { return }
             switch serverResult {
             case let .failure(error):
                 self.output?.interactor(self, errorOccured: error)
-            case let .success(items):
-                self.output?.interactor(self, didLoadRatingItems: items)
+            case let .success(data):
+                self.processSuccessResponse(data)
             }
         }
+
         runningTasks.append(token)
+    }
+
+    private func processSuccessResponse(_ data: RatingTeamResponseData) {
+        let items = data.result
+        output?.interactor(self, didLoadRatingItems: items)
     }
 }

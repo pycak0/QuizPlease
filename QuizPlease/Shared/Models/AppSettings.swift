@@ -9,12 +9,6 @@
 import Foundation
 
 public enum AppSettings {
-    public static var userToken: String? {
-        didSet {
-            // guard let token = userToken else { return }
-            // DefaultsManager.shared.saveUserToken(token)
-        }
-    }
 
     public static var defaultCity: City = .moscow {
         didSet {
@@ -34,7 +28,23 @@ public enum AppSettings {
     }()
 
     public static let privacyPolicyUrl: URL = {
-        URL(string: "https://quizplease.ru/agreement")!
+        URL(string: "https://quizplease.ru/app-privacy-policy")!
+    }()
+
+    public static let profileUserAgreementUrl: URL = {
+        URL(string: "https://moscow.quizplease.ru/rules")!
+    }()
+
+    public static let personalDataRemovalUrl: URL = {
+        URL(string: "https://quizplease.ru/data-removing")!
+    }()
+
+    public static let userAgreementUrl: URL = {
+        URL(string: "https://quizplease.ru/app-agreement")!
+    }()
+
+    public static let mailingAgreementUrl: URL = {
+        URL(string: "https://quizplease.ru/app-consent-to-mailing")!
     }()
 
     /// App's URL on the App Store
@@ -42,21 +52,21 @@ public enum AppSettings {
         URL(string: "https://apps.apple.com/ru/app/id1585713090")!
     }()
 
-    /// Whether the new GamePage is enabled or not
-    public static var isGamePageEnabled = true
-
-    public static var geoChecksAlwaysSuccessful = false
+    public static var geoChecksAlwaysSuccessful = true
 
     /// Enable in-app payment only for online games
-    public static var inAppPaymentOnlyForOnlineGamesEnabled = true
+    public static var inAppPaymentOnlyForOnlineGamesEnabled = false
+
+    /// Open Home Game page in external default browser
+    public static var isHomeGameExternalBrowserEnabled = true
 
     public static var description: String {
         """
         AppSettings: {
-            userToken: "\(userToken ?? "nil")"
             defaultCity: \(defaultCity)
             isShopEnabled: \(isShopEnabled)
             isProfileEnabled: \(isProfileEnabled)
+            isHomeGameExternalBrowserEnabled: \(isHomeGameExternalBrowserEnabled)
             configuration: \(Configuration.current)
         }
         """

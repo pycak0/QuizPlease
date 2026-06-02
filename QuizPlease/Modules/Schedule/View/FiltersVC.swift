@@ -9,6 +9,14 @@
 import UIKit
 import BottomPopup
 
+private enum DefaultFilterTitle {
+    static let allDates = "Все время"
+    static let allStatuses = "Все игры"
+    static let allFormats = "Все форматы"
+    static let allGameTypes = "Все типы"
+    static let allBars = "Все бары"
+}
+
 // MARK: - Delegate Protocol
 
 protocol FiltersVCDelegate: AnyObject {
@@ -90,19 +98,34 @@ final class FiltersVC: BottomPopupViewController {
             self.showCityPicker()
         }
         dateFilterView.addTapGestureRecognizer {
-            self.showOptions(for: self.dates) { self.filter.date = $0 }
+            self.showOptions(
+                for: self.dates,
+                resetOptionTitle: DefaultFilterTitle.allDates
+            ) { self.filter.date = $0 }
         }
         statusFilterView.addTapGestureRecognizer {
-            self.showOptions(for: self.statuses) { self.filter.status = $0 }
+            self.showOptions(
+                for: self.statuses,
+                resetOptionTitle: DefaultFilterTitle.allStatuses
+            ) { self.filter.status = $0 }
         }
         gameTypeFilterView.addTapGestureRecognizer {
-            self.showOptions(for: self.gameTypes) { self.filter.type = $0 }
+            self.showOptions(
+                for: self.gameTypes,
+                resetOptionTitle: DefaultFilterTitle.allGameTypes
+            ) { self.filter.type = $0 }
         }
         barFilterView.addTapGestureRecognizer {
-            self.showOptions(for: self.bars) { self.filter.place = $0 }
+            self.showOptions(
+                for: self.bars,
+                resetOptionTitle: DefaultFilterTitle.allBars
+            ) { self.filter.place = $0 }
         }
         formatFilterView.addTapGestureRecognizer {
-            self.showOptions(for: self.formats) { self.filter.format = $0 }
+            self.showOptions(
+                for: self.formats,
+                resetOptionTitle: DefaultFilterTitle.allFormats
+            ) { self.filter.format = $0 }
         }
     }
 
@@ -120,11 +143,22 @@ final class FiltersVC: BottomPopupViewController {
     /// - warning: `updateFilterWith` closure must update `filter`'s property with new value for correct work.
     private func showOptions(
         for filterOptions: [ScheduleFilterOption]?,
+        resetOptionTitle: String,
         updateFilterWith: @escaping (ScheduleFilterOption?) -> Void
     ) {
-        guard let names = filterOptions?.map({ $0.title }) else { return }
+        let options = filterOptions ?? []
+        let names = options.map(\.title) + [resetOptionTitle]
         showOptions(with: names) { (selectedIndex) in
-            updateFilterWith(filterOptions?[selectedIndex])
+            if selectedIndex == options.count {
+                updateFilterWith(nil)
+                return
+            }
+
+            guard options.indices.contains(selectedIndex) else {
+                updateFilterWith(nil)
+                return
+            }
+            updateFilterWith(options[selectedIndex])
         }
     }
 
@@ -157,7 +191,8 @@ final class FiltersVC: BottomPopupViewController {
             case let .failure(error):
                 print(error)
                 completion(nil)
-            case let .success(filterValues):
+            case let .success(response):
+                let filterValues = response.data
                 completion(filterValues)
             }
         }
@@ -175,11 +210,11 @@ final class FiltersVC: BottomPopupViewController {
 
     private func updateUI() {
         cityFilterView.title = filter.city.title
-        dateFilterView.title = filter.date?.title ?? "Все время"
-        statusFilterView.title = filter.status?.title ?? "Все игры"
-        formatFilterView.title = filter.format?.title ?? "Все форматы"
-        gameTypeFilterView.title = filter.type?.title ?? "Все типы"
-        barFilterView.title = filter.place?.title ?? "Все бары"
+        dateFilterView.title = filter.date?.title ?? DefaultFilterTitle.allDates
+        statusFilterView.title = filter.status?.title ?? DefaultFilterTitle.allStatuses
+        formatFilterView.title = filter.format?.title ?? DefaultFilterTitle.allFormats
+        gameTypeFilterView.title = filter.type?.title ?? DefaultFilterTitle.allGameTypes
+        barFilterView.title = filter.place?.title ?? DefaultFilterTitle.allBars
     }
 
     // MARK: - Close Button Pressed

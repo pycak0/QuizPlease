@@ -22,12 +22,7 @@ struct WarmupQuestion {
 
     /// Media attachment URL
     lazy var fileUrl: URL? = {
-        guard let filePath = file?.pathProof, !filePath.isEmpty else {
-            return nil
-        }
-        var urlComps = NetworkService.shared.baseUrlComponents
-        urlComps.path = filePath
-        return urlComps.url
+        file.map(URL.init(string:)) ?? nil
     }()
 
     init(
@@ -49,18 +44,5 @@ extension WarmupQuestion: Decodable {
 
     private enum CodingKeys: String, CodingKey {
         case question, answers, file, id
-    }
-
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        question = try container.decode(String.self, forKey: .question)
-
-        let answerString = try container.decode(String.self, forKey: .answers)
-        let answerArray = try JSONDecoder().decode([String].self, from: Data(answerString.utf8))
-        answers = answerArray.enumerated().map { (index, answer) in
-            WarmupAnswer(value: answer, id: index)
-        }
-        file = try container.decode(String.self, forKey: .file)
-        id = try container.decode(String.self, forKey: .id)
     }
 }

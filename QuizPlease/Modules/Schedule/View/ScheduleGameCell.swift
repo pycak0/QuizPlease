@@ -131,8 +131,8 @@ final class ScheduleGameCell: UITableViewCell {
         configureSubscribeButton(with: viewModel.subscribeButtonViewModel)
         configureExtraInfoButton(with: viewModel.extraInfoButtonViewModel)
 
-        if let path = gameInfo.imageData?.pathProof {
-            backgroundImageView.loadImage(path: path)
+        if let url = gameInfo.imageData.map(URL.init(string:)) {
+            backgroundImageView.loadImage(url: url)
         }
     }
 

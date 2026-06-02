@@ -55,9 +55,15 @@ final class RegistrationService {
 
     private let networkService: NetworkServiceProtocol
     private let jsonEncoder: JsonEncoder
+    private let gameInfoLoader: GameInfoLoader
     private let registerForm: RegisterForm
     private var customFields: [CustomFieldModel] = []
-    private var specialConditions: [SpecialCondition] = [SpecialCondition()]
+    private lazy var specialConditions: [SpecialCondition] = {
+        if gameInfoLoader.getCachedGame(gameId: registerForm.gameId)?.showPromoFields ?? false {
+            return [SpecialCondition()]
+        }
+        return []
+    }()
 
     // MARK: - Lifecycle
 
@@ -66,12 +72,14 @@ final class RegistrationService {
     ///   - gameId: Game identifier
     ///   - gameInfoLoader: Service that loads Game info
     ///   - jsonEncoder: An object that encodes instances of a data type as JSON objects.
+    ///   - gameInfoLoader: Service that loads Game info
     ///
     /// Creates a new register form
     init(
-        gameId: Int,
+        gameId: String,
         networkService: NetworkServiceProtocol,
-        jsonEncoder: JsonEncoder
+        jsonEncoder: JsonEncoder,
+        gameInfoLoader: GameInfoLoader
     ) {
         self.registerForm = RegisterForm(
             cityId: AppSettings.defaultCity.id,
@@ -79,6 +87,7 @@ final class RegistrationService {
         )
         self.networkService = networkService
         self.jsonEncoder = jsonEncoder
+        self.gameInfoLoader = gameInfoLoader
     }
 
     // MARK: - Private Methods
@@ -106,6 +115,10 @@ final class RegistrationService {
             errors.append(.phone)
         }
 
+        if !registerForm.isPersonalDataConsent {
+            errors.append(.consent)
+        }
+
         if errors.isEmpty && !registerForm.isValid {
             errors.append(.unknown)
         }
@@ -126,21 +139,26 @@ final class RegistrationService {
     }
 
     private func validateFormOnServer(completion: @escaping ([RegisterFormValidationResult.Error]) -> Void) {
-        networkService.afPost(
-            with: [
-                "QpRecord[game_id]": "\(registerForm.gameId)",
-                "QpRecord[teamName]": registerForm.teamName
-            ],
-            to: "/ajax/is-record-name-exist",
-            responseType: Bool.self
+        let parameters: [String: String] = [
+            "QpRecord[game_id]": "\(registerForm.gameId)",
+            "QpRecord[teamName]": registerForm.teamName
+        ]
+
+        networkService.post(
+            Data(),
+            apiPath: ApiConstants.Path.ajaxIsRecordNameExist,
+            parameters: parameters,
+            reponseType: ServerResponse<AnyDecodable>.self
         ) { result in
             var errors = [RegisterFormValidationResult.Error]()
 
             switch result {
             case let .failure(error):
                 errors.append(.network(error))
-            case let .success(isTeamRegistered):
-                if isTeamRegistered {
+            case let .success(response):
+                let responseData = response.data
+                if let validationResult = responseData.value as? GameRegistrationValidationResponseData,
+                   !validationResult.success {
                     errors.append(.invalidTeamName)
                 }
             }
@@ -158,6 +176,14 @@ final class RegistrationService {
             print(error.localizedDescription)
             return nil
         }
+    }
+
+    private var registrationPaymentTypeRawValue: String {
+        let paymentOption = gameInfoLoader
+            .getCachedGame(gameId: registerForm.gameId)?
+            .paymentOption ?? .cashOnly
+
+        return "\(paymentOption.rawValue)"
     }
 }
 
@@ -198,19 +224,21 @@ extension RegistrationService: RegistrationServiceProtocol {
 
     func checkSpecialCondition(_ value: String, completion: @escaping (_ success: Bool, _ message: String) -> Void) {
         networkService.get(
-            SpecialCondition.Response.self,
-            apiPath: "/ajax/check-code",
+            ServerResponse<SpecialCondition.Response>.self,
+            apiPath: ApiConstants.Path.ajaxCheckCode,
             parameters: [
                 "game_id": "\(registerForm.gameId)",
                 "code": value,
-                "name": registerForm.teamName
+                "name": registerForm.teamName,
+                "people_count": "\(registerForm.count)"
             ]
         ) { [weak self] serverResult in
             guard let self = self else { return }
             switch serverResult {
             case let .failure(error):
                 completion(false, error.localizedDescription)
-            case let .success(response):
+            case let .success(serverResponse):
+                let response = serverResponse.data
                 let discountInfo = response.discountInfo
                 switch discountInfo.kind {
                 case .promocode:
@@ -223,6 +251,7 @@ extension RegistrationService: RegistrationServiceProtocol {
                 }
                 if let index = self.specialConditions.firstIndex(where: { $0.value == value }) {
                     self.specialConditions[index].discountInfo = discountInfo
+                    self.specialConditions[index].conditionId = response.id
                 }
 
                 completion(response.success, response.message)
@@ -248,11 +277,18 @@ extension RegistrationService: RegistrationServiceProtocol {
         completion: @escaping (Result<GameOrderResponse, NetworkServiceError>) -> Void
     ) {
         let certificates: [MultipartFormDataObject] = specialConditions
-            .lazy
             .filter { $0.discountInfo?.kind == .certificate }
-            .compactMap { MultipartFormDataObject(name: "certificates[]", optionalStringData: $0.value) }
+            .compactMap {
+                MultipartFormDataObject(
+                    name: "QpRecord[certificate_ids][]",
+                    optionalStringData: $0.conditionId.map(String.init)
+                )
+            }
 
-        let promocode = specialConditions.first(where: { $0.discountInfo?.kind == .promocode })?.value
+        let promocodeId = specialConditions
+            .first(where: { $0.discountInfo?.kind == .promocode })?
+            .conditionId
+            .map(String.init)
 
         // swiftlint:disable colon
         let params: [String: String?] = [
@@ -264,12 +300,16 @@ extension RegistrationService: RegistrationServiceProtocol {
             "QpRecord[comment]":            registerForm.comment ?? "",
             "QpRecord[game_id]":            "\(registerForm.gameId)",
             "QpRecord[first_time]":         registerForm.isFirstTime ? "1" : "0",
-            "QpRecord[payment_type]":       "\(registerForm.paymentType.rawValue)",
-            "QpRecord[count]":              "\(registerForm.count)",
+            "QpRecord[payment_type]":       registrationPaymentTypeRawValue,
+            "QpRecord[people_count]":       "\(registerForm.count)",
             "QpRecord[teamName]":           registerForm.teamName,
             "QpRecord[payment_token]":      registerForm.paymentToken,
-            "QpRecord[surcharge]":          registerForm.countPaidOnline.map { "\($0)" },
-            "promo_code":                   promocode
+            "QpRecord[count_paid]":         registerForm.countPaidOnline.map { "\($0)" },
+            "QpRecord[promo_id]":           promocodeId,
+            "QpRecord[payment_format]":     "\(registerForm.paymentType.rawValue)",
+            "table_size":                   registerForm.selectedTableSize.map { "\($0)" },
+            "is_personal_data_consent":     "\(registerForm.isPersonalDataConsent)",
+            "is_marketing_consent":         "\(registerForm.isMarketingConsent)"
         ]
         // swiftlint:enable colon
 
@@ -277,7 +317,7 @@ extension RegistrationService: RegistrationServiceProtocol {
 
         if let customFieldsData = encodeCustomFields() {
             let customFieldForm = MultipartFormDataObject(
-                name: "QpRecord[custom_fields_values]",
+                name: "custom_fields",
                 data: customFieldsData
             )
             formData.append(customFieldForm)
@@ -285,9 +325,15 @@ extension RegistrationService: RegistrationServiceProtocol {
 
         networkService.afPost(
             with: formData,
-            to: "/ajax/save-record",
-            responseType: GameOrderResponse.self,
-            completion: completion
-        )
+            to: ApiConstants.Path.ajaxSaveRecord,
+            responseType: ServerResponse<GameOrderResponse>.self
+        ) { response in
+            switch response {
+            case .success(let serverResponse):
+                completion(.success(serverResponse.data))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
     }
 }

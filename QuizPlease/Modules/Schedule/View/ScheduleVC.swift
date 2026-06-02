@@ -43,12 +43,23 @@ final class ScheduleVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        prepareNavigationBar(barStyle: .transcluent(tintColor: view.backgroundColor))
+        if #available(iOS 26.0, *) {
+            prepareNavigationBar(barStyle: .transparent)
+        } else {
+            prepareNavigationBar(barStyle: .transcluent(tintColor: view.backgroundColor))
+        }
         ScheduleConfigurator().configure(self)
         presenter.viewDidLoad(self)
 
         if #available(iOS 14.0, *) {
             navigationItem.backBarButtonItem?.menu = nil
+        }
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if #available(iOS 26.0, *) {
+            prepareNavigationBar(barStyle: .transparent)
         }
     }
 
@@ -107,6 +118,14 @@ final class ScheduleVC: UIViewController {
             }
         }
     }
+    
+    private func makeFilterButton() -> UIBarButtonItem {
+        let item = UIBarButtonItem(image: .filter, style: .plain, target: self, action: #selector(filtersButtonPressed))
+        if #available(iOS 26.0, *) {
+            item.hidesSharedBackground = true
+        }
+        return item
+    }
 
     // MARK: - Handle Tap on Text
 
@@ -159,6 +178,7 @@ extension ScheduleVC: ScheduleViewProtocol {
     }
 
     func configure() {
+        navigationItem.rightBarButtonItem = makeFilterButton()
         tableView.dataSource = self
         tableView.refreshControl = UIRefreshControl(
             tintColor: .systemBlue,

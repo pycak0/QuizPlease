@@ -23,6 +23,8 @@ struct GamePageInfoModel {
     let placeAddress: String
     /// Status of the game
     let status: GameStatus
+    /// Message shown when promo codes and certificates are not available for the game
+    let specialConditionsRestrictionMessage: String?
 
     /// Initialize with `GameInfo`
     init(game: GameInfo) {
@@ -32,5 +34,8 @@ struct GamePageInfoModel {
         placeTitle = game.placeInfo.title
         placeAddress = game.placeInfo.shortAddress
         status = game.gameStatus ?? .ended
+        specialConditionsRestrictionMessage = game.showPromoFields
+            ? nil
+            : "На этой игре нельзя применить сертификат или промокод"
     }
 }

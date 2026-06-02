@@ -16,8 +16,8 @@ protocol ScheduleInteractorProtocol: AnyObject {
     func loadSchedule(filter: ScheduleFilter, completion: @escaping (Result<[GameInfo], NetworkServiceError>) -> Void)
     func loadDetailInfo(for game: GameInfo, completion: @escaping (GameInfo?) -> Void)
 
-    func getSubscribeStatus(gameId: Int)
-    func getSubscribedGameIds(completion: @escaping ((Set<Int>) -> Void))
+    func getSubscribeStatus(gameId: String)
+    func getSubscribedGameIds(completion: @escaping ((Set<String>) -> Void))
 
     func getExtraInfoText(completion: @escaping (AlertData?) -> Void)
 }
@@ -32,12 +32,12 @@ protocol ScheduleInteractorOutput: AnyObject {
     func interactor(
         _ interactor: ScheduleInteractorProtocol?,
         didGetSubscribeStatus response: ScheduleGameSubscriptionResponse,
-        forGameWithId id: Int
+        forGameWithId id: String
     )
 
     func interactor(
         _ interactor: ScheduleInteractorProtocol?,
-        failedToSubscribeForGameWith gameId: Int,
+        failedToSubscribeForGameWith gameId: String,
         error: NetworkServiceError
     )
 }
@@ -47,9 +47,14 @@ final class ScheduleInteractor: ScheduleInteractorProtocol {
     weak var output: ScheduleInteractorOutput?
 
     private let gameInfoLoader: GameInfoLoader
+    private let userService: UserService
 
-    init(gameInfoLoader: GameInfoLoader) {
+    init(
+        gameInfoLoader: GameInfoLoader,
+        userService: UserService
+    ) {
         self.gameInfoLoader = gameInfoLoader
+        self.userService = userService
     }
 
     func loadSchedule(filter: ScheduleFilter, completion: @escaping (Result<[GameInfo], NetworkServiceError>) -> Void) {
@@ -82,7 +87,7 @@ final class ScheduleInteractor: ScheduleInteractorProtocol {
         }
     }
 
-    func getSubscribeStatus(gameId: Int) {
+    func getSubscribeStatus(gameId: String) {
         NetworkService.shared.subscribePushOnGame(with: gameId) { [weak self] result in
             guard let self = self else { return }
             switch result {
@@ -94,8 +99,8 @@ final class ScheduleInteractor: ScheduleInteractorProtocol {
         }
     }
 
-    func getSubscribedGameIds(completion: @escaping ((Set<Int>) -> Void)) {
-        NetworkService.shared.getUserInfo { result in
+    func getSubscribedGameIds(completion: @escaping ((Set<String>) -> Void)) {
+        userService.getUserInfo { result in
             switch result {
             case let .failure(error):
                 print(error)

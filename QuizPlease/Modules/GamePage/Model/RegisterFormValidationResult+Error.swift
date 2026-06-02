@@ -11,7 +11,7 @@ import Foundation
 extension RegisterFormValidationResult {
 
     enum Error {
-        case someFieldsEmpty, email, phone, invalidTeamName, unknown
+        case someFieldsEmpty, email, phone, invalidTeamName, unknown, consent
         case customFieldEmpty(_ field: CustomFieldModel)
         case network(NetworkServiceError)
     }
@@ -35,6 +35,8 @@ extension RegisterFormValidationResult.Error {
             return "Не удалось связаться с сервером"
         case .customFieldEmpty:
             return "Необходимо сделать выбор"
+        case .consent:
+            return "Отсутствует согласие"
         }
     }
 
@@ -53,7 +55,16 @@ extension RegisterFormValidationResult.Error {
         case let .network(error):
             return error.localizedDescription
         case let .customFieldEmpty(field):
-            return "Пожалуйста, заполните поле '\(field.data.label)'"
+            return "Пожалуйста, заполните поле '\(field.data.title)'"
+        case .consent:
+            return "Необходимо дать согласие на обработку персональных данных"
+        }
+    }
+
+    var needsAlert: Bool {
+        return switch self {
+            case .consent: false
+            default : true
         }
     }
 }

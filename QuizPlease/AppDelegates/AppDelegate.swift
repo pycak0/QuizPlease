@@ -8,14 +8,19 @@
 
 import UIKit
 import IQKeyboardManagerSwift
-import Firebase
+import FirebaseMessaging
+import FirebaseCore
 import UserNotificationsUI
 import PhoneNumberKit
+#if canImport(Wormholy)
+import Wormholy
+#endif
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate {
 
     private let transitionFacade = CoreAssembly.shared.transitionFacade
+    private let userService: UserService = ServiceAssembly.shared.userService
 
     var window: UIWindow?
 
@@ -25,24 +30,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate {
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
 
+        configureWormholy()
         FirebaseApp.configure()
         Messaging.messaging().delegate = self
-
         UNUserNotificationCenter.current().delegate = self
-
-        application.registerForRemoteNotifications()
 
         UIBarButtonItem.swizzleMenu()
         IQKeyboardManager.shared.keyboardDistanceFromTextField = 20
         IQKeyboardManager.shared.enable = true
+        IQKeyboardManager.shared.enableAutoToolbar = false
         PhoneNumberKit.CountryCodePicker.forceModalPresentation = true
         PhoneNumberKit.CountryCodePicker.commonCountryCodes = []
 
         return transitionFacade.handleLaunchOptions(launchOptions)
     }
 
+    private func configureWormholy() {
+        #if canImport(Wormholy)
+        guard Configuration.current.isProduction else { return }
+        Wormholy.shakeEnabled = false
+        Wormholy.setEnabled(false)
+        #endif
+    }
+
     func applicationWillEnterForeground(_ application: UIApplication) {
-        Utilities.main.updateToken()
+        userService.updateToken()
     }
 
     // MARK: UISceneSession Lifecycle

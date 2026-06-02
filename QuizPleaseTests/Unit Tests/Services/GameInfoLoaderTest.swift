@@ -11,8 +11,10 @@ import XCTest
 
 final class GameInfoLoaderTest: XCTestCase {
 
-    private var cacheMock: InMemoryCacheMock<Int, GameInfo>!
-    private var networkServiceMock: NetworkServiceMock<GameInfo>!
+    private typealias GameInfoResponse = ServerResponse<ServerResponse<GameInfo>>
+
+    private var cacheMock: InMemoryCacheMock<String, GameInfo>!
+    private var networkServiceMock: NetworkServiceMock<GameInfoResponse>!
     private var gameInfoLoader: GameInfoLoaderImpl!
 
     override func setUp() {
@@ -34,7 +36,7 @@ final class GameInfoLoaderTest: XCTestCase {
         let game = GameInfo.test
         let gameIdMock = game.id!
         cacheMock.getMock = nil
-        networkServiceMock.resultMock = .success(game)
+        networkServiceMock.resultMock = .success(.init(data: .init(data: game)))
 
         // Act
         var acutalResult: GameInfo?

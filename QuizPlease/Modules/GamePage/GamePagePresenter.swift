@@ -20,6 +20,7 @@ final class GamePagePresenter {
     private let analyticsService: AnalyticsService
     private let router: GamePageRouterProtocol
     private let shouldScrollToRegistrationOnLoad: Bool
+    private let logger: Logger
 
     private var items: [GamePageItemProtocol] = []
 
@@ -38,13 +39,15 @@ final class GamePagePresenter {
         interactor: GamePageInteractorProtocol,
         analyticsService: AnalyticsService,
         router: GamePageRouterProtocol,
-        shouldScrollToRegistrationOnLoad: Bool
+        shouldScrollToRegistrationOnLoad: Bool,
+        logger: Logger
     ) {
         self.itemFactory = itemFactory
         self.interactor = interactor
         self.analyticsService = analyticsService
         self.router = router
         self.shouldScrollToRegistrationOnLoad = shouldScrollToRegistrationOnLoad
+        self.logger = logger
     }
 
     // MARK: - Private Methods
@@ -61,7 +64,12 @@ final class GamePagePresenter {
 
     private func processErrors(_ errors: [RegisterFormValidationResult.Error]) {
         guard let error = errors.first else { return }
+        logger.info("Validation error title: \(error.title), message: \(error.message), showsAlert: \(error.needsAlert)")
         view?.notifyHapticsError()
+        guard error.needsAlert else {
+            alertTapActionOnError(error)
+            return
+        }
         view?.showAlert(title: error.title, message: error.message) { [weak self] in
             self?.alertTapActionOnError(error)
         }
@@ -78,7 +86,9 @@ final class GamePagePresenter {
         case .unknown, .network, .someFieldsEmpty:
             break
         case let .customFieldEmpty(field):
-            view?.editItem(kind: .customField(field.data.name))
+            view?.editItem(kind: .customField(field.data.id))
+        case .consent:
+            view?.showConsentError(kind: .personalDataConsent)
         }
     }
 }
@@ -125,6 +135,7 @@ extension GamePagePresenter: GamePageViewOutput,
 
     func didChangeTeamCount() {
         view?.updateFirstItem(kind: .paymentCount)
+        view?.updateFirstItem(kind: .paymentSum)
     }
 
     func updateField(kind: GamePageItemKind) {
@@ -149,6 +160,10 @@ extension GamePagePresenter: GamePageViewOutput,
         view?.updateFirstItem(kind: .paymentSum)
     }
 
+    func didRemoveSpecialCondition() {
+        view?.updateFirstItem(kind: .paymentSum)
+    }
+
     // MARK: - GamePagePaymentSectionOutput
 
     func didChangePaymentType() {
@@ -163,6 +178,7 @@ extension GamePagePresenter: GamePageViewOutput,
 
     func submitButtonPressed() {
         analyticsService.sendEvent(.beginRegistration)
+        view?.prepareHaptics()
         view?.startLoading()
 
         // 1. Validate

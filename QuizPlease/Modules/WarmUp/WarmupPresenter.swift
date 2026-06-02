@@ -74,7 +74,7 @@ final class WarmupPresenter: WarmupPresenterProtocol {
     }
 
     func didAnswer(_ answer: String, for question: WarmupQuestion) {
-        guard let answer = question.answers.first(where: { $0.value == answer }) else { return }
+        guard let answer = question.answers.first(where: { $0.title == answer }) else { return }
         view?.startLoading()
         interactor.checkAnswerWithId(answer.id, forQuestionWithId: question.id)
     }
@@ -179,6 +179,7 @@ extension WarmupPresenter: WarmupInteractorOutput {
     func interactor(
         _ interactor: WarmupInteractorProtocol,
         isAnswerCorrect: Bool,
+        message: String,
         answerId: Int,
         questionId: String
     ) {

@@ -17,13 +17,15 @@ private let translationDict: [String: String] = [
     "онлайн через смс": "онлайн"
 ]
 
+private let gameNumberPrefix = "#"
+
 struct GameInfo: Decodable {
     static let placeholderValue = "-"
 
-    var id: Int!
+    var id: String!
     var date: Date?
 
-    private var numberGame: String = "#"
+    private var numberGame: String?
     var nameGame: String = placeholderValue
 
     /// Date of the game
@@ -36,15 +38,19 @@ struct GameInfo: Decodable {
     var imageData: String?
 
     var time: String = placeholderValue
+
     /// Game annotation
-    var description: String = placeholderValue
+    var gameDescription: String {
+        description ?? Self.placeholderValue
+    }
+    private var description: String?
 
     private var text_block: String?
 
     /// See `GameStatus` for description
     private var status: Int?
     /// Special marketing flag "few places left!!"
-    private var is_little_place: Int?
+    private var is_little_place: Bool?
 
     private var price: String = placeholderValue
     /// Describing price e.g. "с человека". Use `priceDetails` instead of this
@@ -56,9 +62,12 @@ struct GameInfo: Decodable {
     private var payment_icon: Int = 0
     /// Online game = 1; offline game = 0
     private var game_type: Int = 0
+    private var price_type: Int = 0
 
-    private var latitude: String?
-    private var longitude: String?
+    private var latitude: Double?
+    private var longitude: Double?
+
+    private var tables: [GameTable]?
 
     private var sdk_key: String?
     private var sdk_shop_id: String?
@@ -70,6 +79,8 @@ struct GameInfo: Decodable {
     private var custom_fields: [CustomFieldData]?
     /// Show remind button or not
     private var show_remind_button: Bool?
+
+    private var is_show_promo_field: Bool?
 
     init() { }
 
@@ -104,14 +115,12 @@ extension GameInfo {
     }
 
     var placeInfo: Place {
-        let latitude = Double(self.latitude ?? "") ?? 0
-        let longitude = Double(self.longitude ?? "") ?? 0
         return Place(
             name: place,
             cityName: cityName,
             address: address ?? "",
-            latitude: latitude,
-            longitude: longitude
+            latitude: latitude ?? 0,
+            longitude: longitude ?? 0
         )
     }
 
@@ -127,10 +136,11 @@ extension GameInfo {
     }
 
     var gameNumber: String {
-        if numberGame.trimmingCharacters(in: .whitespaces).hasPrefix("#") {
-            return numberGame
+        let number = numberGame ?? gameNumberPrefix
+        if number.trimmingCharacters(in: .whitespaces).hasPrefix(gameNumberPrefix) {
+            return number
         }
-        return "#" + numberGame
+        return gameNumberPrefix + number
     }
 
     /// A title of game containing its `nameGame` and `gameNumber` properties separated by a whitespace
@@ -138,9 +148,13 @@ extension GameInfo {
         return "\(nameGame.trimmingCharacters(in: .whitespaces)) \(gameNumber)"
     }
 
+    var paymentOption: PaymentOption {
+        PaymentOption(rawValue: payment_icon) ?? .cashOnly
+    }
+
     var availablePaymentTypes: [PaymentType] {
-        switch PaymentOption(rawValue: payment_icon) {
-        case .none, .cashOnly, .creditCardOffline, .cashOrCreditOffline, .onlineCustom:
+        switch paymentOption {
+        case .cashOnly, .creditCardOffline, .cashOrCreditOffline, .onlineCustom, .freeEnter:
             return [.cash]
         case .onlineInApp:
             return [.online]
@@ -153,10 +167,18 @@ extension GameInfo {
         return game_type == 1
     }
 
+    var priceKind: PriceKind {
+        return PriceKind(rawValue: price_type) ?? PriceKind.person
+    }
+
+    var gameTables: [GameTable] {
+        return tables ?? []
+    }
+
     /// Status of the game
     var gameStatus: GameStatus? {
         let realStatus = GameStatus(rawValue: self.status ?? -999)
-        let isFewPlacesFlagEnabled = ((is_little_place ?? 0) == 1)
+        let isFewPlacesFlagEnabled = is_little_place ?? false
         let displayStatus = (isFewPlacesFlagEnabled && realStatus == .placesAvailable)
             ? .fewPlaces
             : realStatus
@@ -209,5 +231,9 @@ extension GameInfo {
 
     var showRemindButton: Bool {
         show_remind_button ?? false
+    }
+
+    var showPromoFields: Bool {
+        is_show_promo_field ?? false
     }
 }

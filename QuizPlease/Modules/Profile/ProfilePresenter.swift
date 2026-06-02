@@ -19,7 +19,11 @@ protocol ProfilePresenterProtocol {
     func handleViewDidAppear()
 
     func didPerformAuth()
-    func didPressOptionsButton()
+    func didSelectPrivacyPolicyOption()
+    func didSelectTermsOfUseOption()
+    func didSelectPersonalDataRemovalOption()
+    func didSelectExitOption()
+    func didSelectDeleteAccountOption()
 
     func didPressShowShopButton()
     func didPressAddGameButton()
@@ -64,8 +68,24 @@ class ProfilePresenter: ProfilePresenterProtocol {
     }
 
     // MARK: - Actions
-    func didPressOptionsButton() {
-        view?.showExitOrDeleteActionSheet(onExit: exit, onDelete: deleteAccount)
+    func didSelectPrivacyPolicyOption() {
+        showPrivacyPolicy()
+    }
+
+    func didSelectTermsOfUseOption() {
+        showTermsOfUse()
+    }
+
+    func didSelectPersonalDataRemovalOption() {
+        showPersonalDataRemoval()
+    }
+
+    func didSelectExitOption() {
+        exit()
+    }
+
+    func didSelectDeleteAccountOption() {
+        deleteAccount()
     }
 
     private func exit() {
@@ -78,6 +98,18 @@ class ProfilePresenter: ProfilePresenterProtocol {
         view?.showDeleteAccountAlert(onConfirm: { [weak self] in
             self?.interactor.deleteUserAccount()
         })
+    }
+
+    private func showPrivacyPolicy() {
+        router.showWebPage(AppSettings.privacyPolicyUrl)
+    }
+
+    private func showTermsOfUse() {
+        router.showWebPage(AppSettings.profileUserAgreementUrl)
+    }
+
+    private func showPersonalDataRemoval() {
+        router.showWebPage(AppSettings.personalDataRemovalUrl)
     }
 
     func didPressShowShopButton() {
@@ -97,10 +129,10 @@ class ProfilePresenter: ProfilePresenterProtocol {
     }
 
     private func checkAuthorization() {
-        if AppSettings.userToken == nil {
-            router.showAuthScreen()
-        } else {
+        if interactor.getIsUserLoggedIn() {
             interactor.loadUserInfo()
+        } else {
+            router.showAuthScreen()
         }
     }
 
@@ -120,7 +152,9 @@ class ProfilePresenter: ProfilePresenterProtocol {
 extension ProfilePresenter: ProfileInteractorDelegate {
 
     func didFailLoadingUserInfo(with error: NetworkServiceError) {
-        view?.showErrorConnectingToServerAlert()
+        view?.showErrorConnectingToServerAlert { [weak self] _ in
+            self?.router.closeProfile()
+        }
     }
 
     func didSuccessfullyLoadUserInfo(_ userInfo: UserInfo) {

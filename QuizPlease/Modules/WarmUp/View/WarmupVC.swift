@@ -42,7 +42,19 @@ final class WarmupVC: UIViewController {
     @IBOutlet private weak var startButton: ScalingButton!
     @IBOutlet private weak var container: UIView!
     @IBOutlet private var progressRing: UICircularProgressRing!
-    @IBOutlet private weak var minutesPassedItem: UIBarButtonItem!
+    @IBOutlet private weak var minutesPassedItem: UIBarButtonItem! {
+        didSet {
+            let attrs: [NSAttributedString.Key: Any] = [
+                .foregroundColor: UIColor.white
+            ]
+            minutesPassedItem.setTitleTextAttributes(attrs, for: .normal)
+            minutesPassedItem.setTitleTextAttributes(attrs, for: .highlighted)
+            minutesPassedItem.setTitleTextAttributes(attrs, for: .disabled)
+            minutesPassedItem.setTitleTextAttributes(attrs, for: .focused)
+            // Для iOS 15+ влияние tintColor на иконки всё ещё есть:
+            minutesPassedItem.tintColor = .white
+        }
+    }
 
     @IBOutlet private weak var completionView: UIView! {
         didSet {
@@ -131,13 +143,16 @@ final class WarmupVC: UIViewController {
     private func configureResultLabels() {
         let bgColor = UIColor.white.withAlphaComponent(0.1)
         let cRadius: CGFloat = 10
-        minutesLabel.backgroundColor = bgColor
-        secondsLabel.backgroundColor = bgColor
-        secondPartsLabel.backgroundColor = bgColor
-
-        minutesLabel.layer.cornerRadius = cRadius
-        secondsLabel.layer.cornerRadius = cRadius
-        secondPartsLabel.layer.cornerRadius = cRadius
+        [
+            minutesLabel,
+            secondsLabel,
+            secondPartsLabel
+        ].forEach {
+            guard let label = $0 else { return }
+            label.layer.masksToBounds = true
+            label.backgroundColor = bgColor
+            label.layer.cornerRadius = cRadius
+        }
     }
 
     // MARK: - Set Results
@@ -160,6 +175,11 @@ extension WarmupVC: WarmupViewProtocol {
     func configure() {
         configureTimerRing()
         configureResultLabels()
+        if #available(iOS 26.0, *) {
+            navigationItem.rightBarButtonItems?.forEach {
+                $0.hidesSharedBackground = true
+            }
+        }
     }
 
     func setPenaltyTimeInfo(penaltySeconds: Int) {

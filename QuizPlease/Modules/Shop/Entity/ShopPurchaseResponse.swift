@@ -9,5 +9,6 @@
 import Foundation
 
 struct ShopPurchaseResponse: Decodable {
-    let message: String?
+    let description: String?
+    let title: String?
 }

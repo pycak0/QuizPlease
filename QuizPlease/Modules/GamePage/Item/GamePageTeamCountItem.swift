@@ -25,6 +25,8 @@ struct GamePageTeamCountItem {
     let getMaxCount: () -> Int
     /// Provides currently selected team count
     let getSelectedTeamCount: () -> Int
+    /// Whether the picker is editable
+    let isEditable: Bool
     /// Team count change handler
     let changeHandler: ((Int) -> Void)?
 
@@ -33,6 +35,7 @@ struct GamePageTeamCountItem {
         title: String?,
         pickerColor: UIColor,
         backgroundColor: UIColor,
+        isEditable: Bool = true,
         getMinCount: @autoclosure @escaping () -> Int,
         getMaxCount: @autoclosure @escaping () -> Int,
         getSelectedTeamCount: @autoclosure @escaping () -> Int,
@@ -42,6 +45,7 @@ struct GamePageTeamCountItem {
         self.title = title
         self.pickerColor = pickerColor
         self.backgroundColor = backgroundColor
+        self.isEditable = isEditable
         self.getMinCount = getMinCount
         self.getMaxCount = getMaxCount
         self.getSelectedTeamCount = getSelectedTeamCount

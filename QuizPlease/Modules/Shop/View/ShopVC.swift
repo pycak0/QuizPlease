@@ -22,6 +22,7 @@ final class ShopVC: UIViewController {
 
     @IBOutlet private weak var userPointsLabel: UILabel! {
         didSet {
+            userPointsLabel.layer.masksToBounds = true
             userPointsLabel.isHidden = true
             userPointsLabel.layer.cornerRadius = 15
         }
@@ -49,7 +50,16 @@ final class ShopVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        prepareNavigationBar(barStyle: .transcluent(tintColor: view.backgroundColor))
+        if #available(iOS 26.0, *) {
+            prepareNavigationBar(barStyle: .transparent)
+        } else {
+            prepareNavigationBar(barStyle: .transcluent(tintColor: view.backgroundColor))
+        }
+        if #available(iOS 26.0, *) {
+            navigationItem.rightBarButtonItems?.forEach {
+                $0.hidesSharedBackground = true
+            }
+        }
         presenter.viewDidLoad(self)
     }
 

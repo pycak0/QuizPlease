@@ -24,6 +24,7 @@ final class ShopCompletionVC: UIViewController {
     @IBOutlet private weak var segmentControl: HBSegmentedControl!
     @IBOutlet private weak var questionLabel: UILabel!
     @IBOutlet private weak var confirmButton: ScalingButton!
+    @IBOutlet private weak var stackView: UIStackView!
     @IBOutlet private weak var textFieldView: TitledTextFieldView! {
         didSet {
             textFieldView.addTapGestureRecognizer { self.didPressFieldView() }
@@ -35,12 +36,33 @@ final class ShopCompletionVC: UIViewController {
     // MARK: - Private Properties
 
     private let analyticsService: AnalyticsService = ServiceAssembly.shared.analytics
+    private let networkService: NetworkServiceProtocol = ServiceAssembly.shared.networkService
+    private let webPageRouter: WebPageRouter = WebPageRouterImpl()
+    private let errorHapticsGenerator = UINotificationFeedbackGenerator()
+
+    private let personalDataCheckbox: AgreementCheckboxView = {
+        let checkbox = AgreementCheckboxView()
+        checkbox.checkboxColor = .systemBlue
+        return checkbox
+    }()
+
+    private let mailingConsentCheckbox: AgreementCheckboxView = {
+        let checkbox = AgreementCheckboxView()
+        checkbox.checkboxColor = .systemBlue
+        return checkbox
+    }()
 
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareNavigationBar(barStyle: .transcluent(tintColor: view.backgroundColor))
         configureViews()
+        configureCheckboxes()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        errorHapticsGenerator.prepare()
     }
 
     // MARK: - Segment Changed
@@ -63,28 +85,42 @@ final class ShopCompletionVC: UIViewController {
     // MARK: - Confirm Button Pressed
     @IBAction
     private func confirmButtonPressed(_ sender: UIButton) {
+        guard !segmentControl.items.isEmpty else {
+            showErrorDeliveryMethodUnavailable()
+            return
+        }
         let index = segmentControl.selectedIndex
         let chosenDelivery: DeliveryMethod? = shopItem.isOfflineDeliveryOnly
         ? .game
         : DeliveryMethod(title: segmentControl.items[index])
 
         guard let deliveryMethod = chosenDelivery else {
-            showSimpleAlert(
-                title: "Произошла ошибка",
-                message: "Выбранная опция получения товара недоступна в данный момент"
-            )
+            showErrorDeliveryMethodUnavailable()
             return
         }
         guard let text = textFieldView.textField.text, text.isValidEmail else {
+            errorHapticsGenerator.notificationOccurred(.error)
             textFieldView.shake()
+            return
+        }
+        guard personalDataCheckbox.isSelected else {
+            errorHapticsGenerator.notificationOccurred(.error)
+            personalDataCheckbox.showError()
             return
         }
         purchase(withDelivryMethod: deliveryMethod, email: text)
     }
 
+    private func showErrorDeliveryMethodUnavailable() {
+        showSimpleAlert(
+            title: "Произошла ошибка",
+            message: "Выбранная опция получения товара недоступна в данный момент"
+        )
+    }
+
     // MARK: - Purchase
     private func purchase(withDelivryMethod method: DeliveryMethod, email: String) {
-        guard let itemId = shopItem.id else {
+        guard let itemId = shopItem.productId else {
             self.showSimpleAlert(
                 title: "Не удалось завершить покупку",
                 message: "Произошла ошибка, но не волнуйтесь, ваши бонусные баллы не были списаны. " +
@@ -94,11 +130,23 @@ final class ShopCompletionVC: UIViewController {
         }
         confirmButton.isEnabled = false
 
-        NetworkService.shared.purchaseProduct(
-            with: "\(itemId)",
-            deliveryMethod: method,
-            email: email
-        ) { [weak self] (result) in
+        let request = ShopPurchaseRequest(
+            productId: itemId,
+            deliveryMethod: method.id,
+            cityId: AppSettings.defaultCity.id,
+            email: email,
+            isPersonalDataConsent: personalDataCheckbox.isSelected,
+            isMarketingConsent: mailingConsentCheckbox.isSelected
+        )
+
+        networkService.post(
+            request,
+            apiPath: ApiConstants.Path.orderBuy,
+            parameters: nil,
+            headers: nil,
+            authorizationKind: .bearer,
+            reponseType: ServerResponse<ShopPurchaseResponse>.self
+        ) { [weak self] result in
             guard let self = self else { return }
             self.confirmButton.isEnabled = true
 
@@ -106,7 +154,8 @@ final class ShopCompletionVC: UIViewController {
             case let .failure(error):
                 self.handleError(error)
             case let .success(response):
-                if response.message == "ok" {
+                let data = response.data
+                if data.description != nil || data.title != nil {
 
                     self.analyticsService.sendEvent(.spendVirtualCurrency(
                         value: self.shopItem.priceNumber,
@@ -159,4 +208,33 @@ final class ShopCompletionVC: UIViewController {
         segmentControl.font = .gilroy(.bold, size: 16)
         segmentControl.addTarget(self, action: #selector(segmentChanged), for: .valueChanged)
     }
+
+    private func configureCheckboxes() {
+        personalDataCheckbox.configure(
+            text: "Даю согласие на обработку моих персональных данных для целей и на условиях, изложенных в Политике конфиденциальности",
+            links: [
+                .init(text: "согласие", url: AppSettings.userAgreementUrl),
+                .init(text: "Политике конфиденциальности", url: AppSettings.privacyPolicyUrl)
+            ]
+        )
+
+        mailingConsentCheckbox.configure(
+            text: "Даю согласие на получение информационных и рекламных сообщений",
+            links: [
+                .init(text: "согласие", url: AppSettings.mailingAgreementUrl)
+            ]
+        )
+
+        personalDataCheckbox.onLinkTap = { [weak self] url in
+            self?.webPageRouter.open(url: url)
+        }
+
+        mailingConsentCheckbox.onLinkTap = { [weak self] url in
+            self?.webPageRouter.open(url: url)
+        }
+
+        stackView.addArrangedSubview(personalDataCheckbox)
+        stackView.addArrangedSubview(mailingConsentCheckbox)
+    }
 }
+

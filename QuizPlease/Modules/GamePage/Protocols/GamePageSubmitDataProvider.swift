@@ -19,4 +19,16 @@ protocol GamePageSubmitDataProvider: AnyObject {
 
     /// Provide links in agreement text
     func getAgreementLinks() -> [TextWebLink]
+
+    /// Get personal data consent state
+    func getIsPersonalDataConsent() -> Bool
+
+    /// Set personal data consent state
+    func setIsPersonalDataConsent(_ value: Bool)
+
+    /// Get mailing consent state
+    func getIsMailingConsent() -> Bool
+
+    /// Set mailing consent state
+    func setIsMailingConsent(_ value: Bool)
 }

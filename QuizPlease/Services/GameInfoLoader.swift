@@ -12,7 +12,9 @@ import Foundation
 protocol GameInfoLoader {
 
     /// Load the game by id
-    func load(gameId: Int, completion: @escaping (Result<GameInfo, Error>) -> Void)
+    func load(gameId: String, completion: @escaping (Result<GameInfo, Error>) -> Void)
+
+    func getCachedGame(gameId: String) -> GameInfo?
 }
 
 /// Service that loads Game info
@@ -20,13 +22,13 @@ final class GameInfoLoaderImpl: GameInfoLoader {
 
     // MARK: - Private Properties
 
-    private let cache: InMemoryCache<Int, GameInfo>
+    private let cache: InMemoryCache<String, GameInfo>
     private let networkService: NetworkServiceProtocol
 
     // MARK: - Lifecycle
 
     init(
-        cache: InMemoryCache<Int, GameInfo> = InMemoryCache(),
+        cache: InMemoryCache<String, GameInfo> = InMemoryCache(),
         networkService: NetworkServiceProtocol
     ) {
         self.cache = cache
@@ -35,20 +37,21 @@ final class GameInfoLoaderImpl: GameInfoLoader {
 
     // MARK: - GameInfoLoader
 
-    func load(gameId: Int, completion: @escaping (Result<GameInfo, Error>) -> Void) {
+    func load(gameId: String, completion: @escaping (Result<GameInfo, Error>) -> Void) {
         if let game = cache.get(key: gameId) {
             completion(.success(game))
             return
         }
 
         networkService.get(
-            GameInfo.self,
+            ServerResponse<ServerResponse<GameInfo>>.self,
             apiPath: "/ajax/scope-game",
             parameters: ["id": "\(gameId)"]
         ) { [weak self] result in
             guard let self else { return }
             switch result {
-            case let .success(game):
+            case let .success(response):
+                let game = response.data.data
                 self.cache.set(game, for: gameId)
                 completion(.success(game))
 
@@ -56,5 +59,9 @@ final class GameInfoLoaderImpl: GameInfoLoader {
                 completion(.failure(error))
             }
         }
+    }
+
+    func getCachedGame(gameId: String) -> GameInfo? {
+        cache.get(key: gameId)
     }
 }

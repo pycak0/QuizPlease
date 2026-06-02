@@ -95,7 +95,7 @@ final class WarmupQuestionVC: UIViewController {
         answerStack.arrangedSubviews.forEach { self.answerStack.removeArrangedSubview($0); $0.removeFromSuperview() }
 
         for answer in question.answers {
-            let button = WarmupAnswerButton(title: answer.value)
+            let button = WarmupAnswerButton(title: answer.title)
             button.addTarget(self, action: #selector(answerButtonPressed(_:)), for: .touchUpInside)
             answerStack.addArrangedSubview(button)
         }

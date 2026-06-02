@@ -12,22 +12,27 @@ struct ShopItem: Decodable {
 
     let id: Int?
     let title: String
-    let description: String
-    private let price: Double
+    let description: String?
+    private let price: String
     private let images: [ShopItemImage]?
     private let offline_delivery: Int
     private let online_delivery: Int
+    private let product_id: Int?
 }
 
 extension ShopItem {
+
+    var productId: Int? {
+        product_id
+    }
 
     var imagePath: String? {
         return images?.first?.path?.pathProof
     }
 
     var priceNumber: Int {
-        Int(price)
-        // Int(Double(price) ?? 99999)
+//        Int(price)
+         Int(Double(price) ?? 99999)
     }
 
     var availableDeliveryMethods: [DeliveryMethod] {

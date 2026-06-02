@@ -17,6 +17,9 @@ protocol SplashScreenRouterProtocol {
     /// Show Welcome Screen
     func showWelcomeScreen()
 
+    /// Show consent screen as a sheet over the splash
+    func showConsentScreen(onAccepted: @escaping () -> Void)
+
     /// Show alert with prompt to update the app
     func showUpdateAlert(forceUpate: Bool, onUpdate: (() -> Void)?, onSkip: (() -> Void)?)
 
@@ -30,9 +33,11 @@ final class SplashScreenRouter: SplashScreenRouterProtocol {
     weak var viewController: UIViewController?
 
     private let welcomeAssembly: WelcomeAssembly
+    private let consentAssembly: ConsentAssembly
 
-    init(welcomeAssembly: WelcomeAssembly) {
+    init(welcomeAssembly: WelcomeAssembly, consentAssembly: ConsentAssembly) {
         self.welcomeAssembly = welcomeAssembly
+        self.consentAssembly = consentAssembly
     }
 
     func showWelcomeScreen() {
@@ -40,6 +45,11 @@ final class SplashScreenRouter: SplashScreenRouterProtocol {
         UIApplication.shared
             .getKeyWindow()?
             .setRootViewControllerWithAnimation(rootViewController: welcomeViewController)
+    }
+
+    func showConsentScreen(onAccepted: @escaping () -> Void) {
+        let consentVC = consentAssembly.makeViewController(onAccepted: onAccepted)
+        viewController?.present(consentVC, animated: true)
     }
 
     func showMainMenu() {

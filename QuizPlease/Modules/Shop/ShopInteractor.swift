@@ -15,11 +15,18 @@ protocol ShopInteractorProtocol {
 }
 
 class ShopInteractor: ShopInteractorProtocol {
+
+    private let userService: UserService
+
+    init(userService: UserService) {
+        self.userService = userService
+    }
+
     func loadItems(completion: @escaping (Result<[ShopItem], NetworkServiceError>) -> Void) {
         NetworkService.shared.getShopItems(completion: completion)
     }
 
     func loadUserInfo(completion: @escaping ((Result<UserInfo, NetworkServiceError>) -> Void)) {
-        NetworkService.shared.getUserInfo(completion: completion)
+        userService.getUserInfo(completion: completion)
     }
 }

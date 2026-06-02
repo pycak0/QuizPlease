@@ -12,7 +12,7 @@ import Foundation
 struct GamePageLaunchOptions {
 
     /// Game identifier
-    let gameId: Int
+    let gameId: String
     /// Should scroll to Registration section
     let shouldScrollToRegistration: Bool
 }

@@ -12,7 +12,7 @@ extension GameInfo {
 
     static let test: GameInfo = {
         var game = GameInfo()
-        game.id = 100
+        game.id = "100"
         return game
     }()
 }

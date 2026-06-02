@@ -51,7 +51,7 @@ final class SchedulePresenter: SchedulePresenterProtocol {
 
     private var games: [GameInfo] = []
     private var scheduleFilter = ScheduleFilter()
-    private var subscribedGameIds: Set<Int> = Set()
+    private var subscribedGameIds: Set<String> = Set()
 
     var gamesCount: Int {
         games.count
@@ -103,7 +103,7 @@ final class SchedulePresenter: SchedulePresenterProtocol {
         )
     }
 
-    private func isSubscribedOnGame(with id: Int) -> Bool {
+    private func isSubscribedOnGame(with id: String) -> Bool {
         return subscribedGameIds.contains(id)
     }
 
@@ -111,30 +111,22 @@ final class SchedulePresenter: SchedulePresenterProtocol {
 
     func didSignUp(forGameAt index: Int) {
         router.showGameInfo(
-            with: gameOrderPresentationOptions(gameIndex: index, scrollToSignUp: true)
+            with: gamePageLaunchOptions(gameIndex: index, scrollToSignUp: true)
         )
     }
 
     func didPressInfoButton(forGameAt index: Int) {
         let game = games[index]
-        let statusesAllowedForTransition = Set([
-            GameStatus.placesAvailable,
-            .reserveAvailable,
-            .fewPlaces,
-            .noPlaces,
-            .ended,
-            .invite
-        ])
 
         guard
             let status = game.gameStatus,
-            statusesAllowedForTransition.contains(status)
+            status.allowsTransitionToDetails
         else {
             return
         }
 
         router.showGameInfo(
-            with: gameOrderPresentationOptions(gameIndex: index, scrollToSignUp: false)
+            with: gamePageLaunchOptions(gameIndex: index, scrollToSignUp: false)
         )
     }
 
@@ -145,7 +137,7 @@ final class SchedulePresenter: SchedulePresenterProtocol {
     }
 
     func didAskNotification(forGameAt index: Int) {
-        let id = games[index].id ?? -1
+        let id = games[index].id ?? ""
         interactor.getSubscribeStatus(gameId: id)
     }
 
@@ -234,16 +226,14 @@ final class SchedulePresenter: SchedulePresenterProtocol {
         }
     }
 
-    private func gameOrderPresentationOptions(
+    private func gamePageLaunchOptions(
         gameIndex: Int,
         scrollToSignUp: Bool
-    ) -> GameOrderPresentationOptions {
+    ) -> GamePageLaunchOptions {
         let game = games[gameIndex]
-        return GameOrderPresentationOptions(
-            gameInfo: game,
-            cityId: scheduleFilter.city.id,
-            shouldScrollToSignUp: scrollToSignUp,
-            shouldLoadGameInfo: false
+        return GamePageLaunchOptions(
+            gameId: game.id,
+            shouldScrollToRegistration: scrollToSignUp
         )
     }
 
@@ -337,7 +327,7 @@ extension SchedulePresenter: ScheduleInteractorOutput {
     func interactor(
         _ interactor: ScheduleInteractorProtocol?,
         didGetSubscribeStatus response: ScheduleGameSubscriptionResponse,
-        forGameWithId id: Int
+        forGameWithId id: String
     ) {
         switch response.message {
         case .subscribe:
@@ -357,7 +347,7 @@ extension SchedulePresenter: ScheduleInteractorOutput {
 
     func interactor(
         _ interactor: ScheduleInteractorProtocol?,
-        failedToSubscribeForGameWith gameId: Int,
+        failedToSubscribeForGameWith gameId: String,
         error: NetworkServiceError
     ) {
         print(error)

@@ -9,6 +9,6 @@
 import Foundation
 
 struct WarmupAnswer: Decodable {
-    let value: String
+    let title: String
     let id: Int
 }

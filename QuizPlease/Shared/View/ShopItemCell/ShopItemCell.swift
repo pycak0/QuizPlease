@@ -33,6 +33,7 @@ final class ShopItemCell: UICollectionViewCell {
 
     private func configureViews() {
         cellView.layer.cornerRadius = 25
+        getLabel.layer.masksToBounds = true
         getLabel.layer.cornerRadius = getLabel.bounds.height / 2
     }
 }
