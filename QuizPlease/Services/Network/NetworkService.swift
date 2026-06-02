@@ -159,7 +159,8 @@ class NetworkService {
         var parameters: [String: String?] = [
             "city_id": "\(filter.city.id)",
             "isMobile": "1",
-            "order": "-date"
+            "order": "date",
+            "per_page": "30"
         ]
 
         // Optional query items
@@ -179,7 +180,11 @@ class NetworkService {
             parameters["game_types[]"] = "\(id)"
         }
 
-        getStandard(ScheduledGamesResponse.self, apiPath: ApiConstants.Path.game, parameters: parameters) { (getResult) in
+        getStandard(
+            ScheduledGamesResponse.self,
+            apiPath: ApiConstants.Path.game,
+            parameters: parameters
+        ) { (getResult) in
             switch getResult {
             case let .failure(error):
                 completion(.failure(error))
