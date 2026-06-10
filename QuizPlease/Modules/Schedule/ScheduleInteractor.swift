@@ -46,27 +46,26 @@ final class ScheduleInteractor: ScheduleInteractorProtocol {
 
     weak var output: ScheduleInteractorOutput?
 
+    private enum Constants {
+        static let gamesPerPage = 30
+    }
+
+    private let networkService: NetworkServiceProtocol
     private let gameInfoLoader: GameInfoLoader
     private let userService: UserService
 
     init(
+        networkService: NetworkServiceProtocol,
         gameInfoLoader: GameInfoLoader,
         userService: UserService
     ) {
+        self.networkService = networkService
         self.gameInfoLoader = gameInfoLoader
         self.userService = userService
     }
 
     func loadSchedule(filter: ScheduleFilter, completion: @escaping (Result<[GameInfo], NetworkServiceError>) -> Void) {
-        NetworkService.shared.getSchedule(with: filter) { (serverResult) in
-            switch serverResult {
-            case let .failure(error):
-                completion(.failure(error))
-            case let .success(gamesList):
-                let gamesInfo: [GameInfo] = gamesList.map { GameInfo(shortInfo: $0) }
-                completion(.success(gamesInfo))
-            }
-        }
+        loadSchedulePage(filter: filter, page: 1, loadedGames: [], completion: completion)
     }
 
     func loadDetailInfo(for game: GameInfo, completion: @escaping (GameInfo?) -> Void) {
@@ -88,13 +87,20 @@ final class ScheduleInteractor: ScheduleInteractorProtocol {
     }
 
     func getSubscribeStatus(gameId: String) {
-        NetworkService.shared.subscribePushOnGame(with: gameId) { [weak self] result in
+        networkService.afPost(
+            with: ["game_id": "\(gameId)"],
+            queryParameters: nil,
+            and: nil,
+            to: ApiConstants.Path.gameSubscribeNotification,
+            responseType: ServerResponse<ScheduleGameSubscriptionResponse>.self,
+            authorizationKind: .bearer
+        ) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case let .failure(error):
                 self.output?.interactor(self, failedToSubscribeForGameWith: gameId, error: error)
-            case let .success(subscriptionResponse):
-                self.output?.interactor(self, didGetSubscribeStatus: subscriptionResponse, forGameWithId: gameId)
+            case let .success(response):
+                self.output?.interactor(self, didGetSubscribeStatus: response.data, forGameWithId: gameId)
             }
         }
     }
@@ -112,11 +118,85 @@ final class ScheduleInteractor: ScheduleInteractorProtocol {
     }
 
     func getExtraInfoText(completion: @escaping (AlertData?) -> Void) {
-        NetworkService.shared.getStandard(
-            AlertData.self,
-            apiPath: "/api/game/reserve-info"
+        networkService.get(
+            ServerResponse<AlertData>.self,
+            apiPath: "/api/game/reserve-info",
+            parameters: nil,
+            headers: nil,
+            authorizationKind: .none,
+            networkConfiguration: .standard
         ) { result in
-            completion(try? result.get())
+            completion(try? result.get().data)
         }
+    }
+}
+
+private extension ScheduleInteractor {
+
+    func loadSchedulePage(
+        filter: ScheduleFilter,
+        page: Int,
+        loadedGames: [GameShortInfo],
+        completion: @escaping (Result<[GameInfo], NetworkServiceError>) -> Void
+    ) {
+        networkService.get(
+            ServerResponse<ScheduledGamesResponse>.self,
+            apiPath: ApiConstants.Path.game,
+            parameters: scheduleParameters(filter: filter, page: page),
+            headers: nil,
+            authorizationKind: .none,
+            networkConfiguration: .standard
+        ) { [weak self] result in
+            guard let self else { return }
+
+            switch result {
+            case let .failure(error):
+                completion(.failure(error))
+
+            case let .success(response):
+                let pageGames = response.data.data
+                let allGames = loadedGames + pageGames
+
+                guard pageGames.count == Constants.gamesPerPage else {
+                    completion(.success(allGames.map { GameInfo(shortInfo: $0) }))
+                    return
+                }
+
+                self.loadSchedulePage(
+                    filter: filter,
+                    page: page + 1,
+                    loadedGames: allGames,
+                    completion: completion
+                )
+            }
+        }
+    }
+
+    func scheduleParameters(filter: ScheduleFilter, page: Int) -> [String: String?] {
+        var parameters: [String: String?] = [
+            "city_id": "\(filter.city.id)",
+            "isMobile": "1",
+            "order": "date",
+            "per_page": "\(Constants.gamesPerPage)",
+            "page": "\(page)"
+        ]
+
+        if let id = filter.date?.id {
+            parameters["month"] = "\(id)"
+        }
+        if let id = filter.format?.id {
+            parameters["formats[]"] = "\(id)"
+        }
+        if let id = filter.place?.id {
+            parameters["places[]"] = "\(id)"
+        }
+        if let id = filter.status?.id {
+            parameters["statuses[]"] = "\(id)"
+        }
+        if let id = filter.type?.id {
+            parameters["game_types[]"] = "\(id)"
+        }
+
+        return parameters
     }
 }
