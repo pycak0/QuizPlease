@@ -61,7 +61,10 @@ final class SchedulePresenterTest: XCTestCase {
 
         XCTAssertEqual(interactor.loadScheduleRequests.map(\.page), [1, 2])
         XCTAssertEqual(presenter.gamesCount, 32)
-        XCTAssertEqual(view.reloadScheduleListCallCount, 2)
+        XCTAssertEqual(view.reloadScheduleListCallCount, 1)
+        XCTAssertEqual(view.insertedScheduleGames, [
+            ScheduleViewMock.InsertedScheduleGames(startIndex: 30, count: 2)
+        ])
     }
 
     func testDoesNotLoadMoreAfterLastPage() {
@@ -182,13 +185,25 @@ private final class ScheduleViewMock: UIViewController, ScheduleViewProtocol {
 
     var presenter: SchedulePresenterProtocol!
     private(set) var reloadScheduleListCallCount = 0
+    private(set) var insertedScheduleGames: [InsertedScheduleGames] = []
     private(set) var startLoadingCallCount = 0
     private(set) var stopLoadingCallCount = 0
     private(set) var noGamesText: String?
     private(set) var titleText: String?
 
+    struct InsertedScheduleGames: Equatable {
+        let startIndex: Int
+        let count: Int
+    }
+
     func reloadScheduleList() {
         reloadScheduleListCallCount += 1
+    }
+
+    func insertScheduleGames(startIndex: Int, count: Int) {
+        insertedScheduleGames.append(
+            InsertedScheduleGames(startIndex: startIndex, count: count)
+        )
     }
 
     func reloadGame(at index: Int) { }

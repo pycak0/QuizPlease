@@ -13,6 +13,7 @@ protocol ScheduleViewProtocol: UIViewController, LoadingIndicator {
     var presenter: SchedulePresenterProtocol! { get set }
 
     func reloadScheduleList()
+    func insertScheduleGames(startIndex: Int, count: Int)
     func reloadGame(at index: Int)
 
     func showNoGamesInSchedule(text: String, links: [TextLink])
@@ -159,6 +160,20 @@ extension ScheduleVC: ScheduleViewProtocol {
     func reloadScheduleList() {
         noGamesView.isHidden = true
         tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
+    }
+
+    func insertScheduleGames(startIndex: Int, count: Int) {
+        guard count > 0 else { return }
+
+        noGamesView.isHidden = true
+        let indexPaths = (startIndex..<(startIndex + count)).map {
+            IndexPath(row: $0, section: 0)
+        }
+
+        UIView.performWithoutAnimation {
+            tableView.insertRows(at: indexPaths, with: .none)
+            tableView.layoutIfNeeded()
+        }
     }
 
     func reloadGame(at index: Int) {

@@ -257,10 +257,17 @@ final class SchedulePresenter: SchedulePresenterProtocol {
                 self.hasMoreSchedulePages = schedulePage.hasMore
                 if isFirstPage {
                     self.games = schedulePage.games
+                    self.view?.reloadScheduleList()
                 } else {
+                    let startIndex = self.games.count
                     self.games.append(contentsOf: schedulePage.games)
+                    if !schedulePage.games.isEmpty {
+                        self.view?.insertScheduleGames(
+                            startIndex: startIndex,
+                            count: schedulePage.games.count
+                        )
+                    }
                 }
-                self.view?.reloadScheduleList()
                 if isFirstPage && schedulePage.games.isEmpty {
                     self.showNoGamesInSchedule()
                 }
