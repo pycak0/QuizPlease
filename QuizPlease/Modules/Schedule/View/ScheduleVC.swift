@@ -180,6 +180,7 @@ extension ScheduleVC: ScheduleViewProtocol {
     func configure() {
         navigationItem.rightBarButtonItem = makeFilterButton()
         tableView.dataSource = self
+        tableView.delegate = self
         tableView.refreshControl = UIRefreshControl(
             tintColor: .systemBlue,
             target: self,
@@ -250,6 +251,19 @@ extension ScheduleVC: UITableViewDataSource {
         presenter.updateDetailInfoIfNeeded(at: indexPath.row)
 
         return cell
+    }
+}
+
+// MARK: - UITableViewDelegate
+
+extension ScheduleVC: UITableViewDelegate {
+
+    func tableView(
+        _ tableView: UITableView,
+        willDisplay cell: UITableViewCell,
+        forRowAt indexPath: IndexPath
+    ) {
+        presenter.didDisplayGame(at: indexPath.row)
     }
 }
 

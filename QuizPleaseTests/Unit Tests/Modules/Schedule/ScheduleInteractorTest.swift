@@ -29,22 +29,32 @@ final class ScheduleInteractorTest: XCTestCase {
         super.tearDown()
     }
 
-    func testLoadScheduleRequestsPagesUntilPartialPage() throws {
-        let firstPageIds = (1...30).map { "game-\($0)" }
-        let secondPageIds = ["game-31", "game-32"]
+    func testLoadScheduleRequestsSpecifiedPage() throws {
+        let pageIds = (1...30).map { "game-\($0)" }
         networkServiceMock.getResults = [
-            .success(try makeResponse(ids: firstPageIds)),
-            .success(try makeResponse(ids: secondPageIds))
+            .success(try makeResponse(ids: pageIds))
         ]
 
-        let result = loadSchedule(filter: try makeFilter())
-        let games = try result.get()
+        let result = loadSchedule(filter: try makeFilter(), page: 3)
+        let schedulePage = try result.get()
 
-        XCTAssertEqual(games.map(\.id), firstPageIds + secondPageIds)
-        XCTAssertEqual(networkServiceMock.getRequests.count, 2)
-        XCTAssertEqual(networkServiceMock.getRequests[0].parameter("page"), "1")
-        XCTAssertEqual(networkServiceMock.getRequests[1].parameter("page"), "2")
+        XCTAssertEqual(schedulePage.games.map(\.id), pageIds)
+        XCTAssertTrue(schedulePage.hasMore)
+        XCTAssertEqual(networkServiceMock.getRequests.count, 1)
+        XCTAssertEqual(networkServiceMock.getRequests[0].parameter("page"), "3")
         XCTAssertEqual(networkServiceMock.getRequests[0].parameter("per_page"), "30")
+    }
+
+    func testLoadScheduleReturnsNoMorePagesWhenPageIsPartial() throws {
+        networkServiceMock.getResults = [
+            .success(try makeResponse(ids: ["game-1", "game-2"]))
+        ]
+
+        let result = loadSchedule(filter: try makeFilter(), page: 1)
+        let schedulePage = try result.get()
+
+        XCTAssertFalse(schedulePage.hasMore)
+        XCTAssertEqual(schedulePage.games.map(\.id), ["game-1", "game-2"])
     }
 
     func testLoadScheduleKeepsFilterParameters() throws {
@@ -52,7 +62,7 @@ final class ScheduleInteractorTest: XCTestCase {
             .success(try makeResponse(ids: []))
         ]
 
-        _ = loadSchedule(filter: try makeFilter())
+        _ = loadSchedule(filter: try makeFilter(), page: 1)
 
         let request = try XCTUnwrap(networkServiceMock.getRequests.first)
         XCTAssertEqual(request.apiPath, ApiConstants.Path.game)
@@ -66,13 +76,12 @@ final class ScheduleInteractorTest: XCTestCase {
         XCTAssertEqual(request.parameter("game_types[]"), "5")
     }
 
-    func testLoadScheduleReturnsFailureWhenNextPageFails() throws {
+    func testLoadScheduleReturnsFailureWhenPageFails() throws {
         networkServiceMock.getResults = [
-            .success(try makeResponse(ids: (1...30).map { "game-\($0)" })),
             .failure(.serverError(500))
         ]
 
-        let result = loadSchedule(filter: try makeFilter())
+        let result = loadSchedule(filter: try makeFilter(), page: 2)
 
         switch result {
         case .failure(.serverError(500)):
@@ -80,14 +89,18 @@ final class ScheduleInteractorTest: XCTestCase {
         default:
             XCTFail("Expected serverError(500), got \(result)")
         }
-        XCTAssertEqual(networkServiceMock.getRequests.count, 2)
+        XCTAssertEqual(networkServiceMock.getRequests.count, 1)
+        XCTAssertEqual(networkServiceMock.getRequests[0].parameter("page"), "2")
     }
 
-    private func loadSchedule(filter: ScheduleFilter) -> Result<[GameInfo], NetworkServiceError> {
+    private func loadSchedule(
+        filter: ScheduleFilter,
+        page: Int
+    ) -> Result<SchedulePage, NetworkServiceError> {
         let expectation = expectation(description: "Schedule loaded")
-        var actualResult: Result<[GameInfo], NetworkServiceError>?
+        var actualResult: Result<SchedulePage, NetworkServiceError>?
 
-        interactor.loadSchedule(filter: filter) { result in
+        interactor.loadSchedule(filter: filter, page: page) { result in
             actualResult = result
             expectation.fulfill()
         }
