@@ -438,13 +438,14 @@ run_archive() {
   require_archive_branch
   require_clean_tree
 
-  local marketing_version old_build new_build archive_day archive_path
+  local marketing_version old_build new_build archive_day archive_stamp archive_path
   marketing_version="$(read_config_value MARKETING_VERSION)"
   old_build="$(read_config_value CURRENT_PROJECT_VERSION)"
   validate_build "$old_build"
   new_build=$((old_build + 1))
   archive_day="$(date +%Y-%m-%d)"
-  archive_path="${ARCHIVES_DIR}/${archive_day}/QuizPlease ${marketing_version} (${new_build}).xcarchive"
+  archive_stamp="$(date '+%d.%m.%Y, %H.%M')"
+  archive_path="${ARCHIVES_DIR}/${archive_day}/QuizPlease ${marketing_version} (${new_build}) ${PRODUCTION_CONFIGURATION} ${archive_stamp}.xcarchive"
 
   log_title "Archive production build"
   log_kv "Version" "$marketing_version"
