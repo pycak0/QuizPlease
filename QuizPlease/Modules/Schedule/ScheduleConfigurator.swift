@@ -15,6 +15,7 @@ final class ScheduleConfigurator: Configurator {
     func configure(_ view: ScheduleViewProtocol) {
         let router = ScheduleRouter(viewController: view)
         let interactor = ScheduleInteractor(
+            networkService: services.networkService,
             gameInfoLoader: services.gameInfoLoader,
             userService: services.userService
         )

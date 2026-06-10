@@ -13,6 +13,8 @@ private enum Constants {
     static let scheduleSectionTitle = "Расписание игр"
     /// Schedule title for ended games
     static let endedGamesTitle = "Прошедшие игры"
+    static let firstPage = 1
+    static let paginationThreshold = 5
 }
 
 // MARK: - Presenter Protocol
@@ -35,6 +37,7 @@ protocol SchedulePresenterProtocol: AnyObject {
 
     func handleRefreshControl()
     func updateDetailInfoIfNeeded(at index: Int)
+    func didDisplayGame(at index: Int)
 
     func viewModel(forGameAt index: Int) -> ScheduleGameCellViewModel
 }
@@ -52,6 +55,10 @@ final class SchedulePresenter: SchedulePresenterProtocol {
     private var games: [GameInfo] = []
     private var scheduleFilter = ScheduleFilter()
     private var subscribedGameIds: Set<String> = Set()
+    private var currentSchedulePage = 0
+    private var hasMoreSchedulePages = true
+    private var isLoadingSchedulePage = false
+    private var scheduleLoadingToken = UUID()
 
     var gamesCount: Int {
         games.count
@@ -71,7 +78,6 @@ final class SchedulePresenter: SchedulePresenterProtocol {
 
     func viewDidLoad(_ view: ScheduleViewProtocol) {
         view.configure()
-        view.startLoading()
         updateSchedule()
         analyticsService.sendEvent(.scheduleOpen)
     }
@@ -175,6 +181,11 @@ final class SchedulePresenter: SchedulePresenterProtocol {
         }
     }
 
+    func didDisplayGame(at index: Int) {
+        guard index >= games.count - Constants.paginationThreshold else { return }
+        loadNextSchedulePage()
+    }
+
     private func updateDetailInfo(forGame game: GameInfo, at index: Int) {
         interactor.loadDetailInfo(for: game) { [weak self] (fullInfo) in
             guard let self = self else { return }
@@ -188,17 +199,48 @@ final class SchedulePresenter: SchedulePresenterProtocol {
     // MARK: - Load
 
     private func updateSchedule() {
-        loadSchedule()
+        resetPagination()
+        loadNextSchedulePage()
         updateSubscribedGames()
     }
 
-    private func loadSchedule() {
-        interactor.loadSchedule(filter: scheduleFilter) { [weak self] (result) in
+    private func resetPagination() {
+        currentSchedulePage = 0
+        hasMoreSchedulePages = true
+        isLoadingSchedulePage = false
+        scheduleLoadingToken = UUID()
+    }
+
+    private func loadNextSchedulePage() {
+        guard hasMoreSchedulePages, !isLoadingSchedulePage else { return }
+
+        let pageToLoad = currentSchedulePage + 1
+        let isFirstPage = pageToLoad == Constants.firstPage
+        let loadingToken = scheduleLoadingToken
+        isLoadingSchedulePage = true
+
+        if isFirstPage {
+            view?.startLoading()
+        }
+
+        interactor.loadSchedule(filter: scheduleFilter, page: pageToLoad) { [weak self] (result) in
             guard let self = self else { return }
-            self.view?.stopLoading()
+            guard self.scheduleLoadingToken == loadingToken else { return }
+
+            self.isLoadingSchedulePage = false
+            if isFirstPage {
+                self.view?.stopLoading()
+            }
+
             switch result {
             case.failure(let error):
                 print(error)
+                if !isFirstPage {
+                    self.hasMoreSchedulePages = false
+                    self.view?.showErrorConnectingToServerAlert()
+                    return
+                }
+
                 switch error {
                 case .other, .serverError, .invalidUrl:
                     self.view?.showErrorConnectingToServerAlert { [weak self] _ in
@@ -209,10 +251,24 @@ final class SchedulePresenter: SchedulePresenterProtocol {
                     self.view?.reloadScheduleList()
                     self.showNoGamesInSchedule()
                 }
-            case .success(let schedule):
-                self.games = schedule
-                self.view?.reloadScheduleList()
-                if schedule.isEmpty {
+
+            case .success(let schedulePage):
+                self.currentSchedulePage = pageToLoad
+                self.hasMoreSchedulePages = schedulePage.hasMore
+                if isFirstPage {
+                    self.games = schedulePage.games
+                    self.view?.reloadScheduleList()
+                } else {
+                    let startIndex = self.games.count
+                    self.games.append(contentsOf: schedulePage.games)
+                    if !schedulePage.games.isEmpty {
+                        self.view?.insertScheduleGames(
+                            startIndex: startIndex,
+                            count: schedulePage.games.count
+                        )
+                    }
+                }
+                if isFirstPage && schedulePage.games.isEmpty {
                     self.showNoGamesInSchedule()
                 }
             }

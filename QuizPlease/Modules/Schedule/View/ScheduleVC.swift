@@ -13,6 +13,7 @@ protocol ScheduleViewProtocol: UIViewController, LoadingIndicator {
     var presenter: SchedulePresenterProtocol! { get set }
 
     func reloadScheduleList()
+    func insertScheduleGames(startIndex: Int, count: Int)
     func reloadGame(at index: Int)
 
     func showNoGamesInSchedule(text: String, links: [TextLink])
@@ -161,6 +162,20 @@ extension ScheduleVC: ScheduleViewProtocol {
         tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
     }
 
+    func insertScheduleGames(startIndex: Int, count: Int) {
+        guard count > 0 else { return }
+
+        noGamesView.isHidden = true
+        let indexPaths = (startIndex..<(startIndex + count)).map {
+            IndexPath(row: $0, section: 0)
+        }
+
+        UIView.performWithoutAnimation {
+            tableView.insertRows(at: indexPaths, with: .none)
+            tableView.layoutIfNeeded()
+        }
+    }
+
     func reloadGame(at index: Int) {
         if let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? ScheduleGameCell {
             cell.fill(viewModel: presenter.viewModel(forGameAt: index))
@@ -180,6 +195,7 @@ extension ScheduleVC: ScheduleViewProtocol {
     func configure() {
         navigationItem.rightBarButtonItem = makeFilterButton()
         tableView.dataSource = self
+        tableView.delegate = self
         tableView.refreshControl = UIRefreshControl(
             tintColor: .systemBlue,
             target: self,
@@ -250,6 +266,19 @@ extension ScheduleVC: UITableViewDataSource {
         presenter.updateDetailInfoIfNeeded(at: indexPath.row)
 
         return cell
+    }
+}
+
+// MARK: - UITableViewDelegate
+
+extension ScheduleVC: UITableViewDelegate {
+
+    func tableView(
+        _ tableView: UITableView,
+        willDisplay cell: UITableViewCell,
+        forRowAt indexPath: IndexPath
+    ) {
+        presenter.didDisplayGame(at: indexPath.row)
     }
 }
 
