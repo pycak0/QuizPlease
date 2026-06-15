@@ -9,5 +9,5 @@
 import Foundation
 
 struct ShopItemImage: Decodable {
-    var path: String?
+    var file: String?
 }

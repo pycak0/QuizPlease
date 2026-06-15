@@ -64,7 +64,7 @@ class ConfirmVC: BottomPopupViewController {
     }
 
     private func setupData() {
-        itemImageView.loadImage(path: shopItem.imagePath, placeholderImage: .logoTemplateImage)
+        itemImageView.loadImage(urlString: shopItem.imagePath, placeholderImage: .logoTemplateImage)
         descriptionLabel.text = shopItem.description
         titleLabel.text = shopItem.title
         let priceFormatted = shopItem.priceNumber.string(withAssociatedMaleWord: "балл")

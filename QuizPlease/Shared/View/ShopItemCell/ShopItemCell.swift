@@ -28,7 +28,7 @@ final class ShopItemCell: UICollectionViewCell {
 
     func configureCell(imagePath: String?, price: Int) {
         priceLabel.text = price.string(withAssociatedMaleWord: "балл")
-        imageView.loadImage(path: imagePath, placeholderImage: .logoTemplateImage)
+        imageView.loadImage(urlString: imagePath, placeholderImage: .logoTemplateImage)
     }
 
     private func configureViews() {

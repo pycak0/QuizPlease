@@ -191,7 +191,7 @@ final class ShopCompletionVC: UIViewController {
     }
 
     private func configureViews() {
-        imageView.loadImage(path: shopItem.imagePath, placeholderImage: .logoColoredImage)
+        imageView.loadImage(urlString: shopItem.imagePath, placeholderImage: .logoColoredImage)
         if shopItem.isOfflineDeliveryOnly {
             segmentControl.isHidden = true
             questionLabel.numberOfLines = 0
