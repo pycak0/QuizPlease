@@ -50,7 +50,7 @@ final class RatingPresenter: RatingPresenterProtocol {
     var availableGameTypeNames: [String] {
         leagues.map { $0.title }
     }
-    var filter = RatingFilter(scope: .season)
+    var filter = RatingFilter(scope: .allTime)
 
     var availableFilters: [RatingFilter.RatingScope] {
         return RatingFilter.RatingScope.allCases

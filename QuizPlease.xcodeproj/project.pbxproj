@@ -35,6 +35,8 @@
 		4C1FF9AA2ECBBE2B00EEA63B /* NetworkServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1FF9A92ECBBE2300EEA63B /* NetworkServiceImpl.swift */; };
 		4C1FF9AC2ECBC22000EEA63B /* NetworkResponseDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1FF9AB2ECBC21900EEA63B /* NetworkResponseDecoder.swift */; };
 		4C1FF9AE2ECBC43400EEA63B /* ApiConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C1FF9AD2ECBC42800EEA63B /* ApiConstants.swift */; };
+		4CF0A0012FABCDEF00000001 /* ScheduleInteractorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF0A0002FABCDEF00000001 /* ScheduleInteractorTest.swift */; };
+		4CF0A0042FABCDEF00000001 /* SchedulePresenterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF0A0032FABCDEF00000001 /* SchedulePresenterTest.swift */; };
 		4C3C8B972EF4AFB000D4F5D3 /* HomeGameConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3C8B962EF4AFA600D4F5D3 /* HomeGameConstants.swift */; };
 		4C3CDF3D2EFFF10400FCCA69 /* ConcurrentExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3CDF3C2EFFF10400FCCA69 /* ConcurrentExecutor.swift */; };
 		4C3CDF3F2EFFF14000FCCA69 /* MainExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3CDF3E2EFFF14000FCCA69 /* MainExecutor.swift */; };
@@ -553,6 +555,16 @@
 		4CDB228629E56E3100DD9E7C /* GamePageAnnotationItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageAnnotationItem.swift; sourceTree = "<group>"; };
 		4CDB228829E593D400DD9E7C /* GamePageRegisterButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageRegisterButtonCell.swift; sourceTree = "<group>"; };
 		4CDB228A29E5988100DD9E7C /* GamePageRegisterButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePageRegisterButtonItem.swift; sourceTree = "<group>"; };
+		D2E1EA5E2F80000100000002 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		D2E1EA5E2F80000100000003 /* scripts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = scripts; sourceTree = "<group>"; };
+		D2E1EA5E2F80000100000004 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
+		D2E1EA5E2F80000100000005 /* Podfile.lock */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile.lock; sourceTree = "<group>"; };
+		D2E1EA5E2F80000100000006 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
+		D2E1EA5E2F80000100000007 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		D2E1EA5E2F80000100000008 /* AGENTS.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = AGENTS.md; sourceTree = "<group>"; };
+		D2E1EA5E2F80000100000009 /* .codex */ = {isa = PBXFileReference; lastKnownFileType = folder; path = .codex; sourceTree = "<group>"; };
+		D2E1EA5E2F8000010000000A /* .claude */ = {isa = PBXFileReference; lastKnownFileType = folder; path = .claude; sourceTree = "<group>"; };
+		D2E1EA5E2F8000010000000B /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		6E36E9437482CE0880B2EF5B /* Pods-QuizPlease.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuizPlease.staging.xcconfig"; path = "Target Support Files/Pods-QuizPlease/Pods-QuizPlease.staging.xcconfig"; sourceTree = "<group>"; };
 		72ABB2C3090DCA936E56112D /* AgreementCheckboxView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AgreementCheckboxView.swift; sourceTree = "<group>"; };
 		7B9A1C002F20000100AA0101 /* YooKassaPaymentModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YooKassaPaymentModule.swift; sourceTree = "<group>"; };
@@ -668,6 +680,8 @@
 		A44E5EE2295EFCA700402B97 /* QuizPleaseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QuizPleaseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A44E5EED295F85F800402B97 /* WarmupQuestionTypeResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarmupQuestionTypeResolver.swift; sourceTree = "<group>"; };
 		A44E5EEF295F9B7000402B97 /* WarmupQuestionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarmupQuestionType.swift; sourceTree = "<group>"; };
+		4CF0A0002FABCDEF00000001 /* ScheduleInteractorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleInteractorTest.swift; sourceTree = "<group>"; };
+		4CF0A0032FABCDEF00000001 /* SchedulePresenterTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulePresenterTest.swift; sourceTree = "<group>"; };
 		A44E5EF1295F9DFD00402B97 /* WarmupQuestionTypeResolverTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarmupQuestionTypeResolverTest.swift; sourceTree = "<group>"; };
 		A450E39524E559CD00C49AEE /* TitledTextFieldView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitledTextFieldView.swift; sourceTree = "<group>"; };
 		A45241DD265479A70058285C /* CGRect+setHeight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGRect+setHeight.swift"; sourceTree = "<group>"; };
@@ -1188,6 +1202,7 @@
 			children = (
 				A40D815824D2C6C1006D2CE3 /* QuizPlease */,
 				A44E5EE3295EFCA700402B97 /* QuizPleaseTests */,
+				D2E1EA5E2F80000100000001 /* Project Files */,
 				A40D815724D2C6C1006D2CE3 /* Products */,
 				3FBF868AED3CA480A5E1D30A /* Frameworks */,
 				3349AD8E8A675FC9931C1D6D /* Pods */,
@@ -1220,6 +1235,23 @@
 				A4BEF46D28D26B900099DCDB /* PropertyLists */,
 			);
 			path = QuizPlease;
+			sourceTree = "<group>";
+		};
+		D2E1EA5E2F80000100000001 /* Project Files */ = {
+			isa = PBXGroup;
+			children = (
+				D2E1EA5E2F80000100000002 /* Makefile */,
+				D2E1EA5E2F80000100000003 /* scripts */,
+				D2E1EA5E2F80000100000004 /* Podfile */,
+				D2E1EA5E2F80000100000005 /* Podfile.lock */,
+				D2E1EA5E2F80000100000006 /* .swiftlint.yml */,
+				D2E1EA5E2F80000100000007 /* README.md */,
+				D2E1EA5E2F80000100000008 /* AGENTS.md */,
+				D2E1EA5E2F80000100000009 /* .codex */,
+				D2E1EA5E2F8000010000000A /* .claude */,
+				D2E1EA5E2F8000010000000B /* .gitignore */,
+			);
+			name = "Project Files";
 			sourceTree = "<group>";
 		};
 		A40D816D24D2C73D006D2CE3 /* AppDelegates */ = {
@@ -2224,9 +2256,19 @@
 			isa = PBXGroup;
 			children = (
 				D1A2B3C4D5E6F70011223345 /* GamePage */,
+				4CF0A0022FABCDEF00000001 /* Schedule */,
 				A44E5EEB295F716700402B97 /* WarmUp */,
 			);
 			path = Modules;
+			sourceTree = "<group>";
+		};
+		4CF0A0022FABCDEF00000001 /* Schedule */ = {
+			isa = PBXGroup;
+			children = (
+				4CF0A0002FABCDEF00000001 /* ScheduleInteractorTest.swift */,
+				4CF0A0032FABCDEF00000001 /* SchedulePresenterTest.swift */,
+			);
+			path = Schedule;
 			sourceTree = "<group>";
 		};
 		A4E06B5329E816A80005C57B /* TestData */ = {
@@ -3259,6 +3301,8 @@
 				A4E06B5229E80E720005C57B /* PlaceGeocoderTest.swift in Sources */,
 				A4E06B8E29E9F0A30005C57B /* InMemoryCacheMock.swift in Sources */,
 				A4E06B8B29E9F0240005C57B /* GameInfoLoaderTest.swift in Sources */,
+				4CF0A0012FABCDEF00000001 /* ScheduleInteractorTest.swift in Sources */,
+				4CF0A0042FABCDEF00000001 /* SchedulePresenterTest.swift in Sources */,
 				A4E06B5729E816C20005C57B /* GeocoderMock.swift in Sources */,
 				A4E06B9529E9F8F80005C57B /* GameInfo+TestData.swift in Sources */,
 				D1A2B3C4D5E6F70011223354 /* WebPageRouterTest.swift in Sources */,
