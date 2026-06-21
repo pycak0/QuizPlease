@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 final class RatingTeamCell: UITableViewCell, IdentifiableType {
 
@@ -27,11 +28,30 @@ final class RatingTeamCell: UITableViewCell, IdentifiableType {
         selectedBackgroundView = selectedView
     }
 
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        clearRankImage()
+    }
+
     func configure(with team: String, games: Int, points: Int, imagePath: String?, place: Int) {
         teamNameLabel.text = "\(place). \(team)"
         gamesPlayedLabel.text = games.string(withAssociatedFirstCaseWord: "игра", changingCase: .nominative)
         pointsScoredLabel.text = points.string(withAssociatedMaleWord: "балл")
+        clearRankImage()
+        guard let imagePath else { return }
         teamImageView.loadImage(using: .production, path: imagePath)
+    }
+
+    private func setRankImage(urlString: String?) {
+        clearRankImage()
+
+        guard let urlString else { return }
+        teamImageView.loadImage(urlString: urlString)
+    }
+
+    private func clearRankImage() {
+        teamImageView.kf.cancelDownloadTask()
+        teamImageView.image = nil
     }
 }
 
@@ -41,7 +61,7 @@ extension RatingTeamCell: RatingCell {
 
     func configure(with item: RatingItem) {
         guard let item = item as? RatingTeamItem else { return }
-        teamImageView.loadImage(urlString: item.imagePath)
+        setRankImage(urlString: item.imagePath)
         teamNameLabel.text = "\(item.place). \(item.name)"
         gamesPlayedLabel.text = item.games.string(withAssociatedFirstCaseWord: "игра", changingCase: .nominative)
 
