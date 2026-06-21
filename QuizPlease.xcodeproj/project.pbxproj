@@ -69,7 +69,7 @@
 		4CDB228729E56E3100DD9E7C /* GamePageAnnotationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDB228629E56E3100DD9E7C /* GamePageAnnotationItem.swift */; };
 		4CDB228929E593D400DD9E7C /* GamePageRegisterButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDB228829E593D400DD9E7C /* GamePageRegisterButtonCell.swift */; };
 		4CDB228B29E5988100DD9E7C /* GamePageRegisterButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDB228A29E5988100DD9E7C /* GamePageRegisterButtonItem.swift */; };
-		4CEC425C2EAF868C00E460DC /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 4CEC425B2EAF868C00E460DC /* FirebaseAnalytics */; };
+		4CEC425C2EAF868C00E460DC /* FirebaseAnalyticsCore in Frameworks */ = {isa = PBXBuildFile; productRef = 4CEC425B2EAF868C00E460DC /* FirebaseAnalyticsCore */; };
 		4CEC425E2EAF868C00E460DC /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 4CEC425D2EAF868C00E460DC /* FirebaseCrashlytics */; };
 		4CEC42602EAF868C00E460DC /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 4CEC425F2EAF868C00E460DC /* FirebaseMessaging */; };
 		4CEC42632EAF873400E460DC /* Wormholy in Frameworks */ = {isa = PBXBuildFile; productRef = 4CEC42622EAF873400E460DC /* Wormholy */; };
@@ -281,7 +281,7 @@
 		A4A530962FA92CF300B9C64B /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = A4A2647B252BC9D2005C0894 /* Alamofire */; };
 		A4A530972FA92CF300B9C64B /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = A445C89025436C9D003B68E8 /* Kingfisher */; };
 		A4A530982FA92CF300B9C64B /* PhoneNumberKit-Static in Frameworks */ = {isa = PBXBuildFile; productRef = A4132786268F33550088DE6A /* PhoneNumberKit-Static */; };
-		A4A530992FA92CF300B9C64B /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 4CEC425B2EAF868C00E460DC /* FirebaseAnalytics */; };
+		A4A530992FA92CF300B9C64B /* FirebaseAnalyticsCore in Frameworks */ = {isa = PBXBuildFile; productRef = 4CEC425B2EAF868C00E460DC /* FirebaseAnalyticsCore */; };
 		A4A5309A2FA92CF300B9C64B /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 4CEC425D2EAF868C00E460DC /* FirebaseCrashlytics */; };
 		A4A5309B2FA92CF300B9C64B /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 4CEC425F2EAF868C00E460DC /* FirebaseMessaging */; };
 		A4A5370424EC7691004A10D4 /* UIColor+Static.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A5370324EC7691004A10D4 /* UIColor+Static.swift */; };
@@ -986,7 +986,7 @@
 				A4A530932FA92CF300B9C64B /* BottomPopup in Frameworks */,
 				A4A530972FA92CF300B9C64B /* Kingfisher in Frameworks */,
 				A4A5309A2FA92CF300B9C64B /* FirebaseCrashlytics in Frameworks */,
-				A4A530992FA92CF300B9C64B /* FirebaseAnalytics in Frameworks */,
+				A4A530992FA92CF300B9C64B /* FirebaseAnalyticsCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -997,7 +997,7 @@
 				A4A2647C252BC9D2005C0894 /* Alamofire in Frameworks */,
 				A468E12224FD0BE40083ADB2 /* InputMask in Frameworks */,
 				4CEC42602EAF868C00E460DC /* FirebaseMessaging in Frameworks */,
-				4CEC425C2EAF868C00E460DC /* FirebaseAnalytics in Frameworks */,
+				4CEC425C2EAF868C00E460DC /* FirebaseAnalyticsCore in Frameworks */,
 				A445C89125436C9D003B68E8 /* Kingfisher in Frameworks */,
 				A423AC2024EEBA0600071E68 /* BottomPopup in Frameworks */,
 				A40E2A6A25294B4D00986CCA /* UICircularProgressRing in Frameworks */,
@@ -2608,7 +2608,7 @@
 				A4A2647B252BC9D2005C0894 /* Alamofire */,
 				A445C89025436C9D003B68E8 /* Kingfisher */,
 				A4132786268F33550088DE6A /* PhoneNumberKit-Static */,
-				4CEC425B2EAF868C00E460DC /* FirebaseAnalytics */,
+				4CEC425B2EAF868C00E460DC /* FirebaseAnalyticsCore */,
 				4CEC425D2EAF868C00E460DC /* FirebaseCrashlytics */,
 				4CEC425F2EAF868C00E460DC /* FirebaseMessaging */,
 			);
@@ -2640,7 +2640,7 @@
 				A4A2647B252BC9D2005C0894 /* Alamofire */,
 				A445C89025436C9D003B68E8 /* Kingfisher */,
 				A4132786268F33550088DE6A /* PhoneNumberKit-Static */,
-				4CEC425B2EAF868C00E460DC /* FirebaseAnalytics */,
+				4CEC425B2EAF868C00E460DC /* FirebaseAnalyticsCore */,
 				4CEC425D2EAF868C00E460DC /* FirebaseCrashlytics */,
 				4CEC425F2EAF868C00E460DC /* FirebaseMessaging */,
 				4CEC42622EAF873400E460DC /* Wormholy */,
@@ -3872,10 +3872,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		4CEC425B2EAF868C00E460DC /* FirebaseAnalytics */ = {
+		4CEC425B2EAF868C00E460DC /* FirebaseAnalyticsCore */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 4CEC425A2EAF868C00E460DC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAnalytics;
+			productName = FirebaseAnalyticsCore;
 		};
 		4CEC425D2EAF868C00E460DC /* FirebaseCrashlytics */ = {
 			isa = XCSwiftPackageProductDependency;
