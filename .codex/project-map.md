@@ -406,6 +406,12 @@ I did not find active Swift `import TMX...` usages in app sources during the ini
 
 ## Tests And Tooling
 
+### Backend API documentation
+
+- Public OpenAPI document: `https://mobile.qpdv.ru/docs` (JSON, OpenAPI 3.0).
+- It documents only a subset of the mobile API. As of 2026-06-21, it does **not** list `/api/game/history` or `/api/users/current`; do not infer their request/response contracts from it.
+- For game-history work, obtain an authenticated example response or an up-to-date backend contract before changing the decoding model.
+
 ### Tests
 
 - Test target exists: `QuizPleaseTests`
