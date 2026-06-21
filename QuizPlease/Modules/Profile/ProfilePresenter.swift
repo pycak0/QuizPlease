@@ -14,6 +14,7 @@ protocol ProfilePresenterProtocol {
     init(view: ProfileViewProtocol, interactor: ProfileInteractorProtocol, router: ProfileRouterProtocol)
 
     var userInfo: UserInfo? { get set }
+    var gameHistory: [PassedGame] { get }
 
     func viewDidLoad(_ view: ProfileViewProtocol)
     func handleViewDidAppear()
@@ -37,6 +38,7 @@ class ProfilePresenter: ProfilePresenterProtocol {
     weak var view: ProfileViewProtocol?
 
     var userInfo: UserInfo?
+    private(set) var gameHistory: [PassedGame] = []
 
     private var isFirstAppear = true
 
@@ -158,9 +160,20 @@ extension ProfilePresenter: ProfileInteractorDelegate {
     }
 
     func didSuccessfullyLoadUserInfo(_ userInfo: UserInfo) {
-        print(userInfo)
         self.userInfo = userInfo
         updateUserInfo()
+        interactor.loadGameHistory()
+    }
+
+    func didSuccessfullyLoadGameHistory(_ games: [PassedGame]) {
+        gameHistory = games
+        updateUserInfo()
+    }
+
+    func didFailLoadingGameHistory(with error: NetworkServiceError) {
+        view?.showErrorConnectingToServerAlert { [weak self] _ in
+            self?.router.closeProfile()
+        }
     }
 
     func didSuccessfullyDeleteAccount() {

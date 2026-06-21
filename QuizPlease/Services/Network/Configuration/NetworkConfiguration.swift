@@ -37,7 +37,7 @@ public enum NetworkConfiguration: CustomStringConvertible {
         case .production:
             return "https://mobile.qpdv.ru/"
         case .stagingRating:
-            return "https://rating-api.dev.quizplease.ru/"
+            return "https://rating-api.quizplease.ru/"
         case .productionRating:
             return "https://rating-api.quizplease.ru/"
         }

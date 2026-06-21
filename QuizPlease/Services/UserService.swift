@@ -9,6 +9,7 @@ import Foundation
 
 protocol UserService {
     func getUserInfo(completion: @escaping (Result<UserInfo, NetworkServiceError>) -> Void)
+    func getGameHistory(completion: @escaping (Result<[PassedGame], NetworkServiceError>) -> Void)
     func loadUserInfo(completion: @escaping (Result<UserInfo, NetworkServiceError>) -> Void)
     func deleteAccount(completion: @escaping (Result<Void, NetworkServiceError>) -> Void)
 
@@ -97,6 +98,25 @@ final class UserServiceImpl: UserService {
                 completion(.success(response.data))
             case let .failure(error):
                 self.log.error("Error loading user info: \(error.localizedDescription)")
+                completion(.failure(error))
+            }
+        }
+    }
+
+    func getGameHistory(completion: @escaping (Result<[PassedGame], NetworkServiceError>) -> Void) {
+        networkService.get(
+            ServerResponse<[PassedGame]>.self,
+            apiPath: ApiConstants.Path.gameHistory,
+            parameters: nil,
+            headers: nil,
+            authorizationKind: .bearer,
+            networkConfiguration: .standard
+        ) { [weak self] result in
+            switch result {
+            case let .success(response):
+                completion(.success(response.data))
+            case let .failure(error):
+                self?.log.error("Error loading game history: \(error.localizedDescription)")
                 completion(.failure(error))
             }
         }

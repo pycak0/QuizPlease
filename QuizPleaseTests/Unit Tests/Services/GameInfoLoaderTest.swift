@@ -70,4 +70,23 @@ final class GameInfoLoaderTest: XCTestCase {
         XCTAssert(cacheMock.getCalled)
         XCTAssertFalse(cacheMock.setCalled)
     }
+
+    func testPassedGameDecodesHistoryDateAndTime() throws {
+        let json = """
+        {
+          "id": "game-id",
+          "name": "1234",
+          "title": "Классика",
+          "place": "Бар \"Маяк\"",
+          "datetime": "21.06.26 19:00"
+        }
+        """.data(using: .utf8)!
+
+        let game = try JSONDecoder().decode(PassedGame.self, from: json)
+
+        XCTAssertEqual(game.gameNumber, "#1234")
+        XCTAssertEqual(game.title, "Классика")
+        XCTAssertEqual(game.place, "Бар \"Маяк\"")
+        XCTAssertEqual(game.dateAndTime, "21.06.26 19:00")
+    }
 }

@@ -13,6 +13,9 @@ struct PassedGame: Decodable {
     private let name: String
     let title: String
     let place: String?
+    private let datetime: String?
+    private let date: String?
+    private let time: String?
 
     private var bonus_points: Double?
 
@@ -21,6 +24,9 @@ struct PassedGame: Decodable {
         name = "1"
         title = sampleTitle
         place = "sample place"
+        datetime = nil
+        date = nil
+        time = nil
     }
 }
 
@@ -34,4 +40,14 @@ extension PassedGame {
     }
 
     var points: Double? { bonus_points }
+
+    /// Date and time returned by `/api/game/history` in a display-ready form.
+    var dateAndTime: String? {
+        let dateTime = [datetime, date, time]
+            .compactMap { $0?.trimmingCharacters(in: .whitespacesAndNewlines) }
+            .filter { !$0.isEmpty }
+            .joined(separator: " ")
+
+        return dateTime.isEmpty ? nil : dateTime
+    }
 }

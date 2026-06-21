@@ -33,6 +33,7 @@ enum ApiConstants {
 
         // Game
         static let game = "/api/game"
+        static let gameHistory = "/api/game/history"
         static func gameFilter(_ typeRawValue: String) -> String { "/api/game/\(typeRawValue)" }
         static let gameSubscribeNotification = "/api/game/subscribe-notification"
         static let gameCheckQR = "/api/game/check-qr"
@@ -55,4 +56,3 @@ enum ApiConstants {
         static let warmupSendAnswer = "/api/warmup-question/send-answer"
     }
 }
-
