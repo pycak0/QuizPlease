@@ -1,6 +1,6 @@
 # QuizPlease Project Map
 
-Last updated: 2026-03-28
+Last updated: 2026-06-21
 Purpose: working memory for future Codex sessions. Keep `AGENTS.md` short and put evolving repo knowledge here.
 
 ## TL;DR
@@ -8,8 +8,10 @@ Purpose: working memory for future Codex sessions. Keep `AGENTS.md` short and pu
 - UIKit app with storyboard entry points. No SwiftUI found in sources.
 - Main build entry is the workspace, not the standalone project: `QuizPlease.xcworkspace`.
 - Shared schemes: `QuizPlease Debug`, `QuizPlease Staging`, `QuizPlease Production`, `QuizPleaseTests`.
-- Main target: `QuizPlease`. Test target: `QuizPleaseTests`.
+- Main app targets: `QuizPlease` and `QuizPlease Production`. Test target: `QuizPleaseTests`.
+- `QuizPlease Production` is intentionally separate from `QuizPlease` so production builds exclude debug-only SwiftPM products such as Wormholy.
 - Dependency management is mixed: SwiftPM + CocoaPods + checked-in local frameworks.
+- CocoaPods dependencies must be integrated for both app targets. The production target uses its own Pods aggregate and target-specific xcconfigs.
 - App composition is assembly-based: global infra is wired in `CoreAssembly` and `ServiceAssembly`, feature screens are wired in per-module assemblies.
 - Navigation and external entry points are centralized in `TransitionFacade` and the applink/deeplink stack.
 - Networking is in transition: there is both a global `NetworkService.shared` facade and an injected `NetworkServiceProtocol` / `NetworkServiceImpl` path.
@@ -22,7 +24,10 @@ Purpose: working memory for future Codex sessions. Keep `AGENTS.md` short and pu
 - Workspace contents: app project + `Pods/Pods.xcodeproj`
 - Native targets:
   - `QuizPlease` (`com.apple.product-type.application`)
+  - `QuizPlease Production` (`com.apple.product-type.application`)
   - `QuizPleaseTests` (`com.apple.product-type.bundle.unit-test`)
+
+`QuizPlease Production` shares the app sources/resources with `QuizPlease`, but has its own Frameworks phase and package product list. Keep Wormholy out of this target.
 
 ### Schemes
 
@@ -34,6 +39,7 @@ Purpose: working memory for future Codex sessions. Keep `AGENTS.md` short and pu
   - no explicit testables in the scheme
 - `QuizPlease Production`
   - app launch/profile/archive on `Production`
+  - points at the separate `QuizPlease Production` native target
   - no explicit testables in the scheme
 - `QuizPleaseTests`
   - tests only, `Debug`
@@ -44,7 +50,7 @@ Purpose: working memory for future Codex sessions. Keep `AGENTS.md` short and pu
 - App deployment target: `iOS 15.1`
 - Test target deployment target: `iOS 12.0`
 - Swift version in project settings: `5.0`
-- App target bundle identifier in project settings: `com.quizplease.app`
+- App bundle identifier in project settings: `com.quizplease.app`
 
 ### xcconfig layering
 
@@ -54,7 +60,9 @@ Purpose: working memory for future Codex sessions. Keep `AGENTS.md` short and pu
   - `QuizPlease/Config/Staging.xcconfig`
   - `QuizPlease/Config/Production.xcconfig`
 - Debug and Staging also customize icon names / app name suffixes.
-- CocoaPods xcconfigs are included from the per-environment app configs.
+- The regular `QuizPlease` app target uses `Debug.xcconfig` and `Staging.xcconfig`.
+- The `QuizPlease Production` app target uses `Production.xcconfig`.
+- `Production.xcconfig` includes `Pods-QuizPlease Production.production.xcconfig`; `Debug.xcconfig` and `Staging.xcconfig` include the regular `Pods-QuizPlease.*.xcconfig` files. Do not swap these between targets, or production archives can miss embedded pod frameworks.
 
 ### Info.plist / runtime configuration
 
@@ -338,8 +346,12 @@ Directly relevant packages visible in the project:
 
 ### CocoaPods
 
-- Podfile directly declares only:
+- Podfile directly declares:
   - `YooKassaPayments` from the YooMoney git repo, tag `8.1.1`
+  - `FMobileSdk` `2.0.0-1231`
+  - `FunctionalSwift` `~> 2.0`
+  - `YooMoneySessionProfiler` `< 6.0`
+- These pods are shared through `quizplease_pods` and attached to both `QuizPlease` and `QuizPlease Production`.
 - Pod lock shows large transitive trees, especially:
   - AppMetrica*
   - MoneyAuth
@@ -347,6 +359,25 @@ Directly relevant packages visible in the project:
   - YooKassaPaymentsApi
   - YooKassaWalletApi
   - YooMoney*
+
+Production target CocoaPods integration must include:
+  - `Pods_QuizPlease_Production.framework` in the production target Frameworks phase
+  - `[CP] Check Pods Manifest.lock`
+  - `[CP] Embed Pods Frameworks`
+  - `Pods/Target Support Files/Pods-QuizPlease Production/Pods-QuizPlease Production-frameworks.sh`
+
+This matters because missing embed phases caused TestFlight launch crashes such as `DYLD error: Library not loaded: @rpath/AppMetricaAdSupport.framework/AppMetricaAdSupport`.
+
+## Release Automation
+
+- `make archive` runs `scripts/release.sh archive`.
+- It is allowed on `develop` and `release/*` branches.
+- It increments `CURRENT_PROJECT_VERSION` in `QuizPlease/Config/Base.xcconfig`, archives scheme `QuizPlease Production` with configuration `Production`, then commits `#build <version> (<build>)`.
+- After `xcodebuild archive`, it verifies that the archive embeds critical production frameworks:
+  - `AppMetricaAdSupport.framework`
+  - `FMobileSdk.framework`
+  - `YooKassaPayments.framework`
+- The same check fails the archive if `Wormholy.framework` appears in the production app bundle.
 
 ### Checked-in local frameworks
 
@@ -407,6 +438,9 @@ Implication: most features do not appear to have direct automated coverage. Expe
 ## Practical Working Rules For Future Sessions
 
 - Always build from `QuizPlease.xcworkspace`.
+- Prefer running Xcode/xcodebuild outside the filesystem sandbox. Sandboxed runs have failed before real compilation with CoreSimulator service/log permission errors and misleading workspace errors.
+- Keep the separate `QuizPlease Production` target unless explicitly asked to remove it; it protects production archives from debug-only SwiftPM products.
+- After Podfile or target membership changes, run `pod install` and verify both app targets have the correct `[CP] Embed Pods Frameworks` phase.
 - Before modifying a feature, check its assembly/configurator first to understand wiring.
 - For anything touching registration or payment:
   - inspect `Modules/GamePage`
@@ -424,4 +458,4 @@ Implication: most features do not appear to have direct automated coverage. Expe
   - inspect `Shared/Models/ApiConstants.swift`
   - inspect `Core/Configuration.swift`
   - inspect `Config/*.xcconfig`
-- Keep `AGENTS.md` stable and compact. Update this file after major architecture or dependency changes.
+- Keep `AGENTS.md` stable and compact. Update this file after major architecture, dependency, target, build, or release workflow changes.
