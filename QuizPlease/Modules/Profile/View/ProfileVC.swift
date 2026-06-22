@@ -174,7 +174,7 @@ extension ProfileVC: ProfileViewProtocol {
     }
 
     func updateUserInfo(with pointsScored: Double) {
-        let gamesCount = presenter.gameHistory.count
+        let gamesCount = presenter.signedUpGames.count
         totalPointsScoredLabel.text = pointsFormatter.string(from: pointsScored as NSNumber)
         let gamesFormattedCount = gamesCount.string(withAssociatedFirstCaseWord: "игра", changingCase: .genitive)
         gamesCountLabel.text = "Вы сходили на \(gamesFormattedCount) и накопили"
@@ -229,11 +229,11 @@ extension ProfileVC: AddGameVCDelegate {
 extension ProfileVC: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter.gameHistory.isEmpty ? 1 : presenter.gameHistory.count
+        return presenter.signedUpGames.isEmpty ? 1 : presenter.signedUpGames.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let games = presenter.gameHistory
+        let games = presenter.signedUpGames
         guard !games.isEmpty else {
             let cell = tableView.dequeueReusableCell(ProfileSampleCell.self, for: indexPath)
             let description = "Тут появляются игры, на которых вы зажигали! " +
@@ -248,7 +248,8 @@ extension ProfileVC: UITableViewDataSource, UITableViewDelegate {
         cell.configure(
             gameName: game.title,
             gameNumber: game.gameNumber,
-            place: game.place,
+            place: game.placeTitle,
+            teamName: game.teamName,
             dateAndTime: game.dateAndTime
         )
         return cell

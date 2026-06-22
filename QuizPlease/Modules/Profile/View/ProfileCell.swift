@@ -47,16 +47,18 @@ final class ProfileCell: UITableViewCell, IdentifiableType {
         gameName: String,
         gameNumber: String,
         place: String?,
+        teamName: String?,
         dateAndTime: String?
     ) {
         gameNameLabel.text = gameName
         gameNumberLabel.text = gameNumber
         placeLabel.text = place
-        teamNameLabel.text = dateAndTime
+        teamNameLabel.text = teamName
+        pointsScoredLabel.text = dateAndTime
 
         placeLabel.isHidden = place == nil
-        teamNameLabel.isHidden = dateAndTime == nil
+        teamNameLabel.isHidden = teamName == nil
         prizeImageView.isHidden = true
-        pointsScoredLabel.isHidden = true
+        pointsScoredLabel.isHidden = dateAndTime == nil
     }
 }

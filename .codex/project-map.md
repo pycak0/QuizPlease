@@ -410,7 +410,7 @@ I did not find active Swift `import TMX...` usages in app sources during the ini
 
 - Public OpenAPI document: `https://mobile.qpdv.ru/docs` (JSON, OpenAPI 3.0).
 - It documents only a subset of the mobile API. As of 2026-06-21, it does **not** list `/api/game/history` or `/api/users/current`; do not infer their request/response contracts from it.
-- For game-history work, obtain an authenticated example response or an up-to-date backend contract before changing the decoding model.
+- The authenticated game-history source is `GET /api/game/signed-up`. Its response is `{"data":{"data":[...]}}`; each game includes `id`, nested `place.title`, ISO-8601 UTC `date`, `title`, `game_number`, and `status`. The profile keeps only completed status values `4` (finished) and `5` (ended). The backend plans to add optional `team_name`.
 
 ### Tests
 

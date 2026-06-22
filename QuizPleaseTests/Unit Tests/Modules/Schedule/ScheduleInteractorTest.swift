@@ -246,8 +246,8 @@ private final class UserServiceStub: UserService {
         XCTFail("Unexpected user info request")
     }
 
-    func getGameHistory(completion: @escaping (Result<[PassedGame], NetworkServiceError>) -> Void) {
-        XCTFail("Unexpected game history request")
+    func getSignedUpGames(completion: @escaping (Result<[SignedUpGame], NetworkServiceError>) -> Void) {
+        XCTFail("Unexpected signed-up games request")
     }
 
     func loadUserInfo(completion: @escaping (Result<UserInfo, NetworkServiceError>) -> Void) {

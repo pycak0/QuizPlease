@@ -17,7 +17,7 @@ protocol ProfileInteractorProtocol {
 
     func loadUserInfo()
 
-    func loadGameHistory()
+    func loadSignedUpGames()
 
     /// Performs only LOCAL logout from app, e.g. removing user's auth info
     func logOut()
@@ -38,9 +38,9 @@ protocol ProfileInteractorDelegate: AnyObject {
 
     func didSuccessfullyLoadUserInfo(_ userInfo: UserInfo)
 
-    func didSuccessfullyLoadGameHistory(_ games: [PassedGame])
+    func didSuccessfullyLoadSignedUpGames(_ games: [SignedUpGame])
 
-    func didFailLoadingGameHistory(with error: NetworkServiceError)
+    func didFailLoadingSignedUpGames(with error: NetworkServiceError)
 
     func didSuccessfullyDeleteAccount()
 
@@ -80,15 +80,15 @@ final class ProfileInteractor: ProfileInteractorProtocol {
         }
     }
 
-    func loadGameHistory() {
-        userService.getGameHistory { [weak self] result in
+    func loadSignedUpGames() {
+        userService.getSignedUpGames { [weak self] result in
             guard let self else { return }
             switch result {
             case let .success(games):
-                self.delegate?.didSuccessfullyLoadGameHistory(games)
+                self.delegate?.didSuccessfullyLoadSignedUpGames(games)
             case let .failure(error):
-                self.log.error("Error loading game history: \(error.localizedDescription)")
-                self.delegate?.didFailLoadingGameHistory(with: error)
+                self.log.error("Error loading signed-up games: \(error.localizedDescription)")
+                self.delegate?.didFailLoadingSignedUpGames(with: error)
             }
         }
     }

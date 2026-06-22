@@ -13,9 +13,6 @@ struct PassedGame: Decodable {
     private let name: String
     let title: String
     let place: String?
-    private let datetime: String?
-    private let date: String?
-    private let time: String?
 
     private var bonus_points: Double?
 
@@ -24,9 +21,6 @@ struct PassedGame: Decodable {
         name = "1"
         title = sampleTitle
         place = "sample place"
-        datetime = nil
-        date = nil
-        time = nil
     }
 }
 
@@ -40,14 +34,55 @@ extension PassedGame {
     }
 
     var points: Double? { bonus_points }
+}
 
-    /// Date and time returned by `/api/game/history` in a display-ready form.
-    var dateAndTime: String? {
-        let dateTime = [datetime, date, time]
-            .compactMap { $0?.trimmingCharacters(in: .whitespacesAndNewlines) }
-            .filter { !$0.isEmpty }
-            .joined(separator: " ")
+struct SignedUpGame: Decodable {
 
-        return dateTime.isEmpty ? nil : dateTime
+    private struct Place: Decodable {
+        let title: String?
     }
+
+    let id: String
+    private let place: Place?
+    private let date: String?
+    let title: String
+    private let game_number: String
+    private let team_name: String?
+    private let status: Int?
+
+    var gameNumber: String {
+        game_number.hasPrefix("#") ? game_number : "#\(game_number)"
+    }
+
+    var placeTitle: String? {
+        place?.title
+    }
+
+    var teamName: String? {
+        guard let teamName = team_name?.trimmingCharacters(in: .whitespacesAndNewlines), !teamName.isEmpty
+        else { return nil }
+        return teamName
+    }
+
+    var isFinished: Bool {
+        status == 4 || status == 5
+    }
+
+    var dateAndTime: String? {
+        guard let date, let value = Self.isoDateFormatter.date(from: date) else { return nil }
+        return Self.displayDateFormatter.string(from: value)
+    }
+
+    private static let isoDateFormatter: ISO8601DateFormatter = {
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        return formatter
+    }()
+
+    private static let displayDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ru_RU")
+        formatter.dateFormat = "d MMMM, HH:mm"
+        return formatter
+    }()
 }
