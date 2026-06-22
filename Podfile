@@ -1,20 +1,30 @@
 platform :ios, '15.1'
 
-# Источники: официальный — ПЕРВЫМ
-source 'https://github.com/CocoaPods/Specs.git'
+source 'https://cdn.cocoapods.org/'
 source 'https://git.yoomoney.ru/scm/sdk/cocoa-pod-specs.git'
 
-target 'QuizPlease' do
-  use_frameworks!
-
+def quizplease_pods
   # YooKassa SDK (из git)
   pod 'YooKassaPayments',
       :git => 'https://git.yoomoney.ru/scm/sdk/yookassa-payments-swift.git',
       :tag => '8.1.1'
+  pod 'FMobileSdk', '2.0.0-1231'
+  pod 'FunctionalSwift', '~> 2.0'
+  pod 'YooMoneySessionProfiler', '< 6.0'
+end
+
+target 'QuizPlease' do
+  use_frameworks!
+  quizplease_pods
 
   target 'QuizPleaseTests' do
     inherit! :complete
   end
+end
+
+target 'QuizPlease Production' do
+  use_frameworks!
+  quizplease_pods
 end
 
 project 'QuizPlease', {

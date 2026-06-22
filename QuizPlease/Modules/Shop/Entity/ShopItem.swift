@@ -27,7 +27,7 @@ extension ShopItem {
     }
 
     var imagePath: String? {
-        return images?.first?.path?.pathProof
+        return images?.first?.file
     }
 
     var priceNumber: Int {

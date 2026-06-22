@@ -380,6 +380,34 @@ run_xcodebuild_archive() {
   fi
 }
 
+verify_archive_frameworks() {
+  local archive_path="$1"
+  local frameworks_dir="${archive_path}/Products/Applications/QuizPlease.app/Frameworks"
+  local -a required_frameworks=(
+    "AppMetricaAdSupport.framework"
+    "FMobileSdk.framework"
+    "YooKassaPayments.framework"
+  )
+  local -a missing_frameworks=()
+  local framework
+
+  for framework in "${required_frameworks[@]}"; do
+    if [[ ! -d "${frameworks_dir}/${framework}" ]]; then
+      missing_frameworks+=("$framework")
+    fi
+  done
+
+  if [[ "${#missing_frameworks[@]}" -gt 0 ]]; then
+    die "archive is missing embedded framework(s): ${missing_frameworks[*]}"
+  fi
+
+  if [[ -e "${frameworks_dir}/Wormholy.framework" ]]; then
+    die "production archive unexpectedly contains Wormholy.framework"
+  fi
+
+  log_note "Verified embedded production frameworks."
+}
+
 run_version() {
   local bump="${1:-}"
   [[ -n "$bump" ]] || {
@@ -464,6 +492,7 @@ run_archive() {
   mkdir -p "$(dirname "$archive_path")"
 
   run_xcodebuild_archive "$archive_path"
+  verify_archive_frameworks "$archive_path"
 
   commit_config_change "#build $marketing_version ($new_build)"
   rm -f "$ARCHIVE_BACKUP_FILE"
