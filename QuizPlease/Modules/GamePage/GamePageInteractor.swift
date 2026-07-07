@@ -16,7 +16,8 @@ protocol GamePageInteractorProtocol: AnyObject,
                                      GamePageDescriptionProvider,
                                      GamePageSubmitDataProvider,
                                      GamePagePaymentInfoProvider,
-                                     GamePageTableInfoProvider {
+                                     GamePageTableInfoProvider,
+                                     GamePageTeamLimitProvider {
 
     /// Load game info
     func loadGame(complpetion: @escaping (Error?) -> Void)
@@ -428,6 +429,12 @@ final class GamePageInteractor: GamePageInteractorProtocol {
 
     func getAvailableTables() -> [GameTable] {
         gameInfo.gameTables
+    }
+
+    // MARK: - GamePageTeamLimitProvider
+
+    func getMaxParticipants() -> Int {
+        gameInfo.maxParticipants
     }
 }
 
