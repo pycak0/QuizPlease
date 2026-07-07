@@ -28,6 +28,13 @@ protocol GamePageRegistrationFieldsOutput: AnyObject {
     func updateField(kind: GamePageItemKind)
 }
 
+/// Provides game-specific team count limit for registration.
+protocol GamePageTeamLimitProvider: AnyObject {
+
+    /// Get max allowed number of people in a team.
+    func getMaxParticipants() -> Int
+}
+
 /// Basic register fields builder
 final class GamePageRegistrationFieldsBuilder {
 
@@ -37,6 +44,11 @@ final class GamePageRegistrationFieldsBuilder {
 
     private let registerFormProvider: GamePageRegisterFormProvider
     private let tableInfoProvider: GamePageTableInfoProvider?
+    private let teamLimitProvider: GamePageTeamLimitProvider?
+
+    private enum Constants {
+        static let minParticipants = 2
+    }
 
     // MARK: - Lifecycle
 
@@ -46,10 +58,12 @@ final class GamePageRegistrationFieldsBuilder {
     ///   - tableInfoProvider: Table info provider for games with table pricing
     init(
         registerFormProvider: GamePageRegisterFormProvider,
-        tableInfoProvider: GamePageTableInfoProvider? = nil
+        tableInfoProvider: GamePageTableInfoProvider? = nil,
+        teamLimitProvider: GamePageTeamLimitProvider? = nil
     ) {
         self.registerFormProvider = registerFormProvider
         self.tableInfoProvider = tableInfoProvider
+        self.teamLimitProvider = teamLimitProvider
     }
 
     // MARK: - Private Methods
@@ -116,13 +130,18 @@ final class GamePageRegistrationFieldsBuilder {
     }
 
     private func makeTeamCountItem(registerForm: RegisterForm) -> GamePageItemProtocol {
-        GamePageTeamCountItem(
+        let maxCount = max(
+            Constants.minParticipants,
+            teamLimitProvider?.getMaxParticipants() ?? GameInfo.defaultMaxParticipants
+        )
+
+        return GamePageTeamCountItem(
             kind: .teamCount,
             title: "Количество человек в команде",
             pickerColor: .systemGray5Adapted,
             backgroundColor: .systemGray6Adapted,
-            getMinCount: 2,
-            getMaxCount: 9,
+            getMinCount: Constants.minParticipants,
+            getMaxCount: maxCount,
             getSelectedTeamCount: registerForm.count,
             changeHandler: { [weak registerForm, weak output] newValue in
                 registerForm?.count = newValue

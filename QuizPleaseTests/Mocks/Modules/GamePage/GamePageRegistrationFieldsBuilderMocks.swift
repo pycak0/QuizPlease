@@ -32,3 +32,12 @@ final class GamePageTableInfoProviderMock: GamePageTableInfoProvider {
         tables
     }
 }
+
+final class GamePageTeamLimitProviderMock: GamePageTeamLimitProvider {
+
+    var maxParticipants = GameInfo.defaultMaxParticipants
+
+    func getMaxParticipants() -> Int {
+        maxParticipants
+    }
+}

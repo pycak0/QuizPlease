@@ -21,6 +21,7 @@ private let gameNumberPrefix = "#"
 
 struct GameInfo: Decodable {
     static let placeholderValue = "-"
+    static let defaultMaxParticipants = 9
 
     var id: String!
     var date: Date?
@@ -74,6 +75,7 @@ struct GameInfo: Decodable {
 
     /// Vacant places
     private var blockOf: Int = 0
+    private var max_participants: Int?
 
     /// Custom registration fields on Game page
     private var custom_fields: [CustomFieldData]?
@@ -90,6 +92,7 @@ struct GameInfo: Decodable {
         special_mobile_banner = shortInfo.special_mobile_banner
         is_little_place = shortInfo.is_little_place
         show_remind_button = shortInfo.show_remind_button
+        max_participants = shortInfo.max_participants
     }
 
     mutating func setShortInfo(_ shortInfo: GameShortInfo) {
@@ -98,6 +101,9 @@ struct GameInfo: Decodable {
         special_mobile_banner = shortInfo.special_mobile_banner
         is_little_place = shortInfo.is_little_place
         show_remind_button = shortInfo.show_remind_button
+        if let maxParticipants = shortInfo.max_participants {
+            max_participants = maxParticipants
+        }
     }
 
     mutating func setShortInfo(_ shortInfo: GameInfo) {
@@ -106,6 +112,9 @@ struct GameInfo: Decodable {
         special_mobile_banner = shortInfo.special_mobile_banner
         is_little_place = shortInfo.is_little_place
         show_remind_button = shortInfo.show_remind_button
+        if let maxParticipants = shortInfo.max_participants {
+            max_participants = maxParticipants
+        }
     }
 }
 
@@ -223,6 +232,13 @@ extension GameInfo {
 
     var vacantPlaces: Int {
         blockOf
+    }
+
+    var maxParticipants: Int {
+        guard let maxParticipants = max_participants, maxParticipants > 0 else {
+            return Self.defaultMaxParticipants
+        }
+        return maxParticipants
     }
 
     var customFields: [CustomFieldData]? {
