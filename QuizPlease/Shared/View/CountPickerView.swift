@@ -145,6 +145,10 @@ final class CountPickerView: UIView {
         }
     }
 
+    var buttonAccessibilityIdentifierPrefix: String? {
+        didSet { updateButtonViews() }
+    }
+
     // MARK: - Update Selected Button
 
     /// This method does not call any delegate methods
@@ -273,14 +277,18 @@ final class CountPickerView: UIView {
     }
 
     private func updateView(for button: UIButton, at index: Int) {
+        let value = valueForButton(at: index)
         button.setImage(unselectedImage, for: .normal)
         button.setImage(nil, for: .highlighted)
         button.setImage(nil, for: .selected)
         button.setTitle("", for: .normal)
-        button.setTitle("\(valueForButton(at: index))", for: .selected)
+        button.setTitle("\(value)", for: .selected)
         button.titleLabel?.font = buttonsTitleFont
         button.setTitleColor(buttonsTitleColor, for: .normal)
         button.backgroundColor = button.isSelected ? selectedColor : pickerBackgroundColor
+        button.isAccessibilityElement = true
+        button.accessibilityLabel = "\(value)"
+        button.accessibilityIdentifier = buttonAccessibilityIdentifierPrefix.map { "\($0).\(value)" }
         // button.layer.cornerRadius = buttonsCornerRadius
     }
 

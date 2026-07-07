@@ -1,14 +1,14 @@
 # QuizPlease Project Map
 
-Last updated: 2026-06-21
+Last updated: 2026-07-07
 Purpose: working memory for future Codex sessions. Keep `AGENTS.md` short and put evolving repo knowledge here.
 
 ## TL;DR
 
 - UIKit app with storyboard entry points. No SwiftUI found in sources.
 - Main build entry is the workspace, not the standalone project: `QuizPlease.xcworkspace`.
-- Shared schemes: `QuizPlease Debug`, `QuizPlease Staging`, `QuizPlease Production`, `QuizPleaseTests`.
-- Main app targets: `QuizPlease` and `QuizPlease Production`. Test target: `QuizPleaseTests`.
+- Shared schemes: `QuizPlease Debug`, `QuizPlease Staging`, `QuizPlease Production`, `QuizPleaseTests`, `QuizPleaseUITests`.
+- Main app targets: `QuizPlease` and `QuizPlease Production`. Test targets: `QuizPleaseTests`, `QuizPleaseUITests`.
 - `QuizPlease Production` is intentionally separate from `QuizPlease` so production builds exclude debug-only SwiftPM products such as Wormholy.
 - Dependency management is mixed: SwiftPM + CocoaPods + checked-in local frameworks.
 - CocoaPods dependencies must be integrated for both app targets. The production target uses its own Pods aggregate and target-specific xcconfigs.
@@ -26,6 +26,7 @@ Purpose: working memory for future Codex sessions. Keep `AGENTS.md` short and pu
   - `QuizPlease` (`com.apple.product-type.application`)
   - `QuizPlease Production` (`com.apple.product-type.application`)
   - `QuizPleaseTests` (`com.apple.product-type.bundle.unit-test`)
+  - `QuizPleaseUITests` (`com.apple.product-type.bundle.ui-testing`)
 
 `QuizPlease Production` shares the app sources/resources with `QuizPlease`, but has its own Frameworks phase and package product list. Keep Wormholy out of this target.
 
@@ -43,12 +44,16 @@ Purpose: working memory for future Codex sessions. Keep `AGENTS.md` short and pu
   - no explicit testables in the scheme
 - `QuizPleaseTests`
   - tests only, `Debug`
+- `QuizPleaseUITests`
+  - UI tests only, `Debug`
+  - launches `QuizPlease` through `XCUITest`
 
 ### Configurations
 
 - App configurations: `Debug`, `Staging`, `Production`
 - App deployment target: `iOS 15.1`
-- Test target deployment target: `iOS 12.0`
+- Unit test target deployment target: `iOS 15.1`
+- UI test target deployment target: `iOS 15.1`
 - Swift version in project settings: `5.0`
 - App bundle identifier in project settings: `com.quizplease.app`
 
@@ -97,6 +102,7 @@ Purpose: working memory for future Codex sessions. Keep `AGENTS.md` short and pu
   - user activities
   - open URL contexts
   - foreground token refresh
+- Debug UI tests can bypass normal startup with `UITestGamePageBootstrap` when launched with `-UITestGamePageMaxParticipants`; this opens `GamePage` with a stable `GameInfo` fixture and replaces selected services in `ServiceAssembly`.
 
 ### Transition system
 
@@ -378,6 +384,16 @@ This matters because missing embed phases caused TestFlight launch crashes such 
   - `FMobileSdk.framework`
   - `YooKassaPayments.framework`
 - The same check fails the archive if `Wormholy.framework` appears in the production app bundle.
+
+## Test Automation
+
+- `make test` runs the `QuizPleaseTests` scheme on the default simulator destination.
+- `make ui-test` runs the `QuizPleaseUITests` scheme on the default simulator destination.
+- `make test-all` runs unit tests first, then UI tests.
+- Test command implementation lives in `scripts/test.sh`; Makefile targets are thin wrappers around it.
+- App-side UI test hooks live in `QuizPlease/UITesting`: launch arguments, fixtures, service stubs, and screen bootstraps are split for reuse across scenarios.
+- Override the simulator with `TEST_DESTINATION="platform=iOS Simulator,name=iPhone 17,OS=26.5"`.
+- Test recipes automatically pipe `xcodebuild` output through `xcbeautify` when it is installed, while preserving the original `xcodebuild` exit code with `pipefail`.
 
 ### Checked-in local frameworks
 
