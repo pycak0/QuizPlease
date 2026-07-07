@@ -6,7 +6,7 @@ cd "$ROOT_DIR"
 
 WORKSPACE="${WORKSPACE:-QuizPlease.xcworkspace}"
 CONFIGURATION="${CONFIGURATION:-Debug}"
-TEST_DESTINATION="${TEST_DESTINATION:-platform=iOS Simulator,name=iPhone 17,OS=26.5}"
+TEST_DESTINATION="${TEST_DESTINATION:-platform=iOS Simulator,name=iPhone 17 Pro Max,OS=26.5}"
 UNIT_TEST_SCHEME="${UNIT_TEST_SCHEME:-QuizPleaseTests}"
 UI_TEST_SCHEME="${UI_TEST_SCHEME:-QuizPleaseUITests}"
 
@@ -20,7 +20,7 @@ Usage:
 Options:
   WORKSPACE=QuizPlease.xcworkspace
   CONFIGURATION=Debug
-  TEST_DESTINATION="platform=iOS Simulator,name=iPhone 17,OS=26.5"
+  TEST_DESTINATION="platform=iOS Simulator,name=iPhone 17 Pro Max,OS=26.5"
   UNIT_TEST_SCHEME=QuizPleaseTests
   UI_TEST_SCHEME=QuizPleaseUITests
 

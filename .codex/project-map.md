@@ -7,6 +7,7 @@ Purpose: working memory for future Codex sessions. Keep `AGENTS.md` short and pu
 
 - UIKit app with storyboard entry points. No SwiftUI found in sources.
 - Main build entry is the workspace, not the standalone project: `QuizPlease.xcworkspace`.
+- Main Xcode project uses `objectVersion = 100` / `preferredProjectObjectVersion = 100` (Xcode 26 format). CocoaPods is pinned via repo `Gemfile` (`cocoapods` 1.17.0, `xcodeproj` 1.28.1); run `bundle exec pod install`.
 - Shared schemes: `QuizPlease Debug`, `QuizPlease Staging`, `QuizPlease Production`, `QuizPleaseTests`, `QuizPleaseUITests`.
 - Main app targets: `QuizPlease` and `QuizPlease Production`. Test targets: `QuizPleaseTests`, `QuizPleaseUITests`.
 - `QuizPlease Production` is intentionally separate from `QuizPlease` so production builds exclude debug-only SwiftPM products such as Wormholy.
@@ -392,7 +393,7 @@ This matters because missing embed phases caused TestFlight launch crashes such 
 - `make test-all` runs unit tests first, then UI tests.
 - Test command implementation lives in `scripts/test.sh`; Makefile targets are thin wrappers around it.
 - App-side UI test hooks live in `QuizPlease/UITesting`: launch arguments, fixtures, service stubs, and screen bootstraps are split for reuse across scenarios.
-- Override the simulator with `TEST_DESTINATION="platform=iOS Simulator,name=iPhone 17,OS=26.5"`.
+- Override the simulator with `TEST_DESTINATION="platform=iOS Simulator,name=iPhone 17 Pro Max,OS=26.5"`.
 - Test recipes automatically pipe `xcodebuild` output through `xcbeautify` when it is installed, while preserving the original `xcodebuild` exit code with `pipefail`.
 
 ### Checked-in local frameworks
@@ -462,7 +463,7 @@ Implication: most features do not appear to have direct automated coverage. Expe
 - Always build from `QuizPlease.xcworkspace`.
 - Prefer running Xcode/xcodebuild outside the filesystem sandbox. Sandboxed runs have failed before real compilation with CoreSimulator service/log permission errors and misleading workspace errors.
 - Keep the separate `QuizPlease Production` target unless explicitly asked to remove it; it protects production archives from debug-only SwiftPM products.
-- After Podfile or target membership changes, run `pod install` and verify both app targets have the correct `[CP] Embed Pods Frameworks` phase.
+- After Podfile or target membership changes, run `bundle exec pod install` and verify both app targets have the correct `[CP] Embed Pods Frameworks` phase.
 - Before modifying a feature, check its assembly/configurator first to understand wiring.
 - For anything touching registration or payment:
   - inspect `Modules/GamePage`
