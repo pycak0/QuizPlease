@@ -30,4 +30,22 @@ final class GamePageMaxParticipantsUITests: XCTestCase {
         maxTeamCountButton.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
         XCTAssertTrue(maxTeamCountButton.isSelected)
     }
+
+    func testCurrencySymbolIsShownInScheduleAndGamePage() {
+        let app = XCUIApplication()
+        app.launchArguments = ["-UITestScheduleCurrency"]
+        app.launch()
+
+        let schedulePrice = app.staticTexts["schedule.gamePrice"]
+        XCTAssertTrue(schedulePrice.waitForExistence(timeout: 8))
+        XCTAssertEqual(schedulePrice.label, "1000 € стоимость, с человека")
+
+        let infoButton = app.buttons["schedule.infoButton"]
+        XCTAssertTrue(infoButton.waitForExistence(timeout: 4))
+        infoButton.tap()
+
+        let gamePagePrice = app.staticTexts["gamePage.infoLineTitle.banknoteIcon"]
+        XCTAssertTrue(gamePagePrice.waitForExistence(timeout: 8))
+        XCTAssertEqual(gamePagePrice.label, "1000 € стоимость, с человека")
+    }
 }

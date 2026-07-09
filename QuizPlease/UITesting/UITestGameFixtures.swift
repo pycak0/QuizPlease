@@ -13,6 +13,7 @@ import Foundation
 enum UITestGameFixtures {
 
     static let maxParticipantsGameId = "ui-test-game-max-participants"
+    static let currencyGameId = "ui-test-game-currency"
 
     static func maxParticipantsGame() -> GameInfo {
         game(
@@ -22,12 +23,29 @@ enum UITestGameFixtures {
         )
     }
 
+    static func currencyGame() -> GameInfo {
+        game(
+            id: currencyGameId,
+            name: "Currency Game",
+            maxParticipants: 9,
+            price: "1000 ₽",
+            priceDetails: "стоимость, с человека",
+            currencySymbol: "€"
+        )
+    }
+
     static func game(
         id: String,
         name: String,
         maxParticipants: Int,
-        status: Int = 0
+        status: Int = 0,
+        price: String = "1000",
+        priceDetails: String = "per person",
+        currencySymbol: String? = nil
     ) -> GameInfo {
+        let currencySymbolLine = currencySymbol
+            .map { ",\n          \"currency_symbol\": \"\($0)\"" }
+            ?? ""
         let json = """
         {
           "id": "\(id)",
@@ -37,8 +55,8 @@ enum UITestGameFixtures {
           "time": "19:30",
           "description": "A stable game fixture for UI tests.",
           "text_block": "A stable game fixture for UI tests.",
-          "price": "1000",
-          "text": "per person",
+          "price": "\(price)",
+          "text": "\(priceDetails)",
           "place": "UI Test Place",
           "address": "Test Street, 1",
           "cityName": "Test City",
@@ -48,7 +66,7 @@ enum UITestGameFixtures {
           "status": \(status),
           "blockOf": 100,
           "max_participants": \(maxParticipants),
-          "is_show_promo_field": false
+          "is_show_promo_field": false\(currencySymbolLine)
         }
         """
         guard
