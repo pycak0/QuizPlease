@@ -156,6 +156,20 @@ final class GameInfoLoaderTest: XCTestCase {
         XCTAssertEqual(game.priceDetails, "1000 € стоимость, с человека")
     }
 
+    func testGameInfoDecodesNumericPrice() throws {
+        let game = try JSONDecoder().decode(
+            GameInfo.self,
+            from: gameInfoJson(
+                maxParticipants: nil,
+                priceJson: "10",
+                currencySymbolJson: #""€""#
+            )
+        )
+
+        XCTAssertEqual(game.priceNumber, 10)
+        XCTAssertEqual(game.priceWithCurrency, "10 €")
+    }
+
     func testGameInfoFallsBackToRubleCurrencySymbol() throws {
         let game = try JSONDecoder().decode(GameInfo.self, from: gameInfoJson(maxParticipants: nil))
 
@@ -193,7 +207,7 @@ final class GameInfoLoaderTest: XCTestCase {
         )
         let shortInfo = try JSONDecoder().decode(
             GameInfo.self,
-            from: gameInfoJson(maxParticipants: nil, currencySymbol: "€")
+            from: gameInfoJson(maxParticipants: nil, currencySymbolJson: #""€""#)
         )
 
         game.setShortInfo(shortInfo)
@@ -211,12 +225,16 @@ final class GameInfoLoaderTest: XCTestCase {
         XCTAssertEqual(game.maxParticipants, 12)
     }
 
-    private func gameInfoJson(maxParticipants: Int?, currencySymbol: String? = nil) -> Data {
+    private func gameInfoJson(
+        maxParticipants: Int?,
+        priceJson: String = #""1000""#,
+        currencySymbolJson: String? = nil
+    ) -> Data {
         let maxParticipantsLine = maxParticipants
             .map { ",\n          \"max_participants\": \($0)" }
             ?? ""
-        let currencySymbolLine = currencySymbol
-            .map { ",\n          \"currency_symbol\": \"\($0)\"" }
+        let currencySymbolLine = currencySymbolJson
+            .map { ",\n          \"currency_symbol\": \($0)" }
             ?? ""
         return """
         {
@@ -224,7 +242,7 @@ final class GameInfoLoaderTest: XCTestCase {
           "nameGame": "Game",
           "blockData": "date",
           "time": "19:00",
-          "price": "1000",
+          "price": \(priceJson),
           "text": "с человека",
           "place": "Place",
           "cityName": "City",

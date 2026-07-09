@@ -55,7 +55,7 @@ struct GameInfo: Decodable {
     /// Special marketing flag "few places left!!"
     private var is_little_place: Bool?
 
-    private var price: String = placeholderValue
+    private var price: AnyDecodable?
     private var currency_symbol: String?
     /// Describing price e.g. "с человека". Use `priceDetails` instead of this
     private var text: String = ""
@@ -135,7 +135,7 @@ extension GameInfo {
     }
 
     var priceNumber: Int? {
-        return Int(price.trimmingCharacters(in: CharacterSet(charactersIn: "0123456789").inverted))
+        return Int(priceText.trimmingCharacters(in: CharacterSet(charactersIn: "0123456789").inverted))
     }
 
     var placeInfo: Place {
@@ -160,7 +160,7 @@ extension GameInfo {
     }
 
     var priceWithCurrency: String {
-        let trimmedPrice = price.trimmingCharacters(in: .whitespacesAndNewlines)
+        let trimmedPrice = priceText.trimmingCharacters(in: .whitespacesAndNewlines)
         guard priceNumber != nil else {
             return trimmedPrice
         }
@@ -169,6 +169,10 @@ extension GameInfo {
             result.removingCurrencyMarker(marker)
         }
         return "\(priceWithoutCurrency) \(currencySymbol)"
+    }
+
+    private var priceText: String {
+        price?.stringValue ?? Self.placeholderValue
     }
 
     var gameNumber: String {
@@ -288,5 +292,25 @@ private extension String {
         guard trimmed.hasSuffix(marker) else { return trimmed }
         let endIndex = trimmed.index(trimmed.endIndex, offsetBy: -marker.count)
         return String(trimmed[..<endIndex]).trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+}
+
+private extension AnyDecodable {
+
+    var stringValue: String? {
+        switch value {
+        case let string as String:
+            return string
+        case let int as Int:
+            return String(int)
+        case let double as Double:
+            let rounded = double.rounded()
+            if double == rounded {
+                return String(Int(rounded))
+            }
+            return String(double)
+        default:
+            return nil
+        }
     }
 }

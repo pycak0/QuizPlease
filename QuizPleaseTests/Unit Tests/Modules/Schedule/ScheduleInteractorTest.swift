@@ -59,7 +59,7 @@ final class ScheduleInteractorTest: XCTestCase {
 
     func testLoadScheduleDecodesGameCurrencySymbol() throws {
         networkServiceMock.getResults = [
-            .success(try makeResponse(ids: ["game-1"], currencySymbol: "€"))
+            .success(try makeResponse(ids: ["game-1"], currencySymbolJson: #""€""#))
         ]
 
         let result = loadSchedule(filter: try makeFilter(), page: 1)
@@ -145,10 +145,10 @@ final class ScheduleInteractorTest: XCTestCase {
 
     private func makeResponse(
         ids: [String],
-        currencySymbol: String? = nil
+        currencySymbolJson: String? = nil
     ) throws -> ServerResponse<ScheduledGamesResponse> {
-        let currencySymbolLine = currencySymbol
-            .map { #","currency_symbol":"\#($0)""# }
+        let currencySymbolLine = currencySymbolJson
+            .map { #","currency_symbol":\#($0)"# }
             ?? ""
         let games = ids
             .map { #"{"id":"\#($0)","datetime":"10.06.26 08:00"\#(currencySymbolLine)}"# }
