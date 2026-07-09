@@ -22,7 +22,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         options connectionOptions: UIScene.ConnectionOptions
     ) {
 #if DEBUG
-        if UITestGamePageBootstrap.presentIfNeeded(in: scene) { return }
+        if UITestBootstrap.presentIfNeeded(in: scene) { return }
 #endif
         // Use this method to optionally configure
         // and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -63,7 +63,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func sceneWillEnterForeground(_ scene: UIScene) {
 #if DEBUG
-        guard !UITestGamePageBootstrap.isEnabled else { return }
+        guard !UITestBootstrap.isEnabled else { return }
 #endif
         userService.updateToken()
 

@@ -39,4 +39,108 @@ final class UITestAnalyticsService: AnalyticsService {
     func sendEvent(_ event: AnalyticsEvent) { }
 }
 
+final class UITestRatingNetworkService: NetworkServiceProtocol {
+
+    @discardableResult
+    func get<T: Decodable>(
+        _ type: T.Type,
+        apiPath: String,
+        parameters: [String: String?]?,
+        headers: [String: String]?,
+        authorizationKind: NetworkService.AuthorizationKind,
+        networkConfiguration: NetworkConfiguration,
+        completion: @escaping ((Result<T, NetworkServiceError>) -> Void)
+    ) -> Cancellable? {
+        let response: Any
+
+        switch apiPath {
+        case ApiConstants.Path.ratingExternal:
+            response = RatingLeagueResponseData(result: [
+                RatingLeagueData(
+                    id: 1,
+                    title: "Классический",
+                    code: "classic",
+                    isCreated: true,
+                    isLoaded: true
+                )
+            ])
+        case ApiConstants.Path.ratingTeamsExternal:
+            response = ratingTeamResponse(isSeason: (parameters?["bySeason"] ?? nil) == "true")
+        default:
+            completion(.failure(.invalidUrl))
+            return nil
+        }
+
+        guard let typedResponse = response as? T else {
+            completion(.failure(.jsonError))
+            return nil
+        }
+
+        completion(.success(typedResponse))
+        return nil
+    }
+
+    func afPost<Response: Decodable>(
+        with bodyParameters: [String: String?],
+        queryParameters: [String: String?]?,
+        and headers: [String: String]?,
+        to apiPath: String,
+        responseType: Response.Type,
+        authorizationKind: NetworkService.AuthorizationKind,
+        completion: @escaping (Result<Response, NetworkServiceError>) -> Void
+    ) {
+        completion(.failure(.invalidUrl))
+    }
+
+    func afPost<Response: Decodable>(
+        with multipartFormDataObjects: MultipartFormDataObjects,
+        queryParameters: [String: String?]?,
+        and headers: [String: String]?,
+        to apiPath: String,
+        responseType: Response.Type,
+        authorizationKind: NetworkService.AuthorizationKind,
+        completion: @escaping (Result<Response, NetworkServiceError>) -> Void
+    ) {
+        completion(.failure(.invalidUrl))
+    }
+
+    @discardableResult
+    func post<Object: Encodable, Response: Decodable>(
+        _ object: Object,
+        apiPath: String,
+        parameters: [String: String?]?,
+        headers: [String: String]?,
+        authorizationKind: NetworkService.AuthorizationKind,
+        reponseType: Response.Type,
+        completion: @escaping ((Result<Response, NetworkServiceError>) -> Void)
+    ) -> Cancellable? {
+        completion(.failure(.invalidUrl))
+        return nil
+    }
+
+    private func ratingTeamResponse(isSeason: Bool) -> RatingTeamResponseData {
+        if isSeason {
+            return RatingTeamResponseData(result: [
+                RatingTeamItemData(
+                    index: 7,
+                    title: "Season Team",
+                    points: 1472,
+                    games: 26,
+                    rank: nil
+                )
+            ])
+        }
+
+        return RatingTeamResponseData(result: [
+            RatingTeamItemData(
+                index: 1,
+                title: "All Time Team",
+                points: 5000,
+                games: 100,
+                rank: nil
+            )
+        ])
+    }
+}
+
 #endif

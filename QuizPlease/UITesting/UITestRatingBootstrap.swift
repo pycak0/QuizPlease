@@ -1,8 +1,8 @@
 //
-//  UITestGamePageBootstrap.swift
+//  UITestRatingBootstrap.swift
 //  QuizPlease
 //
-//  Created by Codex on 07.07.2026.
+//  Created by Codex on 09.07.2026.
 //  Copyright © 2026 Владислав. All rights reserved.
 //
 
@@ -10,10 +10,10 @@
 
 import UIKit
 
-enum UITestGamePageBootstrap: UITestBootstrapScenario {
+enum UITestRatingBootstrap: UITestBootstrapScenario {
 
     static var isEnabled: Bool {
-        UITestLaunchArguments.contains(.gamePageMaxParticipants)
+        UITestLaunchArguments.contains(.ratingSeason)
     }
 
     @available(iOS 13.0, *)
@@ -22,12 +22,9 @@ enum UITestGamePageBootstrap: UITestBootstrapScenario {
 
         configureServices()
 
-        let viewController = GamePageAssembly(
-            launchOptions: GamePageLaunchOptions(
-                gameId: UITestGameFixtures.maxParticipantsGameId,
-                shouldScrollToRegistration: true
-            )
-        ).makeViewController()
+        let viewController = UIStoryboard.main.instantiateViewController(
+            withIdentifier: "RatingVC"
+        )
         let navigationController = QPNavigationController(rootViewController: viewController)
 
         let window = UIWindow(windowScene: windowScene)
@@ -42,8 +39,7 @@ enum UITestGamePageBootstrap: UITestBootstrapScenario {
     private static func configureServices() {
         let services = ServiceAssembly.shared
         services.analytics = UITestAnalyticsService()
-        services.placeGeocoder = UITestPlaceGeocoder()
-        services.gameInfoLoader = UITestGameInfoLoader(game: UITestGameFixtures.maxParticipantsGame())
+        services.networkService = UITestRatingNetworkService()
     }
 }
 

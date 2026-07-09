@@ -26,6 +26,9 @@ final class RatingTeamCell: UITableViewCell, IdentifiableType {
         selectedView.alpha = 0.1
         selectedView.backgroundColor = UIColor.black
         selectedBackgroundView = selectedView
+        teamNameLabel.accessibilityIdentifier = "rating.teamName"
+        gamesPlayedLabel.accessibilityIdentifier = "rating.gamesPlayed"
+        pointsScoredLabel.accessibilityIdentifier = "rating.pointsScored"
     }
 
     override func prepareForReuse() {
@@ -34,6 +37,7 @@ final class RatingTeamCell: UITableViewCell, IdentifiableType {
     }
 
     func configure(with team: String, games: Int, points: Int, imagePath: String?, place: Int) {
+        accessibilityIdentifier = "rating.teamCell.\(place)"
         teamNameLabel.text = "\(place). \(team)"
         gamesPlayedLabel.text = games.string(withAssociatedFirstCaseWord: "игра", changingCase: .nominative)
         pointsScoredLabel.text = points.string(withAssociatedMaleWord: "балл")
@@ -61,6 +65,7 @@ extension RatingTeamCell: RatingCell {
 
     func configure(with item: RatingItem) {
         guard let item = item as? RatingTeamItem else { return }
+        accessibilityIdentifier = "rating.teamCell.\(item.place)"
         setRankImage(urlString: item.imagePath)
         teamNameLabel.text = "\(item.place). \(item.name)"
         gamesPlayedLabel.text = item.games.string(withAssociatedFirstCaseWord: "игра", changingCase: .nominative)

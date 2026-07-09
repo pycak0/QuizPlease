@@ -483,6 +483,9 @@
 		D3A000000000000000000013 /* UITestLaunchArguments.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A000000000000000000012 /* UITestLaunchArguments.swift */; };
 		D3A000000000000000000015 /* UITestGameFixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A000000000000000000014 /* UITestGameFixtures.swift */; };
 		D3A000000000000000000017 /* UITestServiceStubs.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A000000000000000000016 /* UITestServiceStubs.swift */; };
+		D3A000000000000000000018 /* UITestRatingBootstrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A000000000000000000019 /* UITestRatingBootstrap.swift */; };
+		D3A000000000000000000020 /* RatingSeasonUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A000000000000000000021 /* RatingSeasonUITests.swift */; };
+		D3A000000000000000000022 /* UITestBootstrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A000000000000000000023 /* UITestBootstrap.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -988,6 +991,9 @@
 		D3A000000000000000000012 /* UITestLaunchArguments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestLaunchArguments.swift; sourceTree = "<group>"; };
 		D3A000000000000000000014 /* UITestGameFixtures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestGameFixtures.swift; sourceTree = "<group>"; };
 		D3A000000000000000000016 /* UITestServiceStubs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestServiceStubs.swift; sourceTree = "<group>"; };
+		D3A000000000000000000019 /* UITestRatingBootstrap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestRatingBootstrap.swift; sourceTree = "<group>"; };
+		D3A000000000000000000021 /* RatingSeasonUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingSeasonUITests.swift; sourceTree = "<group>"; };
+		D3A000000000000000000023 /* UITestBootstrap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestBootstrap.swift; sourceTree = "<group>"; };
 		D9A76244BD183C0367D4FEEF /* Pods-QuizPlease Production.production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuizPlease Production.production.xcconfig"; path = "Target Support Files/Pods-QuizPlease Production/Pods-QuizPlease Production.production.xcconfig"; sourceTree = "<group>"; };
 		E8E6B24E17450DF3806C56BE /* Pods-QuizPlease Production.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuizPlease Production.debug.xcconfig"; path = "Target Support Files/Pods-QuizPlease Production/Pods-QuizPlease Production.debug.xcconfig"; sourceTree = "<group>"; };
 		ED3B05AF6CD4F9DDBD0C34A6 /* Pods-QuizPlease.production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuizPlease.production.xcconfig"; path = "Target Support Files/Pods-QuizPlease/Pods-QuizPlease.production.xcconfig"; sourceTree = "<group>"; };
@@ -2615,6 +2621,7 @@
 			isa = PBXGroup;
 			children = (
 				D3A000000000000000000003 /* GamePageMaxParticipantsUITests.swift */,
+				D3A000000000000000000021 /* RatingSeasonUITests.swift */,
 			);
 			path = QuizPleaseUITests;
 			sourceTree = "<group>";
@@ -2622,9 +2629,11 @@
 		D3A000000000000000000011 /* UITesting */ = {
 			isa = PBXGroup;
 			children = (
+				D3A000000000000000000023 /* UITestBootstrap.swift */,
 				D3A000000000000000000001 /* UITestGamePageBootstrap.swift */,
 				D3A000000000000000000014 /* UITestGameFixtures.swift */,
 				D3A000000000000000000012 /* UITestLaunchArguments.swift */,
+				D3A000000000000000000019 /* UITestRatingBootstrap.swift */,
 				D3A000000000000000000016 /* UITestServiceStubs.swift */,
 			);
 			path = UITesting;
@@ -2969,8 +2978,10 @@
 				A468C55328C5541E00962930 /* String+nonBreakingSpace.swift in Sources */,
 				A4D44A1528D0E220004703B4 /* OnboardingViewCell.swift in Sources */,
 				D3A000000000000000000002 /* UITestGamePageBootstrap.swift in Sources */,
+				D3A000000000000000000022 /* UITestBootstrap.swift in Sources */,
 				D3A000000000000000000015 /* UITestGameFixtures.swift in Sources */,
 				D3A000000000000000000013 /* UITestLaunchArguments.swift in Sources */,
+				D3A000000000000000000018 /* UITestRatingBootstrap.swift in Sources */,
 				D3A000000000000000000017 /* UITestServiceStubs.swift in Sources */,
 				4C1FF9AA2ECBBE2B00EEA63B /* NetworkServiceImpl.swift in Sources */,
 				A40B758024D9A75A006DB7D1 /* ScheduleRouter.swift in Sources */,
@@ -3384,6 +3395,7 @@
 			isa = PBXSourcesBuildPhase;
 			files = (
 				D3A000000000000000000004 /* GamePageMaxParticipantsUITests.swift in Sources */,
+				D3A000000000000000000020 /* RatingSeasonUITests.swift in Sources */,
 			);
 		};
 /* End PBXSourcesBuildPhase section */

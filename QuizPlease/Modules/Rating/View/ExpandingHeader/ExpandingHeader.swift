@@ -32,6 +32,8 @@ public class ExpandingHeader: UIView {
 
     @IBOutlet private weak var expandView: UIView! {
         didSet {
+            expandView.isAccessibilityElement = true
+            expandView.accessibilityIdentifier = "rating.expandFilters"
             expandView.layer.cornerRadius = ExpandingHeader.itemsCornerRadius
             expandView.addGestureRecognizer(UITapGestureRecognizer(
                 target: self, action: #selector(toggleExpanded)))
@@ -52,6 +54,8 @@ public class ExpandingHeader: UIView {
 
     @IBOutlet private weak var segmentControl: HBSegmentedControl! {
         didSet {
+            segmentControl.isAccessibilityElement = true
+            segmentControl.accessibilityIdentifier = "rating.scopeSegmentControl"
             segmentControl.dampingRatio = 0.7
             segmentControl.font = .gilroy(.bold, size: 16)
             segmentControl.backgroundColor = ExpandingHeader.themeColor
