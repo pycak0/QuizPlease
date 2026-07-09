@@ -57,6 +57,17 @@ final class ScheduleInteractorTest: XCTestCase {
         XCTAssertEqual(schedulePage.games.map(\.id), ["game-1", "game-2"])
     }
 
+    func testLoadScheduleDecodesGameCurrencySymbol() throws {
+        networkServiceMock.getResults = [
+            .success(try makeResponse(ids: ["game-1"], currencySymbol: "€"))
+        ]
+
+        let result = loadSchedule(filter: try makeFilter(), page: 1)
+        let game = try XCTUnwrap(result.get().games.first)
+
+        XCTAssertEqual(game.currencySymbol, "€")
+    }
+
     func testLoadScheduleKeepsFilterParameters() throws {
         networkServiceMock.getResults = [
             .success(try makeResponse(ids: []))
@@ -132,9 +143,15 @@ final class ScheduleInteractorTest: XCTestCase {
         return try JSONDecoder().decode(ScheduleFilterOption.self, from: data)
     }
 
-    private func makeResponse(ids: [String]) throws -> ServerResponse<ScheduledGamesResponse> {
+    private func makeResponse(
+        ids: [String],
+        currencySymbol: String? = nil
+    ) throws -> ServerResponse<ScheduledGamesResponse> {
+        let currencySymbolLine = currencySymbol
+            .map { #","currency_symbol":"\#($0)""# }
+            ?? ""
         let games = ids
-            .map { #"{"id":"\#($0)","datetime":"10.06.26 08:00"}"# }
+            .map { #"{"id":"\#($0)","datetime":"10.06.26 08:00"\#(currencySymbolLine)}"# }
             .joined(separator: ",")
         let json = #"{"data":{"data":[\#(games)]}}"#
         let data = Data(json.utf8)

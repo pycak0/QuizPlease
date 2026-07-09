@@ -130,6 +130,39 @@ final class GameInfoLoaderTest: XCTestCase {
         XCTAssertEqual(game.maxParticipants, 12)
     }
 
+    func testGameInfoFormatsPriceWithCurrencySymbol() throws {
+        let json = """
+        {
+          "id": "game-id",
+          "nameGame": "Game",
+          "blockData": "date",
+          "time": "19:00",
+          "price": "1000 ₽",
+          "currency_symbol": "€",
+          "text": "стоимость, с человека",
+          "place": "Place",
+          "cityName": "City",
+          "payment_icon": 0,
+          "game_type": 0,
+          "price_type": 0,
+          "blockOf": 10
+        }
+        """.data(using: .utf8)!
+
+        let game = try JSONDecoder().decode(GameInfo.self, from: json)
+
+        XCTAssertEqual(game.currencySymbol, "€")
+        XCTAssertEqual(game.priceWithCurrency, "1000 €")
+        XCTAssertEqual(game.priceDetails, "1000 € стоимость, с человека")
+    }
+
+    func testGameInfoFallsBackToRubleCurrencySymbol() throws {
+        let game = try JSONDecoder().decode(GameInfo.self, from: gameInfoJson(maxParticipants: nil))
+
+        XCTAssertEqual(game.currencySymbol, "₽")
+        XCTAssertEqual(game.priceWithCurrency, "1000 ₽")
+    }
+
     func testGameInfoUsesDefaultMaxParticipantsWhenValueIsMissing() throws {
         let json = """
         {
@@ -153,6 +186,22 @@ final class GameInfoLoaderTest: XCTestCase {
         XCTAssertEqual(game.maxParticipants, GameInfo.defaultMaxParticipants)
     }
 
+    func testGameInfoKeepsCurrencySymbolWhenFullInfoDoesNotHaveIt() throws {
+        var game = try JSONDecoder().decode(
+            GameInfo.self,
+            from: gameInfoJson(maxParticipants: nil)
+        )
+        let shortInfo = try JSONDecoder().decode(
+            GameInfo.self,
+            from: gameInfoJson(maxParticipants: nil, currencySymbol: "€")
+        )
+
+        game.setShortInfo(shortInfo)
+
+        XCTAssertEqual(game.currencySymbol, "€")
+        XCTAssertEqual(game.priceWithCurrency, "1000 €")
+    }
+
     func testGameInfoKeepsMaxParticipantsWhenShortInfoDoesNotHaveIt() throws {
         var game = try JSONDecoder().decode(GameInfo.self, from: gameInfoJson(maxParticipants: 12))
         let shortInfo = try JSONDecoder().decode(GameInfo.self, from: gameInfoJson(maxParticipants: nil))
@@ -162,9 +211,12 @@ final class GameInfoLoaderTest: XCTestCase {
         XCTAssertEqual(game.maxParticipants, 12)
     }
 
-    private func gameInfoJson(maxParticipants: Int?) -> Data {
+    private func gameInfoJson(maxParticipants: Int?, currencySymbol: String? = nil) -> Data {
         let maxParticipantsLine = maxParticipants
             .map { ",\n          \"max_participants\": \($0)" }
+            ?? ""
+        let currencySymbolLine = currencySymbol
+            .map { ",\n          \"currency_symbol\": \"\($0)\"" }
             ?? ""
         return """
         {
@@ -179,7 +231,7 @@ final class GameInfoLoaderTest: XCTestCase {
           "payment_icon": 0,
           "game_type": 0,
           "price_type": 0,
-          "blockOf": 10\(maxParticipantsLine)
+          "blockOf": 10\(maxParticipantsLine)\(currencySymbolLine)
         }
         """.data(using: .utf8)!
     }
