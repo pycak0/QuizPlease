@@ -14,20 +14,27 @@ enum UITestGamePageBootstrap: UITestBootstrapScenario {
 
     static var isEnabled: Bool {
         UITestLaunchArguments.contains(.gamePageMaxParticipants)
+            || UITestLaunchArguments.contains(.scheduleCurrency)
     }
 
     @available(iOS 13.0, *)
     static func presentIfNeeded(in scene: UIScene) -> Bool {
         guard isEnabled, let windowScene = scene as? UIWindowScene else { return false }
 
-        configureServices()
+        let viewController: UIViewController
+        if UITestLaunchArguments.contains(.scheduleCurrency) {
+            configureScheduleCurrencyServices()
+            viewController = UIStoryboard.main.instantiateViewController(withIdentifier: "ScheduleVC")
+        } else {
+            configureMaxParticipantsServices()
+            viewController = GamePageAssembly(
+                launchOptions: GamePageLaunchOptions(
+                    gameId: UITestGameFixtures.maxParticipantsGameId,
+                    shouldScrollToRegistration: true
+                )
+            ).makeViewController()
+        }
 
-        let viewController = GamePageAssembly(
-            launchOptions: GamePageLaunchOptions(
-                gameId: UITestGameFixtures.maxParticipantsGameId,
-                shouldScrollToRegistration: true
-            )
-        ).makeViewController()
         let navigationController = QPNavigationController(rootViewController: viewController)
 
         let window = UIWindow(windowScene: windowScene)
@@ -39,11 +46,20 @@ enum UITestGamePageBootstrap: UITestBootstrapScenario {
         return true
     }
 
-    private static func configureServices() {
+    private static func configureMaxParticipantsServices() {
         let services = ServiceAssembly.shared
         services.analytics = UITestAnalyticsService()
         services.placeGeocoder = UITestPlaceGeocoder()
         services.gameInfoLoader = UITestGameInfoLoader(game: UITestGameFixtures.maxParticipantsGame())
+    }
+
+    private static func configureScheduleCurrencyServices() {
+        let services = ServiceAssembly.shared
+        services.analytics = UITestAnalyticsService()
+        services.placeGeocoder = UITestPlaceGeocoder()
+        services.networkService = UITestScheduleCurrencyNetworkService()
+        services.gameInfoLoader = UITestGameInfoLoader(game: UITestGameFixtures.currencyGame())
+        services.userService = UITestUserService()
     }
 }
 

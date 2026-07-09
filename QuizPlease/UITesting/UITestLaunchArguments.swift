@@ -12,6 +12,7 @@ import Foundation
 
 enum UITestLaunchArgument: String {
     case gamePageMaxParticipants = "-UITestGamePageMaxParticipants"
+    case scheduleCurrency = "-UITestScheduleCurrency"
     case ratingSeason = "-UITestRatingSeason"
 }
 

@@ -8,6 +8,8 @@
 
 ## Build
 
+- For Jira-like tasks with a visible ticket key, create a feature branch named after the ticket
+  (for example `feature/MA-34`) and commit with a message like `MA-XX: Add Something`.
 - Build this project from `QuizPlease.xcworkspace`, not from `QuizPlease.xcodeproj`.
 - CocoaPods is pinned in `Gemfile` (`cocoapods` 1.17.0). After Podfile changes run `bundle install` (first time) and `bundle exec pod install`.
 - For local CLI builds use `make build` and `make run` (see `README.md`).

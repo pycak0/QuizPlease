@@ -16,13 +16,16 @@ extension GamePageItemKind {
 struct GamePagePaymentSumItem {
 
     let getPaymentSum: () -> Double
+    let getCurrencySymbol: () -> String
     let getPriceTextColor: () -> UIColor
 
     init(
         getPaymentSum: @escaping () -> Double,
+        getCurrencySymbol: @escaping () -> String,
         getPriceTextColor: @escaping () -> UIColor
     ) {
         self.getPaymentSum = getPaymentSum
+        self.getCurrencySymbol = getCurrencySymbol
         self.getPriceTextColor = getPriceTextColor
     }
 }

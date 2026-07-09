@@ -107,6 +107,9 @@ final class GamePagePaymentSectionBuilder {
                 getPaymentSum: { [weak paymentInfoProvider] in
                     paymentInfoProvider?.calculatePaymentSum() ?? 0
                 },
+                getCurrencySymbol: { [weak paymentInfoProvider] in
+                    paymentInfoProvider?.getCurrencySymbol() ?? "₽"
+                },
                 getPriceTextColor: { [weak paymentInfoProvider] in
                     let anyDiscounts = paymentInfoProvider?.hasAnyDiscounts() ?? false
                     return anyDiscounts ? .lightGreen : .labelAdapted

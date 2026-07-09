@@ -143,4 +143,113 @@ final class UITestRatingNetworkService: NetworkServiceProtocol {
     }
 }
 
+final class UITestScheduleCurrencyNetworkService: NetworkServiceProtocol {
+
+    @discardableResult
+    func get<T: Decodable>(
+        _ type: T.Type,
+        apiPath: String,
+        parameters: [String: String?]?,
+        headers: [String: String]?,
+        authorizationKind: NetworkService.AuthorizationKind,
+        networkConfiguration: NetworkConfiguration,
+        completion: @escaping ((Result<T, NetworkServiceError>) -> Void)
+    ) -> Cancellable? {
+        guard apiPath == ApiConstants.Path.game else {
+            completion(.failure(.invalidUrl))
+            return nil
+        }
+
+        let json = """
+        {
+          "data": {
+            "data": [
+              {
+                "id": "\(UITestGameFixtures.currencyGameId)",
+                "datetime": "10.06.26 19:30",
+                "currency_symbol": "€"
+              }
+            ]
+          }
+        }
+        """
+
+        guard
+            let data = json.data(using: .utf8),
+            let response = try? JSONDecoder().decode(T.self, from: data)
+        else {
+            completion(.failure(.jsonError))
+            return nil
+        }
+
+        completion(.success(response))
+        return nil
+    }
+
+    func afPost<Response: Decodable>(
+        with bodyParameters: [String: String?],
+        queryParameters: [String: String?]?,
+        and headers: [String: String]?,
+        to apiPath: String,
+        responseType: Response.Type,
+        authorizationKind: NetworkService.AuthorizationKind,
+        completion: @escaping (Result<Response, NetworkServiceError>) -> Void
+    ) {
+        completion(.failure(.invalidUrl))
+    }
+
+    func afPost<Response: Decodable>(
+        with multipartFormDataObjects: MultipartFormDataObjects,
+        queryParameters: [String: String?]?,
+        and headers: [String: String]?,
+        to apiPath: String,
+        responseType: Response.Type,
+        authorizationKind: NetworkService.AuthorizationKind,
+        completion: @escaping (Result<Response, NetworkServiceError>) -> Void
+    ) {
+        completion(.failure(.invalidUrl))
+    }
+
+    @discardableResult
+    func post<Object: Encodable, Response: Decodable>(
+        _ object: Object,
+        apiPath: String,
+        parameters: [String: String?]?,
+        headers: [String: String]?,
+        authorizationKind: NetworkService.AuthorizationKind,
+        reponseType: Response.Type,
+        completion: @escaping ((Result<Response, NetworkServiceError>) -> Void)
+    ) -> Cancellable? {
+        completion(.failure(.invalidUrl))
+        return nil
+    }
+}
+
+final class UITestUserService: UserService {
+
+    var isloggedIn: Bool { false }
+
+    func getUserInfo(completion: @escaping (Result<UserInfo, NetworkServiceError>) -> Void) {
+        completion(.failure(.invalidToken))
+    }
+
+    func getSignedUpGames(completion: @escaping (Result<[SignedUpGame], NetworkServiceError>) -> Void) {
+        completion(.failure(.invalidToken))
+    }
+
+    func loadUserInfo(completion: @escaping (Result<UserInfo, NetworkServiceError>) -> Void) {
+        completion(.failure(.invalidToken))
+    }
+
+    func deleteAccount(completion: @escaping (Result<Void, NetworkServiceError>) -> Void) {
+        completion(.failure(.invalidToken))
+    }
+
+    func updateToken(completion: (() -> Void)?) {
+        completion?()
+    }
+
+    func logout() { }
+}
+
 #endif

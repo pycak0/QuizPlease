@@ -414,6 +414,10 @@ final class GamePageInteractor: GamePageInteractorProtocol {
         )
     }
 
+    func getCurrencySymbol() -> String {
+        gameInfo.currencySymbol
+    }
+
     func hasAnyDiscounts() -> Bool {
         !registrationService
             .getSpecialConditions()

@@ -18,6 +18,7 @@ struct GameShortInfo: Decodable {
     let is_little_place: Bool?
     let show_remind_button: Bool?
     let max_participants: Int?
+    let currency_symbol: String?
 
     var date: Date? {
         let formatter = DateFormatter()
