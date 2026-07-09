@@ -184,3 +184,63 @@ final class GameInfoLoaderTest: XCTestCase {
         """.data(using: .utf8)!
     }
 }
+
+final class RatingExternalResponseDecodingTest: XCTestCase {
+
+    func testRatingExternalLeaguesResponseDecodesBackendContract() throws {
+        let json = """
+        {
+          "result": [
+            {
+              "id": 1,
+              "title": "Classic",
+              "code": "classic",
+              "is_created": true,
+              "is_loaded": true
+            }
+          ]
+        }
+        """.data(using: .utf8)!
+
+        let response = try JSONDecoder().decode(RatingLeagueResponseData.self, from: json)
+        let league = try XCTUnwrap(response.result.first)
+
+        XCTAssertEqual(league.id, 1)
+        XCTAssertEqual(league.title, "Classic")
+        XCTAssertEqual(league.code, "classic")
+        XCTAssertEqual(league.isCreated, true)
+        XCTAssertEqual(league.isLoaded, true)
+    }
+
+    func testRatingExternalTeamsResponseDecodesAndMapsBackendContract() throws {
+        let json = """
+        {
+          "result": [
+            {
+              "id": 854334,
+              "index": 17,
+              "title": "Team",
+              "points": 548.5,
+              "games": 9,
+              "rank": {
+                "title": "Legend",
+                "image_path": "https://cdn.example.com/rank.png"
+              }
+            }
+          ],
+          "totalCount": 1
+        }
+        """.data(using: .utf8)!
+
+        let response = try JSONDecoder().decode(RatingTeamResponseData.self, from: json)
+        let itemData = try XCTUnwrap(response.result.first)
+        let item = RatingTeamDataToItemMapperImpl().map(itemData, place: 1)
+
+        XCTAssertEqual(item.place, 17)
+        XCTAssertEqual(item.name, "Team")
+        XCTAssertEqual(item.games, 9)
+        XCTAssertEqual(item.pointsTotal, 548.5)
+        XCTAssertEqual(item.rank, "Legend")
+        XCTAssertEqual(item.imagePath, "https://cdn.example.com/rank.png")
+    }
+}

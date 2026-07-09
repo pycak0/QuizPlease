@@ -30,3 +30,4 @@ make run
 
 - When implementing behavior, add or update focused tests for it. If tests are not practical for the change, state the reason explicitly.
 - Prefer the `QuizPleaseTests` scheme for unit tests.
+- For simulator test runs, use the `iPhone 17 Pro Max` simulator.

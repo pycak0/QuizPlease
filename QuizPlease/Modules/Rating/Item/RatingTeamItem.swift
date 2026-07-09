@@ -28,7 +28,7 @@ struct RatingTeamItem: Decodable, Equatable {
     let rank: String?
 
     /// Path to the rank image (if any).
-    /// Mirrors `rank.image.path` from the new API.
+    /// Mirrors `rank.image_path` from the external rating API.
     private var image: String?
 
     enum CodingKeys: String, CodingKey {

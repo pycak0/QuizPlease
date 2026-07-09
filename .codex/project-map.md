@@ -1,12 +1,13 @@
 # QuizPlease Project Map
 
-Last updated: 2026-07-07
+Last updated: 2026-07-09
 Purpose: working memory for future Codex sessions. Keep `AGENTS.md` short and put evolving repo knowledge here.
 
 ## TL;DR
 
 - UIKit app with storyboard entry points. No SwiftUI found in sources.
 - Main build entry is the workspace, not the standalone project: `QuizPlease.xcworkspace`.
+- Default simulator for CLI test runs: `iPhone 17 Pro Max`.
 - Main Xcode project uses `objectVersion = 100` / `preferredProjectObjectVersion = 100` (Xcode 26 format). CocoaPods is pinned via repo `Gemfile` (`cocoapods` 1.17.0, `xcodeproj` 1.28.1); run `bundle exec pod install`.
 - Shared schemes: `QuizPlease Debug`, `QuizPlease Staging`, `QuizPlease Production`, `QuizPleaseTests`, `QuizPleaseUITests`.
 - Main app targets: `QuizPlease` and `QuizPlease Production`. Test targets: `QuizPleaseTests`, `QuizPleaseUITests`.

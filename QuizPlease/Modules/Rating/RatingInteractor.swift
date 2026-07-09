@@ -57,8 +57,8 @@ class RatingInteractor: RatingInteractorProtocol {
 
     func loadLeagues() {
         let token = networkService.get(
-            [RatingLeagueData].self,
-            apiPath: ApiConstants.Path.rating,
+            RatingLeagueResponseData.self,
+            apiPath: ApiConstants.Path.ratingExternal,
             parameters: nil,
             headers: nil,
             authorizationKind: .none,
@@ -68,8 +68,8 @@ class RatingInteractor: RatingInteractorProtocol {
             switch result {
             case let .failure(error):
                 self.output?.interactor(self, errorOccured: error)
-            case let .success(leagues):
-                self.output?.interactor(self, didLoadLeagues: leagues)
+            case let .success(data):
+                self.output?.interactor(self, didLoadLeagues: data.result)
             }
         }
         runningTasks.append(token)
@@ -82,7 +82,10 @@ class RatingInteractor: RatingInteractorProtocol {
             "city": "\(filter.city.slug)",
             "bySeason": "\(isSeason)",
             "page": "\(page)",
-            "perPage": "\(RatingInteractorConstants.ratingItemsPerPage)"
+            "perPage": "\(RatingInteractorConstants.ratingItemsPerPage)",
+            "order": "points",
+            "orderBy": "desc",
+            "title": filter.teamName
         ]
 
         if let leagueId = filter.league?.id {
@@ -91,13 +94,9 @@ class RatingInteractor: RatingInteractorProtocol {
             log.warn("leagueId is nil")
         }
 
-        if !filter.teamName.isEmpty {
-            parameters["title"] = filter.teamName
-        }
-
         let token = networkService.get(
             RatingTeamResponseData.self,
-            apiPath: ApiConstants.Path.ratingTeams,
+            apiPath: ApiConstants.Path.ratingTeamsExternal,
             parameters: parameters,
             headers: nil,
             authorizationKind: .none,
