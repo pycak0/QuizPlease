@@ -46,26 +46,19 @@ final class ProfileCell: UITableViewCell, IdentifiableType {
     func configure(
         gameName: String,
         gameNumber: String,
-        teamName: String,
         place: String?,
-        pointsScoredText: String?
+        teamName: String?,
+        dateAndTime: String?
     ) {
         gameNameLabel.text = gameName
         gameNumberLabel.text = gameNumber
+        placeLabel.text = place
         teamNameLabel.text = teamName
+        pointsScoredLabel.text = dateAndTime
 
-        pointsScoredLabel.isHidden = pointsScoredText == nil
-        if let text = pointsScoredText {
-            pointsScoredLabel.text = text
-        }
-
-        if let placeStr = place {
-            placeLabel.text = "\(placeStr) место"
-            let number = Double(placeStr) ?? 99
-            prizeImageView.isHidden = number > 3
-        } else {
-            placeLabel.isHidden = true
-            prizeImageView.isHidden = true
-        }
+        placeLabel.isHidden = place == nil
+        teamNameLabel.isHidden = teamName == nil
+        prizeImageView.isHidden = true
+        pointsScoredLabel.isHidden = dateAndTime == nil
     }
 }

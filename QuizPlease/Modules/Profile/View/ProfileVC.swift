@@ -174,7 +174,7 @@ extension ProfileVC: ProfileViewProtocol {
     }
 
     func updateUserInfo(with pointsScored: Double) {
-        let gamesCount = presenter.userInfo?.games?.count ?? 0
+        let gamesCount = presenter.signedUpGames.count
         totalPointsScoredLabel.text = pointsFormatter.string(from: pointsScored as NSNumber)
         let gamesFormattedCount = gamesCount.string(withAssociatedFirstCaseWord: "игра", changingCase: .genitive)
         gamesCountLabel.text = "Вы сходили на \(gamesFormattedCount) и накопили"
@@ -229,11 +229,12 @@ extension ProfileVC: AddGameVCDelegate {
 extension ProfileVC: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter.userInfo?.games?.count ?? 1
+        return presenter.signedUpGames.isEmpty ? 1 : presenter.signedUpGames.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let games = presenter.userInfo?.games, !games.isEmpty else {
+        let games = presenter.signedUpGames
+        guard !games.isEmpty else {
             let cell = tableView.dequeueReusableCell(ProfileSampleCell.self, for: indexPath)
             let description = "Тут появляются игры, на которых вы зажигали! " +
             "Чтобы добавить игру, жмите на кнопку Добавить игру и сканируйте QR-код"
@@ -244,13 +245,12 @@ extension ProfileVC: UITableViewDataSource, UITableViewDelegate {
 
         let cell = tableView.dequeueReusableCell(ProfileCell.self, for: indexPath)
         let game = games[indexPath.row]
-        let pointsText = game.points.map { pointsFormatter.string(from: $0 as NSNumber) ?? "" }
         cell.configure(
             gameName: game.title,
             gameNumber: game.gameNumber,
-            teamName: "",
-            place: game.place,
-            pointsScoredText: pointsText
+            place: game.placeTitle,
+            teamName: game.teamName,
+            dateAndTime: game.dateAndTime
         )
         return cell
     }
