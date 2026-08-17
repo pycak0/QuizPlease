@@ -1,0 +1,4 @@
+interface:
+  display_name: "QuizPlease Jira Ticket"
+  short_description: "Load QuizPlease Jira tickets before coding"
+  default_prompt: "Use $jira-ticket to load MA-36 from Jira and prepare the implementation."

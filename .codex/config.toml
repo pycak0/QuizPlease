@@ -1,0 +1,17 @@
+[mcp_servers.quizplease_jira]
+command = "/bin/sh"
+args = [".codex/run-jira-mcp.sh"]
+cwd = "/Users/pycak/Projects/QuizPlease"
+required = false
+startup_timeout_sec = 120
+tool_timeout_sec = 60
+default_tools_approval_mode = "auto"
+enabled_tools = [
+  "jira_get_user_profile",
+  "jira_get_issue",
+  "jira_search",
+  "jira_search_fields",
+  "jira_get_project_issues",
+  "jira_get_transitions",
+  "jira_get_worklog",
+]

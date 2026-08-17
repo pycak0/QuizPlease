@@ -8,6 +8,7 @@
 
 ## Build
 
+- When a request names an `MA-*` Jira ticket or says `задача N`, use the repo-local `jira-ticket` skill to load the ticket before planning or editing code.
 - For Jira-like tasks with a visible ticket key, create a feature branch named after the ticket
   (for example `feature/MA-34`) and commit with a message like `MA-XX: Add Something`.
 - Build this project from `QuizPlease.xcworkspace`, not from `QuizPlease.xcodeproj`.

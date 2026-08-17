@@ -13,3 +13,4 @@ xcuserdata
 .claude
 logs/
 .vscode
+/.codex/jira.env

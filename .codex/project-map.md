@@ -1,6 +1,6 @@
 # QuizPlease Project Map
 
-Last updated: 2026-07-09
+Last updated: 2026-08-17
 Purpose: working memory for future Codex sessions. Keep `AGENTS.md` short and put evolving repo knowledge here.
 
 ## TL;DR
@@ -17,6 +17,7 @@ Purpose: working memory for future Codex sessions. Keep `AGENTS.md` short and pu
 - App composition is assembly-based: global infra is wired in `CoreAssembly` and `ServiceAssembly`, feature screens are wired in per-module assemblies.
 - Navigation and external entry points are centralized in `TransitionFacade` and the applink/deeplink stack.
 - Networking is in transition: there is both a global `NetworkService.shared` facade and an injected `NetworkServiceProtocol` / `NetworkServiceImpl` path.
+- Jira ticket context is available through the repo-local `jira-ticket` skill and project-scoped `quizplease_jira` MCP. It uses `mcp-atlassian` 0.23.0 in read-only mode and hard-filters Jira project `MA`.
 
 ## Build And Config Snapshot
 
