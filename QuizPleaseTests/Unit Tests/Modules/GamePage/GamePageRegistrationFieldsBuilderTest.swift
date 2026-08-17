@@ -12,20 +12,24 @@ final class GamePageRegistrationFieldsBuilderTest: XCTestCase {
 
     private var registerFormProvider: GamePageRegisterFormProviderMock!
     private var tableInfoProvider: GamePageTableInfoProviderMock!
+    private var teamLimitProvider: GamePageTeamLimitProviderMock!
     private var builder: GamePageRegistrationFieldsBuilder!
 
     override func setUp() {
         super.setUp()
         registerFormProvider = GamePageRegisterFormProviderMock()
         tableInfoProvider = GamePageTableInfoProviderMock()
+        teamLimitProvider = GamePageTeamLimitProviderMock()
         builder = GamePageRegistrationFieldsBuilder(
             registerFormProvider: registerFormProvider,
-            tableInfoProvider: tableInfoProvider
+            tableInfoProvider: tableInfoProvider,
+            teamLimitProvider: teamLimitProvider
         )
     }
 
     override func tearDown() {
         builder = nil
+        teamLimitProvider = nil
         tableInfoProvider = nil
         registerFormProvider = nil
         super.tearDown()
@@ -64,11 +68,50 @@ final class GamePageRegistrationFieldsBuilderTest: XCTestCase {
         XCTAssertEqual(registerFormProvider.registerForm.countPaidOnline, 8)
     }
 
+    func testTeamCountUsesGameMaxParticipantsBelowDefault() throws {
+        tableInfoProvider.tables = []
+        teamLimitProvider.maxParticipants = 5
+
+        let item = try makeTeamCountItem()
+
+        XCTAssertEqual(item.getMinCount(), 2)
+        XCTAssertEqual(item.getMaxCount(), 5)
+    }
+
+    func testTeamCountUsesGameMaxParticipantsAboveDefault() throws {
+        tableInfoProvider.tables = []
+        teamLimitProvider.maxParticipants = 12
+
+        let item = try makeTeamCountItem()
+
+        XCTAssertEqual(item.getMaxCount(), 12)
+    }
+
+    func testTeamCountFallsBackToDefaultMaxParticipantsWithoutProvider() throws {
+        builder = GamePageRegistrationFieldsBuilder(
+            registerFormProvider: registerFormProvider,
+            tableInfoProvider: tableInfoProvider
+        )
+        tableInfoProvider.tables = []
+
+        let item = try makeTeamCountItem()
+
+        XCTAssertEqual(item.getMaxCount(), GameInfo.defaultMaxParticipants)
+    }
+
     private func makeTablePickerItem() throws -> GamePageTablePickerItem {
         let item = builder
             .makeItems()
             .first(where: { $0.kind == .teamCount })
 
         return try XCTUnwrap(item as? GamePageTablePickerItem)
+    }
+
+    private func makeTeamCountItem() throws -> GamePageTeamCountItem {
+        let item = builder
+            .makeItems()
+            .first(where: { $0.kind == .teamCount })
+
+        return try XCTUnwrap(item as? GamePageTeamCountItem)
     }
 }

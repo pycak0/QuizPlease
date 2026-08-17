@@ -50,11 +50,19 @@ final class ScheduleGameCell: UITableViewCell {
     @IBOutlet private weak var placeNameLabel: UILabel!
     @IBOutlet private weak var placeAddressLabel: UILabel!
     @IBOutlet private weak var timeLabel: UILabel!
-    @IBOutlet private weak var priceLabel: UILabel!
+    @IBOutlet private weak var priceLabel: UILabel! {
+        didSet {
+            priceLabel.accessibilityIdentifier = "schedule.gamePrice"
+        }
+    }
 
     @IBOutlet private weak var locationButton: UIButton!
     @IBOutlet private weak var remindButton: UIButton!
-    @IBOutlet private weak var infoButton: UIButton!
+    @IBOutlet private weak var infoButton: UIButton! {
+        didSet {
+            infoButton.accessibilityIdentifier = "schedule.infoButton"
+        }
+    }
     @IBOutlet private weak var extraInfoButton: UIButton! {
         didSet {
             extraInfoButton.backgroundColor = .amaranth

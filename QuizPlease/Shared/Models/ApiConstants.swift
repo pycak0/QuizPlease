@@ -22,6 +22,8 @@ enum ApiConstants {
         // Rating
         static let rating = "/api/rating"
         static let ratingTeams = "/api/team"
+        static let ratingExternal = "/api/external/rating"
+        static let ratingTeamsExternal = "/api/external/team"
 
         // Shop / Products / Orders
         static let product = "/api/product"

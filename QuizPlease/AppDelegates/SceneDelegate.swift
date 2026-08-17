@@ -21,6 +21,9 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         willConnectTo session: UISceneSession,
         options connectionOptions: UIScene.ConnectionOptions
     ) {
+#if DEBUG
+        if UITestBootstrap.presentIfNeeded(in: scene) { return }
+#endif
         // Use this method to optionally configure
         // and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically
@@ -59,6 +62,9 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
+#if DEBUG
+        guard !UITestBootstrap.isEnabled else { return }
+#endif
         userService.updateToken()
 
         // Called as the scene transitions from the background to the foreground.

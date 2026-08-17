@@ -35,6 +35,9 @@ protocol GamePagePaymentInfoProvider: AnyObject {
     /// Calculates payment sum
     func calculatePaymentSum() -> Double
 
+    /// Currency symbol for game prices
+    func getCurrencySymbol() -> String
+
     /// Return whether any discounts were applied or not
     func hasAnyDiscounts() -> Bool
 }

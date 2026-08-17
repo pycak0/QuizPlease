@@ -100,8 +100,9 @@ final class GamePagePaymentSumCell: UITableViewCell {
         dashView.layer.addSublayer(CAShapeLayer.dashedLine(start: startPoint, end: endPoint))
     }
 
-    private func setPaymentSum(_ price: Double, priceColor: UIColor?) {
-        priceLabel.text = NumberFormatter.decimalFormatter.string(from: price as NSNumber) ?? "N/A"
+    private func setPaymentSum(_ price: Double, currencySymbol: String, priceColor: UIColor?) {
+        let priceText = NumberFormatter.decimalFormatter.string(from: price as NSNumber) ?? "N/A"
+        priceLabel.text = "\(priceText) \(currencySymbol)"
         priceLabel.textColor = priceColor ?? .labelAdapted
     }
 }
@@ -113,8 +114,9 @@ extension GamePagePaymentSumCell: GamePageCellProtocol {
     func configure(with item: GamePageItemProtocol) {
         guard let item = item as? GamePagePaymentSumItem else { return }
         let price = item.getPaymentSum()
+        let currencySymbol = item.getCurrencySymbol()
         let priceColor = item.getPriceTextColor()
-        setPaymentSum(price, priceColor: priceColor)
+        setPaymentSum(price, currencySymbol: currencySymbol, priceColor: priceColor)
     }
 }
 

@@ -3,6 +3,8 @@ Keys.plist
 Frameworks
 Pods
 *.lock
+!Gemfile.lock
+/vendor/bundle
 *.resolved
 QuizPlease.xcworkspace
 QuizPlease.xcodeproj/xcuserdata

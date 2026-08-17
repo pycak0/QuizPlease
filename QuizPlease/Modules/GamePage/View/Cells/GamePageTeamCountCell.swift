@@ -101,6 +101,8 @@ extension GamePageTeamCountCell: GamePageCellProtocol {
     private func configureTeamCount(_ item: GamePageTeamCountItem) {
         backgroundColor = item.backgroundColor
         countPickerView.pickerBackgroundColor = item.pickerColor
+        countPickerView.accessibilityIdentifier = "gamePage.teamCountPicker"
+        countPickerView.buttonAccessibilityIdentifierPrefix = "gamePage.teamCountButton"
         countPickerView.customValues = nil
         countPickerView.isUserInteractionEnabled = item.isEditable
         countPickerView.alpha = item.isEditable ? 1.0 : 0.5
@@ -124,6 +126,8 @@ extension GamePageTeamCountCell: GamePageCellProtocol {
     private func configureTablePicker(_ item: GamePageTablePickerItem) {
         backgroundColor = item.backgroundColor
         countPickerView.pickerBackgroundColor = item.pickerColor
+        countPickerView.accessibilityIdentifier = "gamePage.tablePicker"
+        countPickerView.buttonAccessibilityIdentifierPrefix = "gamePage.tableButton"
         countPickerView.title = item.title
         countPickerView.customValues = item.tables.map(\.seats)
 

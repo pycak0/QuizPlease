@@ -41,12 +41,12 @@ struct RatingTeamDataToItemMapperImpl: RatingTeamDataToItemMapper {
 
     func map(_ data: RatingTeamItemData, place: Int) -> RatingTeamItem {
         RatingTeamItem(
-            place: place,
+            place: data.index ?? place,
             name: data.title,
             games: data.games,
             pointsTotal: data.points,
             rank: data.rank?.title,
-            imagePath: data.rank?.image.path
+            imagePath: data.rank?.imagePath
         )
     }
 

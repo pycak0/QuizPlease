@@ -37,6 +37,7 @@ final class RatingVC: UIViewController {
 
     @IBOutlet private weak var tableView: UITableView! {
         didSet {
+            tableView.accessibilityIdentifier = "rating.table"
             tableView.delegate = self
             tableView.dataSource = self
             tableView.allowsSelection = false

@@ -54,6 +54,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate {
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
+#if DEBUG
+        guard !UITestBootstrap.isEnabled else { return }
+#endif
         userService.updateToken()
     }
 

@@ -69,6 +69,9 @@ final class GamePageInfoLineView: UIView {
     func setViewModel(_ viewModel: GamePageInfoLineViewModel) {
         titleLabel.text = viewModel.title
         titleLabel.isHidden = viewModel.title == nil
+        titleLabel.accessibilityIdentifier = viewModel.iconName.map {
+            "gamePage.infoLineTitle.\($0)"
+        }
 
         subtitleLabel.text = viewModel.subtitle
         subtitleLabel.isHidden = viewModel.subtitle == nil
